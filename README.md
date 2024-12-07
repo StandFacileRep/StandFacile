@@ -1,8 +1,9 @@
 
 [05.04.2024]
 
-Attenzione: il file Listino.txt va aggiunto alla directory dell'eseguibile
-			il file StandCommonSafe.cs presente nella root va copiato nella directory: StandCommonSrc
+Attenzione: 
+il file Listino.txt va aggiunto alla directory dell'eseguibile
+il file StandCommonSafe.cs presente nella root va copiato nella directory: StandCommonSrc
 
 ---------------------------------------------------------------------------------
 
@@ -16,7 +17,6 @@ può provocare il malfunzionamento (richiesta di licenza) della dll
 
 ---------------------------------------------------------------------------------
 
-
 Copyright (c) 2024 Mauro Artuso
 
 Questa Licenza è relativa alla Suite di Programmi "StandFacile" che comprende:
@@ -27,7 +27,6 @@ GNU General Public License pubblicata dalla Free Software Foundation: https://ww
 
 Questo programma è distribuito nella speranza che possa essere utile, ma SENZA ALCUNA GARANZIA; 
 senza nemmeno la garanzia implicita di COMMERCIABILITÀ o IDONEITÀ PER UNO SCOPO PARTICOLARE.
-
 
 ---------------------------------------------------------------------------------
 
@@ -50,4 +49,5 @@ utilizza una tecnica di tipo http_tunneling: la chiave CIPHER_KEY di StandFacile
 a quella dell' "http tunnel" presente nel sito remoto e scritto in linguaggio php.
 
 StandCommonSafe.cs è il file che contiene le chiavi crittografiche e l'indirizzo del db_web_server
+
 
