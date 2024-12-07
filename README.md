@@ -1,8 +1,7 @@
 
-[05.04.2024]
-
-Attenzione: 
-il file Listino.txt va aggiunto alla directory dell'eseguibile
+[05.12.2024]<br>
+Attenzione: <br>
+il file Listino.txt va aggiunto alla directory dell'eseguibile<br>
 il file StandCommonSafe.cs presente nella root va copiato nella directory: StandCommonSrc
 
 ---------------------------------------------------------------------------------
@@ -19,10 +18,10 @@ può provocare il malfunzionamento (richiesta di licenza) della dll
 
 Copyright (c) 2024 Mauro Artuso
 
-Questa Licenza è relativa alla Suite di Programmi "StandFacile" che comprende:
+Questa Licenza è relativa alla Suite di Programmi "StandFacile" che comprende:<br>
 “StandFacile”, “StandCucina”, “StandMonitor”, “StandOrdini”
 
-Tutti i Programmi della Suite sono distribuiti con Licenza:
+Tutti i Programmi della Suite sono distribuiti con Licenza:<br>
 GNU General Public License pubblicata dalla Free Software Foundation: https://www.gnu.org/licenses.
 
 Questo programma è distribuito nella speranza che possa essere utile, ma SENZA ALCUNA GARANZIA; 
