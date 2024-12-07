@@ -16,8 +16,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementi di soluzione", "Elementi di soluzione", "{C25C6409-B80F-4F5E-8685-338413D3B6B0}"
 	ProjectSection(SolutionItems) = preProject
 		Common_Safe.cs = Common_Safe.cs
-		StandFacile\exe\Debug\config.ini = StandFacile\exe\Debug\config.ini
-		StandFacile\exe\Debug\Listino.txt = StandFacile\exe\Debug\Listino.txt
 		StandCucina\doc\Manuale_StandCucina.pdf = StandCucina\doc\Manuale_StandCucina.pdf
 		StandFacile\doc\Manuale_StandFacile.pdf = StandFacile\doc\Manuale_StandFacile.pdf
 		StandMonitor\doc\Manuale_StandMonitor.pdf = StandMonitor\doc\Manuale_StandMonitor.pdf
