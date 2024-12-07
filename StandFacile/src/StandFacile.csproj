@@ -1,0 +1,653 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\SQLite.3.13.0\build\net45\SQLite.props" Condition="Exists('..\..\packages\SQLite.3.13.0\build\net45\SQLite.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9AA6BD7E-5D60-471A-B0FC-E1E0FC142D31}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StandFacile</RootNamespace>
+    <AssemblyName>StandFacile</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <ApplicationIcon>Resources\StandFacile.ico</ApplicationIcon>
+    <ManifestCertificateThumbprint>A71D342F20AD4AB47A32F89E1EF03201275B753A</ManifestCertificateThumbprint>
+    <ManifestKeyFile>StandServer2012_TemporaryKey.pfx</ManifestKeyFile>
+    <GenerateManifests>true</GenerateManifests>
+    <SignManifests>false</SignManifests>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <PublishUrl>C:\StandFacile\StandFacile\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>false</MapFileExtensions>
+    <TargetCulture>it</TargetCulture>
+    <ProductName>Stand Facile 2022</ProductName>
+    <PublisherName>Mauro</PublisherName>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>5.12.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\exe\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;STANDFACILE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\exe\Debug\StandFacile.xml</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\exe\Release\</OutputPath>
+    <DefineConstants>TRACE;STANDFACILE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\exe\Debug\x86\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;STANDFACILE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;STANDFACILE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>StandFacile.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>..\exe\Debug\x64\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;STANDFACILE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;STANDFACILE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Devart.Data, Version=5.0.2858.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\dotConnect.Express.for.SQLite.5.19.2066\lib\Devart.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Devart.Data.MySql, Version=8.21.2066.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\dotConnect.Express.for.MySQL.8.21.2066\lib\Devart.Data.MySql.dll</HintPath>
+    </Reference>
+    <Reference Include="Devart.Data.PostgreSql, Version=7.24.2066.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\dotConnect.Express.for.PostgreSQL.7.24.2066\lib\Devart.Data.PostgreSql.dll</HintPath>
+    </Reference>
+    <Reference Include="Devart.Data.SQLite, Version=5.19.2066.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\dotConnect.Express.for.SQLite.5.19.2066\lib\Devart.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.ConfigurationManager, Version=8.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Configuration.ConfigurationManager.8.0.1\lib\net462\System.Configuration.ConfigurationManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\..\StandCommonSrc\Barcode_EAN13.cs">
+      <Link>Barcode_EAN13.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\CommonDefine.cs">
+      <Link>CommonDefine.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\Common_CL.cs">
+      <Link>Common_CL.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\Common_Safe.cs">
+      <Link>Common_Safe.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\dBaseIntf.cs">
+      <Link>dBaseIntf.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\dBaseIntf_load_my.cs">
+      <Link>dBaseIntf_load_my.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\dBaseIntf_load_pg.cs">
+      <Link>dBaseIntf_load_pg.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\dBaseIntf_load_ql.cs">
+      <Link>dBaseIntf_load_ql.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\dBaseIntf_my.cs">
+      <Link>dBaseIntf_my.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\dBaseIntf_pg.cs">
+      <Link>dBaseIntf_pg.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\dBaseIntf_ql.cs">
+      <Link>dBaseIntf_ql.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\dBaseIntf_save_my.cs">
+      <Link>dBaseIntf_save_my.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\dBaseIntf_save_pg.cs">
+      <Link>dBaseIntf_save_pg.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\dBaseIntf_save_ql.cs">
+      <Link>dBaseIntf_save_ql.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\EsploraDB_Dlg.cs">
+      <Link>EsploraDB_Dlg.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\EsploraDB_Dlg.designer.cs">
+      <Link>EsploraDB_Dlg.designer.cs</Link>
+      <DependentUpon>EsploraDB_Dlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\LegacyPrinterDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\LegacyPrinterDlg.designer.cs">
+      <DependentUpon>LegacyPrinterDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\LogServer.cs">
+      <Link>LogServer.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\Printer_Epson_POS.cs">
+      <Link>Printer_Epson_POS.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\Printer_Legacy.cs">
+      <Link>Printer_Legacy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\Printer_LP2844.cs">
+      <Link>Printer_LP2844.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\Printer_Windows.cs">
+      <Link>Printer_Windows.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\ReceiptAndCopiesCommons.cs" />
+    <Compile Include="..\..\StandCommonSrc\SelDataDlg.cs">
+      <Link>SelDataDlg.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\SelDataDlg.designer.cs">
+      <Link>SelDataDlg.designer.cs</Link>
+      <DependentUpon>SelDataDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\VisDatiDlg.cs">
+      <Link>VisDatiDlg.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\VisDatiDlg.designer.cs">
+      <Link>VisDatiDlg.designer.cs</Link>
+      <DependentUpon>VisDatiDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\VisOrdiniDlg.cs">
+      <Link>VisOrdiniDlg.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\VisOrdiniDlg.designer.cs">
+      <Link>VisOrdiniDlg.designer.cs</Link>
+      <DependentUpon>VisOrdiniDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\WinPrinterDlg.cs">
+      <Link>WinPrinterDlg.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\WinPrinterDlg.designer.cs">
+      <Link>WinPrinterDlg.designer.cs</Link>
+      <DependentUpon>WinPrinterDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AnteprimaDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AnteprimaDlg.Designer.cs">
+      <DependentUpon>AnteprimaDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Config.cs" />
+    <Compile Include="DataManager_PriceList.cs" />
+    <Compile Include="dBaseTunnel_my.cs" />
+    <Compile Include="EsploraRemOrdiniDB_Dlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EsploraRemOrdiniDB_Dlg.designer.cs">
+      <DependentUpon>EsploraRemOrdiniDB_Dlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OptionsDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OptionsDlg.Designer.cs">
+      <DependentUpon>OptionsDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PasswordDlg.Designer.cs">
+      <DependentUpon>PasswordDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PrintReceiptConfigDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintReceiptConfigDlg.designer.cs">
+      <DependentUpon>PrintReceiptConfigDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="startDispDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="startDispDlg.Designer.cs">
+      <DependentUpon>startDispDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PrintNetCopiesConfigDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PrintNetCopiesConfigDlg.designer.cs">
+      <DependentUpon>PrintNetCopiesConfigDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InitialDispDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InitialDispDlg.Designer.cs">
+      <DependentUpon>InitialDispDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestManager.cs" />
+    <Compile Include="DataManager.cs" />
+    <Compile Include="EditDispArticoliDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditDispArticoliDlg.Designer.cs">
+      <DependentUpon>EditDispArticoliDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="glb_CL.cs" />
+    <Compile Include="EditHeaderFooterDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditHeaderFooterDlg.Designer.cs">
+      <DependentUpon>EditHeaderFooterDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="InfoDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InfoDlg.Designer.cs">
+      <DependentUpon>InfoDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Define.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditArticoloDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditArticoloDlg.Designer.cs">
+      <DependentUpon>EditArticoloDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="..\..\StandCommonSrc\EsploraDB_Dlg.resx">
+      <Link>EsploraDB_Dlg.resx</Link>
+      <DependentUpon>EsploraDB_Dlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\StandCommonSrc\LegacyPrinterDlg.resx">
+      <DependentUpon>LegacyPrinterDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\StandCommonSrc\SelDataDlg.resx">
+      <Link>SelDataDlg.resx</Link>
+      <DependentUpon>SelDataDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\StandCommonSrc\VisDatiDlg.resx">
+      <Link>VisDatiDlg.resx</Link>
+      <DependentUpon>VisDatiDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\StandCommonSrc\VisOrdiniDlg.resx">
+      <Link>VisOrdiniDlg.resx</Link>
+      <DependentUpon>VisOrdiniDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\StandCommonSrc\WinPrinterDlg.resx">
+      <Link>WinPrinterDlg.resx</Link>
+      <DependentUpon>WinPrinterDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AnteprimaDlg.resx">
+      <DependentUpon>AnteprimaDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EsploraRemOrdiniDB_Dlg.resx">
+      <DependentUpon>EsploraRemOrdiniDB_Dlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OptionsDlg.resx">
+      <DependentUpon>OptionsDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PasswordDlg.resx">
+      <DependentUpon>PasswordDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrintReceiptConfigDlg.resx">
+      <DependentUpon>PrintReceiptConfigDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="startDispDlg.resx">
+      <DependentUpon>startDispDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditDispArticoliDlg.resx">
+      <DependentUpon>EditDispArticoliDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditHeaderFooterDlg.resx">
+      <DependentUpon>EditHeaderFooterDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InfoDlg.resx">
+      <DependentUpon>InfoDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditArticoloDlg.resx">
+      <DependentUpon>EditArticoloDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrintNetCopiesConfigDlg.resx">
+      <DependentUpon>PrintNetCopiesConfigDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuickHelpDlg.resx">
+      <DependentUpon>QuickHelpDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RenameDlg.resx">
+      <DependentUpon>RenameDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditGrigliaDlg.resx">
+      <DependentUpon>EditGrigliaDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ScontoDlg.resx">
+      <DependentUpon>ScontoDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InitialDispDlg.resx">
+      <DependentUpon>InitialDispDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="startDlg.resx">
+      <DependentUpon>startDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NetConfigDlg.resx">
+      <DependentUpon>NetConfigDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisMessaggiDlg.resx">
+      <DependentUpon>VisMessaggiDlg.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="QuickHelpDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="QuickHelpDlg.Designer.cs">
+      <DependentUpon>QuickHelpDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RenameDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RenameDlg.Designer.cs">
+      <DependentUpon>RenameDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditGrigliaDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditGrigliaDlg.Designer.cs">
+      <DependentUpon>EditGrigliaDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ScontoDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScontoDlg.Designer.cs">
+      <DependentUpon>ScontoDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="startDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="startDlg.Designer.cs">
+      <DependentUpon>startDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NetConfigDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NetConfigDlg.designer.cs">
+      <DependentUpon>NetConfigDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VisMessaggiDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisMessaggiDlg.Designer.cs">
+      <DependentUpon>VisMessaggiDlg.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ArrowSLeft.bmp" />
+    <None Include="Resources\ArrowSRight.bmp" />
+    <None Include="Resources\ArrowSLeft.png" />
+    <None Include="Resources\ArrowSRight.png" />
+    <None Include="Resources\Cancel.PNG" />
+    <None Include="Resources\Gomma.png" />
+    <None Include="Resources\euro.bmp" />
+    <None Include="Resources\antenna1g.bmp" />
+    <None Include="Resources\Bag.bmp" />
+    <None Include="Resources\database.png" />
+    <None Include="Resources\database_check.png" />
+    <None Include="Resources\x10_.bmp" />
+    <None Include="Resources\Spaghetti.ico" />
+    <None Include="Resources\seriale.bmp" />
+    <None Include="Resources\seriale.png" />
+    <None Include="Resources\Spaghetti.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Cancel1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Xls.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Calendar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>8</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>9</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\plusMinCan.png" />
+    <None Include="Resources\barcode.bmp" />
+    <None Include="Resources\barcode.png" />
+    <None Include="Resources\gplv3-84x42.png" />
+    <Content Include="Resources\plus.png" />
+    <None Include="Resources\paypal-dona.png" />
+    <None Include="Resources\sconto_no.bmp" />
+    <None Include="Resources\sconto_si.bmp" />
+    <None Include="Resources\sconto.bmp" />
+    <None Include="Resources\Save.bmp" />
+    <None Include="Resources\ant_g2.png" />
+    <None Include="Resources\ant_g1.png" />
+    <None Include="Resources\basket.png" />
+    <None Include="Resources\coronavirus.png" />
+    <None Include="Resources\edit.png" />
+    <None Include="Resources\ArrowL.png" />
+    <None Include="Resources\ArrowR.png" />
+    <None Include="Resources\circleGreen.png" />
+    <Content Include="Resources\canc.png" />
+    <Content Include="Resources\circleRed.png" />
+    <Content Include="Resources\minus.png" />
+    <Content Include="Resources\OK.png" />
+    <None Include="Resources\StandFacile.ico" />
+    <None Include="Resources\printer.png" />
+    <None Include="Resources\printer_s.png" />
+    <None Include="Resources\Rename.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Resources\OK.png">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>False</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Questo progetto fa riferimento a uno o più pacchetti NuGet che non sono presenti in questo computer. Usare lo strumento di ripristino dei pacchetti NuGet per scaricarli. Per altre informazioni, vedere http://go.microsoft.com/fwlink/?LinkID=322105. Il file mancante è {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\SQLite.3.13.0\build\net45\SQLite.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SQLite.3.13.0\build\net45\SQLite.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,393 @@
+﻿/********************************************************************
+  NomeFile  : StandFacile/EsploraRemOrdiniDB_Dlg.cs
+  Data	    : 21.03.2024
+  Autore    : Mauro Artuso
+
+  Classe di esplorazione del database remoto, 
+  ha senso chiamarla solo se il database remoto è selezionato
+ ********************************************************************/
+
+using System;
+using System.Threading;
+using System.Drawing;
+using System.Collections;
+using System.Windows.Forms;
+
+using static StandCommonFiles.commonCl;
+using static StandCommonFiles.LogServer;
+
+using static StandFacile.Define;
+using static StandCommonFiles.ComDef;
+using static StandFacile.dBaseTunnel_my;
+
+namespace StandFacile
+{
+    /// <summary>classe per l'esplorazione del database ordini remoti</summary>
+    public partial class EsploraRemOrdiniDB_Dlg : Form
+    {
+        const int REFRESH_PERIOD = 4 * 45; // 45s
+        const int REFRESH_PERIOD_QUICK = 4 * 2; // 2s
+
+        bool bPrimaVolta;
+
+        int iGridStringsCount, _iDBGridRowIndex;
+        int iTableAutoLoadPeriod = REFRESH_PERIOD;
+
+        /// <summary>riferimento</summary>
+        public static EsploraRemOrdiniDB_Dlg rEsploraRemOrdiniDB_Dlg;
+
+        // gestione cross thread
+        static readonly Queue eventQueue = new Queue();
+
+        /// <summary>mette evento in coda cross thread</summary>
+        public static void eventEnqueue(String[] sEvQueueObj) { eventQueue.Enqueue(sEvQueueObj); }
+
+        /// <summary>ottiene lo stato di ckBoxAuto</summary>
+        public bool bGetAutoCheckbox() { return ckBoxAuto.Checked; }
+
+        readonly ToolTip _tt = new ToolTip
+        {
+            InitialDelay = 50,
+            ShowAlways = true
+        };
+
+        /// <summary>costruttore</summary>
+        public EsploraRemOrdiniDB_Dlg()
+        {
+            InitializeComponent();
+
+            rEsploraRemOrdiniDB_Dlg = this;
+
+            // pulisce in caso siano stati inseriti ordini mediante barcode
+            eventQueue.Clear();
+
+            dbGrid.Focus();
+            _iDBGridRowIndex = 0;
+
+            bPrimaVolta = true;
+
+            _tt.SetToolTip(BtnRem_Canc, "contrassegna come cancellato l'ordine web selezionato");
+            _tt.SetToolTip(BtnRem_Load, "Carica nella griglia e visualizza l'ordine web selezionato");
+            _tt.SetToolTip(dbConnStatusBox, "Stato della connessione al database remoto e/o attività in corso");
+
+            //if (SF_Data.iNumCassa == CASSA_PRINCIPALE)
+            //{
+            BtnRem_Canc.Enabled = true;
+            BtnRem_Load.Enabled = true;
+            dbGrid.Enabled = true;
+            //}
+            //else
+            //{
+            //    // solo visualizzazione, escluso caricamento ordine remoto
+            //    BtnRem_Canc.Enabled = false;
+            //    BtnRem_Load.Enabled = false;
+            //    dbGrid.Enabled = false;
+            //}
+
+            refreshTable();
+        }
+
+        /// <summary>inizializzazione della form per l'esplorazione del database remoto</summary>
+        public static void Init()
+        {
+            rEsploraRemOrdiniDB_Dlg.dbConnStatusBox.Image = Properties.Resources.circleRed;
+
+            rEsploraRemOrdiniDB_Dlg.refreshTable();
+            rEsploraRemOrdiniDB_Dlg._iDBGridRowIndex = 0;
+
+            Thread.Sleep(200);
+        }
+        /// <summary>ricarica il contenuto della tabella per l'esplorazione del database remoto</summary>
+        void refreshTable()
+        {
+            int i, iDebug, iEventQueueCount;
+
+            if (!Visible)
+                return;
+
+            dbGrid.RowCount = 1;
+            dbGrid.ColumnCount = 6; // numero delle colonne della griglia
+
+            dbGrid.Rows[0].Cells[0].Value = "";
+            dbGrid.Rows[0].Cells[1].Value = "";
+            dbGrid.Rows[0].Cells[2].Value = "";
+            dbGrid.Rows[0].Cells[3].Value = "";
+            dbGrid.Rows[0].Cells[4].Value = "";
+            dbGrid.Rows[0].Cells[5].Value = "";
+
+            iGridStringsCount = 0;
+
+            iDebug = _sWebOrdersList.Count; // debug
+
+            iEventQueueCount = FrmMain.getEventQueueCount();
+
+            for (i = 0; i < _sWebOrdersList.Count; i++)
+            {
+                if (radioBtn0.Checked ||                                                                    //  tutti
+                    radioBtn1.Checked && !IsBitSet(_sWebOrdersList[i].iStatus, BIT_ORDINE_DIRETTO_DA_WEB) || // solo pre-ordini
+                    radioBtn2.Checked && IsBitSet(_sWebOrdersList[i].iStatus, BIT_ORDINE_DIRETTO_DA_WEB))   // solo ordini diretti autorizzati
+                {
+                    dbGrid.RowCount = iGridStringsCount + 1;
+
+                    dbGrid.Rows[iGridStringsCount].Cells[0].Value = _sWebOrdersList[i].iNumOrdine;
+                    dbGrid.Rows[iGridStringsCount].Cells[1].Value = _sWebOrdersList[i].sDateTime;
+                    dbGrid.Rows[iGridStringsCount].Cells[2].Value = _sWebOrdersList[i].iNumCoperti;
+                    dbGrid.Rows[iGridStringsCount].Cells[3].Value = IntToEuro(_sWebOrdersList[i].iTotaleReceipt);
+                    dbGrid.Rows[iGridStringsCount].Cells[4].Value = _sWebOrdersList[i].sCliente;
+                    dbGrid.Rows[iGridStringsCount].Cells[5].Value = _sWebOrdersList[i].sChecksum;
+                    dbGrid.Rows[iGridStringsCount].Height = 26;
+
+                    if (IsBitSet(_sWebOrdersList[i].iStatus, BIT_ORDINE_DIRETTO_DA_WEB))
+                    {
+                        dbGrid.Rows[iGridStringsCount].DefaultCellStyle.ForeColor = Color.Black;
+                        dbGrid.Rows[iGridStringsCount].DefaultCellStyle.BackColor = Color.LightYellow;
+                    }
+                    else
+                    {
+                        dbGrid.Rows[iGridStringsCount].DefaultCellStyle.ForeColor = Color.White;
+                        dbGrid.Rows[iGridStringsCount].DefaultCellStyle.BackColor = Color.Teal;
+                    }
+
+
+                    // evita di caricare la coda di eventi quando è ancora in elaborazione
+                    if (IsBitSet(_sWebOrdersList[i].iStatus, BIT_ORDINE_DIRETTO_DA_WEB) && (iEventQueueCount <= 1) && ckBoxAuto.Checked)
+                    {
+                        // <summary>evento per avvio stampa scontrino web</summary>
+                        String[] sQueue_Object = new String[2] { WEB_ORDER_PRINT_START, _sWebOrdersList[i].iNumOrdine.ToString() };
+
+                        FrmMain.eventEnqueue(sQueue_Object);
+                        iTableAutoLoadPeriod = REFRESH_PERIOD_QUICK;
+
+                    }
+
+                    iGridStringsCount++;
+                }
+            }
+
+            if ((_iDBGridRowIndex > 0) && (_iDBGridRowIndex < dbGrid.Rows.Count))
+                dbGrid.CurrentCell = dbGrid.Rows[_iDBGridRowIndex].Cells[0];
+            else if ((_iDBGridRowIndex > 0) && (_iDBGridRowIndex == dbGrid.Rows.Count))
+                dbGrid.CurrentCell = dbGrid.Rows[_iDBGridRowIndex - 1].Cells[0]; // cancellata l'ultima riga
+
+            dbGrid.Refresh();
+            dbConnStatusBox.Refresh();
+
+            FormEsplora_Resize(this, null);
+        }
+
+        /// <summary>ridisegna l'aspetto della tabella per l'esplorazione del database remoto</summary>
+        private void FormEsplora_Resize(object sender, EventArgs e)
+        {
+            int iRowsHeight;
+
+            float fWidth;
+            float fFontHeaderHeight, fFontHeight;
+
+            // Posizione griglia
+            dbGrid.Height = this.Height - 235;
+            //OrdiniGrid.Width = this.Width - 50;
+
+            if ((dbGrid.ColumnCount > 0) && bPrimaVolta)// altrimenti genera eccezione
+            {
+                bPrimaVolta = false;
+
+                fWidth = dbGrid.Width;
+                dbGrid.Columns[0].Width = (int)(fWidth * 0.12f); // num
+                dbGrid.Columns[1].Width = (int)(fWidth * 0.32f); // data e ora
+                dbGrid.Columns[2].Width = (int)(fWidth * 0.14f); // coperti
+                dbGrid.Columns[3].Width = (int)(fWidth * 0.14f); // importo
+                dbGrid.Columns[4].Width = (int)(fWidth * 0.14f); // ID_utente
+                dbGrid.Columns[5].Width = (int)(fWidth * 0.14f); // checksum
+
+                // imposta Font sulla base della larghezza della finestra
+                fFontHeight = ((float)dbGrid.Width) / 60;
+                dbGrid.Font = new System.Drawing.Font(dbGrid.DefaultCellStyle.Font.Name, fFontHeight);
+
+                // fFontHeaderHeight = ((float)dbGrid.Width) / 50;
+                fFontHeaderHeight = fFontHeight;
+
+                dbGrid.Columns[0].HeaderCell.Style.Font = new System.Drawing.Font(dbGrid.DefaultCellStyle.Font.Name, fFontHeaderHeight);
+                dbGrid.Columns[1].HeaderCell.Style.Font = dbGrid.Columns[0].HeaderCell.Style.Font;
+                dbGrid.Columns[2].HeaderCell.Style.Font = dbGrid.Columns[0].HeaderCell.Style.Font;
+                dbGrid.Columns[3].HeaderCell.Style.Font = dbGrid.Columns[0].HeaderCell.Style.Font;
+                dbGrid.Columns[4].HeaderCell.Style.Font = dbGrid.Columns[0].HeaderCell.Style.Font;
+                dbGrid.Columns[5].HeaderCell.Style.Font = dbGrid.Columns[0].HeaderCell.Style.Font;
+
+                dbGrid.Columns[0].HeaderText = "ord num";
+                dbGrid.Columns[1].HeaderText = "data ed ora";
+                dbGrid.Columns[2].HeaderText = "coperti";
+                dbGrid.Columns[3].HeaderText = "Totale";
+                dbGrid.Columns[4].HeaderText = "ID_utente";
+                dbGrid.Columns[5].HeaderText = "checksum";
+
+                dbGrid.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+                iRowsHeight = dbGrid.Height / 12;
+                dbGrid.RowTemplate.Height = iRowsHeight;
+                dbGrid.ColumnHeadersHeight = (int)(iRowsHeight * 0.8f);
+            }
+
+            //dbGrid.AutoResizeRows();
+        }
+
+        /// <summary>carica l'ordina remoto selezionato in MainForm senza stamparlo</summary>
+        private void dbGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int iSelOrder, iRow;
+            ulong ulStart, ulStop, ulPingTime;
+
+            Cursor = Cursors.AppStarting;
+
+            if (iGridStringsCount > 0)
+            {
+                dbConnStatusBox.Image = Properties.Resources.circleRed;
+                dbConnStatusBox.Refresh();
+                Thread.Sleep(200);
+
+                iSelOrder = Convert.ToInt32(dbGrid.CurrentRow.Cells[0].Value);
+                iRow = Convert.ToInt32(dbGrid.CurrentRow.Index);
+
+                if (!IsBitSet(_sWebOrdersList[iRow].iStatus, BIT_ORDINE_DIRETTO_DA_WEB) || !ckBoxAuto.Checked)
+                {
+                    ulStart = (ulong)Environment.TickCount;
+
+                    DataManager.caricaOrdineWeb(iSelOrder);
+
+                    dbConnStatusBox.Image = Properties.Resources.circleGreen;
+                    ulStop = (ulong)Environment.TickCount;
+                    ulPingTime = ulStop - ulStart;
+                    labelQueryTime.Text = String.Format("tempo risposta server: {0} ms", ulPingTime);
+                }
+            }
+
+            Cursor = Cursors.Default;
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            int iSelOrder;
+            String[] sEvQueueObj;
+
+            /***********************************
+             *      gestione coda eventi
+             ***********************************/
+
+            if (!Visible)
+                return;
+
+            while (eventQueue.Count > 0)
+            {
+                sEvQueueObj = (String[])eventQueue.Dequeue();
+
+                if (sEvQueueObj[0] == WEB_ALL_ORDERS_LOAD_START)
+                {
+                    Cursor = Cursors.AppStarting;
+                }
+                else if (sEvQueueObj[0] == WEB_ALL_ORDERS_LOAD_DONE)
+                {
+                    iTableAutoLoadPeriod = REFRESH_PERIOD;
+                    refreshTable();
+
+                    Cursor = Cursors.Default;
+                    dbConnStatusBox.Image = Properties.Resources.circleGreen;
+                }
+                else if (sEvQueueObj[0] == WEB_ORDER_PRINT_DONE)
+                {
+                    Cursor = Cursors.AppStarting;
+
+                    if (iGridStringsCount > 0)
+                        iSelOrder = Convert.ToInt32(dbGrid.CurrentRow.Cells[0].Value);
+
+                    iTableAutoLoadPeriod = REFRESH_PERIOD;
+                    rdbCaricaTabellaStart();
+                }
+
+            }
+
+            if (iTableAutoLoadPeriod > 0)
+            {
+                iTableAutoLoadPeriod--;
+            }
+            else
+            {
+                iTableAutoLoadPeriod = REFRESH_PERIOD;
+                rdbCaricaTabellaStart();
+            }
+        }
+
+        /// <summary>
+        /// funziona di cancellazione di un ordine remoto
+        /// </summary>
+        private void BtnRem_Canc_Click(object sender, EventArgs e)
+        {
+            bool bResult;
+            int iSelOrder;
+            string sTmp;
+            DialogResult dResult;
+
+            Cursor = Cursors.AppStarting;
+
+            if (iGridStringsCount > 0)
+            {
+                iSelOrder = Convert.ToInt32(dbGrid.CurrentRow.Cells[0].Value);
+
+                sTmp = String.Format("Sei sicuro di annullare l'ordine n. {0} ?", iSelOrder);
+                dResult = MessageBox.Show(sTmp, "Attenzione !", MessageBoxButtons.YesNo);
+
+                if (dResult == DialogResult.Yes)
+                {
+                    dbConnStatusBox.Image = Properties.Resources.circleRed;
+                    dbConnStatusBox.Refresh();
+                    Thread.Sleep(200);
+
+                    bResult = dBaseTunnel_my.rdbAnnullaOrdine(iSelOrder);
+
+                    if (bResult)
+                        dbConnStatusBox.Image = Properties.Resources.circleGreen;
+
+                    dbConnStatusBox.Refresh();
+                }
+            }
+
+            iTableAutoLoadPeriod = REFRESH_PERIOD_QUICK;
+            Cursor = Cursors.Default;
+        }
+
+        /// <summary>
+        /// cambia il comportamento del bottone di Close altrimenti distrugge l'oggetto <br/>
+        /// invece di nasconderlo soltanto
+        /// </summary>
+        private void EsploraRemOrdiniDB_Dlg_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                Hide();
+            }
+        }
+
+        private void ckBoxAuto_CheckedChanged(object sender, EventArgs e)
+        {
+            DataManager.clearGrid();
+
+            iTableAutoLoadPeriod = REFRESH_PERIOD_QUICK;
+        }
+
+        private void radioBtn_CheckedChanged(object sender, EventArgs e)
+        {
+            iTableAutoLoadPeriod = REFRESH_PERIOD_QUICK;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void BTR_Load_Click(object sender, EventArgs e)
+        {
+            dbGrid_CellDoubleClick(sender, null);
+            LogToFile("EsploraRemOrdiniDB : load Btn");
+        }
+
+    }
+}
