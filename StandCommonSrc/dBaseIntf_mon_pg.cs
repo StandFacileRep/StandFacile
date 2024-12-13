@@ -25,7 +25,7 @@ using System.Data;
 using Devart.Data.PostgreSql;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using StandFacile;
@@ -58,7 +58,7 @@ namespace StandFacile_DB
              *************************************************/
             try
             {
-                bDBConnected = _rdBaseIntf.dbInit(getActualDate(), CASSA_PRINCIPALE);
+                bDBConnected = _rdBaseIntf.dbInit(GetActualDate(), CASSA_PRINCIPALE);
 
                 if (bDBConnected)
                 {
@@ -74,7 +74,7 @@ namespace StandFacile_DB
                     sTmpFilter = "";
                     for (i = 0; i < NUM_EDIT_GROUPS; i++)
                     {
-                        if (NetConfigLightDlg.bGetCopiaGroup(i))
+                        if (NetConfigLightDlg.GetCopiaGroup(i))
                         {
                             sTmpFilter = String.Format("\"iGruppo_Stampa\" = {0}", i);
                             j = i;
@@ -85,7 +85,7 @@ namespace StandFacile_DB
                     sFilter = sTmpFilter;
                     for (i = j + 1; i < NUM_EDIT_GROUPS; i++)
                     {
-                        if (NetConfigLightDlg.bGetCopiaGroup(i))
+                        if (NetConfigLightDlg.GetCopiaGroup(i))
                         {
                             sTmpFilter = String.Format(" OR \"iGruppo_Stampa\" ={0}", i);
                             sFilter += sTmpFilter;
@@ -168,7 +168,7 @@ namespace StandFacile_DB
                     _bErrorePrimaVolta = false;
                 }
 
-                LogToFile("timer_MainLoop : dbException prima tabella");
+                LogToFile("Timer_MainLoop : dbException prima tabella");
             }
 
             /*********************************************************************
@@ -180,11 +180,14 @@ namespace StandFacile_DB
             {
                 List<String> Tablenames = new List<String>();
 
-                PgSqlCommand cmd = new PgSqlCommand();
-
-                cmd.Connection = _Connection;
                 sQuery = "SELECT tablename from pg_tables where schemaname='public';";
-                cmd.CommandText = sQuery;
+
+                PgSqlCommand cmd = new PgSqlCommand()
+                {
+                    Connection = _Connection,
+                    CommandText = sQuery
+                };
+
                 cmd.ExecuteScalar();
 
                 PgSqlDataReader readerTable = cmd.ExecuteReader();
@@ -198,7 +201,7 @@ namespace StandFacile_DB
                 {
                     try
                     {
-                        _sDBTNameDati = getNomeDatiDBTable(iNumCassa, getActualDate());
+                        _sDBTNameDati = GetNomeDatiDBTable(iNumCassa, GetActualDate());
 
                         if (Tablenames.Contains(_sDBTNameDati))// la tabella esiste
                         {
@@ -284,7 +287,7 @@ namespace StandFacile_DB
                     catch (Exception)
                     {
                         // bDatabaseConnected = false;
-                        // LogServer->LogToFile("timer_MainLoop : dbException seconda tabella");
+                        // LogServer->LogToFile("Timer_MainLoop : dbException seconda tabella");
                     }
 
                 } // ciclo for casse secondarie
@@ -299,8 +302,7 @@ namespace StandFacile_DB
                     _rdBaseIntf.dbCheck(_sDB_ServerName, _password, _iNDbMode, true);
             }
 
-            if (_Connection != null)
-                _Connection.Close();
+            _Connection?.Close();
         }
 
         /// <summary> 
@@ -326,7 +328,7 @@ namespace StandFacile_DB
                 sTmpStr2 = "(";
                 for (i = 0; i < NUM_EDIT_GROUPS; i++)
                 {
-                    if (NetConfigLightDlg.bGetCopiaGroup(i))
+                    if (NetConfigLightDlg.GetCopiaGroup(i))
                     {
                         sTmpStr2 = String.Format("(\"iGruppo_Stampa\" = {0})", i);
                         j = i;
@@ -337,7 +339,7 @@ namespace StandFacile_DB
                 sTmpStr = sTmpStr2;
                 for (i = j + 1; i < NUM_EDIT_GROUPS; i++)
                 {
-                    if (NetConfigLightDlg.bGetCopiaGroup(i))
+                    if (NetConfigLightDlg.GetCopiaGroup(i))
                     {
                         sTmpStr2 = String.Format(" OR (\"iGruppo_Stampa\" = {0})", i);
                         sTmpStr += sTmpStr2;
@@ -371,10 +373,10 @@ namespace StandFacile_DB
                 {
                     sTmp = (String)dtr[1];
 
-                    if (sTmp == _ORDER_CONST._START_OF_ORDER)
+                    if (sTmp == ORDER_CONST._START_OF_ORDER)
                     {
                         // sostituzione stringa
-                        sTmp = sTmp.Replace(_ORDER_CONST._START_OF_ORDER, ORDER_START_STR);
+                        sTmp = sTmp.Replace(ORDER_CONST._START_OF_ORDER, ORDER_START_STR);
                         dtr[1] = sTmp;
                     }
 
@@ -411,12 +413,14 @@ namespace StandFacile_DB
             }
 
 
-            sQuery = "SELECT * FROM " + _sDBTNameOrdini + " WHERE (\"sTipo_Articolo\" = '" + _ORDER_CONST._START_OF_ORDER + "') AND (\"iScaricato\" = 1) ";
+            sQuery = "SELECT * FROM " + _sDBTNameOrdini + " WHERE (\"sTipo_Articolo\" = '" + ORDER_CONST._START_OF_ORDER + "') AND (\"iScaricato\" = 1) ";
             sQuery += " ORDER BY \"sScaricato\" DESC LIMIT " + NUM_ULTIMI_SCONTRINI.ToString();
 
-            PgSqlCommand cmd = new PgSqlCommand();
-            cmd.Connection = _Connection;
-            cmd.CommandText = sQuery;
+            PgSqlCommand cmd = new PgSqlCommand()
+            {
+                Connection = _Connection,
+                CommandText = sQuery
+            };
 
             PgSqlDataReader readerScaricati = cmd.ExecuteReader();
 

@@ -9,7 +9,7 @@ using System;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
 
@@ -32,7 +32,7 @@ namespace StandFacile
             int iPrinterType;
             String sDataStr, sTmp, sCassa;
 
-            sDataStr = getActualDate().ToString("dddd  dd/MM/yy");
+            sDataStr = GetActualDate().ToString("dddd  dd/MM/yy");
             sTmp = sDataStr.ToUpper();
             sTmp = sTmp.Substring(0, 1);
 
@@ -47,15 +47,15 @@ namespace StandFacile
             LinkLbl_Web.Text = URL_SITO;
             sCassa = sConstCassaType[SF_Data.iNumCassa - 1];
 
-            if (_iUSA_NDB() == (int)DB_MODE.MYSQL)
-                Lbl_DB.Text = String.Format("MySQL server : {0}, {1}", sGetDB_ServerName(), sCassa);
-            else if (_iUSA_NDB() == (int)DB_MODE.POSTGRES)
-                Lbl_DB.Text = String.Format("PostgreSQL server : {0}, {1}", sGetDB_ServerName(), sCassa);
+            if (iUSA_NDB() == (int)DB_MODE.MYSQL)
+                Lbl_DB.Text = String.Format("MySQL server : {0}, {1}", GetDB_ServerName(), sCassa);
+            else if (iUSA_NDB() == (int)DB_MODE.POSTGRES)
+                Lbl_DB.Text = String.Format("PostgreSQL server : {0}, {1}", GetDB_ServerName(), sCassa);
             else
                 Lbl_DB.Text = String.Format("DB_SQLite, {0}", sCassa);
 
             //lettura stampante windows o Legacy
-            iPrinterType = iReadRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
+            iPrinterType = ReadRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
 
             if (iPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS)
                 sTmp = String.Format("Stampante windows : {0}", sGlbWinPrinterParams.sTckPrinterModel);
@@ -67,12 +67,12 @@ namespace StandFacile
 
             Lbl_Listino.Text = "data Listino : " + SF_Data.sListinoDateTime;
 
-            if (bCheckService(_SKIP_DATA))
+            if (CheckService(_SKIP_DATA))
                 timer.Enabled = false;
             else
             {
                 timer.Enabled = true;
-                if (!_bUSA_NDB())
+                if (!bUSA_NDB())
                 {
                     textBox.ResetText();
                     textBox.AppendText("\r\n   Verificare che la data e l'ora del PC siano corrette !");

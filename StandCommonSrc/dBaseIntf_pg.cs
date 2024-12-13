@@ -25,7 +25,7 @@ using System.Data;
 using Devart.Data.PostgreSql;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using StandFacile;
@@ -34,6 +34,10 @@ using static StandFacile.dBaseIntf;
 
 namespace StandFacile_DB
 {
+#pragma warning disable IDE0079
+#pragma warning disable IDE0044
+#pragma warning disable IDE1006
+
     /// <summary>classe per la gestione di PostGreSQL</summary>
     public partial class dBaseIntf_pg
     {
@@ -50,10 +54,10 @@ namespace StandFacile_DB
         PgSqlConnectionStringBuilder _dbCSB_Web = new PgSqlConnectionStringBuilder();
 
         /// <summary>ottiene la connessione PostGreSQL</summary>
-        public static PgSqlConnection bGetDB_Connection() { return _Connection; }
+        public static PgSqlConnection GetDB_Connection() { return _Connection; }
 
         /// <summary>controllo stato della connessione</summary>
-        public bool bGetDB_Connected()
+        public bool GetDB_Connected()
         {
             if (_Connection != null)
                 return (_Connection.State == ConnectionState.Open);
@@ -63,6 +67,7 @@ namespace StandFacile_DB
 
         struct TReceiptListItem
         {
+#pragma warning disable CS0649
             public string sArticoloRiga;
             public int iReceiptNum;
         }
@@ -75,7 +80,7 @@ namespace StandFacile_DB
             _rdBaseIntf_pg = this;
 
 #if STANDFACILE
-            sDir = DataManager.sGetExeDir() + "\\";
+            sDir = DataManager.GetExeDir() + "\\";
 #else
             sDir = sRootDir + "\\";
 #endif
@@ -88,8 +93,7 @@ namespace StandFacile_DB
         /// <summary>distruttore DB, libera la connessione</summary>
         ~dBaseIntf_pg()
         {
-            if (_Connection != null)
-                _Connection.Close();
+            _Connection?.Close();
         }
 
         /// <summary>
@@ -103,16 +107,15 @@ namespace StandFacile_DB
         {
             String sTmp, sData, sPostFix, sDebugDati, sDebugOrdini;
 
-            if (_Connection != null)
-                _Connection.Close();
+            _Connection?.Close();
 
             // prepara connessione al DB
-            if (_bUSA_NDB())
+            if (bUSA_NDB())
             {
                 try
                 {
-                    _sDBTNameDati = getNomeDatiDBTable(iNumCassaParam, dateParam);
-                    _sDBTNameOrdini = getNomeOrdiniDBTable(dateParam);
+                    _sDBTNameDati = GetNomeDatiDBTable(iNumCassaParam, dateParam);
+                    _sDBTNameOrdini = GetNomeOrdiniDBTable(dateParam);
 
                     // serve per visualizzazione ordini
                     _iDBTNameOrdiniLength = _sDBTNameOrdini.Length;
@@ -206,7 +209,7 @@ namespace StandFacile_DB
 
                     sOrdiniQueueObj[0] = Define.UPDATE_DB_LABEL_EVENT;
                     sOrdiniQueueObj[1] = "No connessione al DB !";
-                    FrmMain.evQueueUpdate(sOrdiniQueueObj);
+                    FrmMain.QueueUpdate(sOrdiniQueueObj);
 #endif
 
                     // connessione non possibile al database
@@ -229,11 +232,10 @@ namespace StandFacile_DB
         /// </summary>
         public bool dbInitWeb()
         {
-            if (_ConnectionWeb != null)
-                _ConnectionWeb.Close();
+            _ConnectionWeb?.Close();
 
             // prepara connessione al DB
-            if (_bUSA_NDB())
+            if (bUSA_NDB())
             {
                 try
                 {
@@ -279,13 +281,13 @@ namespace StandFacile_DB
             int iGiorno, iMese, iAnno;
             String sQueryTxt, sTmp, sActualDateStr;
             String sReadVersion = RELEASE_SW;
-            DateTime statusDate = getActualDate();
+            DateTime statusDate = GetActualDate();
 
             PgSqlCommand cmd = new PgSqlCommand();
             PgSqlDataReader readerStato = null;
             TWebServerParams sWebServerParams = dbGetWebServerParams();
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione al DB
             if (!bDBConnection_Ok)
@@ -308,7 +310,7 @@ namespace StandFacile_DB
 
 #if STAND_CUCINA || STAND_ORDINI || STAND_MONITOR
                     // impostazione importante 
-                    setActualDate(new DateTime(iAnno, iMese, iGiorno));
+                    SetActualDate(new DateTime(iAnno, iMese, iGiorno));
 #endif
 
                     DateTime tmpDate = new DateTime(iAnno, iMese, iGiorno);
@@ -359,7 +361,7 @@ namespace StandFacile_DB
                 _sDateFromDB = "Stato non presente!";
             }
 
-            sActualDateStr = getActualDate().ToString("dd/MM/yy");
+            sActualDateStr = GetActualDate().ToString("dd/MM/yy");
 
             // *** confronto data ***
             if (_sDateFromDB != sActualDateStr)
@@ -370,17 +372,17 @@ namespace StandFacile_DB
                 {
 #if STANDFACILE
                     // valore non plausibile se la chiave non esiste
-                    int iKeyGood = iReadRegistry(DISP_DLG_MNG_KEY, -1);
+                    int iKeyGood = ReadRegistry(DISP_DLG_MNG_KEY, -1);
 
-                    bool bDispDlgShow = IsBitSet(iReadRegistry(DISP_DLG_MNG_KEY, SetBit(0, BIT_SHOW_DISP_DLG)), BIT_SHOW_DISP_DLG);
-                    bool bPrevDispLoad = IsBitSet(iReadRegistry(DISP_DLG_MNG_KEY, SetBit(0, BIT_PREV_DISP_LOAD)), BIT_PREV_DISP_LOAD);
+                    bool bDispDlgShow = IsBitSet(ReadRegistry(DISP_DLG_MNG_KEY, SetBit(0, BIT_SHOW_DISP_DLG)), BIT_SHOW_DISP_DLG);
+                    bool bPrevDispLoad = IsBitSet(ReadRegistry(DISP_DLG_MNG_KEY, SetBit(0, BIT_PREV_DISP_LOAD)), BIT_PREV_DISP_LOAD);
 
                     // la prima esecuzione non apre il dialogo
                     if (iKeyGood == -1)
                         WriteRegistry(DISP_DLG_MNG_KEY, 0);
                     else if (bDispDlgShow)
                     {
-                        startDispDlg rChooseDispDlg = new startDispDlg(getActualDate(), statusDate);
+                        startDispDlg rChooseDispDlg = new startDispDlg(GetActualDate(), statusDate);
                     }
                     else if (bPrevDispLoad)
                     {
@@ -406,13 +408,13 @@ namespace StandFacile_DB
                         cmd.CommandText = sQueryTxt;
                         qResult = cmd.ExecuteScalar();
 
-                        sTmp = getActualDate().ToString("yyyy");
+                        sTmp = GetActualDate().ToString("yyyy");
                         iAnno = Convert.ToInt32(sTmp);
 
-                        sTmp = getActualDate().ToString("MM");
+                        sTmp = GetActualDate().ToString("MM");
                         iMese = Convert.ToInt32(sTmp);
 
-                        sTmp = getActualDate().ToString("dd");
+                        sTmp = GetActualDate().ToString("dd");
                         iGiorno = Convert.ToInt32(sTmp);
 
                         sQueryTxt = String.Format("INSERT INTO {0} (\"key_ID\", \"sText\", \"iYear\", \"iMonth\", \"iDay\") VALUES (\'{1}\', \'{2}\', {3}, {4}, {5});",
@@ -470,7 +472,7 @@ namespace StandFacile_DB
                     catch (Exception)
                     {
                         _WrnMsg.iErrID = WRN_DBE;
-                        _WrnMsg.sMsg = String.Format("dbCheckStatus : creazione tabella {0}", _bUSA_NDB());
+                        _WrnMsg.sMsg = String.Format("dbCheckStatus : creazione tabella {0}", bUSA_NDB());
                         WarningManager(_WrnMsg);
                         LogToFile("dbCheckStatus : dbException creazione tabelle");
 
@@ -499,8 +501,7 @@ namespace StandFacile_DB
                 readerStato = cmd.ExecuteReader();
             }
 
-            if (readerStato != null)
-                readerStato.Close();
+            readerStato?.Close();
 
             cmd.Dispose();
             return true; // data DB corretta
@@ -518,14 +519,14 @@ namespace StandFacile_DB
             String sQueryTxt, sTmp;
             PgSqlCommand cmd = new PgSqlCommand();
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione al DB
             if (!bDBConnection_Ok)
                 return false;
 
             // si prosegue solo se è CASSA_PRINCIPALE e c'è la connessione al DB
-            if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && _bUSA_NDB())
+            if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bUSA_NDB())
             {
                 try
                 {
@@ -555,7 +556,7 @@ namespace StandFacile_DB
                         cmd.CommandText = sQueryTxt;
                         qResult = cmd.ExecuteScalar();
 
-                        sTmp = getActualDate().ToString("yyMMdd");
+                        sTmp = GetActualDate().ToString("yyMMdd");
 
                         sQueryTxt = String.Format("INSERT INTO {0} (\"iNumCassa\", \"sDataOra\") VALUES ({1}, \'{2}\');",
                                     NOME_NSC_DBTBL, SF_Data.iNumCassa, GetDateTimeString());
@@ -570,7 +571,7 @@ namespace StandFacile_DB
                 catch (Exception)
                 {
                     _WrnMsg.iErrID = WRN_DBE;
-                    _WrnMsg.sMsg = String.Format("dbResetNumOfOrders : creazione tabella: {0}", _bUSA_NDB());
+                    _WrnMsg.sMsg = String.Format("dbResetNumOfOrders : creazione tabella: {0}", bUSA_NDB());
                     WarningManager(_WrnMsg);
                     LogToFile("dbResetNumOfOrders : dbException creazione tabella");
 
@@ -595,14 +596,14 @@ namespace StandFacile_DB
 
             PgSqlCommand cmd = new PgSqlCommand();
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
                 return false;
 
             // si prosegue solo se è CASSA_PRINCIPALE e c'è la connessione a DB
-            if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && _bUSA_NDB())
+            if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bUSA_NDB())
             {
                 try
                 {
@@ -627,7 +628,7 @@ namespace StandFacile_DB
                         cmd.CommandText = sQueryTxt;
                         qResult = cmd.ExecuteScalar();
 
-                        sTmp = getActualDate().ToString("yyMMdd");
+                        sTmp = GetActualDate().ToString("yyMMdd");
 
                         sQueryTxt = String.Format("INSERT INTO {0} (\"iNumCassa\", \"sDataOra\") VALUES ({1}, \'{2}\');",
                                     NOME_NMSG_DBTBL, SF_Data.iNumCassa, GetDateTimeString());
@@ -641,7 +642,7 @@ namespace StandFacile_DB
                 catch (Exception)
                 {
                     _WrnMsg.iErrID = WRN_DBE;
-                    _WrnMsg.sMsg = String.Format("dbResetNumOfMessages : creazione tabella: {0}", _bUSA_NDB());
+                    _WrnMsg.sMsg = String.Format("dbResetNumOfMessages : creazione tabella: {0}", bUSA_NDB());
                     WarningManager(_WrnMsg);
                     LogToFile("dbResetNumOfMessages : dbException creazione tabella");
 
@@ -666,7 +667,7 @@ namespace StandFacile_DB
 
             iNum = 0;
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -679,12 +680,12 @@ namespace StandFacile_DB
                 if (bModeNextParam)
                 {
                     cmd.CommandText = String.Format("SELECT \"iOrdine_ID\" FROM " + _sDBTNameOrdini + " WHERE (\"iOrdine_ID\" >= {0}) AND (\"sTipo_Articolo\" = \'{1}\') AND (\"iAnnullato\" = 0) AND (\"iStatus\" & {2} = 0)",
-                        iNumOfReceiptParam, _ORDER_CONST._START_OF_ORDER, SetBit(0, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
+                        iNumOfReceiptParam, ORDER_CONST._START_OF_ORDER, SetBit(0, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
                 }
                 else
                 {
                     cmd.CommandText = String.Format("SELECT \"iOrdine_ID\" FROM " + _sDBTNameOrdini + " WHERE (\"iOrdine_ID\" < {0}) AND (\"sTipo_Articolo\" = \'{1}\') AND (\"iAnnullato\" = 0) AND (\"iStatus\" & {2} = 0)",
-                        iNumOfReceiptParam, _ORDER_CONST._START_OF_ORDER, SetBit(0, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
+                        iNumOfReceiptParam, ORDER_CONST._START_OF_ORDER, SetBit(0, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
                 }
 
                 readerOrdine = cmd.ExecuteReader();
@@ -700,8 +701,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                if (readerOrdine != null)
-                    readerOrdine.Close();
+                readerOrdine?.Close();
 
                 iNum = 0;
 
@@ -726,7 +726,7 @@ namespace StandFacile_DB
 
             iNum = 0;
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -757,8 +757,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                if (readerOrdine != null)
-                    readerOrdine.Close();
+                readerOrdine?.Close();
 
                 iNum = 0;
 
@@ -783,7 +782,7 @@ namespace StandFacile_DB
             String sTmp;
             PgSqlCommand cmd = new PgSqlCommand();
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -832,7 +831,7 @@ namespace StandFacile_DB
             TWebServerParams sWebServerParams = new TWebServerParams(0);
 
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -865,8 +864,7 @@ namespace StandFacile_DB
                     }
                 }
 
-                if (readerStatus != null)
-                    readerStatus.Close();
+                readerStatus?.Close();
 
                 LogToFile("dbGetWebServerParams: parametri letti");
             }
@@ -893,7 +891,7 @@ namespace StandFacile_DB
             PgSqlCommand cmd = new PgSqlCommand();
             PgSqlDataReader readerStatus = null;
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -914,8 +912,7 @@ namespace StandFacile_DB
                     cmd.CommandText = "UPDATE " + NOME_STATO_DBTBL + " SET \"sText\" = '" + sWebServerParams.sWebEncryptedPwd + "' WHERE (\"key_ID\" = '" + WEB_DBASE_PWD_KEY + "')";
                     readerStatus = cmd.ExecuteReader();
 
-                    if (readerStatus != null)
-                        readerStatus.Close();
+                    readerStatus?.Close();
 
                     LogToFile("dbSetWebServerParams: parametri scritti");
                 }
@@ -938,7 +935,7 @@ namespace StandFacile_DB
         /// Funzione di lettura degli Ordini emessi dalle casse secondarie, <br/>
         /// ritorna 0 se non ce ne sono, negativo per gli ordini annullati<br/><br/>
         /// 
-        /// chiamata da  aggiornaDisponibilità per aggiornare la disponibilità della CASSA_PRINCIPALE<br/>
+        /// chiamata da  AggiornaDisponibilità per aggiornare la disponibilità della CASSA_PRINCIPALE<br/>
         /// e dalla CASSA_SECONDARIA per attendere lo svuotamento prima di aggiornare la sua disponibilità
         /// bClearOrdiniParam = true consente di eliminare un ordine dalla tabella ma solo se è CASSA_PRINCIPALE
         /// </summary>
@@ -951,7 +948,7 @@ namespace StandFacile_DB
             PgSqlCommand cmd = new PgSqlCommand();
             PgSqlDataReader readerCSec = null;
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione a MySQL
             // o se la Cassa secondaria non richiede il prelievo di un ordine dalla lista
@@ -996,8 +993,7 @@ namespace StandFacile_DB
                 WarningManager(_WrnMsg);
             }
 
-            if (readerCSec != null)
-                readerCSec.Close();
+            readerCSec?.Close();
 
             return iOrderNum; // tutto OK
         }
@@ -1013,6 +1009,7 @@ namespace StandFacile_DB
             PgSqlCommand cmd = new PgSqlCommand();
             PgSqlDataReader readerCSec = null;
 
+            #pragma warning disable IDE0059
             bDBConnection_Ok = dbInitWeb();
 
             try
@@ -1039,8 +1036,7 @@ namespace StandFacile_DB
                 WarningManager(_WrnMsg);
             }
 
-            if (readerCSec != null)
-                readerCSec.Close();
+            readerCSec?.Close();
 
             return iOrderNum; // tutto OK
         }
@@ -1208,12 +1204,12 @@ namespace StandFacile_DB
                     {
                         sTipo = Convert.ToString(dataTable.Rows[i]["sTipo_Articolo"]);
 
-                        if (sTipo == _ORDER_CONST._START_OF_ORDER)
+                        if (sTipo == ORDER_CONST._START_OF_ORDER)
                             DB_Data.iStatusReceipt = Convert.ToInt32(dataTable.Rows[i]["iStatus"]);
 
                         DB_Data.Articolo[i].sTipo = sTipo;
 
-                        if (!bStringBelongsTo_ORDER_CONST(sTipo))
+                        if (!StringBelongsTo_ORDER_CONST(sTipo))
                         {
                             DB_Data.Articolo[i].iQuantitaOrdine = Convert.ToInt32(dataTable.Rows[i]["iQuantita_Ordine"]);
                             DB_Data.Articolo[i].iPrezzoUnitario = Convert.ToInt32(dataTable.Rows[i]["iPrezzo_Unitario"]);
@@ -1229,7 +1225,7 @@ namespace StandFacile_DB
 
                             dataTable.Rows[i]["iAnnullato"] = 1;
 
-                            if (sTipo == _ORDER_CONST._START_OF_ORDER)
+                            if (sTipo == ORDER_CONST._START_OF_ORDER)
                             {
                                 sTmp = DateTime.Now.ToString("HH.mm.ss");
 
@@ -1283,7 +1279,7 @@ namespace StandFacile_DB
                     _WrnMsg.iErrID = WRN_SEX;
 
 #if STANDFACILE
-                    if (!bCheckService(Define._AUTO_SEQ_TEST))
+                    if (!CheckService(Define._AUTO_SEQ_TEST))
 #endif
                         WarningManager(_WrnMsg);
 
@@ -1331,7 +1327,7 @@ namespace StandFacile_DB
             String sRecord = "";
             PgSqlCommand cmd = new PgSqlCommand();
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -1363,8 +1359,7 @@ namespace StandFacile_DB
                         i++;
                     }
 
-                    if (readerListino != null)
-                        readerListino.Close();
+                        readerListino?.Close();
 
                     LogToFile("dbCheckListino : ricerca checksum eseguita");
                 }
@@ -1389,7 +1384,7 @@ namespace StandFacile_DB
             String sQueryTxt, sNewTName;
             PgSqlCommand cmd = new PgSqlCommand();
 
-            DateTime dateParam = getActualDate();
+            DateTime dateParam = GetActualDate();
 
             for (iNumCassa = 1; iNumCassa <= (MAX_CASSE_SECONDARIE + 1); iNumCassa++)
             {
@@ -1426,7 +1421,7 @@ namespace StandFacile_DB
                         bSuccess = false;
 
                         _WrnMsg.iErrID = WRN_DBE;
-                        _WrnMsg.sMsg = String.Format("RENAME DATI {0}", _bUSA_NDB());
+                        _WrnMsg.sMsg = String.Format("RENAME DATI {0}", bUSA_NDB());
                         WarningManager(_WrnMsg);
                         LogToFile("dbRenameTables : dbException RENAME DATI");
                     }
@@ -1454,7 +1449,7 @@ namespace StandFacile_DB
 
                 bSuccess = false;
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("RENAME DATI {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("RENAME DATI {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
                 LogToFile("dbRenameTables : dbException RENAME ORDINI");
             }
@@ -1473,7 +1468,7 @@ namespace StandFacile_DB
             String sTmp, sQueryTxt;
             PgSqlCommand cmd = new PgSqlCommand();
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, false, sOldTabellaParam);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, false, sOldTabellaParam);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -1494,11 +1489,11 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                if (_bUSA_NDB())
+                if (bUSA_NDB())
                 {
                     bSuccess = false;
                     _WrnMsg.iErrID = WRN_DBE;
-                    _WrnMsg.sMsg = String.Format("RENAME TABLE {0}", _bUSA_NDB());
+                    _WrnMsg.sMsg = String.Format("RENAME TABLE {0}", bUSA_NDB());
                     WarningManager(_WrnMsg);
                 }
             }
@@ -1506,14 +1501,14 @@ namespace StandFacile_DB
             return bSuccess;
         }
 
-        /// <summary>usato da eraseAllaData()</summary>
+        /// <summary>usato da EraseAllaData()</summary>
         public bool dbDropTables()
         {
             bool bDBConnection_Ok, bSuccess = true;
             String sQueryTxt, sDBTLocNameDati;
             int iNumCassa;
 
-            DateTime dateParam = getActualDate();
+            DateTime dateParam = GetActualDate();
             PgSqlCommand cmd = new PgSqlCommand();
 
             bDBConnection_Ok = dbInit(dateParam, SF_Data.iNumCassa, true);
@@ -1532,7 +1527,7 @@ namespace StandFacile_DB
                 for (iNumCassa = 1; iNumCassa <= (MAX_CASSE_SECONDARIE + 1); iNumCassa++)
                 {
 
-                    sDBTLocNameDati = getNomeDatiDBTable(iNumCassa, dateParam);
+                    sDBTLocNameDati = GetNomeDatiDBTable(iNumCassa, dateParam);
 
                     // Query di drop tabella
                     sQueryTxt = String.Format("DROP TABLE IF EXISTS \"{0}\";", sDBTLocNameDati);
@@ -1570,11 +1565,11 @@ namespace StandFacile_DB
             }
             catch (Exception)
             {
-                if (_bUSA_NDB())
+                if (bUSA_NDB())
                 {
                     bSuccess = false;
                     _WrnMsg.iErrID = WRN_DBE;
-                    _WrnMsg.sMsg = String.Format("DROP TABLE ORDINI {0}", _bUSA_NDB());
+                    _WrnMsg.sMsg = String.Format("DROP TABLE ORDINI {0}", bUSA_NDB());
                     WarningManager(_WrnMsg);
                 }
             }
@@ -1589,7 +1584,7 @@ namespace StandFacile_DB
             String sQueryTxt, sTmp;
             PgSqlCommand cmd = new PgSqlCommand();
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, false, sNomeTabellaParam);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, false, sNomeTabellaParam);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -1610,7 +1605,7 @@ namespace StandFacile_DB
             }
             catch (Exception)
             {
-                if (_bUSA_NDB())
+                if (bUSA_NDB())
                 {
                     bSuccess = false;
                     _WrnMsg.iErrID = WRN_DBE;
@@ -1633,7 +1628,7 @@ namespace StandFacile_DB
             PgSqlDataReader readerTables = null;
             PgSqlCommand cmd = new PgSqlCommand();
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -1661,8 +1656,7 @@ namespace StandFacile_DB
                 LogToFile("dbElencoTabelle : dbException RENAME DATI");
             }
 
-            if (readerTables != null)
-                readerTables.Close();
+            readerTables?.Close();
 
             return sStringsParam.Count;
         }
@@ -1679,7 +1673,7 @@ namespace StandFacile_DB
             PgSqlCommand cmd = new PgSqlCommand();
             PgSqlDataReader readerOrdineNum = null;
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -1713,15 +1707,14 @@ namespace StandFacile_DB
                     _sDateTimeFromDB = readerOrdineNum.GetString("sDataOra");
 
                     LogToFile("dbNewOrdineNumRequest : _iNumOfLocalOrdersFromDB letto");
-                    if (readerOrdineNum != null)
-                        readerOrdineNum.Close();
+
+                    readerOrdineNum?.Close();
 
                     return _iNumOfLocalOrdersFromDB; // tutto OK
                 }
                 else
                 {
-                    if (readerOrdineNum != null)
-                        readerOrdineNum.Close();
+                    readerOrdineNum?.Close();
 
                     return 0;
                 }
@@ -1729,8 +1722,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                if (readerOrdineNum != null)
-                    readerOrdineNum.Close();
+                    readerOrdineNum?.Close();
 
                 _WrnMsg.iErrID = WRN_DBE;
                 _WrnMsg.sMsg = "Connessione al Server DB_NSC non possibile";
@@ -1738,7 +1730,7 @@ namespace StandFacile_DB
 
 #if STANDFACILE
                 // bypass del Server NSC solo se CASSA_PRINCIPALE
-                if (!DataManager.bCheckIf_CassaSec_and_NDB())
+                if (!DataManager.CheckIf_CassaSec_and_NDB())
                 {
                     _iNumOfLocalOrdersFromDB++;
                     _sDateTimeFromDB = GetDateTimeString();
@@ -1764,7 +1756,7 @@ namespace StandFacile_DB
             PgSqlCommand cmd = new PgSqlCommand();
             PgSqlDataReader readerMessaggioNum = null;
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -1799,15 +1791,14 @@ namespace StandFacile_DB
 
                     LogToFile("dbNewMessageNumRequest : _iNumOfLastMessageFromDB letto");
 
-                    if (readerMessaggioNum != null)
-                        readerMessaggioNum.Close();
+                        readerMessaggioNum?.Close();
 
                     return _iNumOfLastMessageFromDB; // tutto OK
                 }
                 else
                 {
-                    if (readerMessaggioNum != null)
-                        readerMessaggioNum.Close();
+                        readerMessaggioNum?.Close();
+
                     return 0;
                 }
             }
@@ -1815,7 +1806,7 @@ namespace StandFacile_DB
             catch (Exception)
             {
                 if (readerMessaggioNum != null)
-                    readerMessaggioNum.Close();
+                    readerMessaggioNum?.Close();
 
                 _WrnMsg.iErrID = WRN_DBE;
                 _WrnMsg.sMsg = "Connessione al Server DB_NMSG non possibile";
@@ -1823,7 +1814,7 @@ namespace StandFacile_DB
 
 #if STANDFACILE
                 // bypass del Server NSC solo se CASSA_PRINCIPALE
-                if (!DataManager.bCheckIf_CassaSec_and_NDB())
+                if (!DataManager.CheckIf_CassaSec_and_NDB())
                 {
                     _iNumOfLastMessageFromDB++;
                     _sDateTimeFromDB = GetDateTimeString();
@@ -1848,11 +1839,11 @@ namespace StandFacile_DB
             String sQueryTxt;
             PgSqlCommand cmd = new PgSqlCommand();
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
 #if STANDFACILE
             // sicurezza : si prosegue solo se è CASSA_SECONDARIA && bUsa_DB
-            if (!DataManager.bCheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
+            if (!DataManager.CheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
                 return;
 #endif
 
@@ -1881,13 +1872,13 @@ namespace StandFacile_DB
         /// Funzione di inserimento record del numero Ordine web<br/>
         /// usata da MainForm nel caso fallisca il contrassegno diretto
         /// </summary>
-        public void db_webOrderEnqueue(int iEnqueueParam)
+        public void dbWebOrderEnqueue(int iEnqueueParam)
         {
             bool bDBConnection_Ok;
             String sQueryTxt;
             PgSqlCommand cmd = new PgSqlCommand();
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             try
             {
@@ -1937,7 +1928,7 @@ namespace StandFacile_DB
 
             iCountOrdini = -1;
 
-            bDBConnection_Ok = dbInit(getActualDate(), CASSA_PRINCIPALE, false, sPrevOrderTableParam);
+            bDBConnection_Ok = dbInit(GetActualDate(), CASSA_PRINCIPALE, false, sPrevOrderTableParam);
 
             try
             {
@@ -2056,7 +2047,7 @@ namespace StandFacile_DB
                             bResult = false;
 
                             // gia scaricato !!!
-                            if (sTipo == _ORDER_CONST._START_OF_ORDER)
+                            if (sTipo == ORDER_CONST._START_OF_ORDER)
                             {
                                 Console.Beep();
 
@@ -2072,7 +2063,7 @@ namespace StandFacile_DB
 
                             ordiniTable.Rows[i]["iScaricato"] = 1;
 
-                            if (sTipo == _ORDER_CONST._START_OF_ORDER)
+                            if (sTipo == ORDER_CONST._START_OF_ORDER)
                             {
                                 sTmp = DateTime.Now.ToString("HH.mm.ss");
 
@@ -2133,7 +2124,7 @@ namespace StandFacile_DB
             PgSqlCommand cmd = new PgSqlCommand();
             PgSqlDataReader readerStatus = null;
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -2143,7 +2134,7 @@ namespace StandFacile_DB
             {
                 if (iOrderIDParam >= 0)
                     sQueryTxt = String.Format("UPDATE {0} SET \"iStatus\" = {1} WHERE (\"iOrdine_ID\" = {2} AND \"sTipo_Articolo\" = '{3}');",
-                                _sDBTNameOrdini, iStatusParam, iOrderIDParam, _ORDER_CONST._START_OF_ORDER);
+                                _sDBTNameOrdini, iStatusParam, iOrderIDParam, ORDER_CONST._START_OF_ORDER);
                 else
                     sQueryTxt = String.Format("UPDATE {0} SET \"iStatus\" = {1} WHERE \"iOrdine_ID\" = {2};", _sDBTNameOrdini, iStatusParam, iOrderIDParam);
 
@@ -2152,8 +2143,7 @@ namespace StandFacile_DB
 
                 readerStatus = cmd.ExecuteReader();
 
-                if (readerStatus != null)
-                    readerStatus.Close();
+                    readerStatus?.Close();
 
                 LogToFile("dbEditStatus: stato aggiornato");
             }
@@ -2179,8 +2169,7 @@ namespace StandFacile_DB
             if (String.IsNullOrEmpty(sDB_ServerNamePrm))
                 sDB_ServerNamePrm = Dns.GetHostName();
 
-            if (_Connection != null)
-                _Connection.Close();
+                _Connection?.Close();
 
             _dbCSB.Host = sDB_ServerNamePrm;
             _dbCSB.Password = sDB_pwdPrm;
@@ -2217,7 +2206,7 @@ namespace StandFacile_DB
 
                 sOrdiniQueueObj[0] = Define.UPDATE_DB_LABEL_EVENT;
                 sOrdiniQueueObj[1] = "No connessione al DB !";
-                FrmMain.evQueueUpdate(sOrdiniQueueObj);
+                FrmMain.QueueUpdate(sOrdiniQueueObj);
 #endif
 
                 if (!bSilentParam) // Messaggio di connessione

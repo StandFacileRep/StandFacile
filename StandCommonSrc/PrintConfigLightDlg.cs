@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 using static StandFacile.glb;
 
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
@@ -39,7 +39,7 @@ namespace StandFacile
          *****************************************************/
 
         /// <summary>ottiene true se la stampante è windows</summary>
-        public static bool bGetPrinterTypeIsWinwows() { return (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS); }
+        public static bool GetPrinterTypeIsWinwows() { return (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS); }
 
         /// <summary>costruttore</summary>
         public PrintConfigLightDlg()
@@ -63,7 +63,7 @@ namespace StandFacile
             int iPrinterTypeRadio;
 
             //inizializzazione stampante windows o Legacy
-            iPrinterTypeRadio = iReadRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
+            iPrinterTypeRadio = ReadRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
 
             if (iPrinterTypeRadio == (int)PRINTER_SEL.STAMPANTE_WINDOWS)
             {
@@ -84,7 +84,7 @@ namespace StandFacile
 	        letture dai controlli dalle variabili per la
 	        scrittura nel registro
          **************************************************/
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
 
             if (prt_Windows.Checked)
@@ -105,9 +105,9 @@ namespace StandFacile
                     case (int)LEGACY_PRINTER_MODELS.STAMPANTE_TM_T88_SER:
                     case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_SER:
 
-                        if (!portVerify(sGlbLegacyPrinterParams))
+                        if (!PortVerify(sGlbLegacyPrinterParams))
                         {
-                            _ErrMsg.sMsg = sReadRegistry("sPort", "COM1");
+                            _ErrMsg.sMsg = ReadRegistry("sPort", "COM1");
                             _ErrMsg.iErrID = WRN_CNA;
                             WarningManager(_ErrMsg);
                         }

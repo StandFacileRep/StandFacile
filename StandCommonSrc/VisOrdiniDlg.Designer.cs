@@ -149,7 +149,7 @@
             this.BtnPrev.TabIndex = 5;
             this.BtnPrev.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnPrev.UseVisualStyleBackColor = true;
-            this.BtnPrev.Click += new System.EventHandler(this.prevBtn_Click);
+            this.BtnPrev.Click += new System.EventHandler(this.PrevBtn_Click);
             // 
             // BtnNext
             // 
@@ -161,7 +161,7 @@
             this.BtnNext.TabIndex = 6;
             this.BtnNext.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnNext.UseVisualStyleBackColor = true;
-            this.BtnNext.Click += new System.EventHandler(this.nextBtn_Click);
+            this.BtnNext.Click += new System.EventHandler(this.NextBtn_Click);
             // 
             // BtnPrt
             // 
@@ -171,7 +171,7 @@
             this.BtnPrt.Size = new System.Drawing.Size(70, 35);
             this.BtnPrt.TabIndex = 7;
             this.BtnPrt.UseVisualStyleBackColor = true;
-            this.BtnPrt.Click += new System.EventHandler(this.btnPrt_Click);
+            this.BtnPrt.Click += new System.EventHandler(this.BtnPrt_Click);
             // 
             // labelPrint
             // 
@@ -198,7 +198,7 @@
             this.comboCashPos.Name = "comboCashPos";
             this.comboCashPos.Size = new System.Drawing.Size(113, 21);
             this.comboCashPos.TabIndex = 25;
-            this.comboCashPos.SelectedIndexChanged += new System.EventHandler(this.comboCashPos_SelectedIndexChanged);
+            this.comboCashPos.SelectedIndexChanged += new System.EventHandler(this.ComboCashPos_SelectedIndexChanged);
             // 
             // labelPayMethod
             // 

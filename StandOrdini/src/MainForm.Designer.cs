@@ -59,7 +59,7 @@
             // Timer
             // 
             this.Timer.Interval = 250;
-            this.Timer.Tick += new System.EventHandler(this.timer_MainLoop);
+            this.Timer.Tick += new System.EventHandler(this.Timer_MainLoop);
             // 
             // LabelTitolo
             // 
@@ -179,7 +179,7 @@
             this.MnuaiutoRapido.Name = "MnuaiutoRapido";
             this.MnuaiutoRapido.Size = new System.Drawing.Size(168, 22);
             this.MnuaiutoRapido.Text = "&Aiuto rapido";
-            this.MnuaiutoRapido.Click += new System.EventHandler(this.aiutoRapidoToolStripMenuItem_Click);
+            this.MnuaiutoRapido.Click += new System.EventHandler(this.AiutoRapidoToolStripMenuItem_Click);
             // 
             // MnuAbout
             // 

@@ -14,8 +14,10 @@ namespace StandFacile
     /// <summary>classe di define specifici di StandFacile</summary>
     public static class Define
     {
+#pragma warning disable IDE0060
+
         /// <summary>titolo</summary>
-        public const string TITLE = "Stand Facile 2024";
+        public const string TITLE = "Stand Facile 2025";
 
         /// <summary>nome dell'eseguibile</summary>
         public const string THE_APP = "StandFacile.exe";

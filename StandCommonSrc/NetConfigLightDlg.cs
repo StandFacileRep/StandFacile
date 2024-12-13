@@ -10,7 +10,7 @@ using System.Net;
 using System.Windows.Forms;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.ComSafe;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using static StandFacile.glb;
@@ -29,16 +29,18 @@ namespace StandFacile
     /// </summary>
     public partial class NetConfigLightDlg : Form
     {
+#pragma warning disable IDE0044
+
         static bool _bBarcodeRichiesto = true, _bStampaSoloManuale = true;
 
         /// <summary>riferimento a NetConfigDlg</summary>
         public static NetConfigLightDlg rNetConfigLightDlg;
 
         /// <summary>ottiene la richiesta di stampa barcode</summary>
-        public static bool bGetBarcodeRichiesto() { return _bBarcodeRichiesto; }
+        public static bool GetBarcodeRichiesto() { return _bBarcodeRichiesto; }
 
         /// <summary>ottiene la spunta del gruppo di copie impostate in NetConfigDlg</summary>
-        public static bool bGetCopiaGroup(int iParam)
+        public static bool GetCopiaGroup(int iParam)
         {
             if ((iParam >= 0) && (iParam < NUM_EDIT_GROUPS))
                 return _pCheckBoxCopia[iParam].Checked;
@@ -47,7 +49,7 @@ namespace StandFacile
         }
 
         /// <summary>ottiene la flag di stampa solo manuale</summary>
-        public static bool bGetStampaSoloManuale() { return _bStampaSoloManuale; }
+        public static bool GetStampaSoloManuale() { return _bStampaSoloManuale; }
 
         /// <summary>imposta il puntatore ai checkBox delle copie</summary>
         static CheckBox[] _pCheckBoxCopia = new CheckBox[NUM_EDIT_GROUPS];
@@ -90,7 +92,7 @@ namespace StandFacile
             combo_TipoDBase.Items.Add("PostgreSQL");
 
             // Inizializza controlli
-            _iNDbMode = iReadRegistry(DB_MODE_KEY, (int)DB_MODE.MYSQL) - 1;
+            _iNDbMode = ReadRegistry(DB_MODE_KEY, (int)DB_MODE.MYSQL) - 1;
             combo_TipoDBase.SelectedIndex = _iNDbMode;
 
             // configura il Combo_DBServerName
@@ -99,19 +101,19 @@ namespace StandFacile
             for (i = 0; i < MAX_COMBO_ITEMS; i++)
             {
                 sTmp = String.Format(SEL_DB_SERVER_KEY, i);
-                sTmp = sReadRegistry(sTmp);
+                sTmp = ReadRegistry(sTmp, "");
                 if (!String.IsNullOrEmpty(sTmp))
                     Combo_DBServerName.Items.Add(sTmp);
             }
 
-            Combo_DBServerName.Text = sReadRegistry(DBASE_SERVER_NAME_KEY, Dns.GetHostName());
+            Combo_DBServerName.Text = ReadRegistry(DBASE_SERVER_NAME_KEY, Dns.GetHostName());
 
-            dbPasswordEdit.Text = Decrypt(sReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
+            dbPasswordEdit.Text = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
 
             if (String.IsNullOrEmpty(Combo_DBServerName.Text))
-                Combo_DBServerName.Text = sGetDB_ServerName();
+                Combo_DBServerName.Text = GetDB_ServerName();
 
-            _bBarcodeRichiesto = (iReadRegistry(STAMPA_BARCODE_KEY, 0) == 1);
+            _bBarcodeRichiesto = (ReadRegistry(STAMPA_BARCODE_KEY, 0) == 1);
             checkBoxBarcode.Checked = _bBarcodeRichiesto;
 
             for (i = 0; i < NUM_GROUPS_COLORS - 1; i++)
@@ -121,7 +123,7 @@ namespace StandFacile
 
 #if STAND_CUCINA
 
-            _bStampaSoloManuale = (iReadRegistry(Define.STAMPA_MANUALE_KEY, 0) == 1);
+            _bStampaSoloManuale = (ReadRegistry(Define.STAMPA_MANUALE_KEY, 0) == 1);
             checkBox_StampaManuale.Checked = _bStampaSoloManuale;
 #else
 
@@ -157,7 +159,7 @@ namespace StandFacile
                 _pTextBoxColor[i].Top -= iVShift;
 
             // controllo per prima esecuzione, in questo caso la chiamata è inopportuna
-            if (!String.IsNullOrEmpty(sReadRegistry(DBASE_SERVER_NAME_KEY, "")))
+            if (!String.IsNullOrEmpty(ReadRegistry(DBASE_SERVER_NAME_KEY, "")))
             {
                 _rdBaseIntf.dbCheckStatus();
 
@@ -176,11 +178,11 @@ namespace StandFacile
             {
                 AddTo_ComboList(Combo_DBServerName, SEL_DB_SERVER_KEY);
 
-                setDbMode(Combo_DBServerName.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1); // imposta il tipo di DB per dBaseIntf
+                SetDbMode(Combo_DBServerName.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1); // imposta il tipo di DB per dBaseIntf
                 _rdBaseIntf.dbCheckStatus();
 
                 // solo se è la prima esecuzione
-                if (String.IsNullOrEmpty(sReadRegistry(DBASE_SERVER_NAME_KEY, "")))
+                if (String.IsNullOrEmpty(ReadRegistry(DBASE_SERVER_NAME_KEY, "")))
                 {
                     WriteRegistry(DBASE_SERVER_NAME_KEY, Combo_DBServerName.Text);
                     WriteRegistry(DBASE_PASSWORD_KEY, Encrypt(dbPasswordEdit.Text));
@@ -196,10 +198,10 @@ namespace StandFacile
             LogToFile("FrmNetConfig : BtnDB_ServerTestClick");
         }
 
-        void aggiornaAspettoControlli()
+        void AggiornaAspettoControlli()
         {
             // se è MySQL, oppure è se attivo il corrispondente DB
-            if ((combo_TipoDBase.SelectedIndex + 1) == _iUSA_NDB() && _rdBaseIntf.bGetDB_Connected())
+            if ((combo_TipoDBase.SelectedIndex + 1) == iUSA_NDB() && _rdBaseIntf.GetDB_Connected())
                 btnOK.Enabled = true;
             else
                 btnOK.Enabled = false;
@@ -228,13 +230,13 @@ namespace StandFacile
 
             // carica iGlbNumOfTickets, iGlbNumOfMessages, _Versione, _Header, _HeaderText
             // solo se non è la prima esecuzione
-            if (!String.IsNullOrEmpty(sReadRegistry(DBASE_SERVER_NAME_KEY, "")))
-                _rdBaseIntf.dbCaricaOrdine(getActualDate(), 0, false);
+            if (!String.IsNullOrEmpty(ReadRegistry(DBASE_SERVER_NAME_KEY, "")))
+                _rdBaseIntf.dbCaricaOrdine(GetActualDate(), 0, false);
 
             for (i = 0; i < NUM_EDIT_GROUPS; i++)
             {
-                _pCheckBoxCopia[i].BackColor = getColor(DB_Data.iGroupsColor[i])[0];
-                _pCheckBoxCopia[i].ForeColor = getColor(DB_Data.iGroupsColor[i])[1];
+                _pCheckBoxCopia[i].BackColor = GetColor(DB_Data.iGroupsColor[i])[0];
+                _pCheckBoxCopia[i].ForeColor = GetColor(DB_Data.iGroupsColor[i])[1];
 
                 if (!String.IsNullOrEmpty(DB_Data.sCopiesGroupsText[i]))
                 {
@@ -251,9 +253,9 @@ namespace StandFacile
                 _pCheckBoxCopia[i].Checked = DB_Data.bCopiesGroupsFlag[i];
 #else
                 if ((i == (int)DEST_TYPE.DEST_TIPO1) || (i == (int)DEST_TYPE.DEST_TIPO2) || (i == (int)DEST_TYPE.DEST_TIPO3))
-                    _pCheckBoxCopia[i].Checked = ((iReadRegistry(sTmp, 1) & 0x01) == 1);
+                    _pCheckBoxCopia[i].Checked = ((ReadRegistry(sTmp, 1) & 0x01) == 1);
                 else
-                    _pCheckBoxCopia[i].Checked = ((iReadRegistry(sTmp, 0) & 0x01) == 1);
+                    _pCheckBoxCopia[i].Checked = ((ReadRegistry(sTmp, 0) & 0x01) == 1);
 #endif
             }
 
@@ -261,7 +263,7 @@ namespace StandFacile
                 _pTextBoxColor[i].Text = DB_Data.sColorGroupsText[i];
         }
 
-        private void checkBoxCopia_MouseClick(object sender, MouseEventArgs e)
+        private void CheckBoxCopia_MouseClick(object sender, MouseEventArgs e)
         {
 #if STAND_CUCINA || STAND_MONITOR
 
@@ -284,7 +286,7 @@ namespace StandFacile
 
 #endif
             // se è se attivo il corrispondente DB
-            if ((combo_TipoDBase.SelectedIndex + 1) == _iUSA_NDB() && _rdBaseIntf.bGetDB_Connected())
+            if ((combo_TipoDBase.SelectedIndex + 1) == iUSA_NDB() && _rdBaseIntf.GetDB_Connected())
                 btnOK.Enabled = true;
         }
 
@@ -293,12 +295,12 @@ namespace StandFacile
             // verifica il collegamento con il DB Server e ne salva il nome
             if (_rdBaseIntf.dbCheck(Combo_DBServerName.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1, true))
             {
-                dBaseIntf.setDbMode(Combo_DBServerName.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1); // imposta il tipo di DB per dBaseIntf
+                dBaseIntf.SetDbMode(Combo_DBServerName.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1); // imposta il tipo di DB per dBaseIntf
 
-                if (Combo_DBServerName.Text != sReadRegistry(DBASE_SERVER_NAME_KEY) && !String.IsNullOrEmpty(Combo_DBServerName.Text))
+                if (Combo_DBServerName.Text != ReadRegistry(DBASE_SERVER_NAME_KEY, "") && !String.IsNullOrEmpty(Combo_DBServerName.Text))
                     WriteRegistry(DBASE_SERVER_NAME_KEY, Combo_DBServerName.Text);
 
-                if ((dbPasswordEdit.Text != Decrypt(sReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD))) && !String.IsNullOrEmpty(dbPasswordEdit.Text))
+                if ((dbPasswordEdit.Text != Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD))) && !String.IsNullOrEmpty(dbPasswordEdit.Text))
                     WriteRegistry(DBASE_PASSWORD_KEY, Encrypt(dbPasswordEdit.Text));
 
                 WriteRegistry(DB_MODE_KEY, combo_TipoDBase.SelectedIndex + 1);
@@ -332,9 +334,9 @@ namespace StandFacile
             Close();
         }
 
-        private void combo_TipoDBase_SelectedIndexChanged(object sender, EventArgs e)
+        private void Combo_TipoDBase_SelectedIndexChanged(object sender, EventArgs e)
         {
-            aggiornaAspettoControlli();
+            AggiornaAspettoControlli();
         }
 
     }

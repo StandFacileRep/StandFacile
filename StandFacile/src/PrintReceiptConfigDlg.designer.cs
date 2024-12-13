@@ -151,7 +151,7 @@
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnOK
             // 
@@ -166,7 +166,7 @@
             this.btnOK.Text = "OK  ";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // panelLocalCopies
             // 
@@ -194,7 +194,7 @@
             this.checkBox_AvoidPrintGroups.TabIndex = 70;
             this.checkBox_AvoidPrintGroups.Text = "evita stampa per gruppi non selezionati";
             this.checkBox_AvoidPrintGroups.UseVisualStyleBackColor = true;
-            this.checkBox_AvoidPrintGroups.Click += new System.EventHandler(this.checkBox_AvoidPrintGroups_Click);
+            this.checkBox_AvoidPrintGroups.Click += new System.EventHandler(this.CheckBox_AvoidPrintGroups_Click);
             // 
             // labelWarn
             // 
@@ -218,7 +218,7 @@
             this.checkBox_CUT.TabIndex = 38;
             this.checkBox_CUT.Text = "stampa con taglio di separaz. gruppi";
             this.checkBox_CUT.UseVisualStyleBackColor = true;
-            this.checkBox_CUT.Click += new System.EventHandler(this.checkBox_CUT_Click);
+            this.checkBox_CUT.Click += new System.EventHandler(this.CheckBox_CUT_Click);
             // 
             // checkBoxUnitItems
             // 
@@ -230,7 +230,7 @@
             this.checkBoxUnitItems.TabIndex = 36;
             this.checkBoxUnitItems.Text = "singolo articolo con quantità uno";
             this.checkBoxUnitItems.UseVisualStyleBackColor = true;
-            this.checkBoxUnitItems.CheckedChanged += new System.EventHandler(this.checkBoxUnitItems_CheckedChanged);
+            this.checkBoxUnitItems.CheckedChanged += new System.EventHandler(this.CheckBoxUnitItems_CheckedChanged);
             // 
             // panelCopies
             // 
@@ -358,7 +358,7 @@
             this.checkBoxSingleRowItems.TabIndex = 31;
             this.checkBoxSingleRowItems.Text = "singolo articolo nella copia locale";
             this.checkBoxSingleRowItems.UseVisualStyleBackColor = true;
-            this.checkBoxSingleRowItems.CheckedChanged += new System.EventHandler(this.checkBoxSingleRowItems_CheckedChanged);
+            this.checkBoxSingleRowItems.CheckedChanged += new System.EventHandler(this.CheckBoxSingleRowItems_CheckedChanged);
             // 
             // checkBoxSelectedOnly
             // 
@@ -370,7 +370,7 @@
             this.checkBoxSelectedOnly.TabIndex = 30;
             this.checkBoxSelectedOnly.Text = "stampa solo selezionati";
             this.checkBoxSelectedOnly.UseVisualStyleBackColor = true;
-            this.checkBoxSelectedOnly.CheckedChanged += new System.EventHandler(this.checkBoxNoPrice_CheckedChanged);
+            this.checkBoxSelectedOnly.CheckedChanged += new System.EventHandler(this.CheckBoxNoPrice_CheckedChanged);
             // 
             // checkBoxLocalCopy
             // 
@@ -382,12 +382,12 @@
             this.checkBoxLocalCopy.TabIndex = 29;
             this.checkBoxLocalCopy.Text = "abilita stampa copie locali in cassa";
             this.checkBoxLocalCopy.UseVisualStyleBackColor = true;
-            this.checkBoxLocalCopy.CheckedChanged += new System.EventHandler(this.checkBoxNoPrice_CheckedChanged);
+            this.checkBoxLocalCopy.CheckedChanged += new System.EventHandler(this.CheckBoxNoPrice_CheckedChanged);
             // 
             // timer
             // 
             this.timer.Interval = 250;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            this.timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
             // LinkLbl_Mnu_CCR
             // 

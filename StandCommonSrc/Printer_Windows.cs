@@ -25,7 +25,7 @@ using System.IO;
 using System.Drawing;
 using System.Drawing.Printing;
 
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.LogServer;
 
@@ -43,6 +43,10 @@ namespace StandCommonFiles
 {
     class Printer_Windows
     {
+#pragma warning disable IDE0044
+#pragma warning disable IDE0059
+#pragma warning disable IDE1006
+
         const int BARCODE_HEIGHT = 100;
         //const String WIDE_CONST_STRING = "*********_*********_********";
 
@@ -126,7 +130,7 @@ namespace StandCommonFiles
 
             // init
             _sOrdineNum = "0123"; // per sampleText
-            _sDataStr = getActualDate().ToString("ddMMyy");
+            _sDataStr = GetActualDate().ToString("ddMMyy");
 
             _sWinPrinterParams = sWinPrinterParams;
             _sFileToPrintParam = sFileToPrintParam;
@@ -182,8 +186,8 @@ namespace StandCommonFiles
             iDebug1 = DB_Data.iStatusReceipt; // 4 BIT_CARICATO_DA_PREVENDITA
             iDebug2 = SF_Data.iStatusReceipt; // 2 BIT_EMESSO_IN_PREVENDITA
 
-            // 28.05.2022 aggiunto _bUSA_NDB() per ignorare il flag del listino con SQLite
-            _bStampaBarcode = IsBitSet(SF_Data.iBarcodeRichiesto, _iGruppoStampa) && _bUSA_NDB();
+            // 28.05.2022 aggiunto bUSA_NDB() per ignorare il flag del listino con SQLite
+            _bStampaBarcode = IsBitSet(SF_Data.iBarcodeRichiesto, _iGruppoStampa) && bUSA_NDB();
 
             // OK verificato
             _bStampaBarcodePrev = SF_Data.bPrevendita || IsBitSet(DB_Data.iStatusReceipt, BIT_EMESSO_IN_PREVENDITA) && !IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA);
@@ -201,7 +205,7 @@ namespace StandCommonFiles
                     _fReceiptVsCopyZoom = sWinPrinterParams.bChars33 ? (26.0f / 33.0f) : 0.86f;
             }
 #else
-            _bStampaBarcode = (iReadRegistry(STAMPA_BARCODE_KEY, 0) == 1);
+            _bStampaBarcode = (ReadRegistry(STAMPA_BARCODE_KEY, 0) == 1);
 #endif
 
             // String sTmpFormat = String.Format("{0,2:D2}", _iGruppoStampa);
@@ -383,7 +387,7 @@ namespace StandCommonFiles
                 _fileToPrint.Close();
 
 #if STANDFACILE
-                if (!bCheckService(Define._AUTO_SEQ_TEST))
+                if (!CheckService(Define._AUTO_SEQ_TEST))
                     Thread.Sleep(iPrint_WaitInterval);
 #endif
 
@@ -460,7 +464,7 @@ namespace StandCommonFiles
                  *************************************/
                 if (_bLogo && bLogoRequested)
                 {
-                    Image img = WinPrinterDlg._rWinPrinterDlg.pGetWinPrinterLogo();
+                    Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo();
 
                     if (img != null)
                     {
@@ -581,10 +585,10 @@ namespace StandCommonFiles
 
                 if (_sFileToPrintParam.Contains(NOME_FILE_SAMPLE_TEXT))
                 {
-                    Barcode_EAN13.buildBarcodeID("010406220123");
+                    Barcode_EAN13.BuildBarcodeID("010406220123");
                 }
                 else
-                    Barcode_EAN13.buildBarcodeID(sBarcode);
+                    Barcode_EAN13.BuildBarcodeID(sBarcode);
 
                 for (i = 0; i <= 94; i++)
                 {
@@ -648,11 +652,11 @@ namespace StandCommonFiles
         /***************************************
                  test di esempio di stampa
          ***************************************/
-        public static void printSampleText(TWinPrinterParams sWinPrinterParams)
+        public static void PrintSampleText(TWinPrinterParams sWinPrinterParams)
         {
             String sTmp, sFileToPrint;
 
-            sFileToPrint = buildSampleText();
+            sFileToPrint = BuildSampleText();
 
             _sOrdineNum = "0123"; // per sampleText
 

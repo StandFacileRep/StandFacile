@@ -10,13 +10,15 @@ using System.Windows.Forms;
 using static StandCommonFiles.LogServer;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 
 namespace StandFacile
 {
     /// <summary> classe per la scelta di avvio </summary>
     public partial class startDispDlg : Form
     {
+#pragma warning disable IDE0044
+
         int _iDispMngStatus;
         DateTime _dateFromDB;
 
@@ -33,7 +35,7 @@ namespace StandFacile
             ShowDialog();
         }
 
-        private void btnFullDisp_Click(object sender, EventArgs e)
+        private void BtnFullDisp_Click(object sender, EventArgs e)
         {
             String sTmp;
 
@@ -80,6 +82,7 @@ namespace StandFacile
 
             Close();
 
+#pragma warning disable IDE0059
             InitialDispDlg rInitDispDlg = new InitialDispDlg(_dateFromDB, true);
         }
 

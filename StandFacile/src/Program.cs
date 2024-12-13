@@ -13,7 +13,7 @@ using System.Threading;
 
 using StandCommonFiles;
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using static System.Convert;
@@ -96,7 +96,7 @@ namespace StandFacile
 
             LogToFile("Program : Start");
 
-            iNDbMode = iReadRegistry(DB_MODE_KEY, (int)DB_MODE.SQLITE);
+            iNDbMode = ReadRegistry(DB_MODE_KEY, (int)DB_MODE.SQLITE);
 
             if (iNDbMode == (int)DB_MODE.SQLITE)
                 _rBdBaseIntf_ql = new StandFacile_DB.dBaseIntf_ql();
@@ -113,7 +113,7 @@ namespace StandFacile
 
             Barcode_EAN13 rBarcode_EAN13 = new Barcode_EAN13();
 
-            //Barcode_EAN13.buildBarcodeID("111308221001");
+            //Barcode_EAN13.BuildBarcodeID("111308221001");
 
             // Avvio del server di stampa
             Printer_Legacy.Init();

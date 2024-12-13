@@ -8,7 +8,7 @@ using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.LogServer;
 using static StandFacile.dBaseIntf;
@@ -37,11 +37,11 @@ namespace StandFacile
             InitializeComponent();
             rSelDataDlg = this;
 
-            setTodayDate();
+            SetTodayDate();
         }
 
         /// <summary>inizializza il calendario evidenziando le date che contengono dati</summary>
-        public void setTodayDate()
+        public void SetTodayDate()
         {
             int i, iDB_StringsCount = 0;
             String sCell, sPrefix;
@@ -49,9 +49,9 @@ namespace StandFacile
             List<string> sElencoStrings = new List<string>();
             List<DateTime> list = new List<DateTime>();
 
-            _selDatesFromCalendar = new SelectionRange(getActualDate(), getActualDate());
+            _selDatesFromCalendar = new SelectionRange(GetActualDate(), GetActualDate());
 
-            mCalendar.TodayDate = getActualDate();
+            mCalendar.TodayDate = GetActualDate();
 
             sElencoStrings.Clear();
 
@@ -109,7 +109,7 @@ namespace StandFacile
         }
 
         /// <summary>ritorna 0 se non si esce con l'Ok</summary>
-        public SelectionRange getDateFromPicker()
+        public SelectionRange GetDateFromPicker()
         {
             String sDateTmp1, sDateTmp2;
 
@@ -145,13 +145,15 @@ namespace StandFacile
         }
 
         // aggiunge la gestione dell'evento DoubleClick
-        private void mCalendar_MouseDown(object sender, MouseEventArgs e)
+        private void MCalendar_MouseDown(object sender, MouseEventArgs e)
         {
+            #pragma warning disable IDE1005
+
             int tick = Environment.TickCount;
 
             if (tick - _lastClickTick <= SystemInformation.DoubleClickTime - 80)
             {
-                EventHandler handler = mCalendar_DoubleClick;
+                EventHandler handler = MCalendar_DoubleClick;
                 if (handler != null) handler(this, EventArgs.Empty);
             }
             else
@@ -163,7 +165,7 @@ namespace StandFacile
         }
 
         // evento DoubleClick
-        private void mCalendar_DoubleClick(object sender, EventArgs a)
+        private void MCalendar_DoubleClick(object sender, EventArgs a)
         {
             OKBtn_Click(mCalendar, null);
             Close();

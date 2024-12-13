@@ -13,7 +13,7 @@ using System.Threading;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
 
@@ -61,14 +61,14 @@ namespace StandFacile
 
         /// <summary>ottiene flag modo esperto</summary>
         /// <returns></returns>
-        public bool bGetEsperto() { return MnuEsperto.Checked; }
+        public bool GetEsperto() { return MnuEsperto.Checked; }
 
         /// <summary>ottiene stringa dell'orologio</summary>
         /// <returns></returns>
-        public String get_sClockLabel() { return LabelClock.Text; }
+        public String GetClockLabel() { return LabelClock.Text; }
 
         /// <summary>ottiene stringa ultimi scontrini serviti</summary>
-        public String get_sNumScontrinoLabel() { return LabelNumScontrino.Text; }
+        public String GetNumScontrinoLabel() { return LabelNumScontrino.Text; }
 
         /// <summary>costruttore</summary>
         public FrmMain()
@@ -78,14 +78,17 @@ namespace StandFacile
             InitializeComponent();
 
             // TextBox ToolTip
-            ToolTip tt = new ToolTip();
-            tt.InitialDelay = 0;
-            tt.ShowAlways = true;
+            ToolTip tt = new ToolTip()
+            {
+                InitialDelay = 0,
+                ShowAlways = true
+            };
+
             tt.SetToolTip(btnAnt, "test di connessione al DataBase");
             tt.Dispose();
 
             LabelClock.Text = "";
-            initActualDate();
+            InitActualDate();
 
             LogToFile("Mainform : Avvio StandMonitor");
 
@@ -109,60 +112,70 @@ namespace StandFacile
 
             for (int iWindow = 0; iWindow < 2; iWindow++)
             {
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.String");
-                column.ColumnName = "sTipo_Articolo";
-                column.AutoIncrement = false;
-                column.ReadOnly = true;
-                column.Unique = false;
+                column = new DataColumn()
+                {
+                    DataType = Type.GetType("System.String"),
+                    ColumnName = "sTipo_Articolo",
+                    AutoIncrement = false,
+                    ReadOnly = true,
+                    Unique = false
+                };
 
                 if (iWindow == 0)
                     table_0.Columns.Add(column);
                 else
                     table_1.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.Int32");
-                column.ColumnName = "iQuantita_Venduta";
-                column.AutoIncrement = false;
-                column.ReadOnly = true;
-                column.Unique = false;
+                column = new DataColumn()
+                {
+                    DataType = Type.GetType("System.Int32"),
+                    ColumnName = "iQuantita_Venduta",
+                    AutoIncrement = false,
+                    ReadOnly = true,
+                    Unique = false
+                };
 
                 if (iWindow == 0)
                     table_0.Columns.Add(column);
                 else
                     table_1.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.Int32");
-                column.ColumnName = "iQuantita_Residua";
-                column.AutoIncrement = false;
-                column.ReadOnly = true;
-                column.Unique = false;
+                column = new DataColumn()
+                {
+                    DataType = Type.GetType("System.Int32"),
+                    ColumnName = "iQuantita_Residua",
+                    AutoIncrement = false,
+                    ReadOnly = true,
+                    Unique = false
+                };
 
                 if (iWindow == 0)
                     table_0.Columns.Add(column);
                 else
                     table_1.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.String");
-                column.ColumnName = "sDisponibilita";
-                column.AutoIncrement = false;
-                column.ReadOnly = true;
-                column.Unique = false;
+                column = new DataColumn()
+                {
+                    DataType = Type.GetType("System.String"),
+                    ColumnName = "sDisponibilita",
+                    AutoIncrement = false,
+                    ReadOnly = true,
+                    Unique = false
+                };
 
                 if (iWindow == 0)
                     table_0.Columns.Add(column);
                 else
                     table_1.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = System.Type.GetType("System.String");
-                column.ColumnName = "sGruppo_Stampa";
-                column.AutoIncrement = false;
-                column.ReadOnly = true;
-                column.Unique = false;
+                column = new DataColumn()
+                {
+                    DataType = Type.GetType("System.String"),
+                    ColumnName = "sGruppo_Stampa",
+                    AutoIncrement = false,
+                    ReadOnly = true,
+                    Unique = false
+                };
 
                 if (iWindow == 0)
                     table_0.Columns.Add(column);
@@ -225,7 +238,7 @@ namespace StandFacile
                 N3.Visible = false;
             }
 
-            if (bCheckService(_ESPERTO))
+            if (CheckService(_ESPERTO))
                 MnuEspertoClick(this, null);
 
         }
@@ -235,7 +248,7 @@ namespace StandFacile
         {
             String sKeyGood;
 
-            sKeyGood = sReadRegistry(DBASE_SERVER_NAME_KEY, "");
+            sKeyGood = ReadRegistry(DBASE_SERVER_NAME_KEY, "");
 
             iMAX_RECEIPT_CHARS = sGlbWinPrinterParams.bChars33 ? MAX_ABS_RECEIPT_CHARS : MAX_LEG_RECEIPT_CHARS;
 
@@ -256,7 +269,7 @@ namespace StandFacile
                 NetConfigLightDlg.rNetConfigLightDlg.ShowDialog();
             }
 
-            _rdBaseIntf.dbInit(getActualDate(), CASSA_PRINCIPALE);
+            _rdBaseIntf.dbInit(GetActualDate(), CASSA_PRINCIPALE);
 
             /**********************************************************
              *   ci deve essere stata almeno la prima connessione !!!
@@ -264,9 +277,9 @@ namespace StandFacile
 
             iRefresh = 0;
 
-            FiltroDlg.rFiltroDlg.caricaFiltro();
+            FiltroDlg.rFiltroDlg.CaricaFiltro();
 
-            checkMenuItems();
+            CheckMenuItems();
             FormResize(this, null);
 
             Timer.Enabled = true;
@@ -279,7 +292,7 @@ namespace StandFacile
         /**************************************
          *             main loop 
          **************************************/
-        private void timer_MainLoop(object sender, EventArgs e)
+        private void Timer_MainLoop(object sender, EventArgs e)
         {
 
             bool bFilterFound, bExcludedItem;
@@ -290,7 +303,7 @@ namespace StandFacile
             String sTime, sData, sExcludedItem;
             String sTmpStr, sDisp;
 
-            sData = getActualDate().ToString("ddd dd/MM/yy");
+            sData = GetActualDate().ToString("ddd dd/MM/yy");
             sTmpStr = sData.ToUpper();
             sTmpStr = sTmpStr.Substring(0, 1);
 
@@ -341,32 +354,32 @@ namespace StandFacile
 
                     lblElapsedTime.Text = sTmpStr;
 
-                    LogToFile("timer_MainLoop : dbFuncTime = " + sTmpStr);
+                    LogToFile("Timer_MainLoop : dbFuncTime = " + sTmpStr);
                 }
                 catch (Exception)
                 {
                     _bDatabaseConnected = false;
 
-                    if (get_bErrorePrimaVolta())
+                    if (GetErrorePrimaVolta())
                     {
                         //WrnMsg.sMsg = _sDBTNameDati;
                         //WrnMsg.iErrID = WRN_TDQ;
                         //WarningManager(WrnMsg);
 
-                        clear_bErrorePrimaVolta();
+                        ClearErrorePrimaVolta();
                     }
 
-                    LogToFile("timer_MainLoop : dbException prima tabella");
+                    LogToFile("Timer_MainLoop : dbException prima tabella");
                 }
 
-                LabelNumScontrino.Text = String.Format("scontrini: {0},  ultimi serviti: {1}, {2}, {3}, {4}, {5}", get_iNumScontrini(),
-                    get_sNumScontrino(NUM_ULTIMI_SCONTRINI - 1),
-                    get_sNumScontrino(NUM_ULTIMI_SCONTRINI - 2),
-                    get_sNumScontrino(NUM_ULTIMI_SCONTRINI - 3),
-                    get_sNumScontrino(NUM_ULTIMI_SCONTRINI - 4),
-                    get_sNumScontrino(NUM_ULTIMI_SCONTRINI - 5));
+                LabelNumScontrino.Text = String.Format("scontrini: {0},  ultimi serviti: {1}, {2}, {3}, {4}, {5}", GetNumScontrini(),
+                    GetNumScontrino(NUM_ULTIMI_SCONTRINI - 1),
+                    GetNumScontrino(NUM_ULTIMI_SCONTRINI - 2),
+                    GetNumScontrino(NUM_ULTIMI_SCONTRINI - 3),
+                    GetNumScontrino(NUM_ULTIMI_SCONTRINI - 4),
+                    GetNumScontrino(NUM_ULTIMI_SCONTRINI - 5));
 
-                LabelClock.Text = String.Format("{0} {1},  attesa: {2} m", sData, sTime, get_sAttesaMedia());
+                LabelClock.Text = String.Format("{0} {1},  attesa: {2} m", sData, sTime, GetAttesaMedia());
 
                 /***********************************************
                        scrittura tabella DBGrid
@@ -484,7 +497,7 @@ namespace StandFacile
                 catch (Exception)
                 {
                     _bDatabaseConnected = false;
-                    LogToFile("timer_MainLoop : dbException DBGrid");
+                    LogToFile("Timer_MainLoop : dbException DBGrid");
                 }
 
                 FormResize(this, null);
@@ -493,7 +506,7 @@ namespace StandFacile
                     visualizza nella seconda finestra
                  ***************************************/
                 if ((AuxForm.rAuxForm != null) && AuxForm.rAuxForm.Visible)
-                    AuxForm.rAuxForm.refresh();
+                    AuxForm.rAuxForm.AuxRefresh();
             }
             else
                 iRefresh--;
@@ -545,7 +558,7 @@ namespace StandFacile
             String sTmp;
             DialogResult dResult;
 
-            if (!bCheckService(_ESPERTO) && (!MnuEsperto.Checked))
+            if (!CheckService(_ESPERTO) && (!MnuEsperto.Checked))
                 dResult = MessageBox.Show("E' importante aver letto e compreso il manuale prima di proseguire !\r\n\r\n" +
                        "Il manuale pdf è presente nella cartella di installazione e si può aprire anche dal pulsante presente nel menù di Aiuto->Aiuto Rapido.",
                        "Attenzione !", MessageBoxButtons.OKCancel);
@@ -556,7 +569,7 @@ namespace StandFacile
             {
                 MnuEsperto.Checked = !MnuEsperto.Checked;
 
-                checkMenuItems();
+                CheckMenuItems();
 
                 sTmp = String.Format("FrmMain: Modo Esperto {0}", MnuEsperto.Checked);
                 LogToFile(sTmp);
@@ -567,7 +580,7 @@ namespace StandFacile
          *       Abilita/disabilita le varie voci
          *       del Menù Principale
          ***************************************************/
-        private void checkMenuItems()
+        private void CheckMenuItems()
         {
             if (MnuEsperto.Checked)
             {
@@ -588,7 +601,7 @@ namespace StandFacile
         private void MnuDBServer_Click(object sender, EventArgs e)
         {
             NetConfigLightDlg.rNetConfigLightDlg.ShowDialog();
-            iRefresh = 0; // refresh immediato
+            iRefresh = 0; // AuxRefresh immediato
         }
 
         private void MnuAbout_Click(object sender, EventArgs e)
@@ -687,7 +700,7 @@ namespace StandFacile
             ulStart = (ulong)Environment.TickCount;
 
             _rdBaseIntf.dbCheck();
-            iRefresh = 0; // refresh immediato
+            iRefresh = 0; // AuxRefresh immediato
 
             // misura del tempo in ms per eseguire dbScaricaOrdine
             ulStop = (ulong)Environment.TickCount;
@@ -721,10 +734,10 @@ namespace StandFacile
             _rdBaseIntf.dbCheckStatus();
 
             // riporta DatePicker alla data di oggi
-            SelDataDlg.rSelDataDlg.setTodayDate();
+            SelDataDlg.rSelDataDlg.SetTodayDate();
 
             // usa la data corrente
-            rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_DATI, getActualDate(), CASSA_PRINCIPALE, false);
+            rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_DATI, GetActualDate(), CASSA_PRINCIPALE, false);
 
             rVisDatiDlg.Dispose();
         }
@@ -735,7 +748,7 @@ namespace StandFacile
             VisDatiDlg rVisDatiDlg = new VisDatiDlg();
 
             SelDataDlg.rSelDataDlg.ShowDialog();
-            selDates = SelDataDlg.rSelDataDlg.getDateFromPicker();
+            selDates = SelDataDlg.rSelDataDlg.GetDateFromPicker();
 
             if (selDates != null) // non sono uscito con Cancel ...
                 rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_DATI, selDates, SF_Data.iNumCassa, true);
@@ -756,14 +769,14 @@ namespace StandFacile
         {
             new AuxForm(2);
 
-            AuxForm.rAuxForm.refresh();
+            AuxForm.rAuxForm.AuxRefresh();
             AuxForm.rAuxForm.Show();
         }
         private void MnuAuxWindow3_Click(object sender, EventArgs e)
         {
             new AuxForm(3);
 
-            AuxForm.rAuxForm.refresh();
+            AuxForm.rAuxForm.AuxRefresh();
             AuxForm.rAuxForm.Show();
         }
 
@@ -776,9 +789,9 @@ namespace StandFacile
         {
             String sTmp, sFileToPrint;
 
-            sFileToPrint = buildSampleText();
+            sFileToPrint = BuildSampleText();
 
-            sTmp = String.Format("Mainform : printSampleText() {0}", sFileToPrint);
+            sTmp = String.Format("Mainform : PrintSampleText() {0}", sFileToPrint);
             LogToFile(sTmp);
 
             GenPrintFile(sFileToPrint);
@@ -804,7 +817,7 @@ namespace StandFacile
 
         private void MnuVisOrdiniOggi_Click(object sender, EventArgs e)
         {
-            VisOrdiniDlg rVisOrdiniDlg = new VisOrdiniDlg(getActualDate(), VisOrdiniDlg.MAX_NUM_TICKET);
+            VisOrdiniDlg rVisOrdiniDlg = new VisOrdiniDlg(GetActualDate(), VisOrdiniDlg.MAX_NUM_TICKET);
             rVisOrdiniDlg.Dispose();
         }
 
@@ -813,7 +826,7 @@ namespace StandFacile
             SelectionRange selDates;
 
             SelDataDlg.rSelDataDlg.ShowDialog();
-            selDates = SelDataDlg.rSelDataDlg.getDateFromPicker();
+            selDates = SelDataDlg.rSelDataDlg.GetDateFromPicker();
 
             if (selDates != null) // non sono uscito con Cancel ...
             {

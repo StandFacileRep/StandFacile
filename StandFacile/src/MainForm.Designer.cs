@@ -1205,7 +1205,7 @@
             this.btnPlus.Size = new System.Drawing.Size(80, 80);
             this.btnPlus.Text = "toolStripButton1";
             this.btnPlus.ToolTipText = "incrementa la quantità";
-            this.btnPlus.Click += new System.EventHandler(this.btnPlus_Click);
+            this.btnPlus.Click += new System.EventHandler(this.BtnPlus_Click);
             // 
             // btnSep_R2
             // 
@@ -1227,7 +1227,7 @@
             this.btnMinus.Size = new System.Drawing.Size(80, 80);
             this.btnMinus.Text = "toolStripButton1";
             this.btnMinus.ToolTipText = "decrementa la quantità";
-            this.btnMinus.Click += new System.EventHandler(this.btnMinus_Click);
+            this.btnMinus.Click += new System.EventHandler(this.BtnMinus_Click);
             // 
             // btnSep_R3
             // 
@@ -1247,7 +1247,7 @@
             this.btnCanc.Name = "btnCanc";
             this.btnCanc.Size = new System.Drawing.Size(83, 84);
             this.btnCanc.ToolTipText = "azzera la quantità";
-            this.btnCanc.Click += new System.EventHandler(this.btnCanc_Click);
+            this.btnCanc.Click += new System.EventHandler(this.BtnCanc_Click);
             // 
             // comboCashPos
             // 
@@ -1264,7 +1264,7 @@
             this.comboCashPos.Name = "comboCashPos";
             this.comboCashPos.Size = new System.Drawing.Size(78, 21);
             this.comboCashPos.TabIndex = 24;
-            this.comboCashPos.SelectedIndexChanged += new System.EventHandler(this.comboCashPos_SelectedIndexChanged);
+            this.comboCashPos.SelectedIndexChanged += new System.EventHandler(this.ComboCashPos_SelectedIndexChanged);
             // 
             // lblNome
             // 

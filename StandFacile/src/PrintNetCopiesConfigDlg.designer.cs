@@ -153,7 +153,7 @@
             this.checkBoxBCD_7.Text = " ";
             this.checkBoxBCD_7.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.checkBoxBCD_7.UseVisualStyleBackColor = true;
-            this.checkBoxBCD_7.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxBCD_MouseClick);
+            this.checkBoxBCD_7.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxBCD_MouseClick);
             // 
             // checkBoxBCD_6
             // 
@@ -170,7 +170,7 @@
             this.checkBoxBCD_6.Text = " ";
             this.checkBoxBCD_6.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.checkBoxBCD_6.UseVisualStyleBackColor = true;
-            this.checkBoxBCD_6.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxBCD_MouseClick);
+            this.checkBoxBCD_6.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxBCD_MouseClick);
             // 
             // checkBoxBCD_5
             // 
@@ -187,7 +187,7 @@
             this.checkBoxBCD_5.Text = " ";
             this.checkBoxBCD_5.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.checkBoxBCD_5.UseVisualStyleBackColor = true;
-            this.checkBoxBCD_5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxBCD_MouseClick);
+            this.checkBoxBCD_5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxBCD_MouseClick);
             // 
             // checkBoxBCD_4
             // 
@@ -204,7 +204,7 @@
             this.checkBoxBCD_4.Text = " ";
             this.checkBoxBCD_4.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.checkBoxBCD_4.UseVisualStyleBackColor = true;
-            this.checkBoxBCD_4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxBCD_MouseClick);
+            this.checkBoxBCD_4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxBCD_MouseClick);
             // 
             // checkBoxBCD_2
             // 
@@ -221,7 +221,7 @@
             this.checkBoxBCD_2.Text = " ";
             this.checkBoxBCD_2.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.checkBoxBCD_2.UseVisualStyleBackColor = true;
-            this.checkBoxBCD_2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxBCD_MouseClick);
+            this.checkBoxBCD_2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxBCD_MouseClick);
             // 
             // checkBoxBCD_3
             // 
@@ -238,7 +238,7 @@
             this.checkBoxBCD_3.Text = " ";
             this.checkBoxBCD_3.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.checkBoxBCD_3.UseVisualStyleBackColor = true;
-            this.checkBoxBCD_3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxBCD_MouseClick);
+            this.checkBoxBCD_3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxBCD_MouseClick);
             // 
             // checkBoxBCD_1
             // 
@@ -255,7 +255,7 @@
             this.checkBoxBCD_1.Text = " ";
             this.checkBoxBCD_1.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.checkBoxBCD_1.UseVisualStyleBackColor = true;
-            this.checkBoxBCD_1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxBCD_MouseClick);
+            this.checkBoxBCD_1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxBCD_MouseClick);
             // 
             // checkBoxBCD_0
             // 
@@ -272,7 +272,7 @@
             this.checkBoxBCD_0.Text = " ";
             this.checkBoxBCD_0.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.checkBoxBCD_0.UseVisualStyleBackColor = true;
-            this.checkBoxBCD_0.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxBCD_MouseClick);
+            this.checkBoxBCD_0.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxBCD_MouseClick);
             // 
             // labelNoWebLoad
             // 
@@ -323,7 +323,7 @@
             this.checkBoxCopia_7.TabIndex = 58;
             this.checkBoxCopia_7.Text = "stampa copia gruppo 8";
             this.checkBoxCopia_7.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_7.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_7.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // BtnPrintCheck_6
             // 
@@ -364,7 +364,7 @@
             this.checkBoxCopia_6.TabIndex = 52;
             this.checkBoxCopia_6.Text = "stampa copia gruppo 7";
             this.checkBoxCopia_6.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_6.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_6.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // BtnPrintCheck_5
             // 
@@ -456,7 +456,7 @@
             this.checkBoxCopia_5.TabIndex = 25;
             this.checkBoxCopia_5.Text = "stampa copia gruppo 6";
             this.checkBoxCopia_5.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // PrintersListCombo_4
             // 
@@ -488,7 +488,7 @@
             this.checkBoxCopia_4.TabIndex = 20;
             this.checkBoxCopia_4.Text = "stampa copia gruppo 5";
             this.checkBoxCopia_4.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // PrintersListCombo_3
             // 
@@ -520,7 +520,7 @@
             this.checkBoxCopia_3.TabIndex = 15;
             this.checkBoxCopia_3.Text = "stampa copia gruppo 4";
             this.checkBoxCopia_3.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // PrintersListCombo_2
             // 
@@ -552,7 +552,7 @@
             this.checkBoxCopia_2.TabIndex = 10;
             this.checkBoxCopia_2.Text = "stampa copia gruppo 3";
             this.checkBoxCopia_2.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // PrintersListCombo_1
             // 
@@ -584,7 +584,7 @@
             this.checkBoxCopia_1.TabIndex = 5;
             this.checkBoxCopia_1.Text = "stampa copia gruppo 2";
             this.checkBoxCopia_1.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // PrintersListCombo_0
             // 
@@ -617,7 +617,7 @@
             this.checkBoxCopia_0.TabIndex = 0;
             this.checkBoxCopia_0.Text = "stampa copia gruppo 1";
             this.checkBoxCopia_0.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_0.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_0.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // btnReset
             // 
@@ -646,7 +646,7 @@
             this.btnCancel.Text = "Annulla";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnOK
             // 
@@ -660,7 +660,7 @@
             this.btnOK.Text = "OK  ";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // timer
             // 

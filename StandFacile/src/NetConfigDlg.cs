@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.ComSafe;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using static StandFacile.glb;
@@ -29,6 +29,8 @@ namespace StandFacile
     /// <summary>dialogo di configurazione delle connessione alla rete locale</summary>
     public partial class NetConfigDlg : Form
     {
+#pragma warning disable IDE0044
+
         readonly String _sHostName;
 
         static bool _bOK_EnableLoc, _bOK_EnableRem;
@@ -42,13 +44,13 @@ namespace StandFacile
         /// <summary>
         /// ottiene il flag di abilitazione alla gestione ordini web
         /// </summary>
-        public bool bGetWebOrderEnabled()
+        public bool GetWebOrderEnabled()
         {
             return WO_ckBox.Checked;
         }
 
         /// <summary>ottiene il nome del server web</summary>
-        public String sGetWebServerName()
+        public String GetWebServerName()
         {
             return Edit_WebServiceDBaseName.Text;
         }
@@ -88,7 +90,7 @@ namespace StandFacile
             for (i = MAX_COMBO_ITEMS - 1; (i >= 0); i--)
             {
                 sStrTmp = String.Format(SEL_DB_SERVER_KEY, i);
-                sStrTmp = sReadRegistry(sStrTmp);
+                sStrTmp = ReadRegistry(sStrTmp, "");
 
                 if (!String.IsNullOrEmpty(sStrTmp))
                     Combo_DBServerName.Items.Insert(0, sStrTmp);
@@ -106,11 +108,11 @@ namespace StandFacile
                 Combo_NumCassa.Items.Insert(0, sConstCassaType[i]);
 
             // Inizializza controlli
-            iTipoDBItem = (int)(_iUSA_NDB());
+            iTipoDBItem = (int)(iUSA_NDB());
             combo_TipoDBase.SelectedIndex = iTipoDBItem;
 
-            Combo_DBServerName.Text = sReadRegistry(DBASE_SERVER_NAME_KEY, _sHostName);
-            dbPasswordEdit.Text = Decrypt(sReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
+            Combo_DBServerName.Text = ReadRegistry(DBASE_SERVER_NAME_KEY, _sHostName);
+            dbPasswordEdit.Text = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
 
             // impostate da dBaseTunnel_my in base a SF_Data.iNumCassa
             Edit_WebServiceDBaseName.Text = _sWebServerParams.sWeb_DBase;
@@ -118,15 +120,15 @@ namespace StandFacile
             Edit_WebService_Name.Text = _sWebServerParams.sWebTablePrefix;
 
             // se è MySQL, oppure è se attivo il corrispondente DB
-            if ((combo_TipoDBase.SelectedIndex == 0) || combo_TipoDBase.SelectedIndex == _iUSA_NDB())
+            if ((combo_TipoDBase.SelectedIndex == 0) || combo_TipoDBase.SelectedIndex == iUSA_NDB())
                 _bOK_EnableLoc = true;
             else
                 _bOK_EnableLoc = false;
 
-            Combo_NumCassa.SelectedIndex = iReadRegistry(NUM_CASSA_KEY, 1) - 1;
+            Combo_NumCassa.SelectedIndex = ReadRegistry(NUM_CASSA_KEY, 1) - 1;
 
             // anche la CASSA_SECONDARIA puo collegarsi per lo scarico degli ordini
-            WO_ckBox.Checked = (iReadRegistry(WEB_SERVICE_MODE_KEY, 0) == 1);
+            WO_ckBox.Checked = (ReadRegistry(WEB_SERVICE_MODE_KEY, 0) == 1);
 
             if (Edit_WebServiceDBaseName.Text == "standfacile_rdb")
                 link_QRcode.Text = String.Format("https://localhost/standfacile_{0}_php/{1}/index.php", RELEASE_TBL, Edit_WebService_Name.Text);
@@ -139,13 +141,13 @@ namespace StandFacile
             }
             _bInitComplete = true; // per non scatenare l'evento onClick
 
-            aggiornaAspettoControlli();
+            AggiornaAspettoControlli();
 
             if (bShow)
                 ShowDialog();
         }
 
-        void aggiornaAspettoControlli()
+        void AggiornaAspettoControlli()
         {
             if (!_bInitComplete)
                 return;
@@ -248,12 +250,12 @@ namespace StandFacile
         private void Combo_NumCassa_SelectedIndexChanged(object sender, EventArgs e)
         {
             // se è MySQL, oppure è se attivo il corrispondente DB
-            if ((combo_TipoDBase.SelectedIndex == 0) || combo_TipoDBase.SelectedIndex == _iUSA_NDB())
+            if ((combo_TipoDBase.SelectedIndex == 0) || combo_TipoDBase.SelectedIndex == iUSA_NDB())
                 _bOK_EnableLoc = true;
             else
                 _bOK_EnableLoc = false;
 
-            aggiornaAspettoControlli();
+            AggiornaAspettoControlli();
         }
 
         private void Btn_DBServerTest_Click(object sender, EventArgs e)
@@ -266,7 +268,7 @@ namespace StandFacile
             else
                 _bOK_EnableLoc = false;
 
-            aggiornaAspettoControlli();
+            AggiornaAspettoControlli();
 
             String sTmp = String.Format("TFrmNetConfig, _bOK_EnableLoc = {0}, _bOK_EnableRem = {1}", _bOK_EnableLoc, _bOK_EnableRem);
             LogToFile(sTmp);
@@ -277,11 +279,11 @@ namespace StandFacile
         {
             if (WO_ckBox.Checked)
                 // se era già attivo non è cambiato
-                _bOK_EnableRem = (iReadRegistry(WEB_SERVICE_MODE_KEY, 0) == 1);
+                _bOK_EnableRem = (ReadRegistry(WEB_SERVICE_MODE_KEY, 0) == 1);
             else
                 _bOK_EnableRem = true;
 
-            aggiornaAspettoControlli();
+            AggiornaAspettoControlli();
         }
 
         private void NC_btn_webSiteTest_Click(object sender, EventArgs e)
@@ -291,39 +293,39 @@ namespace StandFacile
             else
                 _bOK_EnableRem = false;
 
-            aggiornaAspettoControlli();
+            AggiornaAspettoControlli();
 
             String sTmp = String.Format("TFrmNetConfig, _bOK_EnableLoc = {0}, _bOK_EnableRem = {1}", _bOK_EnableLoc, _bOK_EnableRem);
             LogToFile(sTmp);
         }
 
-        private void link_QRcode_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void Link_QRcodeClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             this.link_QRcode.LinkVisited = true;
 
             System.Diagnostics.Process.Start(link_QRcode.Text);
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             bool bRiavvio = false;
             String sTmp;
 
-            if (combo_TipoDBase.SelectedIndex != _iUSA_NDB())
+            if (combo_TipoDBase.SelectedIndex != iUSA_NDB())
             {
                 WriteRegistry(DB_MODE_KEY, combo_TipoDBase.SelectedIndex);
 
                 bRiavvio = true;
             }
 
-            if ((Combo_DBServerName.Text != sReadRegistry(DBASE_SERVER_NAME_KEY)) && (!String.IsNullOrEmpty(Combo_DBServerName.Text))) // 1, 2
+            if ((Combo_DBServerName.Text != ReadRegistry(DBASE_SERVER_NAME_KEY, "")) && (!String.IsNullOrEmpty(Combo_DBServerName.Text))) // 1, 2
             {
                 WriteRegistry(DBASE_SERVER_NAME_KEY, Combo_DBServerName.Text);
 
                 bRiavvio = true;
             }
 
-            if ((iReadRegistry(DB_MODE_KEY, 0) > 0) && (dbPasswordEdit.Text != Decrypt(sReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD))) &&
+            if ((ReadRegistry(DB_MODE_KEY, 0) > 0) && (dbPasswordEdit.Text != Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD))) &&
                 (!String.IsNullOrEmpty(dbPasswordEdit.Text)))
             {
                 WriteRegistry(DBASE_PASSWORD_KEY, Encrypt(dbPasswordEdit.Text));
@@ -337,7 +339,7 @@ namespace StandFacile
                 bRiavvio = true;
             }
 
-            if (WO_ckBox.Checked != (iReadRegistry(WEB_SERVICE_MODE_KEY, 0) == 1))
+            if (WO_ckBox.Checked != (ReadRegistry(WEB_SERVICE_MODE_KEY, 0) == 1))
             {
                 WriteRegistry(WEB_SERVICE_MODE_KEY, WO_ckBox.Checked ? 1 : 0);
                 bRiavvio = true; // il riavvio serve a dBaseTunnel_my
@@ -375,7 +377,7 @@ namespace StandFacile
             {
                 MessageBox.Show("Il tipo di Cassa e/o le impostazioni Database sono cambiate,\nil programma verrà riavviato !", "Attenzione !", MessageBoxButtons.OK);
 
-                sTmp = String.Format("TFrmNetConfig, Tipo di database = {0}, DB Server = {1}", (iReadRegistry(DB_MODE_KEY, 0) > 0), Combo_DBServerName.Text);
+                sTmp = String.Format("TFrmNetConfig, Tipo di database = {0}, DB Server = {1}", (ReadRegistry(DB_MODE_KEY, 0) > 0), Combo_DBServerName.Text);
                 LogToFile(sTmp);
 
                 ErrorManager(ERR_CDB);

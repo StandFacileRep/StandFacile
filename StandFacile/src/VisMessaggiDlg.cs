@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using StandCommonFiles;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.LogServer;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandFacile.dBaseIntf;
 
 using static StandFacile.glb;
@@ -26,6 +26,8 @@ namespace StandFacile
     /// </summary>
     public partial class VisMessaggiDlg : Form
     {
+#pragma warning disable IDE0044
+
         bool _bNuovoMessaggioReq, _bMessaggioCaricato;
         int _iNum;
 
@@ -68,7 +70,7 @@ namespace StandFacile
             sDefaultPrinter = settings.PrinterName;
 
             //  l'ultimo elemento del vettore è la stampante messaggi, poi la Locale ( = non quella delle copie)
-            sGlbWinPrinterParams.sMsgPrinterModel = sReadRegistry(WIN_MSG_PRINTER_MODEL_KEY, sDefaultPrinter);
+            sGlbWinPrinterParams.sMsgPrinterModel = ReadRegistry(WIN_MSG_PRINTER_MODEL_KEY, sDefaultPrinter);
             sGlbWinPrinterParams.iMsgPrinterModel = 0;
 
             PrintersListCombo.Items.Clear();
@@ -117,7 +119,7 @@ namespace StandFacile
             BtnPrev.Enabled = true;
             BtnNext.Enabled = true;
 
-            if (_bUSA_NDB())
+            if (bUSA_NDB())
                 SF_Data.iNumOfMessages = _rdBaseIntf.dbGetNumOfMessagesFromDB();
 
             if (iNum > SF_Data.iNumOfMessages)
@@ -174,7 +176,7 @@ namespace StandFacile
             btnSend.Enabled = false;
 
             // solo con DB di rete
-            ckBoxTutteCasse.Enabled = _bUSA_NDB();
+            ckBoxTutteCasse.Enabled = bUSA_NDB();
 
             if (!Visible)
                 ShowDialog();
@@ -183,7 +185,7 @@ namespace StandFacile
         /// <summary>
         /// compone un nuovo messaggio
         /// </summary>
-        public void nuovoMessaggioCucina()
+        public void NuovoMessaggioCucina()
         {
             // Limita la lunghezza del messaggio :
             // 3 righe sono di intestazione + altre 6 = 9*28 = 252 < 255
@@ -214,12 +216,12 @@ namespace StandFacile
             ShowDialog();
         }
 
-        private void prevBtn_Click(object sender, EventArgs e)
+        private void PrevBtn_Click(object sender, EventArgs e)
         {
             VisualizzaMessaggio(_iNum - 1);
         }
 
-        private void nextBtn_Click(object sender, EventArgs e)
+        private void NextBtn_Click(object sender, EventArgs e)
         {
             VisualizzaMessaggio(_iNum + 1);
         }
@@ -265,7 +267,7 @@ namespace StandFacile
         /*************************************************
             Il nuovo messaggio viene qui scritto su file
          *************************************************/
-        private void btnOk_Click(object sender, EventArgs e)
+        private void BtnOk_Click(object sender, EventArgs e)
         {
             int iNewMessageNum;
             String sNomeFileMsg, sActualDateStr;
@@ -273,7 +275,7 @@ namespace StandFacile
             if ((_iNum == (SF_Data.iNumOfMessages + 1)) && (textEdit_Messaggi.Lines.Length > 0))
             {
                 // controllo coerenza
-                if (_bUSA_NDB())
+                if (bUSA_NDB())
                     iNewMessageNum = _rdBaseIntf.dbNewMessageNumRequest();
                 else
                     iNewMessageNum = (SF_Data.iNumOfMessages + 1);
@@ -293,7 +295,7 @@ namespace StandFacile
                 }
                 else
                 {
-                    sActualDateStr = getActualDate().ToString("dd/MM/yy");
+                    sActualDateStr = GetActualDate().ToString("dd/MM/yy");
 
                     WrnMsg.iErrID = WRN_DNA;
                     WrnMsg.sMsg = String.Format("- PC Locale : {0}\n\n- Database : {1}\n", sActualDateStr, dbGetDateFromDB());
@@ -313,7 +315,7 @@ namespace StandFacile
             textEdit_Messaggi.Focus();
         }
 
-        private void textEdit_Messaggi_KeyUp(object sender, KeyEventArgs e)
+        private void TextEdit_Messaggi_KeyUp(object sender, KeyEventArgs e)
         {
             if (lblRemChar.Enabled)
                 lblRemChar.Text = String.Format("Caratteri rimanenti : {0}", textEdit_Messaggi.MaxLength - textEdit_Messaggi.TextLength);
@@ -343,14 +345,14 @@ namespace StandFacile
                 if (_bNewMessage)
                 {
                     dataIdentifierParam = SF_Data;
-                    btnOk_Click(sender, null);
+                    BtnOk_Click(sender, null);
                 }
                 else
                     dataIdentifierParam = DB_Data;
 
                 iEqRowsNumber = 1; // riga di partenza
 
-                sNomeFileMsg = DataManager.sGetMessagesDir() + "\\" + String.Format(NOME_FILE_MESSAGGIO, dataIdentifierParam.iNumCassa, _iNum);
+                sNomeFileMsg = DataManager.GetMessagesDir() + "\\" + String.Format(NOME_FILE_MESSAGGIO, dataIdentifierParam.iNumCassa, _iNum);
                 fTxtFile = File.CreateText(sNomeFileMsg);
 
                 if (fTxtFile != null)
@@ -360,7 +362,7 @@ namespace StandFacile
                     // inserisce Headers
                     if (_bNewMessage)
                     {
-                        sTmp = sCenterJustify(dataIdentifierParam.sHeaders[0], iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(dataIdentifierParam.sHeaders[0], iMAX_RECEIPT_CHARS);
                         if (!String.IsNullOrEmpty(dataIdentifierParam.sHeaders[0]))
                         {
                             sMessage += String.Format("{0}\n\n", sTmp);
@@ -368,12 +370,12 @@ namespace StandFacile
                         }
 
                         sTmp = String.Format("{0,-22}C.{1}", GetDateTimeString(), dataIdentifierParam.iNumCassa);
-                        sTmp = sCenterJustify(sTmp, iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(sTmp, iMAX_RECEIPT_CHARS);
                         sMessage += String.Format("{0}\n\n", sTmp);
                         iEqRowsNumber++; iEqRowsNumber++;
 
                         sTmp = String.Format("{0}{1,4}", "Messaggio Numero =", _iNum);
-                        sTmp = sCenterJustify(sTmp, iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(sTmp, iMAX_RECEIPT_CHARS);
                         sMessage += String.Format("{0}\n\n", sTmp);
                         iEqRowsNumber++; iEqRowsNumber++;
                     }
@@ -400,7 +402,7 @@ namespace StandFacile
                     // Invio alla Stampante
                     LogToFile("VisMessaggiDlg : stampa di " + sNomeFileMsg);
 
-                    if (PrintNetCopiesConfigDlg.bGetPrinterTypeIsWinwows(NUM_EDIT_GROUPS + 1))
+                    if (PrintNetCopiesConfigDlg.GetPrinterTypeIsWinwows(NUM_EDIT_GROUPS + 1))
                         Printer_Windows.PrintFile(sNomeFileMsg, sGlbWinPrinterParams, NUM_EDIT_GROUPS + 1);
                     else
                         Printer_Legacy.PrintFile(sNomeFileMsg, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_NOW);
@@ -442,7 +444,7 @@ namespace StandFacile
 
             _iNum = SF_Data.iNumOfMessages + 1;
 
-            btnOk_Click(this, null);
+            BtnOk_Click(this, null);
         }
 
     }

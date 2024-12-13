@@ -33,9 +33,9 @@ namespace StandFacile
             LinkLbl_Web.Text = URL_SITO;
             LinkLbl_mail.Text = MAIL;
 
-            Lbl_DB.Text = String.Format("DB server : {0}", dBaseIntf.sGetDB_ServerName());
+            Lbl_DB.Text = String.Format("DB server : {0}", dBaseIntf.GetDB_ServerName());
 
-            switch (dBaseIntf._iUSA_NDB())
+            switch (dBaseIntf.iUSA_NDB())
             {
                 case (int)DB_MODE.MYSQL:
                     dllAssembly = Assembly.LoadFrom(sRootDir + "//" + DB_CONNECTOR_DLL_MY);

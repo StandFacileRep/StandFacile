@@ -10,6 +10,8 @@ using static StandCommonFiles.ComDef;
 
 namespace StandFacile
 {
+#pragma warning disable IDE1006
+    
     /// <summary>
     /// classe che contitne le variabili globali
     /// </summary>

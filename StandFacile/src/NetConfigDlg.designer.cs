@@ -85,7 +85,7 @@
             this.btnOK.Text = "OK  ";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // Combo_NumCassa
             // 
@@ -257,7 +257,7 @@
             this.link_QRcode.TabStop = true;
             this.link_QRcode.Text = "https://www.standfacile.org";
             this.link_QRcode.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.link_QRcode.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_QRcode_LinkClicked);
+            this.link_QRcode.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Link_QRcodeClicked);
             // 
             // pictureBox_QRCode
             // 
@@ -414,6 +414,6 @@
         private System.Windows.Forms.LinkLabel link_QRcode;
         private System.Windows.Forms.TextBox Edit_WebService_Name;
         private System.Windows.Forms.ComboBox Combo_DBServerName;
-        public System.Windows.Forms.Panel Panel_DB;
+        private System.Windows.Forms.Panel Panel_DB;
     }
 }

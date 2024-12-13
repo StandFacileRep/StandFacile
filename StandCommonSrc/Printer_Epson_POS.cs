@@ -20,7 +20,7 @@ using System.IO;
 using static System.Convert;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
 
@@ -38,6 +38,8 @@ namespace StandCommonFiles
     /// </summary>
     public static class TPrinter_TM_POS
     {
+#pragma warning disable IDE0044
+
         // margini Printer Termica TM T88 II
         const String TM_T88_CUT = "\x1DV0";
 
@@ -90,7 +92,7 @@ namespace StandCommonFiles
                     _bIsDati = true;
             }
 #else
-	        _bStampaBarcode = (iReadRegistry(STAMPA_BARCODE_KEY, 0) == 1);
+	        _bStampaBarcode = (ReadRegistry(STAMPA_BARCODE_KEY, 0) == 1);
 #endif
 
             if (_bIsDatiRid)
@@ -177,7 +179,7 @@ namespace StandCommonFiles
         /// <summary>
         /// esegue un Autotest se supportato
         /// </summary>
-        public static void printAutoTest()
+        public static void PrintAutoTest()
         {
             int iCharCnt = 0;
 
@@ -185,7 +187,7 @@ namespace StandCommonFiles
             cBuffer[iCharCnt++] = (char)0x00; cBuffer[iCharCnt++] = (char)0x02;
             cBuffer[iCharCnt++] = (char)0x00; cBuffer[iCharCnt++] = (char)0x02;
 
-            LogToFile(String.Format("Printer_EPSON : printAutoTest"));
+            LogToFile(String.Format("Printer_EPSON : PrintAutoTest"));
 
             PrintBuffer(cBuffer, iCharCnt);
         }
@@ -205,7 +207,7 @@ namespace StandCommonFiles
 
             _sFileToPrint = sFileToPrintParam;
 
-            sDataStr = getActualDate().ToString("ddMMyy");
+            sDataStr = GetActualDate().ToString("ddMMyy");
 
             Init();
             bCopiaCucina = false;

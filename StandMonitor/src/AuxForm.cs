@@ -6,7 +6,7 @@
 using System;
 using System.Windows.Forms;
 
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 
 namespace StandFacile
 {
@@ -25,8 +25,7 @@ namespace StandFacile
         {
             InitializeComponent();
 
-            if (rAuxForm != null)
-                rAuxForm.Close();
+                rAuxForm?.Close();
 
             rAuxForm = this;
             DBGrid.MultiSelect = false;
@@ -61,13 +60,13 @@ namespace StandFacile
         /// <summary>
         /// funzione di aggiornamento dei dati
         /// </summary>
-        public void refresh()
+        public void AuxRefresh()
         {
             String sTime, sData, sTmpStr;
 
-            LabelNumScontrino.Text = FrmMain.rFrmMain.get_sNumScontrinoLabel();
+            LabelNumScontrino.Text = FrmMain.rFrmMain.GetNumScontrinoLabel();
 
-            sData = getActualDate().ToString("ddd  dd/MM/yy");
+            sData = GetActualDate().ToString("ddd  dd/MM/yy");
             sTmpStr = sData.ToUpper();
             sTmpStr = sTmpStr.Substring(0, 1);
 

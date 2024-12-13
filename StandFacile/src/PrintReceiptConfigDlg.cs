@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 using static StandFacile.glb;
 
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.LogServer;
 
@@ -21,6 +21,8 @@ namespace StandFacile
     /// </summary>
     public partial class PrintReceiptConfigDlg : Form
     {
+#pragma warning disable IDE0044
+
         /// <summary>riferimento a PrintTicketConfigDlg</summary>
         public static PrintReceiptConfigDlg _rPrintTckConfigDlg;
 
@@ -39,13 +41,13 @@ namespace StandFacile
         static bool _bCheckBox_AvoidPrintGroupsCheckedCopy, _bCheckBox_CUT_CheckedCopy;
 
         /// <summary>ottiene flag di modifica listino necessaria</summary>
-        public static bool bGetListinoModificato() { return _bListinoModificato; }
+        public static bool GetListinoModificato() { return _bListinoModificato; }
 
         /// <summary>ottiene true se la stampante è windows</summary>
-        public static bool bGetPrinterTypeIsWinwows() { return (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS); }
+        public static bool GetPrinterTypeIsWinwows() { return (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS); }
 
         /// <summary>ottiene flag di richiesta stampa copia scontrino NoPrice</summary>
-        public static bool bGetTicketNoPriceCopy() { return _rPrintTckConfigDlg.checkBoxLocalCopy.Checked; }
+        public static bool GetTicketNoPriceCopy() { return _rPrintTckConfigDlg.checkBoxLocalCopy.Checked; }
 
         /// <summary>imposta il puntatore ai checkBox delle copie</summary>
         CheckBox[] _pCheckBoxCopia = new CheckBox[NUM_EDIT_GROUPS];
@@ -84,7 +86,7 @@ namespace StandFacile
             int iPrinterTypeRadio;
 
             //inizializzazione stampante windows o Legacy
-            iPrinterTypeRadio = iReadRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
+            iPrinterTypeRadio = ReadRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
 
             if (iPrinterTypeRadio == (int)PRINTER_SEL.STAMPANTE_WINDOWS)
             {
@@ -97,7 +99,7 @@ namespace StandFacile
                 iSysPrinterType = (int)PRINTER_SEL.STAMPANTE_LEGACY;
             }
 
-            if (DataManager.bCheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
+            if (DataManager.CheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
             {
                 panelLocalCopies.Enabled = false;
                 label1.Enabled = false;
@@ -136,7 +138,7 @@ namespace StandFacile
             // checkBox_NetLogo.Checked =   IsBitSet(SF_Data.iTicketCopyOpt_and_QtyOne, 9);
             // checkBox_Chars33.Checked = IsBitSet(SF_Data.iTicketCopyOpt_and_QtyOne, 8);
 
-            checkBoxNoPrice_CheckedChanged(this, null);
+            CheckBoxNoPrice_CheckedChanged(this, null);
 
             _bListinoModificato = false;
 
@@ -158,11 +160,11 @@ namespace StandFacile
         {
             WinPrinterDlg._rWinPrinterDlg.Init(true);
 
-            if (WinPrinterDlg.bGetListinoModificato())
-                DataManager.bSalvaListino();
+            if (WinPrinterDlg.GetListinoModificato())
+                DataManager.SalvaListino();
         }
 
-        private void checkBoxNoPrice_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxNoPrice_CheckedChanged(object sender, EventArgs e)
         {
             checkBox_AvoidPrintGroups.Enabled = checkBoxLocalCopy.Checked;
             checkBoxSelectedOnly.Enabled = checkBoxLocalCopy.Checked;
@@ -174,19 +176,19 @@ namespace StandFacile
             labelWarn.Enabled = checkBoxLocalCopy.Checked;
         }
 
-        private void checkBoxSingleRowItems_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxSingleRowItems_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxSingleRowItems.Checked)
                 checkBoxUnitItems.Checked = false;
         }
 
-        private void checkBoxUnitItems_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxUnitItems_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxUnitItems.Checked)
                 checkBoxSingleRowItems.Checked = false;
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             checkBox_CUT.Enabled = checkBoxLocalCopy.Checked && (!checkBox_AvoidPrintGroups.Checked || !checkBoxSingleRowItems.Checked && !checkBoxUnitItems.Checked);
 
@@ -213,21 +215,21 @@ namespace StandFacile
 
             PrintNetCopiesConfigDlg._rPrintConfigDlg.Init(true);
 
-            if (PrintNetCopiesConfigDlg.bGetListinoModificato())
-                DataManager.bSalvaListino();
+            if (PrintNetCopiesConfigDlg.GetListinoModificato())
+                DataManager.SalvaListino();
         }
 
-        private void checkBox_AvoidPrintGroups_Click(object sender, EventArgs e)
+        private void CheckBox_AvoidPrintGroups_Click(object sender, EventArgs e)
         {
             _bCheckBox_AvoidPrintGroupsCheckedCopy = checkBox_AvoidPrintGroups.Checked;
         }
 
-        private void checkBox_CUT_Click(object sender, EventArgs e)
+        private void CheckBox_CUT_Click(object sender, EventArgs e)
         {
             _bCheckBox_CUT_CheckedCopy = checkBox_CUT.Checked;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             timer.Enabled = false;
         }
@@ -236,7 +238,7 @@ namespace StandFacile
 	        letture dai controlli dalle variabili per la
 	        scrittura nel registro
          **************************************************/
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             int i, iReceiptCopyOptions;
 
@@ -265,10 +267,10 @@ namespace StandFacile
             if (checkBox_CUT.Checked)
                 iReceiptCopyOptions = SetBit(iReceiptCopyOptions, BIT_PRINT_GROUPS_CUT_REQUIRED);
 
-            if (WinPrinterDlg.bGetCopies_PlaceSettingsToBePrinted())
+            if (WinPrinterDlg.GetCopies_PlaceSettingsToBePrinted())
                 iReceiptCopyOptions = SetBit(iReceiptCopyOptions, BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED);
 
-            if (WinPrinterDlg.bGetCopies_LogoToBePrinted())
+            if (WinPrinterDlg.GetCopies_LogoToBePrinted())
                 iReceiptCopyOptions = SetBit(iReceiptCopyOptions, BIT_LOGO_PRINT_REQUIRED);
 
             if (sGlbWinPrinterParams.bChars33)

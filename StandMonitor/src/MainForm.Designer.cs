@@ -116,7 +116,7 @@
             // Timer
             // 
             this.Timer.Interval = 250;
-            this.Timer.Tick += new System.EventHandler(this.timer_MainLoop);
+            this.Timer.Tick += new System.EventHandler(this.Timer_MainLoop);
             // 
             // LabelNumScontrino
             // 

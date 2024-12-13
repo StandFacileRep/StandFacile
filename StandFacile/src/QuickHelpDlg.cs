@@ -10,7 +10,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 
 using static StandFacile.Define;
 
@@ -45,7 +45,7 @@ namespace StandFacile
             // prende il manuale dalla Directory della documentazione
             sNomeDoc = "..\\..\\doc\\" + _NOME_MANUALE;
 
-            sDir = DataManager.sGetExeDir() + "\\";
+            sDir = DataManager.GetExeDir() + "\\";
 
             if (File.Exists(sDir + _NOME_MANUALE))
                 System.Diagnostics.Process.Start(sDir + _NOME_MANUALE);

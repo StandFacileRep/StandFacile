@@ -9,7 +9,7 @@ using System.IO;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ReceiptAndCopies;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
@@ -27,6 +27,9 @@ namespace StandFacile
     /// <summary>main form</summary>
     public partial class FrmMain : Form
     {
+#pragma warning disable IDE0044
+#pragma warning disable IDE0059
+
         /// <summary>riferimento a FrmMain</summary>
         public static FrmMain rFrmMain;
 
@@ -71,10 +74,10 @@ namespace StandFacile
         List<int> _iElencoOrdiniNoPrint = new List<int>();
 
         /// <summary>evento cross Thread per completare le grafiche</summary>
-        public static void evUpdateCOMLed(String[] sEvQueueObj) { eventQueue.Enqueue(sEvQueueObj); }
+        public static void UpdateCOMLed(String[] sEvQueueObj) { eventQueue.Enqueue(sEvQueueObj); }
 
         /// <summary>evento cross Thread che attiva l'agiornamento della label DB</summary>
-        public static void evQueueUpdate(String[] sEvQueueObj) { eventQueue.Enqueue(sEvQueueObj); }
+        public static void QueueUpdate(String[] sEvQueueObj) { eventQueue.Enqueue(sEvQueueObj); }
 
         VisOrdiniDlg _rVisOrdiniDlg;
 
@@ -87,9 +90,12 @@ namespace StandFacile
             TB_Messaggi.ScrollBars = ScrollBars.Vertical;
 
             // TextBox ToolTip
-            ToolTip tt = new ToolTip();
-            tt.InitialDelay = 0;
-            tt.ShowAlways = true;
+            ToolTip tt = new ToolTip()
+            {
+                InitialDelay = 0,
+                ShowAlways = true
+            };
+
             tt.SetToolTip(BtnOnline, "passa dal modo MANUALE ad AUTO e viceversa");
             tt.SetToolTip(btnAnt, "test connessione al DataBase");
             tt.SetToolTip(ME_TickNum, "Inserire Num Scontrino");
@@ -103,7 +109,7 @@ namespace StandFacile
             tt.SetToolTip(TB_Tickets, "lo sfondo è Giallo per gli scontrini già stampati da StandCucina");
             tt.SetToolTip(TB_Messaggi, "lo sfondo è Giallo per i messaggi già stampati da StandCucina");
 
-            initActualDate();
+            InitActualDate();
 
             String[] sQueue_Object = new String[2];
 
@@ -122,9 +128,9 @@ namespace StandFacile
 
             sQueue_Object[0] = UPDATE_COM_LED_EVENT;
             sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_FREE);
-            evUpdateCOMLed(sQueue_Object);
+            UpdateCOMLed(sQueue_Object);
 
-            if (bCheckService(_ESPERTO))
+            if (CheckService(_ESPERTO))
                 MnuEspertoClick(this, null);
         }
 
@@ -133,7 +139,7 @@ namespace StandFacile
         {
             String sKeyGood;
 
-            sKeyGood = sReadRegistry(DBASE_SERVER_NAME_KEY, "");
+            sKeyGood = ReadRegistry(DBASE_SERVER_NAME_KEY, "");
 
             if (String.IsNullOrEmpty(sKeyGood))
             {
@@ -162,14 +168,14 @@ namespace StandFacile
             sRCP_FMT_TOT = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_TOT : _RCP_FMT_28_TOT;
             sRCP_FMT_DSH = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_DSH : _RCP_FMT_28_DSH;
 
-            _rVisOrdiniDlg = new VisOrdiniDlg(getActualDate(), VisOrdiniDlg.MAX_NUM_TICKET, "", VIEW_TYPE.NO_VIEW);
+            _rVisOrdiniDlg = new VisOrdiniDlg(GetActualDate(), VisOrdiniDlg.MAX_NUM_TICKET, "", VIEW_TYPE.NO_VIEW);
 
             // prima lettura DB
-            mainTimerLoop_Tick(this, null);
+            MainTimerLoop_Tick(this, null);
 
             ME_TickNum.Text = iGlbNumOfTickets.ToString();
 
-            aggiornaAspettoControlli();
+            AggiornaAspettoControlli();
 
             _iElencoOrdiniNoPrint.Clear();
 
@@ -205,10 +211,10 @@ namespace StandFacile
             if (!_bOnLine)
                 ME_TickNum.Focus();
 
-            aggiornaAspettoControlli();
+            AggiornaAspettoControlli();
         }
 
-        void aggiornaAspettoControlli()
+        void AggiornaAspettoControlli()
         {
             if (_bOnLine)
             {
@@ -256,7 +262,7 @@ namespace StandFacile
 
         private void BtnPrevTicket_Click(object sender, EventArgs e)
         {
-            bool bThereIsSomethingToPrint = false;
+            bool bThereIsSomethingToPrint;
             int iDebug1, iDebug2; ;
 
             if ((iGlbCurrentOffline_TicketNum - 1) < DB_Data.iStartingNumOfReceipts)
@@ -274,21 +280,21 @@ namespace StandFacile
                     iDebug1 = iGlbCurrentOffline_TicketNum;
 
                     bThereIsSomethingToPrint = false;
-                    _rdBaseIntf.dbCaricaOrdine(getActualDate(), iGlbCurrentOffline_TicketNum, false);
+                    _rdBaseIntf.dbCaricaOrdine(GetActualDate(), iGlbCurrentOffline_TicketNum, false);
                     iDebug2 = DB_Data.iStatusReceipt;
 
                     CheckSomethingToPrint(_bSomethingInto_GrpToPrint, _bSomethingInto_ClrToPrint, DB_Data);
 
                     for (int i = 0; i < NUM_EDIT_GROUPS; i++)
                     {
-                        if (_bSomethingInto_GrpToPrint[i] && bGetCopiaGroup(i))
+                        if (_bSomethingInto_GrpToPrint[i] && GetCopiaGroup(i))
                         {
                             bThereIsSomethingToPrint = true;
                             break;
                         }
                     }
 
-                    if (_bSomethingInto_GrpToPrint[(int)DEST_TYPE.DEST_COUNTER] && bGetCopiaGroup((int)DEST_TYPE.DEST_TIPO1))
+                    if (_bSomethingInto_GrpToPrint[(int)DEST_TYPE.DEST_COUNTER] && GetCopiaGroup((int)DEST_TYPE.DEST_TIPO1))
                         bThereIsSomethingToPrint = true;
 
                     // aggiorna l'elenco di ordini per i quali non è richiesta la stampa
@@ -307,7 +313,7 @@ namespace StandFacile
             _iNextTicketNum = _rdBaseIntf.dbGetNumOfPrintedOrders(iGlbCurrentOffline_TicketNum, true);
             _iPrevTicketNum = _rdBaseIntf.dbGetNumOfPrintedOrders(iGlbCurrentOffline_TicketNum, false);
 
-            correggiNumeroOrdiniDaStampare();
+            CorreggiNumeroOrdiniDaStampare();
 
             iGlbNumOfTickets = _rdBaseIntf.dbGetNumOfOrdersFromDB(false);
             VisualizzaTicket(iGlbCurrentOffline_TicketNum, _iPrevTicketNum, _iNextTicketNum);
@@ -315,7 +321,7 @@ namespace StandFacile
 
         private void BtnNextTicket_Click(object sender, EventArgs e)
         {
-            bool bThereIsSomethingToPrint = false;
+            bool bThereIsSomethingToPrint;
             int iDebug;
 
             if ((iGlbCurrentOffline_TicketNum + 1) > iGlbNumOfTickets)
@@ -328,19 +334,19 @@ namespace StandFacile
                     iDebug = iGlbCurrentOffline_TicketNum;
 
                     bThereIsSomethingToPrint = false;
-                    _rdBaseIntf.dbCaricaOrdine(getActualDate(), iGlbCurrentOffline_TicketNum, false);
+                    _rdBaseIntf.dbCaricaOrdine(GetActualDate(), iGlbCurrentOffline_TicketNum, false);
                     CheckSomethingToPrint(_bSomethingInto_GrpToPrint, _bSomethingInto_ClrToPrint, DB_Data);
 
                     for (int i = 0; i < NUM_EDIT_GROUPS; i++)
                     {
-                        if (_bSomethingInto_GrpToPrint[i] && bGetCopiaGroup(i))
+                        if (_bSomethingInto_GrpToPrint[i] && GetCopiaGroup(i))
                         {
                             bThereIsSomethingToPrint = true;
                             break;
                         }
                     }
 
-                    if (_bSomethingInto_GrpToPrint[(int)DEST_TYPE.DEST_COUNTER] && bGetCopiaGroup((int)DEST_TYPE.DEST_TIPO1))
+                    if (_bSomethingInto_GrpToPrint[(int)DEST_TYPE.DEST_COUNTER] && GetCopiaGroup((int)DEST_TYPE.DEST_TIPO1))
                         bThereIsSomethingToPrint = true;
 
                     // aggiorna l'elenco di ordini per i quali non è richiesta la stampa
@@ -359,7 +365,7 @@ namespace StandFacile
             _iNextTicketNum = _rdBaseIntf.dbGetNumOfPrintedOrders(iGlbCurrentOffline_TicketNum, true);
             _iPrevTicketNum = _rdBaseIntf.dbGetNumOfPrintedOrders(iGlbCurrentOffline_TicketNum, false);
 
-            correggiNumeroOrdiniDaStampare();
+            CorreggiNumeroOrdiniDaStampare();
 
             iGlbNumOfTickets = _rdBaseIntf.dbGetNumOfOrdersFromDB(false);
             VisualizzaTicket(iGlbCurrentOffline_TicketNum, _iPrevTicketNum, _iNextTicketNum);
@@ -396,7 +402,7 @@ namespace StandFacile
         {
             int iDebug;
             String sTmp;
-            DialogResult dResult = DialogResult.No;
+            DialogResult dResult;
 
             iDebug = DB_Data.iStatusReceipt;
 
@@ -407,12 +413,12 @@ namespace StandFacile
 
                 if (dResult == DialogResult.Yes)
                 {
-                    stampaCopie();
+                    StampaCopie();
                 }
             }
             else
             {
-                stampaCopie();
+                StampaCopie();
 
                 // aggiorna il flag BIT_TICKET_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
                 _rdBaseIntf.dbEditStatus(iGlbCurrentOffline_TicketNum, SetBit(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
@@ -431,7 +437,7 @@ namespace StandFacile
         {
             VisualizzaMsg(iGlbCurrentOffline_MessageNum);
 
-            stampaMessaggio();
+            StampaMessaggio();
 
             // aggiorna il flag BIT_MSG_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
             _rdBaseIntf.dbEditStatus(-iGlbCurrentOffline_MessageNum, SetBit(DB_Data.iStatusReceipt, BIT_MSG_STAMPATO_DA_STANDCUCINA));
@@ -440,22 +446,22 @@ namespace StandFacile
             TB_Messaggi.ForeColor = System.Drawing.Color.Black;
         }
 
-        private void btnAnt_Click(object sender, EventArgs e)
+        private void BtnAnt_Click(object sender, EventArgs e)
         {
             String sTmp;
 
             ulStart = (ulong)Environment.TickCount;
 
-            _rdBaseIntf.db_FeedbackCheck();
+            _rdBaseIntf.dbFeedbackCheck();
 
             ulStop = (ulong)Environment.TickCount;
             ulPingTime = ulStop - ulStart;
             sTmp = String.Format(" {0} ms", ulPingTime);
 
-            Label_ServerName.Text = sGetDB_ServerName() + sTmp;
+            Label_ServerName.Text = GetDB_ServerName() + sTmp;
         }
 
-        private void timer_ImgLoop(object sender, EventArgs e)
+        private void Timer_ImgLoop(object sender, EventArgs e)
         {
             String[] sEvQueueObj;
 
@@ -480,7 +486,7 @@ namespace StandFacile
             /**************************************
              *  Blink Antenna di connessione DB
              **************************************/
-            if (_rdBaseIntf.bGetDB_Connected())
+            if (_rdBaseIntf.GetDB_Connected())
             {
 
                 switch (iTimerBmpTag)
@@ -553,7 +559,7 @@ namespace StandFacile
             String sTmp;
             DialogResult dResult;
 
-            if (!bCheckService(_ESPERTO) && (!MnuEsperto.Checked))
+            if (!CheckService(_ESPERTO) && (!MnuEsperto.Checked))
                 dResult = MessageBox.Show("E' importante aver letto e compreso il manuale prima di proseguire !\r\n\r\n" +
                        "Il manuale pdf è presente nella cartella di installazione e si può aprire anche dal pulsante presente nel menù di Aiuto->Aiuto Rapido.",
                        "Attenzione !", MessageBoxButtons.OKCancel);
@@ -606,9 +612,9 @@ namespace StandFacile
         {
             String sFileToPrint;
 
-            sFileToPrint = buildSampleText();
+            sFileToPrint = BuildSampleText();
 
-            LogToFile(String.Format("Mainform : printSampleText() {0}", sFileToPrint));
+            LogToFile(String.Format("Mainform : PrintSampleText() {0}", sFileToPrint));
 
             GenPrintFile(sFileToPrint);
         }
@@ -627,14 +633,14 @@ namespace StandFacile
             }
         }
 
-        private void mnuConfigurazioneStampeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MnuConfigurazioneStampeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             PrintConfigLightDlg.rPrintConfigLightDlg.Init(true);
         }
 
         private void MnuNetConfig_Click(object sender, EventArgs e)
         {
-            _rdBaseIntf.dbCaricaOrdine(getActualDate(), 0, false);
+            _rdBaseIntf.dbCaricaOrdine(GetActualDate(), 0, false);
 
             rNetConfigLightDlg.ShowDialog();
         }
@@ -645,13 +651,13 @@ namespace StandFacile
             rInfoDlg.ShowDialog();
         }
 
-        private void mainTimerLoop_Tick(object sender, EventArgs e)
+        private void MainTimerLoop_Tick(object sender, EventArgs e)
         {
             int iDebug;
             String sTmp, sTime;
 
-            // if (!rNetConfigDlg.Visible && _bOnLine && _rdBaseIntf.bGetDB_Connected())
-            if (!rNetConfigLightDlg.Visible && _rdBaseIntf.bGetDB_Connected())
+            // if (!rNetConfigDlg.Visible && _bOnLine && _rdBaseIntf.GetDB_Connected())
+            if (!rNetConfigLightDlg.Visible && _rdBaseIntf.GetDB_Connected())
             {
                 StartBmpTimer(); // aggiorna bmp trasmissione
 
@@ -666,7 +672,7 @@ namespace StandFacile
                     _iNextTicketNum = _rdBaseIntf.dbGetNumOfPrintedOrders(iGlbCurrentOffline_TicketNum, true);
                     _iPrevTicketNum = _rdBaseIntf.dbGetNumOfPrintedOrders(iGlbCurrentOffline_TicketNum, false);
 
-                    correggiNumeroOrdiniDaStampare();
+                    CorreggiNumeroOrdiniDaStampare();
 
                     //if (_bOnLine)
                     //    toolStripCurrTicketNum.Text = String.Format("Ticket num : {0}", iGlbCurrentOffline_TicketNum);
@@ -699,7 +705,7 @@ namespace StandFacile
                     if (_iPrevShownOnline_TicketNum == -100) // skip la prima volta
                     {
                         // Init
-                        bReset_StatusDate_Changed();
+                        Reset_StatusDate_Changed();
 
                         iGlbCurrentOffline_TicketNum = iGlbNumOfTickets;
                         _iPrevShownOnline_TicketNum = iGlbNumOfTickets;
@@ -708,7 +714,7 @@ namespace StandFacile
                     }
                     else if (_bOnLine || (_iPrevShownOnline_TicketNum == 0)) // Visualizza almeno _iPrevShownOnline_TicketNum = 1
                     {
-                        if (!bGet_StatusDate_IsChanged())
+                        if (!Get_StatusDate_IsChanged())
                             _iPrevShownOnline_TicketNum++;                  // così li stampa tutti
                         else
                             _iPrevShownOnline_TicketNum = iGlbNumOfTickets; // evita raffica di scontrini
@@ -717,12 +723,12 @@ namespace StandFacile
 
                         ClientTimer.Interval = DB_CLIENT_TIMER_SHORT; // accelera
 
-                        if (!bGet_StatusDate_IsChanged() && _bOnLine)
+                        if (!Get_StatusDate_IsChanged() && _bOnLine)
                         {
                             // *** stampa solo le copie e non lo scontrino ***
-                            if ((_sNomeFileTicket != NOME_FILE_RECEIPT) && !bGetStampaSoloManuale() && !DB_Data.bAnnullato && !IsBitSet(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
+                            if ((_sNomeFileTicket != NOME_FILE_RECEIPT) && !GetStampaSoloManuale() && !DB_Data.bAnnullato && !IsBitSet(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
                             {
-                                stampaCopie();
+                                StampaCopie();
 
                                 // aggiorna il flag BIT_RECEIPT_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
                                 _rdBaseIntf.dbEditStatus(_iPrevShownOnline_TicketNum, SetBit(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
@@ -773,16 +779,16 @@ namespace StandFacile
                     }
                     else if (_bOnLine)
                     {
-                        if (!bGet_StatusDate_IsChanged())
+                        if (!Get_StatusDate_IsChanged())
                             _iPrevShownOnline_MessageNum++; // così li stampa tutti
                         else
                             _iPrevShownOnline_MessageNum = iGlbNumOfMessages;
 
                         VisualizzaMsg(_iPrevShownOnline_MessageNum);
 
-                        if (!bGet_StatusDate_IsChanged() && !bGetStampaSoloManuale() && !IsBitSet(DB_Data.iStatusReceipt, BIT_MSG_STAMPATO_DA_STANDCUCINA))
+                        if (!Get_StatusDate_IsChanged() && !GetStampaSoloManuale() && !IsBitSet(DB_Data.iStatusReceipt, BIT_MSG_STAMPATO_DA_STANDCUCINA))
                         {
-                            stampaMessaggio();
+                            StampaMessaggio();
 
                             // aggiorna il flag BIT_MSG_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
                             _rdBaseIntf.dbEditStatus(-_iPrevShownOnline_MessageNum, SetBit(DB_Data.iStatusReceipt, BIT_MSG_STAMPATO_DA_STANDCUCINA));
@@ -792,7 +798,7 @@ namespace StandFacile
                         }
 
                         // *** alla fine c'è il reset cambio data ***
-                        bReset_StatusDate_Changed();
+                        Reset_StatusDate_Changed();
 
                         sTime = DateTime.Now.ToString("HH.mm.ss");
                         sTmp = String.Format("{0} DB_Client : C = {1}, Msg N. = {2}", sTime, DB_Data.iNumCassa, _iPrevShownOnline_MessageNum);
@@ -807,14 +813,14 @@ namespace StandFacile
             {
                 // al tick successivo troverà la connessione attiva!
                 if (!rNetConfigLightDlg.Visible)
-                    _rdBaseIntf.db_SilentCheck();
+                    _rdBaseIntf.dbSilentCheck();
 
                 ClientTimer.Interval = DB_CLIENT_TIMER_SHORT; // accelera
             }
         }
 
         /// <summary>Invio copie alla Stampante</summary>
-        void stampaCopie()
+        void StampaCopie()
         {
             int i;
             String sTmp, sTime, sFileToPrint;
@@ -823,7 +829,7 @@ namespace StandFacile
                 if (_bCopyToPrint[i])
                 {
                     sFileToPrint = String.Format(NOME_FILE_COPIE, i);
-                    if (File.Exists(sFileToPrint) && !bCheckService(_SKIP_STAMPA))
+                    if (File.Exists(sFileToPrint) && !CheckService(_SKIP_STAMPA))
                     {
                         Console.Beep();
 
@@ -852,12 +858,12 @@ namespace StandFacile
         }
 
         /// <summary>Invio messaggio alla Stampante</summary>
-        void stampaMessaggio()
+        void StampaMessaggio()
         {
             String sFileToPrint;
 
             sFileToPrint = String.Format(NOME_FILE_MESSAGGIO);
-            if (File.Exists(sFileToPrint) && !bCheckService(_SKIP_STAMPA) && !bGet_StatusDate_IsChanged())
+            if (File.Exists(sFileToPrint) && !CheckService(_SKIP_STAMPA) && !Get_StatusDate_IsChanged())
             {
                 Console.Beep();
 
@@ -888,18 +894,18 @@ namespace StandFacile
 
             ulStart = (ulong)Environment.TickCount;
 
-            if (_rdBaseIntf.dbCaricaOrdine(getActualDate(), iTicketNumParam, false))
-                _rVisOrdiniDlg.ReceiptRebuild(getActualDate(), iTicketNumParam); // sola chiamata
+            if (_rdBaseIntf.dbCaricaOrdine(GetActualDate(), iTicketNumParam, false))
+                _rVisOrdiniDlg.ReceiptRebuild(GetActualDate(), iTicketNumParam); // sola chiamata
 
             CheckSomethingToPrint(_bSomethingInto_GrpToPrint, _bSomethingInto_ClrToPrint, DB_Data);
 
             // ci devono essere sia i checkBox selezionati che qualcosa da stampare
             // dei gruppi selezionati, contatori qui esclusi
             for (i = 0; i < NUM_EDIT_GROUPS; i++) // OK
-                _bCopyToPrint[i] = _bSomethingInto_ClrToPrint[i] && bGetCopiaGroup(i);
+                _bCopyToPrint[i] = _bSomethingInto_ClrToPrint[i] && GetCopiaGroup(i);
 
             // consente stampa contatori assieme alle pietanze
-            if (_bSomethingInto_GrpToPrint[(int)DEST_TYPE.DEST_COUNTER] && bGetCopiaGroup((int)DEST_TYPE.DEST_TIPO1))
+            if (_bSomethingInto_GrpToPrint[(int)DEST_TYPE.DEST_COUNTER] && GetCopiaGroup((int)DEST_TYPE.DEST_TIPO1))
                 _bCopyToPrint[(int)DEST_TYPE.DEST_TIPO1] = true;
 
             _sNomeFileTicket = NOME_FILE_RECEIPT;
@@ -922,7 +928,7 @@ namespace StandFacile
             ulPingTime = ulStop - ulStart;
             sTmp = String.Format(" {0} ms", ulPingTime);
 
-            Label_ServerName.Text = sGetDB_ServerName() + sTmp;
+            Label_ServerName.Text = GetDB_ServerName() + sTmp;
 
             /********************************
              *	visualizzazione del file
@@ -1113,7 +1119,7 @@ namespace StandFacile
                         ClientTimer.Interval = 1000; // 1s
 
                         _bOnLine = !_bOnLine;
-                        aggiornaAspettoControlli();
+                        AggiornaAspettoControlli();
                     }
                     break;
                 case KEY_DOWN:
@@ -1171,7 +1177,7 @@ namespace StandFacile
             _iNextTicketNum = _rdBaseIntf.dbGetNumOfPrintedOrders(iGlbCurrentOffline_TicketNum, true);
             _iPrevTicketNum = _rdBaseIntf.dbGetNumOfPrintedOrders(iGlbCurrentOffline_TicketNum, false);
 
-            correggiNumeroOrdiniDaStampare();
+            CorreggiNumeroOrdiniDaStampare();
 
             VisualizzaTicket(iGlbCurrentOffline_TicketNum, _iPrevTicketNum, _iNextTicketNum);
         }
@@ -1198,7 +1204,7 @@ namespace StandFacile
         /// la aggiorna e corregge _iPrevTicketNum, _iNextTicketNum che altrimenti <br/>
         /// sono basati solo su BIT_RECEIPT_STAMPATO_DA_STANDCUCINA e non sul contenuto significativo
         /// </summary>
-        void correggiNumeroOrdiniDaStampare()
+        void CorreggiNumeroOrdiniDaStampare()
         {
             // si tiene conto degli ordini senza stampe richieste
             foreach (int iOrdine in _iElencoOrdiniNoPrint)

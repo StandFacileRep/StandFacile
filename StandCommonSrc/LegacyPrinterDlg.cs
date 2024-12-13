@@ -13,7 +13,7 @@ using Microsoft.Win32.SafeHandles;
 
 using StandCommonFiles;
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
 
@@ -112,14 +112,14 @@ namespace StandFacile
         public void Init(bool bShow)
         {
             // 8
-            sGlbLegacyPrinterParams.iPrinterModel = iReadRegistry(LEGACY_PRINTER_MODEL_KEY, 0);
-            sGlbLegacyPrinterParams.iLogoBmp = iReadRegistry("iLegacyLogoBmp", 0);
-            sGlbLegacyPrinterParams.iFontType = iReadRegistry("iLegacyFontType", 0);
-            sGlbLegacyPrinterParams.iFlowCtrl = iReadRegistry("iLegacyFlowCtrl", (int)FLOW_CONTROL.FLOW_NONE);
-            sGlbLegacyPrinterParams.iPaperSize = iReadRegistry("iLegacyPaperSize", 1);
-            sGlbLegacyPrinterParams.iPaperSpeed = iReadRegistry("iLegacyPaperSpeed", 0);
-            sGlbLegacyPrinterParams.iDensity = iReadRegistry("iLegacyDensity", 0);
-            sGlbLegacyPrinterParams.sPort = sReadRegistry("sLegacyPort", "COM1");
+            sGlbLegacyPrinterParams.iPrinterModel = ReadRegistry(LEGACY_PRINTER_MODEL_KEY, 0);
+            sGlbLegacyPrinterParams.iLogoBmp = ReadRegistry("iLegacyLogoBmp", 0);
+            sGlbLegacyPrinterParams.iFontType = ReadRegistry("iLegacyFontType", 0);
+            sGlbLegacyPrinterParams.iFlowCtrl = ReadRegistry("iLegacyFlowCtrl", (int)FLOW_CONTROL.FLOW_NONE);
+            sGlbLegacyPrinterParams.iPaperSize = ReadRegistry("iLegacyPaperSize", 1);
+            sGlbLegacyPrinterParams.iPaperSpeed = ReadRegistry("iLegacyPaperSpeed", 0);
+            sGlbLegacyPrinterParams.iDensity = ReadRegistry("iLegacyDensity", 0);
+            sGlbLegacyPrinterParams.sPort = ReadRegistry("sLegacyPort", "COM1");
 
             // *** copia locale ***
             _sLegacyPrinterParamsCopy = sGlbLegacyPrinterParams;
@@ -206,13 +206,13 @@ namespace StandFacile
             // si sono inizializzati i Combo
             _bInitComplete = true;
 
-            aggiornaAspettoControlli();
+            AggiornaAspettoControlli();
 
             if ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) || bShow)
             {
-                if (!Printer_Legacy.portVerify(sGlbLegacyPrinterParams))
+                if (!Printer_Legacy.PortVerify(sGlbLegacyPrinterParams))
                 {
-                    _ErrMsg.sMsg = sReadRegistry("sLegacyPort", "COMx");
+                    _ErrMsg.sMsg = ReadRegistry("sLegacyPort", "COMx");
                     _ErrMsg.iErrID = WRN_CNA;
                     WarningManager(_ErrMsg);
                 }
@@ -230,7 +230,7 @@ namespace StandFacile
          /// funzione che inposta tutti i parametri necessari
          /// alla classe prelevandoli dai controlli e non dal Registro
          /// </summary>
-        public void updateLegacyPrinterParam()
+        public void UpdateLegacyPrinterParam()
         {
             _sLegacyPrinterParamsCopy.iPrinterModel = PrinterTypeCombo.SelectedIndex;
             _sLegacyPrinterParamsCopy.iLogoBmp = LogoBmpCombo.SelectedIndex;
@@ -265,10 +265,10 @@ namespace StandFacile
                 _sLegacyPrinterParamsCopy.iDensity = (int)RANGE.MEDIUM;
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
-            // refresh lettura controlli
-            updateLegacyPrinterParam();
+            // AuxRefresh lettura controlli
+            UpdateLegacyPrinterParam();
 
             // acquisizione impostazioni
             sGlbLegacyPrinterParams = _sLegacyPrinterParamsCopy;
@@ -283,9 +283,9 @@ namespace StandFacile
             WriteRegistry("iLegacyDensity", sGlbLegacyPrinterParams.iDensity);
             WriteRegistry("sLegacyPort", sGlbLegacyPrinterParams.sPort);
 
-            if (!portVerify(sGlbLegacyPrinterParams))
+            if (!PortVerify(sGlbLegacyPrinterParams))
             {
-                _ErrMsg.sMsg = sReadRegistry("sLegacyPort", "COMx");
+                _ErrMsg.sMsg = ReadRegistry("sLegacyPort", "COMx");
                 _ErrMsg.iErrID = WRN_CNA;
                 WarningManager(_ErrMsg);
             }
@@ -300,7 +300,7 @@ namespace StandFacile
          * come regola i controlli sono stabiliti a mano e non vengono
          * letti dal Registry
          **************************************************************/
-        private void aggiornaAspettoControlli()
+        private void AggiornaAspettoControlli()
         {
             // altrimenti viene percorsa inizialmente con dati sbagliati
             if (!_bInitComplete)
@@ -458,9 +458,9 @@ namespace StandFacile
             FontTypeCombo.Items.Add("FONT RESET");
             FontTypeCombo.SelectedIndex = 0;
 
-            updateLegacyPrinterParam();
+            UpdateLegacyPrinterParam();
 
-            aggiornaAspettoControlli();
+            AggiornaAspettoControlli();
 
             FindPorts();
 
@@ -469,25 +469,25 @@ namespace StandFacile
                 PORT_Combo.SelectedIndex = 0;
         }
 
-        private void btnAutotest_Click(object sender, EventArgs e)
+        private void BtnAutotest_Click(object sender, EventArgs e)
         {
-            updateLegacyPrinterParam();
+            UpdateLegacyPrinterParam();
 
-            Printer_Legacy.printAutoTest();
+            Printer_Legacy.PrintAutoTest();
         }
 
-        private void btnTestoProva_Click(object sender, EventArgs e)
+        private void BtnTestoProva_Click(object sender, EventArgs e)
         {
-            updateLegacyPrinterParam();
+            UpdateLegacyPrinterParam();
 
-            Printer_Legacy.printSampleText(_sLegacyPrinterParamsCopy);
+            Printer_Legacy.PrintSampleText(_sLegacyPrinterParamsCopy);
         }
 
-        private void btnInfo_Click(object sender, EventArgs e)
+        private void BtnInfo_Click(object sender, EventArgs e)
         {
-            updateLegacyPrinterParam();
+            UpdateLegacyPrinterParam();
 
-            Printer_Legacy.printInfo();
+            Printer_Legacy.PrintInfo();
         }
 
         private void FindPorts()
@@ -540,7 +540,7 @@ namespace StandFacile
             e.Cancel = true;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             Hide();
         }

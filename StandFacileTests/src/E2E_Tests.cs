@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using static StandFacile.Define;
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ReceiptAndCopies;
 using StandFacile;
 using System.IO;
@@ -26,6 +26,8 @@ namespace StandFacileTests
     [TestClass]
     public class StandFacile_E2ETests
     {
+        #pragma warning disable CS0162
+
         const int _DAYS_IN_ADVANCE = -2;
 
         const bool _DEBUG_DIR = false;
@@ -35,12 +37,12 @@ namespace StandFacileTests
         [DataRow(NOME_DIR_COPIES, "")]
         [DataRow(NOME_DIR_RECEIPTS, "100")]
         [DataRow(NOME_DIR_COPIES, "100")]
-        public void bReceiptGenerationCompare_IsTrue(string sDirParam, string sStartNumParam)
+        public void ReceiptGenerationCompare_IsTrue(string sDirParam, string sStartNumParam)
         {
-            initActualDate();
+            InitActualDate();
 
             // recupera i dati generati in data precedente
-            setActualDate(DateTime.Now.AddDays(_DAYS_IN_ADVANCE));
+            SetActualDate(DateTime.Now.AddDays(_DAYS_IN_ADVANCE));
 
             bool bResult = true;
             bool bSkipTotale;
@@ -66,14 +68,14 @@ namespace StandFacileTests
             string[] sAllRefReceiptFiles = Directory.GetFiles(sDirRefReceiptData, "*.*", SearchOption.AllDirectories);
 
             if (_DEBUG_DIR)
-                sDirCurrentReceiptData = Directory.GetCurrentDirectory() + "\\..\\..\\..\\StandFacile\\exe\\StandDati" + "\\" + ANNO_DIR + getActualDate().ToString("yyyy") + "\\" +
-                                                sDirParam + getActualDate().ToString("MMdd");
+                sDirCurrentReceiptData = Directory.GetCurrentDirectory() + "\\..\\..\\..\\StandFacile\\exe\\StandDati" + "\\" + ANNO_DIR + GetActualDate().ToString("yyyy") + "\\" +
+                                                sDirParam + GetActualDate().ToString("MMdd");
             else
             {
                 if (String.IsNullOrEmpty(sStartNumParam))
-                    sDirCurrentReceiptData = "C:\\StandFacile\\StandDati_0\\" + ANNO_DIR + getActualDate().ToString("yyyy") + "\\" + sDirParam + getActualDate().ToString("MMdd");
+                    sDirCurrentReceiptData = "C:\\StandFacile\\StandDati_0\\" + ANNO_DIR + GetActualDate().ToString("yyyy") + "\\" + sDirParam + GetActualDate().ToString("MMdd");
                 else
-                    sDirCurrentReceiptData = "C:\\StandFacile\\StandDati_" + sStartNumParam + "\\" + ANNO_DIR + getActualDate().ToString("yyyy") + "\\" + sDirParam + getActualDate().ToString("MMdd");
+                    sDirCurrentReceiptData = "C:\\StandFacile\\StandDati_" + sStartNumParam + "\\" + ANNO_DIR + GetActualDate().ToString("yyyy") + "\\" + sDirParam + GetActualDate().ToString("MMdd");
             }
 
             string[] sAllCurrentReceiptFiles = Directory.GetFiles(sDirCurrentReceiptData, "*.*", SearchOption.AllDirectories);
@@ -232,12 +234,12 @@ namespace StandFacileTests
         [DataRow("refData")]
         [DataRow("StampaTmp.txt")]
         [DataRow("StampaRidTmp.txt")]
-        public void bDataReportGenerationCompare_IsTrue(string sFileParam)
+        public void DataReportGenerationCompare_IsTrue(string sFileParam)
         {
-            initActualDate();
+            InitActualDate();
 
             // recupera i dati generati in data precedente
-            setActualDate(DateTime.Now.AddDays(_DAYS_IN_ADVANCE));
+            SetActualDate(DateTime.Now.AddDays(_DAYS_IN_ADVANCE));
 
             bool bResult = true;
             bool bSkipTotale;
@@ -246,7 +248,7 @@ namespace StandFacileTests
             int dateCharCountRef, dateCharCountCurrent;
             string sNomeFileDati, sCurrStringTrimmed;
 
-            string sCurrentReceiptDataFile, sReferenceReceiptDataFile = "";
+            string sCurrentReceiptDataFile, sReferenceReceiptDataFile;
 
             List<string> sRefStringsList = new List<string>();
             List<string> sCurrStringsList = new List<string>();
@@ -257,16 +259,16 @@ namespace StandFacileTests
             // serve per avere uscita su Console
             Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
 
-            sNomeFileDati = getNomeFileDati(1, getActualDate());
+            sNomeFileDati = GetNomeFileDati(1, GetActualDate());
 
             if (sFileParam == "refData")
             {
                 sReferenceReceiptDataFile = Directory.GetCurrentDirectory() + "\\..\\..\\refData\\" + "C1_Dati_1123.txt";
 
                 if (_DEBUG_DIR)
-                    sCurrentReceiptDataFile = Directory.GetCurrentDirectory() + "\\..\\..\\..\\StandFacile\\exe\\StandDati" + "\\" + ANNO_DIR + getActualDate().ToString("yyyy") + "\\" + sNomeFileDati;
+                    sCurrentReceiptDataFile = Directory.GetCurrentDirectory() + "\\..\\..\\..\\StandFacile\\exe\\StandDati" + "\\" + ANNO_DIR + GetActualDate().ToString("yyyy") + "\\" + sNomeFileDati;
                 else
-                    sCurrentReceiptDataFile = "C:\\StandFacile\\StandDati_0\\" + ANNO_DIR + getActualDate().ToString("yyyy") + "\\" + sNomeFileDati;
+                    sCurrentReceiptDataFile = "C:\\StandFacile\\StandDati_0\\" + ANNO_DIR + GetActualDate().ToString("yyyy") + "\\" + sNomeFileDati;
             }
             else
             {

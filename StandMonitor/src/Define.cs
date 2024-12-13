@@ -14,7 +14,7 @@ namespace StandFacile
     public struct Define
     {
         /// <summary>titolo</summary>
-        public const string TITLE = "Stand Monitor 2024";
+        public const string TITLE = "Stand Monitor 2025";
 
         /// <summary>nome dell'eseguibile</summary>
         public const string THE_APP = "StandMonitor.exe";
@@ -25,10 +25,10 @@ namespace StandFacile
         /// <summary>chiave di registro</summary>
         public const string KEY_STAND_MONITOR = "HKEY_CURRENT_USER\\Software\\StandMonitor";
 
-        /// <summary>refresh tabella ogni 30s</summary>
+        /// <summary>AuxRefresh tabella ogni 30s</summary>
         public const int REFRESH_TIMER = 30 * 4;  // timer da 250ms
 
-        /// <summary>refresh di sService * 250ms circa in StandFacile, 200 in StandClient</summary>
+        /// <summary>AuxRefresh di sService * 250ms circa in StandFacile, 200 in StandClient</summary>
         public const int REFRESH_SSERVICE = 4 * 20;
 
         /// <summary>dimensioni larghezza della Main Window</summary>

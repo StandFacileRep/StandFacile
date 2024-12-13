@@ -7,7 +7,7 @@
 using System;
 using System.IO;
 
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.LogServer;
 
@@ -16,6 +16,8 @@ namespace StandFacile
     /// <summary>classe per caricamento della configurazione</summary>
     public class Config
     {
+        #pragma warning disable IDE1006
+
         /// <summary>nome del file di filtro</summary>
         const String CONFIG_FILE = "config.ini";
 
@@ -30,17 +32,17 @@ namespace StandFacile
             sConfig.iReceiptStartNumber = 1; // giusto 1 e non 0
             sConfig.sService = "";
 
-            loadConfig();
+            LoadConfig();
         }
 
         /// <summary>
         /// lettura del file dei configurazione
         /// </summary>
-        public void loadConfig()
+        public void LoadConfig()
         {
             int iPos, iCount, iVal;
             String sExeDir, sNomeConfigFile, sInStr;
-            StreamReader fFiltro = null;
+            StreamReader fFiltro;
 
             iCount = 0;
 
@@ -50,13 +52,13 @@ namespace StandFacile
             Directory.SetCurrentDirectory(sExeDir);
 
 
-            sNomeConfigFile = DataManager.sGetExeDir() + "\\" + CONFIG_FILE;
+            sNomeConfigFile = DataManager.GetExeDir() + "\\" + CONFIG_FILE;
 
             if (File.Exists(sNomeConfigFile))
             {
 
                 fFiltro = File.OpenText(sNomeConfigFile);
-                LogToFile("loadConfig : caricamento");
+                LogToFile("LoadConfig : caricamento");
 
                 // ***** caricamento stringhe dal file Filtro *****
                 while (((sInStr = fFiltro.ReadLine()) != null) && (iCount < 100))
@@ -109,7 +111,7 @@ namespace StandFacile
                 fFiltro.Close();
             }
             else
-                LogToFile("loadConfig : " + CONFIG_FILE + " non trovato");
+                LogToFile("LoadConfig : " + CONFIG_FILE + " non trovato");
         }
 
     }

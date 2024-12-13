@@ -25,7 +25,7 @@ using System.Data;
 using Devart.Data.PostgreSql;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using StandFacile;
@@ -70,7 +70,7 @@ namespace StandFacile_DB
             bResult = false;
             iCountOrdini = -1;
 
-            dbInit(getActualDate(), CASSA_PRINCIPALE);
+            dbInit(GetActualDate(), CASSA_PRINCIPALE);
 
             /****************************************************
                     costruzione filtro per scarico ordini
@@ -94,13 +94,13 @@ namespace StandFacile_DB
                         // scarica iGruppo, _START_OF_ORDER e COPERTI
                         sFilter = String.Format(@"((""iOrdine_ID"" = {0}) AND ({1} (""sTipo_Articolo"" = '{2}') OR
                             ((""iGruppo_Stampa"" = {3}) AND (""sTipo_Articolo"" = 'COPERTI')) ))",
-                            iOrderID, sTmpFilter, _ORDER_CONST._START_OF_ORDER, (int)DEST_TYPE.DEST_COUNTER);
+                            iOrderID, sTmpFilter, ORDER_CONST._START_OF_ORDER, (int)DEST_TYPE.DEST_COUNTER);
                     }
                     else
                     {
                         // scarica solo iGruppo e _START_OF_ORDER
                         sFilter = String.Format(@"((""iOrdine_ID"" = {0}) AND ({1} (""sTipo_Articolo"" = '{2}')))",
-                            iOrderID, sTmpFilter, _ORDER_CONST._START_OF_ORDER);
+                            iOrderID, sTmpFilter, ORDER_CONST._START_OF_ORDER);
                     }
                 }
                 else
@@ -109,7 +109,7 @@ namespace StandFacile_DB
                 // debug
                 //sFilter = String.Format(@"((""iOrdine_ID"" = {0}) AND ((""iGruppo_Stampa"" = {1}) OR (""sTipo_Articolo"" = '{2}') OR
                 //            ((""iGruppo_Stampa"" = {3}) AND (""sTipo_Articolo"" = 'COPERTI')) ))",
-                //    iOrderID, 1, _ORDER_CONST._START_OF_ORDER, (int) DEST_TYPE.DEST_COUNTER);
+                //    iOrderID, 1, ORDER_CONST._START_OF_ORDER, (int) DEST_TYPE.DEST_COUNTER);
 
                 // riempie con tutti i record di ordini da scaricare
                 sQuery = "select * FROM " + _sDBTNameOrdini + " WHERE " + sFilter + " ;";
@@ -189,8 +189,8 @@ namespace StandFacile_DB
                 LogToFile("dbScaricaOrdine : NOT Active");
 
             // non occorre disconnettere ClientDS_Ordini
-            if (bGetDB_Connected())
-                dbInit(getActualDate(), iNumCassa);
+            if (GetDB_Connected())
+                dbInit(GetActualDate(), iNumCassa);
 
             if ((iCountOrdini > 0) && !bAnnullato)
             {
@@ -247,7 +247,7 @@ namespace StandFacile_DB
 
                         sTipo = Convert.ToString(ordiniTable.Rows[i]["sTipo_Articolo"]);
 
-                        if (!bStringBelongsTo_ORDER_CONST(sTipo))
+                        if (!StringBelongsTo_ORDER_CONST(sTipo))
                         {
                             dataRow = dataTable.Rows.Find(sTipo);
 
@@ -273,7 +273,7 @@ namespace StandFacile_DB
                         if (bScaricato)
                         {
                             // gia scaricato !!!
-                            if (sTipo == _ORDER_CONST._START_OF_ORDER)
+                            if (sTipo == ORDER_CONST._START_OF_ORDER)
                             {
                                 Console.Beep();
 
@@ -286,12 +286,12 @@ namespace StandFacile_DB
                             /******************************
                              *		aggiornamento DB
                              ******************************/
-                            if (!bStringBelongsTo_ORDER_CONST(sTipo) && (dataRow != null)) // sennò eccezione con PARMESAN
+                            if (!StringBelongsTo_ORDER_CONST(sTipo) && (dataRow != null)) // sennò eccezione con PARMESAN
                                 dataRow["iQuantita_Scaricata"] = iQuantitaScaricata + iQuantitaReceipt;
 
                             ordiniTable.Rows[i]["iScaricato"] = 1;
 
-                            if (sTipo == _ORDER_CONST._START_OF_ORDER)
+                            if (sTipo == ORDER_CONST._START_OF_ORDER)
                             {
                                 sTmp = DateTime.Now.ToString("HH.mm.ss");
 
@@ -363,14 +363,14 @@ namespace StandFacile_DB
 
             try
             {
-                bDBConnected = dbInit(getActualDate(), CASSA_PRINCIPALE);
+                bDBConnected = dbInit(GetActualDate(), CASSA_PRINCIPALE);
                 /******************************
                  *    costruzione filtro
                  ******************************/
 
                 if (bDBConnected)
                 {
-                    sQuery = "SELECT * FROM " + _sDBTNameOrdini + " WHERE (\"sTipo_Articolo\" = '" + _ORDER_CONST._START_OF_ORDER + "') AND (\"iScaricato\" = 1) ";
+                    sQuery = "SELECT * FROM " + _sDBTNameOrdini + " WHERE (\"sTipo_Articolo\" = '" + ORDER_CONST._START_OF_ORDER + "') AND (\"iScaricato\" = 1) ";
                     sQuery += " ORDER BY \"sScaricato\" DESC LIMIT " + (Define.MAX_RIGHE * 2).ToString();
 
                     PgSqlCommand cmd = new PgSqlCommand();

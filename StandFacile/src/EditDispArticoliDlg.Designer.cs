@@ -91,7 +91,7 @@
             this.AzzeraBtn.Text = "Azzera Disp.";
             this.AzzeraBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.AzzeraBtn.UseVisualStyleBackColor = true;
-            this.AzzeraBtn.Click += new System.EventHandler(this.btnAzzera_Click);
+            this.AzzeraBtn.Click += new System.EventHandler(this.BtnAzzera_Click);
             this.AzzeraBtn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditDispArticoliDlg_KeyDown);
             // 
             // RipristinaBtn
@@ -106,7 +106,7 @@
             this.RipristinaBtn.Text = "  Ripristina max Disp.";
             this.RipristinaBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.RipristinaBtn.UseVisualStyleBackColor = true;
-            this.RipristinaBtn.Click += new System.EventHandler(this.btnRipristina_Click);
+            this.RipristinaBtn.Click += new System.EventHandler(this.BtnRipristina_Click);
             this.RipristinaBtn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditDispArticoliDlg_KeyDown);
             // 
             // label5
@@ -166,7 +166,7 @@
             this.btnOK.Text = "OK  ";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             this.btnOK.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditDispArticoliDlg_KeyDown);
             // 
             // lbl2

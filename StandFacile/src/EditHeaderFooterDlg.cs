@@ -11,7 +11,7 @@ using static StandFacile.glb;
 using static StandFacile.Define;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 namespace StandFacile
@@ -39,10 +39,10 @@ namespace StandFacile
             PiePaginaEdit1.MaxLength = iMAX_RECEIPT_CHARS;
             PiePaginaEdit2.MaxLength = iMAX_RECEIPT_CHARS;
 
-            IntestazioneEdit1.Text = sCenterJustify(SF_Data.sHeaders[0], iMAX_RECEIPT_CHARS);
-            IntestazioneEdit2.Text = sCenterJustify(SF_Data.sHeaders[1], iMAX_RECEIPT_CHARS);
-            PiePaginaEdit1.Text = sCenterJustify(SF_Data.sHeaders[2], iMAX_RECEIPT_CHARS);
-            PiePaginaEdit2.Text = sCenterJustify(SF_Data.sHeaders[3], iMAX_RECEIPT_CHARS);
+            IntestazioneEdit1.Text = CenterJustify(SF_Data.sHeaders[0], iMAX_RECEIPT_CHARS);
+            IntestazioneEdit2.Text = CenterJustify(SF_Data.sHeaders[1], iMAX_RECEIPT_CHARS);
+            PiePaginaEdit1.Text = CenterJustify(SF_Data.sHeaders[2], iMAX_RECEIPT_CHARS);
+            PiePaginaEdit2.Text = CenterJustify(SF_Data.sHeaders[3], iMAX_RECEIPT_CHARS);
 
             Timer.Enabled = true;
 
@@ -58,10 +58,10 @@ namespace StandFacile
             {
                 _bListinoModificato = true;
 
-                SF_Data.sHeaders[0] = sCenterJustify(IntestazioneEdit1.Text, iMAX_RECEIPT_CHARS);
-                SF_Data.sHeaders[1] = sCenterJustify(IntestazioneEdit2.Text, iMAX_RECEIPT_CHARS);
-                SF_Data.sHeaders[2] = sCenterJustify(PiePaginaEdit1.Text, iMAX_RECEIPT_CHARS);
-                SF_Data.sHeaders[3] = sCenterJustify(PiePaginaEdit2.Text, iMAX_RECEIPT_CHARS);
+                SF_Data.sHeaders[0] = CenterJustify(IntestazioneEdit1.Text, iMAX_RECEIPT_CHARS);
+                SF_Data.sHeaders[1] = CenterJustify(IntestazioneEdit2.Text, iMAX_RECEIPT_CHARS);
+                SF_Data.sHeaders[2] = CenterJustify(PiePaginaEdit1.Text, iMAX_RECEIPT_CHARS);
+                SF_Data.sHeaders[3] = CenterJustify(PiePaginaEdit2.Text, iMAX_RECEIPT_CHARS);
 
             }
             else

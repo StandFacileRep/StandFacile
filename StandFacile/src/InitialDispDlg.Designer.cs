@@ -70,7 +70,7 @@
             this.btnOK.Text = "OK   ";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnCancel
             // 
@@ -83,7 +83,7 @@
             this.btnCancel.Text = "Annulla";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // rdButtonAll
             // 
@@ -95,7 +95,7 @@
             this.rdButtonAll.TabIndex = 21;
             this.rdButtonAll.Text = "tutti";
             this.rdButtonAll.UseVisualStyleBackColor = true;
-            this.rdButtonAll.CheckedChanged += new System.EventHandler(this.rdButtonAll_CheckedChanged);
+            this.rdButtonAll.CheckedChanged += new System.EventHandler(this.RadioBtnAll_CheckedChanged);
             // 
             // panel
             // 
@@ -145,7 +145,7 @@
             this.checkBoxCopia_8.TabIndex = 28;
             this.checkBoxCopia_8.Text = "contatori";
             this.checkBoxCopia_8.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_8.Click += new System.EventHandler(this.checkBoxCopia_Click);
+            this.checkBoxCopia_8.Click += new System.EventHandler(this.CheckBoxCopia_Click);
             // 
             // checkBoxCopia_5
             // 
@@ -157,7 +157,7 @@
             this.checkBoxCopia_5.TabIndex = 26;
             this.checkBoxCopia_5.Text = "gruppo 6";
             this.checkBoxCopia_5.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_5.Click += new System.EventHandler(this.checkBoxCopia_Click);
+            this.checkBoxCopia_5.Click += new System.EventHandler(this.CheckBoxCopia_Click);
             // 
             // checkBoxCopia_4
             // 
@@ -169,7 +169,7 @@
             this.checkBoxCopia_4.TabIndex = 25;
             this.checkBoxCopia_4.Text = "gruppo 5";
             this.checkBoxCopia_4.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_4.Click += new System.EventHandler(this.checkBoxCopia_Click);
+            this.checkBoxCopia_4.Click += new System.EventHandler(this.CheckBoxCopia_Click);
             // 
             // checkBoxCopia_3
             // 
@@ -181,7 +181,7 @@
             this.checkBoxCopia_3.TabIndex = 24;
             this.checkBoxCopia_3.Text = "gruppo 4";
             this.checkBoxCopia_3.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_3.Click += new System.EventHandler(this.checkBoxCopia_Click);
+            this.checkBoxCopia_3.Click += new System.EventHandler(this.CheckBoxCopia_Click);
             // 
             // checkBoxCopia_2
             // 
@@ -193,7 +193,7 @@
             this.checkBoxCopia_2.TabIndex = 23;
             this.checkBoxCopia_2.Text = "gruppo 3";
             this.checkBoxCopia_2.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_2.Click += new System.EventHandler(this.checkBoxCopia_Click);
+            this.checkBoxCopia_2.Click += new System.EventHandler(this.CheckBoxCopia_Click);
             // 
             // checkBoxCopia_1
             // 
@@ -205,7 +205,7 @@
             this.checkBoxCopia_1.TabIndex = 22;
             this.checkBoxCopia_1.Text = "gruppo 2";
             this.checkBoxCopia_1.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_1.Click += new System.EventHandler(this.checkBoxCopia_Click);
+            this.checkBoxCopia_1.Click += new System.EventHandler(this.CheckBoxCopia_Click);
             // 
             // checkBoxCopia_0
             // 
@@ -217,7 +217,7 @@
             this.checkBoxCopia_0.TabIndex = 21;
             this.checkBoxCopia_0.Text = "gruppo 1";
             this.checkBoxCopia_0.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_0.Click += new System.EventHandler(this.checkBoxCopia_Click);
+            this.checkBoxCopia_0.Click += new System.EventHandler(this.CheckBoxCopia_Click);
             // 
             // rdButtonNone
             // 
@@ -229,7 +229,7 @@
             this.rdButtonNone.TabIndex = 23;
             this.rdButtonNone.Text = "nessuno";
             this.rdButtonNone.UseVisualStyleBackColor = true;
-            this.rdButtonNone.CheckedChanged += new System.EventHandler(this.rdButtonNone_CheckedChanged);
+            this.rdButtonNone.CheckedChanged += new System.EventHandler(this.RadioBtnNone_CheckedChanged);
             // 
             // groupBox
             // 

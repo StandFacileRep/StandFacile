@@ -11,7 +11,7 @@ namespace StandCommonFiles
 {
     /// <summary>
     /// classe per la generazione del barcode EAN13<br/>
-    /// buildBarcodeID() accetta in ingresso una stringa numerica di 12 caratteri<br/>
+    /// BuildBarcodeID() accetta in ingresso una stringa numerica di 12 caratteri<br/>
     /// a cui aggiunge il Ckecksum<br/>
     /// <br/>
     /// le stringhe per la stampa sono restituite in _sBuilString, _sBarcodeID<br/>
@@ -136,12 +136,12 @@ namespace StandCommonFiles
         /// verifica la correttezza del checkSum della stringa numerica lunga 13 caratteri <br/>
         /// considerando però solo i primi 13, se fallisce ritorna -1
         /// </summary>
-        public static bool verifyChecksum(String sBarcodeParam)
+        public static bool VerifyChecksum(String sBarcodeParam)
         {
             // -100 per evitare che se anche la stringa è corta ritorna true
             int iCheckSum, iReadCheckSum = -100; 
 
-            iCheckSum = buildChecksum(sBarcodeParam);
+            iCheckSum = BuildChecksum(sBarcodeParam);
 
             if (sBarcodeParam.Length > 12)
                 iReadCheckSum = Convert.ToInt32(sBarcodeParam[12]) - 48;
@@ -154,9 +154,9 @@ namespace StandCommonFiles
         /// calcola il checksum sulla stringa numerica lunga almeno 12 caratteri <br/>
         /// considerando però solo i primi 12, se fallisce ritorna -1
         /// </summary>
-        public static int buildChecksum(String sBarcodeParam)
+        public static int BuildChecksum(String sBarcodeParam)
         {
-            int iCheckSum, iCheckSumCpl = -1;
+            int iCheckSum, iCheckSumCpl;
 
             if (sBarcodeParam.Length > 12)
             {
@@ -193,7 +193,7 @@ namespace StandCommonFiles
         /// <summary>stampa il barcode a partire da una stringa numerica lunga 12<br/>
         /// imposta _sBarcodeID, _sBuilString
         /// </summary>
-        public static void buildBarcodeID(String sBarcode)
+        public static void BuildBarcodeID(String sBarcode)
         {
             int i, iParityToEnc;
             int iFirstDigit, iCurDigit;
@@ -207,7 +207,7 @@ namespace StandCommonFiles
             }
 
 
-            sBarcode += String.Format("{0}", buildChecksum(sBarcode)); // aggiunta del checksum
+            sBarcode += String.Format("{0}", BuildChecksum(sBarcode)); // aggiunta del checksum
 
             sLastString = "101";
             sFirstDigit = sBarcode[0].ToString();

@@ -10,7 +10,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 
 using static StandFacile.Define;
 
@@ -20,6 +20,8 @@ namespace StandFacile
     /// <summary>Piccolo Help</summary>
     public partial class QuickHelpDlg : Form
     {
+#pragma warning disable IDE0060
+
         /// <summary>costruttore</summary>
         public QuickHelpDlg(String sStringsParam = "", int iHSizeParam = 420, int iVSizeParam = 300)
         {

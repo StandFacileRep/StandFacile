@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 
 using static StandFacile.FrmMain;
 using static StandFacile.dBaseIntf;
@@ -25,6 +25,9 @@ namespace StandFacile
     /// </summary>
     public partial class EsploraDB_Dlg : Form
     {
+
+#pragma warning disable IDE0044
+#pragma warning disable IDE1006
 
         int _iDB_StringsCount, _iGridStringsCount, _iDBGridRowIndex;
         List<string> _sElencoStrings = new List<string>();
@@ -157,7 +160,7 @@ namespace StandFacile
 
             if (dResult == DialogResult.OK)
             {
-                sNewTabella = rRenameDlg.sGetEdit();
+                sNewTabella = rRenameDlg.GetEdit();
 
                 _rdBaseIntf.dbRenameTable(sOldTabella, sNewTabella);
 
@@ -185,14 +188,14 @@ namespace StandFacile
             int iKey = (int)e.KeyValue;
             String sRow = "", sDate;
 
-            sDate = getActualDate().ToString("yyMMdd");
+            sDate = GetActualDate().ToString("yyMMdd");
 
             if ((_iDB_StringsCount > 0) && (dbGrid.CurrentRow != null) && (dbGrid.CurrentRow.Cells[0].Value != null))
                 sRow = dbGrid.CurrentRow.Cells[0].Value.ToString();
 
             // sicurezza
-            if (rFrmMain.bGetEsperto() && !sRow.Contains(sDate) && (_iDB_StringsCount > 0) &&
-                !DataManager.bCheckIf_CassaSec_and_NDB() && !sRow.Contains(NOME_LISTINO_DBTBL))
+            if (rFrmMain.GetEsperto() && !sRow.Contains(sDate) && (_iDB_StringsCount > 0) &&
+                !DataManager.CheckIf_CassaSec_and_NDB() && !sRow.Contains(NOME_LISTINO_DBTBL))
             {
                 EliminaBtn.Enabled = true;
                 //RenameBtn.Enabled = true;

@@ -14,7 +14,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 using static StandFacile.glb;
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using static StandFacile.dBaseIntf;
@@ -27,6 +27,7 @@ namespace StandFacile
     /// </summary>
     public partial class VisDatiDlg : Form
     {
+#pragma warning disable IDE0060
 
         const String NUMERIC_CELL_FORMAT = "0.00";
 
@@ -46,7 +47,7 @@ namespace StandFacile
         public static VisDatiDlg rVisDatiDlg;
 
         /// <summary>ottiene la selezione del tipo di report</summary>
-        public int getReport()
+        public int GetReport()
         {
             if (comboReport != null)
                 return comboReport.SelectedIndex;
@@ -55,7 +56,7 @@ namespace StandFacile
         }
 
         /// <summary>ottiene la selezione del tipo di report</summary>
-        public int getBitReport(int iParam)
+        public int GetBitReport(int iParam)
         {
             if (comboReport != null)
             {
@@ -75,6 +76,7 @@ namespace StandFacile
                 return 0;
         }
 
+#pragma warning disable IDE0044
         TArticolo[] _ArticoliPrimaColonna = new TArticolo[MAX_NUM_ARTICOLI + EXTRA_NUM_ARTICOLI];
         TErrMsg _WrnMsg;
 
@@ -105,7 +107,7 @@ namespace StandFacile
             comboReport.Items.Add("Vis. sconto precentuale");
             comboReport.SelectedIndex = 0;
 
-            if (_bUSA_NDB())
+            if (bUSA_NDB())
                 CkBoxUnioneCasse.Enabled = true;
             else
             {
@@ -206,7 +208,7 @@ namespace StandFacile
                 this.Width = 700;
 
                 //	visualizzazione
-                if (_bUSA_NDB() && String.IsNullOrEmpty(_sNomeTabellaParam))
+                if (bUSA_NDB() && String.IsNullOrEmpty(_sNomeTabellaParam))
                 {
                     CkBoxUnioneCasse.Enabled = true;
 
@@ -232,7 +234,7 @@ namespace StandFacile
                 }
                 if (String.IsNullOrEmpty(_sNomeTabellaParam))
                 {
-                    sNomeFile = getNomeDatiDBTable(_iNumCassa, _SelDate);
+                    sNomeFile = GetNomeDatiDBTable(_iNumCassa, _SelDate);
                 }
                 else
                 {
@@ -292,11 +294,11 @@ namespace StandFacile
                     // dati correnti o da VisDati che filtra in base a bPrevendita || dati da Esplora_DB
                     if (SF_Data.bPrevendita && String.IsNullOrEmpty(_sNomeTabellaParam) || _sNomeTabellaParam.Contains(_dbPreDataTablePrefix))
                     {
-                        sTmp = sCenterJustify(sConst_Prevendita[0], iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(sConst_Prevendita[0], iMAX_RECEIPT_CHARS);
                         textEditDati.AppendText(String.Format("\r\n{0}\r\n", sTmp));
-                        sTmp = sCenterJustify(sConst_Prevendita[1], iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(sConst_Prevendita[1], iMAX_RECEIPT_CHARS);
                         textEditDati.AppendText(String.Format("{0}\r\n", sTmp));
-                        sTmp = sCenterJustify(sConst_Prevendita[2], iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(sConst_Prevendita[2], iMAX_RECEIPT_CHARS);
                         textEditDati.AppendText(String.Format("{0}\r\n", sTmp));
                     }
 
@@ -356,7 +358,7 @@ namespace StandFacile
                             }
                         }
 
-                        if (getReport() == 0)
+                        if (GetReport() == 0)
                         {
                             sTmp = String.Format(sDAT_FMT_DSH + "\r\n", "--------");
                             textEditDati.AppendText(sTmp);
@@ -399,7 +401,7 @@ namespace StandFacile
                             }
                         }
 
-                        if (getReport() == 0)
+                        if (GetReport() == 0)
                         {
                             sTmp = String.Format(sDAT_FMT_DSH + "\r\n", "--------");
                             textEditDati.AppendText(sTmp);
@@ -439,7 +441,7 @@ namespace StandFacile
                             }
                         }
 
-                        if (getReport() == 0)
+                        if (GetReport() == 0)
                         {
                             sTmp = String.Format(sDAT_FMT_DSH_RED + "\r\n", "--------");
                             textEditDati.AppendText(sTmp);
@@ -479,7 +481,7 @@ namespace StandFacile
                             }
                         }
 
-                        if (getReport() == 0)
+                        if (GetReport() == 0)
                         {
                             sTmp = String.Format(sDAT_FMT_DSH_RED + "\r\n", "--------");
                             textEditDati.AppendText(sTmp);
@@ -496,24 +498,24 @@ namespace StandFacile
 
                     textEditDati.AppendText("\r\n");
 
-                    if ((DB_Data.iTotaleScontatoGratis > 0) && (getReport() == 0 || getBitReport(comboReport.SelectedIndex) == BIT_SCONTO_GRATIS))
+                    if ((DB_Data.iTotaleScontatoGratis > 0) && (GetReport() == 0 || GetBitReport(comboReport.SelectedIndex) == BIT_SCONTO_GRATIS))
                     {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "valore gratuiti", IntToEuro(DB_Data.iTotaleScontatoGratis));
                         textEditDati.AppendText(sTmp);
                     }
-                    if ((DB_Data.iTotaleScontatoFisso > 0) && (getReport() == 0 || getBitReport(comboReport.SelectedIndex) == BIT_SCONTO_FISSO))
+                    if ((DB_Data.iTotaleScontatoFisso > 0) && (GetReport() == 0 || GetBitReport(comboReport.SelectedIndex) == BIT_SCONTO_FISSO))
                     {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "valore sconto fisso", IntToEuro(DB_Data.iTotaleScontatoFisso));
                         textEditDati.AppendText(sTmp);
                     }
 
-                    if ((DB_Data.iTotaleScontatoStd > 0) && (getReport() == 0 || getBitReport(comboReport.SelectedIndex) == BIT_SCONTO_STD))
+                    if ((DB_Data.iTotaleScontatoStd > 0) && (GetReport() == 0 || GetBitReport(comboReport.SelectedIndex) == BIT_SCONTO_STD))
                     {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "valore sconto articoli", IntToEuro(DB_Data.iTotaleScontatoStd));
                         textEditDati.AppendText(sTmp);
                     }
 
-                    if (((DB_Data.iTotaleScontatoStd > 0) || (DB_Data.iTotaleScontatoFisso > 0) || (DB_Data.iTotaleScontatoGratis > 0)) && getReport() == 0)
+                    if (((DB_Data.iTotaleScontatoStd > 0) || (DB_Data.iTotaleScontatoFisso > 0) || (DB_Data.iTotaleScontatoGratis > 0)) && GetReport() == 0)
                     {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "", "--------");
                         textEditDati.AppendText(sTmp);
@@ -523,7 +525,7 @@ namespace StandFacile
                         textEditDati.AppendText(sTmp);
                     }
 
-                    if (((DB_Data.iTotaleIncassoCard > 0) || (DB_Data.iTotaleIncassoSatispay > 0)) && (getReport() == 0))
+                    if (((DB_Data.iTotaleIncassoCard > 0) || (DB_Data.iTotaleIncassoSatispay > 0)) && (GetReport() == 0))
                     {
                         textEditDati.AppendText("\r\n");
 
@@ -555,7 +557,7 @@ namespace StandFacile
                  *  e per visualizzazione ridotta
                  *********************************************************/
 #if STANDFACILE
-                sDir = DataManager.sGetExeDir() + "\\";
+                sDir = DataManager.GetExeDir() + "\\";
 #endif
 
                 fData = File.CreateText(sDir + sNomeFile);
@@ -598,7 +600,7 @@ namespace StandFacile
 
 #if STANDFACILE
                 sNomeFile = NOME_FILE_LISTINO;
-                sDir = DataManager.sGetExeDir() + "\\";
+                sDir = DataManager.GetExeDir() + "\\";
 #else
                 sNomeFile = "";
                 sTmp = "";
@@ -612,7 +614,7 @@ namespace StandFacile
                 // ******* inizio caricamento stringhe dal DB o file *******
 
 #if STANDFACILE
-                if (DataManager.bCheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
+                if (DataManager.CheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
                 {
                     if (_rdBaseIntf.dbCaricaListino(sInputStrings) > 0) // carica dal DB
                         LogToFile("FrmVisDati : dbCaricaListino()");
@@ -674,7 +676,7 @@ namespace StandFacile
                  *  costruzione del file prezzi temporaneo e ridotto per stampa
                  *****************************************************************/
 #if STANDFACILE
-                sDir = DataManager.sGetExeDir() + "\\";
+                sDir = DataManager.GetExeDir() + "\\";
 #endif
                 sNomeFile = NOME_FILE_STAMPA_LOC_RID_TMP;
 
@@ -713,10 +715,10 @@ namespace StandFacile
 
         } // end VisualizzaDati
 
-        private void btnPrt_Click(object sender, EventArgs e)
+        private void BtnPrt_Click(object sender, EventArgs e)
         {
 #if STANDFACILE
-            String sDir = DataManager.sGetExeDir() + "\\";
+            String sDir = DataManager.GetExeDir() + "\\";
 
             if ((_iTipoFile == (int)FILE_TO_SHOW.FILE_DATI) && (CheckBoxRidColonne.Checked) || (_iTipoFile == (int)FILE_TO_SHOW.FILE_PREZZI))
                 GenPrintFile(sDir + NOME_FILE_STAMPA_LOC_RID_TMP);
@@ -793,7 +795,7 @@ namespace StandFacile
                 xlsWorkSheet = (Excel.Worksheet)xlsWorkBook.Worksheets.get_Item(1); // xls tab1
 
 #if STANDFACILE
-                sDataDir = DataManager.sGetDataDir() + "\\";
+                sDataDir = DataManager.GetDataDir() + "\\";
 #else
                 sDataDir = sRootDir + "\\";
 #endif
@@ -810,7 +812,7 @@ namespace StandFacile
                 }
 
                 if (_SelRange == null)
-                    _SelRange = new SelectionRange(getActualDate(), getActualDate());
+                    _SelRange = new SelectionRange(GetActualDate(), GetActualDate());
 
                 if (_SelRange.Start == _SelRange.End)
                 {
@@ -867,8 +869,8 @@ namespace StandFacile
                                     j++;
                                 }
 
-                            // calcolo ultimo indice anche in date passate, no DataManager.iCheckLastArticoloIndexP1()
-                            iUpperLimit = iCheckLastArticoloIndexP1();
+                            // calcolo ultimo indice anche in date passate, no DataManager.CheckLastArticoloIndexP1()
+                            iUpperLimit = CheckLastArticoloIndexP1();
 
                             sTmp = String.Format("{0}", DB_Data.sVersione);
                             xlsWorkSheet.Cells[iRow++, iColumn + 2] = sTmp;
@@ -1125,7 +1127,7 @@ namespace StandFacile
             SelectionRange selDates;
 
             SelDataDlg.rSelDataDlg.ShowDialog();
-            selDates = SelDataDlg.rSelDataDlg.getDateFromPicker();
+            selDates = SelDataDlg.rSelDataDlg.GetDateFromPicker();
 
             if (selDates != null) // non sono uscito con Cancel ...
             {
@@ -1140,7 +1142,7 @@ namespace StandFacile
                 VisualizzaDati((int)FILE_TO_SHOW.FILE_DATI, _SelDate, Combo_NumCassa.SelectedIndex + 1, _bVisCambioData, "", comboReport.SelectedIndex);
         }
 
-        private void comboReport_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboReport_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_InitCompletato)
                 VisualizzaDati((int)FILE_TO_SHOW.FILE_DATI, _SelDate, Combo_NumCassa.SelectedIndex + 1, _bVisCambioData, "", comboReport.SelectedIndex);
@@ -1151,7 +1153,7 @@ namespace StandFacile
         /// serve per agevolare i controlli sui range, <br/> <br/>
         /// attenzione che il limite _iLastArticoloIndexP1 vale solo per SF_Data.Articolo[] e non per DB_Data.Articolo[]
         /// </summary>
-        private int iCheckLastArticoloIndexP1()
+        private int CheckLastArticoloIndexP1()
         {
             int i, iUltimoArticolo_NE;
 

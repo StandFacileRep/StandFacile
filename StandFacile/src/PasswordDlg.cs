@@ -10,7 +10,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 namespace StandFacile
@@ -45,7 +45,7 @@ namespace StandFacile
             if (_bCheckOnly)
             {
                 _tt.SetToolTip(OKBtn, "si abilita se la password corrisponde");
-                textBox_PWD.Text = dBaseTunnel_my.Decrypt_WS(sReadRegistry(SET_ACCESS_KEY, sDEFAULT_PWD));
+                textBox_PWD.Text = dBaseTunnel_my.Decrypt_WS(ReadRegistry(SET_ACCESS_KEY, sDEFAULT_PWD));
 
                 Text = "Inserimento password";
                 textBox_PWD.Visible = false;
@@ -64,7 +64,7 @@ namespace StandFacile
             }
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             if (textBox_PWD.Focused && (textBox_PWD.Text.Length > 0) && (textBox_PWD.Text.Length < 6))
             {
@@ -93,7 +93,7 @@ namespace StandFacile
             if (((textBox_PWD.Text == textBox_VER.Text) || (dBaseTunnel_my.Decrypt_WS(sDEFAULT_PWD) == textBox_VER.Text)) && (textBox_PWD.Text.Length >= 6) && (textBox_VER.Text.Length >= 6))
             {
                 OKBtn.Enabled = true;
-                FrmMain.bSetPasswordIsGood(true);
+                FrmMain.SetPasswordIsGood(true);
             }
             else
             {
@@ -106,7 +106,7 @@ namespace StandFacile
             WriteRegistry(SET_ACCESS_KEY, dBaseTunnel_my.Encrypt_WS(textBox_PWD.Text));
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }

@@ -203,7 +203,7 @@
             this.ckBox_0.TabIndex = 2;
             this.ckBox_0.Text = "G1";
             this.ckBox_0.UseVisualStyleBackColor = true;
-            this.ckBox_0.Click += new System.EventHandler(this.ckBox_Click);
+            this.ckBox_0.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // ckBox_1
             // 
@@ -214,7 +214,7 @@
             this.ckBox_1.TabIndex = 3;
             this.ckBox_1.Text = "G2";
             this.ckBox_1.UseVisualStyleBackColor = true;
-            this.ckBox_1.Click += new System.EventHandler(this.ckBox_Click);
+            this.ckBox_1.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // ckBox_2
             // 
@@ -225,7 +225,7 @@
             this.ckBox_2.TabIndex = 4;
             this.ckBox_2.Text = "G3";
             this.ckBox_2.UseVisualStyleBackColor = true;
-            this.ckBox_2.Click += new System.EventHandler(this.ckBox_Click);
+            this.ckBox_2.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // ckBox_3
             // 
@@ -236,7 +236,7 @@
             this.ckBox_3.TabIndex = 5;
             this.ckBox_3.Text = "G4";
             this.ckBox_3.UseVisualStyleBackColor = true;
-            this.ckBox_3.Click += new System.EventHandler(this.ckBox_Click);
+            this.ckBox_3.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // ckBox_4
             // 
@@ -247,7 +247,7 @@
             this.ckBox_4.TabIndex = 6;
             this.ckBox_4.Text = "G5";
             this.ckBox_4.UseVisualStyleBackColor = true;
-            this.ckBox_4.Click += new System.EventHandler(this.ckBox_Click);
+            this.ckBox_4.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // ckBox_5
             // 
@@ -258,7 +258,7 @@
             this.ckBox_5.TabIndex = 7;
             this.ckBox_5.Text = "G6";
             this.ckBox_5.UseVisualStyleBackColor = true;
-            this.ckBox_5.Click += new System.EventHandler(this.ckBox_Click);
+            this.ckBox_5.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // textBoxPercVal
             // 
@@ -334,7 +334,7 @@
             this.radioBtn100.TabStop = true;
             this.radioBtn100.Text = "100%";
             this.radioBtn100.UseVisualStyleBackColor = true;
-            this.radioBtn100.Click += new System.EventHandler(this.radioBtn100_Click);
+            this.radioBtn100.Click += new System.EventHandler(this.RadioBtn100_Click);
             // 
             // ScontoDlg
             // 

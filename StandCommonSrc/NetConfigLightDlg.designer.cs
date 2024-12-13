@@ -134,7 +134,7 @@
             this.checkBoxCopia_0.TabIndex = 6;
             this.checkBoxCopia_0.Text = "##### COPIA GRUPPO1 #####";
             this.checkBoxCopia_0.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_0.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_0.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // checkBoxCopia_1
             // 
@@ -147,7 +147,7 @@
             this.checkBoxCopia_1.TabIndex = 7;
             this.checkBoxCopia_1.Text = "##### COPIA GRUPPO2 #####";
             this.checkBoxCopia_1.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // checkBoxCopia_2
             // 
@@ -160,7 +160,7 @@
             this.checkBoxCopia_2.TabIndex = 8;
             this.checkBoxCopia_2.Text = "##### COPIA GRUPPO3 #####";
             this.checkBoxCopia_2.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_2.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // checkBoxCopia_3
             // 
@@ -173,7 +173,7 @@
             this.checkBoxCopia_3.TabIndex = 9;
             this.checkBoxCopia_3.Text = "##### COPIA GRUPPO4 #####";
             this.checkBoxCopia_3.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_3.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // checkBoxCopia_4
             // 
@@ -186,7 +186,7 @@
             this.checkBoxCopia_4.TabIndex = 10;
             this.checkBoxCopia_4.Text = "##### COPIA GRUPPO5 #####";
             this.checkBoxCopia_4.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_4.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // checkBoxCopia_5
             // 
@@ -199,7 +199,7 @@
             this.checkBoxCopia_5.TabIndex = 11;
             this.checkBoxCopia_5.Text = "##### COPIA GRUPPO6 #####";
             this.checkBoxCopia_5.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_5.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // label3
             // 
@@ -240,7 +240,7 @@
             this.combo_TipoDBase.Name = "combo_TipoDBase";
             this.combo_TipoDBase.Size = new System.Drawing.Size(170, 22);
             this.combo_TipoDBase.TabIndex = 15;
-            this.combo_TipoDBase.SelectedIndexChanged += new System.EventHandler(this.combo_TipoDBase_SelectedIndexChanged);
+            this.combo_TipoDBase.SelectedIndexChanged += new System.EventHandler(this.Combo_TipoDBase_SelectedIndexChanged);
             // 
             // checkBoxBarcode
             // 
@@ -291,7 +291,7 @@
             this.checkBoxCopia_7.TabIndex = 11;
             this.checkBoxCopia_7.Text = "##### COPIA GRUPPO8 #####";
             this.checkBoxCopia_7.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_7.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_7.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // checkBoxCopia_6
             // 
@@ -304,7 +304,7 @@
             this.checkBoxCopia_6.TabIndex = 11;
             this.checkBoxCopia_6.Text = "##### COPIA GRUPPO7 #####";
             this.checkBoxCopia_6.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_6.MouseClick += new System.Windows.Forms.MouseEventHandler(this.checkBoxCopia_MouseClick);
+            this.checkBoxCopia_6.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // textBoxColor_3
             // 

@@ -21,11 +21,13 @@ using static StandFacile_DB.dBaseIntf_pg;
 
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.ComSafe;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 namespace StandFacile
 {
+#pragma warning disable IDE1006
+
     /// <summary>
     /// classe che contiene le variabili comuni ai 3 DB: SQLite, MySQL, PostGreSQL <br/>
     ///  <br/>
@@ -33,6 +35,7 @@ namespace StandFacile
     /// </summary>
     public class dBaseIntf
     {
+
         // *** evitare maiuscole ***
 
         /// <summary>nome della tabella del Listino</summary>
@@ -102,16 +105,16 @@ namespace StandFacile
         public static String _sPrevStatus_Date;
 
         /// <summary>ottiene flag di cambio data DB</summary>
-        public static bool bGet_StatusDate_IsChanged() { return _bStatusDate_IsChanged; }
+        public static bool Get_StatusDate_IsChanged() { return _bStatusDate_IsChanged; }
 
         /// <summary>imposta flag di cambio data DB</summary>
-        public static void bReset_StatusDate_Changed() { _bStatusDate_IsChanged = false; }
+        public static void Reset_StatusDate_Changed() { _bStatusDate_IsChanged = false; }
 
         /// <summary>esegue check della connessione al DB</summary>
-        public bool db_FeedbackCheck() { return dbCheck(_sDB_ServerName, _password, _iNDbMode, false); }
+        public bool dbFeedbackCheck() { return dbCheck(_sDB_ServerName, _password, _iNDbMode, false); }
 
         /// <summary>esegue check silente della connessione al DB</summary>
-        public void db_SilentCheck() { dbCheck(_sDB_ServerName, _password, _iNDbMode, true); }
+        public void dbSilentCheck() { dbCheck(_sDB_ServerName, _password, _iNDbMode, true); }
 
 #endif
 
@@ -133,10 +136,10 @@ namespace StandFacile
         public static String _sAttesaMedia = "xx";
 
         /// <summary>ottiene lo scontrino specifico</summary>
-        public static String get_sNumScontrino(int i) { return _sNumScontrino[i]; }
+        public static String GetNumScontrino(int i) { return _sNumScontrino[i]; }
 
         /// <summary>ottiene l'attesa media</summary>
-        public static String get_sAttesaMedia() { return _sAttesaMedia; }
+        public static String GetAttesaMedia() { return _sAttesaMedia; }
 
         /// <summary> flag per gestione errori </summary>
         public static bool _bErrorePrimaVolta = true;
@@ -145,30 +148,30 @@ namespace StandFacile
         public static int _iNumScontrini;
 
         /// <summary>ottiene il numero di scontrini emessi</summary>
-        public static int get_iNumScontrini() { return _iNumScontrini; } //
+        public static int GetNumScontrini() { return _iNumScontrini; } //
         /// <summary>ottiene l'indicazione di primo errore</summary>
-        public static bool get_bErrorePrimaVolta() { return _bErrorePrimaVolta; } //
+        public static bool GetErrorePrimaVolta() { return _bErrorePrimaVolta; } //
         /// <summary>reset indicazione di primo errore</summary>
-        public static void clear_bErrorePrimaVolta() { _bErrorePrimaVolta = false; } //
+        public static void ClearErrorePrimaVolta() { _bErrorePrimaVolta = false; } //
 
 #endif
         /// <summary>funzione che indica se è usato un DB di rete: MySQL, PostGreSQL</summary>
-        public static bool _bUSA_NDB() { return _bUsa_NDB; } //
+        public static bool bUSA_NDB() { return _bUsa_NDB; } //
 
         /// <summary>funzione che indica quale DB è usato 0:SQLite, 1:MySQL, 2:PostGreSQL</summary>
-        public static int _iUSA_NDB() { return _iNDbMode; } //
+        public static int iUSA_NDB() { return _iNDbMode; } //
 
         /// <summary>funzione di verifica della connessione al DB di rete</summary>
         public bool dbCheck() { return dbCheck(_sDB_ServerName, _password, _iNDbMode); }
 
         /// <summary>controllo stato della connessione</summary>
-        public bool bGetDB_Connected()
+        public bool GetDB_Connected()
         {
             if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.bGetDB_Connected();
+                return _rdBaseIntf_my.GetDB_Connected();
             else
             if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.bGetDB_Connected();
+                return _rdBaseIntf_pg.GetDB_Connected();
             else
                 return false;
         }
@@ -180,7 +183,7 @@ namespace StandFacile
         public static string dbGetDateFromDB() { return _sDateFromDB; }
 
         /// <summary>ottiene il nome del DB server</summary>
-        public static string sGetDB_ServerName() { return _sDB_ServerName; }
+        public static string GetDB_ServerName() { return _sDB_ServerName; }
 
         /// <summary>ottiene dal DB il numero degli ordini emessi da questa cassa</summary>
         public static int dbGetNumOfLocalOrdersFromDB() { return _iNumOfLocalOrdersFromDB; }
@@ -196,19 +199,19 @@ namespace StandFacile
         /// <summary>costruttore</summary>
         public dBaseIntf()
         {
-            DateTime dateParam = getActualDate();
+            DateTime dateParam = GetActualDate();
 
             _rdBaseIntf = this;
 
             dbAzzeraDatiGen();
             dbAzzeraDatiOrdine();
 
-            _sDB_ServerName = sReadRegistry(DBASE_SERVER_NAME_KEY, Dns.GetHostName());
-            _password = Decrypt(sReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
+            _sDB_ServerName = ReadRegistry(DBASE_SERVER_NAME_KEY, Dns.GetHostName());
+            _password = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
 #if STANDFACILE
-            _iNDbMode = iReadRegistry(DB_MODE_KEY, (int)DB_MODE.SQLITE); // punto unico
+            _iNDbMode = ReadRegistry(DB_MODE_KEY, (int)DB_MODE.SQLITE); // punto unico
 #else
-            _iNDbMode = iReadRegistry(DB_MODE_KEY, (int)DB_MODE.MYSQL); // punto unico
+            _iNDbMode = ReadRegistry(DB_MODE_KEY, (int)DB_MODE.MYSQL); // punto unico
 #endif
 
 #if STAND_CUCINA || STAND_ORDINI || STAND_MONITOR
@@ -222,7 +225,7 @@ namespace StandFacile
 
             bool bDBConnection_Ok = false;
 
-            _bUsa_NDB = (iReadRegistry(DB_MODE_KEY, 0) > 0); // punto doppio con DataManager
+            _bUsa_NDB = (ReadRegistry(DB_MODE_KEY, 0) > 0); // punto doppio con DataManager
 
             LogToFile(String.Format("dBaseForm : tipo db = {0}", _iNDbMode));
 
@@ -254,7 +257,7 @@ namespace StandFacile
         }
 
         /// <summary> imposta i parametri della connessione letta dallo Stato NOME_STATO_DBTBL </summary>
-        public static void setDbMode(String sServerParam, String sPwdParam, int iDbModePrm)
+        public static void SetDbMode(String sServerParam, String sPwdParam, int iDbModePrm)
         {
             _sDB_ServerName = sServerParam;
             _iNDbMode = iDbModePrm;
@@ -600,7 +603,7 @@ namespace StandFacile
         /// Funzione di lettura degli Ordini emessi dalle casse secondarie, <br/>
         /// ritorna 0 se non ce ne sono, negativo per gli ordini annullati<br/><br/>
         /// 
-        /// chiamata da  aggiornaDisponibilità per aggiornare la disponibilità della CASSA_PRINCIPALE<br/>
+        /// chiamata da  AggiornaDisponibilità per aggiornare la disponibilità della CASSA_PRINCIPALE<br/>
         /// bClearOrdiniParam = true consente di eliminare un ordine dalla tabella ma solo se è CASSA_PRINCIPALE
         /// </summary>
         public int dbClearOrdiniCSec(bool bClearOrdiniParam)
@@ -674,7 +677,7 @@ namespace StandFacile
         /// se però iParam == 0 carica _Versione, _Header, _HeaderText <br/> <br/>
         /// 
         /// ritorna true se ha successo, <br/>
-        /// utilizzata da FrmVisOrdiniDlg, DataManager.aggiornaDisponibilità
+        /// utilizzata da FrmVisOrdiniDlg, DataManager.AggiornaDisponibilità
         /// </summary>
         public bool dbCaricaOrdine(DateTime dateParam, int iParam, bool bFiltraPerCassa, String sNomeTabellaParam = "")
         {
@@ -854,7 +857,7 @@ namespace StandFacile
         }
 
         /// <summary>
-        /// usato da eraseAllaData()
+        /// usato da EraseAllaData()
         /// </summary>
         /// <returns></returns>
         public bool dbDropTables()
@@ -937,7 +940,7 @@ namespace StandFacile
         /// <summary>
         /// Funzione di inserimento record con numero Ordine dalla cassa Sec <br/>
         /// per successivo scarico della Disponibilità di Magazzino <br/>
-        /// solo con MySQL, usata da Receipt() ed bAnnulloOrdine()<br/>
+        /// solo con MySQL, usata da Receipt() ed AnnulloOrdine()<br/>
         /// </summary>
         public void dbCSecOrderEnqueue(int iEnqueueParam)
         {
@@ -955,15 +958,15 @@ namespace StandFacile
         /// Funzione di inserimento record del numero Ordine web<br/>
         /// usata da MainForm nel caso fallisca il contrassegno diretto
         /// </summary>
-        public void db_webOrderEnqueue(int iEnqueueParam)
+        public void dbWebOrderEnqueue(int iEnqueueParam)
         {
             if (_iNDbMode == (int)DB_MODE.SQLITE)
-                _rdBaseIntf_ql.db_webOrderEnqueue(iEnqueueParam);
+                _rdBaseIntf_ql.dbWebOrderEnqueue(iEnqueueParam);
             else
             if (_iNDbMode == (int)DB_MODE.MYSQL)
-                _rdBaseIntf_my.db_webOrderEnqueue(iEnqueueParam);
+                _rdBaseIntf_my.dbWebOrderEnqueue(iEnqueueParam);
             else
-                _rdBaseIntf_pg.db_webOrderEnqueue(iEnqueueParam);
+                _rdBaseIntf_pg.dbWebOrderEnqueue(iEnqueueParam);
             return;
         }
 
@@ -1072,7 +1075,7 @@ namespace StandFacile
         /// https://www.digitalcoding.com/Code-Snippets/C-Sharp/C-Code-Snippet-AddSlashes-StripSlashes-Escape-String.html
         /// </summary>
         /// <param name="InputTxt">Text string need to be escape with slashes</param>
-        public static string addSlashes(string InputTxt)
+        public static string AddSlashes(string InputTxt)
         {
             // List of characters handled:
             // \000 null
@@ -1105,7 +1108,7 @@ namespace StandFacile
         /// https://www.digitalcoding.com/Code-Snippets/C-Sharp/C-Code-Snippet-AddSlashes-StripSlashes-Escape-String.html
         /// </summary>
         /// <param name="InputTxt">Text string need to be escape with slashes</param>
-        public static string stripSlashes(string InputTxt)
+        public static string StripSlashes(string InputTxt)
         {
             // List of characters handled:
             // \000 null

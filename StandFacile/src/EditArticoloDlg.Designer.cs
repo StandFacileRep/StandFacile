@@ -64,7 +64,7 @@
             this.btnElimina.Text = "Elimina";
             this.btnElimina.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnElimina.UseVisualStyleBackColor = true;
-            this.btnElimina.Click += new System.EventHandler(this.btnElimina_Click);
+            this.btnElimina.Click += new System.EventHandler(this.BtnElimina_Click);
             // 
             // AnnullaBtn
             // 
@@ -91,7 +91,7 @@
             this.OkBtn.Text = "OK";
             this.OkBtn.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.OkBtn.UseVisualStyleBackColor = true;
-            this.OkBtn.Click += new System.EventHandler(this.btnOK_Click);
+            this.OkBtn.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // ckBoxSkipEmpty
             // 
@@ -115,7 +115,7 @@
             this.btnSalva.TabIndex = 37;
             this.btnSalva.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSalva.UseVisualStyleBackColor = true;
-            this.btnSalva.Click += new System.EventHandler(this.btnSalva_Click);
+            this.btnSalva.Click += new System.EventHandler(this.BtnSalva_Click);
             // 
             // btnNavRight
             // 
@@ -126,7 +126,7 @@
             this.btnNavRight.TabIndex = 36;
             this.btnNavRight.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNavRight.UseVisualStyleBackColor = true;
-            this.btnNavRight.Click += new System.EventHandler(this.btnNavRight_Click);
+            this.btnNavRight.Click += new System.EventHandler(this.BtnNavRight_Click);
             this.btnNavRight.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditArticoloDlg_KeyDown);
             // 
             // btnNavLeft
@@ -138,7 +138,7 @@
             this.btnNavLeft.TabIndex = 35;
             this.btnNavLeft.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNavLeft.UseVisualStyleBackColor = true;
-            this.btnNavLeft.Click += new System.EventHandler(this.btnNavLeft_Click);
+            this.btnNavLeft.Click += new System.EventHandler(this.BtnNavLeft_Click);
             this.btnNavLeft.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditArticoloDlg_KeyDown);
             // 
             // tabEditArticolo
@@ -153,7 +153,7 @@
             this.tabEditArticolo.SelectedIndex = 0;
             this.tabEditArticolo.Size = new System.Drawing.Size(248, 23);
             this.tabEditArticolo.TabIndex = 4;
-            this.tabEditArticolo.SelectedIndexChanged += new System.EventHandler(this.tabEditArt_SelectedIndexChanged);
+            this.tabEditArticolo.SelectedIndexChanged += new System.EventHandler(this.TabEditArt_SelectedIndexChanged);
             // 
             // tabPage1
             // 

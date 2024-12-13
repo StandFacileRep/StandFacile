@@ -13,7 +13,7 @@ using System.Threading;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using static StandFacile.NetConfigLightDlg;
@@ -31,6 +31,8 @@ namespace StandFacile
     /// </summary>
     public partial class FrmMain : Form
     {
+#pragma warning disable IDE0059
+
         bool _bCrtlKeyPressed = false;
         bool _bShiftKeyPressed = false;
         static bool _bInitNetReadParams = true;
@@ -75,10 +77,10 @@ namespace StandFacile
 
             rFrmMain = this;
 
-            initActualDate(); // deve precedere getActualDate()
+            InitActualDate(); // deve precedere GetActualDate()
 
             iTimerTag = 0;
-            _sDataBarcode = getActualDate().ToString("ddMMyy");
+            _sDataBarcode = GetActualDate().ToString("ddMMyy");
 
             EditInput.Text = "";
             EditInput.MaxLength = 13; // EAN 13 (12 + checksum)
@@ -96,10 +98,10 @@ namespace StandFacile
             // impostazione della directory di default per operazioni sui dati
             sRootDir = Directory.GetCurrentDirectory();
 
-            if (bCheckService(_ESPERTO))
+            if (CheckService(_ESPERTO))
                 MnuEspertoClick(this, null);
 
-            checkMenuItems();
+            CheckMenuItems();
             FormResize(this, null);
 
             bWarnOnce = true;
@@ -111,8 +113,8 @@ namespace StandFacile
         {
             String sKeyGood;
 
-            sKeyGood = sReadRegistry(DBASE_SERVER_NAME_KEY, "");
-            _iFuncMode = iReadRegistry(KEY_FUNC_MODE, 0);
+            sKeyGood = ReadRegistry(DBASE_SERVER_NAME_KEY, "");
+            _iFuncMode = ReadRegistry(KEY_FUNC_MODE, 0);
 
             switch (_iFuncMode)
             {
@@ -143,7 +145,7 @@ namespace StandFacile
 
             LogToFile("FrmMain : Init");
 
-            _rdBaseIntf.dbCaricaOrdine(getActualDate(), 0, false);
+            _rdBaseIntf.dbCaricaOrdine(GetActualDate(), 0, false);
         }
 
         private void CancelBtn_Click(object sender, EventArgs e)
@@ -209,7 +211,7 @@ namespace StandFacile
                         sStrBarcode = "000" + sStrBarcode;
 
                     // sparato barcode con checksum corretto
-                    if (StandCommonFiles.Barcode_EAN13.verifyChecksum(sStrBarcode))
+                    if (StandCommonFiles.Barcode_EAN13.VerifyChecksum(sStrBarcode))
                     {
                         // lo spazio è solo per allineamento
                         sStrNum = sStrBarcode.Substring(sStrBarcode.Length - 5, 4); // numero
@@ -402,7 +404,7 @@ namespace StandFacile
         /**************************************
          *             main loop 
          **************************************/
-        private void timer_MainLoop(object sender, EventArgs e)
+        private void Timer_MainLoop(object sender, EventArgs e)
         {
             bool bScaricoEseguito;
 
@@ -494,7 +496,7 @@ namespace StandFacile
             /**************************************
                 Blink Antenna di connessione DB
              **************************************/
-            if (_rdBaseIntf.bGetDB_Connected())
+            if (_rdBaseIntf.GetDB_Connected())
             {
 
                 switch (iBlink)
@@ -668,7 +670,7 @@ namespace StandFacile
             DialogResult dResult;
             String sTmp;
 
-            if (!bCheckService(_ESPERTO) && (!MnuEsperto.Checked))
+            if (!CheckService(_ESPERTO) && (!MnuEsperto.Checked))
                 dResult = MessageBox.Show("E' importante aver letto e compreso il manuale prima di proseguire !\r\n\r\n" +
                         "Il manuale pdf è presente nella cartella di installazione e si può aprire anche dal pulsante presente nel menù di Aiuto->Aiuto Rapido.",
                         "Attenzione !", MessageBoxButtons.OKCancel);
@@ -679,7 +681,7 @@ namespace StandFacile
             if (dResult == DialogResult.OK)
                 MnuEsperto.Checked = !MnuEsperto.Checked;
 
-            checkMenuItems();
+            CheckMenuItems();
 
             sTmp = String.Format("Mainform : Modo Esperto {0}", MnuEsperto.Checked);
             LogToFile(sTmp);
@@ -689,7 +691,7 @@ namespace StandFacile
                  Abilita/disabilita le varie voci
                  del Menù Principale
          ***************************************************/
-        private void checkMenuItems()
+        private void CheckMenuItems()
         {
             if (MnuEsperto.Checked)
             {
@@ -802,7 +804,7 @@ namespace StandFacile
             EditInput.Enabled = false;
         }
 
-        private void aiutoRapidoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AiutoRapidoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             QuickHelpDlg rQuickHelpDlg = new QuickHelpDlg();
 

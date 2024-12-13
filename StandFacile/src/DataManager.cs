@@ -19,7 +19,7 @@ using static StandFacile.FrmMain;
 
 using StandCommonFiles;
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ReceiptAndCopies;
 using static StandCommonFiles.LogServer;
 
@@ -38,6 +38,9 @@ namespace StandFacile
     /// </summary>
     public partial class DataManager
     {
+#pragma warning disable IDE0079
+#pragma warning disable IDE0044
+
         static bool _bListinoModificato;
         static bool _bChecksumListinoCoerente;
 
@@ -47,11 +50,9 @@ namespace StandFacile
         static bool _bListinoCaricatoConSuccesso;  // evita di salvare files incompleti
         static bool _bDB_InitialConnectionOk;      // usata da caricaDati
 
-        static bool[] _bScontoGruppo = new bool[NUM_EDIT_GROUPS];
-
         /// <summary>
         /// ultima Articolo utile dell'array SF_Data.Articolo[], inizializzata in avvio <br/>
-        /// da bSalvaListino e modificata da FrmMain.MainGridDragDrop
+        /// da SalvaListino e modificata da FrmMain.MainGridDragDrop
         /// </summary>
         static int _iLastArticoloIndexP1;
 
@@ -88,51 +89,51 @@ namespace StandFacile
         /// <summary>
         /// ottiene stringa path della root Directory
         /// </summary>
-        public static String sGetRootDir() { return _sRootDir; }
+        public static String GetRootDir() { return _sRootDir; }
 
         /// <summary>
         /// ottiene stringa path della Directory Anno
         /// </summary>
-        public static String sGetAnnoDir() { return _sAnnoDir; }
+        public static String GetAnnoDir() { return _sAnnoDir; }
 
         /// <summary>
         /// ottiene stringa path della Directory che contiene i Dati
         /// </summary>
-        public static String sGetDataDir() { return _sDataDir; }
+        public static String GetDataDir() { return _sDataDir; }
 
         /// <summary>
         /// ottiene stringa path della home Directory
         /// </summary>
-        public static String sGetExeDir() { return _sExeDir; }
+        public static String GetExeDir() { return _sExeDir; }
 
         /// <summary>
         /// ottiene stringa path della Log Directory
         /// </summary>
-        public static String sGetLogDir() { return _sLogDir; }
+        public static String GetLogDir() { return _sLogDir; }
 
         /// <summary>
         /// ottiene stringa path della Directory dei Tickets
         /// </summary>
-        public static String sGetTicketsDir() { return _sTicketsDir; }
+        public static String GetTicketsDir() { return _sTicketsDir; }
 
         /// <summary>
         /// ottiene stringa path della Directory dei Messaggi
         /// </summary>
-        public static String sGetMessagesDir() { return _sMessagesDir; }
+        public static String GetMessagesDir() { return _sMessagesDir; }
 
         /// <summary>
         /// ottiene stringa path della Directory delle Copie
         /// </summary>
-        public static String sGetCopiesDir() { return _sCopiesDir; }
+        public static String GetCopiesDir() { return _sCopiesDir; }
 
         /// <summary>verifica se il Listino è stato modificato</summary>
-        public static bool bGetListinoModificato() { return _bListinoModificato; }
+        public static bool GetListinoModificato() { return _bListinoModificato; }
 
         /// <summary>aggiorna _sRemDBChecksum dopo che è stato aggiornato il listino nel webserver</summary>
         public static void SetRemDBChecksum() { _sRemDBChecksum = _sWebListinoChecksum; }
 
         /// <summary>ottiene il checksum relativo al listino web </summary>
-        public static String sGetWebListinoChecksum() { return _sWebListinoChecksum; }
+        public static String GetWebListinoChecksum() { return _sWebListinoChecksum; }
 
         /// <summary>
         /// imposta _iLastArticoloIndex, chiamata da ImpostaGriglia
@@ -146,15 +147,15 @@ namespace StandFacile
         {
             // impostazione della data, è necessario effettuarla qui prima di lanciare
             // la form di avvio, actualDateTime è inoltre usata dal processo LogServer
-            initActualDate();
+            InitActualDate();
 
             InitDirectories(); // punto unico
 
-            azzeraDati();
+            AzzeraDati();
 
 
             // recupera solo la data
-            bCaricaListino(true);
+            CaricaListino(true);
 
             _iLastArticoloIndex = MAX_NUM_ARTICOLI;
 
@@ -165,7 +166,7 @@ namespace StandFacile
         /// <summary>
         /// inizializza SF_Data.iNumCassa, azzera l'array SF_Data[]
         /// </summary>
-        private static void azzeraDati()
+        private static void AzzeraDati()
         {
             int i;
 
@@ -179,8 +180,8 @@ namespace StandFacile
             SF_Data.bScaricato = false;
             SF_Data.bStampato = false;
 
-            if (iReadRegistry(DB_MODE_KEY, (int)DB_MODE.SQLITE) > 0)
-                SF_Data.iNumCassa = iReadRegistry(NUM_CASSA_KEY, 1);
+            if (ReadRegistry(DB_MODE_KEY, (int)DB_MODE.SQLITE) > 0)
+                SF_Data.iNumCassa = ReadRegistry(NUM_CASSA_KEY, 1);
             else
                 SF_Data.iNumCassa = CASSA_PRINCIPALE;   // SQLite
 
@@ -264,7 +265,7 @@ namespace StandFacile
         }
 
         /// <summary>azzera i dati relativi all'immissione dello scontrino corrente</summary>
-        public static void clearGrid()
+        public static void ClearGrid()
         {
             // per pulire Stato, Sconti, Anteprima
             SF_Data.iStatusReceipt = 0;
@@ -288,13 +289,13 @@ namespace StandFacile
                 SF_Data.Articolo[i].iOptionsFlags = 0;
             }
 
-            rFrmMain.setEditTavolo("");
-            rFrmMain.setEditCoperto("");
-            rFrmMain.setEditNota("");
+            rFrmMain.SetEditTavolo("");
+            rFrmMain.SetEditCoperto("");
+            rFrmMain.SetEditNota("");
 
-            rFrmMain.resetPayment();
+            rFrmMain.ResetPayment();
 
-            rFrmMain.clearAnteprima();
+            rFrmMain.ClearAnteprima();
 
             LogToFile("DataManager : resetGrid");
         }
@@ -352,7 +353,7 @@ namespace StandFacile
             _sRootDir = Directory.GetCurrentDirectory();
 
             // impostazione della directory per ciascun anno
-            _sAnnoDir = ANNO_DIR + getActualDate().ToString("yyyy");
+            _sAnnoDir = ANNO_DIR + GetActualDate().ToString("yyyy");
             Directory.CreateDirectory(_sAnnoDir);
             Directory.SetCurrentDirectory(_sAnnoDir);
             _sAnnoDir = Directory.GetCurrentDirectory();
@@ -373,21 +374,21 @@ namespace StandFacile
 
             // impostazione della directory per gli scontrini
             Directory.SetCurrentDirectory(_sAnnoDir);
-            _sTicketsDir = NOME_DIR_RECEIPTS + getActualDate().ToString("MMdd");
+            _sTicketsDir = NOME_DIR_RECEIPTS + GetActualDate().ToString("MMdd");
             Directory.CreateDirectory(_sTicketsDir);
             Directory.SetCurrentDirectory(_sTicketsDir);
             _sTicketsDir = Directory.GetCurrentDirectory();
 
             // impostazione della directory per i messaggi alla cucina
             Directory.SetCurrentDirectory(_sAnnoDir);
-            _sMessagesDir = NOME_DIR_MSGS + getActualDate().ToString("MMdd");
+            _sMessagesDir = NOME_DIR_MSGS + GetActualDate().ToString("MMdd");
             Directory.CreateDirectory(_sMessagesDir);
             Directory.SetCurrentDirectory(_sMessagesDir);
             _sMessagesDir = Directory.GetCurrentDirectory();
 
             // impostazione della directory per le stampe in cucina
             Directory.SetCurrentDirectory(_sAnnoDir);
-            _sCopiesDir = NOME_DIR_COPIES + getActualDate().ToString("MMdd");
+            _sCopiesDir = NOME_DIR_COPIES + GetActualDate().ToString("MMdd");
             Directory.CreateDirectory(_sCopiesDir);
             Directory.SetCurrentDirectory(_sCopiesDir);
             _sCopiesDir = Directory.GetCurrentDirectory();
@@ -412,33 +413,33 @@ namespace StandFacile
             InitFormatStrings(true);
 
             // test di connessione, se fallisce si evita di pedere tempo qui di seguito
-            _bDB_InitialConnectionOk = _rdBaseIntf.dbInit(getActualDate(), CASSA_PRINCIPALE, true);
+            _bDB_InitialConnectionOk = _rdBaseIntf.dbInit(GetActualDate(), CASSA_PRINCIPALE, true);
 
             // verifica se lavorare con la data del DB o quella del PC
             if (_bDB_InitialConnectionOk)                   // per non perdere tempo
                 _bCheckStatus = _rdBaseIntf.dbCheckStatus(true);
 
             // salva una copia della disponibilità prima di chiamare CaricaDatidaOrdini()
-            if (InitialDispDlg._getApplicaDisponibilita())
-                _dispArticoli = deepCopy(DB_Data.Articolo);
+            if (InitialDispDlg.GetApplicaDisponibilita())
+                _dispArticoli = DeepCopy(DB_Data.Articolo);
 
             //più leggibile così che dentro al loop successivo
             // inizializza Articolo[] con i dati del file Prezzi, punto unico
-            bListinoOk = bCaricaListino();
+            bListinoOk = CaricaListino();
 
-            // bCaricaListino potrebbe aver impostato uno sconto
-            ScontoDlg._resetSconto();
+            // CaricaListino potrebbe aver impostato uno sconto
+            ScontoDlg.ResetSconto();
 
             // inizializza SF_Data con i dati del database, punto unico
             if (bListinoOk & _bDB_InitialConnectionOk)
                 CaricaDatidaOrdini();   // inizializza Articolo[] con i dati del database, punto unico
 
-            if (InitialDispDlg._getApplicaDisponibilita())
+            if (InitialDispDlg.GetApplicaDisponibilita())
                 CaricaDisponibilita();
 
             _rdBaseIntf.dbSalvaOrdine(true);
 
-            if (NetConfigDlg.rNetConfigDlg.bGetWebOrderEnabled())
+            if (NetConfigDlg.rNetConfigDlg.GetWebOrderEnabled())
             {
                 sTmp = String.Format("Avvio StandFacile: {0} {1}, C={2}", RELEASE_SW, RELEASE_TBL, SF_Data.iNumCassa);
                 dBaseTunnel_my.rdbLogWriteVersion(sTmp);
@@ -459,7 +460,7 @@ namespace StandFacile
         /// <summary>
         /// caricamento da dB dei dati del venduto e disponibilità Articoli coerenti con il Listino<br/>
         /// funzione invasiva se bLigthModeParam == true: dato che resetta dbResetNumOfOrders, dbResetNumOfClients, dbResetNumOfMessages
-        /// <summary/>
+        /// </summary>
         private static void CaricaDatidaOrdini(bool bLigthModeParam = false, bool bSilentParam = false)
         {
             bool bMatch, bSingleWarn, bDbRead_Ok;
@@ -470,7 +471,7 @@ namespace StandFacile
             {
                 LogToFile("DataManager : I CaricaDati");
 
-                SF_Data.iNumOfLastReceipt = _rdBaseIntf.dbCaricaDatidaOrdini(getActualDate(), SF_Data.iNumCassa, true);
+                SF_Data.iNumOfLastReceipt = _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true);
 
                 SF_Data.iActualNumOfReceipts = DB_Data.iActualNumOfReceipts;
                 SF_Data.iStartingNumOfReceipts = sConfig.iReceiptStartNumber - 1;
@@ -486,7 +487,7 @@ namespace StandFacile
 
                 bDbRead_Ok = (SF_Data.iNumOfLastReceipt > 0);
 
-                if (_bUSA_NDB() && !bLigthModeParam)
+                if (bUSA_NDB() && !bLigthModeParam)
                 {
                     dbSetNumOfLastOrderFromDB(SF_Data.iNumOfLastReceipt);
 
@@ -596,18 +597,17 @@ namespace StandFacile
         /// </summary>
         public static void Receipt()
         {
-            bool[] bSelectedGroups = new bool[NUM_EDIT_GROUPS];
+            #pragma warning disable IDE0059
 
             int i;
 
-            String sNomeFileTicketPrt;
             String sTmp, sDir;
 
             StreamWriter fPrint = null;
 
-            SF_Data.iNumOfLastReceipt = iGetNumOfLocalOrders(); // punto unico
+            SF_Data.iNumOfLastReceipt = GetNumOfLocalOrders(); // punto unico
 
-            SF_Data.sDateTime = sGetTicketTime();
+            SF_Data.sDateTime = GetTicketTime();
 
             TOrdineStrings sOrdineStrings = new TOrdineStrings();
 
@@ -617,7 +617,6 @@ namespace StandFacile
              ***     STAMPA SCONTRINO    ***
              *******************************/
 
-            sNomeFileTicketPrt = String.Format(NOME_FILE_RECEIPT, SF_Data.iNumCassa, SF_Data.iNumOfLastReceipt);
             sDir = _sTicketsDir + "\\";
 
             WriteReceipt(ref SF_Data, 0, fPrint, sDir, sOrdineStrings);
@@ -628,7 +627,7 @@ namespace StandFacile
 
             sDir = _sTicketsDir + "\\";
 
-            WriteLocalCopy(SF_Data, 0, fPrint, sDir, sOrdineStrings);
+            WriteLocalCopy(SF_Data, 0, sDir, sOrdineStrings);
 
             /*******************************************************
              *               STAMPA COPIE DI RETE
@@ -640,7 +639,7 @@ namespace StandFacile
             WriteNetworkCopy(SF_Data, 0, fPrint, sDir, sOrdineStrings, false);
 
             // AVVIO STAMPE LEGACY DOPO IL SALVATAGGIO SU DATABASE PER EVITARE PROBLEMI EVENTUALI
-            if (!PrintReceiptConfigDlg.bGetPrinterTypeIsWinwows())
+            if (!PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
             {
                 // Avvia eventuali code delle copie Legacy
                 Printer_Legacy.PrintFile("", sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_START);
@@ -692,7 +691,7 @@ namespace StandFacile
              *  se cassa secondaria
              *  mette in tabella (coda) per la gestione della disponibilità
              *******************************************************************/
-            if (bCheckIf_CassaSec_and_NDB())
+            if (CheckIf_CassaSec_and_NDB())
             {
                 // per aggiornare la Disponibilità
                 _rdBaseIntf.dbCSecOrderEnqueue(SF_Data.iNumOfLastReceipt);
@@ -708,7 +707,7 @@ namespace StandFacile
         /// CASSA_PRINCIPALE aggiorna SF_Data analizzando la coda degli ultimi gli ordini emessi dalla cassa secondaria <br/>
         /// CASSE_SECONDARIE aggiornano SF_Data da data_c1_yymmdd
         /// </summary>
-        public static void aggiornaDisponibilità()
+        public static void AggiornaDisponibilità()
         {
             // serve per gestire 1 ordine emesso e subito cancellato per cui risulta 2 volte nella lista,
             // per cui risulta DB_Data.bAnnullato == true sia con iNumScontrinoSec < 0 che con iNumScontrinoSec > 0
@@ -719,7 +718,7 @@ namespace StandFacile
             String sTmp, sTipo, sDebug;
 
             // *** sicurezza ***
-            if (!_bUSA_NDB()) return;
+            if (!bUSA_NDB()) return;
 
             if (SF_Data.iNumCassa == CASSA_PRINCIPALE)
             {
@@ -734,7 +733,7 @@ namespace StandFacile
                     {
                         bOrdineAnnullato = true;
                         iNumScontrinoSec = -iNumScontrinoSec;
-                        sTmp = String.Format("aggiornaDisponibilità : annullato {0}", iNumScontrinoSec);
+                        sTmp = String.Format("AggiornaDisponibilità : annullato {0}", iNumScontrinoSec);
                         LogToFile(sTmp);
                     }
 
@@ -743,7 +742,7 @@ namespace StandFacile
                         bServeSalvare = true;
 
                         // dbCaricaOrdine va qui per elaborare solo iNumScontrinoSec > 0
-                        bDbRead_Ok = _rdBaseIntf.dbCaricaOrdine(getActualDate(), iNumScontrinoSec, false);
+                        bDbRead_Ok = _rdBaseIntf.dbCaricaOrdine(GetActualDate(), iNumScontrinoSec, false);
 
                         if (bDbRead_Ok) // l'ultimo DB letto esiste
                         {
@@ -756,7 +755,7 @@ namespace StandFacile
                             {
                                 sTipo = DB_Data.Articolo[j].sTipo;
 
-                                if (bStringBelongsTo_ORDER_CONST(sTipo) || String.IsNullOrEmpty(sTipo))
+                                if (StringBelongsTo_ORDER_CONST(sTipo) || String.IsNullOrEmpty(sTipo))
                                     continue;
 
                                 bMatch = false;
@@ -791,16 +790,16 @@ namespace StandFacile
                                     _ErrMsg.iErrID = WRN_MNF;
                                     WarningManager(_ErrMsg);
                                     bSingleWarn = true;
-                                    LogToFile("aggiornaDisponibilità : record1 " + _ErrMsg.sMsg + "non trovato I !");
+                                    LogToFile("AggiornaDisponibilità : record1 " + _ErrMsg.sMsg + "non trovato I !");
                                 }
                             }
 
-                            sTmp = String.Format("aggiornaDisponibilità : a seguito ordine {0}", iNumScontrinoSec);
+                            sTmp = String.Format("AggiornaDisponibilità : a seguito ordine {0}", iNumScontrinoSec);
                             LogToFile(sTmp);
                         }
                         else
                         {
-                            sTmp = String.Format("aggiornaDisponibilità : impossibile caricare l'ordine {0}", iNumScontrinoSec);
+                            sTmp = String.Format("AggiornaDisponibilità : impossibile caricare l'ordine {0}", iNumScontrinoSec);
                             LogToFile(sTmp);
                         }
                     }
@@ -819,7 +818,7 @@ namespace StandFacile
                 if (iNumScontrinoSec == 0)
                 {
                     // cassa secondaria
-                    bDbRead_Ok = _rdBaseIntf.dbCaricaDisponibilità(getActualDate());
+                    bDbRead_Ok = _rdBaseIntf.dbCaricaDisponibilità(GetActualDate());
 
                     /************************************
                      *  controllo di sicurezza articoli
@@ -855,7 +854,7 @@ namespace StandFacile
                                 WarningManager(_ErrMsg);
                                 bSingleWarn = true;
                                 _ErrMsg.sMsg = "";
-                                LogToFile("aggiornaDisponibilità : record2 " + _ErrMsg.sMsg + " non trovato I !");
+                                LogToFile("AggiornaDisponibilità : record2 " + _ErrMsg.sMsg + " non trovato I !");
                             }
                         }
                     }
@@ -866,7 +865,7 @@ namespace StandFacile
             rFrmMain.FormResize(null, null);
             rFrmMain.MainGrid_Redraw(null, null);
 
-        } // fine aggiornaDisponibilità()
+        } // fine AggiornaDisponibilità()
 
         /// <summary>funzione che carica la disponibilità della sessione precedente, usata da Init()</summary>
         static void CaricaDisponibilita()
@@ -918,24 +917,24 @@ namespace StandFacile
         /// bEseguiParam == false se si vuole solo controllare se è annullato <br/>
         /// bEseguiParam == true se si vuole eseguire l'annullo
         /// </summary>
-        public static bool bAnnulloOrdine(int iNumAnnulloParam)
+        public static bool AnnulloOrdine(int iNumAnnulloParam)
         {
             bool bResult, bMessaggioCaricato, bMatch, bSingleWarn;
 
-            int i, j, iStatusTicket, iQuantita_Ordine;
+            int i, j, iStatusDebug, iQuantita_Ordine;
             String sTmp, sTipo, sNomeFileMsg;
             StreamWriter fTxtFile;
 
             bool[] bGroupsColorPrinted = new bool[NUM_EDIT_GROUPS];
 
-            bResult = _rdBaseIntf.dbAnnulloOrdine(getActualDate(), iNumAnnulloParam, "");
+            bResult = _rdBaseIntf.dbAnnulloOrdine(GetActualDate(), iNumAnnulloParam, "");
 
             /************************************
                     controllo di sicurezza
              ************************************/
             bSingleWarn = false;
 
-            iStatusTicket = DB_Data.iStatusReceipt;
+            iStatusDebug = DB_Data.iStatusReceipt;
 
             for (j = 0; j < MAX_NUM_ARTICOLI; j++) // COPERTI inclusi
             {
@@ -943,7 +942,7 @@ namespace StandFacile
 
                 iQuantita_Ordine = DB_Data.Articolo[j].iQuantitaOrdine;
 
-                if (bStringBelongsTo_ORDER_CONST(sTipo) || String.IsNullOrEmpty(sTipo))
+                if (StringBelongsTo_ORDER_CONST(sTipo) || String.IsNullOrEmpty(sTipo))
                     continue;
 
                 bMatch = false;
@@ -980,7 +979,7 @@ namespace StandFacile
                 }
             }
 
-            if (bCheckIf_CassaSec_and_NDB())
+            if (CheckIf_CassaSec_and_NDB())
             {
                 // per aggiornare la Disponibilità, attenzione al - 
                 // per non collidere in caso di Cassa Principale con StandFacile non in esecuzione
@@ -1012,7 +1011,7 @@ namespace StandFacile
 
                         if (_bSomethingInto_ClrToPrint[i])
                         {
-                            if (PrintNetCopiesConfigDlg.bGetPrinterTypeIsWinwows(i))
+                            if (PrintNetCopiesConfigDlg.GetPrinterTypeIsWinwows(i))
                                 Printer_Windows.PrintFile(_sMessagesDir + "\\" + sNomeFileMsg, sGlbWinPrinterParams, i);
                             else
                                 Printer_Legacy.PrintFile(_sMessagesDir + "\\" + sNomeFileMsg, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_NOW);
@@ -1023,7 +1022,7 @@ namespace StandFacile
 
             SalvaDati();    // salva disponibilità
 
-            if (bCheckService(Define._AUTO_SEQ_TEST))
+            if (CheckService(Define._AUTO_SEQ_TEST))
             {
                 CaricaDatidaOrdini(true, true); // attenzione che sovrascrive SF_Data.Articolo[i].iDisponibilita !
 
@@ -1034,7 +1033,7 @@ namespace StandFacile
         }
 
         /// <summary>da utilizzare solo per le verifiche di scontrino significativo</summary>
-        public static bool bTicketIsGood()
+        public static bool TicketIsGood()
         {
             bool bCounterPresente = false;
             int i, iTotaleCurrTicket = 0;
@@ -1059,7 +1058,7 @@ namespace StandFacile
         /// serve per agevolare i controlli sui range, <br/> <br/>
         /// attenzione che il limite _iLastArticoloIndexP1 vale solo per SF_Data.Articolo[] e non per DB_Data.Articolo[]
         /// </summary>
-        public static int iCheckLastArticoloIndexP1()
+        public static int CheckLastArticoloIndexP1()
         {
             int i, iUltimoArticolo_NE;
 
@@ -1079,7 +1078,7 @@ namespace StandFacile
         /// verifica se è stata caricata una disponibilità significativa<br/>
         /// usato da MainForm durante la chiusura
         /// </summary>
-        public static bool bCheckDispLoaded()
+        public static bool CheckDispLoaded()
         {
             for (int i = 0; (i < MAX_NUM_ARTICOLI - 1); i++) // COPERTI esclusi
                 if (SF_Data.Articolo[i].iDisponibilita != DISP_OK)
@@ -1089,26 +1088,26 @@ namespace StandFacile
         }
 
         /// <summary>da utilizzare per il controllo dei privilegi</summary>
-        public static bool bCheckIf_CassaPri_and_NDB()
+        public static bool CheckIf_CassaPri_and_NDB()
         {
-            return ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && _bUSA_NDB());
+            return ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bUSA_NDB());
         }
 
         /// <summary>
         /// da utilizzare sopratutto per i caricamenti di:<br/>
         /// CaricaListino, CaricaDisponibilità
         /// </summary>
-        public static bool bCheckIf_CassaSec_and_NDB()
+        public static bool CheckIf_CassaSec_and_NDB()
         {
-            return ((SF_Data.iNumCassa > CASSA_PRINCIPALE) && _bUSA_NDB());
+            return ((SF_Data.iNumCassa > CASSA_PRINCIPALE) && bUSA_NDB());
         }
 
         /// <summary>ottiene numero complessivo Ordini emessi</summary>
-        public static int iGetNumOfOrders()
+        public static int GetNumOfOrders()
         {
             int iNum;
 
-            if (_bUSA_NDB() && _bCheckStatus)
+            if (bUSA_NDB() && _bCheckStatus)
             {
                 // da eseguire solo se _bCheckStatus = true
                 iNum = _rdBaseIntf.dbGetNumOfOrdersFromDB();
@@ -1121,14 +1120,14 @@ namespace StandFacile
         }
 
         /// <summary>ottiene numero dell'ultimo ordine emesso da questa cassa</summary>
-        public static int iGetNumOfLocalOrders()
+        public static int GetNumOfLocalOrders()
         {
             int iNum;
 
             if (!_bCheckStatus)
                 return 0;
 
-            if (_bUSA_NDB())
+            if (bUSA_NDB())
                 iNum = dBaseIntf.dbGetNumOfLocalOrdersFromDB();
             else
                 iNum = SF_Data.iNumOfLastReceipt;
@@ -1137,11 +1136,11 @@ namespace StandFacile
         }
 
         /// <summary>ottiene data ed ora per l'emissione dello scontrino</summary>
-        static String sGetTicketTime()
+        static String GetTicketTime()
         {
             String sDateTime;
 
-            if (_bUSA_NDB())
+            if (bUSA_NDB())
                 sDateTime = dBaseIntf.dbGetDateTimeFromDB();
             else
                 sDateTime = GetDateTimeString();
@@ -1153,19 +1152,18 @@ namespace StandFacile
         /// <param name="sOrdiniPrevTableParam"></param>
         /// <param name="iNumParam"></param>
         /// <returns></returns>
-        public static bool caricaOrdinePrev(int iNumParam, String sOrdiniPrevTableParam)
+        public static bool CaricaOrdinePrev(int iNumParam, String sOrdiniPrevTableParam)
         {
             bool bDbRead_Ok, bMatch, bSingleWarn;
             int i, j, iDebug;
             String sDebug;
             String[] sQueue_Object = new String[2];
 
-            DataManager.clearGrid();
+            DataManager.ClearGrid();
 
-            bDbRead_Ok = false;
             SF_Data.iNumOrdinePrev = iNumParam;
 
-            bDbRead_Ok = _rdBaseIntf.dbCaricaOrdine(getActualDate(), iNumParam, false, sOrdiniPrevTableParam);
+            bDbRead_Ok = _rdBaseIntf.dbCaricaOrdine(GetActualDate(), iNumParam, false, sOrdiniPrevTableParam);
 
             if (!bDbRead_Ok)
             {
@@ -1174,7 +1172,7 @@ namespace StandFacile
                 _WrnMsg.sMsg = String.Format("dbCaricaOrdine fallito:\n\ntabella {0} record n. {1}", sOrdiniPrevTableParam, iNumParam);
                 WarningManager(_WrnMsg);
 
-                LogToFile("caricaOrdinePrev : rdbCaricaOrdine");
+                LogToFile("CaricaOrdinePrev : rdbCaricaOrdine");
                 return false;
             }
 
@@ -1185,7 +1183,7 @@ namespace StandFacile
 
                 _WrnMsg.iErrID = WRN_RAN;
                 WarningManager(_WrnMsg);
-                LogToFile("caricaOrdinePrev : record di Prevendita " + _WrnMsg.sMsg + " annullato !");
+                LogToFile("CaricaOrdinePrev : record di Prevendita " + _WrnMsg.sMsg + " annullato !");
 
                 return false;
             }
@@ -1195,7 +1193,7 @@ namespace StandFacile
 
                 _WrnMsg.iErrID = WRN_RPS;
                 WarningManager(_WrnMsg);
-                LogToFile("caricaOrdinePrev : record di Prevendita " + _WrnMsg.sMsg + " già scaricato !");
+                LogToFile("CaricaOrdinePrev : record di Prevendita " + _WrnMsg.sMsg + " già scaricato !");
 
                 return false;
             }
@@ -1244,17 +1242,17 @@ namespace StandFacile
             if (IsBitSet(DB_Data.iStatusReceipt, BIT_ESPORTAZIONE))
                 rFrmMain.BtnEsportazione_Click(null, null);
 
-            rFrmMain.setEditCoperto(DB_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
-            rFrmMain.setEditNota(DB_Data.sNota);
+            rFrmMain.SetEditCoperto(DB_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
+            rFrmMain.SetEditNota(DB_Data.sNota);
 
             AnteprimaDlg.rAnteprimaDlg.Show();
-            AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+            AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
             // avvia la visualizzazione della tabella
             sQueue_Object[0] = PREV_ORDER_LOAD_DONE;
             sQueue_Object[1] = "";
 
-            FrmMain.eventEnqueue(sQueue_Object);
+            FrmMain.EventEnqueue(sQueue_Object);
 
             return true;
         }
@@ -1262,14 +1260,14 @@ namespace StandFacile
         static int _iPrevOrder = 0;
 
         /// <summary>funzione per il caricamento dell'ordine web/// </summary>
-        public static bool caricaOrdineWeb(int iNumParam)
+        public static bool CaricaOrdineWeb(int iNumParam)
         {
             bool bDbRead_Ok, bMatch, bSingleWarn;
             int i, j, iDebug;
             String sDebug, sTmp;
             String[] sQueue_Object = new String[2];
 
-            DataManager.clearGrid();
+            DataManager.ClearGrid();
 
             ulStart = (ulong)Environment.TickCount;
 
@@ -1279,7 +1277,7 @@ namespace StandFacile
 
             ulStop = (ulong)Environment.TickCount;
             ulPingTime = ulStop - ulStart;
-            sTmp = String.Format("caricaOrdineWeb : {0} ms", ulPingTime);
+            sTmp = String.Format("CaricaOrdineWeb : {0} ms", ulPingTime);
             LogToFile(sTmp);
             Console.WriteLine(sTmp);
 
@@ -1288,10 +1286,10 @@ namespace StandFacile
                 // caricamento ordine fallito
                 _iPrevOrder = DB_Data.iNumOrdineWeb;
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("caricaOrdineWeb fallito:\n\nrecord n. {0}", iNumParam);
+                _WrnMsg.sMsg = String.Format("CaricaOrdineWeb fallito:\n\nrecord n. {0}", iNumParam);
                 WarningManager(_WrnMsg);
 
-                LogToFile("caricaOrdineWeb : rdbCaricaOrdine");
+                LogToFile("CaricaOrdineWeb : rdbCaricaOrdine");
                 return false;
             }
 
@@ -1304,7 +1302,7 @@ namespace StandFacile
 
                 _WrnMsg.iErrID = WRN_RAN;
                 WarningManager(_WrnMsg);
-                LogToFile("caricaOrdineWeb : record di ordine web " + _WrnMsg.sMsg + " annullato !");
+                LogToFile("CaricaOrdineWeb : record di ordine web " + _WrnMsg.sMsg + " annullato !");
 
                 return false;
             }
@@ -1315,7 +1313,7 @@ namespace StandFacile
                 _WrnMsg.sMsg = "di ordine web n." + iNumParam.ToString();
                 _WrnMsg.iErrID = WRN_RPS;
                 WarningManager(_WrnMsg);
-                LogToFile("caricaOrdineWeb : record di ordine web " + _WrnMsg.sMsg + " già stampato !");
+                LogToFile("CaricaOrdineWeb : record di ordine web " + _WrnMsg.sMsg + " già stampato !");
 
                 return false;
             }
@@ -1366,28 +1364,28 @@ namespace StandFacile
                 if (IsBitSet(SF_Data.iStatusReceipt, BIT_ESPORTAZIONE))
                     rFrmMain.BtnEsportazione_Click(null, null);
 
-                rFrmMain.setEditCoperto(SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
+                rFrmMain.SetEditCoperto(SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
 
-                rFrmMain.setEditTavolo(DB_Data.sTavolo);
-                rFrmMain.setEditNome(DB_Data.sNome);
-                rFrmMain.setEditNota(DB_Data.sNota);
+                rFrmMain.SetEditTavolo(DB_Data.sTavolo);
+                rFrmMain.SetEditNome(DB_Data.sNome);
+                rFrmMain.SetEditNota(DB_Data.sNota);
 
                 bool bEsploraAuto = false;
 
-                if ((EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg != null) && EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg.bGetAutoCheckbox())
+                if ((EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg != null) && EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg.GetAutoCheckbox())
                     bEsploraAuto = true;
 
                 // anteprima solo se non è ordine Automatico
                 if (!IsBitSet(SF_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) || !bEsploraAuto)
                     AnteprimaDlg.rAnteprimaDlg.Show();
 
-                AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
                 // avvia la visualizzazione della tabella
                 sQueue_Object[0] = WEB_ORDER_LOAD_DONE;
                 sQueue_Object[1] = "";
 
-                FrmMain.eventEnqueue(sQueue_Object);
+                FrmMain.EventEnqueue(sQueue_Object);
 
                 return true;
             }
@@ -1409,12 +1407,12 @@ namespace StandFacile
         /// <summary>funzione per il caricamento dell'ordine mediante QRCode,<br/>
         /// non c'è il match ARTICOLI dato che proprio non sono presenti nel json
         /// </summary>
-        public static bool caricaOrdine_QR_code(int iNumParam)
+        public static bool CaricaOrdine_QR_code(int iNumParam)
         {
             int i;
             String[] sQueue_Object = new String[2];
 
-            DataManager.clearGrid();
+            DataManager.ClearGrid();
 
             SF_Data.iNumOrdineWeb = iNumParam;
 
@@ -1425,7 +1423,7 @@ namespace StandFacile
 
                 _WrnMsg.iErrID = WRN_RAN;
                 WarningManager(_WrnMsg);
-                LogToFile("caricaOrdineWeb : record di ordine web " + _WrnMsg.sMsg + " annullato !");
+                LogToFile("CaricaOrdineWeb : record di ordine web " + _WrnMsg.sMsg + " annullato !");
 
                 return false;
             }
@@ -1435,7 +1433,7 @@ namespace StandFacile
 
                 _WrnMsg.iErrID = WRN_RPS;
                 WarningManager(_WrnMsg);
-                LogToFile("caricaOrdineWeb : record di ordine web " + _WrnMsg.sMsg + " già elaborato !");
+                LogToFile("CaricaOrdineWeb : record di ordine web " + _WrnMsg.sMsg + " già elaborato !");
 
                 return false;
             }
@@ -1466,20 +1464,20 @@ namespace StandFacile
             if (IsBitSet(DB_Data.iStatusReceipt, BIT_ESPORTAZIONE))
                 rFrmMain.BtnEsportazione_Click(null, null);
 
-            rFrmMain.setEditCoperto(DB_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
+            rFrmMain.SetEditCoperto(DB_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
 
-            rFrmMain.setEditNome(DB_Data.sNome);
-            rFrmMain.setEditTavolo(DB_Data.sTavolo);
-            rFrmMain.setEditNota(DB_Data.sNota);
+            rFrmMain.SetEditNome(DB_Data.sNome);
+            rFrmMain.SetEditTavolo(DB_Data.sTavolo);
+            rFrmMain.SetEditNota(DB_Data.sNota);
 
             AnteprimaDlg.rAnteprimaDlg.Show();
-            AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+            AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
             // avvia la visualizzazione della tabella
             sQueue_Object[0] = WEB_ORDER_LOAD_DONE;
             sQueue_Object[1] = "";
 
-            FrmMain.eventEnqueue(sQueue_Object);
+            FrmMain.EventEnqueue(sQueue_Object);
 
             return true;
         }

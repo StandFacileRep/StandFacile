@@ -82,7 +82,7 @@
             // Timer
             // 
             this.Timer.Enabled = true;
-            this.Timer.Tick += new System.EventHandler(this.timer_ImgLoop);
+            this.Timer.Tick += new System.EventHandler(this.Timer_ImgLoop);
             // 
             // MainMenu
             // 
@@ -192,7 +192,7 @@
             this.MnuConfigurazioneStampe.Name = "MnuConfigurazioneStampe";
             this.MnuConfigurazioneStampe.Size = new System.Drawing.Size(239, 22);
             this.MnuConfigurazioneStampe.Text = "Configurazione &Stampe ...";
-            this.MnuConfigurazioneStampe.Click += new System.EventHandler(this.mnuConfigurazioneStampeToolStripMenuItem_Click);
+            this.MnuConfigurazioneStampe.Click += new System.EventHandler(this.MnuConfigurazioneStampeToolStripMenuItem_Click);
             // 
             // MnuAiuto
             // 
@@ -384,7 +384,7 @@
             // ClientTimer
             // 
             this.ClientTimer.Interval = 1000;
-            this.ClientTimer.Tick += new System.EventHandler(this.mainTimerLoop_Tick);
+            this.ClientTimer.Tick += new System.EventHandler(this.MainTimerLoop_Tick);
             // 
             // openFileDialog
             // 
@@ -400,7 +400,7 @@
             this.btnAnt.TabIndex = 26;
             this.btnAnt.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnAnt.UseVisualStyleBackColor = true;
-            this.btnAnt.Click += new System.EventHandler(this.btnAnt_Click);
+            this.btnAnt.Click += new System.EventHandler(this.BtnAnt_Click);
             // 
             // printerPicBox
             // 

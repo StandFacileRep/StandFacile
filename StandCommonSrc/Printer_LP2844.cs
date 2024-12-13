@@ -22,7 +22,7 @@ using System.IO;
 using static System.Convert;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
 
@@ -41,6 +41,8 @@ namespace StandCommonFiles
     /// </summary>
     public static class TPrinter_LP2844
     {
+#pragma warning disable IDE0044
+
         const int LP2844_LMARGIN_SCNT_57MM = 2;
         const int LP2844_LMARGIN_SCNT_80MM = 2;
 
@@ -125,7 +127,7 @@ namespace StandCommonFiles
                     _bIsDati = true;
             }
 #else
-	        _bStampaBarcode = (iReadRegistry(STAMPA_BARCODE_KEY, 0) == 1);
+	        _bStampaBarcode = (ReadRegistry(STAMPA_BARCODE_KEY, 0) == 1);
 #endif
 
             if (_bIsDatiRid) // Impostazioni Font per riepilogo Dati o Prezzi con riduzione colonne
@@ -239,14 +241,14 @@ namespace StandCommonFiles
          /// <summary>
          /// esegue un Autotest se supportato
          /// </summary>
-        public static void printAutoTest()
+        public static void PrintAutoTest()
         {
             PrintLine("UP");  // self print
             PrintLine("\nN"); // page clear
         }
 
         /// <summary>Info se supportato</summary>
-        public static void printInfo()
+        public static void PrintInfo()
         {
             // PrintLine("FI"); // Form Info
             PrintLine("GI"); // Graphic Info
@@ -269,7 +271,7 @@ namespace StandCommonFiles
 
             _sFileToPrint = sFileToPrintParam;
 
-            sDataStr = getActualDate().ToString("ddMMyy");
+            sDataStr = GetActualDate().ToString("ddMMyy");
 
             Init();
             bCopiaCucina = false;
@@ -400,7 +402,7 @@ namespace StandCommonFiles
 
                             PrintLine(sArray, 40);
                             // sotto i 40ms non stampa scontrini lunghi con Soft Font
-                            resetClosedelay();
+                            ResetClosedelay();
                             _iRowAdvance += ((iZebra_FontVSize[iChFontNormal] + 4) * iChSizeNormal);
                         }
 

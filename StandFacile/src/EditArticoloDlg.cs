@@ -11,7 +11,7 @@ using static StandFacile.glb;
 using static StandFacile.Define;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 namespace StandFacile
@@ -40,7 +40,7 @@ namespace StandFacile
         };
 
         /// <summary>ottiene flag di modifica listino necessaria</summary>
-        public static bool bGetListinoModificato() { return _bListinoModificato; }
+        public static bool GetListinoModificato() { return _bListinoModificato; }
 
         /// <summary>costruttore</summary>
         public EditArticoloDlg()
@@ -124,7 +124,7 @@ namespace StandFacile
                 ShowDialog();
         }
 
-        private void btnElimina_Click(object sender, EventArgs e)
+        private void BtnElimina_Click(object sender, EventArgs e)
         {
             DialogResult dResult;
 
@@ -193,7 +193,7 @@ namespace StandFacile
                 _bTipoEdit_OK = false;
             }
 
-            check_allItems();
+            Check_allItems();
         }
 
         // accetta solo numeri, backspace, punti e virgole
@@ -223,13 +223,13 @@ namespace StandFacile
                 _bPrzEdit_OK = true;
             }
 
-            check_allItems();
+            Check_allItems();
         }
 
         /// <summary>click freccia sx</summary>
-        private void btnNavLeft_Click(object sender, EventArgs e)
+        private void BtnNavLeft_Click(object sender, EventArgs e)
         {
-            if ((_iPt > 0) && bCheckModifiche())
+            if ((_iPt > 0) && CheckModifiche())
             {
                 do
                 {
@@ -242,9 +242,9 @@ namespace StandFacile
         }
 
         /// <summary>click freccia dx</summary>
-        private void btnNavRight_Click(object sender, EventArgs e)
+        private void BtnNavRight_Click(object sender, EventArgs e)
         {
-            if ((_iPt < MAX_NUM_ARTICOLI - 2) && bCheckModifiche())
+            if ((_iPt < MAX_NUM_ARTICOLI - 2) && CheckModifiche())
             {
                 do
                 {
@@ -257,7 +257,7 @@ namespace StandFacile
         }
 
         /// <summary>verifica se ci sono modifiche pendenti prima del cambio Articolo</summary>
-        private bool bCheckModifiche()
+        private bool CheckModifiche()
         {
             DialogResult dResult = DialogResult.None;
 
@@ -270,6 +270,7 @@ namespace StandFacile
             sArticolo = SF_Data.Articolo[_iPt].sTipo.ToUpper().Trim();
             sEditText = TipoEdit.Text.ToUpper().Trim();
 
+            #pragma warning disable IDE0059
             iDebug1 = groupsCombo.SelectedIndex;
             iGruppoStampa = SF_Data.Articolo[_iPt].iGruppoStampa;
 
@@ -337,7 +338,7 @@ namespace StandFacile
         {
             int iKey;
 
-            bCheckModifiche();
+            CheckModifiche();
 
             if (e == null)
                 iKey = (int)KEY_NONE;
@@ -393,24 +394,24 @@ namespace StandFacile
 
         private void AnnullaBtn_Click(object sender, EventArgs e)
         {
-            if (bCheckModifiche())
+            if (CheckModifiche())
                 Close();
         }
 
-        private void btnSalva_Click(object sender, EventArgs e)
+        private void BtnSalva_Click(object sender, EventArgs e)
         {
             String[] sQueue_Object = new String[2];
 
-            bSalvaArticolo();
+            SalvaArticolo();
 
             // avvia il refresh della griglia principale
             sQueue_Object[0] = MAIN_GRID_UPDATE_EVENT;
             sQueue_Object[1] = "";
 
-            FrmMain.eventEnqueue(sQueue_Object);
+            FrmMain.EventEnqueue(sQueue_Object);
         }
 
-        private void tabEditArt_SelectedIndexChanged(object sender, EventArgs e)
+        private void TabEditArt_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabEditArticolo.SelectedIndex == 0)
             {
@@ -444,7 +445,7 @@ namespace StandFacile
         /// funzione di verifica della correttezza dei dati <br/>
         /// immessi, modifica direttamente l'array globale
         /// </summary>
-        private bool bSalvaArticolo()
+        private bool SalvaArticolo()
         {
             int i, iPrz = 0;
             String sTmp, sInStr;
@@ -553,14 +554,14 @@ namespace StandFacile
             }
         }
 
-        void check_allItems()
+        void Check_allItems()
         {
             OkBtn.Enabled = _bTipoEdit_OK && _bPrzEdit_OK;
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
-            if (bSalvaArticolo())
+            if (SalvaArticolo())
                 Close();
         }
 

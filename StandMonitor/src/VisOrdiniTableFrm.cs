@@ -40,7 +40,7 @@ namespace StandFacile
             {
                 _rdBaseIntf.dbCheckStatus();
 
-                if (_rdBaseIntf.bGetDB_Connected())
+                if (_rdBaseIntf.GetDB_Connected())
                 {
                     LogToFile("FrmVisOrdini : Aggiorna Connected");
 

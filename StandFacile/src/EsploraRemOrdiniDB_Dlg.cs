@@ -13,7 +13,7 @@ using System.Drawing;
 using System.Collections;
 using System.Windows.Forms;
 
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using static StandFacile.Define;
@@ -25,6 +25,9 @@ namespace StandFacile
     /// <summary>classe per l'esplorazione del database ordini remoti</summary>
     public partial class EsploraRemOrdiniDB_Dlg : Form
     {
+#pragma warning disable IDE0059
+#pragma warning disable IDE1006
+
         const int REFRESH_PERIOD = 4 * 45; // 45s
         const int REFRESH_PERIOD_QUICK = 4 * 2; // 2s
 
@@ -40,10 +43,10 @@ namespace StandFacile
         static readonly Queue eventQueue = new Queue();
 
         /// <summary>mette evento in coda cross thread</summary>
-        public static void eventEnqueue(String[] sEvQueueObj) { eventQueue.Enqueue(sEvQueueObj); }
+        public static void EventEnqueue(String[] sEvQueueObj) { eventQueue.Enqueue(sEvQueueObj); }
 
         /// <summary>ottiene lo stato di ckBoxAuto</summary>
-        public bool bGetAutoCheckbox() { return ckBoxAuto.Checked; }
+        public bool GetAutoCheckbox() { return ckBoxAuto.Checked; }
 
         readonly ToolTip _tt = new ToolTip
         {
@@ -84,7 +87,7 @@ namespace StandFacile
             //    dbGrid.Enabled = false;
             //}
 
-            refreshTable();
+            RefreshTable();
         }
 
         /// <summary>inizializzazione della form per l'esplorazione del database remoto</summary>
@@ -92,13 +95,13 @@ namespace StandFacile
         {
             rEsploraRemOrdiniDB_Dlg.dbConnStatusBox.Image = Properties.Resources.circleRed;
 
-            rEsploraRemOrdiniDB_Dlg.refreshTable();
+            rEsploraRemOrdiniDB_Dlg.RefreshTable();
             rEsploraRemOrdiniDB_Dlg._iDBGridRowIndex = 0;
 
             Thread.Sleep(200);
         }
         /// <summary>ricarica il contenuto della tabella per l'esplorazione del database remoto</summary>
-        void refreshTable()
+        void RefreshTable()
         {
             int i, iDebug, iEventQueueCount;
 
@@ -119,7 +122,7 @@ namespace StandFacile
 
             iDebug = _sWebOrdersList.Count; // debug
 
-            iEventQueueCount = FrmMain.getEventQueueCount();
+            iEventQueueCount = FrmMain.GetEventQueueCount();
 
             for (i = 0; i < _sWebOrdersList.Count; i++)
             {
@@ -155,7 +158,7 @@ namespace StandFacile
                         // <summary>evento per avvio stampa scontrino web</summary>
                         String[] sQueue_Object = new String[2] { WEB_ORDER_PRINT_START, _sWebOrdersList[i].iNumOrdine.ToString() };
 
-                        FrmMain.eventEnqueue(sQueue_Object);
+                        FrmMain.EventEnqueue(sQueue_Object);
                         iTableAutoLoadPeriod = REFRESH_PERIOD_QUICK;
 
                     }
@@ -251,7 +254,7 @@ namespace StandFacile
                 {
                     ulStart = (ulong)Environment.TickCount;
 
-                    DataManager.caricaOrdineWeb(iSelOrder);
+                    DataManager.CaricaOrdineWeb(iSelOrder);
 
                     dbConnStatusBox.Image = Properties.Resources.circleGreen;
                     ulStop = (ulong)Environment.TickCount;
@@ -263,7 +266,7 @@ namespace StandFacile
             Cursor = Cursors.Default;
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             int iSelOrder;
             String[] sEvQueueObj;
@@ -286,7 +289,7 @@ namespace StandFacile
                 else if (sEvQueueObj[0] == WEB_ALL_ORDERS_LOAD_DONE)
                 {
                     iTableAutoLoadPeriod = REFRESH_PERIOD;
-                    refreshTable();
+                    RefreshTable();
 
                     Cursor = Cursors.Default;
                     dbConnStatusBox.Image = Properties.Resources.circleGreen;
@@ -366,19 +369,19 @@ namespace StandFacile
             }
         }
 
-        private void ckBoxAuto_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxAuto_CheckedChanged(object sender, EventArgs e)
         {
-            DataManager.clearGrid();
+            DataManager.ClearGrid();
 
             iTableAutoLoadPeriod = REFRESH_PERIOD_QUICK;
         }
 
-        private void radioBtn_CheckedChanged(object sender, EventArgs e)
+        private void RadioBtn_CheckedChanged(object sender, EventArgs e)
         {
             iTableAutoLoadPeriod = REFRESH_PERIOD_QUICK;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }

@@ -94,7 +94,7 @@
             this.btnOK.Text = "OK   ";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnCancel
             // 
@@ -130,7 +130,7 @@
             this.checkBoxPresales_loadMode.TabIndex = 10;
             this.checkBoxPresales_loadMode.Text = "modalità caricamento ordini in prevendita";
             this.checkBoxPresales_loadMode.UseVisualStyleBackColor = true;
-            this.checkBoxPresales_loadMode.CheckedChanged += new System.EventHandler(this.checkBoxLoadPresale_CheckedChanged);
+            this.checkBoxPresales_loadMode.CheckedChanged += new System.EventHandler(this.CheckBoxLoadPresale_CheckedChanged);
             // 
             // checkBoxPresale_workMode
             // 
@@ -143,7 +143,7 @@
             this.checkBoxPresale_workMode.TabIndex = 9;
             this.checkBoxPresale_workMode.Text = "modalità giorno di prevendita (riavvio necessario)";
             this.checkBoxPresale_workMode.UseVisualStyleBackColor = true;
-            this.checkBoxPresale_workMode.CheckedChanged += new System.EventHandler(this.checkBoxPresaleMode_CheckedChanged);
+            this.checkBoxPresale_workMode.CheckedChanged += new System.EventHandler(this.CheckBoxPresaleMode_CheckedChanged);
             // 
             // checkBoxPayment
             // 

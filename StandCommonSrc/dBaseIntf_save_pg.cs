@@ -25,7 +25,7 @@ using System.Data;
 using Devart.Data.PostgreSql;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using StandFacile;
@@ -37,6 +37,8 @@ namespace StandFacile_DB
     /// <summary>classe per la gestione di PostGreSQL</summary>
     public partial class dBaseIntf_pg
     {
+
+#pragma warning disable IDE1006
 
         /// <summary>
         /// Funzione di salvataggio nel database dei dati di riepilogo <br/>
@@ -57,7 +59,7 @@ namespace StandFacile_DB
             DataTable dataTable = new DataTable();
             DataRow dataRow;
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok || !_bCheckStatus)
@@ -74,8 +76,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                if (readerDati != null)
-                    readerDati.Close();
+                    readerDati?.Close();
             }
 
             try
@@ -93,8 +94,7 @@ namespace StandFacile_DB
 
                 if (bDBConnection_Ok) // se la connessione non è OK evita solo messagggi di errore
                 {
-                    if (readerDati != null)
-                        readerDati.Close(); // non serve più
+                        readerDati?.Close(); // non serve più
 
                     bNoProblem = true;
 
@@ -355,7 +355,7 @@ namespace StandFacile_DB
             catch (Exception)
             {
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbSalvaDati : {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("dbSalvaDati : {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
 
                 LogToFile("dbSalvaDati : dbException");
@@ -377,11 +377,11 @@ namespace StandFacile_DB
             DataTable dataTable = new DataTable();
 
             // *** sicurezza ***
-            if (!_bUSA_NDB()) return false;
+            if (!bUSA_NDB()) return false;
 
             try
             {
-                dbInit(getActualDate(), SF_Data.iNumCassa);
+                dbInit(GetActualDate(), SF_Data.iNumCassa);
 
                 cmd.CommandText = "SELECT * FROM " + _sDBTNameDati + " LIMIT 1;";
                 cmd.Connection = _Connection;
@@ -395,8 +395,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                if (readerDati != null)
-                    readerDati.Close();
+                    readerDati?.Close();
             }
 
             try
@@ -676,7 +675,7 @@ namespace StandFacile_DB
             if (SF_Data.iNumCassa != CASSA_PRINCIPALE)
                 return;
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -693,8 +692,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                if (dbDataAdapterSelect != null)
-                    dbDataAdapterSelect.Dispose();
+                    dbDataAdapterSelect?.Dispose();
             }
 
             try
@@ -795,7 +793,7 @@ namespace StandFacile_DB
             catch (Exception)
             {
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbUpdateHeadOrdine : {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("dbUpdateHeadOrdine : {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
 
                 LogToFile("dbUpdateHeadOrdine : dbSalvaHeadOrdini Ordini");
@@ -824,7 +822,7 @@ namespace StandFacile_DB
             DataRow row;
 
             // dbSalvaOrdine è silente mentre dbSalvaDati non lo è
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se c'è la connessione al DB
             if (!bDBConnection_Ok)
@@ -867,8 +865,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                if (dbDataAdapterSelect != null)
-                    dbDataAdapterSelect.Dispose();
+                    dbDataAdapterSelect?.Dispose();
             }
 
             try
@@ -975,7 +972,7 @@ namespace StandFacile_DB
                     row = ordiniTable.NewRow();
 
                     row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                    row["sTipo_Articolo"] = _ORDER_CONST._START_OF_ORDER;
+                    row["sTipo_Articolo"] = ORDER_CONST._START_OF_ORDER;
                     row["sText"] = SF_Data.sDateTime;
                     row["iStatus"] = SF_Data.iStatusReceipt;
                     row["iNumCassa"] = SF_Data.iNumCassa;
@@ -989,7 +986,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = _ORDER_CONST._TAVOLO;
+                        row["sTipo_Articolo"] = ORDER_CONST._TAVOLO;
                         //row["iPrezzo_Unitario"] = 0;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
@@ -1007,7 +1004,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = _ORDER_CONST._NOME;
+                        row["sTipo_Articolo"] = ORDER_CONST._NOME;
                         //row["iPrezzo_Unitario"] = 0;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
@@ -1025,7 +1022,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = _ORDER_CONST._NOTA;
+                        row["sTipo_Articolo"] = ORDER_CONST._NOTA;
                         //row["iPrezzo_Unitario"] = 0;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
@@ -1043,7 +1040,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = _ORDER_CONST._SCONTO;
+                        row["sTipo_Articolo"] = ORDER_CONST._SCONTO;
                         row["iPrezzo_Unitario"] = SF_Data.iScontoStdReceipt;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
@@ -1062,7 +1059,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = _ORDER_CONST._SCONTO;
+                        row["sTipo_Articolo"] = ORDER_CONST._SCONTO;
                         row["iPrezzo_Unitario"] = SF_Data.iScontoFissoReceipt;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
@@ -1081,7 +1078,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = _ORDER_CONST._SCONTO;
+                        row["sTipo_Articolo"] = ORDER_CONST._SCONTO;
                         row["iPrezzo_Unitario"] = SF_Data.iScontoGratisReceipt;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
@@ -1100,7 +1097,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = _ORDER_CONST._NUM_ORD_WEB;
+                        row["sTipo_Articolo"] = ORDER_CONST._NUM_ORD_WEB;
                         row["iPrezzo_Unitario"] = SF_Data.iNumOrdineWeb;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
@@ -1118,7 +1115,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = _ORDER_CONST._NUM_ORD_PREV;
+                        row["sTipo_Articolo"] = ORDER_CONST._NUM_ORD_PREV;
                         row["iPrezzo_Unitario"] = SF_Data.iNumOrdinePrev;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
@@ -1154,7 +1151,7 @@ namespace StandFacile_DB
                     }
 
 #if STANDFACILE
-                    if (bCheckService(Define._AUTO_SEQ_TEST))
+                    if (CheckService(Define._AUTO_SEQ_TEST))
                     {
                         while (TestManager.sFakeItem.Count > 0)
                         {
@@ -1201,7 +1198,7 @@ namespace StandFacile_DB
             catch (Exception)
             {
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbSalvaOrdine : {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("dbSalvaOrdine : {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
 
                 LogToFile("dbSalvaOrdine : dbException Ordini");
@@ -1222,7 +1219,7 @@ namespace StandFacile_DB
             PgSqlCommand cmd = new PgSqlCommand();
             PgSqlDataReader readerOrdine = null;
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -1252,16 +1249,16 @@ namespace StandFacile_DB
 
                 sMessage = ""; // nel DB si salvano 255 char max
 
-                sTmp = sCenterJustify(SF_Data.sHeaders[0], iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(SF_Data.sHeaders[0], iMAX_RECEIPT_CHARS);
                 if (!String.IsNullOrEmpty(SF_Data.sHeaders[0]))
                     sMessage += String.Format("{0}\n\n", sTmp);
 
                 sTmp = String.Format("{0,-22}C.{1}", GetDateTimeString(), SF_Data.iNumCassa);
-                sTmp = sCenterJustify(sTmp, iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(sTmp, iMAX_RECEIPT_CHARS);
                 sMessage += String.Format("{0}\n\n", sTmp);
 
                 sTmp = String.Format("{0}{1,4}", "Messaggio Numero =", SF_Data.iNumOfMessages);
-                sTmp = sCenterJustify(sTmp, iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(sTmp, iMAX_RECEIPT_CHARS);
                 sMessage += String.Format("{0}\n\n", sTmp);
 
                 for (i = 0; i < rVisMessaggiLines.Length; i++)
@@ -1284,7 +1281,7 @@ namespace StandFacile_DB
             {
 
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbSalvaMessaggio : {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("dbSalvaMessaggio : {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
 
                 LogToFile("dbSalvaMessaggio : dbException dbSalvaMessaggio");
@@ -1313,7 +1310,7 @@ namespace StandFacile_DB
 
             DataRow row;
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se è CASSA_PRINCIPALE e c'è la connessione a DB
             if (!((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bDBConnection_Ok))
@@ -1374,7 +1371,7 @@ namespace StandFacile_DB
 #if STANDFACILE
                 String sNomeFilePrezzi, sDir = "";
 
-                sDir = DataManager.sGetExeDir() + "\\";
+                sDir = DataManager.GetExeDir() + "\\";
 
                 sNomeFilePrezzi = NOME_FILE_LISTINO;
                 fprz = File.OpenText(sDir + NOME_FILE_LISTINO);
@@ -1414,7 +1411,7 @@ namespace StandFacile_DB
             catch (Exception)
             {
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbSalvaListino popolazione tabella : {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("dbSalvaListino popolazione tabella : {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
                 LogToFile("dbSalvaListino : dbException popolazione tabella");
             }
@@ -1447,7 +1444,7 @@ namespace StandFacile_DB
 
             DataRow row;
 
-            bDBConnection_Ok = dbInit(getActualDate(), SF_Data.iNumCassa, true);
+            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
             // sicurezza : si prosegue solo se è CASSA_PRINCIPALE e c'è la connessione a MySQL
             if (!((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bDBConnection_Ok))
@@ -1506,7 +1503,7 @@ namespace StandFacile_DB
                 dbDataAdapterIns.InsertCommand.UpdatedRowSource = UpdateRowSource.None;
 
 #if STANDFACILE
-                sDir = DataManager.sGetExeDir() + "\\";
+                sDir = DataManager.GetExeDir() + "\\";
 
                 _ErrMsg.sNomeFile = NOME_FILE_TEST;
 #endif
@@ -1551,7 +1548,7 @@ namespace StandFacile_DB
             catch (Exception)
             {
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbSalvaTest popolazione tabella : {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("dbSalvaTest popolazione tabella : {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
                 LogToFile("dbSalvaTest : dbException popolazione tabella");
             }

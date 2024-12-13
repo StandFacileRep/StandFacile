@@ -7,7 +7,7 @@
 using System;
 using System.Windows.Forms;
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandFacile.glb;
 
 using StandCommonFiles;
@@ -16,6 +16,8 @@ namespace StandFacile
 {
     static class Program
     {
+#pragma warning disable IDE0059
+
         /// <summary>
         /// Punto di ingresso principale dell'applicazione.
         /// </summary>
@@ -70,7 +72,7 @@ namespace StandFacile
             // inizializza i parametri di stampa
             PrintConfigLightDlg rPrintConfigLightDlg = new PrintConfigLightDlg();
 
-            int iNDbMode = iReadRegistry(DB_MODE_KEY, (int)DB_MODE.MYSQL);
+            int iNDbMode = ReadRegistry(DB_MODE_KEY, (int)DB_MODE.MYSQL);
 
             if (iNDbMode == (int)DB_MODE.MYSQL)
                 _rBdBaseIntf_my = new StandFacile_DB.dBaseIntf_my();

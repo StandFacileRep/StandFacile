@@ -175,7 +175,7 @@
             this.BtnPrt.TabIndex = 9;
             this.BtnPrt.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnPrt.UseVisualStyleBackColor = true;
-            this.BtnPrt.Click += new System.EventHandler(this.btnPrt_Click);
+            this.BtnPrt.Click += new System.EventHandler(this.BtnPrt_Click);
             // 
             // comboReport
             // 
@@ -186,7 +186,7 @@
             this.comboReport.Name = "comboReport";
             this.comboReport.Size = new System.Drawing.Size(164, 21);
             this.comboReport.TabIndex = 10;
-            this.comboReport.SelectedIndexChanged += new System.EventHandler(this.comboReport_SelectedIndexChanged);
+            this.comboReport.SelectedIndexChanged += new System.EventHandler(this.ComboReport_SelectedIndexChanged);
             // 
             // LblReport
             // 

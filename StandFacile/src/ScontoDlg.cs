@@ -8,7 +8,7 @@ using System;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 
 using static StandFacile.glb;
 using static StandFacile.Define;
@@ -44,10 +44,10 @@ namespace StandFacile
         static CheckBox[] _pCheckBoxGrp;
 
         /// <summary>ottiene la struct di sconto applicato</summary>
-        static public TSconto _getSconto() { return _Sconto; }
+        static public TSconto GetSconto() { return _Sconto; }
 
         /// <summary>resetta solo il tipo di sconto applicato</summary>
-        static public void _resetSconto()
+        static public void ResetSconto()
         {
             // meglio impostare solo lo stato con 0x7FFFFF00
             _Sconto.iStatusSconto &= 0x7FFFFF00;
@@ -76,14 +76,14 @@ namespace StandFacile
 
             rScontoDlg = this;
 
-            _resetSconto();
+            ResetSconto();
         }
 
         /// <summary>Init</summary>
         public void Init()
         {
             // copia locale per valore
-            _scontoTmp = deepCopy(_Sconto);
+            _scontoTmp = DeepCopy(_Sconto);
 
             // provoca inizializzazione grafica
             if (IsBitSet(_scontoTmp.iStatusSconto, BIT_SCONTO_STD))
@@ -108,7 +108,7 @@ namespace StandFacile
             }
 
             // controlli correttezza ed inizializzazione grafica
-            check_allItems();
+            Check_allItems();
 
             if (!Visible)
                 ShowDialog();
@@ -118,10 +118,10 @@ namespace StandFacile
         /// Verifica se ci sono le condizioni per abilitare i pulsanti di Ok, Save
         /// ed il colore di sfondo di textBoxMotivazione
         /// </summary>
-        void check_allItems()
+        void Check_allItems()
         {
             // per abilitare il pulsante di Save devono essere OK tutti i controlli, indipendentemente dallo stato
-            if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && FrmMain.rFrmMain.bGetEsperto() &&
+            if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && FrmMain.rFrmMain.GetEsperto() &&
                 ((String.IsNullOrEmpty(_scontoTmp.sScontoText[(int)DISC_TYPE.DISC_STD]) && (_scontoTmp.iScontoValPerc == 0)) || ((_scontoTmp.sScontoText[(int)DISC_TYPE.DISC_STD].Length >= MOTIVAZIONE_MIN_CAR) && (_scontoTmp.iScontoValPerc > 0))) &&
                 ((String.IsNullOrEmpty(_scontoTmp.sScontoText[(int)DISC_TYPE.DISC_FIXED]) && (_scontoTmp.iScontoValFisso == 0)) || ((_scontoTmp.sScontoText[(int)DISC_TYPE.DISC_FIXED].Length >= MOTIVAZIONE_MIN_CAR) && (_scontoTmp.iScontoValFisso > 0))) &&
                  (String.IsNullOrEmpty(_scontoTmp.sScontoText[(int)DISC_TYPE.DISC_GRATIS]) || (_scontoTmp.sScontoText[(int)DISC_TYPE.DISC_GRATIS].Length >= MOTIVAZIONE_MIN_CAR))
@@ -201,7 +201,7 @@ namespace StandFacile
             textBoxMotivazione.Enabled = false;
             textBoxMotivazione.Text = "";
 
-            check_allItems();
+            Check_allItems();
         }
 
         private void DS_rdBtnDiscountStd_Click(object sender, EventArgs e)
@@ -219,7 +219,7 @@ namespace StandFacile
             // setup Flags
             for (int i = 0; i < NUM_EDIT_GROUPS; i++)
             {
-                if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && FrmMain.rFrmMain.bGetEsperto())
+                if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && FrmMain.rFrmMain.GetEsperto())
                     _pCheckBoxGrp[i].Enabled = true;
 
                 _pCheckBoxGrp[i].Checked = IsBitSet(_scontoTmp.iStatusSconto, 8 + i);
@@ -235,7 +235,7 @@ namespace StandFacile
             textBoxMotivazione.Text = _scontoTmp.sScontoText[(int)DISC_TYPE.DISC_STD];
             textBoxMotivazione.Enabled = true;
 
-            check_allItems();
+            Check_allItems();
         }
 
         private void DS_rdBtnDiscountFixed_Click(object sender, EventArgs e)
@@ -265,7 +265,7 @@ namespace StandFacile
             textBoxMotivazione.Text = _scontoTmp.sScontoText[(int)DISC_TYPE.DISC_FIXED];
             textBoxMotivazione.Enabled = true;
 
-            check_allItems();
+            Check_allItems();
         }
 
         private void DS_rdBtnDiscountGratis_Click(object sender, EventArgs e)
@@ -295,10 +295,10 @@ namespace StandFacile
             textBoxMotivazione.Text = _scontoTmp.sScontoText[(int)DISC_TYPE.DISC_GRATIS];
             textBoxMotivazione.Enabled = true;
 
-            check_allItems();
+            Check_allItems();
         }
 
-        private void radioBtn100_Click(object sender, EventArgs e)
+        private void RadioBtn100_Click(object sender, EventArgs e)
         {
             textBoxPercVal.Text = "100";
             TextBoxPerc_KeyUp(this, null);
@@ -350,11 +350,11 @@ namespace StandFacile
             }
 
             if (sender != null)
-                check_allItems();
+                Check_allItems();
         }
 
         // attenzione che sia un click altrimenti viene chiamata in modo inopportuno on "changed"
-        private void ckBox_Click(object sender, EventArgs e)
+        private void CheckBox_Click(object sender, EventArgs e)
         {
             // per compatibilità dimensione vettore
             for (int i = 0; i < NUM_EDIT_GROUPS; i++)
@@ -383,7 +383,7 @@ namespace StandFacile
 
         private void TextBoxFixVal_KeyUp(object sender, KeyEventArgs e)
         {
-            int iPrz = 0;
+            int iPrz;
 
             textBoxFixVal.Text = textBoxFixVal.Text.Trim();
 
@@ -405,7 +405,7 @@ namespace StandFacile
             }
 
             if (sender != null)
-                check_allItems();
+                Check_allItems();
         }
 
         private void TextBoxMotivazione_KeyUp(object sender, KeyEventArgs e)
@@ -417,25 +417,25 @@ namespace StandFacile
             else if (DS_rdBtnDiscountGratis.Checked)
                 _scontoTmp.sScontoText[(int)DISC_TYPE.DISC_GRATIS] = textBoxMotivazione.Text;
 
-            check_allItems();
+            Check_allItems();
         }
 
         /// <summary>salva tutti i dati Sconto nel Listino</summary>
         private void DS_btnSalva_Click(object sender, EventArgs e)
         {
-            if (!((SF_Data.iNumCassa == CASSA_PRINCIPALE) && FrmMain.rFrmMain.bGetEsperto()))
+            if (!((SF_Data.iNumCassa == CASSA_PRINCIPALE) && FrmMain.rFrmMain.GetEsperto()))
                 return;
 
-            _Sconto = deepCopy(_scontoTmp);
+            _Sconto = DeepCopy(_scontoTmp);
 
-            DataManager.bSalvaListino();
+            DataManager.SalvaListino();
 
             MessageBox.Show("Impostazione Salvate !", "Attenzione !", MessageBoxButtons.OK);
         }
 
         private void BT_Cancel_Click(object sender, EventArgs e)
         {
-            //_resetSconto();
+            //ResetSconto();
         }
 
         /// <summary>salva solo i dati selezionati nella Struct TSconto</summary>
@@ -472,7 +472,7 @@ namespace StandFacile
 
             if (dResult == DialogResult.Yes)
             {
-                _Sconto = deepCopy(_scontoTmp);
+                _Sconto = DeepCopy(_scontoTmp);
 
                 SF_Data.iStatusSconto = _scontoTmp.iStatusSconto;
 
@@ -486,12 +486,10 @@ namespace StandFacile
                     SF_Data.sScontoReceipt = _scontoTmp.sScontoText[(int)DISC_TYPE.DISC_FIXED];
                 else if (DS_rdBtnDiscountGratis.Checked)
                     SF_Data.sScontoReceipt = _scontoTmp.sScontoText[(int)DISC_TYPE.DISC_GRATIS];
-
-                bListinoModificato = false;
             }
             else
             {
-                _resetSconto();
+                ResetSconto();
 
                 // così si resetta il pulsante del carrello
                 SF_Data.iStatusSconto = _scontoTmp.iStatusSconto;
@@ -502,7 +500,7 @@ namespace StandFacile
         }
 
         /// <summary>imposta il tipo di sconto applicato e tutta la struct</summary>
-        public static void setSconto(DISC_TYPE eDiscParam, int iScontoFlagParam, int iScontoValParam, string sScontoTextParam)
+        public static void SetSconto(DISC_TYPE eDiscParam, int iScontoFlagParam, int iScontoValParam, string sScontoTextParam)
         {
             switch (eDiscParam)
             {
@@ -541,11 +539,11 @@ namespace StandFacile
                     break;
 
                 default:
-                    _resetSconto();
+                    ResetSconto();
                     break;
             }
 
-            if (bCheckService(Define._AUTO_SEQ_TEST))
+            if (CheckService(Define._AUTO_SEQ_TEST))
             {
                 SF_Data.iStatusSconto = _Sconto.iStatusSconto;
 

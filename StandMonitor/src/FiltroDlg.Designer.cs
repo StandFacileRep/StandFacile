@@ -61,7 +61,7 @@
             this.btnOK.Text = "Salva";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // button1
             // 
@@ -74,7 +74,7 @@
             this.button1.Text = "Cancella";
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // btnAnnulla
             // 
@@ -88,7 +88,7 @@
             this.btnAnnulla.Text = "Annulla";
             this.btnAnnulla.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAnnulla.UseVisualStyleBackColor = true;
-            this.btnAnnulla.Click += new System.EventHandler(this.btnAnnulla_Click);
+            this.btnAnnulla.Click += new System.EventHandler(this.BtnAnnulla_Click);
             // 
             // FiltroDlg
             // 

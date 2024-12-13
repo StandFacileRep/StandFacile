@@ -10,7 +10,7 @@ using System;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using static StandFacile.glb;
@@ -29,22 +29,22 @@ namespace StandFacile
         public static OptionsDlg _rOptionsDlg;
 
         /// <summary>ottiene flag di modifica listino necessaria</summary>
-        public static bool bGetListinoModificato() { return _bListinoModificato; }
+        public static bool GetListinoModificato() { return _bListinoModificato; }
 
         /// <summary>ottiene indice del tema dei colori</summary>
-        public static int bGetColorThemeIndex() { return _iColorThemeIndex; }
+        public static int GGetColorThemeIndex() { return _iColorThemeIndex; }
 
         /// <summary>ottiene flag di visualizzazione totale scontrino precedente</summary>
-        public bool bGetShowPrevReceipt() { return checkBoxShowPrevReceipt.Checked; }
+        public bool GetShowPrevReceipt() { return checkBoxShowPrevReceipt.Checked; }
 
         /// <summary>ottiene flag di modo caricamento Prevendita per gestione Focus</summary>
-        public bool bGetPresales_LoadMode() { return checkBoxPresales_loadMode.Checked; }
+        public bool GetPresales_LoadMode() { return checkBoxPresales_loadMode.Checked; }
 
         /// <summary>ottiene flag di avvio stampa Scontrino con il tasto Enter</summary>
-        public bool bGetEnterPrintReceipt() { return checkBox_Enter.Checked; }
+        public bool GetEnterPrintReceipt() { return checkBox_Enter.Checked; }
 
         /// <summary>ottiene flag di attivazione Pulsanti + - X</summary>
-        public bool bGet_VButtons() { return checkBox_VButtons.Checked; }
+        public bool Get_VButtons() { return checkBox_VButtons.Checked; }
 
         /// <summary>costruttore</summary>
         public OptionsDlg()
@@ -67,7 +67,7 @@ namespace StandFacile
 
             checkBoxPresale_workMode.Checked = SF_Data.bPrevendita; //  passato dal Listino
 
-            if (DataManager.bCheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
+            if (DataManager.CheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
             {
                 checkBoxDisp.Enabled = false;
 
@@ -83,7 +83,7 @@ namespace StandFacile
             }
             else
             {
-                _iDispMngStatus = iReadRegistry(DISP_DLG_MNG_KEY, SetBit(0, BIT_SHOW_DISP_DLG));
+                _iDispMngStatus = ReadRegistry(DISP_DLG_MNG_KEY, SetBit(0, BIT_SHOW_DISP_DLG));
                 checkBoxDisp.Enabled = true;
                 checkBoxDisp.Checked = IsBitSet(_iDispMngStatus, BIT_SHOW_DISP_DLG);
 
@@ -96,15 +96,15 @@ namespace StandFacile
 
             // letto dal Registry 
 
-            checkBoxShowPrevReceipt.Checked = (iReadRegistry(VIEW_PREV_RECEIPT_KEY, 0) == 1);
+            checkBoxShowPrevReceipt.Checked = (ReadRegistry(VIEW_PREV_RECEIPT_KEY, 0) == 1);
 
-            checkBoxPresales_loadMode.Checked = (iReadRegistry(PRESALE_LOAD_MODE_KEY, 0) == 1);
+            checkBoxPresales_loadMode.Checked = (ReadRegistry(PRESALE_LOAD_MODE_KEY, 0) == 1);
 
-            checkBox_Enter.Checked = (iReadRegistry(ENTER_PRINT_RECEIPT_KEY, 0) == 1);
+            checkBox_Enter.Checked = (ReadRegistry(ENTER_PRINT_RECEIPT_KEY, 0) == 1);
 
-            checkBox_VButtons.Checked = (iReadRegistry(VBUTTONS_KEY, 1) == 1);
+            checkBox_VButtons.Checked = (ReadRegistry(VBUTTONS_KEY, 1) == 1);
 
-            _iColorThemeIndex = iReadRegistry(COLOR_THEME_KEY, 1);
+            _iColorThemeIndex = ReadRegistry(COLOR_THEME_KEY, 1);
 
             if (_iColorThemeIndex < NUM_COLOR_THEMES)
                 comboColorTheme.SelectedIndex = _iColorThemeIndex;
@@ -117,7 +117,7 @@ namespace StandFacile
                 ShowDialog();
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             bool bRiavvio = false;
             String sTmp;
@@ -172,7 +172,7 @@ namespace StandFacile
             {
                 MessageBox.Show("Il modo di vendita è cambiato,\nil programma verrà riavviato !", "Attenzione !", MessageBoxButtons.OK);
 
-                sTmp = String.Format("OptionsDlg, Tipo di database = {0}, funzione di Cassa = {1}", (iReadRegistry(DB_MODE_KEY, 0) > 0), SF_Data.bPrevendita);
+                sTmp = String.Format("OptionsDlg, Tipo di database = {0}, funzione di Cassa = {1}", (ReadRegistry(DB_MODE_KEY, 0) > 0), SF_Data.bPrevendita);
                 LogToFile(sTmp);
 
                 ErrorManager(ERR_CDB);
@@ -182,14 +182,14 @@ namespace StandFacile
         }
 
         /// <summary>le 2 checkbox possono essere entrambe deselezionate</summary>
-        private void checkBoxPresaleMode_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxPresaleMode_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxPresale_workMode.Checked)
                 checkBoxPresales_loadMode.Checked = false;
         }
 
         /// <summary>le 2 checkbox possono essere entrambe deselezionate</summary>
-        private void checkBoxLoadPresale_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxLoadPresale_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxPresales_loadMode.Checked)
                 checkBoxPresale_workMode.Checked = false;

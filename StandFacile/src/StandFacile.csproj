@@ -172,6 +172,9 @@
     <Compile Include="..\..\StandCommonSrc\Common_Safe.cs">
       <Link>Common_Safe.cs</Link>
     </Compile>
+    <Compile Include="..\..\StandCommonSrc\Common_wrn_err_CL.cs">
+      <Link>Common_wrn_err_CL.cs</Link>
+    </Compile>
     <Compile Include="..\..\StandCommonSrc\dBaseIntf.cs">
       <Link>dBaseIntf.cs</Link>
     </Compile>

@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using static StandFacile.Define;
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ReceiptAndCopies;
 using StandFacile;
 using System.IO;
@@ -25,6 +25,8 @@ namespace StandFacileTests
     [TestClass]
     public class ReceiptAndCopies_Tests
     {
+#pragma warning disable IDE0059
+
         [TestMethod]
         public void CheckSomethingToPrint_Test_IsTrue()
         {
@@ -116,7 +118,7 @@ namespace StandFacileTests
         }
 
         [TestMethod]
-        public void bCheckLastGroup_Test_IsTrue()
+        public void CheckLastGroup_Test_IsTrue()
         {
             bool bResult;
 
@@ -134,19 +136,19 @@ namespace StandFacileTests
             // Act
             CheckSomethingToPrint(_bSomethingInto_GrpToPrint, _bSomethingInto_ClrToPrint, DB_Data, false);
 
-            bResult = bCheckLastGroup(_bSomethingInto_GrpToPrint, 2);
+            bResult = CheckLastGroup(_bSomethingInto_GrpToPrint, 2);
             Assert.IsFalse(bResult);
 
-            bResult = bCheckLastGroup(_bSomethingInto_GrpToPrint, 3);
+            bResult = CheckLastGroup(_bSomethingInto_GrpToPrint, 3);
             Assert.IsTrue(bResult);
 
-            bResult = bCheckLastGroup(_bSomethingInto_GrpToPrint, 4);
+            bResult = CheckLastGroup(_bSomethingInto_GrpToPrint, 4);
             Assert.IsTrue(bResult);
 
         }
 
         [TestMethod]
-        public void bCheckLastItemAndGroupToCut_Test_IsTrue()
+        public void CheckLastItemAndGroupToCut_Test_IsTrue()
         {
             bool bResult;
 
@@ -161,17 +163,17 @@ namespace StandFacileTests
             // Act
             CheckSomethingToPrint(_bSomethingInto_GrpToPrint, _bSomethingInto_ClrToPrint, DB_Data, false);
 
-            bResult = bCheckLastItemAndGroupToCut(DB_Data, _bSomethingInto_GrpToPrint);
+            bResult = CheckLastItemAndGroupToCut(DB_Data, _bSomethingInto_GrpToPrint);
             Assert.IsFalse(bResult);
 
             DB_Data.Articolo[12].bLocalPrinted = true; // per esito true
 
-            bResult = bCheckLastItemAndGroupToCut(DB_Data, _bSomethingInto_GrpToPrint);
+            bResult = CheckLastItemAndGroupToCut(DB_Data, _bSomethingInto_GrpToPrint);
             Assert.IsTrue(bResult);
         }
 
         [TestMethod]
-        public void bCheckLastItemToCut_OnSameGroup_Test_IsTrue()
+        public void CheckLastItemToCut_OnSameGroup_Test_IsTrue()
         {
             bool bResult;
 
@@ -187,15 +189,15 @@ namespace StandFacileTests
             DB_Data.Articolo[12].iGruppoStampa = 3;
 
             // Act
-            bResult = bCheckLastItemToCut_OnSameGroup(DB_Data, 3, 10);
+            bResult = CheckLastItemToCut_OnSameGroup(DB_Data, 3, 10);
             Assert.IsFalse(bResult);
 
-            bResult = bCheckLastItemToCut_OnSameGroup(DB_Data, 3, 12);
+            bResult = CheckLastItemToCut_OnSameGroup(DB_Data, 3, 12);
             Assert.IsTrue(bResult);
         }
 
         [TestMethod]
-        public void bTicketScontatoStdIsGood_Test_IsTrue()
+        public void TicketScontatoStdIsGood_Test_IsTrue()
         {
             bool bResult;
 
@@ -218,13 +220,13 @@ namespace StandFacileTests
             DB_Data.Articolo[12].iPrezzoUnitario = 1200;
 
             // Act
-            bResult = bTicketScontatoStdIsGood(DB_Data, bScontoGruppo);
+            bResult = TicketScontatoStdIsGood(DB_Data, bScontoGruppo);
             Assert.IsTrue(bResult);
 
             DB_Data.Articolo[10].iGruppoStampa = 1;
             DB_Data.Articolo[12].iGruppoStampa = 1;
 
-            bResult = bTicketScontatoStdIsGood(DB_Data, bScontoGruppo);
+            bResult = TicketScontatoStdIsGood(DB_Data, bScontoGruppo);
             Assert.IsFalse(bResult);
         }
     }

@@ -22,7 +22,7 @@ using System.Data;
 using Devart.Data.SQLite;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using StandFacile;
@@ -31,6 +31,9 @@ using static StandFacile.dBaseIntf;
 
 namespace StandFacile_DB
 {
+#pragma warning disable IDE0079
+#pragma warning disable IDE1006
+
     /// <summary>classe per la gestione di SQLite</summary>
     public partial class dBaseIntf_ql
     {
@@ -47,7 +50,7 @@ namespace StandFacile_DB
 
             _rdBaseIntf_ql = this;
 
-            sDir = DataManager.sGetExeDir() + "\\";
+            sDir = DataManager.GetExeDir() + "\\";
 
             // devono essere presente anche se non si usa il db
             if (!(File.Exists(sDir + DB_CONNECTOR_DLL_DEV) && File.Exists(sDir + DB_CONNECTOR_DLL_QL)))
@@ -86,16 +89,15 @@ namespace StandFacile_DB
         {
             String sTmp, sData, sPostFix, sDebugDati, sDebugOrdini;
 
-            if (_Connection != null)
-                _Connection.Close();
+                _Connection?.Close();
 
             // prepara connessione al DB
-            if (!_bUSA_NDB())
+            if (!bUSA_NDB())
             {
                 try
                 {
-                    _sDBTNameDati = getNomeDatiDBTable(CASSA_PRINCIPALE, dateParam);
-                    _sDBTNameOrdini = getNomeOrdiniDBTable(dateParam);
+                    _sDBTNameDati = GetNomeDatiDBTable(CASSA_PRINCIPALE, dateParam);
+                    _sDBTNameOrdini = GetNomeOrdiniDBTable(dateParam);
 
                     // serve per visualizzazione ordini
                     _iDBTNameOrdiniLength = _sDBTNameOrdini.Length;
@@ -168,12 +170,13 @@ namespace StandFacile_DB
                     if (sNomeTabellaParam.Contains(_dbDataTablePrefix) || sNomeTabellaParam.Contains(_dbPreDataTablePrefix))
                         _sDBTNameDati = sNomeTabellaParam;
 
-                    SQLiteConnectionStringBuilder dbCSB = new SQLiteConnectionStringBuilder();
-
-                    dbCSB.DataSource = getNomeFileDatiDB_SQLite(getActualDate());
-                    dbCSB.FailIfMissing = false;
-                    dbCSB.Pooling = false;
-                    dbCSB.ConnectionTimeout = TIMEOUT_DB_OPEN;
+                    SQLiteConnectionStringBuilder dbCSB = new SQLiteConnectionStringBuilder()
+                    {
+                        DataSource = GetNomeFileDatiDB_SQLite(GetActualDate()),
+                        FailIfMissing = false,
+                        Pooling = false,
+                        ConnectionTimeout = TIMEOUT_DB_OPEN
+                    };
 
                     _Connection = new SQLiteConnection(dbCSB.ConnectionString);
                     _Connection.Open();
@@ -203,20 +206,20 @@ namespace StandFacile_DB
         /// </summary>
         public bool dbInitWeb()
         {
-            if (_ConnectionWeb != null)
-                _ConnectionWeb.Close();
+                _ConnectionWeb?.Close();
 
             // prepara connessione al DB
-            if (!_bUSA_NDB())
+            if (!bUSA_NDB())
             {
                 try
                 {
-                    SQLiteConnectionStringBuilder _dbCSB_Web = new SQLiteConnectionStringBuilder();
-
-                    _dbCSB_Web.DataSource = getNomeFileDatiDB_SQLite(getActualDate());
-                    _dbCSB_Web.FailIfMissing = false;
-                    _dbCSB_Web.Pooling = false;
-                    _dbCSB_Web.ConnectionTimeout = TIMEOUT_DB_OPEN;
+                    SQLiteConnectionStringBuilder _dbCSB_Web = new SQLiteConnectionStringBuilder()
+                    {
+                        DataSource = GetNomeFileDatiDB_SQLite(GetActualDate()),
+                        FailIfMissing = false,
+                        Pooling = false,
+                        ConnectionTimeout = TIMEOUT_DB_OPEN
+                    };
 
                     _ConnectionWeb = new SQLiteConnection(_dbCSB_Web.ConnectionString);
                     _ConnectionWeb.Open();
@@ -252,13 +255,13 @@ namespace StandFacile_DB
             int iGiorno, iMese, iAnno;
             String sQueryTxt, sTmp, sActualDateStr;
             String sReadVersion = RELEASE_SW;
-            DateTime statusDate = getActualDate();
+            DateTime statusDate = GetActualDate();
 
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteDataReader readerStato = null;
             TWebServerParams sWebServerParams = dbGetWebServerParams();
 
-            bDBConnection_Ok = dbInit(getActualDate(), true);
+            bDBConnection_Ok = dbInit(GetActualDate(), true);
 
             // sicurezza : si prosegue solo se c'è la connessione al DB
             if (!bDBConnection_Ok)
@@ -315,7 +318,7 @@ namespace StandFacile_DB
                 _sDateFromDB = "Stato non presente!";
             }
 
-            sActualDateStr = getActualDate().ToString("dd/MM/yy");
+            sActualDateStr = GetActualDate().ToString("dd/MM/yy");
 
             // *** confronto data ***
             if (_sDateFromDB != sActualDateStr)
@@ -324,17 +327,17 @@ namespace StandFacile_DB
                 {
 #if STANDFACILE
                     // valore non plausibile se la chiave non esiste
-                    int iKeyGood = iReadRegistry(DISP_DLG_MNG_KEY, -1);
+                    int iKeyGood = ReadRegistry(DISP_DLG_MNG_KEY, -1);
 
-                    bool bDispDlgShow = IsBitSet(iReadRegistry(DISP_DLG_MNG_KEY, SetBit(0, BIT_SHOW_DISP_DLG)), BIT_SHOW_DISP_DLG);
-                    bool bPrevDispLoad = IsBitSet(iReadRegistry(DISP_DLG_MNG_KEY, SetBit(0, BIT_PREV_DISP_LOAD)), BIT_PREV_DISP_LOAD);
+                    bool bDispDlgShow = IsBitSet(ReadRegistry(DISP_DLG_MNG_KEY, SetBit(0, BIT_SHOW_DISP_DLG)), BIT_SHOW_DISP_DLG);
+                    bool bPrevDispLoad = IsBitSet(ReadRegistry(DISP_DLG_MNG_KEY, SetBit(0, BIT_PREV_DISP_LOAD)), BIT_PREV_DISP_LOAD);
 
                     // la prima esecuzione non apre il dialogo
                     if (iKeyGood == -1)
                         WriteRegistry(DISP_DLG_MNG_KEY, 0);
                     else if (bDispDlgShow)
                     {
-                        startDispDlg rChooseDispDlg = new startDispDlg(getActualDate(), statusDate);
+                        startDispDlg rChooseDispDlg = new startDispDlg(GetActualDate(), statusDate);
                     }
                     else if (bPrevDispLoad)
                     {
@@ -360,13 +363,13 @@ namespace StandFacile_DB
                         cmd.CommandText = sQueryTxt;
                         qResult = cmd.ExecuteScalar();
 
-                        sTmp = getActualDate().ToString("yyyy");
+                        sTmp = GetActualDate().ToString("yyyy");
                         iAnno = Convert.ToInt32(sTmp);
 
-                        sTmp = getActualDate().ToString("MM");
+                        sTmp = GetActualDate().ToString("MM");
                         iMese = Convert.ToInt32(sTmp);
 
-                        sTmp = getActualDate().ToString("dd");
+                        sTmp = GetActualDate().ToString("dd");
                         iGiorno = Convert.ToInt32(sTmp);
 
                         sQueryTxt = String.Format("INSERT INTO {0} (key_ID, sText, iYear, iMonth, iDay) VALUES (\'{1}\', \'{2}\', {3}, {4}, {5});",
@@ -412,7 +415,7 @@ namespace StandFacile_DB
                     catch (Exception)
                     {
                         _WrnMsg.iErrID = WRN_DBE;
-                        _WrnMsg.sMsg = String.Format("dbCheckStatus : creazione tabella {0}", _bUSA_NDB());
+                        _WrnMsg.sMsg = String.Format("dbCheckStatus : creazione tabella {0}", bUSA_NDB());
                         WarningManager(_WrnMsg);
                         LogToFile("dbCheckStatus : dbException creazione tabelle");
 
@@ -432,8 +435,7 @@ namespace StandFacile_DB
                 readerStato = cmd.ExecuteReader();
             }
 
-            if (readerStato != null)
-                readerStato.Close();
+                readerStato?.Close();
 
             cmd.Dispose();
             return true; // data DB corretta
@@ -449,7 +451,7 @@ namespace StandFacile_DB
             TWebServerParams sWebServerParams = new TWebServerParams(0);
 
 
-            bDBConnection_Ok = dbInit(getActualDate(), true);
+            bDBConnection_Ok = dbInit(GetActualDate(), true);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -482,8 +484,7 @@ namespace StandFacile_DB
                     }
                 }
 
-                if (readerStatus != null)
-                    readerStatus.Close();
+                    readerStatus?.Close();
 
                 LogToFile("dbGetWebServerParams: parametri letti");
             }
@@ -510,7 +511,7 @@ namespace StandFacile_DB
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteDataReader readerStatus = null;
 
-            bDBConnection_Ok = dbInit(getActualDate(), true);
+            bDBConnection_Ok = dbInit(GetActualDate(), true);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -529,8 +530,7 @@ namespace StandFacile_DB
                 cmd.CommandText = "UPDATE " + NOME_STATO_DBTBL + " SET sText = '" + sWebServerParams.sWebEncryptedPwd + "' WHERE (key_ID = '" + WEB_DBASE_PWD_KEY + "')";
                 readerStatus = cmd.ExecuteReader();
 
-                if (readerStatus != null)
-                    readerStatus.Close();
+                    readerStatus?.Close();
 
                 LogToFile("dbSetWebServerParams: parametri scritti");
             }
@@ -560,6 +560,7 @@ namespace StandFacile_DB
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteDataReader readerCSec = null;
 
+            #pragma warning disable IDE0059
             bDBConnection_Ok = dbInitWeb();
 
             try
@@ -586,8 +587,7 @@ namespace StandFacile_DB
                 WarningManager(_WrnMsg);
             }
 
-            if (readerCSec != null)
-                readerCSec.Close();
+                readerCSec?.Close();
 
             return iOrderNum; // tutto OK
         }
@@ -754,12 +754,12 @@ namespace StandFacile_DB
                     {
                         sTipo = Convert.ToString(dataTable.Rows[i]["sTipo_Articolo"]);
 
-                        if (sTipo == _ORDER_CONST._START_OF_ORDER)
+                        if (sTipo == ORDER_CONST._START_OF_ORDER)
                             DB_Data.iStatusReceipt = Convert.ToInt32(dataTable.Rows[i]["iStatus"]);
 
                         DB_Data.Articolo[i].sTipo = sTipo;
 
-                        if (!bStringBelongsTo_ORDER_CONST(sTipo))
+                        if (!StringBelongsTo_ORDER_CONST(sTipo))
                         {
                             DB_Data.Articolo[i].iQuantitaOrdine = Convert.ToInt32(dataTable.Rows[i]["iQuantita_Ordine"]);
                             DB_Data.Articolo[i].iPrezzoUnitario = Convert.ToInt32(dataTable.Rows[i]["iPrezzo_Unitario"]);
@@ -775,7 +775,7 @@ namespace StandFacile_DB
 
                             dataTable.Rows[i]["iAnnullato"] = 1;
 
-                            if (sTipo == _ORDER_CONST._START_OF_ORDER)
+                            if (sTipo == ORDER_CONST._START_OF_ORDER)
                             {
                                 sTmp = DateTime.Now.ToString("HH.mm.ss");
 
@@ -829,7 +829,7 @@ namespace StandFacile_DB
                     _WrnMsg.iErrID = WRN_SEX;
 
 #if STANDFACILE
-                    if (!bCheckService(Define._AUTO_SEQ_TEST))
+                    if (!CheckService(Define._AUTO_SEQ_TEST))
 #endif
                         WarningManager(_WrnMsg);
 
@@ -876,7 +876,7 @@ namespace StandFacile_DB
             String sQueryTxt, sNewTName;
             SQLiteCommand cmd = new SQLiteCommand();
 
-            DateTime dateParam = getActualDate();
+            DateTime dateParam = GetActualDate();
 
             // imposta anche la directory con il full path
             bDBConnection_Ok = dbInit(dateParam);
@@ -908,7 +908,7 @@ namespace StandFacile_DB
                 bSuccess = false;
 
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("RENAME DATI {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("RENAME DATI {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
                 LogToFile("dbRenameTables : dbException RENAME DATI");
             }
@@ -934,7 +934,7 @@ namespace StandFacile_DB
 
                 bSuccess = false;
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("RENAME DATI {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("RENAME DATI {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
                 LogToFile("dbRenameTables : dbException RENAME ORDINI");
             }
@@ -953,7 +953,7 @@ namespace StandFacile_DB
             String sTmp, sQueryTxt;
             SQLiteCommand cmd = new SQLiteCommand();
 
-            bDBConnection_Ok = dbInit(getActualDate(), false, sOldTabellaParam);
+            bDBConnection_Ok = dbInit(GetActualDate(), false, sOldTabellaParam);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -974,11 +974,11 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                if (!_bUSA_NDB())
+                if (!bUSA_NDB())
                 {
                     bSuccess = false;
                     _WrnMsg.iErrID = WRN_DBE;
-                    _WrnMsg.sMsg = String.Format("RENAME TABLE {0}", _bUSA_NDB());
+                    _WrnMsg.sMsg = String.Format("RENAME TABLE {0}", bUSA_NDB());
                     WarningManager(_WrnMsg);
                 }
             }
@@ -986,13 +986,13 @@ namespace StandFacile_DB
             return bSuccess;
         }
 
-        /// <summary>usato da eraseAllaData()</summary>
+        /// <summary>usato da EraseAllaData()</summary>
         public bool dbDropTables()
         {
             bool bDBConnection_Ok, bSuccess = true;
             String sQueryTxt, sDBTLocNameDati;
 
-            DateTime dateParam = getActualDate();
+            DateTime dateParam = GetActualDate();
             SQLiteCommand cmd = new SQLiteCommand();
 
             bDBConnection_Ok = dbInit(dateParam, true);
@@ -1009,7 +1009,7 @@ namespace StandFacile_DB
                  *		DROP ClientDS_Dati
                  *************************************/
 
-                sDBTLocNameDati = getNomeDatiDBTable(CASSA_PRINCIPALE, dateParam);
+                sDBTLocNameDati = GetNomeDatiDBTable(CASSA_PRINCIPALE, dateParam);
 
                 // Query di drop tabella
                 sQueryTxt = String.Format("DROP TABLE IF EXISTS {0};", sDBTLocNameDati);
@@ -1038,11 +1038,11 @@ namespace StandFacile_DB
             }
             catch (Exception)
             {
-                if (!_bUSA_NDB())
+                if (!bUSA_NDB())
                 {
                     bSuccess = false;
                     _WrnMsg.iErrID = WRN_DBE;
-                    _WrnMsg.sMsg = String.Format("DROP TABLE ORDINI {0}", _bUSA_NDB());
+                    _WrnMsg.sMsg = String.Format("DROP TABLE ORDINI {0}", bUSA_NDB());
                     WarningManager(_WrnMsg);
                 }
             }
@@ -1057,7 +1057,7 @@ namespace StandFacile_DB
             String sQueryTxt, sTmp;
             SQLiteCommand cmd = new SQLiteCommand();
 
-            bDBConnection_Ok = dbInit(getActualDate(), false, sNomeTabellaParam);
+            bDBConnection_Ok = dbInit(GetActualDate(), false, sNomeTabellaParam);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -1078,7 +1078,7 @@ namespace StandFacile_DB
             }
             catch (Exception)
             {
-                if (!_bUSA_NDB())
+                if (!bUSA_NDB())
                 {
                     bSuccess = false;
                     _WrnMsg.iErrID = WRN_DBE;
@@ -1102,7 +1102,7 @@ namespace StandFacile_DB
             SQLiteCommand cmd = new SQLiteCommand();
             String sTmp;
 
-            bDBConnection_Ok = dbInit(getActualDate());
+            bDBConnection_Ok = dbInit(GetActualDate());
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -1133,8 +1133,7 @@ namespace StandFacile_DB
                 LogToFile("dbElencoTabelle : dbException RENAME DATI");
             }
 
-            if (readerTables != null)
-                readerTables.Close();
+                readerTables?.Close();
 
             return sStringsParam.Count;
         }
@@ -1143,13 +1142,13 @@ namespace StandFacile_DB
         /// Funzione di inserimento record del numero Ordine web<br/>
         /// usata da MainForm nel caso fallisca il contrassegno diretto
         /// </summary>
-        public void db_webOrderEnqueue(int iEnqueueParam)
+        public void dbWebOrderEnqueue(int iEnqueueParam)
         {
             bool bDBConnection_Ok;
             String sQueryTxt;
             SQLiteCommand cmd = new SQLiteCommand();
 
-            bDBConnection_Ok = dbInit(getActualDate(), true);
+            bDBConnection_Ok = dbInit(GetActualDate(), true);
 
             try
             {
@@ -1199,7 +1198,7 @@ namespace StandFacile_DB
 
             iCountOrdini = -1;
 
-            bDBConnection_Ok = dbInit(getActualDate(), false, sPrevOrderTableParam);
+            bDBConnection_Ok = dbInit(GetActualDate(), false, sPrevOrderTableParam);
 
             try
             {
@@ -1318,7 +1317,7 @@ namespace StandFacile_DB
                             bResult = false;
 
                             // gia scaricato !!!
-                            if (sTipo == _ORDER_CONST._START_OF_ORDER)
+                            if (sTipo == ORDER_CONST._START_OF_ORDER)
                             {
                                 Console.Beep();
 
@@ -1334,7 +1333,7 @@ namespace StandFacile_DB
 
                             ordiniTable.Rows[i]["iScaricato"] = 1;
 
-                            if (sTipo == _ORDER_CONST._START_OF_ORDER)
+                            if (sTipo == ORDER_CONST._START_OF_ORDER)
                             {
                                 sTmp = DateTime.Now.ToString("HH.mm.ss");
 
@@ -1395,7 +1394,7 @@ namespace StandFacile_DB
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteDataReader readerStatus = null;
 
-            bDBConnection_Ok = dbInit(getActualDate(), true);
+            bDBConnection_Ok = dbInit(GetActualDate(), true);
 
             // sicurezza : si prosegue solo se c'è la connessione a DB
             if (!bDBConnection_Ok)
@@ -1405,7 +1404,7 @@ namespace StandFacile_DB
             {
                 if (iOrderIDParam >= 0)
                     sQueryTxt = String.Format("UPDATE {0} SET iStatus = {1} WHERE (iOrdine_ID = {2} AND sTipo_Articolo = '{3}');",
-                                _sDBTNameOrdini, iStatusParam, iOrderIDParam, _ORDER_CONST._START_OF_ORDER);
+                                _sDBTNameOrdini, iStatusParam, iOrderIDParam, ORDER_CONST._START_OF_ORDER);
                 else
                     sQueryTxt = String.Format("UPDATE {0} SET iStatus = {1} WHERE (iOrdine_ID = {2});", _sDBTNameOrdini, iStatusParam, iOrderIDParam);
 
@@ -1414,8 +1413,7 @@ namespace StandFacile_DB
 
                 readerStatus = cmd.ExecuteReader();
 
-                if (readerStatus != null)
-                    readerStatus.Close();
+                    readerStatus?.Close();
 
                 LogToFile("dbEditStatus: stato aggiornato");
             }

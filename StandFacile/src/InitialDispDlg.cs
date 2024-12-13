@@ -8,7 +8,7 @@ using System;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using static StandFacile.Define;
@@ -22,6 +22,8 @@ namespace StandFacile
     /// </summary>
     public partial class InitialDispDlg : Form
     {
+#pragma warning disable IDE0044
+
         // flag di conferma
         static bool _bApplicaDisponibilita, _bCheckSingle;
 
@@ -30,7 +32,7 @@ namespace StandFacile
         static CheckBox[] _pCheckBoxCopia = new CheckBox[NUM_COPIES_GRPS];
 
         /// <summary>ritorna se è richiesto l'uso del dialogo InitDispDlg</summary>
-        public static bool _getApplicaDisponibilita() { return _bApplicaDisponibilita; }
+        public static bool GetApplicaDisponibilita() { return _bApplicaDisponibilita; }
 
         /// <summary>
         /// costruttore con parametri: dateParam, bShow<br/>
@@ -57,7 +59,7 @@ namespace StandFacile
             _pCheckBoxCopia[7] = checkBoxCopia_7;
             _pCheckBoxCopia[8] = checkBoxCopia_8;
 
-            iDispGroups = iReadRegistry(DISP_GROUP_KEY, 0);
+            iDispGroups = ReadRegistry(DISP_GROUP_KEY, 0);
 
             for (int h = 0; h < NUM_COPIES_GRPS; h++)
             {
@@ -68,10 +70,10 @@ namespace StandFacile
             if (bShow)
                 ShowDialog();
             else
-                btnOK_Click(this, null);
+                BtnOK_Click(this, null);
         }
 
-        private void rdButtonAll_CheckedChanged(object sender, EventArgs e)
+        private void RadioBtnAll_CheckedChanged(object sender, EventArgs e)
         {
             if (_bCheckSingle) return;
 
@@ -79,7 +81,7 @@ namespace StandFacile
                 _pCheckBoxCopia[i].Checked = true;
         }
 
-        private void rdButtonNone_CheckedChanged(object sender, EventArgs e)
+        private void RadioBtnNone_CheckedChanged(object sender, EventArgs e)
         {
             if (_bCheckSingle) return;
 
@@ -87,7 +89,7 @@ namespace StandFacile
                 _pCheckBoxCopia[i].Checked = false;
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             DialogResult dResult;
 
@@ -100,8 +102,10 @@ namespace StandFacile
             LogToFile("InitDispDlg : btnCancel");
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
+            #pragma warning disable IDE0059
+
             int i, iGrp, iDebug, iDispGroups;
 
             iDispGroups = 0;
@@ -138,7 +142,7 @@ namespace StandFacile
         }
 
 
-        private void checkBoxCopia_Click(object sender, EventArgs e)
+        private void CheckBoxCopia_Click(object sender, EventArgs e)
         {
             _bCheckSingle = true;
 

@@ -19,7 +19,7 @@ using static StandFacile.glb;
 using static StandFacile.Define;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 namespace StandFacile
@@ -34,7 +34,7 @@ namespace StandFacile
         static bool _bListinoModificato;
 
         /// <summary>ottiene flag di modifica listino necessaria</summary>
-        public static bool bGetListinoModificato() { return _bListinoModificato; }
+        public static bool GetListinoModificato() { return _bListinoModificato; }
 
         /// <summary>costruttore</summary>
         public EditGrigliaDlg()
@@ -65,7 +65,7 @@ namespace StandFacile
 
             _bListinoModificato = false;
 
-            checkBoxTouchMode_CheckedChanged(this, null);
+            CheckBoxTouchMode_CheckedChanged(this, null);
             LogToFile("ImpostaGriglia Init()");
 
             ShowDialog();
@@ -96,7 +96,7 @@ namespace StandFacile
             Edit_3.Text = "Pagina 5";
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             bool bModificaOK = false;
 
@@ -179,7 +179,7 @@ namespace StandFacile
             else
                 iPageNumTmp = PAGES_NUM_TXTM;
 
-            if (DataManager.iCheckLastArticoloIndexP1() > (iNumColonneTmp * iNumRigheTmp * iPageNumTmp))
+            if (DataManager.CheckLastArticoloIndexP1() > (iNumColonneTmp * iNumRigheTmp * iPageNumTmp))
             {
                 // compattazione necessaria
 
@@ -240,7 +240,7 @@ namespace StandFacile
 
                 _bListinoModificato = true;
 
-                DataManager.iCheckLastArticoloIndexP1();
+                DataManager.CheckLastArticoloIndexP1();
 
                 LogToFile("ImpostaGriglia end");
             }
@@ -248,7 +248,7 @@ namespace StandFacile
             Close();
         }
 
-        private void checkBoxTouchMode_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxTouchMode_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBoxTouchMode.Checked)
             {

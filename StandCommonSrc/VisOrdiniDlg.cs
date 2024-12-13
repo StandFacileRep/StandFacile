@@ -14,7 +14,7 @@ using static StandFacile.glb;
 using static StandFacile.Define;
 using static StandFacile.dBaseIntf;
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ReceiptAndCopies;
 using static StandCommonFiles.LogServer;
 
@@ -31,13 +31,12 @@ namespace StandFacile
     /// </summary>
     public partial class VisOrdiniDlg : Form
     {
+#pragma warning disable IDE0044
+
         const int SEARCH_LIMIT = 999;
 
         /// <summary>massimo numero di scontrini per ricerca</summary>
         public const int MAX_NUM_TICKET = 9999;
-
-        bool[] _bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS]; // OK
-        bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
 
         bool _bOrdineCaricato, _bAnnulloOrdine;
         int _iNum, _iUpperLimit;
@@ -47,7 +46,10 @@ namespace StandFacile
         bool[] _bScontoGruppo = new bool[NUM_EDIT_GROUPS];
 
         TErrMsg _ErrMsg;
+
+#if STANDFACILE
         TData _dataIdentifierParam;
+#endif
 
         /// <summary>costruttore</summary>
         public VisOrdiniDlg(DateTime dateParam, int iNumParam, String sNomeTabellaParam = "", VIEW_TYPE eViewTypeParam = VIEW_TYPE.NORMAL)
@@ -65,7 +67,7 @@ namespace StandFacile
             bHide = (eViewTypeParam == VIEW_TYPE.NO_VIEW);
 
             // SQLite
-            if (!_bUSA_NDB())
+            if (!bUSA_NDB())
             {
                 CkBoxTutteCasse.Visible = false;
                 CkBoxTutteCasse.Enabled = false;
@@ -77,10 +79,10 @@ namespace StandFacile
 
             _dataIdentifierParam = SF_Data;
 
-            if (getActualDate().ToString("dd/MM/yy") != _dateOrdine.ToString("dd/MM/yy"))
+            if (GetActualDate().ToString("dd/MM/yy") != _dateOrdine.ToString("dd/MM/yy"))
             {
                 // cancellazione tickets altrimenti si vedono tickets precedenti
-                String sNomeDirTmp = sGetVisTicketsDir();
+                String sNomeDirTmp = GetVisTicketsDir();
 
                 if (Directory.Exists(sNomeDirTmp))
                     Directory.Delete(sNomeDirTmp, true);
@@ -90,15 +92,13 @@ namespace StandFacile
                 CkBoxTutteCasse.Checked = true;
 
             // carica il numero di Tickets in caso di altra data
-            if (getActualDate().ToString("dd/MM/yy") == dateParam.ToString("dd/MM/yy") && !_sNomeTabella.Contains(_dbOrdersTablePrefix))
-                _iUpperLimit = DataManager.iGetNumOfOrders();
+            if (GetActualDate().ToString("dd/MM/yy") == dateParam.ToString("dd/MM/yy") && !_sNomeTabella.Contains(_dbOrdersTablePrefix))
+                _iUpperLimit = DataManager.GetNumOfOrders();
             else
 #endif
                 _iUpperLimit = _rdBaseIntf.dbCaricaDatidaOrdini(dateParam, 0, true, _sNomeTabella);
 
 #if STAND_CUCINA || STAND_MONITOR
-
-            _dataIdentifierParam = DB_Data;
 
             CkBoxTutteCasse.Checked = true;
             CkBoxTutteCasse.Enabled = false;
@@ -112,7 +112,7 @@ namespace StandFacile
                 comboCashPos.Visible = false;
                 labelPayMethod.Visible = false;
 
-                if (getActualDate().ToString("dd/MM/yy") == dateParam.ToString("dd/MM/yy"))
+                if (GetActualDate().ToString("dd/MM/yy") == dateParam.ToString("dd/MM/yy"))
                 {
                     AnnulloBtn.Enabled = true;
                     AnnulloBtn.Visible = true;
@@ -120,7 +120,7 @@ namespace StandFacile
 
                 BtnPrt.Enabled = false;
 
-                CkBoxTutteCasse.Enabled = ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && _bUSA_NDB());
+                CkBoxTutteCasse.Enabled = ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bUSA_NDB());
                 OKBtn.Text = "Esci";
             }
             else if (bCambiaPagamento)
@@ -138,14 +138,14 @@ namespace StandFacile
                 AnnulloBtn.Enabled = false;
                 AnnulloBtn.Visible = false;
 
-                if (getActualDate().ToString("dd/MM/yy") == dateParam.ToString("dd/MM/yy"))
+                if (GetActualDate().ToString("dd/MM/yy") == dateParam.ToString("dd/MM/yy"))
                 {
                     comboCashPos.Enabled = true;
                 }
 
                 BtnPrt.Enabled = false;
 
-                CkBoxTutteCasse.Enabled = ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && _bUSA_NDB());
+                CkBoxTutteCasse.Enabled = ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bUSA_NDB());
                 comboCashPos.Visible = true;
                 labelPayMethod.Visible = true;
 
@@ -167,7 +167,7 @@ namespace StandFacile
                 OKBtn.Text = "OK";
 
                 // compattazione
-                if (!_bUSA_NDB())
+                if (!bUSA_NDB())
                 {
                     BtnPrev.Left -= 200;
                     BtnNext.Left = BtnPrev.Left + 90;
@@ -226,7 +226,7 @@ namespace StandFacile
 
             LogToFile(String.Format("VisTicketsDlg : {0}, {1}", iNum, iDir));
 
-            sDir = sGetVisTicketsDir() + "\\";
+            sDir = GetVisTicketsDir() + "\\";
             
             i = DB_Data.iStartingNumOfReceipts;
 
@@ -241,7 +241,7 @@ namespace StandFacile
                 sTmp = _sDBTNameOrdini;
                 iTmp = _iDBTNameOrdiniLength;
 
-                if ((CkBoxTutteCasse.Checked) || (getActualDate().ToString("dd/MM/yy") != _dateOrdine.ToString("dd/MM/yy")) ||
+                if ((CkBoxTutteCasse.Checked) || (GetActualDate().ToString("dd/MM/yy") != _dateOrdine.ToString("dd/MM/yy")) ||
                     (_sDBTNameOrdini.Length > _iDBTNameOrdiniLength))
                 {
                     if (iNum > _iUpperLimit)
@@ -253,9 +253,9 @@ namespace StandFacile
 #if STANDFACILE
                 else
                 {
-                    if (iNum > DataManager.iGetNumOfLocalOrders())
+                    if (iNum > DataManager.GetNumOfLocalOrders())
                     {
-                        iNum = DataManager.iGetNumOfLocalOrders();
+                        iNum = DataManager.GetNumOfLocalOrders();
                         _iNum = iNum; // esteso anche alla var membro
                     }
                 }
@@ -317,13 +317,13 @@ namespace StandFacile
             //textEdit_Ticket.ScrollToCaret();
         }
 
-        private void prevBtn_Click(object sender, EventArgs e)
+        private void PrevBtn_Click(object sender, EventArgs e)
         {
             _iNum -= 1;
             VisualizzaTicket(_iNum, (int)SEARCH_TYPE.SEARCH_DOWN);
         }
 
-        private void nextBtn_Click(object sender, EventArgs e)
+        private void NextBtn_Click(object sender, EventArgs e)
         {
             _iNum += 1;
             VisualizzaTicket(_iNum, (int)SEARCH_TYPE.SEARCH_UP);
@@ -371,7 +371,7 @@ namespace StandFacile
         /***************************************************************
          *   Invio alla Stampante, prima le copie e poi lo Scontrino
          ***************************************************************/
-        private void btnPrt_Click(object sender, EventArgs e)
+        private void BtnPrt_Click(object sender, EventArgs e)
         {
             bool bTicketCopy_NoPrice;
 
@@ -382,23 +382,23 @@ namespace StandFacile
 
             // STAMPA SCONTRINO PRINCIPALE
 #if STANDFACILE
-            if (PrintReceiptConfigDlg.bGetPrinterTypeIsWinwows())
+            if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
 #else
-            if (PrintConfigLightDlg.bGetPrinterTypeIsWinwows())
+            if (PrintConfigLightDlg.GetPrinterTypeIsWinwows())
 #endif
             {
-                Printer_Windows.PrintFile(sGetVisTicketsDir() + "\\" + _sNomeFileTicket, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
+                Printer_Windows.PrintFile(GetVisTicketsDir() + "\\" + _sNomeFileTicket, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
 
                 if (bTicketCopy_NoPrice)
-                    Printer_Windows.PrintFile(sGetVisTicketsDir() + "\\" + _sNomeFileTicketNpPrt, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
+                    Printer_Windows.PrintFile(GetVisTicketsDir() + "\\" + _sNomeFileTicketNpPrt, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
             }
             else
             {
-                Printer_Legacy.PrintFile(sGetVisTicketsDir() + "\\" + _sNomeFileTicket, sGlbLegacyPrinterParams,
+                Printer_Legacy.PrintFile(GetVisTicketsDir() + "\\" + _sNomeFileTicket, sGlbLegacyPrinterParams,
                     (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
 
                 if (bTicketCopy_NoPrice)
-                    Printer_Legacy.PrintFile(sGetVisTicketsDir() + "\\" + _sNomeFileTicketNpPrt, sGlbLegacyPrinterParams,
+                    Printer_Legacy.PrintFile(GetVisTicketsDir() + "\\" + _sNomeFileTicketNpPrt, sGlbLegacyPrinterParams,
                     (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
             }
 
@@ -414,10 +414,10 @@ namespace StandFacile
 
                 if (_dataIdentifierParam.bCopiesGroupsFlag[i])
                 {
-                    if (PrintReceiptConfigDlg.bGetPrinterTypeIsWinwows())
-                        Printer_Windows.PrintFile(sGetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
+                    if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
+                        Printer_Windows.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
                     else
-                        Printer_Legacy.PrintFile(sGetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbLegacyPrinterParams,
+                        Printer_Legacy.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbLegacyPrinterParams,
                         (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
                 }
             }
@@ -425,9 +425,9 @@ namespace StandFacile
 #endif
 
 #if STANDFACILE
-            if (!PrintReceiptConfigDlg.bGetPrinterTypeIsWinwows())
+            if (!PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
 #else
-            if (!PrintConfigLightDlg.bGetPrinterTypeIsWinwows())
+            if (!PrintConfigLightDlg.GetPrinterTypeIsWinwows())
 #endif
             {
                 // Avvia eventuali code delle copie Legacy
@@ -504,7 +504,7 @@ namespace StandFacile
                 _sNomeFileTicket = String.Format(NOME_FILE_RECEIPT, DB_Data.iNumCassa, iParam);
                 _ErrMsg.sNomeFile = _sNomeFileTicket;
 
-                sDir = sGetVisTicketsDir() + "\\";
+                sDir = GetVisTicketsDir() + "\\";
 
                 WriteReceipt(ref DB_Data, iParam, fPrint, sDir, sOrdineStrings);
 
@@ -513,9 +513,9 @@ namespace StandFacile
                  ***        RICOSTRUZIONE COPIE LOCALI        ***
                  ************************************************/
 
-                sDir = sGetVisTicketsDir() + "\\";
+                sDir = GetVisTicketsDir() + "\\";
 
-                WriteLocalCopy(DB_Data, iParam, fPrint, sDir, sOrdineStrings);
+                WriteLocalCopy(DB_Data, iParam, sDir, sOrdineStrings);
 #endif
 
 #if STANDFACILE || STAND_CUCINA
@@ -524,7 +524,7 @@ namespace StandFacile
                  * i contatori sono inclusi nelle PIETANZE es: COPERTI
                  ***********************************************************/
 
-                sDir = sGetVisCopiesDir() + "\\";
+                sDir = GetVisCopiesDir() + "\\";
 
                 WriteNetworkCopy(DB_Data, iParam, fPrint, sDir, sOrdineStrings, false);
 #endif
@@ -543,7 +543,7 @@ namespace StandFacile
         /// da utilizzare solo per le verifiche di scontrino scontato significativo, <br/>
         /// utilizzato da DataManager per inserire nota nello Scontrino
         /// </summary>
-        public bool bTicketScontatoIsGood()
+        public bool TicketScontatoIsGood()
         {
             int i;
             int iTotaleScontatoCurrTicket = 0;
@@ -560,7 +560,7 @@ namespace StandFacile
             return (iTotaleScontatoCurrTicket > 0);
         }
 
-        private void comboCashPos_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboCashPos_SelectedIndexChanged(object sender, EventArgs e)
         {
 #if STANDFACILE
             int iNewStatus;
@@ -632,32 +632,32 @@ namespace StandFacile
 
                 if (dResult == DialogResult.Yes)
                 {
-                    DataManager.bAnnulloOrdine(_iNum);
+                    DataManager.AnnulloOrdine(_iNum);
                     VisualizzaTicket(_iNum, (int)SEARCH_TYPE.NO_SEARCH);
 
                     // avvia il refresh della griglia principale
                     sQueue_Object[0] = MAIN_GRID_UPDATE_EVENT;
                     sQueue_Object[1] = "";
 
-                    FrmMain.eventEnqueue(sQueue_Object);
+                    FrmMain.EventEnqueue(sQueue_Object);
                 }
             }
 #endif
         }
 
-        private string sGetVisTicketsDir()
+        private string GetVisTicketsDir()
         {
             string sDir;
 
 #if STANDFACILE
 
-            if (getActualDate().ToString("dd/MM/yy") == _dateOrdine.ToString("dd/MM/yy"))
+            if (GetActualDate().ToString("dd/MM/yy") == _dateOrdine.ToString("dd/MM/yy"))
             {
-                sDir = DataManager.sGetRootDir() + "\\" + ANNO_DIR + _dateOrdine.ToString("yyyy") + "\\" + NOME_DIR_RECEIPTS + _dateOrdine.ToString("MMdd");
+                sDir = DataManager.GetRootDir() + "\\" + ANNO_DIR + _dateOrdine.ToString("yyyy") + "\\" + NOME_DIR_RECEIPTS + _dateOrdine.ToString("MMdd");
             }
             else
             {
-                sDir = DataManager.sGetRootDir() + "\\" + ANNO_DIR + _dateOrdine.ToString("yyyy") + "\\" + NOME_DIR_RECEIPTS_VO;
+                sDir = DataManager.GetRootDir() + "\\" + ANNO_DIR + _dateOrdine.ToString("yyyy") + "\\" + NOME_DIR_RECEIPTS_VO;
             }
 #elif STAND_CUCINA
             sDir = sRootDir + "\\";
@@ -670,18 +670,18 @@ namespace StandFacile
 
             return sDir;
         }
-        private string sGetVisCopiesDir()
+        private string GetVisCopiesDir()
         {
             string sDir;
 
 #if STANDFACILE
-            if (getActualDate().ToString("dd/MM/yy") == _dateOrdine.ToString("dd/MM/yy"))
+            if (GetActualDate().ToString("dd/MM/yy") == _dateOrdine.ToString("dd/MM/yy"))
             {
-                sDir = DataManager.sGetRootDir() + "\\" + ANNO_DIR + _dateOrdine.ToString("yyyy") + "\\" + NOME_DIR_COPIES + _dateOrdine.ToString("MMdd");
+                sDir = DataManager.GetRootDir() + "\\" + ANNO_DIR + _dateOrdine.ToString("yyyy") + "\\" + NOME_DIR_COPIES + _dateOrdine.ToString("MMdd");
             }
             else
             {
-                sDir = DataManager.sGetRootDir() + "\\" + ANNO_DIR + _dateOrdine.ToString("yyyy") + "\\" + NOME_DIR_COPIES_VO;
+                sDir = DataManager.GetRootDir() + "\\" + ANNO_DIR + _dateOrdine.ToString("yyyy") + "\\" + NOME_DIR_COPIES_VO;
             }
 #elif STAND_CUCINA
             sDir = sRootDir;
@@ -704,16 +704,16 @@ namespace StandFacile
 
 #if STANDFACILE
             // operazione sicura con Directory NOME_DIR_RECEIPTS_VO
-            if (getActualDate().ToString("dd/MM/yy") != _dateOrdine.ToString("dd/MM/yy"))
+            if (GetActualDate().ToString("dd/MM/yy") != _dateOrdine.ToString("dd/MM/yy"))
             {
                 // cancellazione tickets VisOrdini
-                sNomeDirTmp = sGetVisTicketsDir();
+                sNomeDirTmp = GetVisTicketsDir();
 
                 if (Directory.Exists(sNomeDirTmp))
                     Directory.Delete(sNomeDirTmp, true);
 
                 // cancellazione copie VisOrdini
-                sNomeDirTmp = sGetVisCopiesDir();
+                sNomeDirTmp = GetVisCopiesDir();
 
                 if (Directory.Exists(sNomeDirTmp))
                     Directory.Delete(sNomeDirTmp, true);
@@ -725,13 +725,13 @@ namespace StandFacile
              * cancellazione tickets VisOrdini
              * cartella locale a StandMonitor
              **************************************/
-            sNomeDirTmp = sGetVisTicketsDir();
+            sNomeDirTmp = GetVisTicketsDir();
 
             if (Directory.Exists(sNomeDirTmp))
                 Directory.Delete(sNomeDirTmp, true);
 
             // cancellazione copie VisOrdini
-            sNomeDirTmp = sGetVisCopiesDir();
+            sNomeDirTmp = GetVisCopiesDir();
 
             if (Directory.Exists(sNomeDirTmp))
                 Directory.Delete(sNomeDirTmp, true);

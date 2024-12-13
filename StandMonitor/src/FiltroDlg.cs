@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.LogServer;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 
 using static StandFacile.Define;
 using static StandFacile.glb;
@@ -40,7 +40,7 @@ namespace StandFacile
         /// <summary>
         /// lettura del file del filtro
         /// </summary>
-        public void caricaFiltro()
+        public void CaricaFiltro()
         {
             bool bFiltroMonitor0, bFiltroMonitor1;
             int iCount;
@@ -126,7 +126,7 @@ namespace StandFacile
 
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             StreamWriter fFiltro;
 
@@ -145,24 +145,24 @@ namespace StandFacile
             }
 
             // aggiorna all'uscita
-            caricaFiltro();
+            CaricaFiltro();
             Hide();
 
             DialogResult = DialogResult.OK;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             textBox_Filtro.Clear();
             textBox_Filtro.AppendText("#FM1\r\n\r\n");
             textBox_Filtro.AppendText("#FM2\r\n\r\n");
         }
 
-        private void btnAnnulla_Click(object sender, EventArgs e)
+        private void BtnAnnulla_Click(object sender, EventArgs e)
         {
             // aggiorna in caso di uscita con Annulla
             // per ovviare ad eventuali modifiche
-            caricaFiltro();
+            CaricaFiltro();
         }
     }
 }

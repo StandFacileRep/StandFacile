@@ -39,14 +39,14 @@ namespace StandFacile
 
             sCassa = sConstCassaType[SF_Data.iNumCassa - 1];
 
-            sDir = DataManager.sGetExeDir() + "\\";
+            sDir = DataManager.GetExeDir() + "\\";
 
-            if (dBaseIntf._bUSA_NDB())
-                Lbl_DB.Text = String.Format("DB server : {0}, tipo di cassa : {1}", dBaseIntf.sGetDB_ServerName(), sCassa);
+            if (dBaseIntf.bUSA_NDB())
+                Lbl_DB.Text = String.Format("DB server : {0}, tipo di cassa : {1}", dBaseIntf.GetDB_ServerName(), sCassa);
             else
                 Lbl_DB.Text = String.Format("Tipo di cassa : {0}", sCassa);
 
-            switch (dBaseIntf._iUSA_NDB())
+            switch (dBaseIntf.iUSA_NDB())
             {
                 case (int)DB_MODE.SQLITE:
                     dllAssembly = Assembly.LoadFrom(sDir + DB_CONNECTOR_DLL_QL);

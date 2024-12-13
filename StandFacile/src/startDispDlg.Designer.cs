@@ -50,7 +50,7 @@
             this.btnOK.TabIndex = 0;
             this.btnOK.Text = "avvio con piena disponibilità degli articoli";
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnFullDisp_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnFullDisp_Click);
             // 
             // btnCancel
             // 
@@ -148,7 +148,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Imposta avvio";
-            this.Click += new System.EventHandler(this.btnFullDisp_Click);
+            this.Click += new System.EventHandler(this.BtnFullDisp_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 

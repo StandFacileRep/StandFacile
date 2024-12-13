@@ -11,7 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using static StandFacile.Define;
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ReceiptAndCopies;
 using StandFacile;
 using System.IO;
@@ -24,6 +24,8 @@ namespace StandFacileTests
     [TestClass]
     public class Common_CL_UnitTests
     {
+#pragma warning disable IDE0017
+#pragma warning disable IDE0059
 
         /***************************************************
             test methods conventions, there are 3 parts:
@@ -61,7 +63,7 @@ namespace StandFacileTests
             string sDateTimeString, sExpectedDateTime;
 
             // Arrange
-            initActualDate(iHourPrm, iMinPrm);
+            InitActualDate(iHourPrm, iMinPrm);
 
 
             if (iHourPrm < 5)
@@ -86,7 +88,7 @@ namespace StandFacileTests
             // Arrange
 
             // Act
-            string sResult = sCenterJustify(SValParam, iWidthParam);
+            string sResult = CenterJustify(SValParam, iWidthParam);
 
             // Assert
             Assert.AreEqual(sResult, sExpResultParam);
@@ -100,7 +102,7 @@ namespace StandFacileTests
             // Arrange
 
             // Act
-            string sResult = sCenterJustifyStars(SValParam, iWidthParam, '*');
+            string sResult = CenterJustifyStars(SValParam, iWidthParam, '*');
 
             // Assert
             Assert.AreEqual(sResult, sExpResultParam);
@@ -189,14 +191,14 @@ namespace StandFacileTests
         }
 
         [TestMethod]
-        public void arrotonda_ReturnsTrue()
+        public void Arrotonda_ReturnsTrue()
         {
             // Arrange
             int iVal = 1008;
             int iExpected = 1010;
 
             // Act
-            int iresult = arrotonda(iVal);
+            int iresult = Arrotonda(iVal);
 
             // Assert
             Assert.AreEqual(iExpected, iresult);
@@ -217,7 +219,7 @@ namespace StandFacileTests
         }
 
         [TestMethod]
-        public void deepCopy_ReturnsTrue()
+        public void DeepCopy_ReturnsTrue()
         {
             // Arrange
             TSconto ScontoOri = new TSconto(0);
@@ -243,7 +245,7 @@ namespace StandFacileTests
 
             // Act
             //DeepCopy2(ref ScontoOri, ref scontoCopy);
-            scontoCopy = deepCopy(ScontoOri);
+            scontoCopy = DeepCopy(ScontoOri);
 
             scontoCopy.iStatusSconto = ScontoOri.iStatusSconto + 4;
             scontoCopy.bScontoGruppo[7] = true;
@@ -255,39 +257,39 @@ namespace StandFacileTests
         }
 
         [TestMethod]
-        public void bStringBelongsTo_ORDER_CONST_SCONTO_exc_ReturnsTrue()
+        public void StringBelongsTo_ORDER_CONST_SCONTO_exc_ReturnsTrue()
         {
             // Arrange
-            string sSconto = _ORDER_CONST._START_OF_ORDER;
+            string sSconto = ORDER_CONST._START_OF_ORDER;
 
             // Act
-            bool bResult = bStringBelongsTo_ORDER_CONST(sSconto, _ORDER_CONST._SCONTO);
+            bool bResult = StringBelongsTo_ORDER_CONST(sSconto, ORDER_CONST._SCONTO);
 
             // Assert
             Assert.IsTrue(bResult);
         }
 
         [TestMethod]
-        public void bStringBelongsTo_ORDER_CONST_SCONTO_exc_ReturnsFalse()
+        public void StringBelongsTo_ORDER_CONST_SCONTO_exc_ReturnsFalse()
         {
             // Arrange
-            string sSconto = _ORDER_CONST._SCONTO;
+            string sSconto = ORDER_CONST._SCONTO;
 
             // Act
-            bool bResult = bStringBelongsTo_ORDER_CONST(sSconto, _ORDER_CONST._SCONTO);
+            bool bResult = StringBelongsTo_ORDER_CONST(sSconto, ORDER_CONST._SCONTO);
 
             // Assert
             Assert.IsFalse(bResult);
         }
 
         [TestMethod]
-        public void bStringBelongsTo_ORDER_CONST_SCONTO_ReturnsTrue()
+        public void StringBelongsTo_ORDER_CONST_SCONTO_ReturnsTrue()
         {
             // Arrange
-            string sSconto = _ORDER_CONST._SCONTO;
+            string sSconto = ORDER_CONST._SCONTO;
 
             // Act
-            bool bResult = bStringBelongsTo_ORDER_CONST(sSconto);
+            bool bResult = StringBelongsTo_ORDER_CONST(sSconto);
 
             // Assert
             Assert.IsTrue(bResult);

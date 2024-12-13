@@ -7,7 +7,7 @@ using System;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using static StandFacile.glb;
@@ -41,7 +41,7 @@ namespace StandFacile
             _iPt = iPt;
 
             TipoEdit.Text = SF_Data.Articolo[_iPt].sTipo;
-            TipoEdit.Text = sCenterJustify(TipoEdit.Text, iMAX_RECEIPT_CHARS);
+            TipoEdit.Text = CenterJustify(TipoEdit.Text, iMAX_RECEIPT_CHARS);
 
             i = SF_Data.Articolo[_iPt].iGruppoStampa;
             lblDescGruppo.Text = sConstGruppi[i].ToUpper();
@@ -62,7 +62,7 @@ namespace StandFacile
           funzione di verifica della correttezza dei dati
           immessi, modifica direttamente l'array globale
          ************************************************/
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             int iDisp;
 
@@ -96,12 +96,12 @@ namespace StandFacile
             }
         }
 
-        private void btnAzzera_Click(object sender, EventArgs e)
+        private void BtnAzzera_Click(object sender, EventArgs e)
         {
             DispEdit.Text = "0";
         }
 
-        private void btnRipristina_Click(object sender, EventArgs e)
+        private void BtnRipristina_Click(object sender, EventArgs e)
         {
             DispEdit.Text = "OK";
         }

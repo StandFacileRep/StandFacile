@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using static System.Convert;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using static StandFacile.glb;
@@ -63,12 +63,12 @@ namespace StandFacile
             _iNoteIndex = 0;
             _sInputStrings = new List<string>();
 
-            if (!bCheckService(Define._AUTO_SEQ_TEST))
+            if (!CheckService(Define._AUTO_SEQ_TEST))
                 return;
 
-            sDir = DataManager.sGetExeDir() + "\\";
+            sDir = DataManager.GetExeDir() + "\\";
 
-            if (bCheckService(Define._AUTO_SEQ_TEST + "_C1"))
+            if (CheckService(Define._AUTO_SEQ_TEST + "_C1"))
                 _iNumCassa = 1;
             else
                 _iNumCassa = 0;
@@ -80,7 +80,7 @@ namespace StandFacile
             _WrnMsg.iErrID = ERR_ECE;
 
             // cassa secondaria e DB e non si forza a caricare il listino locale
-            if (bCheckIf_CassaSec_and_NDB())
+            if (CheckIf_CassaSec_and_NDB())
             {
                 if (_rdBaseIntf.dbCaricaTest(_sInputStrings) > 0)
                     LogToFile("TestManager : dbCaricaTest()");
@@ -102,18 +102,18 @@ namespace StandFacile
 
                     _fTest.Close();
 
-                    rFrmMain.setStatus("File: " + NOME_FILE_TEST + "aperto");
+                    rFrmMain.SetStatus("File: " + NOME_FILE_TEST + "aperto");
 
                     _rdBaseIntf.dbSalvaTest();
                 }
                 else
                 {
-                    rFrmMain.setStatus("File: " + NOME_FILE_TEST + "non apribile!");
+                    rFrmMain.SetStatus("File: " + NOME_FILE_TEST + "non apribile!");
                 }
 
                 // ******* fine caricamento stringhe dal DB o file *******
 
-                if (Directory.Exists(sDir) && bCheckService(Define._REC_TEST))
+                if (Directory.Exists(sDir) && CheckService(Define._REC_TEST))
                 {
                     if (File.Exists(sDir + NOME_FILE_REC))
                         File.Delete(sDir + NOME_FILE_REC);
@@ -124,7 +124,7 @@ namespace StandFacile
         }
 
         /// <summary>funzione per l'esecuzione di Test Automatici</summary>
-        public static bool bCaricaTest()
+        public static bool CaricaTest()
         {
             bool bCMD_OK = false;
             String sInStr, sTmp;
@@ -152,7 +152,7 @@ namespace StandFacile
             String sTipoArticolo;
 
             // punto di attesa sincronizzazione con il primo scontrino emesso dalla CASSA_PRINCIPALE
-            if ((DataManager.iGetNumOfOrders() == 0) && (SF_Data.iNumCassa > CASSA_PRINCIPALE) && _bPrimaVolta)
+            if ((DataManager.GetNumOfOrders() == 0) && (SF_Data.iNumCassa > CASSA_PRINCIPALE) && _bPrimaVolta)
             {
                 LogToFile("TestManager : attesa sync");
                 return false;
@@ -184,9 +184,6 @@ namespace StandFacile
 
             iquantArticolo = 0;
             idispArticolo = 0;
-            iFlagSconto = 0;
-            iImportoSconto = 0;
-            iPercSconto = 0;
             sTipoArticolo = "";
 
             // ogni secondo
@@ -210,7 +207,7 @@ namespace StandFacile
                 return false;
 
             // feebdack visivo
-            rFrmMain.setStatus("Test: " + sInStr);
+            rFrmMain.SetStatus("Test: " + sInStr);
 
             iTagStart_IA = sInStr.IndexOf("<IA>"); // Imposta Articolo
             iTagStart_ET = sInStr.IndexOf("<ET>"); // Emissione scontrino
@@ -302,7 +299,7 @@ namespace StandFacile
                     sTmp = sInStr.Substring(iTagStart_da + 4, iTagStop_da - iTagStart_da - 4).Trim();
                     idispArticolo = ToInt32(sTmp);
 
-                    testRecord_setDispItem(iIndex, sTipoArticolo, idispArticolo);
+                    TestRecord_setDispItem(iIndex, sTipoArticolo, idispArticolo);
                 }
 
                 if (String.IsNullOrEmpty(SF_Data.Articolo[iIndex].sTipo))
@@ -326,7 +323,7 @@ namespace StandFacile
                     if (iquantArticolo > 0)
                         SF_Data.Articolo[iIndex].iQuantitaOrdine = iquantArticolo;
 
-                    rFrmMain.selectTab(iIndex);
+                    rFrmMain.SelectTab(iIndex);
                 }
 
                 if (_iNumCassa <= CASSA_PRINCIPALE) // accetta anche lo zero
@@ -346,7 +343,7 @@ namespace StandFacile
                 if (_iNumCassa == SF_Data.iNumCassa)
                 {
                     rFrmMain.BtnScontrino_Click(null, null);
-                    sDebug2 = String.Format("TestManager: ET glb={0}, loc={1}", DataManager.iGetNumOfOrders(), DataManager.iGetNumOfLocalOrders());
+                    sDebug2 = String.Format("TestManager: ET glb={0}, loc={1}", DataManager.GetNumOfOrders(), DataManager.GetNumOfLocalOrders());
                     LogToFile(sDebug2);
 
                     _iCounter = 2 * 4; // 2s è più veloce per compensare la stampa
@@ -356,9 +353,9 @@ namespace StandFacile
                     int iCount = 0;
 
                     // attende che le altre casse emettano eventuali scontrini
-                    while (DataManager.iGetNumOfOrders() <= DataManager.iGetNumOfLocalOrders() && (iCount < 20))
+                    while (DataManager.GetNumOfOrders() <= DataManager.GetNumOfLocalOrders() && (iCount < 20))
                     {
-                        sDebug1 = String.Format("TestManager: i={0}, glb={1}, loc={2}", iCount, DataManager.iGetNumOfOrders(), DataManager.iGetNumOfLocalOrders());
+                        sDebug1 = String.Format("TestManager: i={0}, glb={1}, loc={2}", iCount, DataManager.GetNumOfOrders(), DataManager.GetNumOfLocalOrders());
 
                         Console.WriteLine(sDebug1);
                         iCount++;
@@ -366,7 +363,7 @@ namespace StandFacile
                         Thread.Sleep(1000);
                     }
 
-                    sDebug2 = String.Format("TestManager: i={0}, glb={1}, loc={2}", iCount, DataManager.iGetNumOfOrders(), DataManager.iGetNumOfLocalOrders());
+                    sDebug2 = String.Format("TestManager: i={0}, glb={1}, loc={2}", iCount, DataManager.GetNumOfOrders(), DataManager.GetNumOfLocalOrders());
                     LogToFile(sDebug2);
 
                     _iCounter = 5 * 4; // 5s
@@ -397,7 +394,7 @@ namespace StandFacile
                 sTmp = sInStr.Substring(iTagStart_iv + 4, iTagStop_iv - iTagStart_iv - 4).Trim();
 
                 // Sovrascrive per test con sola cassa 1
-                if (bCheckService(Define._AUTO_SEQ_TEST + "_C1"))
+                if (CheckService(Define._AUTO_SEQ_TEST + "_C1"))
                     _iNumCassa = 1;
                 else
                     _iNumCassa = ToInt32(sTmp);
@@ -422,7 +419,7 @@ namespace StandFacile
                 sTmp = sInStr.Substring(iTagStart_tv + 4, iTagStop_tv - iTagStart_tv - 4).Trim();
 
                 if ((_iNumCassa == SF_Data.iNumCassa) && !SF_Data.bPrevendita)
-                    setSconto(DISC_TYPE.DISC_STD, iFlagSconto, iPercSconto, sTmp);
+                    SetSconto(DISC_TYPE.DISC_STD, iFlagSconto, iPercSconto, sTmp);
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -437,7 +434,7 @@ namespace StandFacile
                 sTmp = sInStr.Substring(iTagStart_tv + 4, iTagStop_tv - iTagStart_tv - 4).Trim();
 
                 if ((_iNumCassa == SF_Data.iNumCassa) && !SF_Data.bPrevendita)
-                    setSconto(DISC_TYPE.DISC_FIXED, 0, iImportoSconto, sTmp);
+                    SetSconto(DISC_TYPE.DISC_FIXED, 0, iImportoSconto, sTmp);
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -448,7 +445,7 @@ namespace StandFacile
                 sTmp = sInStr.Substring(iTagStart_tv + 4, iTagStop_tv - iTagStart_tv - 4).Trim();
 
                 if ((_iNumCassa == SF_Data.iNumCassa) && !SF_Data.bPrevendita)
-                    setSconto(DISC_TYPE.DISC_GRATIS, 0, 0, sTmp);
+                    SetSconto(DISC_TYPE.DISC_GRATIS, 0, 0, sTmp);
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -459,7 +456,7 @@ namespace StandFacile
                 sTmp = sInStr.Substring(iTagStart_iv + 4, iTagStop_iv - iTagStart_iv - 4).Trim();
 
                 if (_iNumCassa == SF_Data.iNumCassa)
-                    rFrmMain.setEditCoperto(sTmp);
+                    rFrmMain.SetEditCoperto(sTmp);
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -483,7 +480,7 @@ namespace StandFacile
                 sTmp = sInStr.Substring(iTagStart_tv + 4, iTagStop_tv - iTagStart_tv - 4).Trim();
 
                 if (_iNumCassa == SF_Data.iNumCassa)
-                    rFrmMain.setEditNota(sTmp);
+                    rFrmMain.SetEditNota(sTmp);
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -494,7 +491,7 @@ namespace StandFacile
                 sTmp = sInStr.Substring(iTagStart_tv + 4, iTagStop_tv - iTagStart_tv - 4).Trim();
 
                 if (_iNumCassa == SF_Data.iNumCassa)
-                    rFrmMain.setEditNotaArticolo(_iNoteIndex, sTmp);
+                    rFrmMain.SetEditNotaArticolo(_iNoteIndex, sTmp);
 
                 Thread.Sleep(250);
                 _iCounter = 1;
@@ -506,7 +503,7 @@ namespace StandFacile
                 sTmp = sInStr.Substring(iTagStart_tv + 4, iTagStop_tv - iTagStart_tv - 4).Trim();
 
                 if (_iNumCassa == SF_Data.iNumCassa)
-                    rFrmMain.setEditTavolo(sTmp);
+                    rFrmMain.SetEditTavolo(sTmp);
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -517,7 +514,7 @@ namespace StandFacile
                 sTmp = sInStr.Substring(iTagStart_tv + 4, iTagStop_tv - iTagStart_tv - 4).Trim();
 
                 if (_iNumCassa == SF_Data.iNumCassa)
-                    rFrmMain.setEditNome(sTmp);
+                    rFrmMain.SetEditNome(sTmp);
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -525,7 +522,7 @@ namespace StandFacile
             else if ((iTagStart_PC != -1) && (iTagStop_PC != -1))
             {
                 if (_iNumCassa == SF_Data.iNumCassa)
-                    rFrmMain.setPagamento_CARD();
+                    rFrmMain.SetPagamento_CARD();
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -533,7 +530,7 @@ namespace StandFacile
             else if ((iTagStart_PS != -1) && (iTagStop_PS != -1))
             {
                 if (_iNumCassa == SF_Data.iNumCassa)
-                    rFrmMain.setPagamento_SATISPAY();
+                    rFrmMain.SetPagamento_SATISPAY();
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -544,7 +541,7 @@ namespace StandFacile
                 sTmp = sInStr.Substring(iTagStart_iv + 4, iTagStop_iv - iTagStart_iv - 4).Trim();
 
                 if (_iNumCassa == SF_Data.iNumCassa)
-                    DataManager.bAnnulloOrdine(ToInt32(sTmp) + sConfig.iReceiptStartNumber - 1);
+                    DataManager.AnnulloOrdine(ToInt32(sTmp) + sConfig.iReceiptStartNumber - 1);
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -582,9 +579,9 @@ namespace StandFacile
             }
             else if (bCMD_OK)
             {
-                AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
-                rFrmMain.setAnteprima();
+                rFrmMain.SetAnteprima();
                 rFrmMain.MainGrid_Redraw(null, null);
                 return true;
             }
@@ -598,11 +595,11 @@ namespace StandFacile
         }
 
         /// <summary>funzione per l'append di Test Automatici ordine</summary>
-        public static void testRecord_order()
+        public static void TestRecord_order()
         {
             string sTmpRec;
 
-            if (!bCheckService(Define._REC_TEST))
+            if (!CheckService(Define._REC_TEST))
                 return;
 
             // cassa
@@ -626,22 +623,22 @@ namespace StandFacile
                 _fRecording.WriteLine(sTmpRec);
             }
 
-            if (!String.IsNullOrEmpty(rFrmMain.getEditCoperto()))
+            if (!String.IsNullOrEmpty(rFrmMain.GetEditCoperto()))
             {
-                sTmpRec = String.Format("<CN><iv>{0}</iv></CN>", rFrmMain.getEditCoperto());
+                sTmpRec = String.Format("<CN><iv>{0}</iv></CN>", rFrmMain.GetEditCoperto());
                 _fRecording.WriteLine(sTmpRec);
             }
 
 
-            if (!String.IsNullOrEmpty(rFrmMain.getEditTavolo()))
+            if (!String.IsNullOrEmpty(rFrmMain.GetEditTavolo()))
             {
-                sTmpRec = String.Format("<TV><iv>{0}</iv></TV>", rFrmMain.getEditTavolo());
+                sTmpRec = String.Format("<TV><iv>{0}</iv></TV>", rFrmMain.GetEditTavolo());
                 _fRecording.WriteLine(sTmpRec);
             }
 
-            if (!String.IsNullOrEmpty(rFrmMain.getEditNota()))
+            if (!String.IsNullOrEmpty(rFrmMain.GetEditNota()))
             {
-                sTmpRec = String.Format("<NT><iv>{0}</iv></NT>", rFrmMain.getEditNota());
+                sTmpRec = String.Format("<NT><iv>{0}</iv></NT>", rFrmMain.GetEditNota());
                 _fRecording.WriteLine(sTmpRec);
             }
 
@@ -663,18 +660,18 @@ namespace StandFacile
 
             _fRecording.WriteLine("");
 
-            sTmpRec = String.Format("<ET> ***emissione scontrino n. {0} </ET>", iGetNumOfLocalOrders());
+            sTmpRec = String.Format("<ET> ***emissione scontrino n. {0} </ET>", GetNumOfLocalOrders());
             _fRecording.WriteLine(sTmpRec + "\n");
 
             _fRecording.Flush();
         }
 
         /// <summary>funzione per l'append di Test Automatici disponibilità Articoli</summary>
-        public static void testRecord_setDispItem(int iParam, String sParam, int iDispParam)
+        public static void TestRecord_setDispItem(int iParam, String sParam, int iDispParam)
         {
             string sTmpRec;
 
-            if (!bCheckService(Define._REC_TEST))
+            if (!CheckService(Define._REC_TEST))
                 return;
 
             sTmpRec = String.Format("<IA><iv>{0,3}</iv> <tv>{1,-20}</tv> <da>{2}</da></IA>", iParam, sParam, iDispParam);
@@ -687,11 +684,11 @@ namespace StandFacile
         static bool bPrimaVoltaComp = true;
 
         /// <summary>funzione per l'append di Test Automatici disponibilità Componenti</summary>
-        public static void testRecord_setDispComp(int iParam, String sParam, int iDispParam)
+        public static void TestRecord_setDispComp(int iParam, String sParam, int iDispParam)
         {
             string sTmpRec;
 
-            if (!bCheckService(Define._REC_TEST))
+            if (!CheckService(Define._REC_TEST))
                 return;
 
             if (bPrimaVoltaComp)

@@ -22,7 +22,7 @@ using System.Data;
 using Devart.Data.SQLite;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using StandFacile;
@@ -31,6 +31,8 @@ using static StandFacile.dBaseIntf;
 
 namespace StandFacile_DB
 {
+#pragma warning disable IDE1006
+
     /// <summary>classe per la gestione di SQLite</summary>
     public partial class dBaseIntf_ql
     {
@@ -62,7 +64,7 @@ namespace StandFacile_DB
             _WrnMsg.iErrID = 0; // resetta errori in altra data
 
             // *** sicurezza ***
-            if (_bUSA_NDB()) return -1;
+            if (bUSA_NDB()) return -1;
 
             iLastArticoloDBIndexP1 = MAX_NUM_ARTICOLI; // successivamente potrebbe incrementare
 
@@ -226,17 +228,16 @@ namespace StandFacile_DB
             catch (Exception)
             {
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbCaricaDatidaOrdini : {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("dbCaricaDatidaOrdini : {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
                 LogToFile("dbCaricaDatidaOrdini : dbException");
 
-                if (readerDati != null)
-                    readerDati.Close();
+                    readerDati?.Close();
+            
                 return -1;
             }
 
-            if (readerDati != null)
-                readerDati.Close();
+                readerDati?.Close();
 
             /*********************************************************************
              *  seconda parte: iNumOfTickets, iStartingNumOfReceipts, 
@@ -320,8 +321,8 @@ namespace StandFacile_DB
                 }
 
                 // DB_Data.iActualNumOfReceipts
-                //cmd_Ordini.CommandText = "SELECT iOrdine_ID FROM " + _sDBTNameOrdini + " WHERE ((sTipo_Articolo = '" + _ORDER_CONST._START_OF_ORDER + "') AND (iAnnullato = 0))";
-                cmd_Ordini.CommandText = "SELECT iOrdine_ID FROM " + _sDBTNameOrdini + " WHERE (sTipo_Articolo = '" + _ORDER_CONST._START_OF_ORDER + "')";
+                //cmd_Ordini.CommandText = "SELECT iOrdine_ID FROM " + _sDBTNameOrdini + " WHERE ((sTipo_Articolo = '" + ORDER_CONST._START_OF_ORDER + "') AND (iAnnullato = 0))";
+                cmd_Ordini.CommandText = "SELECT iOrdine_ID FROM " + _sDBTNameOrdini + " WHERE (sTipo_Articolo = '" + ORDER_CONST._START_OF_ORDER + "')";
                 try
                 {
                     readerOrdine = cmd_Ordini.ExecuteReader();
@@ -356,8 +357,7 @@ namespace StandFacile_DB
                 for (j = 1; j <= DB_Data.iNumOfLastReceipt; j++)
                 {
 
-                    if (readerOrdine != null)
-                        readerOrdine.Close();
+                        readerOrdine?.Close();
 
                     cmd_Ordini.CommandText = "SELECT * FROM " + _sDBTNameOrdini + String.Format(" WHERE (iOrdine_ID = {0})", j);
 
@@ -387,7 +387,7 @@ namespace StandFacile_DB
                             sTipo = readerOrdine.GetString("sTipo_Articolo");
                             bRigaAnnullata = readerOrdine.GetBoolean("iAnnullato");
 
-                            if (sTipo == _ORDER_CONST._START_OF_ORDER)
+                            if (sTipo == ORDER_CONST._START_OF_ORDER)
                             {
                                 iStatus = readerOrdine.GetInt32("iStatus");
                                 bScaricato = readerOrdine.GetBoolean("iScaricato");
@@ -400,7 +400,7 @@ namespace StandFacile_DB
                                 if (DB_Data.bAnnullato)
                                     DB_Data.iNumAnnullati++;
                             }
-                            else if (sTipo == _ORDER_CONST._SCONTO)
+                            else if (sTipo == ORDER_CONST._SCONTO)
                             {
                                 iStatusScontoReceipt = readerOrdine.GetInt32("iStatus");
                                 iPrezzoUnitario = readerOrdine.GetInt32("iPrezzo_Unitario");
@@ -412,7 +412,7 @@ namespace StandFacile_DB
                                 iGruppoStampa = readerOrdine.GetInt32("iGruppo_Stampa");
                             }
 
-                            if (bStringBelongsTo_ORDER_CONST(sTipo, _ORDER_CONST._SCONTO))
+                            if (StringBelongsTo_ORDER_CONST(sTipo, ORDER_CONST._SCONTO))
                                 continue;
 
                             /************************************
@@ -428,7 +428,7 @@ namespace StandFacile_DB
                                 {
                                     bMatch = false;
 
-                                    if ((DB_Data.Articolo[i].sTipo == sTipo) || (sTipo == _ORDER_CONST._SCONTO))
+                                    if ((DB_Data.Articolo[i].sTipo == sTipo) || (sTipo == ORDER_CONST._SCONTO))
                                     {
                                         if (bRigaAnnullata)
                                         {
@@ -436,17 +436,17 @@ namespace StandFacile_DB
                                         }
                                         else
                                         {
-                                            if (IsBitSet(iStatusScontoReceipt, BIT_SCONTO_STD) && (sTipo == _ORDER_CONST._SCONTO))
+                                            if (IsBitSet(iStatusScontoReceipt, BIT_SCONTO_STD) && (sTipo == ORDER_CONST._SCONTO))
                                             {
                                                 DB_Data.iTotaleScontatoStd += iPrezzoUnitario;
                                                 iScontoStdReceipt = iPrezzoUnitario;
                                             }
-                                            else if (IsBitSet(iStatusScontoReceipt, BIT_SCONTO_FISSO) && (sTipo == _ORDER_CONST._SCONTO))
+                                            else if (IsBitSet(iStatusScontoReceipt, BIT_SCONTO_FISSO) && (sTipo == ORDER_CONST._SCONTO))
                                             {
                                                 DB_Data.iTotaleScontatoFisso += iPrezzoUnitario;
                                                 iScontoFissoReceipt = iPrezzoUnitario;
                                             }
-                                            else if (IsBitSet(iStatusScontoReceipt, BIT_SCONTO_GRATIS) && (sTipo == _ORDER_CONST._SCONTO))
+                                            else if (IsBitSet(iStatusScontoReceipt, BIT_SCONTO_GRATIS) && (sTipo == ORDER_CONST._SCONTO))
                                             {
                                                 DB_Data.iTotaleScontatoGratis += iPrezzoUnitario;
                                                 iScontoGratisReceipt = iPrezzoUnitario;
@@ -454,7 +454,7 @@ namespace StandFacile_DB
                                             else
                                             {
                                                 // considera solo gli sconti
-                                                if ((iScontoParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.getBitReport(iScontoParam)))
+                                                if ((iScontoParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.GetBitReport(iScontoParam)))
                                                 {
                                                     bMatch = true;
                                                     break;
@@ -462,7 +462,7 @@ namespace StandFacile_DB
 
                                                 // considera solo i gruppi cui lo sconto è applicato
                                                 if ((iScontoParam > 0) && !IsBitSet(iStatusScontoReceipt, DB_Data.Articolo[i].iGruppoStampa + 8) &&
-                                                    (VisDatiDlg.rVisDatiDlg.getBitReport(iScontoParam) == BIT_SCONTO_STD))
+                                                    (VisDatiDlg.rVisDatiDlg.GetBitReport(iScontoParam) == BIT_SCONTO_STD))
                                                 {
                                                     bMatch = true;
                                                     break;
@@ -497,7 +497,7 @@ namespace StandFacile_DB
                                 {
                                     DB_Data.iTotaleAnnullato += iPrezzoUnitario * iQuantitaOrdine;
                                 }
-                                else if ((iScontoParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.getBitReport(iScontoParam)))
+                                else if ((iScontoParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.GetBitReport(iScontoParam)))
                                 {
                                     bMatch = true;
                                 }
@@ -532,7 +532,7 @@ namespace StandFacile_DB
                             {
                                 bSingleWarn = true;
 
-                                if ((dateParam.ToString("dd/MM/yy") == getActualDate().ToString("dd/MM/yy")))
+                                if ((dateParam.ToString("dd/MM/yy") == GetActualDate().ToString("dd/MM/yy")))
                                 {
                                     _WrnMsg.sMsg = sTipo;
                                     _WrnMsg.iErrID = WRN_RNF;
@@ -577,13 +577,12 @@ namespace StandFacile_DB
             catch (Exception)
             {
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbCaricaDatidaOrdini : {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("dbCaricaDatidaOrdini : {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
 
                 LogToFile("dbCaricaDatidaOrdini : dbException");
 
-                if (readerOrdine != null)
-                    readerOrdine.Close();
+                    readerOrdine?.Close();
 
                 return -1;
             }
@@ -624,8 +623,7 @@ namespace StandFacile_DB
             {
                 LogToFile("dbCaricaDisponibilità : dbException Open()");
 
-                if (readerDisp != null)
-                    readerDisp.Close();
+                    readerDisp?.Close();
 
                 return false;
             }
@@ -665,13 +663,12 @@ namespace StandFacile_DB
             catch (Exception)
             {
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbCaricaDisponibilità : {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("dbCaricaDisponibilità : {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
                 LogToFile("dbCaricaDisponibilità : dbException");
             }
 
-            if (readerDisp != null)
-                readerDisp.Close();
+                readerDisp?.Close();
 
             return true; // tutto OK
         } // end dbCaricaDisponibilità
@@ -681,7 +678,7 @@ namespace StandFacile_DB
         /// se però iParam == 0 carica _Versione, _Header, _HeaderText <br/> <br/>
         /// 
         /// ritorna true se ha successo, <br/>
-        /// utilizzata da FrmVisOrdiniDlg, DataManager.aggiornaDisponibilità
+        /// utilizzata da FrmVisOrdiniDlg, DataManager.AggiornaDisponibilità
         /// </summary>
         public bool dbCaricaOrdine(DateTime dateParam, int iParam, bool bFiltraPerCassa, String sNomeTabellaParam = "")
         {
@@ -814,7 +811,7 @@ namespace StandFacile_DB
                         sInStr = readerOrdine.GetString("sTipo_Articolo");
 
                         // Start Of Order
-                        if (sInStr == _ORDER_CONST._START_OF_ORDER)
+                        if (sInStr == ORDER_CONST._START_OF_ORDER)
                         {
                             DB_Data.iStatusReceipt = readerOrdine.GetInt32("iStatus");
                             DB_Data.sDateTime = readerOrdine.GetString("sText");
@@ -825,28 +822,28 @@ namespace StandFacile_DB
                         }
 
                         // Tavolo
-                        else if (sInStr == _ORDER_CONST._TAVOLO)
+                        else if (sInStr == ORDER_CONST._TAVOLO)
                         {
                             DB_Data.sTavolo = readerOrdine.GetString("sText");
                             continue;
                         }
 
                         // Nome
-                        else if (sInStr == _ORDER_CONST._NOME)
+                        else if (sInStr == ORDER_CONST._NOME)
                         {
                             DB_Data.sNome = readerOrdine.GetString("sText");
                             continue;
                         }
 
                         // Nota
-                        else if (sInStr == _ORDER_CONST._NOTA)
+                        else if (sInStr == ORDER_CONST._NOTA)
                         {
                             DB_Data.sNota = readerOrdine.GetString("sText");
                             continue;
                         }
 
                         // Sconto
-                        else if (sInStr == _ORDER_CONST._SCONTO)
+                        else if (sInStr == ORDER_CONST._SCONTO)
                         {
                             DB_Data.iStatusSconto = readerOrdine.GetInt32("iStatus");
                             DB_Data.sScontoReceipt = readerOrdine.GetString("sText");
@@ -862,7 +859,7 @@ namespace StandFacile_DB
                         }
 
                         // numero Ordine Web
-                        else if (sInStr == _ORDER_CONST._NUM_ORD_WEB)
+                        else if (sInStr == ORDER_CONST._NUM_ORD_WEB)
                         {
                             DB_Data.iNumOrdineWeb = readerOrdine.GetInt32("iPrezzo_Unitario");
                             DB_Data.sWebDateTime = readerOrdine.GetString("sText");
@@ -872,7 +869,7 @@ namespace StandFacile_DB
                         }
 
                         // numero Ordine in Prevendita
-                        else if (sInStr == _ORDER_CONST._NUM_ORD_PREV)
+                        else if (sInStr == ORDER_CONST._NUM_ORD_PREV)
                         {
                             DB_Data.iNumOrdinePrev = readerOrdine.GetInt32("iPrezzo_Unitario");
                             DB_Data.sPrevDateTime = readerOrdine.GetString("sText");
@@ -907,7 +904,7 @@ namespace StandFacile_DB
             catch (Exception)
             {
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbCaricaOrdine : {0} {1}", _bUSA_NDB(), iParam);
+                _WrnMsg.sMsg = String.Format("dbCaricaOrdine : {0} {1}", bUSA_NDB(), iParam);
                 WarningManager(_WrnMsg);
 
                 LogToFile("dbCaricaOrdine : dbException");
@@ -915,8 +912,7 @@ namespace StandFacile_DB
                 bNoProblem = false;
             }
 
-            if (readerOrdine != null)
-                readerOrdine.Close();
+                readerOrdine?.Close();
 
             return bNoProblem; // tutto OK
         } // end dbCaricaOrdine
@@ -933,7 +929,7 @@ namespace StandFacile_DB
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteDataReader readerMessaggio;
 
-            DateTime dateParam = getActualDate();
+            DateTime dateParam = GetActualDate();
 
             bDBConnection_Ok = dbInit(dateParam);
 
@@ -976,7 +972,7 @@ namespace StandFacile_DB
             {
 #if !STAND_CUCINA
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbCaricaMessaggio : {0}", _bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("dbCaricaMessaggio : {0}", bUSA_NDB());
                 WarningManager(_WrnMsg);
 #endif
                 LogToFile("dbCaricaMessaggio : dbException");

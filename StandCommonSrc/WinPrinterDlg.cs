@@ -15,7 +15,7 @@ using System.Drawing.Printing;
 
 using StandCommonFiles;
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using static StandFacile.glb;
@@ -28,6 +28,8 @@ namespace StandFacile
     /// </summary>
     public partial class WinPrinterDlg : Form
     {
+#pragma warning disable IDE0044
+
         readonly ToolTip _tt = new ToolTip
         {
             InitialDelay = 50,
@@ -84,16 +86,16 @@ namespace StandFacile
         static String sDefaultPrinter;
 
         /// <summary>ottiene flag di modifica listino necessaria</summary>
-        public static bool bGetListinoModificato() { return _bListinoModificato; }
+        public static bool GetListinoModificato() { return _bListinoModificato; }
 
         /// <summary>ottiene limmagine bitmap del Logo</summary>
-        public Image pGetWinPrinterLogo() { return logoImage.Image; }
+        public Image GetWinPrinterLogo() { return logoImage.Image; }
 
         /// <summary>ottiene flag di richiesta stampa coperti nelle copie</summary>
-        public static bool bGetCopies_PlaceSettingsToBePrinted() { return _rWinPrinterDlg.checkBox_CopertiNelleCopie.Checked; }
+        public static bool GetCopies_PlaceSettingsToBePrinted() { return _rWinPrinterDlg.checkBox_CopertiNelleCopie.Checked; }
 
         /// <summary>ottiene flag di richiesta stampa del Logo</summary>
-        public static bool bGetCopies_LogoToBePrinted() { return _rWinPrinterDlg.checkBox_LogoNelleCopie.Checked; }
+        public static bool GetCopies_LogoToBePrinted() { return _rWinPrinterDlg.checkBox_LogoNelleCopie.Checked; }
 
         static TErrMsg _ErrMsg;
 
@@ -104,11 +106,15 @@ namespace StandFacile
 
             _rWinPrinterDlg = this;
 
-            fontTckDlg = new FontDialog();
-            fontTckDlg.FixedPitchOnly = true;
+            fontTckDlg = new FontDialog()
+            {
+                FixedPitchOnly = true
+            };
 
-            fontRepDlg = new FontDialog();
-            fontRepDlg.FixedPitchOnly = true;
+            fontRepDlg = new FontDialog()
+            {
+                FixedPitchOnly = true
+            };
 
             _sWinPrinterParamsCopy = new TWinPrinterParams(0);
 
@@ -140,7 +146,7 @@ namespace StandFacile
             //	instanziazione delle classi
 
             //  l'ultimo elemento del vettore è la stampante Locale ( = non quella delle copie)
-            sGlbWinPrinterParams.sTckPrinterModel = sReadRegistry(WIN_PRINTER_MODEL_KEY, sDefaultPrinter);
+            sGlbWinPrinterParams.sTckPrinterModel = ReadRegistry(WIN_PRINTER_MODEL_KEY, sDefaultPrinter);
 
             sGlbWinPrinterParams.iTckPrinterModel = 0;
 
@@ -166,12 +172,12 @@ namespace StandFacile
                 PrintersListCombo.SelectedIndex = 0;
 
             // 7+1, sPrinterModel è sopra
-            sGlbWinPrinterParams.sLogoName = sReadRegistry(WIN_LOGO_NAME_KEY, "");
+            sGlbWinPrinterParams.sLogoName = ReadRegistry(WIN_LOGO_NAME_KEY, "");
 
-            sGlbWinPrinterParams.sTckFontType = sReadRegistry(TCK_WIN_FONT_TYPE_KEY, "Lucida Console");
-            sGlbWinPrinterParams.fTckFontSize = iReadRegistry(TCK_WIN_FONT_SIZE_KEY, 1100) / 100.0f;
-            sGlbWinPrinterParams.sTckFontStyle = (FontStyle)iReadRegistry(TCK_WIN_FONT_STYLE_KEY, 0);
-            sGlbWinPrinterParams.iTckLeftMargin = iReadRegistry(TCK_WIN_FONT_MARGIN_KEY, 4);
+            sGlbWinPrinterParams.sTckFontType = ReadRegistry(TCK_WIN_FONT_TYPE_KEY, "Lucida Console");
+            sGlbWinPrinterParams.fTckFontSize = ReadRegistry(TCK_WIN_FONT_SIZE_KEY, 1100) / 100.0f;
+            sGlbWinPrinterParams.sTckFontStyle = (FontStyle)ReadRegistry(TCK_WIN_FONT_STYLE_KEY, 0);
+            sGlbWinPrinterParams.iTckLeftMargin = ReadRegistry(TCK_WIN_FONT_MARGIN_KEY, 4);
 
             //if (sGlbWinPrinterParams.fTckFontSize < 5)
             //    sGlbWinPrinterParams.fTckFontSize = 11;
@@ -180,10 +186,10 @@ namespace StandFacile
 
             tckFont = new Font(sGlbWinPrinterParams.sTckFontType, sGlbWinPrinterParams.fTckFontSize, sGlbWinPrinterParams.sTckFontStyle);
 
-            sGlbWinPrinterParams.sRepFontType = sReadRegistry(REP_WIN_FONT_TYPE_KEY, "Lucida Console");
-            sGlbWinPrinterParams.fRepFontSize = iReadRegistry(REP_WIN_FONT_SIZE_KEY, 900) / 100.0f;
-            sGlbWinPrinterParams.sRepFontStyle = (FontStyle)iReadRegistry(REP_WIN_FONT_STYLE_KEY, 0);
-            sGlbWinPrinterParams.iRepLeftMargin = iReadRegistry(REP_WIN_FONT_MARGIN_KEY, 10);
+            sGlbWinPrinterParams.sRepFontType = ReadRegistry(REP_WIN_FONT_TYPE_KEY, "Lucida Console");
+            sGlbWinPrinterParams.fRepFontSize = ReadRegistry(REP_WIN_FONT_SIZE_KEY, 900) / 100.0f;
+            sGlbWinPrinterParams.sRepFontStyle = (FontStyle)ReadRegistry(REP_WIN_FONT_STYLE_KEY, 0);
+            sGlbWinPrinterParams.iRepLeftMargin = ReadRegistry(REP_WIN_FONT_MARGIN_KEY, 10);
 
             //if (sGlbWinPrinterParams.fRepFontSize < 5)
             //    sGlbWinPrinterParams.fRepFontSize = 9;
@@ -193,12 +199,12 @@ namespace StandFacile
             _iTckLeftMargin = sGlbWinPrinterParams.iTckLeftMargin;
             _iRepLeftMargin = sGlbWinPrinterParams.iRepLeftMargin;
 
-            checkBox_A5_paper.Checked = (iReadRegistry(PRINT_ON_A5_PAPER_KEY, 0) == 1);
+            checkBox_A5_paper.Checked = (ReadRegistry(PRINT_ON_A5_PAPER_KEY, 0) == 1);
             sGlbWinPrinterParams.bA5Paper = checkBox_A5_paper.Checked;
 
-            sGlbWinPrinterParams.iTckZoomValue = iReadRegistry(TCK_WIN_ZOOM_KEY, 100);
-            sGlbWinPrinterParams.iRepZoomValue = iReadRegistry(REP_WIN_ZOOM_KEY, 100);
-            sGlbWinPrinterParams.iLogoZoomValue = iReadRegistry(LOGO_WIN_ZOOM_KEY, 100);
+            sGlbWinPrinterParams.iTckZoomValue = ReadRegistry(TCK_WIN_ZOOM_KEY, 100);
+            sGlbWinPrinterParams.iRepZoomValue = ReadRegistry(REP_WIN_ZOOM_KEY, 100);
+            sGlbWinPrinterParams.iLogoZoomValue = ReadRegistry(LOGO_WIN_ZOOM_KEY, 100);
 
             if (sGlbWinPrinterParams.iTckZoomValue < numUpDownTicket.Minimum)
                 sGlbWinPrinterParams.iTckZoomValue = 100;
@@ -235,8 +241,8 @@ namespace StandFacile
 
             checkBox_CopertiNelleCopie.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED);
 
-            sDir = DataManager.sGetExeDir() + "\\";
-            //FileOpenLogo.InitialDirectory = DataManager.sGetExeDir();
+            sDir = DataManager.GetExeDir() + "\\";
+            //FileOpenLogo.InitialDirectory = DataManager.GetExeDir();
 
             BtnLogoFileSelect.Enabled = true;
             BtnDeleteLogo.Enabled = true;
@@ -244,11 +250,11 @@ namespace StandFacile
             lblLogo.Enabled = true;
 #else
 
-            checkBox_Chars33.Checked = (iReadRegistry(PRINT_ON_33CHARS_RECEIPT_KEY, 0) == 1);
+            checkBox_Chars33.Checked = (ReadRegistry(PRINT_ON_33CHARS_RECEIPT_KEY, 0) == 1);
             sGlbWinPrinterParams.bChars33 = checkBox_Chars33.Checked;
 
-            checkBox_LogoNelleCopie.Checked = (iReadRegistry(PRINT_LOGO_ON_COPIES_KEY, 0) == 1);
-            checkBox_CopertiNelleCopie.Checked = (iReadRegistry(PRINT_PLACESETTINGS_ON_COPIES_KEY, 0) == 1);
+            checkBox_LogoNelleCopie.Checked = (ReadRegistry(PRINT_LOGO_ON_COPIES_KEY, 0) == 1);
+            checkBox_CopertiNelleCopie.Checked = (ReadRegistry(PRINT_PLACESETTINGS_ON_COPIES_KEY, 0) == 1);
 
             BtnLogoFileSelect.Enabled = false;
             BtnLogoFileSelect.Visible = false;
@@ -313,8 +319,8 @@ namespace StandFacile
 
             _bInitComplete = true;
 
-            // non chiamare qui updateWinPrinterParam()
-            aggiornaAspettoControlli();
+            // non chiamare qui UpdateWinPrinterParam()
+            AggiornaAspettoControlli();
 
             if (bShow)
             {
@@ -333,7 +339,7 @@ namespace StandFacile
            funzione che imposta tutti i parametri necessari alla classe
            FrmPrintServer prelevandoli dai controlli e non dal Registro
         ******************************************************************/
-        void updateWinPrinterParam()
+        void UpdateWinPrinterParam()
         {
             String sPrinterName;
 
@@ -357,21 +363,21 @@ namespace StandFacile
 
         private void SampleTextBtn_Click(object sender, EventArgs e)
         {
-            updateWinPrinterParam();
-            aggiornaAspettoControlli();
+            UpdateWinPrinterParam();
+            AggiornaAspettoControlli();
 
             LogToFile("WinPrinterDlg : SampleTextBtnClick");
-            Printer_Windows.printSampleText(_sWinPrinterParamsCopy);
+            Printer_Windows.PrintSampleText(_sWinPrinterParamsCopy);
 
         }
 
         /******************************************************************
             come regola i controlli non vengono	letti dal Registry
          ******************************************************************/
-        void aggiornaAspettoControlli()
+        void AggiornaAspettoControlli()
         {
             int iParam1 = 0, iParam2 = 0;
-            float fParam1 = 0;
+            float fParam1;
             String sText;
 
             pd.PrinterSettings.PrinterName = sGlbWinPrinterParams.sTckPrinterModel;
@@ -500,8 +506,8 @@ namespace StandFacile
 
             if (R_Edit.Focused || T_Edit.Focused)
             {
-                updateWinPrinterParam();
-                aggiornaAspettoControlli();
+                UpdateWinPrinterParam();
+                AggiornaAspettoControlli();
             }
 
         }
@@ -519,8 +525,8 @@ namespace StandFacile
                 _sWinPrinterParamsCopy.fTckFontSize = fontTckDlg.Font.Size;
                 _sWinPrinterParamsCopy.sTckFontStyle = fontTckDlg.Font.Style;
 
-                updateWinPrinterParam();
-                aggiornaAspettoControlli();
+                UpdateWinPrinterParam();
+                AggiornaAspettoControlli();
             }
         }
 
@@ -537,8 +543,8 @@ namespace StandFacile
                 _sWinPrinterParamsCopy.fRepFontSize = fontRepDlg.Font.Size;
                 _sWinPrinterParamsCopy.sRepFontStyle = fontRepDlg.Font.Style;
 
-                updateWinPrinterParam();
-                aggiornaAspettoControlli();
+                UpdateWinPrinterParam();
+                AggiornaAspettoControlli();
             }
         }
 
@@ -556,8 +562,8 @@ namespace StandFacile
             if (!_bInitComplete) return;
 
             //legge dal combo ed aggiorna
-            updateWinPrinterParam();
-            aggiornaAspettoControlli();
+            UpdateWinPrinterParam();
+            AggiornaAspettoControlli();
 
             sPrinterName = PrintersListCombo.Text;
             LogToFile("WinPrinterDlg : ComboChange" + sPrinterName);
@@ -570,8 +576,10 @@ namespace StandFacile
             String sSourceFile, sDestinationFile;
             Bitmap tmpImage;
 
-            OpenFileDialog FileOpenLogo = new OpenFileDialog();
-            FileOpenLogo.Filter = "jpg files (*.jpg) |*.jpg|bmp files (*.bmp) |*.bmp|png files (*.png) |*.png| All files (*.*)|*.*";
+            OpenFileDialog FileOpenLogo = new OpenFileDialog()
+            {
+                Filter = "jpg files (*.jpg) |*.jpg|bmp files (*.bmp) |*.bmp|png files (*.png) |*.png| All files (*.*)|*.*"
+            };
 
             DialogResult result = FileOpenLogo.ShowDialog();
 
@@ -582,7 +590,7 @@ namespace StandFacile
                 sTmpDot = Path.GetExtension(sSourceFile);
 
 #if STANDFACILE
-                sDir = DataManager.sGetExeDir() + "\\";
+                sDir = DataManager.GetExeDir() + "\\";
 #endif
                 sDestinationFile = "Logo" + sTmpDot;
 
@@ -626,7 +634,7 @@ namespace StandFacile
                         else
                             WarningManager(WRN_DLE);
 
-                        aggiornaAspettoControlli();
+                        AggiornaAspettoControlli();
 
                         LogToFile("WinPrinterDlg : Load Logo" + sDestinationFile);
                     }
@@ -652,22 +660,22 @@ namespace StandFacile
                 logoImage.Image = null;
             }
 
-            aggiornaAspettoControlli();
+            AggiornaAspettoControlli();
 
             LogToFile("WinPrinterDlg : LogoDelete");
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             timer.Enabled = false;
             _sWinPrinterParamsCopy = sGlbWinPrinterParams;
-            aggiornaAspettoControlli();
+            AggiornaAspettoControlli();
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
-            updateWinPrinterParam();
-            aggiornaAspettoControlli();
+            UpdateWinPrinterParam();
+            AggiornaAspettoControlli();
 
             // acquisizione impostazioni
             sGlbWinPrinterParams = _sWinPrinterParamsCopy;
@@ -694,7 +702,7 @@ namespace StandFacile
             _bListinoModificato = false;
 
             if (_sWinPrinterParamsCopy.bChars33)
-            {                
+            {
                 if (!IsBitSet(SF_Data.iReceiptCopyOptions, BIT_CHARS33_PRINT_REQUIRED))
                 {
                     SF_Data.iReceiptCopyOptions = SetBit(SF_Data.iReceiptCopyOptions, BIT_CHARS33_PRINT_REQUIRED);

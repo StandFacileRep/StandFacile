@@ -24,7 +24,7 @@ using System.Net.NetworkInformation;
 
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.ComSafe;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using static StandFacile.Define;
@@ -33,6 +33,10 @@ using static StandFacile.dBaseIntf;
 
 namespace StandFacile
 {
+    #pragma warning disable IDE0044
+//#pragma warning disable IDE0059
+//#pragma warning disable IDE1006
+
     /// <summary>
     /// classe per la gestione del database mysql remoto mediante tunnel HTTP
     /// </summary>
@@ -40,6 +44,8 @@ namespace StandFacile
     {
 
         private static readonly string _NO_DB_ERRORS = "\"errornumber\":\"0\",\"errordescr\":\"";
+
+        private static readonly string _MYSQL_TUNNEL = "mysqlTunnel_v5b.php";
 
         static bool _bStartReadRemTable, _bWebServiceRequested, _bPrimaVolta_o_ForzaCaricamentoListino, _bPrimaVoltaLog;
 
@@ -89,13 +95,13 @@ namespace StandFacile
         public static TWebServerParams _sWebServerParams = new TWebServerParams(0);
 
         /// <summary>ottiene la richiesta di webService</summary>
-        public static bool bGetWebServiceReq() { return _bWebServiceRequested; }
+        public static bool GetWebServiceReq() { return _bWebServiceRequested; }
 
         /// <summary>imposta la richiesta di caricamento listino Web</summary>
-        public static void setWebPriceListLoadRequest() { _bPrimaVolta_o_ForzaCaricamentoListino = true; }
+        public static void SetWebPriceListLoadRequest() { _bPrimaVolta_o_ForzaCaricamentoListino = true; }
 
         /// <summary>mette evento in coda cross thread</summary>
-        public static void eventEnqueue(String[] sEvQueueObj) { eventQueue.Enqueue(sEvQueueObj); }
+        public static void EventEnqueue(String[] sEvQueueObj) { eventQueue.Enqueue(sEvQueueObj); }
 
         /// <summary>costruttore che predispone per la crittografia</summary>
         public dBaseTunnel_my()
@@ -111,7 +117,7 @@ namespace StandFacile
             _iv = new byte[16] { 0x03, 0x01, 0x04, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0 };
 
             _bStartReadRemTable = false;
-            _bWebServiceRequested = (iReadRegistry(WEB_SERVICE_MODE_KEY, 0) == 1);
+            _bWebServiceRequested = (ReadRegistry(WEB_SERVICE_MODE_KEY, 0) == 1);
             _bPrimaVolta_o_ForzaCaricamentoListino = true;
 
             _sWebServerParams = _rdBaseIntf.dbGetWebServerParams(); // si prendono dal DB
@@ -126,12 +132,12 @@ namespace StandFacile
 
             if (_sWebServerParams.sWeb_DBase == "standfacile_rdb")
             {
-                _sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/mysqlTunnel.php?", RELEASE_TBL);
+                _sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", RELEASE_TBL, _MYSQL_TUNNEL);
                 _sHost = "localhost";
             }
             else
             {
-                _sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/mysqlTunnel.php?", RELEASE_TBL);
+                _sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/{1}?", RELEASE_TBL, _MYSQL_TUNNEL);
                 _sHost = DB_WEB_SERVER;
             }
 
@@ -144,7 +150,7 @@ namespace StandFacile
             _timer = new System.Timers.Timer(200);
 
             // Hook up the Elapsed event for the timer. 
-            _timer.Elapsed += timerElapsed;
+            _timer.Elapsed += TimerElapsed;
             _timer.AutoReset = true;
             _timer.Enabled = true;
 
@@ -167,9 +173,11 @@ namespace StandFacile
         public static bool rdbPing()
         {
             Ping myPing = new Ping();
-            PingOptions options = new PingOptions();
+            PingOptions options = new PingOptions()
+            {
+                DontFragment = true
+            };
 
-            options.DontFragment = true;
             string sTmp, data = "abcdefghijknopgrstuxyvwz12345678";
             byte[] buffer = Encoding.UTF8.GetBytes(data);
             int timeout = 4000;
@@ -211,7 +219,7 @@ namespace StandFacile
         /// se fallisce sResponseFromServer = ""<br/>
         /// altrimenti ritorn la risposta del Tunnel decriptata
         /// </summary>
-        private static String sendWebRequest(String sSQL_QueryPrm, int iTimeoutParam = 4000)
+        private static String SendWebRequest(String sSQL_QueryPrm, int iTimeoutParam = 4000)
         {
             String sSQL_Query, sGQuery, sResponseFromServer = "";
             StreamReader reader;
@@ -228,7 +236,7 @@ namespace StandFacile
                         _sTunnel_URL, Base64Encode(_sEncryptedHost), Base64Encode(_sEncryptedDatabase),
                         Base64Encode(_sWebServerParams.sWebEncryptedPwd), Base64Encode(sSQL_Query));
 
-            LogToFile(String.Format("sendWebRequest : sGQuery lenght={0}", sGQuery.Length));
+            LogToFile(String.Format("SendWebRequest : sGQuery lenght={0}", sGQuery.Length));
 
             WebResponse response = null;
             WebRequest request = WebRequest.Create(sGQuery);
@@ -284,12 +292,12 @@ namespace StandFacile
 
             if (sWeb_DBaseParam == "standfacile_rdb")
             {
-                sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/mysqlTunnel.php?", RELEASE_TBL);
+                sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", RELEASE_TBL, _MYSQL_TUNNEL);
                 sEncryptedHost = Encrypt_WS("localhost");
             }
             else
             {
-                sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/mysqlTunnel.php?", RELEASE_TBL);
+                sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/{1}?", RELEASE_TBL, _MYSQL_TUNNEL);
                 sEncryptedHost = Encrypt_WS(DB_WEB_SERVER);
             }
 
@@ -384,7 +392,7 @@ namespace StandFacile
         ///eseguito ogni 200ms
         /// </summary>
 
-        static void timerElapsed(Object source, ElapsedEventArgs e)
+        static void TimerElapsed(Object source, ElapsedEventArgs e)
         {
             String[] sEvQueueObj;
 
@@ -435,14 +443,16 @@ namespace StandFacile
         /// <summary>funzione di caricamento per visione tabella ordini remota</summary>
         static void rdbCaricaTabellaOrdini()
         {
-            int iTableRow, iIndex, iNumCoperti, iNumOrdine = 0, iPrevOrder = 0;
+            #pragma warning disable IDE0018
+
+            int iTableRow, iIndex, iNumCoperti, iNumOrdine, iPrevOrder = 0;
             String sInStr, sSQL_Query, sResponseFromServer;
 
             // avvia la visualizzazione della tabella
             _sQueue_Object[0] = WEB_ALL_ORDERS_LOAD_START;
             _sQueue_Object[1] = "";
 
-            EsploraRemOrdiniDB_Dlg.eventEnqueue(_sQueue_Object);
+            EsploraRemOrdiniDB_Dlg.EventEnqueue(_sQueue_Object);
 
             TWebOrder sOrdineTmp = new TWebOrder(0);
 
@@ -450,9 +460,9 @@ namespace StandFacile
             {
                 // ORDER BY order_ID ASC
                 sSQL_Query = String.Format("SELECT * from {0} WHERE ((menuItem_ID = '{1}' OR menuItem_ID = '{2}') AND (cancellation = 0) AND (print = 0)) ORDER BY order_ID ASC LIMIT 200",
-                    NOME_ORDERS_RDBTBL, _ORDER_CONST._START_OF_ORDER, _ORDER_CONST._PRICE_LIST_CHECKSUM);
+                    NOME_ORDERS_RDBTBL, ORDER_CONST._START_OF_ORDER, ORDER_CONST._PRICE_LIST_CHECKSUM);
 
-                sResponseFromServer = sendWebRequest(sSQL_Query);
+                sResponseFromServer = SendWebRequest(sSQL_Query);
 
                 LogToFile(String.Format("rdbCaricaTabellaOrdini : sResponse lenght={0}", sResponseFromServer.Length));
 
@@ -482,7 +492,7 @@ namespace StandFacile
                         iIndex = 0;
                     }
 
-                    if (sInStr == _ORDER_CONST._START_OF_ORDER)
+                    if (sInStr == ORDER_CONST._START_OF_ORDER)
                     {
 
                         sOrdineTmp.iNumOrdine = Convert.ToInt32(sTable[iTableRow][0]["1"]);
@@ -496,7 +506,7 @@ namespace StandFacile
 
                         iIndex++;
                     }
-                    else if (sInStr == _ORDER_CONST._PRICE_LIST_CHECKSUM)
+                    else if (sInStr == ORDER_CONST._PRICE_LIST_CHECKSUM)
                     {
                         sOrdineTmp.sChecksum = sTable[iTableRow][5]["6"];
 
@@ -522,7 +532,7 @@ namespace StandFacile
 
             // completa la visualizzazione della tabella
             _sQueue_Object[0] = WEB_ALL_ORDERS_LOAD_DONE;
-            EsploraRemOrdiniDB_Dlg.eventEnqueue(_sQueue_Object);
+            EsploraRemOrdiniDB_Dlg.EventEnqueue(_sQueue_Object);
         }
 
         ///<summary>funzione di caricamento per anteprima ordine remoto</summary>
@@ -540,7 +550,7 @@ namespace StandFacile
                 sSQL_Query = String.Format("SELECT * from {0} WHERE order_ID = {1} ORDER BY order_ID ASC LIMIT 100",
                             NOME_ORDERS_RDBTBL, iOrdineParam);
 
-                sResponseFromServer = sendWebRequest(sSQL_Query);
+                sResponseFromServer = SendWebRequest(sSQL_Query);
 
                 LogToFile(String.Format("rdbCaricaOrdine : sResponse lenght={0}", sResponseFromServer.Length));
 
@@ -556,7 +566,7 @@ namespace StandFacile
                 {
                     sTipo = sTable[iIndex][2]["3"];
 
-                    if (sTipo == _ORDER_CONST._START_OF_ORDER)
+                    if (sTipo == ORDER_CONST._START_OF_ORDER)
                     {
                         //String sDebug = sTable[iIndex][8]["9"];
 
@@ -569,19 +579,19 @@ namespace StandFacile
                     }
 
                     // Tavolo
-                    else if (sTipo == _ORDER_CONST._TAVOLO)
+                    else if (sTipo == ORDER_CONST._TAVOLO)
                         DB_Data.sTavolo = sTable[iIndex][5]["6"];
 
                     // Name
-                    else if (sTipo == _ORDER_CONST._NOME)
+                    else if (sTipo == ORDER_CONST._NOME)
                         DB_Data.sNome = sTable[iIndex][5]["6"];
 
                     // Nota
-                    else if (sTipo == _ORDER_CONST._NOTA)
+                    else if (sTipo == ORDER_CONST._NOTA)
                         DB_Data.sNota = sTable[iIndex][5]["6"];
 
                     // Checksum
-                    else if (sTipo == _ORDER_CONST._PRICE_LIST_CHECKSUM)
+                    else if (sTipo == ORDER_CONST._PRICE_LIST_CHECKSUM)
                     {
                         DB_Data.sPL_Checksum = sTable[iIndex][5]["6"];
                     }
@@ -627,7 +637,7 @@ namespace StandFacile
                 sSQL_Query = String.Format("UPDATE {0} SET cancellation = 1 WHERE order_ID = {1} LIMIT 200",
                             NOME_ORDERS_RDBTBL, iOrdineParam);
 
-                sResponseFromServer = sendWebRequest(sSQL_Query);
+                sResponseFromServer = SendWebRequest(sSQL_Query);
 
                 if (!sResponseFromServer.Contains(_NO_DB_ERRORS))
                     return false;
@@ -637,7 +647,7 @@ namespace StandFacile
                 sSQL_Query = String.Format("UPDATE {0} SET cancellationTime = \'{1}\' WHERE order_ID = {2} ORDER BY order_ID ASC LIMIT 1",
                             NOME_ORDERS_RDBTBL, GetDateTimeString(), iOrdineParam);
 
-                sResponseFromServer = sendWebRequest(sSQL_Query);
+                sResponseFromServer = SendWebRequest(sSQL_Query);
 
                 if (sResponseFromServer.Contains(_NO_DB_ERRORS))
                     return true;
@@ -673,7 +683,7 @@ namespace StandFacile
                 sSQL_Query = String.Format("UPDATE {0} SET print = 1 WHERE order_ID = {1} LIMIT 200",
                             NOME_ORDERS_RDBTBL, iOrdineParam);
 
-                sResponseFromServer = sendWebRequest(sSQL_Query);
+                sResponseFromServer = SendWebRequest(sSQL_Query);
 
                 if (!sResponseFromServer.Contains(_NO_DB_ERRORS))
                     return false;
@@ -682,7 +692,7 @@ namespace StandFacile
                 sSQL_Query = String.Format("UPDATE {0} SET printTime = \'{1}\' WHERE order_ID = {2} ORDER BY order_ID ASC LIMIT 1",
                             NOME_ORDERS_RDBTBL, GetDateTimeString(), iOrdineParam);
 
-                sResponseFromServer = sendWebRequest(sSQL_Query);
+                sResponseFromServer = SendWebRequest(sSQL_Query);
 
                 if (!sResponseFromServer.Contains(_NO_DB_ERRORS))
                     return false;
@@ -718,7 +728,7 @@ namespace StandFacile
 
                 sSQL_Query = String.Format("INSERT INTO {0} (user_ID, text, date) VALUES ('{1}', '{2}', '{3}')", NOME_LOG_RDBTBL, -2, sTxtParam, GetDateTimeString());
 
-                sResponseFromServer = sendWebRequest(sSQL_Query, 2000);
+                sResponseFromServer = SendWebRequest(sSQL_Query, 2000);
 
                 // connessione Host ma la tabella Listino non esiste
                 if (sResponseFromServer.Contains(NOME_LOG_RDBTBL) &&
@@ -793,7 +803,7 @@ namespace StandFacile
             {
                 sSQL_Query = "SELECT text FROM " + NOME_PREZZI_RDBTBL + " ORDER BY row_ID DESC LIMIT 1";
 
-                sResponseFromServer = sendWebRequest(sSQL_Query, iTimeoutParam);
+                sResponseFromServer = SendWebRequest(sSQL_Query, iTimeoutParam);
 
                 // connessione Host ma la tabella Listino non esiste
                 if (sResponseFromServer.Contains(NOME_PREZZI_RDBTBL) &&
@@ -912,16 +922,16 @@ namespace StandFacile
 
                 sSQL_Query = String.Format("DROP TABLE IF EXISTS {0}", NOME_PREZZI_RDBTBL);
 
-                sResponseFromServer = sendWebRequest(sSQL_Query);
+                sResponseFromServer = SendWebRequest(sSQL_Query);
 
                 // table create se non esiste
                 sSQL_Query = String.Format("CREATE TABLE IF NOT EXISTS {0} (row_ID INT NOT NULL, text VARCHAR(100), PRIMARY KEY(row_ID));", NOME_PREZZI_RDBTBL);
 
-                sResponseFromServer = sendWebRequest(sSQL_Query);
+                sResponseFromServer = SendWebRequest(sSQL_Query);
 
                 if (sResponseFromServer.Contains(_NO_DB_ERRORS))
                 {
-                    sDir = DataManager.sGetExeDir() + "\\";
+                    sDir = DataManager.GetExeDir() + "\\";
 
                     sNomeFilePrezzi = NOME_FILE_LISTINO;
                     fprz = File.OpenText(sDir + NOME_FILE_LISTINO);
@@ -951,7 +961,7 @@ namespace StandFacile
                                 sSQL_Query += ",";
                             }
 
-                            sInStr = addSlashes(sInStr);
+                            sInStr = AddSlashes(sInStr);
 
                             sSQL_Query += String.Format("({0}, \'{1}\')", i, sInStr);
 
@@ -965,9 +975,9 @@ namespace StandFacile
                         if ((sInStr == null) && (j == 0))
                             break;
 
-                        sSQL_Query = sSQL_Query + ";";
+                        sSQL_Query += ";";
 
-                        sResponseFromServer = sendWebRequest(sSQL_Query);
+                        sResponseFromServer = SendWebRequest(sSQL_Query);
 
                         if (!sResponseFromServer.Contains(_NO_DB_ERRORS))
                         {

@@ -13,7 +13,7 @@ using Microsoft.Win32.SafeHandles;
 using System.Runtime.InteropServices;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 using StandFacile;
@@ -22,6 +22,8 @@ using static StandFacile.Define;
 
 namespace StandCommonFiles
 {
+    #pragma warning disable IDE0044
+
     /// <summary>
     /// classe per la gestione delle stampanti seriali mediante coda di stampa
     /// </summary>
@@ -99,7 +101,7 @@ namespace StandCommonFiles
         [DllImport("kernel32.dll", SetLastError = true)]
         static extern SafeFileHandle CreateFile(string lpFileName, FileAccess dwDesiredAccess, uint dwShareMode, IntPtr lpSecurityAttributes, FileMode dwCreationDisposition, uint dwFlagsAndAttributes, IntPtr hTemplateFile);
 
-        static bool bLPT_IsOpen()
+        static bool LPT_IsOpen()
         {
             if (lptStream == null)
                 return false;
@@ -147,7 +149,7 @@ namespace StandCommonFiles
             {
                 Byte[] buffer = System.Text.Encoding.UTF8.GetBytes(sTextToPrint + "\n");
 
-                if (bLPT_IsOpen())
+                if (LPT_IsOpen())
                     lptStream.Write(buffer, 0, buffer.Length);
             }
 
@@ -177,7 +179,7 @@ namespace StandCommonFiles
             {
                 Byte[] buffer = System.Text.Encoding.UTF8.GetBytes(textToPrint);
 
-                if (bLPT_IsOpen())
+                if (LPT_IsOpen())
                     lptStream.Write(buffer, 0, iCount);
             }
 
@@ -205,11 +207,11 @@ namespace StandCommonFiles
                 if (printQueue.Count > 0)
                 {
 
-                    if (!((String.IsNullOrEmpty(_LegacyPrinterParams.sPort) || _LegacyPrinterParams.sPort.Contains("COM")) ? bCOM_PortOpen() : bLPT_PortOpen()))
+                    if (!((String.IsNullOrEmpty(_LegacyPrinterParams.sPort) || _LegacyPrinterParams.sPort.Contains("COM")) ? COM_PortIsOpen() : LPT_PortISOpen()))
                     {
                         // Open fallita!
                         _ErrMsg.iErrID = WRN_STF;
-                        _ErrMsg.sMsg = sReadRegistry("sLegacyPort");
+                        _ErrMsg.sMsg = ReadRegistry("sLegacyPort", "");
                         WarningManager(_ErrMsg);
 
                         sTmp = "Printer_Legacy : open fallita! Queue.pop";
@@ -237,7 +239,7 @@ namespace StandCommonFiles
                              ***********************************************/
 
                             sQueue_Object = new String[2] { RESET_RECEIPT_BTN_EVENT, "" };
-                            FrmMain.eventEnqueue(sQueue_Object);
+                            FrmMain.EventEnqueue(sQueue_Object);
 #endif
 
                             switch (_LegacyPrinterParams.iPrinterModel)
@@ -270,7 +272,7 @@ namespace StandCommonFiles
                 else
                 {
                     // libera la seriale/LPT
-                    portClose();
+                    PortClose();
 
                     // Set the event to nonsignaled state.
                     allDone.Reset();
@@ -288,7 +290,7 @@ namespace StandCommonFiles
          *   ritorna : true se tutto OK,
          *             false se non si può aprire la COM
          ***************************************************/
-        static bool bCOM_PortOpen()
+        static bool COM_PortIsOpen()
         {
             // esegue più tentativi
             int iTimeout = SER_OPEN_TIMEOUT;
@@ -345,12 +347,12 @@ namespace StandCommonFiles
                     sQueue_Object = new String[2];
                     sQueue_Object[0] = UPDATE_COM_STATUS_EVENT;
                     sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_NOT_FREE);
-                    FrmMain.eventEnqueue(sQueue_Object);
+                    FrmMain.EventEnqueue(sQueue_Object);
 #elif STAND_CUCINA
                     sQueue_Object = new String[2];
                     sQueue_Object[0] = UPDATE_COM_LED_EVENT;
                     sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_NOT_FREE);
-                    FrmMain.evQueueUpdate(sQueue_Object);
+                    FrmMain.QueueUpdate(sQueue_Object);
 #endif
                 }
             }
@@ -363,12 +365,12 @@ namespace StandCommonFiles
                 sQueue_Object = new String[2];
                 sQueue_Object[0] = UPDATE_COM_STATUS_EVENT;
                 sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_BUSY);
-                FrmMain.eventEnqueue(sQueue_Object);
+                FrmMain.EventEnqueue(sQueue_Object);
 #elif STAND_CUCINA
                 sQueue_Object = new String[2];
                 sQueue_Object[0] = UPDATE_COM_LED_EVENT;
                 sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_BUSY);
-                FrmMain.evQueueUpdate(sQueue_Object);
+                FrmMain.QueueUpdate(sQueue_Object);
 #endif
                 //Thread.Sleep(250); // per consentire le grafiche
                 return true;
@@ -381,7 +383,7 @@ namespace StandCommonFiles
          *   ritorna : 1 se tutto OK,
          *             0 se non si può aprire la LPT
          *************************************************/
-        static bool bLPT_PortOpen()
+        static bool LPT_PortISOpen()
         {
             // esegue più tentativi
             int iTimeout = SER_OPEN_TIMEOUT;
@@ -408,8 +410,7 @@ namespace StandCommonFiles
             {
                 try
                 {
-                    if (lptStream != null)
-                        lptStream.Close();
+                        lptStream?.Close();
 
                     SafeFileHandle hLPT = CreateFile(sLPT_PortName, FileAccess.Write, 0, IntPtr.Zero, FileMode.Open, 0, IntPtr.Zero);
 
@@ -425,18 +426,17 @@ namespace StandCommonFiles
                         sQueue_Object = new String[2];
                         sQueue_Object[0] = UPDATE_COM_STATUS_EVENT;
                         sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_NOT_FREE);
-                        FrmMain.eventEnqueue(sQueue_Object);
+                        FrmMain.EventEnqueue(sQueue_Object);
 #elif STAND_CUCINA
                         sQueue_Object = new String[2];
                         sQueue_Object[0] = UPDATE_COM_LED_EVENT;
                         sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_NOT_FREE);
-                        FrmMain.evQueueUpdate(sQueue_Object);
+                        FrmMain.QueueUpdate(sQueue_Object);
 #endif
                     }
                     else
                     {
-                        if (lptStream != null)
-                            lptStream.Close();
+                            lptStream?.Close();
 
                         lptStream = new FileStream(hLPT, FileAccess.ReadWrite);
 
@@ -448,21 +448,21 @@ namespace StandCommonFiles
                 {
                 }
             }
-            while (!bLPT_IsOpen() && (iTimeout != 0));
+            while (!LPT_IsOpen() && (iTimeout != 0));
 
-            if (bLPT_IsOpen())
+            if (LPT_IsOpen())
             {
 
 #if STANDFACILE
                 sQueue_Object = new String[2];
                 sQueue_Object[0] = UPDATE_COM_STATUS_EVENT;
                 sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_BUSY);
-                FrmMain.eventEnqueue(sQueue_Object);
+                FrmMain.EventEnqueue(sQueue_Object);
 #elif STAND_CUCINA
                 sQueue_Object = new String[2];
                 sQueue_Object[0] = UPDATE_COM_LED_EVENT;
                 sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_BUSY);
-                FrmMain.evQueueUpdate(sQueue_Object);
+                FrmMain.QueueUpdate(sQueue_Object);
 #endif
                 //Thread.Sleep(250); // per consentire le grafiche
                 return true;
@@ -472,13 +472,13 @@ namespace StandCommonFiles
         }
 
         // ******************************
-        private static void portClose()
+        private static void PortClose()
         {
 #if !STAND_MONITOR
             String[] sQueue_Object;
 #endif
 
-            LogToFile("Printer_Legacy : portClose");
+            LogToFile("Printer_Legacy : PortClose");
 
             if (serialPort.IsOpen)
             {
@@ -488,21 +488,21 @@ namespace StandCommonFiles
                 sQueue_Object = new String[2];
                 sQueue_Object[0] = UPDATE_COM_STATUS_EVENT;
                 sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_FREE);
-                FrmMain.eventEnqueue(sQueue_Object);
+                FrmMain.EventEnqueue(sQueue_Object);
 #elif STAND_CUCINA
                 sQueue_Object = new String[2];
                 sQueue_Object[0] = UPDATE_COM_LED_EVENT;
                 sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_FREE);
-                FrmMain.evQueueUpdate(sQueue_Object);
+                FrmMain.QueueUpdate(sQueue_Object);
 #endif
 
-                LogToFile("Printer_Legacy : portClose serialPort.IsOpen");
+                LogToFile("Printer_Legacy : PortClose serialPort.IsOpen");
                 Thread.Sleep(250); // per consentire le grafiche
             }
             else
                 LogToFile("Printer_Legacy : !serialPort.IsOpen");
 
-            if (bLPT_IsOpen())
+            if (LPT_IsOpen())
             {
                 lptStream.Close();
                 lptStream = null;
@@ -511,26 +511,26 @@ namespace StandCommonFiles
                 sQueue_Object = new String[2];
                 sQueue_Object[0] = UPDATE_COM_STATUS_EVENT;
                 sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_FREE);
-                FrmMain.eventEnqueue(sQueue_Object);
+                FrmMain.EventEnqueue(sQueue_Object);
 #elif STAND_CUCINA
                 sQueue_Object = new String[2];
                 sQueue_Object[0] = UPDATE_COM_LED_EVENT;
                 sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_FREE);
-                FrmMain.evQueueUpdate(sQueue_Object);
+                FrmMain.QueueUpdate(sQueue_Object);
 #endif
 
-                LogToFile("Printer_Legacy : portClose lptStream != null");
+                LogToFile("Printer_Legacy : PortClose lptStream != null");
                 Thread.Sleep(250); // per consentire le grafiche
             }
             else
-                LogToFile("Printer_Legacy : !bLPT_IsOpen");
+                LogToFile("Printer_Legacy : !LPT_IsOpen");
         }
 
         /// <summary>
         /// verifica se la porta è libera aspettando qualche secondo se serve,
         /// ritorna : 0 se non è libera, 1 se è libera
         /// </summary>
-        public static bool portVerify(TLegacyPrinterParams sLegacyPrinterParams)
+        public static bool PortVerify(TLegacyPrinterParams sLegacyPrinterParams)
         {
             // esegue più tentativi
             int iTimeout = SER_OPEN_TIMEOUT / 4;
@@ -574,7 +574,7 @@ namespace StandCommonFiles
 
                 if (serialPort.IsOpen)
                 {
-                    portClose();
+                    PortClose();
                     return true;
                 }
                 else
@@ -586,8 +586,7 @@ namespace StandCommonFiles
                 {
                     try
                     {
-                        if (lptStream != null)
-                            lptStream.Close();
+                            lptStream?.Close();
 
                         SafeFileHandle hLPT = CreateFile(_LegacyPrinterParams.sPort, FileAccess.Write, 0, IntPtr.Zero, FileMode.Open, 0, IntPtr.Zero);
 
@@ -610,11 +609,11 @@ namespace StandCommonFiles
                     {
                     }
                 }
-                while (!bLPT_IsOpen() && (iTimeout != 0));
+                while (!LPT_IsOpen() && (iTimeout != 0));
 
-                if (bLPT_IsOpen())
+                if (LPT_IsOpen())
                 {
-                    portClose();
+                    PortClose();
                     return true;
                 }
                 else
@@ -624,10 +623,10 @@ namespace StandCommonFiles
 
 
          /// <summary>Autotest</summary>
-        public static void printAutoTest()
+        public static void PrintAutoTest()
         {
 
-            if (!(_LegacyPrinterParams.sPort.Contains("COM") ? bCOM_PortOpen() : bLPT_PortOpen()))
+            if (!(_LegacyPrinterParams.sPort.Contains("COM") ? COM_PortIsOpen() : LPT_PortISOpen()))
             {
                 WarningManager(WRN_TSF);
                 return;
@@ -637,21 +636,21 @@ namespace StandCommonFiles
             {
                 case (int)LEGACY_PRINTER_MODELS.STAMPANTE_TM_T88_SER:
                 case (int)LEGACY_PRINTER_MODELS.STAMPANTE_TM_L90_LPT:
-                    TPrinter_TM_POS.printAutoTest();
+                    TPrinter_TM_POS.PrintAutoTest();
                     break;
                 case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_SER:
                 case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_LPT:
-                    TPrinter_LP2844.printAutoTest();
+                    TPrinter_LP2844.PrintAutoTest();
                     break;
             }
 
-            portClose();
+            PortClose();
         }
 
         /// <summary>Info</summary>
-        public static void printInfo()
+        public static void PrintInfo()
         {
-            if (!(_LegacyPrinterParams.sPort.Contains("COM") ? bCOM_PortOpen() : bLPT_PortOpen()))
+            if (!(_LegacyPrinterParams.sPort.Contains("COM") ? COM_PortIsOpen() : LPT_PortISOpen()))
             {
                 WarningManager(WRN_TSF);
                 return;
@@ -665,30 +664,30 @@ namespace StandCommonFiles
 
                 case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_SER:
                 case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_LPT:
-                    TPrinter_LP2844.printInfo();
+                    TPrinter_LP2844.PrintInfo();
                     break;
             }
 
-            portClose();
+            PortClose();
         }
 
          /// <summary>
          /// test di esempio di stampa
          /// </summary>
-        public static void printSampleText(TLegacyPrinterParams sLegacyPrinterParams)
+        public static void PrintSampleText(TLegacyPrinterParams sLegacyPrinterParams)
         {
             String sTmp, sFileToPrint;
 
             _LegacyPrinterParams = sLegacyPrinterParams;
 
-            sFileToPrint = buildSampleText();
+            sFileToPrint = BuildSampleText();
 
-            sTmp = String.Format("Printer_Legacy : printSampleText() {0}", sFileToPrint);
+            sTmp = String.Format("Printer_Legacy : PrintSampleText() {0}", sFileToPrint);
             LogToFile(sTmp);
 
-            portClose();
+            PortClose();
 
-            if (!(_LegacyPrinterParams.sPort.Contains("COM") ? bCOM_PortOpen() : bLPT_PortOpen()))
+            if (!(_LegacyPrinterParams.sPort.Contains("COM") ? COM_PortIsOpen() : LPT_PortISOpen()))
             {
                 WarningManager(WRN_TSF);
                 return;
@@ -730,7 +729,7 @@ namespace StandCommonFiles
                 if (String.IsNullOrEmpty(sFileToPrintParm) || !File.Exists(sFileToPrintParm))
                     return;
 
-                if (!bCheckService(_SKIP_STAMPA))
+                if (!CheckService(_SKIP_STAMPA))
                 {
                     // PRINT_NOW, PRINT_ENQUEUE
                     // importante : al thread bisogna passare parametri per valore,
@@ -828,7 +827,7 @@ namespace StandCommonFiles
         }
 
         /// <summary> reset del ritardo di chiusura della porta</summary>
-        public static void resetClosedelay()
+        public static void ResetClosedelay()
         {
             iCloseDelay = CLOSE_DELAY;
         }

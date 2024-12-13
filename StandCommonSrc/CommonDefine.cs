@@ -10,10 +10,12 @@ using System.Drawing;
 namespace StandCommonFiles
 {
     /// <summary>
-    /// classe di mnemonici comuni a StandFacile
+    /// classe di mnemonici comuni a StandFacile 
     /// </summary>
     public static class ComDef
     {
+        #pragma warning disable IDE0060
+
         /// <summary>versione del Programma</summary>
         public const String RELEASE_SW = "v5.13.0-rc1";
 
@@ -88,7 +90,7 @@ namespace StandCommonFiles
         public const String MAGIC = SHMAGIC + "{0}";
 
         /// <summary> stringhe costanti dentro alla db table ordini</summary>
-        public struct _ORDER_CONST
+        public struct ORDER_CONST
         {
             /// <summary>sTipo_Articolo per memorizzazione del tavolo nella tabella ordini_YYmmdd</summary>
             public const String _START_OF_ORDER = "_StartOfOrder" + SHMAGIC;
@@ -120,16 +122,16 @@ namespace StandCommonFiles
         }
 
         /// <summary>mnemonico per il numero dello scontrino nelle stampe con Zoom numero scontrino</summary>
-        public const String _TICK_NUM = "Num. = ";
+        public const String _TICK_NUM = "Num. =";
 
         /// <summary>mnemonico per il numero dello scontrino nelle stampe senza Zoom numero scontrino</summary>
-        public const String _TICK_NUM_NZ = "Scontrino num. ";
+        public const String _TICK_NUM_NZ = "Scontrino num.";
 
         /// <summary>mnemonico per il numero dello scontrino di prevendita nelle stampe</summary>
-        public const String _PREV_NUM = "prevNum = ";
+        public const String _PREV_NUM = "prevNum =";
 
         /// <summary>mnemonico per il numero dello scontrino di pre-ordine web nelle stampe</summary>
-        public const String _WEB_NUM = "webNum = ";
+        public const String _WEB_NUM = "webNum =";
 
 
         /// <summary>numero massimo in assoluto di caratteri per Receipt</summary>
@@ -534,7 +536,7 @@ namespace StandCommonFiles
         {
             /// <summary>don't care returns 0 on 0 conversion</summary>
             EUROCONV_DONT_CARE = -1,
-            /// <summary>returns -1 on 0 conversion/summary>
+            /// <summary>returns -1 on 0 conversion</summary>
             EUROCONV_NZ,
             /// <summary>lancia warning</summary>
             EUROCONV_WARN,
@@ -1335,7 +1337,7 @@ namespace StandCommonFiles
             public String sOrdineNum;
             /// <summary>numero del tavolo</summary>
             public String sTavolo;
-            /// <summary>numero del cliente</summary>
+            /// <summary>nome del cliente</summary>
             public String sNome;
             /// <summary>numero dell'ordine Web</summary>
             public String sOrdNumWeb;

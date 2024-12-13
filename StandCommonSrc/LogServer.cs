@@ -11,7 +11,7 @@ using System.Collections;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 
 using StandFacile;
 using static StandFacile.glb;
@@ -25,6 +25,8 @@ namespace StandCommonFiles
     /// </summary>
     public class LogServer
     {
+#pragma warning disable IDE0044
+
         static bool bStarted = true;
 
         /// <summary>Thread signal</summary>
@@ -38,11 +40,11 @@ namespace StandCommonFiles
 
 #if STANDFACILE
         static StreamWriter fLogTest;
+        static Queue logTestQueue = new Queue();
 #endif
 
         // coda delle stringhe di cui fare il Log
         static Queue logQueue = new Queue();
-        static Queue logTestQueue = new Queue();
 
         /// <summary>
         /// costruttore ed avvio del LogThread
@@ -52,9 +54,11 @@ namespace StandCommonFiles
             String sTmp;
 
             ThreadStart LogThreadMethod = new ThreadStart(LogServerThread);
-            Thread LogThread = new Thread(LogThreadMethod);
-            LogThread.Name = "LogServer";
-            LogThread.Priority = ThreadPriority.BelowNormal;
+            Thread LogThread = new Thread(LogThreadMethod)
+            {
+                Name = "LogServer",
+                Priority = ThreadPriority.BelowNormal
+            };
 
             // avvio
             bRunning = true;
@@ -99,10 +103,10 @@ namespace StandCommonFiles
 #if STANDFACILE
                 String sNomeLogTestFile;
 
-                sLogDir = DataManager.sGetLogDir() + "\\";
-                sNomeLogFile = "Log" + getActualDate().ToString("yyMMdd") + ".txt";
+                sLogDir = DataManager.GetLogDir() + "\\";
+                sNomeLogFile = "Log" + GetActualDate().ToString("yyMMdd") + ".txt";
 
-                sNomeLogTestFile = "LogTest" + getActualDate().ToString("yyMMdd") + ".txt";
+                sNomeLogTestFile = "LogTest" + GetActualDate().ToString("yyMMdd") + ".txt";
 #else
                 sLogDir = Directory.GetCurrentDirectory() + "\\";
                 sNomeLogFile = "Log" + DateTime.Now.ToString("yyMMdd") + ".txt";
@@ -134,7 +138,7 @@ namespace StandCommonFiles
 
 #if STANDFACILE
 
-                    if (bCheckService(Define._AUTO_SEQ_TEST))
+                    if (CheckService(Define._AUTO_SEQ_TEST))
                     {
                         // registrazione del LogTest
                         lock (logTestQueue.SyncRoot)
@@ -199,7 +203,7 @@ namespace StandCommonFiles
             String sTime, sDate;
             String sTmpMsg;
 
-            if (!bCheckService(Define._AUTO_SEQ_TEST))
+            if (!CheckService(Define._AUTO_SEQ_TEST))
                 return;
 
             sDate = DateTime.Now.ToString("yy/MM/dd");

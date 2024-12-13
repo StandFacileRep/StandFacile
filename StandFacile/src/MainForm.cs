@@ -20,7 +20,7 @@ using static StandFacile.dBaseTunnel_my;
 using System.Collections.Generic;
 
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
 using System.Web.Script.Serialization;
@@ -33,6 +33,9 @@ namespace StandFacile
     /// </summary>
     public partial class FrmMain : Form
     {
+#pragma warning disable IDE0044
+#pragma warning disable IDE0059
+
         const int CHANGE_PAGE_TIMEOUT = 5;      // *250ms
         const int BC_FOCUS_TIMEOUT = 8 * 4;     // *250ms
 
@@ -53,7 +56,6 @@ namespace StandFacile
         bool bPageSxProximity;
 
         static int _iDBDispTimeout;
-        static int _iCOMStatus;
 
         int _iCellPt;      // indice lineare di selezione Articolo
 
@@ -100,19 +102,19 @@ namespace StandFacile
         };
 
         /// <summary>ottiene il flag di modo esperto</summary>
-        public bool bGetEsperto() { return MnuEsperto.Checked; }
+        public bool GetEsperto() { return MnuEsperto.Checked; }
 
         /// <summary>imposta il flag di password corretta</summary>
-        public static void bSetPasswordIsGood(bool passwordIsGoodPrm) { _bPasswordIsGood = passwordIsGoodPrm; }
+        public static void SetPasswordIsGood(bool passwordIsGoodPrm) { _bPasswordIsGood = passwordIsGoodPrm; }
 
         /// <summary>
         /// resetta il flag di modifica listino necessaria<br/>
-        /// chiamata da DataManager.bSalvaListino();
+        /// chiamata da DataManager.SalvaListino();
         /// </summary>
-        public static void clearListinoModificato() { _bListinoModificato = false; }
+        public static void ClearListinoModificato() { _bListinoModificato = false; }
 
         /// <summary>mette evento in coda cross thread</summary>
-        public static void eventEnqueue(String[] sEvQueueObjParam)
+        public static void EventEnqueue(String[] sEvQueueObjParam)
         {
             bool bContains = false; // non si può usare eventQueue.Contains()
 
@@ -143,7 +145,7 @@ namespace StandFacile
         }
 
         /// <summary>ottiene numero di eventi in coda</summary>
-        public static int getEventQueueCount() { return eventQueue.Count; }
+        public static int GetEventQueueCount() { return eventQueue.Count; }
 
         /// <summary>riferimento a FrmMain</summary>
         public static FrmMain rFrmMain;
@@ -155,40 +157,40 @@ namespace StandFacile
         static readonly Queue scannerInputQueue = new Queue();
 
         /// <summary>imposta il testo dei coperti</summary>
-        public void setEditCoperto(String sCopertoParam) { EditCoperti.Text = sCopertoParam; TextBox_KeyUp(null, null); }
+        public void SetEditCoperto(String sCopertoParam) { EditCoperti.Text = sCopertoParam; TextBox_KeyUp(null, null); }
 
         /// <summary>ottiene il testo dei coperti</summary>
-        public String getEditCoperto() { return EditCoperti.Text; }
+        public String GetEditCoperto() { return EditCoperti.Text; }
 
         /// <summary>imposta il testo del tavolo</summary>
-        public void setEditTavolo(String sTavoloParam) { EditTavolo.Text = sTavoloParam; TextBox_KeyUp(null, null); }
+        public void SetEditTavolo(String sTavoloParam) { EditTavolo.Text = sTavoloParam; TextBox_KeyUp(null, null); }
 
         /// <summary>imposta il testo del nome</summary>
-        public void setEditNome(String sNomeParam) { EditNome.Text = sNomeParam; TextBox_KeyUp(null, null); }
+        public void SetEditNome(String sNomeParam) { EditNome.Text = sNomeParam; TextBox_KeyUp(null, null); }
 
         /// <summary>ottiene il testo del tavolo</summary>
-        public String getEditTavolo() { return EditTavolo.Text; }
+        public String GetEditTavolo() { return EditTavolo.Text; }
 
         /// <summary>resetta il tipo di pagamento CONT./CARD/SATISPAY</summary>
-        public void resetPayment() { comboCashPos.SelectedIndex = sConst_PaymentType.Length - 1; }
+        public void ResetPayment() { comboCashPos.SelectedIndex = sConst_PaymentType.Length - 1; }
 
         /// <summary>imposta _iAnteprimaTotParziale</summary>
-        public void setAnteprima() { _iAnteprimaTotParziale = AnteprimaDlg.iGetTotaleReceipt(); }
+        public void SetAnteprima() { _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt(); }
 
         /// <summary>azzera _iAnteprimaTotParziale</summary>
-        public void clearAnteprima() { _iAnteprimaTotParziale = 0; }
+        public void ClearAnteprima() { _iAnteprimaTotParziale = 0; }
 
         /// <summary>ottiene il testo della nota</summary>
-        public String getEditNota() { return EditNota.Text; }
+        public String GetEditNota() { return EditNota.Text; }
 
         /// <summary>ottiene lo stato della nota: true => nota in calce</summary>
-        public bool getStatusNota() { return EditNota.BackColor == Color.Gainsboro; }
+        public bool GetStatusNota() { return EditNota.BackColor == Color.Gainsboro; }
 
         /// <summary>imposta il testo della nota</summary>
-        public void setEditNota(String sNotaParam) { EditNota.Text = sNotaParam; TextBox_KeyUp(null, null); }
+        public void SetEditNota(String sNotaParam) { EditNota.Text = sNotaParam; TextBox_KeyUp(null, null); }
 
         /// <summary>imposta il testo della nota Articolo, usato da TestManager</summary>
-        public void setEditNotaArticolo(int iCellParam, String sNotaParam)
+        public void SetEditNotaArticolo(int iCellParam, String sNotaParam)
         {
             int i, j;
             Message msg = new Message();
@@ -206,24 +208,24 @@ namespace StandFacile
         }
 
         /// <summary>imposta il testo della nota</summary>
-        public void setEditStatus_BC(String sBCParam) { EditStatus_BC.Text = sBCParam; TextBox_KeyUp(null, null); }
+        public void SetEditStatus_BC(String sBCParam) { EditStatus_BC.Text = sBCParam; TextBox_KeyUp(null, null); }
 
         /// <summary>imposta il testo dello stato</summary>
-        public void setStatus(String sNotaParam) { sStatusText = sNotaParam; }
+        public void SetStatus(String sNotaParam) { sStatusText = sNotaParam; }
 
         /// <summary>resetta il timer del Focus al BC_Edit</summary>
-        void clearBC_FocusTimer() { iFocus_BC_Timeout = BC_FOCUS_TIMEOUT; }
+        void ClearBC_FocusTimer() { iFocus_BC_Timeout = BC_FOCUS_TIMEOUT; }
 
         /// <summary>imposta il flag per nascondere lblStatusTotalePrec</summary>
-        public static void setShowTotaleScontrinoPrec(bool bShowParam) { _bShowTotaleScontrinoPrec = bShowParam; }
+        public static void SetShowTotaleScontrinoPrec(bool bShowParam) { _bShowTotaleScontrinoPrec = bShowParam; }
 
         /// <summary>imposta la Tab</summary>
-        public void selectTab(int iParam)
+        public void SelectTab(int iParam)
         {
             int iPageIndex = iParam / (MainGrid.RowCount * MainGrid.ColumnCount);
 
             // sicurezza
-            if (bCheckService(Define._AUTO_SEQ_TEST) || (MnuImpListino.Checked == true))
+            if (CheckService(Define._AUTO_SEQ_TEST) || (MnuImpListino.Checked == true))
             {
                 if (iPageIndex == 1)
                     TabSet.SelectedTab = tabPage1;
@@ -246,7 +248,7 @@ namespace StandFacile
         {
             InitializeComponent();
 
-            //bool bTmp = bStringBelongsTo_ORDER_CONST(_ORDER_CONST._NOTA, _ORDER_CONST._NOTA);
+            //bool bTmp = StringBelongsTo_ORDER_CONST(ORDER_CONST._NOTA, ORDER_CONST._NOTA);
 
             _tt.SetToolTip(EditTavolo, "click o (F1) dalla griglia per inserire il Tavolo");
             _tt.SetToolTip(EditCoperti, "click o (F2) dalla griglia per inserire i coperti");
@@ -264,11 +266,11 @@ namespace StandFacile
             for (int i = sConst_PaymentType.Length - 1; i >= 0; i--) // OK
                 comboCashPos.Items.Insert(0, sConst_PaymentType[i]);
 
-            resetPayment();
+            ResetPayment();
 
             // VisMessaggi può inviare una stampa a qualsiasi stampante
 
-            //if (!_bUSA_NDB())
+            //if (!bUSA_NDB())
             //{
             //    BtnSendMsg.Visible = false;
             //    BtnSep2.Visible = false;
@@ -287,7 +289,7 @@ namespace StandFacile
 
             rFrmMain = this;
 
-            Text = String.Format("{0} {1} {2} {1} webcks Listino = {3}", TITLE, "    ", RELEASE_SW, DataManager.sGetWebListinoChecksum());
+            Text = String.Format("{0} {1} {2} {1} webcks Listino = {3}", TITLE, "    ", RELEASE_SW, DataManager.GetWebListinoChecksum());
             MinimumSize = new Size(MAINWD_WIDTH, MAINWD_HEIGHT);
 
             // Larghezza barra di stato
@@ -306,7 +308,7 @@ namespace StandFacile
             EditStatus_BC.MaxLength = 0; // nessun limite
 
 
-            setColorsTheme();
+            SetColorsTheme();
 
             LogToFile("Mainform : Avvio()");
 
@@ -322,9 +324,9 @@ namespace StandFacile
 
             // se serve (aumento dimensioni griglia) forza il salvataggio del file Prezzi
             // deve prima essere eseguito DataManager.Init()
-            _bListinoModificato |= DataManager.bGetListinoModificato();
+            _bListinoModificato |= DataManager.GetListinoModificato();
 
-            iKeyGood = iReadRegistry(SYS_PRINTER_TYPE_KEY, -1);
+            iKeyGood = ReadRegistry(SYS_PRINTER_TYPE_KEY, -1);
 
             if (iKeyGood == -1)
             {
@@ -334,13 +336,13 @@ namespace StandFacile
                 // default
                 WriteRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
             }
-            else if (bCheckService(_ESPERTO))
+            else if (CheckService(_ESPERTO))
             {
                 _bPasswordIsGood = true;
                 MnuEsperto_Click(this, null);
             }
 
-            sDataStr = getActualDate().ToString("dddd  dd/MM/yy");
+            sDataStr = GetActualDate().ToString("dddd  dd/MM/yy");
             sTmpStr = sDataStr.ToUpper();
             sTmpStr = sTmpStr.Substring(0, 1);
 
@@ -349,9 +351,9 @@ namespace StandFacile
 
             sStatusText = "Pronto";
 
-            lblStatusTickNum.Text = "Num. Ordini : " + DataManager.iGetNumOfOrders().ToString();
+            lblStatusTickNum.Text = "Num. Ordini : " + DataManager.GetNumOfOrders().ToString();
 
-            if (OptionsDlg._rOptionsDlg.bGetShowPrevReceipt())
+            if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
             {
                 _bShowTotaleScontrinoPrec = true;
                 lblStatusTotalePrec.Text = "Totale Pr. = 0";
@@ -364,10 +366,10 @@ namespace StandFacile
 
             lblStatus_Date.Text = sDataStr;
 
-            setTabsAppearance();
+            SetTabsAppearance();
 
             // altrimenti la disponibilità cambia ad ogni avvio
-            _iNumOfOrders = DataManager.iGetNumOfOrders();
+            _iNumOfOrders = DataManager.GetNumOfOrders();
 
             _iDBDispTimeout = _REFRESH_DISP_SHORT;
 
@@ -377,7 +379,7 @@ namespace StandFacile
 
             iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
             Timer.Enabled = true;
-            checkMenuItems();
+            CheckMenuItems();
 
             LogToFile("Mainform : Init()");
 
@@ -388,11 +390,11 @@ namespace StandFacile
         }
 
         /// <summary>imposta i Temi colore</summary>
-        public void setColorsTheme()
+        public void SetColorsTheme()
         {
             // ************** gestione temi colore *****************
 
-            _iColorTheme = OptionsDlg.bGetColorThemeIndex();
+            _iColorTheme = OptionsDlg.GGetColorThemeIndex();
 
             for (int i = 0; i < NUM_COLOR_THEMES; i++)
             {
@@ -452,7 +454,7 @@ namespace StandFacile
         }
 
         /// <summary>imposta grafica TABS</summary>
-        public void setTabsAppearance()
+        public void SetTabsAppearance()
         {
             bool bPaginaVuota;
             int i, j;
@@ -529,7 +531,7 @@ namespace StandFacile
             // lampeggio
             bFlash = !bFlash;
 
-            if (bCheckService(Define._AUTO_SEQ_TEST))
+            if (CheckService(Define._AUTO_SEQ_TEST))
                 lblStatus_Status.Text = sStatusText;
             // lampeggia quando uno dei menù è attivo
             else if (bFlash && !String.IsNullOrEmpty(lblStatus_Status.Text) && !lblStatus_Status.Text.Equals("Pronto"))
@@ -561,7 +563,7 @@ namespace StandFacile
                 if (bPrevFlash && SF_Data.bPrevendita)
                     Text = TITLE + String.Format("{0,42}", sConst_Prevendita[1]);
                 else
-                    Text = String.Format("{0} {1} {2} {1} webcks Listino = {3}", TITLE, "    ", RELEASE_SW, DataManager.sGetWebListinoChecksum());
+                    Text = String.Format("{0} {1} {2} {1} webcks Listino = {3}", TITLE, "    ", RELEASE_SW, DataManager.GetWebListinoChecksum());
             }
             else
             {
@@ -577,18 +579,18 @@ namespace StandFacile
                 else
                 {
                     _bPrintTimeoutEnabled = false;
-                    resetBtnScontrino();
-                    LogToFile("Mainform : #W resetBtnScontrino() per Timeout");
+                    ResetBtnScontrino();
+                    LogToFile("Mainform : #W ResetBtnScontrino() per Timeout");
                 }
             }
 
             // generazione automatica di scontrini debug se c'è la
             // giusta stringa nel Registro
-            if (bCheckService(Define._AUTO_RECEIPT_GEN))
-                autoTicketGenerator();  // ogni 250ms
+            if (CheckService(Define._AUTO_RECEIPT_GEN))
+                AutoTicketGenerator();  // ogni 250ms
 
-            if (bCheckService(Define._AUTO_SEQ_TEST))
-                TestManager.bCaricaTest();  // ogni 250ms
+            if (CheckService(Define._AUTO_SEQ_TEST))
+                TestManager.CaricaTest();  // ogni 250ms
 
             // visualizzazione del Listino
             if ((_iVisPrzTimeout != 0) && BtnVisListino.Checked && !MnuImpListino.Checked)
@@ -600,7 +602,7 @@ namespace StandFacile
                     EditCoperti.Text = _sCopertiPrev;
 
                     BtnVisListino.Checked = false;
-                    checkMenuItems();
+                    CheckMenuItems();
                 }
                 else
                 {
@@ -624,12 +626,12 @@ namespace StandFacile
                     if (_iModDisponibilitaTimeout == 0)
                     {
                         MnuModDispArticoli.Checked = false;
-                        checkMenuItems();
+                        CheckMenuItems();
                     }
                 }
             }
 
-            if ((iFocus_BC_Timeout > 0) && (OptionsDlg._rOptionsDlg.bGetPresales_LoadMode() || NetConfigDlg.rNetConfigDlg.bGetWebOrderEnabled()))
+            if ((iFocus_BC_Timeout > 0) && (OptionsDlg._rOptionsDlg.GetPresales_LoadMode() || NetConfigDlg.rNetConfigDlg.GetWebOrderEnabled()))
             {
                 iFocus_BC_Timeout--;
 
@@ -710,7 +712,7 @@ namespace StandFacile
                 EditResto.Text = "";
 
             // aggiornamento disponibilità
-            if (_bUSA_NDB())
+            if (bUSA_NDB())
             {
                 if (_iDBDispTimeout > 0) // 1min
                     _iDBDispTimeout--;
@@ -719,7 +721,7 @@ namespace StandFacile
                     _iDBDispTimeout = _REFRESH_DISP;
 
                     if (!NetConfigDlg.rNetConfigDlg.Visible)
-                        DataManager.aggiornaDisponibilità();
+                        DataManager.AggiornaDisponibilità();
 
                     FormResize(null, null);
                     MainGrid_Redraw(this, null);
@@ -727,7 +729,7 @@ namespace StandFacile
             }
 
             // aggiorna icona
-            if (_rdBaseIntf.bGetDB_Connected())
+            if (_rdBaseIntf.GetDB_Connected())
                 BtnDB.Image = BtnImgList.Images[1];
             else
                 BtnDB.Image = BtnImgList.Images[0];
@@ -758,15 +760,11 @@ namespace StandFacile
 
                 if (sEvQueueObj[0] == RESET_RECEIPT_BTN_EVENT)
                 {
-                    resetBtnScontrino();
-                }
-                else if (sEvQueueObj[0] == UPDATE_COM_STATUS_EVENT)
-                {
-                    _iCOMStatus = Convert.ToInt32(sEvQueueObj[1]);
+                    ResetBtnScontrino();
                 }
                 else if (sEvQueueObj[0] == PREV_ORDER_LOAD_DONE)
                 {
-                    _iAnteprimaTotParziale = AnteprimaDlg.iGetTotaleReceipt();
+                    _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
                     EditStatus_BC.Focus();
                     MainGrid_Redraw(this, null);
                 }
@@ -774,7 +772,7 @@ namespace StandFacile
                 {
                     bool bEsploraAuto = false;
 
-                    if ((EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg != null) && !EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg.bGetAutoCheckbox())
+                    if ((EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg != null) && !EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg.GetAutoCheckbox())
                         bEsploraAuto = true;
 
                     /********************************************************************************************
@@ -782,7 +780,7 @@ namespace StandFacile
                         quelli automatici da servlet invece no perchè mantengono _iAnteprimaTotParziale == 0
                     *********************************************************************************************/
                     if (!IsBitSet(DB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) || bEsploraAuto)
-                        _iAnteprimaTotParziale = AnteprimaDlg.iGetTotaleReceipt();
+                        _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
 
                     // EditStatus_BC.UseSystemPasswordChar = false;
                     EditStatus_BC.Text = ""; // pulizia
@@ -810,7 +808,7 @@ namespace StandFacile
                         EditNota.Enabled = false;
 
                         // bOrderProcessingRunning evita che l'attesa di premere Ok provoca altri eventi del timer
-                        bResult = DataManager.caricaOrdineWeb(Convert.ToInt32(sEvQueueObj[1]));
+                        bResult = DataManager.CaricaOrdineWeb(Convert.ToInt32(sEvQueueObj[1]));
 
                         // se non si può caricare ad esempio per checksum errato lo annulla
                         if (!bResult && !DB_Data.bAnnullato)
@@ -851,7 +849,7 @@ namespace StandFacile
         static bool bPressTicketBtn = false;
         static bool bInitDisp = false;
 
-        void autoTicketGenerator()
+        void AutoTicketGenerator()
         {
             int i, iArticolo, iNumArticoli;
 
@@ -863,13 +861,13 @@ namespace StandFacile
             iNumArticoli = 6 + iRandNum.Next(12); // media 12 voci
 
             // inizializza le disponibilità, solo se è _USA_DB limita alla CASSA_PRINCIPALE
-            if (!bInitDisp && (_iNumOfOrders == 0) && ((SF_Data.iNumCassa == CASSA_PRINCIPALE) || !_bUSA_NDB()))
+            if (!bInitDisp && (_iNumOfOrders == 0) && ((SF_Data.iNumCassa == CASSA_PRINCIPALE) || !bUSA_NDB()))
             {
                 bInitDisp = true;
 
                 for (i = 0; i < 2 * iNumArticoli; i++)
                 {
-                    iArticolo = iRandNum.Next(DataManager.iCheckLastArticoloIndexP1() - 1);
+                    iArticolo = iRandNum.Next(DataManager.CheckLastArticoloIndexP1() - 1);
 
                     if (!String.IsNullOrEmpty(SF_Data.Articolo[iArticolo].sTipo))
                         SF_Data.Articolo[iArticolo].iDisponibilita = 20 + iRandNum.Next(200);
@@ -882,7 +880,7 @@ namespace StandFacile
 
                 for (i = 0; i < iNumArticoli; i++)
                 {
-                    iArticolo = iRandNum.Next(DataManager.iCheckLastArticoloIndexP1() - 1);
+                    iArticolo = iRandNum.Next(DataManager.CheckLastArticoloIndexP1() - 1);
 
                     if (!String.IsNullOrEmpty(SF_Data.Articolo[iArticolo].sTipo) && (SF_Data.Articolo[iArticolo].iDisponibilita > 0))
                         SF_Data.Articolo[iArticolo].iQuantitaOrdine = 1 + iRandNum.Next(16);
@@ -922,8 +920,8 @@ namespace StandFacile
                 _sEditCoperti = EditCoperti.Text.Trim();
 
                 BtnScontrino.Checked = true;
-                AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
-                _iAnteprimaTotParziale = AnteprimaDlg.iGetTotaleReceipt();
+                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+                _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
                 MainGrid_Redraw(this, null);
             }
 
@@ -955,7 +953,7 @@ namespace StandFacile
         {
             int i, j, k, h;
             int iRowsHeight, iPrimoGruppoStampa, iGruppoStampa;
-            String sText = "";
+            String sText;
 
             float fColumnsWidth, fTextSize;
 
@@ -986,7 +984,7 @@ namespace StandFacile
                 btnSep_R2.Height = toolStripR.Height / 12;
                 btnSep_R3.Height = btnSep_R2.Height;
             }
-            else if (OptionsDlg._rOptionsDlg.bGet_VButtons())
+            else if (OptionsDlg._rOptionsDlg.Get_VButtons())
             {
                 TabSet.Height = 26;
                 TabSet.ItemSize = new Size(67, TabSet.Height - 3);
@@ -1077,7 +1075,7 @@ namespace StandFacile
             // imposta altezza delle righe sulla base della altezza della finestra
             if ((WindowState != FormWindowState.Minimized) && (MainGrid.RowCount > 0))
             {
-                iPrimoGruppoStampa = iCheckFirstGroupIndex();
+                iPrimoGruppoStampa = CheckFirstGroupIndex();
                 _prevStyle.ForeColor = _gridStyle[_iColorTheme, iPrimoGruppoStampa].ForeColor;
                 _prevStyle.BackColor = _gridStyle[_iColorTheme, iPrimoGruppoStampa].BackColor;
 
@@ -1237,55 +1235,55 @@ namespace StandFacile
                         // fPrint.WriteLine("{0,2} {1,-18} {2,5}", // width=28
                         case (int)DEST_TYPE.DEST_TIPO1:
                             if (SF_Data.bTouchMode)
-                                sCellText = String.Format(sGRD_FMT_TCH, "G1", sPrzTmp, Environment.NewLine, sCenterJustify(SF_Data.Articolo[h].sTipo, 18));
+                                sCellText = String.Format(sGRD_FMT_TCH, "G1", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G1", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO2:
                             if (SF_Data.bTouchMode)
-                                sCellText = String.Format(sGRD_FMT_TCH, "G2", sPrzTmp, Environment.NewLine, sCenterJustify(SF_Data.Articolo[h].sTipo, 18));
+                                sCellText = String.Format(sGRD_FMT_TCH, "G2", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G2", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO3:
                             if (SF_Data.bTouchMode)
-                                sCellText = String.Format(sGRD_FMT_TCH, "G3", sPrzTmp, Environment.NewLine, sCenterJustify(SF_Data.Articolo[h].sTipo, 18));
+                                sCellText = String.Format(sGRD_FMT_TCH, "G3", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G3", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO4:
                             if (SF_Data.bTouchMode)
-                                sCellText = String.Format(sGRD_FMT_TCH, "G4", sPrzTmp, Environment.NewLine, sCenterJustify(SF_Data.Articolo[h].sTipo, 18));
+                                sCellText = String.Format(sGRD_FMT_TCH, "G4", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G4", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO5:
                             if (SF_Data.bTouchMode)
-                                sCellText = String.Format(sGRD_FMT_TCH, "G5", sPrzTmp, Environment.NewLine, sCenterJustify(SF_Data.Articolo[h].sTipo, 18));
+                                sCellText = String.Format(sGRD_FMT_TCH, "G5", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G5", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO6:
                             if (SF_Data.bTouchMode)
-                                sCellText = String.Format(sGRD_FMT_TCH, "G6", sPrzTmp, Environment.NewLine, sCenterJustify(SF_Data.Articolo[h].sTipo, 18));
+                                sCellText = String.Format(sGRD_FMT_TCH, "G6", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G6", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO7:
                             if (SF_Data.bTouchMode)
-                                sCellText = String.Format(sGRD_FMT_TCH, "G7", sPrzTmp, Environment.NewLine, sCenterJustify(SF_Data.Articolo[h].sTipo, 18));
+                                sCellText = String.Format(sGRD_FMT_TCH, "G7", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G7", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO8:
                             if (SF_Data.bTouchMode)
-                                sCellText = String.Format(sGRD_FMT_TCH, "G8", sPrzTmp, Environment.NewLine, sCenterJustify(SF_Data.Articolo[h].sTipo, 18));
+                                sCellText = String.Format(sGRD_FMT_TCH, "G8", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G8", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_COUNTER:
                             if (SF_Data.bTouchMode)
-                                sCellText = String.Format(sGRD_FMT_TCH, "CN", sPrzTmp, Environment.NewLine, sCenterJustify(SF_Data.Articolo[h].sTipo, 18));
+                                sCellText = String.Format(sGRD_FMT_TCH, "CN", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "CN", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
@@ -1322,9 +1320,9 @@ namespace StandFacile
                     if (SF_Data.bTouchMode)
                     {
                         if (string.IsNullOrEmpty(sDispQty))
-                            sCellText = String.Format(sGRDZ_FMT_TCH, sTickQty, Environment.NewLine, sCenterJustify(sTipoTmp, 18));
+                            sCellText = String.Format(sGRDZ_FMT_TCH, sTickQty, Environment.NewLine, CenterJustify(sTipoTmp, 18));
                         else
-                            sCellText = String.Format(sGRDW_FMT_TCH, sDispQty, sTickQty, Environment.NewLine, sCenterJustify(sTipoTmp, 18));
+                            sCellText = String.Format(sGRDW_FMT_TCH, sDispQty, sTickQty, Environment.NewLine, CenterJustify(sTipoTmp, 18));
                     }
                     else
                         sCellText = String.Format(sGRDW_FMT_STD, sDispQty, sTipoTmp, sTickQty);
@@ -1353,7 +1351,7 @@ namespace StandFacile
             }
 
             // aggiorna il web checksum in caso di modifica Listino
-            Text = String.Format("{0} {1} {2} {1} webcks Listino = {3}", TITLE, "    ", RELEASE_SW, DataManager.sGetWebListinoChecksum());
+            Text = String.Format("{0} {1} {2} {1} webcks Listino = {3}", TITLE, "    ", RELEASE_SW, DataManager.GetWebListinoChecksum());
 
             MainGrid.Refresh();
         } // end MainGrid_Redraw
@@ -1381,11 +1379,11 @@ namespace StandFacile
                 EditArticoloDlg rModificaArticoloDlg = new EditArticoloDlg();
                 rModificaArticoloDlg.Init(_iCellPt, true);
 
-                _bListinoModificato |= EditArticoloDlg.bGetListinoModificato();
+                _bListinoModificato |= EditArticoloDlg.GetListinoModificato();
 
                 EditCoperti.Text = String.Format("{0,4:0.00}", SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario / 100.0f);
 
-                checkMenuItems();
+                CheckMenuItems();
                 rModificaArticoloDlg.Dispose();
             }
 
@@ -1450,7 +1448,7 @@ namespace StandFacile
                 bStartDrag = false;
                 Cursor = Cursors.Default;
 
-                DataManager.iCheckLastArticoloIndexP1();
+                DataManager.CheckLastArticoloIndexP1();
 
                 FormResize(null, null);
                 MainGrid_Redraw(this, null);
@@ -1563,14 +1561,14 @@ namespace StandFacile
 
                 MainGrid.Focus();
 
-                if (bVerificaQuantita())
+                if (VerificaQuantita())
                     return base.ProcessCmdKey(ref msg, keyData);
                 else
                     return true; // cursore rimane sul posto
             }
             else if ((MainGrid.Focused || TabSet.Focused) && (keyData == Keys.Enter))
             {
-                if (OptionsDlg._rOptionsDlg.bGetEnterPrintReceipt())
+                if (OptionsDlg._rOptionsDlg.GetEnterPrintReceipt())
                     BtnScontrino_Click(this, null);
 
                 return true; // cursore rimane sul posto
@@ -1622,7 +1620,7 @@ namespace StandFacile
                         else
                             MainGrid.CurrentCell = MainGrid.Rows[MainGrid.RowCount - 1].Cells[MainGrid.ColumnCount - 1];
 
-                        selectTab(_iCellPt - 1);
+                        SelectTab(_iCellPt - 1);
                         MainGrid.Focus();
                     }
                     else
@@ -1666,7 +1664,7 @@ namespace StandFacile
                         else
                             MainGrid.CurrentCell = MainGrid.Rows[0].Cells[0];
 
-                        selectTab(_iCellPt + 1);
+                        SelectTab(_iCellPt + 1);
                         MainGrid.Focus();
                     }
                     else
@@ -1709,7 +1707,7 @@ namespace StandFacile
                 if (scannerInputQueue.Count >= 14)
                 {
                     EditStatus_BC.Text = "";
-                    DataManager.clearGrid();
+                    DataManager.ClearGrid();
 
                     while (scannerInputQueue.Count > 0)
                     {
@@ -1718,14 +1716,14 @@ namespace StandFacile
                     }
 
                     // elimina quantità spurie
-                    DataManager.clearGrid();
+                    DataManager.ClearGrid();
 
                     KeyPressEventArgs ek = new KeyPressEventArgs('\r');
                     EditStatus_BC_KeyPress(EditStatus_BC, ek);
                 }
             }
 
-            clearBC_FocusTimer();
+            ClearBC_FocusTimer();
 
             // punto unico _iCellPt =
             _iCellPt = MainGrid.CurrentCell.ColumnIndex * MainGrid.RowCount + MainGrid.CurrentCell.RowIndex + iArrayOffset;
@@ -1782,14 +1780,14 @@ namespace StandFacile
                     }
 
                     // ci passa se si modifica l'header altrimenti
-                    // ci pensa checkMenuItems();
+                    // ci pensa CheckMenuItems();
                     if (_bListinoModificato)
-                        DataManager.bSalvaListino();
+                        DataManager.SalvaListino();
 
                     // default TAB
                     TabSet.SelectedIndex = 0;
                     MainGrid.Focus();
-                    checkMenuItems();
+                    CheckMenuItems();
 
                     break;
 
@@ -1894,7 +1892,7 @@ namespace StandFacile
                     break;
                 case KEY_ENTER:
                     // viene processato come Keys.Enter per evitare Key_Down
-                    //if (OptionsDlg._rOptionsDlg.bGetEnterPrintReceipt())
+                    //if (OptionsDlg._rOptionsDlg.GetEnterPrintReceipt())
                     //{
                     //    BtnScontrino_Click(this, null);
                     //}
@@ -1908,10 +1906,10 @@ namespace StandFacile
                         LogToFile(sTmp);
 
                         // Ctrl + 0
-                        setEditStatus_BC("");
+                        SetEditStatus_BC("");
 
-                        DataManager.clearGrid();
-                        AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+                        DataManager.ClearGrid();
+                        AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     }
                     break;
 
@@ -1928,7 +1926,7 @@ namespace StandFacile
                         LogToFile(sTmp);
 
                         // Ctrl + Alt + E
-                        eraseAllaData();
+                        EraseAllaData();
                         return; //  altrimenti il successivo FormResize() genera eccezioni
                     }
                     break;
@@ -1939,7 +1937,7 @@ namespace StandFacile
                         comboCashPos.SelectedIndex = (comboCashPos.SelectedIndex + 1) % (sConst_PaymentType.Length - 1);
                         scannerInputQueue.Clear();
                     }
-                    AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+                    AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
 
                 case 'P':
@@ -1952,7 +1950,7 @@ namespace StandFacile
 
                 // stampa copia locale scontrino singola
                 case 'S':
-                    if ((e.Modifiers == Keys.Control) && PrintReceiptConfigDlg.bGetTicketNoPriceCopy())
+                    if ((e.Modifiers == Keys.Control) && PrintReceiptConfigDlg.GetTicketNoPriceCopy())
                         SF_Data.Articolo[_iCellPt].iOptionsFlags = SetBit(SF_Data.Articolo[_iCellPt].iOptionsFlags, BIT_STAMPA_SINGOLA_NELLA_COPIA_RECEIPT);
                     break;
 
@@ -2000,8 +1998,8 @@ namespace StandFacile
                         SF_Data.Articolo[_iCellPt].iQuantitaOrdine = 0;
                 }
 
-                AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
-                _iAnteprimaTotParziale = AnteprimaDlg.iGetTotaleReceipt();
+                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+                _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
             }
             // per sicurezza si azzerano in caso numeri di fuori griglia
             else if ((iKey == '0') && String.IsNullOrEmpty(SF_Data.Articolo[_iCellPt].sTipo) &&
@@ -2011,8 +2009,8 @@ namespace StandFacile
             {
                 SF_Data.Articolo[_iCellPt].iQuantitaOrdine = 0;
 
-                AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
-                _iAnteprimaTotParziale = AnteprimaDlg.iGetTotaleReceipt();
+                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+                _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
             }
 
             if (MnuImpListino.Checked)
@@ -2150,7 +2148,7 @@ namespace StandFacile
                 _sEditNome = EditNome.Text.Trim();
                 SF_Data.sNome = _sEditNome;
 
-                if (getStatusNota())
+                if (GetStatusNota())
                 {
                     _sEditNota = EditNota.Text.Trim();
                     SF_Data.sNota = _sEditNota;
@@ -2169,7 +2167,7 @@ namespace StandFacile
                         Console.WriteLine(_sEditCoperti); // debug
                 }
 
-                AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
             }
         }
 
@@ -2182,13 +2180,13 @@ namespace StandFacile
         /************************************************
          * cancella dati con : Shift + Alt + Ctrl + E
          ************************************************/
-        private void eraseAllaData()
+        private void EraseAllaData()
         {
             int i;
             String sNomeFileTmp, sNomeDirTmp;
             DialogResult dResult;
 
-            if (_bUSA_NDB() && (SF_Data.iNumCassa != CASSA_PRINCIPALE)) // sicurezza
+            if (bUSA_NDB() && (SF_Data.iNumCassa != CASSA_PRINCIPALE)) // sicurezza
                 return;
 
             dResult = MessageBox.Show("Sei sicuro di voler azzerare i dati di oggi ?", "Attenzione !", MessageBoxButtons.YesNo);
@@ -2200,40 +2198,40 @@ namespace StandFacile
                 if (dResult == DialogResult.Yes)
                 {
                     // cancellazione dati riepilogo
-                    Directory.SetCurrentDirectory(DataManager.sGetAnnoDir());
+                    Directory.SetCurrentDirectory(DataManager.GetAnnoDir());
 
                     try
                     {
                         for (i = CASSA_PRINCIPALE; i <= (MAX_CASSE_SECONDARIE + 1); i++)
                         {
                             // cancellazione dati riepilogo
-                            sNomeFileTmp = DATA_DIR + "\\" + getNomeFileDati(i, getActualDate());
+                            sNomeFileTmp = DATA_DIR + "\\" + GetNomeFileDati(i, GetActualDate());
                             File.Delete(sNomeFileTmp);
 
                             // cancellazione backup dati riepilogo
-                            sNomeFileTmp = DATA_DIR + "\\" + getNomeFileDatiBak(i);
+                            sNomeFileTmp = DATA_DIR + "\\" + GetNomeFileDatiBak(i);
                             File.Delete(sNomeFileTmp);
                         }
 
                         // cancellazione tickets
-                        sNomeDirTmp = DataManager.sGetTicketsDir();
+                        sNomeDirTmp = DataManager.GetTicketsDir();
                         if (Directory.Exists(sNomeDirTmp))
                             Directory.Delete(sNomeDirTmp, true);
 
                         // cancellazione messaggi
-                        sNomeDirTmp = DataManager.sGetMessagesDir();
+                        sNomeDirTmp = DataManager.GetMessagesDir();
                         if (Directory.Exists(sNomeDirTmp))
                             Directory.Delete(sNomeDirTmp, true);
 
                         // cancellazione copie
-                        sNomeDirTmp = DataManager.sGetCopiesDir();
+                        sNomeDirTmp = DataManager.GetCopiesDir();
                         if (Directory.Exists(sNomeDirTmp))
                             Directory.Delete(sNomeDirTmp, true);
 
                     }
                     catch (Exception)
                     {
-                        LogToFile("eraseAllaData: problemi di cancellazione Dir");
+                        LogToFile("EraseAllaData: problemi di cancellazione Dir");
                     }
 
                     _rdBaseIntf.dbDropTables();
@@ -2253,7 +2251,7 @@ namespace StandFacile
         /*********************************************
             ritorna true se non ci sono errori
          *********************************************/
-        bool bVerificaQuantita()
+        bool VerificaQuantita()
         {
             if (SF_Data.Articolo[_iCellPt].iQuantitaOrdine > SF_Data.Articolo[_iCellPt].iDisponibilita)
             {
@@ -2270,7 +2268,7 @@ namespace StandFacile
         /// <summary>
         /// ritorna true se c'è disponibilità sufficente di Articoli e Componenti
         /// </summary>
-        bool bVerificaTutteQuantita()
+        bool VerificaTutteQuantita()
         {
             int i;
 
@@ -2293,9 +2291,9 @@ namespace StandFacile
          * le verifiche con : DataManager.getTotaleCurrReceipt() && VerificaQuantita()
          * vanno fatte ancora prima di interrogare il server NSC
          *********************************************************************************/
-        private void emissioneScontrino()
+        private void EmissioneScontrino()
         {
-            LogToFile("Mainform : emissioneScontrino 1");
+            LogToFile("Mainform : EmissioneScontrino 1");
 
             // ripetuto per sicurezza
             if (BtnEsportazione.Checked)
@@ -2308,8 +2306,8 @@ namespace StandFacile
             else
                 SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_EMESSO_IN_PREVENDITA);
 
-            if (bCheckService(Define._REC_TEST))
-                TestManager.testRecord_order();  // ogni 250ms
+            if (CheckService(Define._REC_TEST))
+                TestManager.TestRecord_order();  // ogni 250ms
 
             DataManager.Receipt();  // salva anche i Dati
 
@@ -2318,18 +2316,18 @@ namespace StandFacile
                 WarningManager(WRN_TZT);
 
             if (_bListinoModificato)
-                DataManager.bSalvaListino();
+                DataManager.SalvaListino();
 
             _iAnteprimaTotParziale = 0;
 
             if (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS)
-                resetBtnScontrino();
+                ResetBtnScontrino();
             // else
             //  viene eseguito dopo la stampa Legacy con l'evento RESET_RECEIPT_BTN_EVENT
         }
 
         /// <summary>aggiorna la barra di stato</summary>
-        public void updateStatusBar(int iNumOfTicketsParm, int iTotaleTicketParm)
+        public void UpdateStatusBar(int iNumOfTicketsParm, int iTotaleTicketParm)
         {
             if (_bShowTotaleScontrinoPrec)
                 lblStatusTotalePrec.Text = String.Format("Totale Pr. = {0}", IntToEuro(iTotaleTicketParm));
@@ -2344,7 +2342,7 @@ namespace StandFacile
         }
 
         /// <summary>overload: aggiorna la barra di stato</summary>
-        public void updateStatusBar(String sStatusParam)
+        public void UpdateStatusBar(String sStatusParam)
         {
             sStatusText = sStatusParam;
         }
@@ -2353,7 +2351,7 @@ namespace StandFacile
         /// rimette a posto l'astetto dei bottoni dopo
         /// l'emissione di uno scontrino con Timer o forzato
         /// </summary>
-        private void resetBtnScontrino()
+        private void ResetBtnScontrino()
         {
             _bPrintTimeoutEnabled = false;
             // stop forzato
@@ -2361,7 +2359,7 @@ namespace StandFacile
             BtnEsportazione.Checked = false;
 
             BtnSconto.Checked = false;
-            ScontoDlg._resetSconto();
+            ScontoDlg.ResetSconto();
             BtnSconto.Image = Properties.Resources.sconto_no;
 
             BtnScontrino.Enabled = true;
@@ -2383,23 +2381,23 @@ namespace StandFacile
 
             EditStatus_BC.Text = "";
 
-            updateStatusBar(DataManager.iGetNumOfLocalOrders(), SF_Data.iTotaleReceiptDovuto);
+            UpdateStatusBar(DataManager.GetNumOfLocalOrders(), SF_Data.iTotaleReceiptDovuto);
 
             // comboCashPos.Text = ""; // inutile cambio SelectedIndex lo reimposta
             comboCashPos.SelectedIndex = sConst_PaymentType.Length - 1;
 
-            if (OptionsDlg._rOptionsDlg.bGetPresales_LoadMode())
+            if (OptionsDlg._rOptionsDlg.GetPresales_LoadMode())
                 EditStatus_BC.Focus();
             else
                 MainGrid.Focus(); // evita inserimenti indesiderati del tavolo
 
-            LogToFile("resetBtnScontrino");
+            LogToFile("ResetBtnScontrino");
         }
 
         /// <summary>
         /// abilita/disabilita le varie voci del Menù Principale
         /// </summary>
-        void checkMenuItems()
+        void CheckMenuItems()
         {
             // bottoni e/o menù rilevanti
             if (MnuModDispArticoli.Checked)
@@ -2616,7 +2614,7 @@ namespace StandFacile
                 {
                     // Menù File e Stampa
 
-                    if (DataManager.bCheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
+                    if (DataManager.CheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
                     {
                         MnuEsportaListino.Enabled = false;
                         MnuImportaListino.Enabled = false;
@@ -2697,7 +2695,7 @@ namespace StandFacile
                 }
 
                 // cassa secondaria e DB
-                if (DataManager.bCheckIf_CassaSec_and_NDB())
+                if (DataManager.CheckIf_CassaSec_and_NDB())
                     MnuModDispArticoli.Enabled = false;
                 else
                     MnuModDispArticoli.Enabled = true;
@@ -2720,7 +2718,7 @@ namespace StandFacile
                 // Menù Visualizza
                 MnuVisOrdiniOggi.Enabled = true;
 
-                MnuEsploraOrdiniWeb.Enabled = NetConfigDlg.rNetConfigDlg.bGetWebOrderEnabled();
+                MnuEsploraOrdiniWeb.Enabled = NetConfigDlg.rNetConfigDlg.GetWebOrderEnabled();
                 MnuVisListino.Enabled = true;
                 MnuReceiptPreview.Enabled = true;
 
@@ -2765,10 +2763,10 @@ namespace StandFacile
 
                 if (_bListinoModificato)
                 {
-                    DataManager.bSalvaListino();
+                    DataManager.SalvaListino();
 
                     DataManager.SalvaDati(); // così si visualizzano prezzi e dati aggiornati
-                    setTabsAppearance();
+                    SetTabsAppearance();
                 }
 
                 sStatusText = "Pronto";
@@ -2780,9 +2778,9 @@ namespace StandFacile
 
         // toggle del Focus tra griglia ed EditStatusTavolo
         // verifica inserimento del Tavolo se non è esportazione e c'è almeno una Pietanza
-        bool bVerificaTavoloRichiesto()
+        bool VerificaTavoloRichiesto()
         {
-            if (SF_Data.bTavoloRichiesto && !BtnEsportazione.Checked && !bCheckService(Define._AUTO_SEQ_TEST))
+            if (SF_Data.bTavoloRichiesto && !BtnEsportazione.Checked && !CheckService(Define._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(_sEditTavolo))
                 {
                     MessageBox.Show("Inserisci il numero del Tavolo,\n\ncon (F1) passi dalla griglia alla casella del Tavolo.",
@@ -2798,9 +2796,9 @@ namespace StandFacile
         }
 
         // verifica inserimento dei coperti se non è esportazione e c'è almeno una Pietanza
-        bool bVerificaCopertoRichiesto()
+        bool VerificaCopertoRichiesto()
         {
-            if (SF_Data.bCopertoRichiesto && !BtnEsportazione.Checked && !bCheckService(Define._AUTO_SEQ_TEST))
+            if (SF_Data.bCopertoRichiesto && !BtnEsportazione.Checked && !CheckService(Define._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(_sEditCoperti) || (Convert.ToInt32(_sEditCoperti) <= 0))
                 {
                     MessageBox.Show("Inserisci il numero dei Coperti,\n\ncon (F2) passi dalla griglia alla casella dei Coperti.",
@@ -2816,9 +2814,9 @@ namespace StandFacile
         }
 
         // verifica inserimento del pagamento in Contanti/Card/Satispay
-        bool bVerificaPOS_Richiesto()
+        bool VerificaPOS_Richiesto()
         {
-            if (SF_Data.bModoPagamRichiesto && !bCheckService(Define._AUTO_SEQ_TEST))
+            if (SF_Data.bModoPagamRichiesto && !CheckService(Define._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(comboCashPos.Text.Trim()))
                 {
                     MessageBox.Show("Inserisci il tipo di pagamento Contanti/Card/Satispay",
@@ -2839,9 +2837,9 @@ namespace StandFacile
         {
             String sTmp, sFileToPrint;
 
-            sFileToPrint = buildSampleText();
+            sFileToPrint = BuildSampleText();
 
-            sTmp = String.Format("Mainform : printSampleText() {0}", sFileToPrint);
+            sTmp = String.Format("Mainform : PrintSampleText() {0}", sFileToPrint);
             LogToFile(sTmp);
 
             GenPrintFile(sFileToPrint);
@@ -2853,7 +2851,7 @@ namespace StandFacile
 
             openFileDialog.Filter = "Files di testo (*.txt)|*.TXT";
             openFileDialog.FileName = "";
-            openFileDialog.InitialDirectory = DataManager.sGetDataDir();
+            openFileDialog.InitialDirectory = DataManager.GetDataDir();
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -2870,10 +2868,10 @@ namespace StandFacile
             String sTmp;
             DialogResult dResult;
 
-            sSourceFile = DataManager.sGetExeDir() + "\\" + NOME_FILE_LISTINO;
+            sSourceFile = DataManager.GetExeDir() + "\\" + NOME_FILE_LISTINO;
 
             DlgSaveFile.Filter = "Files di testo (*.txt)|*.TXT";
-            DlgSaveFile.InitialDirectory = DataManager.sGetRootDir();
+            DlgSaveFile.InitialDirectory = DataManager.GetRootDir();
             DlgSaveFile.DefaultExt = "txt";
             DlgSaveFile.CheckFileExists = false;
             DlgSaveFile.FileName = NOME_FILE_LISTINO;
@@ -2935,18 +2933,18 @@ namespace StandFacile
                                                       "Attenzione !", MessageBoxButtons.YesNo);
                     if (dResult == DialogResult.Yes)
                     {
-                        sDestinationFile = DataManager.sGetExeDir() + "\\" + NOME_FILE_LISTINO;
-                        sBacukpFile = DataManager.sGetExeDir() + "\\" + NOME_FILE_LISTINO_BK;
+                        sDestinationFile = DataManager.GetExeDir() + "\\" + NOME_FILE_LISTINO;
+                        sBacukpFile = DataManager.GetExeDir() + "\\" + NOME_FILE_LISTINO_BK;
 
                         openFileDialog.Filter = "Files di testo (*.txt)|*.TXT";
-                        openFileDialog.InitialDirectory = DataManager.sGetRootDir();
+                        openFileDialog.InitialDirectory = DataManager.GetRootDir();
                         openFileDialog.DefaultExt = "txt";
 
                         if (openFileDialog.ShowDialog() == DialogResult.OK)
                         {
                             sSourceFile = openFileDialog.FileName;
 
-                            Directory.SetCurrentDirectory(DataManager.sGetExeDir());
+                            Directory.SetCurrentDirectory(DataManager.GetExeDir());
 
                             if (sSourceFile == sDestinationFile)
                                 MessageBox.Show("Scegliere un file diverso !", "Attenzione !", MessageBoxButtons.OK);
@@ -3000,9 +2998,9 @@ namespace StandFacile
                 // apre form per postfisso
                 if (dResult == DialogResult.OK)
                 {
-                    sPrefix = getNomeFileDati(CASSA_PRINCIPALE, getActualDate()).Remove(12); // elimina il .txt
+                    sPrefix = GetNomeFileDati(CASSA_PRINCIPALE, GetActualDate()).Remove(12); // elimina il .txt
 
-                    sDestinationPostFix = "_" + rRenameDlg.sGetEdit();
+                    sDestinationPostFix = "_" + rRenameDlg.GetEdit();
                     sDestinationFile = sPrefix + sDestinationPostFix + ".txt";
 
                     sTmp = String.Format("FrmMain chiudiIncasso: sDestinationFile = {0}", sDestinationFile);
@@ -3020,23 +3018,23 @@ namespace StandFacile
                         else
                         {
                             // rinomina il file dati
-                            Directory.SetCurrentDirectory(DataManager.sGetDataDir());
+                            Directory.SetCurrentDirectory(DataManager.GetDataDir());
 
                             for (iNumCassa = CASSA_PRINCIPALE; iNumCassa <= (MAX_CASSE_SECONDARIE + 1); iNumCassa++)
                             {
-                                sSourceFile = getNomeFileDati(iNumCassa, getActualDate());
+                                sSourceFile = GetNomeFileDati(iNumCassa, GetActualDate());
 
-                                sPrefix = getNomeFileDati(iNumCassa, getActualDate()).Remove(12); // elimina il .txt
-                                sDestinationPostFix = "_" + rRenameDlg.sGetEdit();
+                                sPrefix = GetNomeFileDati(iNumCassa, GetActualDate()).Remove(12); // elimina il .txt
+                                sDestinationPostFix = "_" + rRenameDlg.GetEdit();
                                 sDestinationFile = sPrefix + sDestinationPostFix + ".txt";
 
                                 if (File.Exists(sSourceFile))
                                     File.Move(sSourceFile, sDestinationFile);
 
-                                sSourceFile = getNomeFileDatiBak(iNumCassa);
+                                sSourceFile = GetNomeFileDatiBak(iNumCassa);
 
-                                sPrefix = getNomeFileDati(iNumCassa, getActualDate()).Remove(12); // elimina il .txt
-                                sDestinationPostFix = "_" + rRenameDlg.sGetEdit();
+                                sPrefix = GetNomeFileDati(iNumCassa, GetActualDate()).Remove(12); // elimina il .txt
+                                sDestinationPostFix = "_" + rRenameDlg.GetEdit();
                                 sDestinationFile = sPrefix + sDestinationPostFix + ".bak";
 
                                 if (File.Exists(sSourceFile))
@@ -3044,20 +3042,20 @@ namespace StandFacile
                             }
 
                             // elimina le Directories
-                            Directory.SetCurrentDirectory(DataManager.sGetAnnoDir());
+                            Directory.SetCurrentDirectory(DataManager.GetAnnoDir());
 
                             // cancellazione tickets per evitare ambiguità
-                            sNomeDirTmp = DataManager.sGetTicketsDir();
+                            sNomeDirTmp = DataManager.GetTicketsDir();
                             if (Directory.Exists(sNomeDirTmp))
                                 Directory.Delete(sNomeDirTmp, true);
 
                             // cancellazione messaggi
-                            sNomeDirTmp = DataManager.sGetMessagesDir();
+                            sNomeDirTmp = DataManager.GetMessagesDir();
                             if (Directory.Exists(sNomeDirTmp))
                                 Directory.Delete(sNomeDirTmp, true);
 
                             // cancellazione copie
-                            sNomeDirTmp = DataManager.sGetCopiesDir();
+                            sNomeDirTmp = DataManager.GetCopiesDir();
                             if (Directory.Exists(sNomeDirTmp))
                                 Directory.Delete(sNomeDirTmp, true);
 
@@ -3107,20 +3105,20 @@ namespace StandFacile
             if (!MnuEsperto.Checked && MnuModDispArticoli.Checked)
                 MessageBox.Show("Per modificare la disponibilità fare\ndoppio click sulla voce che interessa.", "Attenzione", MessageBoxButtons.OK);
 
-            checkMenuItems();
+            CheckMenuItems();
             _iModDisponibilitaTimeout = Define.TIMEOUT_MOD_QUANTITA;
         }
 
         private void MnuAnnulloOrdine_Click(object sender, EventArgs e)
         {
-            if (DataManager.iGetNumOfLocalOrders() == 0)
+            if (DataManager.GetNumOfLocalOrders() == 0)
             {
                 WrnMsg.iErrID = WRN_DNP;
                 WarningManager(WRN_DNP);
                 return;
             }
 
-            VisOrdiniDlg rVisOrdiniDlg = new VisOrdiniDlg(getActualDate(), DataManager.iGetNumOfLocalOrders(), "", VIEW_TYPE.CANCEL_ORDER);
+            VisOrdiniDlg rVisOrdiniDlg = new VisOrdiniDlg(GetActualDate(), DataManager.GetNumOfLocalOrders(), "", VIEW_TYPE.CANCEL_ORDER);
 
             FormResize(null, null);
             MainGrid_Redraw(this, null);
@@ -3130,14 +3128,14 @@ namespace StandFacile
 
         private void MnuChangePayment_Click(object sender, EventArgs e)
         {
-            if (DataManager.iGetNumOfLocalOrders() == 0)
+            if (DataManager.GetNumOfLocalOrders() == 0)
             {
                 WrnMsg.iErrID = WRN_DNP;
                 WarningManager(WRN_DNP);
                 return;
             }
 
-            VisOrdiniDlg rVisOrdiniDlg = new VisOrdiniDlg(getActualDate(), DataManager.iGetNumOfLocalOrders(), "", VIEW_TYPE.CHANGE_PAYMENT);
+            VisOrdiniDlg rVisOrdiniDlg = new VisOrdiniDlg(GetActualDate(), DataManager.GetNumOfLocalOrders(), "", VIEW_TYPE.CHANGE_PAYMENT);
 
             rVisOrdiniDlg.Dispose();
         }
@@ -3149,7 +3147,7 @@ namespace StandFacile
         {
             String sTmp;
 
-            if (DataManager.iGetNumOfLocalOrders() == 0)
+            if (DataManager.GetNumOfLocalOrders() == 0)
             {
                 WrnMsg.iErrID = WRN_DNP;
                 WarningManager(WRN_DNP);
@@ -3158,13 +3156,13 @@ namespace StandFacile
 
             VisDatiDlg rVisDatiDlg = new VisDatiDlg();
 
-            sTmp = DataManager.sGetDataDir() + "\\" + getNomeFileDati(SF_Data.iNumCassa, getActualDate());
+            sTmp = DataManager.GetDataDir() + "\\" + GetNomeFileDati(SF_Data.iNumCassa, GetActualDate());
 
             if (!File.Exists(sTmp))
                 DataManager.SalvaDati();
 
             // usa la data corrente
-            rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_DATI, getActualDate(), SF_Data.iNumCassa, false);
+            rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_DATI, GetActualDate(), SF_Data.iNumCassa, false);
             rVisDatiDlg.Dispose();
         }
 
@@ -3174,7 +3172,7 @@ namespace StandFacile
             VisDatiDlg rVisDatiDlg = new VisDatiDlg();
 
             SelDataDlg.rSelDataDlg.ShowDialog();
-            selDates = SelDataDlg.rSelDataDlg.getDateFromPicker();
+            selDates = SelDataDlg.rSelDataDlg.GetDateFromPicker();
 
             if (selDates != null) // non sono uscito con Cancel ...
                 rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_DATI, selDates, SF_Data.iNumCassa, true);
@@ -3187,9 +3185,9 @@ namespace StandFacile
             VisDatiDlg rVisDatiDlg = new VisDatiDlg();
 
             if (_bListinoModificato)
-                DataManager.bSalvaListino(); // aggiorna il file prima di visualizzarlo
+                DataManager.SalvaListino(); // aggiorna il file prima di visualizzarlo
 
-            rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_PREZZI, getActualDate(), SF_Data.iNumCassa, false);
+            rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_PREZZI, GetActualDate(), SF_Data.iNumCassa, false);
 
             rVisDatiDlg.Dispose();
         }
@@ -3239,7 +3237,7 @@ namespace StandFacile
                 AnteprimaDlg.rAnteprimaDlg.Show();
                 MnuReceiptPreview.Checked = true;
 
-                AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                 Focus();
             }
         }
@@ -3258,7 +3256,7 @@ namespace StandFacile
             SelectionRange selDates;
 
             SelDataDlg.rSelDataDlg.ShowDialog();
-            selDates = SelDataDlg.rSelDataDlg.getDateFromPicker();
+            selDates = SelDataDlg.rSelDataDlg.GetDateFromPicker();
 
             if (selDates != null) // non sono uscito con Cancel ...
             {
@@ -3269,17 +3267,17 @@ namespace StandFacile
 
         private void MnuVisOrdiniEmessi_Click(object sender, EventArgs e)
         {
-            if (DataManager.iGetNumOfLocalOrders() == 0)
+            if (DataManager.GetNumOfLocalOrders() == 0)
             {
                 WrnMsg.iErrID = WRN_DNP;
                 WarningManager(WRN_DNP);
                 return;
             }
 
-            SF_Data.iNumOfLastReceipt = DataManager.iGetNumOfOrders();
-            updateStatusBar(SF_Data.iNumOfLastReceipt, 0);
+            SF_Data.iNumOfLastReceipt = DataManager.GetNumOfOrders();
+            UpdateStatusBar(SF_Data.iNumOfLastReceipt, 0);
 
-            VisOrdiniDlg rVisOrdiniDlg = new VisOrdiniDlg(getActualDate(), DataManager.iGetNumOfLocalOrders());
+            VisOrdiniDlg rVisOrdiniDlg = new VisOrdiniDlg(GetActualDate(), DataManager.GetNumOfLocalOrders());
 
             rVisOrdiniDlg.Dispose();
         }
@@ -3292,11 +3290,11 @@ namespace StandFacile
         private void MnuEsperto_Click(object sender, EventArgs e)
         {
             String sTmp;
-            DialogResult dResult = DialogResult.Cancel;
+            DialogResult dResult;
 
             if (!_bPasswordIsGood)
             {
-                if (!bCheckService(_ESPERTO) && !MnuEsperto.Checked)
+                if (!CheckService(_ESPERTO) && !MnuEsperto.Checked)
                 {
                     MessageBox.Show("E' importante aver letto e compreso il manuale prima di proseguire !\r\n\r\n" +
                             "Il manuale pdf è presente nella cartella di installazione e si può aprire anche dal pulsante presente nel menù di Aiuto->Aiuto Rapido.",
@@ -3320,7 +3318,7 @@ namespace StandFacile
                 MnuEsperto.Checked = !MnuEsperto.Checked;
             }
 
-            checkMenuItems();
+            CheckMenuItems();
 
             sTmp = String.Format("Modo Esperto {0}", MnuEsperto.Checked);
             LogToFile(sTmp);
@@ -3328,7 +3326,7 @@ namespace StandFacile
 
         private void MnuCambiaPassword_Click(object sender, EventArgs e)
         {
-            DialogResult dResult = DialogResult.Cancel;
+            DialogResult dResult;
 
             PasswordDlg _rPasswordDlg = new PasswordDlg(false);
             dResult = _rPasswordDlg.ShowDialog();
@@ -3346,8 +3344,8 @@ namespace StandFacile
         {
             WinPrinterDlg._rWinPrinterDlg.Init(true);
 
-            if (WinPrinterDlg.bGetListinoModificato())
-                DataManager.bSalvaListino();
+            if (WinPrinterDlg.GetListinoModificato())
+                DataManager.SalvaListino();
         }
 
         private void MnuImpostaStampanteLegacy_Click(object sender, EventArgs e)
@@ -3359,36 +3357,36 @@ namespace StandFacile
         {
             PrintReceiptConfigDlg._rPrintTckConfigDlg.Init(true);
 
-            if (PrintReceiptConfigDlg.bGetListinoModificato())
-                DataManager.bSalvaListino();
+            if (PrintReceiptConfigDlg.GetListinoModificato())
+                DataManager.SalvaListino();
         }
 
         private void MnuImpostaCopieInRete_Click(object sender, EventArgs e)
         {
             PrintNetCopiesConfigDlg._rPrintConfigDlg.Init(true);
 
-            if (PrintNetCopiesConfigDlg.bGetListinoModificato())
-                DataManager.bSalvaListino();
+            if (PrintNetCopiesConfigDlg.GetListinoModificato())
+                DataManager.SalvaListino();
         }
 
         private void MnuImpOpzioni_Click(object sender, EventArgs e)
         {
             OptionsDlg._rOptionsDlg.Init(true);
 
-            if (OptionsDlg.bGetListinoModificato())
-                DataManager.bSalvaListino();
+            if (OptionsDlg.GetListinoModificato())
+                DataManager.SalvaListino();
 
-            if (OptionsDlg._rOptionsDlg.bGetShowPrevReceipt())
-                setShowTotaleScontrinoPrec(true);
+            if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
+                SetShowTotaleScontrinoPrec(true);
             else
             {
-                setShowTotaleScontrinoPrec(false);
+                SetShowTotaleScontrinoPrec(false);
                 lblStatusTotalePrec.Text = "";
             }
 
-            setColorsTheme();
+            SetColorsTheme();
 
-            checkMenuItems();
+            CheckMenuItems();
         }
 
         private void MnuImpHeader_Click(object sender, EventArgs e)
@@ -3396,7 +3394,7 @@ namespace StandFacile
             EditHeaderFooterDlg rHeaderFooterDlg = new EditHeaderFooterDlg();
 
             if (EditHeaderFooterDlg.bGetListinoModificato())
-                DataManager.bSalvaListino();
+                DataManager.SalvaListino();
 
             rHeaderFooterDlg.Dispose();
         }
@@ -3405,12 +3403,12 @@ namespace StandFacile
         {
             EditGrigliaDlg rSetGridDlg = new EditGrigliaDlg();
 
-            if (EditGrigliaDlg.bGetListinoModificato())
+            if (EditGrigliaDlg.GetListinoModificato())
             {
-                DataManager.bSalvaListino();
+                DataManager.SalvaListino();
 
-                setTabsAppearance();
-                updateStatusBar("Pronto");
+                SetTabsAppearance();
+                UpdateStatusBar("Pronto");
                 FormResize(this, null);
             }
 
@@ -3442,7 +3440,7 @@ namespace StandFacile
                 EditCoperti.Text = _sCopertiPrev;
             }
 
-            checkMenuItems();
+            CheckMenuItems();
         }
 
         private void MnuQHelp_Click(object sender, EventArgs e)
@@ -3480,7 +3478,7 @@ namespace StandFacile
                 EditCoperti.Text = String.Format("{0,4:0.00}", SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario / 100.0f);
             }
 
-            checkMenuItems();
+            CheckMenuItems();
         }
 
         private void BtnX10_Click(object sender, EventArgs e)
@@ -3499,7 +3497,7 @@ namespace StandFacile
             String[] sQueue_Object = new String[2] { WEB_ORDER_PRINT_DONE, "" };
 
             // se si arriva qui dal test
-            if (bCheckService(Define._AUTO_SEQ_TEST))
+            if (CheckService(Define._AUTO_SEQ_TEST))
             {
                 BtnScontrino.Checked = true;
                 Thread.Sleep(1000); // per rendere il push visibile
@@ -3507,16 +3505,16 @@ namespace StandFacile
 
             MainGrid.Focus(); // evita inserimenti indesiderati del tavolo
 
-            if (_bUSA_NDB())
+            if (bUSA_NDB())
             {
                 // carica la disponibilità dal DB
                 _iDBDispTimeout = _REFRESH_DISP;
-                DataManager.aggiornaDisponibilità(); // carica i dati aggiornati di Disponibilità
+                DataManager.AggiornaDisponibilità(); // carica i dati aggiornati di Disponibilità
 
             }
 
             // verifiche : scontrino non nulle, quantità < disponibilità, dimenticanza tavolo
-            if (DataManager.bTicketIsGood() && bVerificaTutteQuantita() && bVerificaTavoloRichiesto() && bVerificaCopertoRichiesto() && bVerificaPOS_Richiesto())
+            if (DataManager.TicketIsGood() && VerificaTutteQuantita() && VerificaTavoloRichiesto() && VerificaCopertoRichiesto() && VerificaPOS_Richiesto())
             {
                 //
                 if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_WEB))
@@ -3529,9 +3527,9 @@ namespace StandFacile
                     //    bResult = false;
 
                     if (bResult)
-                        EsploraRemOrdiniDB_Dlg.eventEnqueue(sQueue_Object);
+                        EsploraRemOrdiniDB_Dlg.EventEnqueue(sQueue_Object);
                     else
-                        _rdBaseIntf.db_webOrderEnqueue(SF_Data.iNumOrdineWeb);
+                        _rdBaseIntf.dbWebOrderEnqueue(SF_Data.iNumOrdineWeb);
                 }
 
                 if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA))
@@ -3545,7 +3543,7 @@ namespace StandFacile
                 comboCashPos.Enabled = true;
                 EditResto.Enabled = true;
 
-                if (_bUSA_NDB())
+                if (bUSA_NDB())
                 {
                     /***********************************************************************************
                      * controllo coerenza : se le date sono diverse il DB ritorna 0 e solleva l'errore
@@ -3553,12 +3551,12 @@ namespace StandFacile
                      ***********************************************************************************/
                     if (_rdBaseIntf.dbNewOrdineNumRequest() > 0)
                     {
-                        emissioneScontrino();
-                        LogToFile("Mainform : emissioneScontrino");
+                        EmissioneScontrino();
+                        LogToFile("Mainform : EmissioneScontrino");
                     }
                     else
                     {
-                        sActualDateStr = getActualDate().ToString("dd/MM/yy");
+                        sActualDateStr = GetActualDate().ToString("dd/MM/yy");
 
                         WrnMsg.iErrID = WRN_DNA;
                         WrnMsg.sMsg = String.Format("- PC Locale : {0}\n\n- Database : {1}\n", sActualDateStr, dbGetDateFromDB());
@@ -3571,11 +3569,11 @@ namespace StandFacile
                     SF_Data.iNumOfLastReceipt++;
                     SF_Data.iActualNumOfReceipts++;
 
-                    emissioneScontrino();
-                    LogToFile("Mainform : emissioneScontrino _ql");
+                    EmissioneScontrino();
+                    LogToFile("Mainform : EmissioneScontrino _ql");
                 }
 
-                AnteprimaDlg.rAnteprimaDlg.redrawTicketNum();
+                AnteprimaDlg.rAnteprimaDlg.RedrawTicketNum();
             }
             else
             {
@@ -3584,11 +3582,11 @@ namespace StandFacile
 
                 EditStatus_BC.Text = "";
 
-                if (OptionsDlg._rOptionsDlg.bGetPresales_LoadMode())
+                if (OptionsDlg._rOptionsDlg.GetPresales_LoadMode())
                     EditStatus_BC.Focus();
             }
 
-            checkMenuItems();
+            CheckMenuItems();
 
             MainGrid_Redraw(this, null); // aggiorna visivamente
         }
@@ -3635,35 +3633,35 @@ namespace StandFacile
             String sRemDBChecksum;
             String[] sQueue_Object = new String[2];
 
-            if (_bUSA_NDB())
+            if (bUSA_NDB())
             {
-                SF_Data.iNumOfLastReceipt = DataManager.iGetNumOfOrders();
-                updateStatusBar(SF_Data.iNumOfLastReceipt, 0);
+                SF_Data.iNumOfLastReceipt = DataManager.GetNumOfOrders();
+                UpdateStatusBar(SF_Data.iNumOfLastReceipt, 0);
 
                 _rdBaseIntf.dbCheck();
 
-                DataManager.aggiornaDisponibilità();
+                DataManager.AggiornaDisponibilità();
 
                 BtnDB.Image = BtnImgList.Images[0];
                 _iDBDispTimeout = _REFRESH_DISP_SHORT; // dopo 2s dbCaricaDisponibilità()
             }
 
-            if (dBaseTunnel_my.bGetWebServiceReq())
+            if (dBaseTunnel_my.GetWebServiceReq())
             {
                 if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && dBaseTunnel_my.rdbPing())
                 {
-                    setWebPriceListLoadRequest();
+                    SetWebPriceListLoadRequest();
 
                     sRemDBChecksum = dBaseTunnel_my.rdbCheckListino(2000); // se il listino non esiste ritorna una stringa vuota
 
-                    if (!String.IsNullOrEmpty(sRemDBChecksum) && (sRemDBChecksum != DataManager.sGetWebListinoChecksum()) && (SF_Data.iNumCassa == CASSA_PRINCIPALE))
+                    if (!String.IsNullOrEmpty(sRemDBChecksum) && (sRemDBChecksum != DataManager.GetWebListinoChecksum()) && (SF_Data.iNumCassa == CASSA_PRINCIPALE))
                     {
                         LogToFile("Mainform : rdbSalvaListino() per checksum non corrispondente");
 
                         // avvia rdbSalvaListino()
                         sQueue_Object[0] = WEB_PRICELIST_LOAD_START;
 
-                        dBaseTunnel_my.eventEnqueue(sQueue_Object);
+                        dBaseTunnel_my.EventEnqueue(sQueue_Object);
                     }
                 }
             }
@@ -3673,7 +3671,7 @@ namespace StandFacile
         {
             VisMessaggiDlg rVisMessaggiDlg = new VisMessaggiDlg();
 
-            rVisMessaggiDlg.nuovoMessaggioCucina();
+            rVisMessaggiDlg.NuovoMessaggioCucina();
 
             rVisMessaggiDlg.Dispose();
         }
@@ -3700,11 +3698,11 @@ namespace StandFacile
             else
                 BtnSconto.Checked = false;
 
-            AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
-            _iAnteprimaTotParziale = AnteprimaDlg.iGetTotaleReceipt();
+            AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+            _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
         }
 
-        private void btnPlus_Click(object sender, EventArgs e)
+        private void BtnPlus_Click(object sender, EventArgs e)
         {
             if (EditCoperti.Focused)
             {
@@ -3725,8 +3723,8 @@ namespace StandFacile
 
                 SF_Data.Articolo[_iCellPt].iQuantitaOrdine++;
 
-                AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
-                _iAnteprimaTotParziale = AnteprimaDlg.iGetTotaleReceipt();
+                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+                _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
 
                 MainGrid_Redraw(this, null);
             }
@@ -3734,7 +3732,7 @@ namespace StandFacile
             scannerInputQueue.Clear();
         }
 
-        private void btnMinus_Click(object sender, EventArgs e)
+        private void BtnMinus_Click(object sender, EventArgs e)
         {
             if (EditCoperti.Focused)
             {
@@ -3757,16 +3755,16 @@ namespace StandFacile
                 if (SF_Data.Articolo[_iCellPt].iQuantitaOrdine > 0)
                     SF_Data.Articolo[_iCellPt].iQuantitaOrdine--;
 
-                AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
-                _iAnteprimaTotParziale = AnteprimaDlg.iGetTotaleReceipt();
+                _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
                 MainGrid_Redraw(this, null);
             }
 
             scannerInputQueue.Clear();
         }
 
-        private void btnCanc_Click(object sender, EventArgs e)
+        private void BtnCanc_Click(object sender, EventArgs e)
         {
             if (EditCoperti.Focused)
             {
@@ -3780,52 +3778,52 @@ namespace StandFacile
                 iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
             }
 
-            AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
-            _iAnteprimaTotParziale = AnteprimaDlg.iGetTotaleReceipt();
+            AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+            _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
 
             scannerInputQueue.Clear();
             MainGrid_Redraw(this, null);
         }
 
-        private void comboCashPos_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboCashPos_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboCashPos.SelectedIndex)
             {
                 case 0:
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_CARD);
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
-                    AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+                    AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
                 case 1:
                     SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CARD);
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
-                    AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+                    AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
                 case 2:
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_CARD);
                     SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
-                    AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+                    AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
                 default:
                     // se si toglie il commento si pulisce l'Anteprima dopo la stampa dello scontrino
                     // perchè tutte le quantità sono a 0
-                    // AnteprimaDlg.rAnteprimaDlg.redrawReceipt(); 
+                    // AnteprimaDlg.rAnteprimaDlg.RedrawReceipt(); 
                     break;
             }
         }
 
         /// <summary>/// imposta CARD come metodo di pagamento/// </summary>
-        public void setPagamento_CARD()
+        public void SetPagamento_CARD()
         {
             comboCashPos.SelectedIndex = 0;
-            comboCashPos.SelectedIndex = 1; // forza la chiamata di comboCashPos_SelectedIndexChanged
+            comboCashPos.SelectedIndex = 1; // forza la chiamata di ComboCashPos_SelectedIndexChanged
         }
 
         /// <summary>/// imposta SATISPAY come metodo di pagamento/// </summary>
-        public void setPagamento_SATISPAY()
+        public void SetPagamento_SATISPAY()
         {
             comboCashPos.SelectedIndex = 0;
-            comboCashPos.SelectedIndex = 2; // forza la chiamata di comboCashPos_SelectedIndexChanged
+            comboCashPos.SelectedIndex = 2; // forza la chiamata di ComboCashPos_SelectedIndexChanged
         }
 
         private void MainGrid_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -3871,7 +3869,7 @@ namespace StandFacile
             }
 
             else if (SF_Data.bTouchMode && (_iCellPt == _iNewCellPt) && !MnuModDispArticoli.Checked && !MnuImpListino.Checked)
-                btnPlus_Click(sender, e);
+                BtnPlus_Click(sender, e);
 
             _iCellPt = _iNewCellPt;
         }
@@ -3889,7 +3887,7 @@ namespace StandFacile
             else
                 SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_ESPORTAZIONE);
 
-            AnteprimaDlg.rAnteprimaDlg.redrawReceipt();
+            AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
         }
 
         private void EditStatusResto_MouseClick(object sender, MouseEventArgs e)
@@ -4008,11 +4006,11 @@ namespace StandFacile
                                 bResult = false;
                             else
                             {
-                                sLog = String.Format("Mainform : CKW = {0}, {1}", DataManager.sGetWebListinoChecksum(), sStrBarcode);
+                                sLog = String.Format("Mainform : CKW = {0}, {1}", DataManager.GetWebListinoChecksum(), sStrBarcode);
                                 LogToFile(sLog);
 
                                 // ************* caricamento in SF_Data e MainForm *************
-                                bResult = DataManager.caricaOrdine_QR_code(DB_Data.iNumOrdineWeb);
+                                bResult = DataManager.CaricaOrdine_QR_code(DB_Data.iNumOrdineWeb);
                             }
 
                             if (!bResult)
@@ -4021,7 +4019,7 @@ namespace StandFacile
                             sLog = String.Format("Mainform : barcode web = {0}, {1}", DB_Data.iNumOrdineWeb, bResult);
                             LogToFile(sLog);
 
-                            if (bCheckService(Define._AUTO_QRCODE_TEST))
+                            if (CheckService(Define._AUTO_QRCODE_TEST))
                             {
                                 // emissione scontrino
                                 BtnScontrino_Click(this, null);
@@ -4030,7 +4028,7 @@ namespace StandFacile
                         }
 
                         // sparato barcode con checksum corretto
-                        else if (StandCommonFiles.Barcode_EAN13.verifyChecksum(sStrBarcode))
+                        else if (StandCommonFiles.Barcode_EAN13.VerifyChecksum(sStrBarcode))
                         {
                             // lo spazio è solo per allineamento
                             sStrNum = sStrBarcode.Substring(8, 4); // numero Scontrino
@@ -4046,7 +4044,7 @@ namespace StandFacile
                             if (iGruppo == NUM_PRE_SALE_GRP) // sicurezza
                             {
                                 _sOrdiniPrevDBTable = String.Format("{0}_{1}", _dbPreOrdersTablePrefix, sStrDay);
-                                bResult = DataManager.caricaOrdinePrev(iNumScontrino, _sOrdiniPrevDBTable);
+                                bResult = DataManager.CaricaOrdinePrev(iNumScontrino, _sOrdiniPrevDBTable);
 
                                 if (!bResult)
                                     EditStatus_BC.Text = ""; // pulizia
@@ -4056,13 +4054,13 @@ namespace StandFacile
                             }
                             else if (iGruppo == NUM_WEB_SALE_GRP) // sicurezza
                             {
-                                bResult = DataManager.caricaOrdineWeb(iNumScontrino);
+                                bResult = DataManager.CaricaOrdineWeb(iNumScontrino);
 
                                 sLog = String.Format("Mainform : barcode web = {0}", iNumScontrino);
                                 LogToFile(sLog);
                             }
 
-                            if (bCheckService(Define._AUTO_QRCODE_TEST))
+                            if (CheckService(Define._AUTO_QRCODE_TEST))
                             {
                                 // emissione scontrino
                                 BtnScontrino_Click(this, null);
@@ -4092,7 +4090,7 @@ namespace StandFacile
         /// ricalcola il gruppo di stampa del primo articolo presente nalla pagina corrente della griglia<br/>
         /// attenzione che il limite _iLastArticoloIndexP1 vale solo per SF_Data.Articolo[] e non per DB_Data.Articolo[]
         /// </summary>
-        public int iCheckFirstGroupIndex()
+        public int CheckFirstGroupIndex()
         {
             int iPrimaGroup = 0;
 
@@ -4115,29 +4113,29 @@ namespace StandFacile
             // Stop del timer
             Timer.Enabled = false;
 
-            if ((SF_Data.iNumOfLastReceipt > 0) || (SF_Data.iNumOfMessages > 0) || DataManager.bCheckDispLoaded())
+            if ((SF_Data.iNumOfLastReceipt > 0) || (SF_Data.iNumOfMessages > 0) || DataManager.CheckDispLoaded())
                 DataManager.SalvaDati();
 
             if (_bListinoModificato)
-                DataManager.bSalvaListino();
+                DataManager.SalvaListino();
 
-            if (!bCheckService(Define._AUTO_RECEIPT_GEN) && !bCheckService(Define._AUTO_SEQ_TEST))
+            if (!CheckService(Define._AUTO_RECEIPT_GEN) && !CheckService(Define._AUTO_SEQ_TEST))
             {
                 // ***** puliza finale *****
                 try
                 {
                     // cancellazione tickets
-                    sNomeDirTmp = DataManager.sGetTicketsDir();
+                    sNomeDirTmp = DataManager.GetTicketsDir();
                     if (Directory.Exists(sNomeDirTmp))
                         Directory.Delete(sNomeDirTmp, true);
 
                     // cancellazione messaggi
-                    sNomeDirTmp = DataManager.sGetMessagesDir();
+                    sNomeDirTmp = DataManager.GetMessagesDir();
                     if (Directory.Exists(sNomeDirTmp))
                         Directory.Delete(sNomeDirTmp, true);
 
                     // cancellazione copie
-                    sNomeDirTmp = DataManager.sGetCopiesDir();
+                    sNomeDirTmp = DataManager.GetCopiesDir();
                     if (Directory.Exists(sNomeDirTmp))
                         Directory.Delete(sNomeDirTmp, true);
 
@@ -4148,7 +4146,7 @@ namespace StandFacile
 
                     for (i = CASSA_PRINCIPALE; i < (MAX_CASSE_SECONDARIE + 1); i++)
                     {
-                        sNomeTableTmp = getNomeDatiDBTable(i, getActualDate());
+                        sNomeTableTmp = GetNomeDatiDBTable(i, GetActualDate());
 
                         for (j = 0; j < iDB_StringsCount; j++)
                         {
@@ -4168,17 +4166,17 @@ namespace StandFacile
                     // e non ci sono altre tabelle dati
                     //  
                     // SICUREZZA:
-                    // si chiama _rdBaseIntf.dbCaricaDatidaOrdini(getActualDate(), SF_Data.iNumCassa, true) invece di iGetNumOfOrders()
+                    // si chiama _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true) invece di GetNumOfOrders()
                     // perchè restituisce -1 in caso di errore, inoltre è comune a SQLite, MySql, PostgreSql
-                    iNumTicket = _rdBaseIntf.dbCaricaDatidaOrdini(getActualDate(), SF_Data.iNumCassa, true);
+                    iNumTicket = _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true);
 
-                    if ((iNumTicket <= 0) && (DB_Data.iNumOfMessages <= 0) && !DataManager.bCheckDispLoaded() && (iDB_dataTablesCount == 1))
+                    if ((iNumTicket <= 0) && (DB_Data.iNumOfMessages <= 0) && !DataManager.CheckDispLoaded() && (iDB_dataTablesCount == 1))
                     {
-                        _rdBaseIntf.dbDropTable(getNomeDatiDBTable(SF_Data.iNumCassa, getActualDate()));
-                        _rdBaseIntf.dbDropTable(getNomeOrdiniDBTable(getActualDate()));
+                        _rdBaseIntf.dbDropTable(GetNomeDatiDBTable(SF_Data.iNumCassa, GetActualDate()));
+                        _rdBaseIntf.dbDropTable(GetNomeOrdiniDBTable(GetActualDate()));
                     }
 
-                    if (NetConfigDlg.rNetConfigDlg.bGetWebOrderEnabled())
+                    if (NetConfigDlg.rNetConfigDlg.GetWebOrderEnabled())
                     {
                         sTmp = String.Format("Chiusura StandFacile: TK={0}, C={1}", iNumTicket, SF_Data.iNumCassa);
                         rdbLogWriteVersion(sTmp);

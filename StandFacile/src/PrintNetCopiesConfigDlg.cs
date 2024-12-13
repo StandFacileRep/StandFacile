@@ -12,7 +12,7 @@ using static StandFacile.glb;
 using static StandFacile.Define;
 using static StandFacile.dBaseIntf;
 
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ReceiptAndCopies;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.LogServer;
@@ -27,6 +27,8 @@ namespace StandFacile
     /// </summary>
     public partial class PrintNetCopiesConfigDlg : Form
     {
+#pragma warning disable IDE0044
+
         const String _LEGACY_PRINTER = "Legacy Printer (COM, LPT)";
 
         /// <summary>riferimento a rPrintConfigDlg</summary>
@@ -41,7 +43,7 @@ namespace StandFacile
         public static TErrMsg _WrnMsg;
 
         /// <summary>ottiene flag di modifica listino necessaria</summary>
-        public static bool bGetListinoModificato() { return _bListinoModificato; }
+        public static bool GetListinoModificato() { return _bListinoModificato; }
 
         //TErrMsg _ErrMsg;
 
@@ -60,10 +62,10 @@ namespace StandFacile
             che potrebbero non essere confermati con OK
          *****************************************************/
         /// <summary> funzione che ritorna true se la stampante in uso in CASSA è windows</summary>
-        public static bool bGetPrinterTypeIsWinwows() { return (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS); }
+        public static bool GetPrinterTypeIsWinwows() { return (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS); }
 
         /// <summary> overload funzione che ritorna true se la stampante copie in uso è windows</summary>
-        public static bool bGetPrinterTypeIsWinwows(int i) { return (sGlbWinPrinterParams.sPrinterModel[i] != _LEGACY_PRINTER); }
+        public static bool GetPrinterTypeIsWinwows(int i) { return (sGlbWinPrinterParams.sPrinterModel[i] != _LEGACY_PRINTER); }
 
         readonly ToolTip _tt = new ToolTip
         {
@@ -180,7 +182,7 @@ namespace StandFacile
             for (i = 0; i < NUM_EDIT_GROUPS; i++)
             {
                 sTmp = String.Format(WIN_CPY_PRINTER_MODEL_MKEY, i);
-                sGlbWinPrinterParams.sPrinterModel[i] = sReadRegistry(sTmp, _sDefaultPrinter); //stampa copie
+                sGlbWinPrinterParams.sPrinterModel[i] = ReadRegistry(sTmp, _sDefaultPrinter); //stampa copie
 
                 _pPrintersListCombo[i].Items.Clear();
 
@@ -214,20 +216,20 @@ namespace StandFacile
             {
                 _iGroupsColor[i] = SF_Data.iGroupsColor[i];
 
-                _pCheckBoxCopia[i].BackColor = getColor(_iGroupsColor[i])[0];
-                _pCheckBoxCopia[i].ForeColor = getColor(_iGroupsColor[i])[1];
+                _pCheckBoxCopia[i].BackColor = GetColor(_iGroupsColor[i])[0];
+                _pCheckBoxCopia[i].ForeColor = GetColor(_iGroupsColor[i])[1];
             }
 
             for (i = 0; i < NUM_GROUPS_COLORS - 1; i++)
                 _pTextBoxColor[i].Text = SF_Data.sColorGroupsText[i];
 
-            if (_bUSA_NDB())
+            if (bUSA_NDB())
             {
                 for (i = 0; i < NUM_EDIT_GROUPS; i++)
                     _pCheckBox_BCD[i].Checked = IsBitSet(SF_Data.iBarcodeRichiesto, i);
             }
 
-            if (DataManager.bCheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
+            if (DataManager.CheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
             {
                 for (i = 0; i < NUM_EDIT_GROUPS; i++)
                 {
@@ -277,8 +279,8 @@ namespace StandFacile
                 _pPrintCopyText[i].Text = sConstCopiesGroupsText[i];
 
                 _iGroupsColor[i] = 0;
-                _pCheckBoxCopia[i].BackColor = getColor(_iGroupsColor[i])[0];
-                _pCheckBoxCopia[i].ForeColor = getColor(_iGroupsColor[i])[1];
+                _pCheckBoxCopia[i].BackColor = GetColor(_iGroupsColor[i])[0];
+                _pCheckBoxCopia[i].ForeColor = GetColor(_iGroupsColor[i])[1];
             }
 
             for (i = 0; i < NUM_GROUPS_COLORS - 1; i++)
@@ -305,8 +307,8 @@ namespace StandFacile
                 {
                     if (_pCheckBoxCopia[i].Checked)
                     {
-                        // abilitato solo se CASSA_PRINCIPALE e _bUSA_NDB()
-                        _pCheckBox_BCD[i].Enabled = DataManager.bCheckIf_CassaPri_and_NDB();
+                        // abilitato solo se CASSA_PRINCIPALE e bUSA_NDB()
+                        _pCheckBox_BCD[i].Enabled = DataManager.CheckIf_CassaPri_and_NDB();
                         _pPrintersListCombo[i].Enabled = true;
 
                         _pPrintCopyText[i].BackColor = System.Drawing.SystemColors.Window;
@@ -355,13 +357,13 @@ namespace StandFacile
             int i;
             String sTmp, sFileToPrint;
 
-            sFileToPrint = buildSampleText();
+            sFileToPrint = BuildSampleText();
 
             for (i = 0; i < NUM_EDIT_GROUPS; i++)
             {
                 if (sender == _pBtnPrintCheck[i])
                 {
-                    if (PrintNetCopiesConfigDlg.bGetPrinterTypeIsWinwows(i))
+                    if (PrintNetCopiesConfigDlg.GetPrinterTypeIsWinwows(i))
                         PrintFile(sFileToPrint, sGlbWinPrinterParams, 0, _pPrintersListCombo[i].Text);
                     else
                         PrintFile(sFileToPrint, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_NOW);
@@ -372,14 +374,16 @@ namespace StandFacile
             }
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             timer.Enabled = false;
         }
 
-        private void checkBoxCopia_MouseClick(object sender, MouseEventArgs e)
+        private void CheckBoxCopia_MouseClick(object sender, MouseEventArgs e)
         {
-            int i, iActualIndex = 0;
+#pragma warning disable IDE0059
+
+            int i, iActualIndex;
 
             for (i = 0; i < NUM_EDIT_GROUPS; i++)
             {
@@ -389,8 +393,8 @@ namespace StandFacile
                     if ((Control.ModifierKeys & Keys.Control) != 0)
                     {
                         _iGroupsColor[i] = (_iGroupsColor[i] + 1) % NUM_GROUPS_COLORS;
-                        _pCheckBoxCopia[i].BackColor = getColor(_iGroupsColor[i])[0];
-                        _pCheckBoxCopia[i].ForeColor = getColor(_iGroupsColor[i])[1];
+                        _pCheckBoxCopia[i].BackColor = GetColor(_iGroupsColor[i])[0];
+                        _pCheckBoxCopia[i].ForeColor = GetColor(_iGroupsColor[i])[1];
                     }
                     else
                     {
@@ -408,7 +412,7 @@ namespace StandFacile
                     _pCheckBoxCopia[j].Checked = _pCheckBoxCopia[i].Checked;
         }
 
-        private void checkBoxBCD_MouseClick(object sender, MouseEventArgs e)
+        private void CheckBoxBCD_MouseClick(object sender, MouseEventArgs e)
         {
             int i, iActualIndex = 0;
 
@@ -427,7 +431,7 @@ namespace StandFacile
             letture dai controlli dalle variabili per la
             scrittura nel registro
          **************************************************/
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             int i, iBarcodeRichiestoTmp;
             String sTmp;

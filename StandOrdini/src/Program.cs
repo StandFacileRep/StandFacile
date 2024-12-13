@@ -10,12 +10,16 @@ using System.Threading;
 
 using StandCommonFiles;
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.commonCl;
+using static StandCommonFiles.CommonCl;
 
 namespace StandFacile
 {
+//#pragma warning disable IDE0059
+
     static class Program
     {
+//#pragma warning disable IDE0060
+
         /// <summary>
         /// Punto di ingresso principale dell'applicazione. 
         /// </summary>
@@ -60,7 +64,7 @@ namespace StandFacile
 
             FrmMain rFrmMain = new FrmMain();
 
-            int iNDbMode = iReadRegistry(DB_MODE_KEY, (int)DB_MODE.MYSQL);
+            int iNDbMode = ReadRegistry(DB_MODE_KEY, (int)DB_MODE.MYSQL);
 
             if (iNDbMode == (int)DB_MODE.MYSQL)
                 _rBdBaseIntf_my = new StandFacile_DB.dBaseIntf_my();

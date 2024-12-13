@@ -15,7 +15,7 @@ namespace StandFacile
     public partial class RenameDlg : Form
     {
         /// <summary>ottiene il suffisso</summary>
-        public String sGetEdit()
+        public String GetEdit()
         {
             return textBox.Text;
         }
@@ -33,7 +33,7 @@ namespace StandFacile
             textBox.Text = sEditParam;
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             String sTmp;
 
@@ -46,7 +46,7 @@ namespace StandFacile
         }
 
         // non accetta caratteri diversi da lettere o numeri
-        private void textBox_KeyPress(object sender, KeyPressEventArgs e)
+        private void TextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!(char.IsLetterOrDigit(e.KeyChar) || (e.KeyChar == '_')))
                 e.Handled = true;

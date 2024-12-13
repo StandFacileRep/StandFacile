@@ -158,7 +158,7 @@
             this.btnOK.Text = "OK  ";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // Edit_0
             // 
@@ -254,7 +254,7 @@
             this.checkBoxTouchMode.TabIndex = 14;
             this.checkBoxTouchMode.Text = "Touch mode";
             this.checkBoxTouchMode.UseVisualStyleBackColor = true;
-            this.checkBoxTouchMode.CheckedChanged += new System.EventHandler(this.checkBoxTouchMode_CheckedChanged);
+            this.checkBoxTouchMode.CheckedChanged += new System.EventHandler(this.CheckBoxTouchMode_CheckedChanged);
             // 
             // Edit_4
             // 

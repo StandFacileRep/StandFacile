@@ -58,7 +58,7 @@
             this.textEdit_Messaggi.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textEdit_Messaggi.Size = new System.Drawing.Size(368, 269);
             this.textEdit_Messaggi.TabIndex = 3;
-            this.textEdit_Messaggi.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textEdit_Messaggi_KeyUp);
+            this.textEdit_Messaggi.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextEdit_Messaggi_KeyUp);
             // 
             // BtnPrev
             // 
@@ -70,7 +70,7 @@
             this.BtnPrev.TabIndex = 4;
             this.BtnPrev.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnPrev.UseVisualStyleBackColor = true;
-            this.BtnPrev.Click += new System.EventHandler(this.prevBtn_Click);
+            this.BtnPrev.Click += new System.EventHandler(this.PrevBtn_Click);
             // 
             // BtnNext
             // 
@@ -82,7 +82,7 @@
             this.BtnNext.TabIndex = 5;
             this.BtnNext.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnNext.UseVisualStyleBackColor = true;
-            this.BtnNext.Click += new System.EventHandler(this.nextBtn_Click);
+            this.BtnNext.Click += new System.EventHandler(this.NextBtn_Click);
             // 
             // btnSend
             // 
@@ -96,7 +96,7 @@
             this.btnSend.Text = "Invia";
             this.btnSend.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnSend.UseVisualStyleBackColor = true;
-            this.btnSend.Click += new System.EventHandler(this.btnOk_Click);
+            this.btnSend.Click += new System.EventHandler(this.BtnOk_Click);
             // 
             // VisTicketStatusBar
             // 

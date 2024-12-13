@@ -303,7 +303,7 @@
             this.btnAutotest.TabIndex = 15;
             this.btnAutotest.Text = "stampa Autotest";
             this.btnAutotest.UseVisualStyleBackColor = true;
-            this.btnAutotest.Click += new System.EventHandler(this.btnAutotest_Click);
+            this.btnAutotest.Click += new System.EventHandler(this.BtnAutotest_Click);
             // 
             // btnTestoProva
             // 
@@ -314,7 +314,7 @@
             this.btnTestoProva.TabIndex = 17;
             this.btnTestoProva.Text = "stampa testo di prova";
             this.btnTestoProva.UseVisualStyleBackColor = true;
-            this.btnTestoProva.Click += new System.EventHandler(this.btnTestoProva_Click);
+            this.btnTestoProva.Click += new System.EventHandler(this.BtnTestoProva_Click);
             // 
             // btnInfo
             // 
@@ -325,7 +325,7 @@
             this.btnInfo.TabIndex = 16;
             this.btnInfo.Text = "stampa Info";
             this.btnInfo.UseVisualStyleBackColor = true;
-            this.btnInfo.Click += new System.EventHandler(this.btnInfo_Click);
+            this.btnInfo.Click += new System.EventHandler(this.BtnInfo_Click);
             // 
             // btnOK
             // 
@@ -341,7 +341,7 @@
             this.btnOK.Text = "OK  ";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnCancel
             // 
@@ -357,7 +357,7 @@
             this.btnCancel.Text = "Annulla";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // Lbl_ImpSer
             // 

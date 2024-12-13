@@ -50,7 +50,7 @@
             this.btnCancel.Text = "Cancella";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // panel
             // 
@@ -89,7 +89,7 @@
             this.checkBoxLogo.TabIndex = 2;
             this.checkBoxLogo.Text = "visualizza il logo";
             this.checkBoxLogo.UseVisualStyleBackColor = true;
-            this.checkBoxLogo.CheckedChanged += new System.EventHandler(this.checkBoxLogo_CheckedChanged);
+            this.checkBoxLogo.CheckedChanged += new System.EventHandler(this.CheckBoxLogo_CheckedChanged);
             // 
             // AnteprimaDlg
             // 

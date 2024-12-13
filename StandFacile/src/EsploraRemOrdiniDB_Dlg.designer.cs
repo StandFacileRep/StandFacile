@@ -150,7 +150,7 @@
             // 
             this.timer.Enabled = true;
             this.timer.Interval = 250;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            this.timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
             // dbConnStatusBox
             // 
@@ -175,7 +175,7 @@
             this.ckBoxAuto.TabIndex = 27;
             this.ckBoxAuto.Text = "caricamento automatico ordini autorizzati";
             this.ckBoxAuto.UseVisualStyleBackColor = true;
-            this.ckBoxAuto.CheckedChanged += new System.EventHandler(this.ckBoxAuto_CheckedChanged);
+            this.ckBoxAuto.CheckedChanged += new System.EventHandler(this.CheckBoxAuto_CheckedChanged);
             // 
             // labelQueryTime
             // 
@@ -213,7 +213,7 @@
             this.radioBtn2.TabStop = true;
             this.radioBtn2.Text = "autorizzati";
             this.radioBtn2.UseVisualStyleBackColor = true;
-            this.radioBtn2.CheckedChanged += new System.EventHandler(this.radioBtn_CheckedChanged);
+            this.radioBtn2.CheckedChanged += new System.EventHandler(this.RadioBtn_CheckedChanged);
             // 
             // radioBtn1
             // 
@@ -225,7 +225,7 @@
             this.radioBtn1.TabStop = true;
             this.radioBtn1.Text = "pre-ordini";
             this.radioBtn1.UseVisualStyleBackColor = true;
-            this.radioBtn1.CheckedChanged += new System.EventHandler(this.radioBtn_CheckedChanged);
+            this.radioBtn1.CheckedChanged += new System.EventHandler(this.RadioBtn_CheckedChanged);
             // 
             // radioBtn0
             // 
@@ -238,7 +238,7 @@
             this.radioBtn0.TabStop = true;
             this.radioBtn0.Text = "tutti";
             this.radioBtn0.UseVisualStyleBackColor = true;
-            this.radioBtn0.CheckedChanged += new System.EventHandler(this.radioBtn_CheckedChanged);
+            this.radioBtn0.CheckedChanged += new System.EventHandler(this.RadioBtn_CheckedChanged);
             // 
             // BtnRem_Canc
             // 
@@ -268,7 +268,7 @@
             this.btnCancel.Text = "Esci";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // EsploraRemOrdiniDB_Dlg
             // 
