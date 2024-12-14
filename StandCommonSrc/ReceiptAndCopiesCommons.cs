@@ -29,7 +29,7 @@ namespace StandCommonFiles
     /// </summary>
     public static class ReceiptAndCopies
     {
-//#pragma warning disable CS0649
+#pragma warning disable CS0649
 
         static TErrMsg _ErrMsg;
 

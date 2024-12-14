@@ -14,11 +14,11 @@ using static StandCommonFiles.CommonCl;
 
 namespace StandFacile
 {
-//#pragma warning disable IDE0059
+#pragma warning disable IDE0059
 
     static class Program
     {
-//#pragma warning disable IDE0060
+#pragma warning disable IDE0060
 
         /// <summary>
         /// Punto di ingresso principale dell'applicazione. 

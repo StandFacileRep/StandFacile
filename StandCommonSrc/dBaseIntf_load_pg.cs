@@ -1126,6 +1126,5 @@ namespace StandFacile_DB
             }
         }
 
-
     }
 }

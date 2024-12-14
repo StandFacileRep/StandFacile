@@ -1011,7 +1011,7 @@ namespace StandFacile_DB
             MySqlCommand cmd = new MySqlCommand();
             MySqlDataReader readerCSec = null;
 
-            #pragma warning disable IDE0059
+#pragma warning disable IDE0059
             bDBConnection_Ok = dbInitWeb();
 
             try
@@ -1361,7 +1361,7 @@ namespace StandFacile_DB
                         i++;
                     }
 
-                        readerListino?.Close();
+                    readerListino?.Close();
 
                     LogToFile("dbCheckListino : ricerca checksum eseguita");
                 }
@@ -1458,7 +1458,6 @@ namespace StandFacile_DB
 
             return bSuccess;
         }
-
 
         /// <summary>
         /// aggiunge il suffisso alla tabella selezionata <br/>
@@ -1659,7 +1658,7 @@ namespace StandFacile_DB
                 LogToFile("dbElencoTabelle : dbException RENAME DATI");
             }
 
-                readerTables?.Close();
+            readerTables?.Close();
 
             return sStringsParam.Count;
         }
@@ -1724,7 +1723,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                    readerOrdineNum?.Close();
+                readerOrdineNum?.Close();
 
                 _WrnMsg.iErrID = WRN_DBE;
                 _WrnMsg.sMsg = "Connessione al Server DB_NSC non possibile";
@@ -1792,20 +1791,20 @@ namespace StandFacile_DB
 
                     LogToFile("dbNewMessageNumRequest : _iNumOfLastMessageFromDB letto");
 
-                        readerMessaggioNum?.Close();
+                    readerMessaggioNum?.Close();
 
                     return _iNumOfLastMessageFromDB; // tutto OK
                 }
                 else
                 {
-                        readerMessaggioNum?.Close();
+                    readerMessaggioNum?.Close();
                     return 0;
                 }
             }
 
             catch (Exception)
             {
-                    readerMessaggioNum?.Close();
+                readerMessaggioNum?.Close();
 
                 _WrnMsg.iErrID = WRN_DBE;
                 _WrnMsg.sMsg = "Connessione al Server DB_NMSG non possibile";
@@ -1918,7 +1917,7 @@ namespace StandFacile_DB
 
             DataTable ordiniTable = new DataTable();
 
-            MySqlTransaction transaction_my = null;
+            MySqlTransaction transaction = null;
 
             iNumCassa = 0; // partono da 1 !!!
 
@@ -2012,7 +2011,7 @@ namespace StandFacile_DB
 
                 try // *********** 2 **********
                 {
-                    transaction_my = _Connection.BeginTransaction();
+                    transaction = _Connection.BeginTransaction();
 
                     // *********** predispone per aggiornamento colonna scarico ordini ************
                     dbOrdiniAdapter = new MySqlDataAdapter();
@@ -2088,7 +2087,7 @@ namespace StandFacile_DB
                     Console.WriteLine("dbScaricaOrdinePrev : iUpdatedRows ordini = {0}", iUpdatedRowsOrdini);
 
                     /*** aggiorna il database su disco ***/
-                    transaction_my.Commit();
+                    transaction.Commit();
 
                     dbOrdiniAdapter.Dispose();
                     dbOrdiniAdapterSelect.Dispose();
@@ -2142,7 +2141,7 @@ namespace StandFacile_DB
 
                 readerStatus = cmd.ExecuteReader();
 
-                    readerStatus?.Close();
+                readerStatus?.Close();
 
                 LogToFile("dbEditStatus: stato aggiornato");
             }
@@ -2168,7 +2167,7 @@ namespace StandFacile_DB
             if (String.IsNullOrEmpty(sDB_ServerNamePrm))
                 sDB_ServerNamePrm = Dns.GetHostName();
 
-                _Connection?.Close();
+            _Connection?.Close();
 
             _dbCSB.Host = sDB_ServerNamePrm;
             _dbCSB.Password = sDB_pwdPrm;

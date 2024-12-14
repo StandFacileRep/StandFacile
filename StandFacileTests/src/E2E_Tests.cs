@@ -28,9 +28,13 @@ namespace StandFacileTests
     {
         #pragma warning disable CS0162
 
-        const int _DAYS_IN_ADVANCE = -2;
+        const int _DAYS_IN_ADVANCE = 0;
 
-        const bool _DEBUG_DIR = false;
+        /// <summary>
+        /// true: compara ricevute e dati nella cartella di debug,</br>
+        /// false: prende i dati da C:/StabdFacile
+        /// </summary>
+        const bool _DEBUG_VERIFY_DIR = true;
 
         [TestMethod]
         [DataRow(NOME_DIR_RECEIPTS, "")]
@@ -67,7 +71,7 @@ namespace StandFacileTests
 
             string[] sAllRefReceiptFiles = Directory.GetFiles(sDirRefReceiptData, "*.*", SearchOption.AllDirectories);
 
-            if (_DEBUG_DIR)
+            if (_DEBUG_VERIFY_DIR)
                 sDirCurrentReceiptData = Directory.GetCurrentDirectory() + "\\..\\..\\..\\StandFacile\\exe\\StandDati" + "\\" + ANNO_DIR + GetActualDate().ToString("yyyy") + "\\" +
                                                 sDirParam + GetActualDate().ToString("MMdd");
             else
@@ -265,16 +269,16 @@ namespace StandFacileTests
             {
                 sReferenceReceiptDataFile = Directory.GetCurrentDirectory() + "\\..\\..\\refData\\" + "C1_Dati_1123.txt";
 
-                if (_DEBUG_DIR)
+                if (_DEBUG_VERIFY_DIR)
                     sCurrentReceiptDataFile = Directory.GetCurrentDirectory() + "\\..\\..\\..\\StandFacile\\exe\\StandDati" + "\\" + ANNO_DIR + GetActualDate().ToString("yyyy") + "\\" + sNomeFileDati;
                 else
-                    sCurrentReceiptDataFile = "C:\\StandFacile\\StandDati_0\\" + ANNO_DIR + GetActualDate().ToString("yyyy") + "\\" + sNomeFileDati;
+                    sCurrentReceiptDataFile = "C:\\StandFacile\\StandDati\\" + ANNO_DIR + GetActualDate().ToString("yyyy") + "\\" + sNomeFileDati;
             }
             else
             {
                 sReferenceReceiptDataFile = Directory.GetCurrentDirectory() + "\\..\\..\\refData\\" + sFileParam;
 
-                if (_DEBUG_DIR)
+                if (_DEBUG_VERIFY_DIR)
                     sCurrentReceiptDataFile = Directory.GetCurrentDirectory() + "\\..\\..\\..\\StandFacile\\exe\\Debug" + "\\" + sFileParam;
                 else
                     sCurrentReceiptDataFile = "C:\\StandFacile\\StandFacile_513x\\" + sFileParam;

@@ -806,8 +806,6 @@ namespace StandCommonFiles
                 return "";
             }
 
-            //AppSettingsReader settingsReader = new AppSettingsReader();
-
             //if hashing was used get the hash code with regards to your key
             MD5CryptoServiceProvider hashmd5 = new MD5CryptoServiceProvider();
             keyArray = hashmd5.ComputeHash(UTF8Encoding.UTF8.GetBytes(CIPHER_KEY));

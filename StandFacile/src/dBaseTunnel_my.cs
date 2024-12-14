@@ -33,9 +33,8 @@ using static StandFacile.dBaseIntf;
 
 namespace StandFacile
 {
-    #pragma warning disable IDE0044
-//#pragma warning disable IDE0059
-//#pragma warning disable IDE1006
+#pragma warning disable IDE0044
+#pragma warning disable IDE1006
 
     /// <summary>
     /// classe per la gestione del database mysql remoto mediante tunnel HTTP
@@ -238,7 +237,7 @@ namespace StandFacile
 
             LogToFile(String.Format("SendWebRequest : sGQuery lenght={0}", sGQuery.Length));
 
-            WebResponse response = null;
+            WebResponse response;
             WebRequest request = WebRequest.Create(sGQuery);
             request.Credentials = CredentialCache.DefaultCredentials;
             request.Timeout = iTimeoutParam;
@@ -716,7 +715,7 @@ namespace StandFacile
         public static bool rdbLogWriteVersion(String sTxtParam)
         {
             bool bHostConnection_Ok;
-            String sSQL_Query, sResponseFromServer = "";
+            String sSQL_Query, sResponseFromServer;
 
             try
             {
@@ -797,7 +796,7 @@ namespace StandFacile
         /// </summary>
         public static String rdbCheckListino(int iTimeoutParam)
         {
-            String sSQL_Query, sResponseFromServer = "", sRecord = "";
+            String sSQL_Query, sResponseFromServer, sRecord = "";
 
             try
             {
@@ -1010,7 +1009,7 @@ namespace StandFacile
         /// </summary>
         public static bool rdb_aggiornaOrdiniWebServiti()
         {
-            int iNumOrdineWeb = 0;
+            int iNumOrdineWeb;
             bool bHostConnection_Ok;
             String sTmp;
 
