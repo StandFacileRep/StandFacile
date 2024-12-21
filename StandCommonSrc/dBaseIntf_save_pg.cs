@@ -1,7 +1,7 @@
 ﻿/*************************************************************************************************
-	 NomeFile : StandCommonSrc/dBaseIntf_pg.cs
-	 Data	  : 25.09.2024
-	 Autore   : Mauro Artuso
+	NomeFile : StandCommonSrc/dBaseIntf_save_pg.cs
+    Data	 : 06.12.2024
+	Autore   : Mauro Artuso
 
     nelle assegnazioni :
     DB_Data compare sempre a sx,
@@ -18,8 +18,6 @@
 
 using System;
 using System.IO;
-using System.Net;
-using System.Collections.Generic;
 using System.Data;
 
 using Devart.Data.PostgreSql;
@@ -34,11 +32,11 @@ using static StandFacile.dBaseIntf;
 
 namespace StandFacile_DB
 {
+#pragma warning disable IDE1006
+
     /// <summary>classe per la gestione di PostGreSQL</summary>
     public partial class dBaseIntf_pg
     {
-
-#pragma warning disable IDE1006
 
         /// <summary>
         /// Funzione di salvataggio nel database dei dati di riepilogo <br/>

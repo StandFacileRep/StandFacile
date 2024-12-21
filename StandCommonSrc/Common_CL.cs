@@ -1,6 +1,6 @@
 ﻿/*****************************************************
  	NomeFile : StandCommonSrc/CommonFunc.cs
-    Data	 : 25.09.2024
+    Data	 : 06.12.2024
  	Autore	 : Mauro Artuso
 
 	Classi statiche di uso comune
@@ -234,7 +234,7 @@ namespace StandCommonFiles
 
             if (bIsTest)
                 sTime = actualDate.ToString("HH.mm.ss");
-            else 
+            else
                 sTime = DateTime.Now.ToString("HH.mm.ss");
 
             sDateTime = String.Format("{0} {1}", sDate, sTime);

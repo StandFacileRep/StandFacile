@@ -1,7 +1,7 @@
 ﻿/*****************************************************************************
-     NomeFile : StandCommonSrc/Printer_Legacy.cs
-     Data	  : 23.06.2023
-     Autore   : Mauro Artuso
+    NomeFile : StandCommonSrc/Printer_Legacy.cs
+    Data	 : 06.12.2024
+    Autore   : Mauro Artuso
  ******************************************************************************/
 
 using System;
@@ -22,7 +22,7 @@ using static StandFacile.Define;
 
 namespace StandCommonFiles
 {
-    #pragma warning disable IDE0044
+#pragma warning disable IDE0044
 
     /// <summary>
     /// classe per la gestione delle stampanti seriali mediante coda di stampa
@@ -109,9 +109,9 @@ namespace StandCommonFiles
                 return true;
         }
 
-         /// <summary>
-         /// avvio dei server Thread di stampa
-         /// </summary>
+        /// <summary>
+        /// avvio dei server Thread di stampa
+        /// </summary>
         public static void Init()
         {
             PrintThread.Name = "PrintServer";
@@ -126,9 +126,9 @@ namespace StandCommonFiles
             LogToFile("Printer_Legacy : StartPrintServer");
         }
 
-         /// <summary>
-         /// funzione di stampa stringa con ritardo variabile richiesto da alcune stampanti
-         /// </summary>
+        /// <summary>
+        /// funzione di stampa stringa con ritardo variabile richiesto da alcune stampanti
+        /// </summary>
         public static void PrintLine(String sTextToPrint, int iDelay = 0)
         {
 
@@ -156,10 +156,10 @@ namespace StandCommonFiles
             iCloseDelay = CLOSE_DELAY;
         }
 
-         /// <summary>
-         /// ATTENZIONE : PrintLine(char *pChTextToPrint, int iDelay, int iCount)
-         /// non può essere fatta con AnsiString a causa dei bytes 0x00 inviati
-         /// </summary>
+        /// <summary>
+        /// ATTENZIONE : PrintLine(char *pChTextToPrint, int iDelay, int iCount)
+        /// non può essere fatta con AnsiString a causa dei bytes 0x00 inviati
+        /// </summary>
         public static void PrintBuffer(char[] textToPrint, int iCount, int iDelay = 0)
         {
             if (_LegacyPrinterParams.sPort.Contains("COM"))
@@ -207,7 +207,7 @@ namespace StandCommonFiles
                 if (printQueue.Count > 0)
                 {
 
-                    if (!((String.IsNullOrEmpty(_LegacyPrinterParams.sPort) || _LegacyPrinterParams.sPort.Contains("COM")) ? COM_PortIsOpen() : LPT_PortISOpen()))
+                    if (!((String.IsNullOrEmpty(_LegacyPrinterParams.sPort) || _LegacyPrinterParams.sPort.Contains("COM")) ? COM_PortIsOpen() : LPT_PortIsOpen()))
                     {
                         // Open fallita!
                         _ErrMsg.iErrID = WRN_STF;
@@ -383,7 +383,7 @@ namespace StandCommonFiles
          *   ritorna : 1 se tutto OK,
          *             0 se non si può aprire la LPT
          *************************************************/
-        static bool LPT_PortISOpen()
+        static bool LPT_PortIsOpen()
         {
             // esegue più tentativi
             int iTimeout = SER_OPEN_TIMEOUT;
@@ -410,7 +410,7 @@ namespace StandCommonFiles
             {
                 try
                 {
-                        lptStream?.Close();
+                    lptStream?.Close();
 
                     SafeFileHandle hLPT = CreateFile(sLPT_PortName, FileAccess.Write, 0, IntPtr.Zero, FileMode.Open, 0, IntPtr.Zero);
 
@@ -436,7 +436,7 @@ namespace StandCommonFiles
                     }
                     else
                     {
-                            lptStream?.Close();
+                        lptStream?.Close();
 
                         lptStream = new FileStream(hLPT, FileAccess.ReadWrite);
 
@@ -586,7 +586,7 @@ namespace StandCommonFiles
                 {
                     try
                     {
-                            lptStream?.Close();
+                        lptStream?.Close();
 
                         SafeFileHandle hLPT = CreateFile(_LegacyPrinterParams.sPort, FileAccess.Write, 0, IntPtr.Zero, FileMode.Open, 0, IntPtr.Zero);
 
@@ -622,11 +622,11 @@ namespace StandCommonFiles
         }
 
 
-         /// <summary>Autotest</summary>
+        /// <summary>Autotest</summary>
         public static void PrintAutoTest()
         {
 
-            if (!(_LegacyPrinterParams.sPort.Contains("COM") ? COM_PortIsOpen() : LPT_PortISOpen()))
+            if (!(_LegacyPrinterParams.sPort.Contains("COM") ? COM_PortIsOpen() : LPT_PortIsOpen()))
             {
                 WarningManager(WRN_TSF);
                 return;
@@ -650,7 +650,7 @@ namespace StandCommonFiles
         /// <summary>Info</summary>
         public static void PrintInfo()
         {
-            if (!(_LegacyPrinterParams.sPort.Contains("COM") ? COM_PortIsOpen() : LPT_PortISOpen()))
+            if (!(_LegacyPrinterParams.sPort.Contains("COM") ? COM_PortIsOpen() : LPT_PortIsOpen()))
             {
                 WarningManager(WRN_TSF);
                 return;
@@ -671,9 +671,9 @@ namespace StandCommonFiles
             PortClose();
         }
 
-         /// <summary>
-         /// test di esempio di stampa
-         /// </summary>
+        /// <summary>
+        /// test di esempio di stampa
+        /// </summary>
         public static void PrintSampleText(TLegacyPrinterParams sLegacyPrinterParams)
         {
             String sTmp, sFileToPrint;
@@ -687,7 +687,7 @@ namespace StandCommonFiles
 
             PortClose();
 
-            if (!(_LegacyPrinterParams.sPort.Contains("COM") ? COM_PortIsOpen() : LPT_PortISOpen()))
+            if (!(_LegacyPrinterParams.sPort.Contains("COM") ? COM_PortIsOpen() : LPT_PortIsOpen()))
             {
                 WarningManager(WRN_TSF);
                 return;
@@ -767,9 +767,9 @@ namespace StandCommonFiles
             }
         } // end try
 
-         /// <summary>
-         /// Thread di ricezione da seriale
-         /// </summary>
+        /// <summary>
+        /// Thread di ricezione da seriale
+        /// </summary>
         private static void RxServerThread()
         {
             int iPos;
@@ -814,9 +814,9 @@ namespace StandCommonFiles
             }
         }
 
-         /// <summary>
-         /// arresto dei server di stampa e di ricezione
-         /// </summary>
+        /// <summary>
+        /// arresto dei server di stampa e di ricezione
+        /// </summary>
         public static void StopPrintServer()
         {
             bRunning = false;

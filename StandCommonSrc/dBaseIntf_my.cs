@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************************
 	 NomeFile : StandCommonSrc/dBaseIntf_my.cs
-	 Data	  : 25.09.2024
+    Data	 : 06.12.2024
 	 Autore   : Mauro Artuso
 
     nelle assegnazioni :
@@ -38,7 +38,6 @@ namespace StandFacile_DB
     /// <summary>classe per la gestione di MySQL</summary>
     public partial class dBaseIntf_my
     {
-
         /// <summary>riferimento a dBaseIntf</summary>
         public static dBaseIntf_my _rdBaseIntf_my;
 
@@ -380,7 +379,7 @@ namespace StandFacile_DB
                         WriteRegistry(DISP_DLG_MNG_KEY, 0);
                     else if (bDispDlgShow)
                     {
-                        startDispDlg rChooseDispDlg = new startDispDlg(GetActualDate(), statusDate);
+                        StartDispDlg rChooseDispDlg = new StartDispDlg(GetActualDate(), statusDate);
                     }
                     else if (bPrevDispLoad)
                     {
@@ -464,7 +463,7 @@ namespace StandFacile_DB
                         cmd.CommandText = sQueryTxt;
                         qResult = cmd.ExecuteScalar();
 
-                        LogToFile("dbCheckStatus : dopo CREATE TABLE _ordini_web");
+                        LogToFile("dbCheckStatus : dopo CREATE TABLE ordini_web");
                     }
 
                     catch (Exception)
@@ -2131,8 +2130,10 @@ namespace StandFacile_DB
             try
             {
                 if (iOrderIDParam >= 0)
+                {
                     sQueryTxt = String.Format("UPDATE {0} SET iStatus = {1} WHERE (iOrdine_ID = {2} AND sTipo_Articolo = '{3}');",
                                 _sDBTNameOrdini, iStatusParam, iOrderIDParam, ORDER_CONST._START_OF_ORDER);
+                }
                 else
                     sQueryTxt = String.Format("UPDATE {0} SET iStatus = {1} WHERE iOrdine_ID = {2};", _sDBTNameOrdini, iStatusParam, iOrderIDParam);
 

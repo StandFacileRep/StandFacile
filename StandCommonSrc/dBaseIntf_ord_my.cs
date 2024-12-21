@@ -1,7 +1,7 @@
 ﻿/*****************************************************************************************
-	 NomeFile : StandCommonSrc/dBaseIntf_my.cs
-	 Data	  : 25.09.2024
-	 Autore   : Mauro Artuso
+	NomeFile : StandCommonSrc/dBaseIntf_ord_my.cs
+    Data	 : 06.12.2024
+	Autore   : Mauro Artuso
 
     nelle assegnazioni :
     DB_Data compare sempre a sx,
@@ -14,9 +14,6 @@
  *****************************************************************************************/
 
 using System;
-using System.IO;
-using System.Net;
-using System.Collections.Generic;
 using System.Data;
 
 using Devart.Data.MySql;
@@ -31,6 +28,9 @@ using static StandFacile.dBaseIntf;
 
 namespace StandFacile_DB
 {
+#pragma warning disable IDE0059
+#pragma warning disable IDE1006
+
     /// <summary>classe per la gestione di MySQL</summary>
     public partial class dBaseIntf_my
     {
@@ -59,7 +59,7 @@ namespace StandFacile_DB
             DataTable dataTable = new DataTable();
             DataRow dataRow;
 
-            MySqlTransaction transaction_my = null;
+            MySqlTransaction transaction = null;
 
             iNumCassa = 0; // partono da 1 !!!
 
@@ -194,7 +194,7 @@ namespace StandFacile_DB
 
                 try // *********** 2 **********
                 {
-                    transaction_my = _Connection.BeginTransaction();
+                    transaction = _Connection.BeginTransaction();
 
                     // *********** predispone per aggiornamento colonna scarico ordini ************
                     dbOrdiniAdapter = new MySqlDataAdapter();
@@ -321,7 +321,7 @@ namespace StandFacile_DB
                     Console.WriteLine("dbScaricaOrdine : iUpdatedRows dati = {0}", iUpdatedRowsDati);
 
                     /*** aggiorna il database su disco ***/
-                    transaction_my.Commit();
+                    transaction.Commit();
 
                     dbOrdiniAdapter.Dispose();
                     dbOrdiniAdapterSelect.Dispose();
@@ -370,9 +370,11 @@ namespace StandFacile_DB
                     sQuery = "SELECT * FROM " + _sDBTNameOrdini + " WHERE (sTipo_Articolo = '" + ORDER_CONST._START_OF_ORDER + "') AND (iScaricato = 1) ";
                     sQuery += " ORDER BY sScaricato DESC LIMIT " + (Define.MAX_RIGHE * 2).ToString();
 
-                    MySqlCommand cmd = new MySqlCommand();
-                    cmd.Connection = _Connection;
-                    cmd.CommandText = sQuery;
+                    MySqlCommand cmd = new MySqlCommand()
+                    {
+                        Connection = _Connection,
+                        CommandText = sQuery
+                    };
 
                     MySqlDataReader readerScaricati = cmd.ExecuteReader();
 

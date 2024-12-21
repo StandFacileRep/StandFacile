@@ -1,6 +1,6 @@
 ﻿/*********************************************************************************
  	NomeFile : StandCommonSrc/ReceiptAndCopies.cs
-    Data	 : 20.10.2024
+    Data	 : 06.12.2024
  	Autore	 : Mauro Artuso
 
 	Classi di uso comune a DataManager.Receipt(), VisOrdiniDlg.ReceiptRebuild()<br/>
@@ -240,7 +240,7 @@ namespace StandCommonFiles
         {
             int i;
             string sFmt_QM;
-            
+
             TOrdineStrings sOrdineStringsTmp = new TOrdineStrings();
 
             if (iNumOfReceiptsParam == 0)
@@ -751,7 +751,8 @@ namespace StandCommonFiles
                 {
                     // se non c'è il logo stampa sHeaders[0]
                     if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName)) ||
-                        ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) && WinPrinterDlg.GetCopies_LogoToBePrinted())
+                        ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) &&
+                        WinPrinterDlg.GetCopies_LogoToBePrinted())
                     {
                         sTmp = CenterJustify(_LOGO, iMAX_RECEIPT_CHARS);
                         sHeader1_ToPrintBeforeCut += String.Format("{0}\r\n\r\n", sTmp);
@@ -991,7 +992,7 @@ namespace StandCommonFiles
                                 {
                                     bGroupsTextToPrint = false;
 
-                                    #pragma warning disable IDE0059
+#pragma warning disable IDE0059
                                     sDebug = dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]];
                                     fPrintParam.WriteLine("    {0}\r\n", dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]]);
                                 }
@@ -1071,6 +1072,7 @@ namespace StandCommonFiles
                 }
             }
         }
+
 #endif
 
         /// <summary>
@@ -1146,7 +1148,7 @@ namespace StandCommonFiles
                         // se non c'è il logo stampa sHeaders[0]
                         if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName)) ||
                             ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0)))
-#if STANDFACILE                
+#if STANDFACILE
                             && WinPrinterDlg.GetCopies_LogoToBePrinted()
 #endif
                             )

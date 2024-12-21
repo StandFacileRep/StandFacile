@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************************
 	NomeFile : StandFacile/dBaseTunnel_my.cs
-	Data	 : 15.06.2024
+    Data	 : 06.12.2024
 	Autore   : Mauro Artuso
 
     Classe per la lettura degli ordini in remoto, utilizza HTTP tunneling
@@ -44,6 +44,7 @@ namespace StandFacile
 
         private static readonly string _NO_DB_ERRORS = "\"errornumber\":\"0\",\"errordescr\":\"";
 
+        //private static readonly string _MYSQL_TUNNEL = "mysqlTunnel.php";
         private static readonly string _MYSQL_TUNNEL = "mysqlTunnel_v5b.php";
 
         static bool _bStartReadRemTable, _bWebServiceRequested, _bPrimaVolta_o_ForzaCaricamentoListino, _bPrimaVoltaLog;
@@ -633,7 +634,7 @@ namespace StandFacile
             try
             {
                 // ORDER BY order_ID ASC
-                sSQL_Query = String.Format("UPDATE {0} SET cancellation = 1 WHERE order_ID = {1} LIMIT 200",
+                sSQL_Query = String.Format("UPDATE {0} SET cancellation = 1 WHERE order_ID = {1}",
                             NOME_ORDERS_RDBTBL, iOrdineParam);
 
                 sResponseFromServer = SendWebRequest(sSQL_Query);
@@ -679,7 +680,7 @@ namespace StandFacile
                 LogToFile(String.Format("dBaseTunnel : rdbSegnaOrdineStampato {0}", iOrdineParam));
 
                 // ORDER BY order_ID ASC
-                sSQL_Query = String.Format("UPDATE {0} SET print = 1 WHERE order_ID = {1} LIMIT 200",
+                sSQL_Query = String.Format("UPDATE {0} SET print = 1 WHERE order_ID = {1}",
                             NOME_ORDERS_RDBTBL, iOrdineParam);
 
                 sResponseFromServer = SendWebRequest(sSQL_Query);
@@ -723,6 +724,9 @@ namespace StandFacile
 
                 // sicurezza : si prosegue solo se c'è la connessione all' rDB
                 if (!bHostConnection_Ok)
+                    return false;
+
+                if (string.IsNullOrEmpty(_sWebServerParams.sWeb_DBase))
                     return false;
 
                 sSQL_Query = String.Format("INSERT INTO {0} (user_ID, text, date) VALUES ('{1}', '{2}', '{3}')", NOME_LOG_RDBTBL, -2, sTxtParam, GetDateTimeString());

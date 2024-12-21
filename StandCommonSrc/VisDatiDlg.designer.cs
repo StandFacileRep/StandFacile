@@ -182,7 +182,7 @@
             this.comboReport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboReport.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboReport.FormattingEnabled = true;
-            this.comboReport.Location = new System.Drawing.Point(12, 454);
+            this.comboReport.Location = new System.Drawing.Point(21, 454);
             this.comboReport.Name = "comboReport";
             this.comboReport.Size = new System.Drawing.Size(164, 21);
             this.comboReport.TabIndex = 10;

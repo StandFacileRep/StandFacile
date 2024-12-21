@@ -1,6 +1,6 @@
 ﻿/***************************************************
 	 NomeFile : StandFacile/ChooseDispDlg.cs
-	 Data	  : 23.11.2020
+	 Data	  : 23.11.2024
 	 Autore   : Mauro Artuso
  ***************************************************/
 
@@ -15,7 +15,7 @@ using static StandCommonFiles.CommonCl;
 namespace StandFacile
 {
     /// <summary> classe per la scelta di avvio </summary>
-    public partial class startDispDlg : Form
+    public partial class StartDispDlg : Form
     {
 #pragma warning disable IDE0044
 
@@ -23,7 +23,7 @@ namespace StandFacile
         DateTime _dateFromDB;
 
         /// <summary>costruttore dialogo scelta disponibilità</summary>
-        public startDispDlg(DateTime actualDateParam, DateTime dateFromDBParam)
+        public StartDispDlg(DateTime actualDateParam, DateTime dateFromDBParam)
         {
             InitializeComponent();
 
@@ -43,7 +43,7 @@ namespace StandFacile
             {
                 // non visualizza e non recupera disponibilità
                 _iDispMngStatus = 0;
-                LogToFile("startDispDlg: ckBoxNoMore");
+                LogToFile("StartDispDlg: ckBoxNoMore");
             }
             else
             {
@@ -53,7 +53,7 @@ namespace StandFacile
 
             WriteRegistry(DISP_DLG_MNG_KEY, _iDispMngStatus);
 
-            sTmp = String.Format("startDispDlg : btnOK, DispMngStatus = {0}", _iDispMngStatus);
+            sTmp = String.Format("StartDispDlg : btnOK, DispMngStatus = {0}", _iDispMngStatus);
             LogToFile(sTmp);
 
             Close();
@@ -67,7 +67,7 @@ namespace StandFacile
             {
                 // non visualizza, recupera disponibilità
                 _iDispMngStatus = SetBit(0, BIT_PREV_DISP_LOAD);
-                LogToFile("startDispDlg: ckBoxNoMore");
+                LogToFile("StartDispDlg: ckBoxNoMore");
             }
             else
             {
@@ -77,7 +77,7 @@ namespace StandFacile
 
             WriteRegistry(DISP_DLG_MNG_KEY, _iDispMngStatus);
 
-            sTmp = String.Format("startDispDlg : btnCancel, DispMngStatus = {0}", _iDispMngStatus);
+            sTmp = String.Format("StartDispDlg : btnCancel, DispMngStatus = {0}", _iDispMngStatus);
             LogToFile(sTmp);
 
             Close();

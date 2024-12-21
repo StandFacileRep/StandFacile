@@ -28,11 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MessageDlg));
             this.MemoBox = new System.Windows.Forms.TextBox();
             this.OKBtn = new System.Windows.Forms.Button();
-            this.MsgTimer = new System.Windows.Forms.Timer(this.components);
+            this.MsgTimer = new System.Windows.Forms.Timer();
             this.timeLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -40,7 +39,7 @@
             // 
             this.MemoBox.AcceptsReturn = true;
             this.MemoBox.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MemoBox.Location = new System.Drawing.Point(12, 12);
+            this.MemoBox.Location = new System.Drawing.Point(12, 13);
             this.MemoBox.Multiline = true;
             this.MemoBox.Name = "MemoBox";
             this.MemoBox.ReadOnly = true;

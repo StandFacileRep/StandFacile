@@ -1,7 +1,7 @@
 ﻿/***************************************************************************
-	 NomeFile : StandCommonSrc/VisOrdiniDlg.cs
-	 Data	  : 01.09.2024
-	 Autore	  : Mauro Artuso
+	NomeFile : StandCommonSrc/VisOrdiniDlg.cs
+    Data	 : 06.12.2024
+	Autore	  : Mauro Artuso
 	 
  ***************************************************************************/
 

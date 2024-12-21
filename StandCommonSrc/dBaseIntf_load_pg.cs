@@ -1,6 +1,6 @@
 ﻿/*************************************************************************************************
 	 NomeFile : StandCommonSrc/dBaseIntf_pg.cs
-	 Data	  : 25.09.2024
+	 Data	  : 06.12.2024
 	 Autore   : Mauro Artuso
 
     nelle assegnazioni :
@@ -162,12 +162,12 @@ namespace StandFacile_DB
         /// carica i Dati nella struct DB_Articolo[], <br/>
         /// prendendoli per maggiore sicurezza dalla tabella degli ordini <br/>
         /// se iNumCassaParam == 0 considera tutte le casse <br/> <br/>
-        /// iScontoParam > 0 considera il tipo di sconto applicato
+        /// iReportParam > 0 considera il tipo di sconto applicato
         /// usata da VisDatiDlg() ma solo in modo esperto <br/> <br/>
         /// 
         /// ritorna DB_Data.iNumOfLastReceipt se ha successo, -1 altrimenti
         /// </summary>
-        public int dbCaricaDatidaOrdini(DateTime dateParam, int iNumCassaParam, bool bSilentParam = false, String sNomeTabellaParam = "", int iScontoParam = 0)
+        public int dbCaricaDatidaOrdini(DateTime dateParam, int iNumCassaParam, bool bSilentParam = false, String sNomeTabellaParam = "", int iReportParam = 0)
         {
             bool bDBConnection_Ok, bDB_Read_CP_Ok;
             bool bNoProblem, bRigaAnnullata;
@@ -584,15 +584,15 @@ namespace StandFacile_DB
                                             {
 #if STANDFACILE || STAND_MONITOR
                                                 // considera solo gli sconti
-                                                if ((iScontoParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.GetBitReport(iScontoParam)))
+                                                if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.GetBitReport(iReportParam)))
                                                 {
                                                     bMatch = true;
                                                     break;
                                                 }
 
                                                 // considera solo i gruppi cui lo sconto è applicato
-                                                if ((iScontoParam > 0) && !IsBitSet(iStatusScontoReceipt, DB_Data.Articolo[i].iGruppoStampa + 8) &&
-                                                    (VisDatiDlg.rVisDatiDlg.GetBitReport(iScontoParam) == BIT_SCONTO_STD))
+                                                if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, DB_Data.Articolo[i].iGruppoStampa + 8) &&
+                                                    (VisDatiDlg.rVisDatiDlg.GetBitReport(iReportParam) == BIT_SCONTO_STD))
                                                 {
                                                     bMatch = true;
                                                     break;
@@ -631,7 +631,7 @@ namespace StandFacile_DB
                                     DB_Data.iTotaleAnnullato += iPrezzoUnitario * iQuantitaOrdine;
                                 }
 #if STANDFACILE || STAND_MONITOR
-                                else if ((iScontoParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.GetBitReport(iScontoParam)))
+                                else if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.GetBitReport(iReportParam)))
                                 {
                                     bMatch = true;
                                 }
@@ -812,7 +812,6 @@ namespace StandFacile_DB
 
             return true; // tutto OK
         } // end dbCaricaDisponibilità
-
 
         /// <summary>
         /// carica l'ordine iParam nella variabile DB_Articolo[], <br/>

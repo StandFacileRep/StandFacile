@@ -1,7 +1,7 @@
 ﻿/*************************************************************************************************
-	 NomeFile : StandCommonSrc/dBaseIntf_ql.cs
-	 Data	  : 25.09.2024
-	 Autore   : Mauro Artuso
+	NomeFile : StandCommonSrc/dBaseIntf_save_ql.cs
+    Data	 : 06.12.2024
+	Autore   : Mauro Artuso
 
     nelle assegnazioni :
     DB_Data compare sempre a sx,
@@ -15,8 +15,6 @@
  *************************************************************************************************/
 
 using System;
-using System.IO;
-using System.Collections.Generic;
 using System.Data;
 
 using Devart.Data.SQLite;

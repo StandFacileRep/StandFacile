@@ -1,7 +1,7 @@
 ﻿/*****************************************************************************************
-	 NomeFile : StandCommonSrc/dBaseIntf_my.cs
-	 Data	  : 25.09.2024
-	 Autore   : Mauro Artuso
+	NomeFile : StandCommonSrc/dBaseIntf_save_my.cs
+    Data	 : 06.12.2024
+	Autore   : Mauro Artuso
 
     nelle assegnazioni :
     DB_Data compare sempre a sx,
@@ -15,8 +15,6 @@
 
 using System;
 using System.IO;
-using System.Net;
-using System.Collections.Generic;
 using System.Data;
 
 using Devart.Data.MySql;
@@ -72,7 +70,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                    readerDati?.Close();
+                readerDati?.Close();
             }
 
             try
@@ -90,7 +88,7 @@ namespace StandFacile_DB
 
                 if (bDBConnection_Ok) // se la connessione non è OK evita solo messagggi di errore
                 {
-                        readerDati?.Close(); // non serve più
+                    readerDati?.Close(); // non serve più
 
                     bNoProblem = true;
 
@@ -389,7 +387,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                    readerDati?.Close();
+                readerDati?.Close();
             }
 
             try
@@ -685,7 +683,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                    dbDataAdapterSelect?.Dispose();
+                dbDataAdapterSelect?.Dispose();
             }
 
             try
@@ -858,7 +856,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                    dbDataAdapterSelect?.Dispose();
+                dbDataAdapterSelect?.Dispose();
             }
 
             try

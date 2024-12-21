@@ -1,6 +1,6 @@
 ﻿/*************************************************************************************************
 	 NomeFile : StandCommonSrc/dBaseIntf_pg.cs
-	 Data	  : 25.09.2024
+    Data	 : 06.12.2024
 	 Autore   : Mauro Artuso
 
     nelle assegnazioni :
@@ -17,8 +17,6 @@
  *************************************************************************************************/
 
 using System;
-using System.IO;
-using System.Net;
 using System.Collections.Generic;
 using System.Data;
 
@@ -37,6 +35,8 @@ namespace StandFacile_DB
     /// <summary>classe per la gestione di PostGreSQL</summary>
     public partial class dBaseIntf_pg
     {
+#pragma warning disable IDE0059
+#pragma warning disable IDE1006
 
         /// <summary> costruisce la tabella del venduto </summary>
         public void dbBuildMonitorTable()

@@ -1,7 +1,7 @@
 ﻿/*****************************************************************************
-     NomeFile : StandCommonSrc/Printer_Epson_POS.cs
-     Data	   : 20.04.2024
-     Autore   : Mauro Artuso
+    NomeFile : StandCommonSrc/Printer_Epson_POS.cs
+    Data	 : 06.12.2024
+    Autore   : Mauro Artuso
 
      Caratteristiche stampante :
      STAMPANTE_TM_T88_II : 180dpi, carta 80mm 521 dot

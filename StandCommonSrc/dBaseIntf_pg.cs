@@ -1,7 +1,7 @@
 ﻿/*************************************************************************************************
-	 NomeFile : StandCommonSrc/dBaseIntf_pg.cs
-	 Data	  : 25.09.2024
-	 Autore   : Mauro Artuso
+	NomeFile : StandCommonSrc/dBaseIntf_pg.cs
+    Data	 : 06.12.2024
+	Autore   : Mauro Artuso
 
     nelle assegnazioni :
     DB_Data compare sempre a sx,
@@ -382,7 +382,7 @@ namespace StandFacile_DB
                         WriteRegistry(DISP_DLG_MNG_KEY, 0);
                     else if (bDispDlgShow)
                     {
-                        startDispDlg rChooseDispDlg = new startDispDlg(GetActualDate(), statusDate);
+                        StartDispDlg rChooseDispDlg = new StartDispDlg(GetActualDate(), statusDate);
                     }
                     else if (bPrevDispLoad)
                     {
@@ -1009,7 +1009,7 @@ namespace StandFacile_DB
             PgSqlCommand cmd = new PgSqlCommand();
             PgSqlDataReader readerCSec = null;
 
-            #pragma warning disable IDE0059
+#pragma warning disable IDE0059
             bDBConnection_Ok = dbInitWeb();
 
             try
@@ -1359,7 +1359,7 @@ namespace StandFacile_DB
                         i++;
                     }
 
-                        readerListino?.Close();
+                    readerListino?.Close();
 
                     LogToFile("dbCheckListino : ricerca checksum eseguita");
                 }
@@ -1722,7 +1722,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                    readerOrdineNum?.Close();
+                readerOrdineNum?.Close();
 
                 _WrnMsg.iErrID = WRN_DBE;
                 _WrnMsg.sMsg = "Connessione al Server DB_NSC non possibile";
@@ -1791,13 +1791,13 @@ namespace StandFacile_DB
 
                     LogToFile("dbNewMessageNumRequest : _iNumOfLastMessageFromDB letto");
 
-                        readerMessaggioNum?.Close();
+                    readerMessaggioNum?.Close();
 
                     return _iNumOfLastMessageFromDB; // tutto OK
                 }
                 else
                 {
-                        readerMessaggioNum?.Close();
+                    readerMessaggioNum?.Close();
 
                     return 0;
                 }
@@ -2133,8 +2133,10 @@ namespace StandFacile_DB
             try
             {
                 if (iOrderIDParam >= 0)
+                {
                     sQueryTxt = String.Format("UPDATE {0} SET \"iStatus\" = {1} WHERE (\"iOrdine_ID\" = {2} AND \"sTipo_Articolo\" = '{3}');",
                                 _sDBTNameOrdini, iStatusParam, iOrderIDParam, ORDER_CONST._START_OF_ORDER);
+                }
                 else
                     sQueryTxt = String.Format("UPDATE {0} SET \"iStatus\" = {1} WHERE \"iOrdine_ID\" = {2};", _sDBTNameOrdini, iStatusParam, iOrderIDParam);
 
@@ -2143,7 +2145,7 @@ namespace StandFacile_DB
 
                 readerStatus = cmd.ExecuteReader();
 
-                    readerStatus?.Close();
+                readerStatus?.Close();
 
                 LogToFile("dbEditStatus: stato aggiornato");
             }
@@ -2169,7 +2171,7 @@ namespace StandFacile_DB
             if (String.IsNullOrEmpty(sDB_ServerNamePrm))
                 sDB_ServerNamePrm = Dns.GetHostName();
 
-                _Connection?.Close();
+            _Connection?.Close();
 
             _dbCSB.Host = sDB_ServerNamePrm;
             _dbCSB.Password = sDB_pwdPrm;

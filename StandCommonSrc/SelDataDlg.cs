@@ -1,7 +1,7 @@
 ﻿/********************************************************************
-  NomeFile : StandCommonSrc/SelDataDlg.cs
-  Data	   : 23.06.2023
-  Autore   : Mauro Artuso
+  	NomeFile : StandCommonSrc/SelDataDlg.cs
+    Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
  ********************************************************************/
 
 using System;

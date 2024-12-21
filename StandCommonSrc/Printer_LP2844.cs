@@ -1,6 +1,6 @@
 ﻿/**********************************************************************************************
     NomeFile : StandCommonSrc/Printer_LP2844.cs
-    Data	 : 23.11.2020
+    Data	 : 06.12.2024
     Autore   : Mauro Artuso
 
     Descrizione :

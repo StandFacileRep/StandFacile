@@ -1,7 +1,7 @@
 ﻿/******************************************************
-  NomeFile : StandCommonSrc/NetConfigLightDlg.cs
-  Data	   : 08.10.2023
-  Autore   : Mauro Artuso
+  	NomeFile : StandCommonSrc/NetConfigLightDlg.cs
+    Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
 
  ******************************************************/
 
@@ -15,8 +15,6 @@ using static StandCommonFiles.LogServer;
 
 using static StandFacile.glb;
 using static StandFacile.dBaseIntf;
-
-using static StandFacile.FrmMain;
 
 #if !STAND_ORDINI
 using static StandCommonFiles.ReceiptAndCopies;
@@ -305,7 +303,7 @@ namespace StandFacile
 
                 WriteRegistry(DB_MODE_KEY, combo_TipoDBase.SelectedIndex + 1);
 
-                rFrmMain.Init();
+                FrmMain.rFrmMain.Init();
             }
 
             _bBarcodeRichiesto = checkBoxBarcode.Checked;
@@ -329,7 +327,7 @@ namespace StandFacile
             _bStampaSoloManuale = checkBox_StampaManuale.Checked;
             WriteRegistry(Define.STAMPA_MANUALE_KEY, _bStampaSoloManuale);
 
-            rFrmMain.VisualizzaTicket(iGlbNumOfTickets);
+            FrmMain.rFrmMain.VisualizzaTicket(iGlbNumOfTickets);
 #endif
             Close();
         }

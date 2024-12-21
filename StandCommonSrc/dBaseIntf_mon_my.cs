@@ -1,7 +1,7 @@
 ﻿/*****************************************************************************************
-	 NomeFile : StandCommonSrc/dBaseIntf_my.cs
-	 Data	  : 25.09.2024
-	 Autore   : Mauro Artuso
+	NomeFile : StandCommonSrc/dBaseIntf_my.cs
+    Data	 : 06.12.2024
+	Autore   : Mauro Artuso
 
     nelle assegnazioni :
     DB_Data compare sempre a sx,
@@ -14,8 +14,6 @@
  *****************************************************************************************/
 
 using System;
-using System.IO;
-using System.Net;
 using System.Collections.Generic;
 using System.Data;
 
@@ -31,10 +29,12 @@ using static StandFacile.dBaseIntf;
 
 namespace StandFacile_DB
 {
+#pragma warning disable IDE0059
+#pragma warning disable IDE1006
+
     /// <summary>classe per la gestione di MySQL</summary>
     public partial class dBaseIntf_my
     {
-
         /// <summary> costruisce la tabella del venduto </summary>
         public void dbBuildMonitorTable()
         {

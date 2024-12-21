@@ -46,7 +46,7 @@
             this.RadioGroup_PrinterType.Controls.Add(this.prt_Legacy);
             this.RadioGroup_PrinterType.Controls.Add(this.prt_Windows);
             this.RadioGroup_PrinterType.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.RadioGroup_PrinterType.Location = new System.Drawing.Point(23, 145);
+            this.RadioGroup_PrinterType.Location = new System.Drawing.Point(23, 144);
             this.RadioGroup_PrinterType.Name = "RadioGroup_PrinterType";
             this.RadioGroup_PrinterType.Size = new System.Drawing.Size(280, 99);
             this.RadioGroup_PrinterType.TabIndex = 0;

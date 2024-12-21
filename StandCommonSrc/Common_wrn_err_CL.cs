@@ -1,6 +1,6 @@
 ﻿/*****************************************************
  	NomeFile : StandCommonSrc/CommonFunc.cs
-    Data	 : 25.09.2024
+    Data	 : 06.12.2024
  	Autore	 : Mauro Artuso
 
 	Classi statiche di uso comune
@@ -78,7 +78,7 @@ namespace StandCommonFiles
 
         /// <summary>File Not Found</summary>
         public const int WRN_FNF = 400;
-        /// <summary>File Not Found</summary>
+        /// <summary>Command Not Found</summary>
         public const int WRN_CNF = 410;
         /// <summary>File Not Opened</summary>
         public const int WRN_FNO = 420;
@@ -173,21 +173,21 @@ namespace StandCommonFiles
         public const int WRN_DNP = 825;
 
         /// <summary>QR code error !</summary>
-        public const int WRN_QRE = 830; // * 
+        public const int WRN_QRE = 830;
         /// <summary>test QR code !</summary>
-        public const int WRN_TQR = 835; // *
+        public const int WRN_TQR = 835;
         /// <summary>REMOTE Database error !</summary>
-        public const int WRN_DBR = 840; // *
+        public const int WRN_DBR = 840;
         /// <summary>Stabilita connessione con il WEB server !</summary>
-        public const int WRN_WSCS = 850; // *
+        public const int WRN_WSCS = 850;
         /// <summary>Tabella Listino non trovata!</summary>
-        public const int WRN_WPNF = 860; // *
+        public const int WRN_WPNF = 860;
         /// <summary>Tabella Log non trovata!</summary>
-        public const int WRN_WLNF = 865; // *
+        public const int WRN_WLNF = 865;
         /// <summary>Test di comunicazione con il WEB server eseguito con successo !</summary>
-        public const int WRN_WSTS = 870; // *
+        public const int WRN_WSTS = 870;
         /// <summary>Test di comunicazione con il WEB server fallito !</summary>
-        public const int WRN_WSTF = 880; // *
+        public const int WRN_WSTF = 880;
         /// <summary>Checksum listino non corrispondente nell'ordine web</summary>
         public const int WRN_CKWO = 890;
 
@@ -210,26 +210,26 @@ namespace StandCommonFiles
         /// <summary>Numero Receipt not found in file</summary>
         public const int WRN_TNFF = 970;
         /// <summary>Numero Receipt not found</summary>
-        public const int WRN_TNNF = 975;
+        public const int WRN_TNNF = 980;
         /// <summary>Dimensioni del Logo errate</summary>
-        public const int WRN_DLE = 980;
+        public const int WRN_DLE = 990;
         /// <summary>Errore del Driver di stampa</summary>
-        public const int WRN_PDE = 990;
+        public const int WRN_PDE = 1000;
 
         /// <summary>Errore lunghezza del testo gruppi</summary>
-        public const int WRN_LTE = 995;
+        public const int WRN_LTE = 1010;
 
         /// <summary>Test Item Match Not Found</summary>
-        public const int WRN_TIANF = 1000;
+        public const int WRN_TIANF = 1020;
 
         /// <summary>Pricelist Upload success</summary>
-        public const int WRN_PUPS = 1010;
+        public const int WRN_PUPS = 1030;
 
         /// <summary>Stringa Troppo Lunga</summary>
-        public const int WRN_STL = 1020;
+        public const int WRN_STL = 1040;
 
         /// <summary>Richiesta aggiunta commento con quantità Zero</summary>
-        public const int WRN_NQZ = 1030;
+        public const int WRN_NQZ = 1050;
 
         /// <summary>
         /// Funzione di gestione dei warning,

@@ -1,7 +1,7 @@
 ﻿/*************************************************************************************************
-	 NomeFile : StandCommonSrc/dBaseIntf_pg.cs
-	 Data	  : 25.09.2024
-	 Autore   : Mauro Artuso
+	NomeFile : StandCommonSrc/dBaseIntf_ord_pg.cs
+    Data	 : 06.12.2024
+	Autore   : Mauro Artuso
 
     nelle assegnazioni :
     DB_Data compare sempre a sx,
@@ -17,9 +17,6 @@
  *************************************************************************************************/
 
 using System;
-using System.IO;
-using System.Net;
-using System.Collections.Generic;
 using System.Data;
 
 using Devart.Data.PostgreSql;
@@ -34,6 +31,9 @@ using static StandFacile.dBaseIntf;
 
 namespace StandFacile_DB
 {
+#pragma warning disable IDE0059
+#pragma warning disable IDE1006
+
     /// <summary>classe per la gestione di PostGreSQL</summary>
     public partial class dBaseIntf_pg
     {
@@ -62,7 +62,7 @@ namespace StandFacile_DB
             DataTable dataTable = new DataTable();
             DataRow dataRow;
 
-            PgSqlTransaction transaction_pg = null;
+            PgSqlTransaction transaction = null;
 
             iNumCassa = 0; // partono da 1 !!!
 
@@ -197,7 +197,7 @@ namespace StandFacile_DB
 
                 try // *********** 2 **********
                 {
-                    transaction_pg = _Connection.BeginTransaction();
+                    transaction = _Connection.BeginTransaction();
 
                     // *********** predispone per aggiornamento colonna scarico ordini ************
                     dbOrdiniAdapter = new PgSqlDataAdapter();
@@ -324,7 +324,7 @@ namespace StandFacile_DB
                     Console.WriteLine("dbScaricaOrdine : iUpdatedRows dati = {0}", iUpdatedRowsDati);
 
                     /*** aggiorna il database su disco ***/
-                    transaction_pg.Commit();
+                    transaction.Commit();
 
                     dbOrdiniAdapter.Dispose();
                     dbOrdiniAdapterSelect.Dispose();
@@ -373,9 +373,11 @@ namespace StandFacile_DB
                     sQuery = "SELECT * FROM " + _sDBTNameOrdini + " WHERE (\"sTipo_Articolo\" = '" + ORDER_CONST._START_OF_ORDER + "') AND (\"iScaricato\" = 1) ";
                     sQuery += " ORDER BY \"sScaricato\" DESC LIMIT " + (Define.MAX_RIGHE * 2).ToString();
 
-                    PgSqlCommand cmd = new PgSqlCommand();
-                    cmd.Connection = _Connection;
-                    cmd.CommandText = sQuery;
+                    PgSqlCommand cmd = new PgSqlCommand()
+                    {
+                        Connection = _Connection,
+                        CommandText = sQuery
+                    };
 
                     PgSqlDataReader readerScaricati = cmd.ExecuteReader();
 
@@ -441,5 +443,6 @@ namespace StandFacile_DB
 
             return true;
         }
+
     }
 }

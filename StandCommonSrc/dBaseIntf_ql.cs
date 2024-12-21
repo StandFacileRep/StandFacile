@@ -1,7 +1,7 @@
 ﻿/*************************************************************************************************
-	 NomeFile : StandCommonSrc/dBaseIntf_ql.cs
-	 Data	  : 25.09.2024
-	 Autore   : Mauro Artuso
+	NomeFile : StandCommonSrc/dBaseIntf_ql.cs
+    Data	 : 06.12.2024
+	Autore   : Mauro Artuso
 
     nelle assegnazioni :
     DB_Data compare sempre a sx,
@@ -89,7 +89,7 @@ namespace StandFacile_DB
         {
             String sTmp, sData, sPostFix, sDebugDati, sDebugOrdini;
 
-                _Connection?.Close();
+            _Connection?.Close();
 
             // prepara connessione al DB
             if (!bUSA_NDB())
@@ -206,7 +206,7 @@ namespace StandFacile_DB
         /// </summary>
         public bool dbInitWeb()
         {
-                _ConnectionWeb?.Close();
+            _ConnectionWeb?.Close();
 
             // prepara connessione al DB
             if (!bUSA_NDB())
@@ -337,7 +337,7 @@ namespace StandFacile_DB
                         WriteRegistry(DISP_DLG_MNG_KEY, 0);
                     else if (bDispDlgShow)
                     {
-                        startDispDlg rChooseDispDlg = new startDispDlg(GetActualDate(), statusDate);
+                        StartDispDlg rChooseDispDlg = new StartDispDlg(GetActualDate(), statusDate);
                     }
                     else if (bPrevDispLoad)
                     {
@@ -435,7 +435,7 @@ namespace StandFacile_DB
                 readerStato = cmd.ExecuteReader();
             }
 
-                readerStato?.Close();
+            readerStato?.Close();
 
             cmd.Dispose();
             return true; // data DB corretta
@@ -484,7 +484,7 @@ namespace StandFacile_DB
                     }
                 }
 
-                    readerStatus?.Close();
+                readerStatus?.Close();
 
                 LogToFile("dbGetWebServerParams: parametri letti");
             }
@@ -530,7 +530,7 @@ namespace StandFacile_DB
                 cmd.CommandText = "UPDATE " + NOME_STATO_DBTBL + " SET sText = '" + sWebServerParams.sWebEncryptedPwd + "' WHERE (key_ID = '" + WEB_DBASE_PWD_KEY + "')";
                 readerStatus = cmd.ExecuteReader();
 
-                    readerStatus?.Close();
+                readerStatus?.Close();
 
                 LogToFile("dbSetWebServerParams: parametri scritti");
             }
@@ -560,7 +560,7 @@ namespace StandFacile_DB
             SQLiteCommand cmd = new SQLiteCommand();
             SQLiteDataReader readerCSec = null;
 
-            #pragma warning disable IDE0059
+#pragma warning disable IDE0059
             bDBConnection_Ok = dbInitWeb();
 
             try
@@ -587,7 +587,7 @@ namespace StandFacile_DB
                 WarningManager(_WrnMsg);
             }
 
-                readerCSec?.Close();
+            readerCSec?.Close();
 
             return iOrderNum; // tutto OK
         }
@@ -1133,7 +1133,7 @@ namespace StandFacile_DB
                 LogToFile("dbElencoTabelle : dbException RENAME DATI");
             }
 
-                readerTables?.Close();
+            readerTables?.Close();
 
             return sStringsParam.Count;
         }
@@ -1403,8 +1403,10 @@ namespace StandFacile_DB
             try
             {
                 if (iOrderIDParam >= 0)
+                {
                     sQueryTxt = String.Format("UPDATE {0} SET iStatus = {1} WHERE (iOrdine_ID = {2} AND sTipo_Articolo = '{3}');",
                                 _sDBTNameOrdini, iStatusParam, iOrderIDParam, ORDER_CONST._START_OF_ORDER);
+                }
                 else
                     sQueryTxt = String.Format("UPDATE {0} SET iStatus = {1} WHERE (iOrdine_ID = {2});", _sDBTNameOrdini, iStatusParam, iOrderIDParam);
 
@@ -1413,7 +1415,7 @@ namespace StandFacile_DB
 
                 readerStatus = cmd.ExecuteReader();
 
-                    readerStatus?.Close();
+                readerStatus?.Close();
 
                 LogToFile("dbEditStatus: stato aggiornato");
             }

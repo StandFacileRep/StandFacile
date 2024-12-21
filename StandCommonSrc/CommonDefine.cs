@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 25.09.2024
+    Data	 : 06.12.2024
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -10,7 +10,7 @@ using System.Drawing;
 namespace StandCommonFiles
 {
     /// <summary>
-    /// classe di mnemonici comuni a StandFacile 
+    /// classe di mnemonici comuni a StandFacile
     /// </summary>
     public static class ComDef
     {
@@ -406,7 +406,6 @@ namespace StandCommonFiles
         /// <summary>nome della directory per le copie</summary>
         public const String NOME_DIR_COPIES = "Copies_";
 
-
         /// <summary>nome della directory temporanea per visualizzare le copie emesse in altra data</summary>
         public const String NOME_DIR_COPIES_VO = "CopiesTmp";
 
@@ -778,7 +777,7 @@ namespace StandCommonFiles
         /// </summary>
         public const int BIT_STAMPA_SINGOLA_NELLA_COPIA_RECEIPT = 0;
 
-        /****************************************************************
+      /****************************************************************
        *                Flags gestione stampa Copie Locali            *
        ****************************************************************/
 
@@ -810,8 +809,8 @@ namespace StandCommonFiles
         public const int BIT_CHARS33_PRINT_REQUIRED = 8;
 
         /****************************************************************
-           *                   Flags gestione sconti                      *
-           ****************************************************************/
+         *                   Flags gestione sconti                      *
+         ****************************************************************/
 
         /// <summary>bit di iStatusSconto che indica l'applicazione dello sconto per gli articoli</summary>
         public const int BIT_SCONTO_STD = 0;

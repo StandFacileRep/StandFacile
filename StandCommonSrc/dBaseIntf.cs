@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************************
 	NomeFile : StandCommonSrc/dBaseIntf.cs
-	Data	 : 25.09.2024
+	Data	 : 06.12.2024
 	Autore   : Mauro Artuso
 
  *****************************************************************************************/
@@ -35,7 +35,6 @@ namespace StandFacile
     /// </summary>
     public class dBaseIntf
     {
-
         // *** evitare maiuscole ***
 
         /// <summary>nome della tabella del Listino</summary>
@@ -563,22 +562,22 @@ namespace StandFacile
         /// <summary>
         /// carica i Dati nella struct DB_Articolo[] prendendoli per maggiore sicurezza dalla tabella degli ordini <br/>
         /// se iNumCassaParam == 0 considera tutte le casse <br/> <br/>
-        /// iScontoParam > 0 considera il tipo di sconto applicato
+        /// iReportParam > 0 considera il tipo di sconto applicato
         /// usata da DataManager, VisDatiDlg()<br/> <br/>
         /// 
         /// ritorna DB_Data.iNumOfReceipts se ha successo, -1 altrimenti
         /// </summary>
-        public int dbCaricaDatidaOrdini(DateTime dateParam, int iNumCassaParam, bool bSilentParam = false, String sNomeTabellaParam = "", int iScontoParam = 0)
+        public int dbCaricaDatidaOrdini(DateTime dateParam, int iNumCassaParam, bool bSilentParam = false, String sNomeTabellaParam = "", int iReportParam = 0)
         {
 #if STANDFACILE
             if (_iNDbMode == (int)DB_MODE.SQLITE)
-                return _rdBaseIntf_ql.dbCaricaDatidaOrdini(dateParam, bSilentParam, sNomeTabellaParam, iScontoParam);
+                return _rdBaseIntf_ql.dbCaricaDatidaOrdini(dateParam, bSilentParam, sNomeTabellaParam, iReportParam);
             else
 #endif
             if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbCaricaDatidaOrdini(dateParam, iNumCassaParam, bSilentParam, sNomeTabellaParam, iScontoParam);
+                return _rdBaseIntf_my.dbCaricaDatidaOrdini(dateParam, iNumCassaParam, bSilentParam, sNomeTabellaParam, iReportParam);
             else
-                return _rdBaseIntf_pg.dbCaricaDatidaOrdini(dateParam, iNumCassaParam, bSilentParam, sNomeTabellaParam, iScontoParam);
+                return _rdBaseIntf_pg.dbCaricaDatidaOrdini(dateParam, iNumCassaParam, bSilentParam, sNomeTabellaParam, iReportParam);
         }
 
         /// <summary>
