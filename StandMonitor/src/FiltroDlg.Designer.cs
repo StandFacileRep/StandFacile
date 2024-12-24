@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FiltroDlg));
             this.textBox_Filtro = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.BtnCanc = new System.Windows.Forms.Button();
             this.btnAnnulla = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -63,18 +63,18 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
-            // button1
+            // BtnCanc
             // 
-            this.button1.Image = ((System.Drawing.Image)(resources.GetObject("button1.Image")));
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(32, 390);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(80, 28);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Cancella";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Button1_Click);
+            this.BtnCanc.Image = ((System.Drawing.Image)(resources.GetObject("BtnCanc.Image")));
+            this.BtnCanc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnCanc.Location = new System.Drawing.Point(32, 390);
+            this.BtnCanc.Name = "BtnCanc";
+            this.BtnCanc.Size = new System.Drawing.Size(80, 28);
+            this.BtnCanc.TabIndex = 3;
+            this.BtnCanc.Text = "Cancella";
+            this.BtnCanc.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnCanc.UseVisualStyleBackColor = true;
+            this.BtnCanc.Click += new System.EventHandler(this.BtnCanc_Click);
             // 
             // btnAnnulla
             // 
@@ -96,7 +96,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(367, 430);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BtnCanc);
             this.Controls.Add(this.textBox_Filtro);
             this.Controls.Add(this.btnAnnulla);
             this.Controls.Add(this.btnOK);
@@ -117,6 +117,6 @@
         private System.Windows.Forms.Button btnAnnulla;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.TextBox textBox_Filtro;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnCanc;
     }
 }

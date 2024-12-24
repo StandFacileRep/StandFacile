@@ -1,7 +1,7 @@
 ﻿/***************************************************
-  NomeFile : StandMonitor/VisOrdiniTableFrm.cs
-  Data	   : 01.05.2024
-  Autore   : Mauro Artuso
+  	NomeFile : StandMonitor/VisOrdiniTableFrm.cs
+	Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
  ***************************************************/
 
 using System;
@@ -46,12 +46,12 @@ namespace StandFacile
 
                     if (VisOrdiniTableFrm.rVisOrdiniFrm.Visible)
                     {
-                        OrdiniGrid.DataSource = _rdBaseIntf.dbOrdiniMonitorList(checkBox_nonevasi.Checked, true).Tables[0];
+                        OrdiniGrid.DataSource = _rdBaseIntf.dbOrdiniMonitorList(checkBox_NonEvasi.Checked, true).Tables[0];
 
                         FormResize(this, null);
                     }
                     else
-                        _rdBaseIntf.dbOrdiniMonitorList(checkBox_nonevasi.Checked, false);
+                        _rdBaseIntf.dbOrdiniMonitorList(checkBox_NonEvasi.Checked, false);
                 }
                 else
                 {
@@ -131,7 +131,7 @@ namespace StandFacile
             }
         }
 
-        private void checkBox_nonevasi_Click(object sender, EventArgs e)
+        private void CheckBox_NonEvasi_Click(object sender, EventArgs e)
         {
             Aggiorna();
         }

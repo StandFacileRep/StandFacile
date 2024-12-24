@@ -1,7 +1,7 @@
 ﻿/***********************************************
-  NomeFile : StandCucina/LogForm.cs
-  Data	   : 08.11.2023
-  Autore   : Mauro Artuso
+  	NomeFile : StandCucina/LogForm.cs
+	Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
 
   Visualizza una finestra di Log dell'attività
  ************************************************/

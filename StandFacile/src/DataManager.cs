@@ -1,20 +1,17 @@
 /**********************************************************************
-     NomeFile : StandFacile/DataManager.cs
-     Data	  : 19.09.2024
-     Autore   : Mauro Artuso
+    NomeFile : StandFacile/DataManager.cs
+	Data	 : 06.12.2024
+    Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
  **********************************************************************/
 
 using System;
 using System.IO;
-using static System.Convert;
-using System.Collections.Generic;
 
 using static StandFacile.glb;
 using static StandFacile.Define;
 using static StandFacile.dBaseIntf;
-using static StandFacile.ScontoDlg;
 using static StandFacile.FrmMain;
 
 using StandCommonFiles;
@@ -39,6 +36,7 @@ namespace StandFacile
     public partial class DataManager
     {
 #pragma warning disable IDE0079
+#pragma warning disable IDE0059
 #pragma warning disable IDE0044
 
         static bool _bListinoModificato;

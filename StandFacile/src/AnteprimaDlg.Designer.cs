@@ -73,7 +73,7 @@
             this.picBox.BackColor = System.Drawing.Color.White;
             this.picBox.Location = new System.Drawing.Point(1, -2);
             this.picBox.Name = "picBox";
-            this.picBox.Size = new System.Drawing.Size(263, 522);
+            this.picBox.Size = new System.Drawing.Size(351, 481);
             this.picBox.TabIndex = 0;
             this.picBox.TabStop = false;
             // 

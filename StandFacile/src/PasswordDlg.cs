@@ -1,7 +1,7 @@
 ﻿/***************************************************************************
-	 NomeFile : StandFacile/PasswordDlg.cs
-	 Data	  : 03.08.2023
-	 Autore	  : Mauro Artuso
+	NomeFile : StandFacile/PasswordDlg.cs
+    Data	 : 06.12.2024
+	Autore	  : Mauro Artuso
 	 
  ***************************************************************************/
 

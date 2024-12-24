@@ -1,7 +1,7 @@
 ﻿/*****************************************************
- NomeFile : StandCommonSrc/PrintTicketConfigDlg.cs
- Data	  : 27.09.2024
- Autore   : Mauro Artuso
+ 	NomeFile : StandCommonSrc/PrintTicketConfigDlg.cs
+    Data	 : 06.12.2024
+ 	Autore   : Mauro Artuso
 
  *****************************************************/
 
@@ -243,6 +243,7 @@ namespace StandFacile
             int i, iReceiptCopyOptions;
 
             iReceiptCopyOptions = 0;
+
             for (i = 0; i < NUM_EDIT_GROUPS; i++)
             {
                 if (_pCheckBoxCopia[i].Checked)

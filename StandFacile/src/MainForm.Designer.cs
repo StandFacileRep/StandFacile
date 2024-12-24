@@ -1340,7 +1340,7 @@
             this.Name = "FrmMain";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "StandFacile 2023";
+            this.Text = "StandFacile 2024";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Resize += new System.EventHandler(this.FormResize);
             this.MainMenu.ResumeLayout(false);

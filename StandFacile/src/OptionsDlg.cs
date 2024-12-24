@@ -1,7 +1,7 @@
 ﻿/***************************************************
-	 NomeFile : StandFacile\optionsDlg.cs
-	 Data	  : 28.09.2024
-	 Autore   : Mauro Artuso
+	NomeFile : StandFacile\optionsDlg.cs
+    Data	 : 06.12.2024
+	Autore   : Mauro Artuso
 
      un solo flag viene salvato nel registro
  ***************************************************/
@@ -32,7 +32,7 @@ namespace StandFacile
         public static bool GetListinoModificato() { return _bListinoModificato; }
 
         /// <summary>ottiene indice del tema dei colori</summary>
-        public static int GGetColorThemeIndex() { return _iColorThemeIndex; }
+        public static int GetColorThemeIndex() { return _iColorThemeIndex; }
 
         /// <summary>ottiene flag di visualizzazione totale scontrino precedente</summary>
         public bool GetShowPrevReceipt() { return checkBoxShowPrevReceipt.Checked; }
@@ -95,7 +95,6 @@ namespace StandFacile
             }
 
             // letto dal Registry 
-
             checkBoxShowPrevReceipt.Checked = (ReadRegistry(VIEW_PREV_RECEIPT_KEY, 0) == 1);
 
             checkBoxPresales_loadMode.Checked = (ReadRegistry(PRESALE_LOAD_MODE_KEY, 0) == 1);

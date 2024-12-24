@@ -1,6 +1,6 @@
 ﻿/********************************************************************
 	NomeFile : StandFacile/Define.cs
-    Data	 : 12.08.2024
+	Data	 : 06.12.2024
 	Autore	 : Mauro Artuso
 
   Descrizione : definizioni specifiche per StandFacile
@@ -249,7 +249,6 @@ namespace StandFacile
                 sChecksum = "";
             }
         };
-
 
     } // end class
 }

@@ -1,7 +1,7 @@
 ﻿/***********************************************
-  NomeFile : Program.cs
-  Data	   : 01.05.2024
-  Autore   : Mauro Artuso
+  	NomeFile : Program.cs
+	Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
  ***********************************************/
 
 using System;

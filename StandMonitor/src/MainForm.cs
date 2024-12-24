@@ -1,7 +1,7 @@
 ﻿/************************************************************
-  NomeFile : StandMonitor/MainForm.cs
-  Data	   : 25.09.2024
-  Autore   : Mauro Artuso
+  	NomeFile : StandMonitor/MainForm.cs
+	Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
 
   Programma per monitorare la statistica degli ordini
  ************************************************************/

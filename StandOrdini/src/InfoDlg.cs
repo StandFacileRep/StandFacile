@@ -1,7 +1,7 @@
 ﻿/***********************************************
-  NomeFile : StandOrdini/InfoDlg.cs
-  Data	   : 23.11.2023
-  Autore   : Mauro Artuso
+  	NomeFile : StandOrdini/InfoDlg.cs
+	Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
 
   Visualizza Info sul Programma ed autore
  ************************************************/

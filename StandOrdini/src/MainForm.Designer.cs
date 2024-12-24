@@ -44,7 +44,7 @@
             this.MnuSoloLettura_BC = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuDuplicazioneMonitor = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuAiuto = new System.Windows.Forms.ToolStripMenuItem();
-            this.MnuaiutoRapido = new System.Windows.Forms.ToolStripMenuItem();
+            this.Mnu_AiutoRapido = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnImgList = new System.Windows.Forms.ImageList(this.components);
             this.lblElapsedTime = new System.Windows.Forms.Label();
@@ -168,23 +168,23 @@
             // MnuAiuto
             // 
             this.MnuAiuto.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MnuaiutoRapido,
+            this.Mnu_AiutoRapido,
             this.MnuAbout});
             this.MnuAiuto.Name = "MnuAiuto";
             this.MnuAiuto.Size = new System.Drawing.Size(48, 20);
             this.MnuAiuto.Text = "Aiuto";
             // 
-            // MnuaiutoRapido
+            // Mnu_AiutoRapido
             // 
-            this.MnuaiutoRapido.Name = "MnuaiutoRapido";
-            this.MnuaiutoRapido.Size = new System.Drawing.Size(168, 22);
-            this.MnuaiutoRapido.Text = "&Aiuto rapido";
-            this.MnuaiutoRapido.Click += new System.EventHandler(this.AiutoRapidoToolStripMenuItem_Click);
+            this.Mnu_AiutoRapido.Name = "Mnu_AiutoRapido";
+            this.Mnu_AiutoRapido.Size = new System.Drawing.Size(180, 22);
+            this.Mnu_AiutoRapido.Text = "&Aiuto rapido";
+            this.Mnu_AiutoRapido.Click += new System.EventHandler(this.MnuAiutoRapido_Click);
             // 
             // MnuAbout
             // 
             this.MnuAbout.Name = "MnuAbout";
-            this.MnuAbout.Size = new System.Drawing.Size(168, 22);
+            this.MnuAbout.Size = new System.Drawing.Size(180, 22);
             this.MnuAbout.Text = "&Informazioni su ...";
             this.MnuAbout.Click += new System.EventHandler(this.MnuAbout_Click);
             // 
@@ -335,7 +335,7 @@
         private System.Windows.Forms.TextBox TicketsList_R;
         private System.Windows.Forms.ToolStripMenuItem MnuScarico_DB;
         private System.Windows.Forms.ToolStripMenuItem MnuDuplicazioneMonitor;
-        private System.Windows.Forms.ToolStripMenuItem MnuaiutoRapido;
+        private System.Windows.Forms.ToolStripMenuItem Mnu_AiutoRapido;
     }
 }
 

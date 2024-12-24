@@ -1,7 +1,7 @@
 ﻿/***********************************************
-  NomeFile : StandCucina/InfoDlg.cs
-  Data	   : 08.11.2023
-  Autore   : Mauro Artuso
+  	NomeFile : StandCucina/InfoDlg.cs
+	Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
  ************************************************/
 
 using System;

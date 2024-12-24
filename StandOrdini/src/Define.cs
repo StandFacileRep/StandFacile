@@ -1,7 +1,7 @@
 ﻿/********************************************************************
-  NomeFile  : StandOrdini/Define.h
-  Data	    : 23.06.2023
-  Autore	: Mauro Artuso
+  	NomeFile  : StandOrdini/Define.h
+	Data	 : 06.12.2024
+  	Autore	: Mauro Artuso
 
  ********************************************************************/
 
@@ -15,7 +15,7 @@ namespace StandFacile
     public struct Define
     {
         /// <summary>titolo</summary>
-        public const string TITLE = "Stand Ordini 2025"; 
+        public const string TITLE = "Stand Ordini 2025";
 
         /// <summary>nome dell'eseguibile</summary>
         public const string THE_APP = "StandOrdini.exe";

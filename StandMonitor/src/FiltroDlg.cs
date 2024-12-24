@@ -1,7 +1,7 @@
 ﻿/*****************************************************
-  NomeFile  : StandMonitor/FiltroDlg.cs
-  Data	    : 22.06.2024
-  Autore	: Mauro Artuso
+  	NomeFile  : StandMonitor/FiltroDlg.cs
+	Data	 : 06.12.2024
+  	Autore	: Mauro Artuso
  *****************************************************/
 using System;
 using System.Collections.Generic;
@@ -151,7 +151,7 @@ namespace StandFacile
             DialogResult = DialogResult.OK;
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+        private void BtnCanc_Click(object sender, EventArgs e)
         {
             textBox_Filtro.Clear();
             textBox_Filtro.AppendText("#FM1\r\n\r\n");

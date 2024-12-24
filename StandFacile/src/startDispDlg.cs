@@ -1,7 +1,7 @@
 ﻿/***************************************************
-	 NomeFile : StandFacile/ChooseDispDlg.cs
-	 Data	  : 23.11.2024
-	 Autore   : Mauro Artuso
+	NomeFile : StandFacile/ChooseDispDlg.cs
+    Data	 : 06.12.2024
+	Autore   : Mauro Artuso
  ***************************************************/
 
 using System;

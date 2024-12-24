@@ -1,7 +1,7 @@
 ﻿/*****************************************************
- NomeFile : StandFacile/PrintConfigDlg.cs
- Data	  : 16.08.2024
- Autore   : Mauro Artuso
+ 	NomeFile : StandFacile/PrintConfigDlg.cs
+    Data	 : 06.12.2024
+ 	Autore   : Mauro Artuso
  *****************************************************/
 
 using System;

@@ -1,7 +1,7 @@
 ﻿/******************************************************************
- NomeFile : StandFacile/NetConfigDlg.cs
- Data	  : 25.06.2024
- Autore   : Mauro Artuso
+ 	NomeFile : StandFacile/NetConfigDlg.cs
+    Data	 : 06.12.2024
+ 	Autore   : Mauro Artuso
 
  ******************************************************************/
 

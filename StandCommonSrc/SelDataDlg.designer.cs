@@ -64,7 +64,7 @@
             // 
             this.mCalendar.Location = new System.Drawing.Point(57, 83);
             this.mCalendar.MaxSelectionCount = 50;
-            this.mCalendar.MinDate = new System.DateTime(2023, 1, 1, 0, 0, 0, 0);
+            this.mCalendar.MinDate = new System.DateTime(2024, 1, 1, 0, 0, 0, 0);
             this.mCalendar.Name = "mCalendar";
             this.mCalendar.TabIndex = 3;
             this.mCalendar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MCalendar_MouseDown);

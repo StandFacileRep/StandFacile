@@ -1,7 +1,7 @@
 ﻿/*****************************************
- NomeFile : StandCucina/glb_CL.cs
- Data	  : 24.08.2024
- Autore   : Mauro Artuso
+ 	NomeFile : StandCucina/glb_CL.cs
+	Data	 : 06.12.2024
+ 	Autore   : Mauro Artuso
  *****************************************/
 
 using System;

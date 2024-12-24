@@ -1,6 +1,6 @@
 ﻿/********************************************************************
     NomeFile : StandCommonSrc/VisDatiDlg.cs
-    Data	 : 20.10.2024
+    Data	 : 06.12.2024
     Autore : Mauro Artuso
 
     Classe di visualizzazione dei files Dati o Prezzi .

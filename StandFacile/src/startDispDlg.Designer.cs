@@ -75,7 +75,7 @@
             this.lblMessage1.Name = "lblMessage1";
             this.lblMessage1.Size = new System.Drawing.Size(166, 18);
             this.lblMessage1.TabIndex = 3;
-            this.lblMessage1.Text = "PC Locale :  23/11/2023";
+            this.lblMessage1.Text = "PC Locale :  23/11/2024";
             // 
             // label1
             // 
@@ -95,7 +95,7 @@
             this.lblMessage2.Name = "lblMessage2";
             this.lblMessage2.Size = new System.Drawing.Size(166, 18);
             this.lblMessage2.TabIndex = 4;
-            this.lblMessage2.Text = "Database :  22/11/2023";
+            this.lblMessage2.Text = "Database :  22/11/2024";
             // 
             // label2
             // 

@@ -1,6 +1,6 @@
 ﻿/**************************************************
 	NomeFile : StandFacile/EditDispArticoliDlg.cs
-	Data	 : 23.11.2023
+	Data	 : 06.12.2024
 	Autore	 : Mauro Artuso
  **************************************************/
 using System;
@@ -130,6 +130,6 @@ namespace StandFacile
                     break;
             } // END switch
         }
-        
+
     }
 }

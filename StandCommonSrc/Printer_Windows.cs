@@ -186,7 +186,7 @@ namespace StandCommonFiles
             iDebug1 = DB_Data.iStatusReceipt; // 4 BIT_CARICATO_DA_PREVENDITA
             iDebug2 = SF_Data.iStatusReceipt; // 2 BIT_EMESSO_IN_PREVENDITA
 
-            // 28.05.2022 aggiunto bUSA_NDB() per ignorare il flag del listino con SQLite
+            // aggiunto bUSA_NDB() per ignorare il flag del listino con SQLite
             _bStampaBarcode = IsBitSet(SF_Data.iBarcodeRichiesto, _iGruppoStampa) && bUSA_NDB();
 
             // OK verificato

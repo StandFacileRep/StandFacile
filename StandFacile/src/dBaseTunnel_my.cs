@@ -44,7 +44,6 @@ namespace StandFacile
 
         private static readonly string _NO_DB_ERRORS = "\"errornumber\":\"0\",\"errordescr\":\"";
 
-        //private static readonly string _MYSQL_TUNNEL = "mysqlTunnel.php";
         private static readonly string _MYSQL_TUNNEL = "mysqlTunnel_v5b.php";
 
         static bool _bStartReadRemTable, _bWebServiceRequested, _bPrimaVolta_o_ForzaCaricamentoListino, _bPrimaVoltaLog;
@@ -634,7 +633,7 @@ namespace StandFacile
             try
             {
                 // ORDER BY order_ID ASC
-                sSQL_Query = String.Format("UPDATE {0} SET cancellation = 1 WHERE order_ID = {1}",
+                sSQL_Query = String.Format("UPDATE {0} SET cancellation = 1 WHERE order_ID = {1} LIMIT 200",
                             NOME_ORDERS_RDBTBL, iOrdineParam);
 
                 sResponseFromServer = SendWebRequest(sSQL_Query);
@@ -680,7 +679,7 @@ namespace StandFacile
                 LogToFile(String.Format("dBaseTunnel : rdbSegnaOrdineStampato {0}", iOrdineParam));
 
                 // ORDER BY order_ID ASC
-                sSQL_Query = String.Format("UPDATE {0} SET print = 1 WHERE order_ID = {1}",
+                sSQL_Query = String.Format("UPDATE {0} SET print = 1 WHERE order_ID = {1} LIMIT 200",
                             NOME_ORDERS_RDBTBL, iOrdineParam);
 
                 sResponseFromServer = SendWebRequest(sSQL_Query);

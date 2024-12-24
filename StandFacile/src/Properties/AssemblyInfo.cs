@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("StandFacile")]
 [assembly: AssemblyProduct("StandFacile")]
-[assembly: AssemblyCopyright("Copyright © StandFacile 2023")]
+[assembly: AssemblyCopyright("Copyright © StandFacile 2024")]
 [assembly: AssemblyTrademark("StandFacile")]
 [assembly: AssemblyCulture("")]
 

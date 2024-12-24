@@ -1,7 +1,7 @@
 ﻿/*****************************************************
-  NomeFile  : StandFacile/Config.cs
-  Data	    : 01.10.2024
-  Autore	: Mauro Artuso
+  	NomeFile  : StandFacile/Config.cs
+	Data	 : 06.12.2024
+  	Autore	: Mauro Artuso
  *****************************************************/
 
 using System;

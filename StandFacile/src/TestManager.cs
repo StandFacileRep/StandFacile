@@ -1,7 +1,7 @@
 /***************************************************************************************************
-     NomeFile : StandFacile/TestManager.cs
-     Data	  : 03.10.2024
-     Autore   : Mauro Artuso
+    NomeFile : StandFacile/TestManager.cs
+    Data	 : 06.12.2024
+    Autore   : Mauro Artuso
      - se il registry contiene seqTest si avvia una emissione automatica di scontrini di test
      - durante _AUTO_SEQ_TEST la stampa delle copie richiede tempo e provoca disallineamenti
  **************************************************************************************************/

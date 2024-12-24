@@ -1,6 +1,6 @@
 ﻿/***************************************************
     NomeFile : StandFacile/EditArticoloDlg.cs
-    Data	 :  23.06.2023
+	Data	 : 06.12.2024
     Autore   : Mauro Artuso
  ***************************************************/
 using System;
@@ -146,6 +146,7 @@ namespace StandFacile
                     SF_Data.Articolo[_iPt].iPrezzoUnitario = 0;
                     SF_Data.Articolo[_iPt].iGruppoStampa = 0;
                     _bListinoModificato = true;
+
                     Init(_iPt, true);
                 }
                 else
@@ -211,7 +212,7 @@ namespace StandFacile
 
             if (((_Articolo.iPrezzoUnitario == -1) ||  // Errore di formato del Prezzo in Euro !
                  (tabEditArticolo.SelectedIndex == 0) && ((_Articolo.iPrezzoUnitario == 0) && (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER)))) // TAB Articoli
-            {               
+            {
                 PrzEdit.BackColor = Color.Red;
                 PrzEdit.ForeColor = SystemColors.HighlightText;
                 _bPrzEdit_OK = false;

@@ -1,7 +1,7 @@
 ﻿/***********************************************
-  NomeFile : StandFacile/EditHeaderFooterDlg.cs
-  Data	   : 23.06.2023
-  Autore   : Mauro Artuso
+  	NomeFile : StandFacile/EditHeaderFooterDlg.cs
+	Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
  **********************************************/
 
 using System;
@@ -22,7 +22,7 @@ namespace StandFacile
         static bool _bListinoModificato;
 
         /// <summary>ottiene flag di listino modificato</summary>
-        public static bool bGetListinoModificato()
+        public static bool GetListinoModificato()
         {
             return _bListinoModificato;
         }
@@ -49,7 +49,7 @@ namespace StandFacile
             ShowDialog();
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             if ((SF_Data.sHeaders[0] != IntestazioneEdit1.Text) ||
                 (SF_Data.sHeaders[1] != IntestazioneEdit2.Text) ||

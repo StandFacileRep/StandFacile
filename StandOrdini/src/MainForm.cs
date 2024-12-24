@@ -1,7 +1,7 @@
 ﻿/*******************************************************************
-  NomeFile : StandOrdini/MainForm.cs
-  Data	   : 23.06.2023
-  Autore   : Mauro Artuso
+  	NomeFile : StandOrdini/MainForm.cs
+	Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
 
   Programma per visualizzare in un monitor gli scontrini serviti
   ed eseguire lo scarico degli ordini consegnati dal database
@@ -804,7 +804,7 @@ namespace StandFacile
             EditInput.Enabled = false;
         }
 
-        private void AiutoRapidoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MnuAiutoRapido_Click(object sender, EventArgs e)
         {
             QuickHelpDlg rQuickHelpDlg = new QuickHelpDlg();
 

@@ -25,7 +25,7 @@ namespace StandFacile
         {
             InitializeComponent();
 
-                rAuxForm?.Close();
+            rAuxForm?.Close();
 
             rAuxForm = this;
             DBGrid.MultiSelect = false;

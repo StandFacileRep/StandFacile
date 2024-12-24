@@ -1,6 +1,6 @@
 ﻿/*********************************************************
     NomeFile : StandFacile
-    Data	 : 30.08.2024
+    Data	 : 06.12.2024
     Autore   : Mauro Artuso
 
     Avvia le classi visuali e non, nell'ordine corretto

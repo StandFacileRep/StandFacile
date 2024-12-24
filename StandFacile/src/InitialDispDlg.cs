@@ -1,7 +1,7 @@
 ﻿/***************************************************
-	 NomeFile : StandFacile\InitialDispDlg.cs
-	 Data	  : 14.04.2024
-	 Autore   : Mauro Artuso
+	NomeFile : StandFacile\InitialDispDlg.cs
+	Data	 : 06.12.2024
+	Autore   : Mauro Artuso
  ***************************************************/
 
 using System;

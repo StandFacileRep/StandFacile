@@ -1,7 +1,7 @@
 ﻿/********************************************************************
-  NomeFile  : StandFacile/EsploraRemOrdiniDB_Dlg.cs
-  Data	    : 21.03.2024
-  Autore    : Mauro Artuso
+  	NomeFile  : StandFacile/EsploraRemOrdiniDB_Dlg.cs
+	Data	 : 06.12.2024
+  	Autore    : Mauro Artuso
 
   Classe di esplorazione del database remoto, 
   ha senso chiamarla solo se il database remoto è selezionato
@@ -150,7 +150,6 @@ namespace StandFacile
                         dbGrid.Rows[iGridStringsCount].DefaultCellStyle.ForeColor = Color.White;
                         dbGrid.Rows[iGridStringsCount].DefaultCellStyle.BackColor = Color.Teal;
                     }
-
 
                     // evita di caricare la coda di eventi quando è ancora in elaborazione
                     if (IsBitSet(_sWebOrdersList[i].iStatus, BIT_ORDINE_DIRETTO_DA_WEB) && (iEventQueueCount <= 1) && ckBoxAuto.Checked)

@@ -1,7 +1,7 @@
 ﻿/********************************************************************
-  NomeFile : StandFacile/StartDlg.cs
-  Data	   : 23.06.2023
-  Autore   : Mauro Artuso
+  	NomeFile : StandFacile/StartDlg.cs
+    Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
 
   *******************************************************************/
 

@@ -1,7 +1,7 @@
 ﻿/************************************************************
-  NomeFile : StandCucina/MainForm.cs
-  Data	   : 25.09.2024
-  Autore   : Mauro Artuso
+  	NomeFile : StandCucina/MainForm.cs
+	Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
  ************************************************************/
 
 using System;
@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
-using static StandCommonFiles.ReceiptAndCopies;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
+using static StandCommonFiles.ReceiptAndCopies;
 
 using static StandFacile.glb;
 using static StandFacile.Define;
@@ -40,7 +40,7 @@ namespace StandFacile
 
         static readonly bool[] _bCopyToPrint = new bool[NUM_EDIT_GROUPS];
 
-        /// <summary>numro di scontrini da stampare che precedono iGlbCurrentOffline_TicketNum</summary>
+        /// <summary>numero di scontrini da stampare che precedono iGlbCurrentOffline_TicketNum</summary>
         static int _iPrevTicketNum;
         /// <summary>numro di scontrini da stampare che comprendono e seguono iGlbCurrentOffline_TicketNum</summary>
         static int _iNextTicketNum;
@@ -149,6 +149,8 @@ namespace StandFacile
                 // Imposta il nome del server
                 NetConfigLightDlg.rNetConfigLightDlg.ShowDialog();
             }
+            else if (CheckService(_ESPERTO))
+                MnuEspertoClick(this, null);
 
             ME_TickNum.Text = "0";
 

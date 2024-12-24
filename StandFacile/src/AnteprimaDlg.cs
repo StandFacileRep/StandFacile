@@ -1,7 +1,7 @@
 ﻿/********************************************************************
-  NomeFile : StandFacile/AnteprimaDlg.cs
-  Data	   : 25.09.2024
-  Autore   : Mauro Artuso
+  	NomeFile : StandFacile/AnteprimaDlg.cs
+	Data	 : 06.12.2024
+  	Autore   : Mauro Artuso
 
   Classe di visualizzazione dell'anteprima dello scontrino.
  ********************************************************************/

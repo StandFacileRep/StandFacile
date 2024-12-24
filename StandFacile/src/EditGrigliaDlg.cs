@@ -1,6 +1,6 @@
 ﻿/****************************************************************************
     NomeFile : StandFacile/ImpostaGrigliaDlg.cs
-    Data	 : 10.05.2024
+	Data	 : 06.12.2024
     Autore   : Mauro Artuso
 
     modo Touch:     3 4 5 	colonne

@@ -33,7 +33,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.OKBtn = new System.Windows.Forms.Button();
             this.OrdiniGrid = new System.Windows.Forms.DataGridView();
-            this.checkBox_nonevasi = new System.Windows.Forms.CheckBox();
+            this.checkBox_NonEvasi = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.OrdiniGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,33 +96,33 @@
             this.OrdiniGrid.TabIndex = 5;
             this.OrdiniGrid.Resize += new System.EventHandler(this.FormResize);
             // 
-            // checkBox_nonevasi
+            // checkBox_NonEvasi
             // 
-            this.checkBox_nonevasi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBox_nonevasi.AutoSize = true;
-            this.checkBox_nonevasi.Checked = true;
-            this.checkBox_nonevasi.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_nonevasi.Location = new System.Drawing.Point(278, 558);
-            this.checkBox_nonevasi.Name = "checkBox_nonevasi";
-            this.checkBox_nonevasi.Size = new System.Drawing.Size(156, 17);
-            this.checkBox_nonevasi.TabIndex = 6;
-            this.checkBox_nonevasi.Text = "mostra solo ordini non evasi";
-            this.checkBox_nonevasi.UseVisualStyleBackColor = true;
-            this.checkBox_nonevasi.Click += new System.EventHandler(this.checkBox_nonevasi_Click);
+            this.checkBox_NonEvasi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBox_NonEvasi.AutoSize = true;
+            this.checkBox_NonEvasi.Checked = true;
+            this.checkBox_NonEvasi.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_NonEvasi.Location = new System.Drawing.Point(278, 558);
+            this.checkBox_NonEvasi.Name = "checkBox_NonEvasi";
+            this.checkBox_NonEvasi.Size = new System.Drawing.Size(156, 17);
+            this.checkBox_NonEvasi.TabIndex = 6;
+            this.checkBox_NonEvasi.Text = "mostra solo ordini non evasi";
+            this.checkBox_NonEvasi.UseVisualStyleBackColor = true;
+            this.checkBox_NonEvasi.Click += new System.EventHandler(this.CheckBox_NonEvasi_Click);
             // 
-            // VisOrdiniFrm
+            // VisOrdiniTableFrm
             // 
             this.AcceptButton = this.OKBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
             this.ClientSize = new System.Drawing.Size(594, 596);
-            this.Controls.Add(this.checkBox_nonevasi);
+            this.Controls.Add(this.checkBox_NonEvasi);
             this.Controls.Add(this.OrdiniGrid);
             this.Controls.Add(this.OKBtn);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(600, 400);
-            this.Name = "VisOrdiniFrm";
+            this.Name = "VisOrdiniTableFrm";
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Ordini emessi";
@@ -137,6 +137,6 @@
 
         private System.Windows.Forms.Button OKBtn;
         private System.Windows.Forms.DataGridView OrdiniGrid;
-        private System.Windows.Forms.CheckBox checkBox_nonevasi;
+        private System.Windows.Forms.CheckBox checkBox_NonEvasi;
     }
 }

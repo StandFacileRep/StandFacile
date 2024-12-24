@@ -1,7 +1,7 @@
 ﻿/********************************************************************
-	 NomeFile : StandCucina/Define.cs
-	 Data	  : 14.08.2023
-	 Autore	  : Mauro Artuso
+	NomeFile : StandCucina/Define.cs
+	Data	 : 06.12.2024
+	Autore	  : Mauro Artuso
 
  ********************************************************************/
 
