@@ -1,6 +1,6 @@
 ﻿/*****************************************************
- 	NomeFile : StandFacileTests/StansFacileCommon_CLTests.cs
-    Data	 : 20.10.2024
+ 	NomeFile : StandFacileTests/E2E_Tests.cs
+	Data	 : 06.12.2024
  	Autore	 : Mauro Artuso
 
 	Classe per Unit Tests
@@ -26,13 +26,13 @@ namespace StandFacileTests
     [TestClass]
     public class StandFacile_E2ETests
     {
-        #pragma warning disable CS0162
+#pragma warning disable CS0162
 
         const int _DAYS_IN_ADVANCE = 0;
 
         /// <summary>
         /// true: compara ricevute e dati nella cartella di debug,</br>
-        /// false: prende i dati da C:/StabdFacile
+        /// false: prende i dati da C:/StandFacile
         /// </summary>
         const bool _DEBUG_VERIFY_DIR = true;
 
@@ -81,154 +81,170 @@ namespace StandFacileTests
                 else
                     sDirCurrentReceiptData = "C:\\StandFacile\\StandDati_" + sStartNumParam + "\\" + ANNO_DIR + GetActualDate().ToString("yyyy") + "\\" + sDirParam + GetActualDate().ToString("MMdd");
             }
-
-            string[] sAllCurrentReceiptFiles = Directory.GetFiles(sDirCurrentReceiptData, "*.*", SearchOption.AllDirectories);
-
-            // loop esterno con i files di riferimento
-            foreach (var referenceFile in sAllRefReceiptFiles)
+            try
             {
-                string sTmp;
-                string sInRefStr, sRefStringTrimmed;
+                string[] sAllCurrentReceiptFiles = Directory.GetFiles(sDirCurrentReceiptData, "*.*", SearchOption.AllDirectories);
 
-                fReference = File.OpenText(referenceFile);
-
-                // loop esterno con i files prodotti correntemente
-                foreach (var currentReceiptFile in sAllCurrentReceiptFiles)
+                // loop esterno con i files di riferimento
+                foreach (var referenceFile in sAllRefReceiptFiles)
                 {
-                    if (Path.GetFileName(currentReceiptFile) != Path.GetFileName(referenceFile))
-                        continue;
+                    bool bCurrentFoud = false;
+                    string sTmp;
+                    string sInRefStr, sRefStringTrimmed;
 
-                    string sInCurrentStr;
-                    fCurrent = File.OpenText(currentReceiptFile);
+                    fReference = File.OpenText(referenceFile);
 
-                    Trace.WriteLine("****************************");
-                    sTmp = string.Format($"*** file: {Path.GetFileName(currentReceiptFile)}");
-                    Trace.WriteLine(sTmp);
-                    Trace.WriteLine("****************************");
-
-                    sRefStringsList.Clear();
-                    sCurrStringsList.Clear();
-
-                    // legge i files e prepara le 2 liste 
-                    while (((sInRefStr = fReference.ReadLine()) != null) && (sRefStringsList.Count < 1000))
-                        sRefStringsList.Add(sInRefStr);
-
-                    while (((sInCurrentStr = fCurrent.ReadLine()) != null) && (sCurrStringsList.Count < 1000))
-                        sCurrStringsList.Add(sInCurrentStr);
-
-                    fReference.Close();
-                    fCurrent.Close();
-
-                    iCurrentRow = 0;
-                    bSkipTotale = false;
-
-                    foreach (string sRef in sRefStringsList)
+                    // loop esterno con i files prodotti correntemente
+                    foreach (var currentReceiptFile in sAllCurrentReceiptFiles)
                     {
-                        if (iCurrentRow >= sCurrStringsList.Count)
+                        if (Path.GetFileName(currentReceiptFile) != Path.GetFileName(referenceFile))
+                            continue;
+
+                        bCurrentFoud = true;
+
+                        string sInCurrentStr;
+                        fCurrent = File.OpenText(currentReceiptFile);
+
+                        Trace.WriteLine("****************************");
+                        sTmp = string.Format($"*** file: {Path.GetFileName(currentReceiptFile)}");
+                        Trace.WriteLine(sTmp);
+                        Trace.WriteLine("****************************");
+
+                        sRefStringsList.Clear();
+                        sCurrStringsList.Clear();
+
+                        // legge i files e prepara le 2 liste 
+                        while (((sInRefStr = fReference.ReadLine()) != null) && (sRefStringsList.Count < 1000))
+                            sRefStringsList.Add(sInRefStr);
+
+                        while (((sInCurrentStr = fCurrent.ReadLine()) != null) && (sCurrStringsList.Count < 1000))
+                            sCurrStringsList.Add(sInCurrentStr);
+
+                        fReference.Close();
+                        fCurrent.Close();
+
+                        iCurrentRow = 0;
+                        bSkipTotale = false;
+
+                        foreach (string sRef in sRefStringsList)
                         {
-                            sTmp = string.Format($"***  fail *** iCurrentRow > sCurrStringsList.Count");
-                            Trace.WriteLine(sTmp);
+                            if (iCurrentRow >= sCurrStringsList.Count)
+                            {
+                                sTmp = string.Format($"***  fail *** iCurrentRow > sCurrStringsList.Count");
+                                Trace.WriteLine(sTmp);
 
-                            bResult = false;
-                            break;
-                        }
+                                bResult = false;
+                                break;
+                            }
 
-                        sRefStringTrimmed = sRef.Trim();
-                        sCurrStringTrimmed = sCurrStringsList[iCurrentRow].Trim();
-
-                        dateCharCountRef = 0;
-                        dateCharCountRef += sRefStringTrimmed.Split('/').Length - 1;
-                        dateCharCountRef += sRefStringTrimmed.Split('.').Length - 1;
-
-                        dateCharCountCurrent = 0;
-                        dateCharCountCurrent += sCurrStringTrimmed.Split('/').Length - 1;
-                        dateCharCountCurrent += sCurrStringTrimmed.Split('.').Length - 1;
-
-                        // contronfo stringhe
-                        if (string.Compare(sRefStringTrimmed, sCurrStringTrimmed) == 0)
-                            Trace.WriteLine(sCurrStringTrimmed);
-
-                        // contronfo stringhe contenenti la data
-                        else if ((dateCharCountRef == dateCharCountCurrent) && (dateCharCountCurrent == 5))
-                            Trace.WriteLine(sCurrStringTrimmed);
-
-                        // contronfo stringhe contenenti Annullo
-                        else if (sCurrStringTrimmed == sConst_Annullo[0])
-                        {
-                            Trace.WriteLine(sCurrStringTrimmed);
-                            iCurrentRow++;
-
+                            sRefStringTrimmed = sRef.Trim();
                             sCurrStringTrimmed = sCurrStringsList[iCurrentRow].Trim();
-                            if (sCurrStringTrimmed == sConst_Annullo[1])
+
+                            dateCharCountRef = 0;
+                            dateCharCountRef += sRefStringTrimmed.Split('/').Length - 1;
+                            dateCharCountRef += sRefStringTrimmed.Split('.').Length - 1;
+
+                            dateCharCountCurrent = 0;
+                            dateCharCountCurrent += sCurrStringTrimmed.Split('/').Length - 1;
+                            dateCharCountCurrent += sCurrStringTrimmed.Split('.').Length - 1;
+
+                            // contronfo stringhe
+                            if (string.Compare(sRefStringTrimmed, sCurrStringTrimmed) == 0)
+                                Trace.WriteLine(sCurrStringTrimmed);
+
+                            // contronfo stringhe contenenti la data
+                            else if ((dateCharCountRef == dateCharCountCurrent) && (dateCharCountCurrent == 5))
+                                Trace.WriteLine(sCurrStringTrimmed);
+
+                            // contronfo stringhe contenenti Annullo
+                            else if (sCurrStringTrimmed == sConst_Annullo[0])
                             {
                                 Trace.WriteLine(sCurrStringTrimmed);
                                 iCurrentRow++;
 
                                 sCurrStringTrimmed = sCurrStringsList[iCurrentRow].Trim();
-                                if (sCurrStringTrimmed == sConst_Annullo[2])
+                                if (sCurrStringTrimmed == sConst_Annullo[1])
                                 {
                                     Trace.WriteLine(sCurrStringTrimmed);
                                     iCurrentRow++;
-                                    iCurrentRow++;
+
+                                    sCurrStringTrimmed = sCurrStringsList[iCurrentRow].Trim();
+                                    if (sCurrStringTrimmed == sConst_Annullo[2])
+                                    {
+                                        Trace.WriteLine(sCurrStringTrimmed);
+                                        iCurrentRow++;
+                                        iCurrentRow++;
+                                    }
                                 }
                             }
-                        }
 
-                        // contronfo stringhe contenenti Articoli non a Listino
-                        else if (sCurrStringTrimmed.Contains("PARMESAN_1"))
-                        {
-                            Trace.WriteLine(sCurrStringTrimmed);
-                            iCurrentRow++;
-
-                            sCurrStringTrimmed = sCurrStringsList[iCurrentRow].Trim();
-                            if (sCurrStringTrimmed.Contains("PARMESAN_2"))
+                            // contronfo stringhe contenenti Articoli non a Listino
+                            else if (sCurrStringTrimmed.Contains("PARMESAN_1"))
                             {
                                 Trace.WriteLine(sCurrStringTrimmed);
                                 iCurrentRow++;
 
                                 sCurrStringTrimmed = sCurrStringsList[iCurrentRow].Trim();
-                                if (sCurrStringTrimmed.Contains("PARMESAN_3"))
+                                if (sCurrStringTrimmed.Contains("PARMESAN_2"))
                                 {
                                     Trace.WriteLine(sCurrStringTrimmed);
                                     iCurrentRow++;
-                                    iCurrentRow++;
 
-                                    bSkipTotale = true;
+                                    sCurrStringTrimmed = sCurrStringsList[iCurrentRow].Trim();
+                                    if (sCurrStringTrimmed.Contains("PARMESAN_3"))
+                                    {
+                                        Trace.WriteLine(sCurrStringTrimmed);
+                                        iCurrentRow++;
+                                        iCurrentRow++;
+
+                                        bSkipTotale = true;
+                                    }
                                 }
                             }
+
+                            // contronfo stringhe contenenti Articoli non a Listino ... segue
+                            else if (sCurrStringTrimmed.Contains("TOTALE") && bSkipTotale)
+                            {
+                                // eccezzione in presenza di scontrino con PARMESAN_x
+                                bSkipTotale = false;
+                            }
+
+                            // errore
+                            else
+                            {
+                                sTmp = string.Format($"***  fail *** {sCurrStringTrimmed}");
+                                Trace.WriteLine(sTmp);
+
+                                bResult = false;
+                                break;
+                            }
+
+                            iCurrentRow++;
                         }
 
-                        // contronfo stringhe contenenti Articoli non a Listino ... segue
-                        else if (sCurrStringTrimmed.Contains("TOTALE") && bSkipTotale)
-                        {
-                            // eccezzione in presenza di scontrino con PARMESAN_x
-                            bSkipTotale = false;
-                        }
-
-                        // errore
-                        else
-                        {
-                            sTmp = string.Format($"***  fail *** {sCurrStringTrimmed}");
-                            Trace.WriteLine(sTmp);
-
-                            bResult = false;
+                        // termina il confronto al primo errore
+                        if (!bResult)
                             break;
-                        }
 
-                        iCurrentRow++;
+                        // esaurite le stringhe dello scontrino corrente
+                        if (iCurrentRow == sCurrStringsList.Count)
+                            break;
                     }
 
-                    // termina il confronto al primo errore
-                    if (!bResult)
-                        break;
+                    if (!bCurrentFoud)
+                    {
+                        Trace.WriteLine(string.Format($"ReceiptGenerationCompare: {referenceFile} not found !"));
+                    }
 
-                    // esaurite le stringhe dello scontrino corrente
-                    if (iCurrentRow == sCurrStringsList.Count)
+                    if (!bResult)
                         break;
                 }
 
-                if (!bResult)
-                    break;
+            }
+            catch (Exception e)
+            {
+                Trace.WriteLine(string.Format($"ReceiptGenerationCompare: {e.Message}"));
+                bResult = false;
             }
 
             Assert.IsTrue(bResult);
@@ -404,8 +420,8 @@ namespace StandFacileTests
                 // errore
                 else
                 {
-                    sTmp = string.Format($"***  fail *** {sCurrStringTrimmed}");
-                    Trace.WriteLine(sTmp);
+                    Trace.WriteLine(string.Format($"DataReportGenerationCompare: ***  fail *** {sCurrentReceiptDataFile}"));
+                    Trace.WriteLine(string.Format($"DataReportGenerationCompare: {sCurrStringTrimmed}"));
 
                     bResult = false;
                     break;
