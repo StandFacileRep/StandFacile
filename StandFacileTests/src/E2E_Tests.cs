@@ -6,18 +6,16 @@
 	Classe per Unit Tests
  *****************************************************/
 
-using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 using static StandFacile.Define;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
-using static StandCommonFiles.ReceiptAndCopies;
-using StandFacile;
-using System.IO;
-using System.Collections.Generic;
-using System;
-using System.Diagnostics;
 
 
 namespace StandFacileTests

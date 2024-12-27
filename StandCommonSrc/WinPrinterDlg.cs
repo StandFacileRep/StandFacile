@@ -71,6 +71,9 @@ namespace StandFacile
         bool _bInitComplete = false;
         int _iMaxMarginWidth, _iTckLeftMargin, _iRepLeftMargin;
 
+#if !STANDFACILE
+        int _yDisp = 0;
+#endif
         static Font tckFont, repFont;
         FontDialog fontTckDlg, fontRepDlg;
 
@@ -133,6 +136,7 @@ namespace StandFacile
         public bool Init(bool bShow)
         {
             int i = 0, j = 0;
+
             String sDir = "";
             DialogResult result = DialogResult.None;
             Bitmap tmpImage;
@@ -265,16 +269,21 @@ namespace StandFacile
             lblLogo.Enabled = false;
             lblLogo.Visible = false;
 
-            int yDisp = SampleTextBtn.Top - BtnLogoFileSelect.Top ;
+            // esegue solo una volta
+            if (_yDisp == 0)
+            {
+                _yDisp = SampleTextBtn.Top - BtnLogoFileSelect.Top;
 
-            btnOK.Top -= yDisp;
-            btnCancel.Top -= yDisp;
-            SampleTextBtn.Top -= yDisp -8;
+                // dipende da proprieta Anchor
+                //btnOK.Top -= _yDisp;
+                //btnCancel.Top -= _yDisp;
+                //SampleTextBtn.Top -= _yDisp - 8;
 
-            checkBox_Chars33.Top -= yDisp;
-            checkBox_A5_paper.Top -= yDisp;
+                //checkBox_Chars33.Top -= _yDisp;
+                //checkBox_A5_paper.Top -= _yDisp;
 
-            Height -= yDisp;
+                Height -= _yDisp;
+            }
 #endif
 
             if (!String.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName)) //carica il file grafico

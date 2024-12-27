@@ -301,7 +301,6 @@ namespace StandFacile
         /// <summary>inizializzazione delle stringhe di formattazione</summary>
         public static void InitFormatStrings(bool bSetChars33_true = false)
         {
-
             if (bSetChars33_true)
                 sGlbWinPrinterParams.bChars33 = true;
 
@@ -312,11 +311,11 @@ namespace StandFacile
 
             sRCP_FMT_RCPT = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_RCPT : _RCP_FMT_28_RCPT;
             sRCP_FMT_CPY = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_CPY : _RCP_FMT_28_CPY;
-            sRCP_FMT_NOTE = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_NOTE : _RCP_FMT_28_NOTE;
             sRCP_FMT_DSC = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_DSC : _RCP_FMT_28_DSC;
             sRCP_FMT_DIF = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_DIF : _RCP_FMT_28_DIF;
             sRCP_FMT_TOT = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_TOT : _RCP_FMT_28_TOT;
             sRCP_FMT_DSH = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_DSH : _RCP_FMT_28_DSH;
+            sRCP_FMT_NOTE = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_NOTE : _RCP_FMT_28_NOTE;
 
             sGRD_FMT_STD = sGlbWinPrinterParams.bChars33 ? _GRD_FMT_33_STD : _GRD_FMT_28_STD;
             sGRD_FMT_TCH = sGlbWinPrinterParams.bChars33 ? _GRD_FMT_33_TCH : _GRD_FMT_28_TCH;

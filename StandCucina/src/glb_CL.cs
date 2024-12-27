@@ -19,6 +19,9 @@ namespace StandFacile
         /// <summary>numero massimo di caratteri per riga</summary>
         public static int iMAX_RECEIPT_CHARS;
 
+        /// <summary>numero massimo di caratteri per articolo</summary>
+        public static int iMAX_ART_CHAR;
+
         /// <summary>numero totali dei scontrini</summary>
         public static int iGlbNumOfTickets;
 

@@ -134,6 +134,7 @@
             // 
             // SampleTextBtn
             // 
+            this.SampleTextBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SampleTextBtn.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.SampleTextBtn.Location = new System.Drawing.Point(26, 435);
             this.SampleTextBtn.Name = "SampleTextBtn";
@@ -146,6 +147,7 @@
             // Memo
             // 
             this.Memo.AcceptsReturn = true;
+            this.Memo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Memo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Memo.Location = new System.Drawing.Point(276, 45);
             this.Memo.Multiline = true;
@@ -263,6 +265,7 @@
             // 
             // checkBox_A5_paper
             // 
+            this.checkBox_A5_paper.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_A5_paper.AutoSize = true;
             this.checkBox_A5_paper.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox_A5_paper.Location = new System.Drawing.Point(26, 523);
@@ -385,6 +388,7 @@
             // 
             // checkBox_Chars33
             // 
+            this.checkBox_Chars33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_Chars33.AutoSize = true;
             this.checkBox_Chars33.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox_Chars33.Location = new System.Drawing.Point(26, 486);
@@ -396,6 +400,7 @@
             // 
             // checkBox_LogoNelleCopie
             // 
+            this.checkBox_LogoNelleCopie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_LogoNelleCopie.AutoSize = true;
             this.checkBox_LogoNelleCopie.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox_LogoNelleCopie.Location = new System.Drawing.Point(276, 523);
@@ -407,6 +412,7 @@
             // 
             // checkBox_CopertiNelleCopie
             // 
+            this.checkBox_CopertiNelleCopie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_CopertiNelleCopie.AutoSize = true;
             this.checkBox_CopertiNelleCopie.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox_CopertiNelleCopie.Location = new System.Drawing.Point(276, 486);
@@ -418,6 +424,7 @@
             // 
             // labelA5
             // 
+            this.labelA5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelA5.AutoSize = true;
             this.labelA5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelA5.ForeColor = System.Drawing.SystemColors.Highlight;

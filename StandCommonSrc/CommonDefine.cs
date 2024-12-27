@@ -162,8 +162,10 @@ namespace StandCommonFiles
         /// </summary>
         public static String sRCP_FMT_RCPT, sRCP_FMT_CPY, sRCP_FMT_DSC, sRCP_FMT_DIF, sRCP_FMT_TOT, sRCP_FMT_DSH, sRCP_FMT_NOTE;
 
+#if STANDFACILE
         /// <summary>Stringhe di formattazione griglia, listino, etc.</summary>
         public static String sGRD_FMT_STD, sGRD_FMT_TCH, sGRDW_FMT_STD, sGRDZ_FMT_TCH, sGRDW_FMT_TCH;
+#endif
 
         /// <summary>Stringhe di formattazione dati</summary>
         public static String sDAT_FMT_PRL, sDAT_FMT_DAT, sDAT_FMT_TOT, sDAT_FMT_DSH;
@@ -215,6 +217,7 @@ namespace StandCommonFiles
         public const String _RCP_FMT_33_DSH = "{0,33}";
 
 
+#if STANDFACILE
         /// <summary>stringa per formattazione griglia base 28 char</summary>
         public const String _GRD_FMT_28_STD = " {0,2} {1,-18} {2,5:0.00}";
 
@@ -244,7 +247,6 @@ namespace StandCommonFiles
 
         /// <summary>stringa per formattazione work griglia base 33 char</summary>
         public const String _GRDW_FMT_33_TCH = " ds:{0,-3}{1,11}{2}{2}{3,-23}";
-
 
         /// <summary>stringa per formattazione listino base 28 char</summary>
         public const String _DAT_FMT_28_PRL = "{0,-18} ; {1,6} ; {2,2}";
@@ -294,6 +296,7 @@ namespace StandCommonFiles
 
         /// <summary>stringa per formattazione listino base 33 char</summary>
         public const String _DAT_FMT_33_TOT_RED = " {0,27}{1,10}";
+#endif
 
 
         // altre voci di registro
