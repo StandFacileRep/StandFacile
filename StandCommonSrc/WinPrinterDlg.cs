@@ -175,8 +175,10 @@ namespace StandFacile
             else
                 PrintersListCombo.SelectedIndex = 0;
 
+#if !STAND_CUCINA
             // 7+1, sPrinterModel è sopra
             sGlbWinPrinterParams.sLogoName = ReadRegistry(WIN_LOGO_NAME_KEY, "");
+#endif
 
             sGlbWinPrinterParams.sTckFontType = ReadRegistry(TCK_WIN_FONT_TYPE_KEY, "Lucida Console");
             sGlbWinPrinterParams.fTckFontSize = ReadRegistry(TCK_WIN_FONT_SIZE_KEY, 1100) / 100.0f;
@@ -257,9 +259,15 @@ namespace StandFacile
             checkBox_Chars33.Checked = (ReadRegistry(PRINT_ON_33CHARS_RECEIPT_KEY, 0) == 1);
             sGlbWinPrinterParams.bChars33 = checkBox_Chars33.Checked;
 
-            checkBox_LogoNelleCopie.Checked = (ReadRegistry(PRINT_LOGO_ON_COPIES_KEY, 0) == 1);
             checkBox_CopertiNelleCopie.Checked = (ReadRegistry(PRINT_PLACESETTINGS_ON_COPIES_KEY, 0) == 1);
 
+            if (checkBox_CopertiNelleCopie.Checked)
+                SF_Data.iReceiptCopyOptions = SetBit(SF_Data.iReceiptCopyOptions, BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED);
+            else
+                SF_Data.iReceiptCopyOptions = ClearBit(SF_Data.iReceiptCopyOptions, BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED);
+
+            checkBox_LogoNelleCopie.Checked = false;
+            checkBox_LogoNelleCopie.Visible = false;
             BtnLogoFileSelect.Enabled = false;
             BtnLogoFileSelect.Visible = false;
             BtnDeleteLogo.Enabled = false;
@@ -735,17 +743,12 @@ namespace StandFacile
 
 #if STANDFACILE
             DataManager.InitFormatStrings();
-#else
-            FrmMain.rFrmMain.Init();
-#endif
-
             if (checkBox_LogoNelleCopie.Checked)
             {
                 if (!IsBitSet(SF_Data.iReceiptCopyOptions, BIT_LOGO_PRINT_REQUIRED))
                 {
                     SF_Data.iReceiptCopyOptions = SetBit(SF_Data.iReceiptCopyOptions, BIT_LOGO_PRINT_REQUIRED);
 
-                    WriteRegistry(PRINT_LOGO_ON_COPIES_KEY, 1);
                     _bListinoModificato = true;
                 }
             }
@@ -755,10 +758,13 @@ namespace StandFacile
                 {
                     SF_Data.iReceiptCopyOptions = ClearBit(SF_Data.iReceiptCopyOptions, BIT_LOGO_PRINT_REQUIRED);
 
-                    WriteRegistry(PRINT_LOGO_ON_COPIES_KEY, 0);
                     _bListinoModificato = true;
                 }
             }
+#else
+            FrmMain.rFrmMain.Init();
+#endif
+
 
             if (checkBox_CopertiNelleCopie.Checked)
             {

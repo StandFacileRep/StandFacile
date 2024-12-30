@@ -321,9 +321,6 @@ namespace StandCommonFiles
         /// <summary>chiave che descrive se si utilizzano 33 caratteri per riga, oppure 28</summary>
         public const String PRINT_ON_33CHARS_RECEIPT_KEY = "iPrint33CharsReceipt";
 
-        /// <summary>chiave che descrive se si stampa il Logo nelle copie</summary>
-        public const String PRINT_LOGO_ON_COPIES_KEY = "iPrintLogoOnCopies";
-
         /// <summary>chiave che descrive se si stampano i coperti nelle copie</summary>
         public const String PRINT_PLACESETTINGS_ON_COPIES_KEY = "iPrintPlaceSettingOnCopies";
 

@@ -175,7 +175,7 @@ namespace StandFacile
             _rVisOrdiniDlg = new VisOrdiniDlg(GetActualDate(), VisOrdiniDlg.MAX_NUM_TICKET, "", VIEW_TYPE.NO_VIEW);
 
             // prima lettura DB
-            MainTimerLoop_Tick(this, null);
+            FrmMainTimerLoop_Tick(this, null);
 
             ME_TickNum.Text = iGlbNumOfTickets.ToString();
 
@@ -268,6 +268,9 @@ namespace StandFacile
         {
             bool bThereIsSomethingToPrint;
             int iDebug1, iDebug2; ;
+
+            iDebug1 = iGlbCurrentOffline_TicketNum;
+            iDebug2 = DB_Data.iStartingNumOfReceipts;
 
             if ((iGlbCurrentOffline_TicketNum - 1) < DB_Data.iStartingNumOfReceipts)
             {
@@ -655,7 +658,7 @@ namespace StandFacile
             rInfoDlg.ShowDialog();
         }
 
-        private void MainTimerLoop_Tick(object sender, EventArgs e)
+        private void FrmMainTimerLoop_Tick(object sender, EventArgs e)
         {
             int iDebug;
             String sTmp, sTime;
@@ -708,9 +711,6 @@ namespace StandFacile
                 {
                     if (_iPrevShownOnline_TicketNum == -100) // skip la prima volta
                     {
-                        // Init
-                        Reset_StatusDate_Changed();
-
                         iGlbCurrentOffline_TicketNum = iGlbNumOfTickets;
                         _iPrevShownOnline_TicketNum = iGlbNumOfTickets;
 
@@ -748,15 +748,18 @@ namespace StandFacile
                                         _iElencoOrdiniNoPrint.Add(_iPrevShownOnline_TicketNum);
 
                                 sTime = DateTime.Now.ToString("HH.mm.ss");
-                                sTmp = String.Format("{0} DB_Client : {1}, C = {2}, N. = {3}", sTime, " - - - ", DB_Data.iNumCassa, _iPrevShownOnline_TicketNum);
+                                sTmp = String.Format("{0} DB_Client : {1}, Cs = {2}, N. = {3}", sTime, " - - - ", DB_Data.iNumCassa, _iPrevShownOnline_TicketNum);
                                 rLogForm.LogAddLine(sTmp);
 
-                                sTmp = String.Format("DB_Client : {0}, C = {1}, N. = {2}, ", " - - - ", DB_Data.iNumCassa, _iPrevShownOnline_TicketNum);
+                                sTmp = String.Format("DB_Client : {0}, Cs = {1}, N. = {2}, ", " - - - ", DB_Data.iNumCassa, _iPrevShownOnline_TicketNum);
                                 LogToFile(sTmp);
 
                                 ClientTimer.Interval = DB_CLIENT_TIMER_SHORT / 2; // accelera ancora di più se non stampa
                             }
                         }
+
+                        // *** alla fine c'è il reset cambio data ***
+                        Reset_StatusDate_Changed();
                     }
                 }
                 else
@@ -805,10 +808,10 @@ namespace StandFacile
                         Reset_StatusDate_Changed();
 
                         sTime = DateTime.Now.ToString("HH.mm.ss");
-                        sTmp = String.Format("{0} DB_Client : C = {1}, Msg N. = {2}", sTime, DB_Data.iNumCassa, _iPrevShownOnline_MessageNum);
+                        sTmp = String.Format("{0} DB_Client : Cs = {1}, Msg N. = {2}", sTime, DB_Data.iNumCassa, _iPrevShownOnline_MessageNum);
                         rLogForm.LogAddLine(sTmp);
 
-                        sTmp = String.Format("DB_Client : C = {0}, Msg N. = {1}", DB_Data.iNumCassa, _iPrevShownOnline_MessageNum);
+                        sTmp = String.Format("DB_Client : Cs = {0}, Msg N. = {1}", DB_Data.iNumCassa, _iPrevShownOnline_MessageNum);
                         LogToFile(sTmp);
                     }
                 }
@@ -852,10 +855,10 @@ namespace StandFacile
                         GenPrintFile(sFileToPrint);
 
                         sTime = DateTime.Now.ToString("HH.mm.ss");
-                        sTmp = String.Format("{0} DB_Client : {1}, C = {2}, N. = {3}", sTime, sConstGruppi[i], DB_Data.iNumCassa, _iPrevShownOnline_TicketNum);
+                        sTmp = String.Format("{0} DB_Client : {1}, Cs = {2}, N. = {3}", sTime, sConstGruppi[i], DB_Data.iNumCassa, _iPrevShownOnline_TicketNum);
                         rLogForm.LogAddLine(sTmp);
 
-                        sTmp = String.Format("DB_Client : {0}, C = {1}, N. = {2}", sConstGruppi[i], DB_Data.iNumCassa, _iPrevShownOnline_TicketNum);
+                        sTmp = String.Format("DB_Client : {0}, Cs = {1}, N. = {2}", sConstGruppi[i], DB_Data.iNumCassa, _iPrevShownOnline_TicketNum);
                         LogToFile(sTmp);
                     }
                 }

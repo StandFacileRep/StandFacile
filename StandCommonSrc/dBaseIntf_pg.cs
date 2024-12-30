@@ -322,6 +322,7 @@ namespace StandFacile_DB
                     if (_sPrevStatus_Date != _sDateFromDB)
                     {
                         //dbAzzeraDatiGen();
+                        Console.WriteLine(String.Format($"dbCheckStatus STAND_CUCINA _sPrevStatus_Date = {_sPrevStatus_Date}, _sDateFromDB = {_sDateFromDB}"));
 
                         _bStatusDate_IsChanged = true;
                         _sPrevStatus_Date = _sDateFromDB;

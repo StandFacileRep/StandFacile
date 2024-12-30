@@ -384,7 +384,7 @@
             // ClientTimer
             // 
             this.ClientTimer.Interval = 1000;
-            this.ClientTimer.Tick += new System.EventHandler(this.MainTimerLoop_Tick);
+            this.ClientTimer.Tick += new System.EventHandler(this.FrmMainTimerLoop_Tick);
             // 
             // openFileDialog
             // 
