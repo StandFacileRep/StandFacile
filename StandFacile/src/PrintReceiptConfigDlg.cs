@@ -135,9 +135,6 @@ namespace StandFacile
             checkBox_CUT.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_PRINT_GROUPS_CUT_REQUIRED);
             _bCheckBox_CUT_CheckedCopy = checkBox_CUT.Checked;
 
-            // checkBox_NetLogo.Checked =   IsBitSet(SF_Data.iTicketCopyOpt_and_QtyOne, 9);
-            // checkBox_Chars33.Checked = IsBitSet(SF_Data.iTicketCopyOpt_and_QtyOne, 8);
-
             CheckBoxNoPrice_CheckedChanged(this, null);
 
             _bListinoModificato = false;

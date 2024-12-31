@@ -298,43 +298,6 @@ namespace StandFacile
             LogToFile("DataManager : resetGrid");
         }
 
-        /// <summary>inizializzazione delle stringhe di formattazione</summary>
-        public static void InitFormatStrings(bool bSetChars33_true = false)
-        {
-            if (bSetChars33_true)
-                sGlbWinPrinterParams.bChars33 = true;
-
-            iMAX_RECEIPT_CHARS = sGlbWinPrinterParams.bChars33 ? MAX_ABS_RECEIPT_CHARS : MAX_LEG_RECEIPT_CHARS;
-            iMAX_ART_CHAR = sGlbWinPrinterParams.bChars33 ? MAX_ABS_ART_CHAR : MAX_LEG_ART_CHAR;
-
-            iCenterOrderNum = sGlbWinPrinterParams.bChars33 ? MAX_ABS_RECEIPT_CHARS - 8 : MAX_LEG_RECEIPT_CHARS - 2;
-
-            sRCP_FMT_RCPT = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_RCPT : _RCP_FMT_28_RCPT;
-            sRCP_FMT_CPY = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_CPY : _RCP_FMT_28_CPY;
-            sRCP_FMT_DSC = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_DSC : _RCP_FMT_28_DSC;
-            sRCP_FMT_DIF = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_DIF : _RCP_FMT_28_DIF;
-            sRCP_FMT_TOT = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_TOT : _RCP_FMT_28_TOT;
-            sRCP_FMT_DSH = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_DSH : _RCP_FMT_28_DSH;
-            sRCP_FMT_NOTE = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_NOTE : _RCP_FMT_28_NOTE;
-
-            sGRD_FMT_STD = sGlbWinPrinterParams.bChars33 ? _GRD_FMT_33_STD : _GRD_FMT_28_STD;
-            sGRD_FMT_TCH = sGlbWinPrinterParams.bChars33 ? _GRD_FMT_33_TCH : _GRD_FMT_28_TCH;
-
-            sGRDW_FMT_STD = sGlbWinPrinterParams.bChars33 ? _GRDW_FMT_33_STD : _GRDW_FMT_28_STD;
-            sGRDZ_FMT_TCH = sGlbWinPrinterParams.bChars33 ? _GRDZ_FMT_33_TCH : _GRDZ_FMT_28_TCH;
-            sGRDW_FMT_TCH = sGlbWinPrinterParams.bChars33 ? _GRDW_FMT_33_TCH : _GRDW_FMT_28_TCH;
-
-            sDAT_FMT_PRL = sGlbWinPrinterParams.bChars33 ? _DAT_FMT_33_PRL : _DAT_FMT_28_PRL;
-            sDAT_FMT_DAT = sGlbWinPrinterParams.bChars33 ? _DAT_FMT_33_DAT : _DAT_FMT_28_DAT;
-            sDAT_FMT_TOT = sGlbWinPrinterParams.bChars33 ? _DAT_FMT_33_TOT : _DAT_FMT_28_TOT;
-            sDAT_FMT_DSH = sGlbWinPrinterParams.bChars33 ? _DAT_FMT_33_DSH : _DAT_FMT_28_DSH;
-            sDAT_FMT_HED = sGlbWinPrinterParams.bChars33 ? _DAT_FMT_33_HED : _DAT_FMT_28_HED;
-
-            sDAT_FMT_REP_RED = sGlbWinPrinterParams.bChars33 ? _DAT_FMT_33_REP_RED : _DAT_FMT_28_REP_RED;
-            sDAT_FMT_DSH_RED = sGlbWinPrinterParams.bChars33 ? _DAT_FMT_33_DSH_RED : _DAT_FMT_28_DSH_RED;
-            sDAT_FMT_TOT_RED = sGlbWinPrinterParams.bChars33 ? _DAT_FMT_33_TOT_RED : _DAT_FMT_28_TOT_RED;
-        }
-
         /// <summary>Crea le varie directories di lavoro</summary>
         public static void InitDirectories()
         {
@@ -405,10 +368,6 @@ namespace StandFacile
             iMAX_RECEIPT_CHARS = MAX_LEG_RECEIPT_CHARS;
             iMAX_ART_CHAR = MAX_LEG_ART_CHAR;
 
-            // eseguito una prima volta per inizializzare le stringhe di formattazione con
-            // sGlbWinPrinterParams.bChars33 = true;
-            InitFormatStrings(true);
-
             // test di connessione, se fallisce si evita di pedere tempo qui di seguito
             _bDB_InitialConnectionOk = _rdBaseIntf.dbInit(GetActualDate(), CASSA_PRINCIPALE, true);
 
@@ -451,7 +410,6 @@ namespace StandFacile
             Console.WriteLine(sTmp);
 
             InitFormatStrings();
-
         }
 
         /// <summary>

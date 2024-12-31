@@ -250,19 +250,6 @@ namespace StandFacile
 
             sKeyGood = ReadRegistry(DBASE_SERVER_NAME_KEY, "");
 
-            iMAX_RECEIPT_CHARS = sGlbWinPrinterParams.bChars33 ? MAX_ABS_RECEIPT_CHARS : MAX_LEG_RECEIPT_CHARS;
-            iMAX_ART_CHAR = sGlbWinPrinterParams.bChars33 ? MAX_ABS_ART_CHAR : MAX_LEG_ART_CHAR;
-            iCenterOrderNum = sGlbWinPrinterParams.bChars33 ? MAX_ABS_RECEIPT_CHARS - 8 : MAX_LEG_RECEIPT_CHARS - 2;
-
-            // inizializzazione delle stringhe di formattazione
-            sRCP_FMT_RCPT = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_RCPT : _RCP_FMT_28_RCPT;
-            sRCP_FMT_CPY = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_CPY : _RCP_FMT_28_CPY;
-            sRCP_FMT_DSC = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_DSC : _RCP_FMT_28_DSC;
-            sRCP_FMT_DIF = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_DIF : _RCP_FMT_28_DIF;
-            sRCP_FMT_TOT = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_TOT : _RCP_FMT_28_TOT;
-            sRCP_FMT_DSH = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_DSH : _RCP_FMT_28_DSH;
-            sRCP_FMT_NOTE = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_NOTE : _RCP_FMT_28_NOTE;
-
             if (String.IsNullOrEmpty(sKeyGood))
             {
                 MessageBox.Show("E' la prima esecuzione, imposta la connessione al database !", "Attenzione !", MessageBoxButtons.OK);

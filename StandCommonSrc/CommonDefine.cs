@@ -248,6 +248,7 @@ namespace StandCommonFiles
         /// <summary>stringa per formattazione work griglia base 33 char</summary>
         public const String _GRDW_FMT_33_TCH = " ds:{0,-3}{1,11}{2}{2}{3,-23}";
 
+#endif
         /// <summary>stringa per formattazione listino base 28 char</summary>
         public const String _DAT_FMT_28_PRL = "{0,-18} ; {1,6} ; {2,2}";
 
@@ -296,8 +297,6 @@ namespace StandCommonFiles
 
         /// <summary>stringa per formattazione listino base 33 char</summary>
         public const String _DAT_FMT_33_TOT_RED = " {0,27}{1,10}";
-#endif
-
 
         // altre voci di registro
         /// <summary>chiave che descrive se la stampante è Windows o Legacy</summary>
@@ -699,7 +698,7 @@ namespace StandCommonFiles
             /// <summary>costruttore</summary>
             public TWinPrinterParams(int i)
             {
-                bChars33 = false;
+                bChars33 = true;
                 bA5Paper = false;
 
                 sTckPrinterModel = "";

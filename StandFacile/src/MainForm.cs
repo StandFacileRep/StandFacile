@@ -460,7 +460,7 @@ namespace StandFacile
             int i, j;
             String sTmp;
 
-            MainGrid.RowCount = SF_Data.iGridRows; // va messa dopo l'impostazione Columns
+            MainGrid.RowCount = SF_Data.iGridRows;
             MainGrid.ColumnCount = SF_Data.iGridCols;
 
             iLastGridIndex = SF_Data.iGridRows * SF_Data.iGridCols;

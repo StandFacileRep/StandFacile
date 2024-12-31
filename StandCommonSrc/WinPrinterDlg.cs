@@ -175,7 +175,7 @@ namespace StandFacile
             else
                 PrintersListCombo.SelectedIndex = 0;
 
-#if !STAND_CUCINA
+#if STAND_FACILE
             // 7+1, sPrinterModel è sopra
             sGlbWinPrinterParams.sLogoName = ReadRegistry(WIN_LOGO_NAME_KEY, "");
 #endif
@@ -240,8 +240,9 @@ namespace StandFacile
             //LogoImage.Height = LOGO_HEIGHT / 2;
 
 #if STANDFACILE
-            checkBox_Chars33.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_CHARS33_PRINT_REQUIRED);
-            sGlbWinPrinterParams.bChars33 = checkBox_Chars33.Checked;
+
+            // caricato dal Listino
+            checkBox_Chars33.Checked = sGlbWinPrinterParams.bChars33;
 
             checkBox_LogoNelleCopie.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_LOGO_PRINT_REQUIRED);
 
@@ -348,6 +349,8 @@ namespace StandFacile
                 timer.Enabled = false;
 
             LogToFile("WinPrinterDlg : Init out");
+
+            InitFormatStrings();
 
             return (result == DialogResult.OK); // true se è cliccato OK
         }
@@ -741,8 +744,10 @@ namespace StandFacile
                 }
             }
 
+            InitFormatStrings();
+
 #if STANDFACILE
-            DataManager.InitFormatStrings();
+
             if (checkBox_LogoNelleCopie.Checked)
             {
                 if (!IsBitSet(SF_Data.iReceiptCopyOptions, BIT_LOGO_PRINT_REQUIRED))
@@ -761,8 +766,6 @@ namespace StandFacile
                     _bListinoModificato = true;
                 }
             }
-#else
-            FrmMain.rFrmMain.Init();
 #endif
 
 
