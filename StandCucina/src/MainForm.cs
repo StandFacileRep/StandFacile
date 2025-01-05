@@ -42,7 +42,7 @@ namespace StandFacile
 
         /// <summary>numero di scontrini da stampare che precedono iGlbCurrentOffline_TicketNum</summary>
         static int _iPrevTicketNum;
-        /// <summary>numro di scontrini da stampare che comprendono e seguono iGlbCurrentOffline_TicketNum</summary>
+        /// <summary>numero di scontrini da stampare che comprendono e seguono iGlbCurrentOffline_TicketNum</summary>
         static int _iNextTicketNum;
 
         /// <summary>numero dello scontrino corrente in modo offline</summary>

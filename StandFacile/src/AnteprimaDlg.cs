@@ -538,7 +538,7 @@ namespace StandFacile
                 return;
 
             // dimensione ricalibrata
-            float fFontSize = sGlbWinPrinterParams.bChars33 ? 1.04f * picBox.Width / 32.0f : 1.04f * picBox.Width / 28.0f;
+            float fFontSize = sGlbWinPrinterParams.bChars33 ? 1.06f * picBox.Width / 32.0f : 1.04f * picBox.Width / 28.0f;
 
             _printFont = new Font(sGlbWinPrinterParams.sTckFontType, fFontSize);
 

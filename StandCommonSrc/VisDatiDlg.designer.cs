@@ -44,6 +44,8 @@
             // 
             // textEditDati
             // 
+            this.textEditDati.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textEditDati.BackColor = System.Drawing.Color.Teal;
             this.textEditDati.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEditDati.ForeColor = System.Drawing.SystemColors.Window;

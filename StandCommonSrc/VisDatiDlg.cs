@@ -205,7 +205,7 @@ namespace StandFacile
              ***********************************************/
             if (_iTipoFile == (int)FILE_TO_SHOW.FILE_DATI)
             {
-                this.Width = 700;
+                this.Width = 640;
 
                 //	visualizzazione
                 if (bUSA_NDB() && String.IsNullOrEmpty(_sNomeTabellaParam))

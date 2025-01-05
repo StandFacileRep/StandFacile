@@ -750,7 +750,7 @@ namespace StandCommonFiles
             iMAX_RECEIPT_CHARS = sGlbWinPrinterParams.bChars33 ? MAX_ABS_RECEIPT_CHARS : MAX_LEG_RECEIPT_CHARS;
             iMAX_ART_CHAR = sGlbWinPrinterParams.bChars33 ? MAX_ABS_ART_CHAR : MAX_LEG_ART_CHAR;
 
-            iCenterOrderNum = sGlbWinPrinterParams.bChars33 ? MAX_ABS_RECEIPT_CHARS - 8 : MAX_LEG_RECEIPT_CHARS - 2;
+            iCenterOrderNum = sGlbWinPrinterParams.bChars33 ? MAX_ABS_RECEIPT_CHARS - 10 : MAX_LEG_RECEIPT_CHARS - 4;
 
             sRCP_FMT_RCPT = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_RCPT : _RCP_FMT_28_RCPT;
             sRCP_FMT_CPY = sGlbWinPrinterParams.bChars33 ? _RCP_FMT_33_CPY : _RCP_FMT_28_CPY;
