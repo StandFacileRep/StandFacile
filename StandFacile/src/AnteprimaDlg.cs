@@ -134,7 +134,7 @@ namespace StandFacile
             /*************************************
              * 		   Stampa del Logo
              *************************************/
-            if (Visible && checkBoxLogo.Checked && !String.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName) && (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS))
+            if (Visible && checkBoxLogo.Checked && !String.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName) && PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
             {
                 Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo();
 

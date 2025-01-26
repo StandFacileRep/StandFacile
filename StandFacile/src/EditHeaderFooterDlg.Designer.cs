@@ -48,38 +48,38 @@
             // 
             // IntestazioneEdit1
             // 
-            this.IntestazioneEdit1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IntestazioneEdit1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IntestazioneEdit1.Location = new System.Drawing.Point(27, 38);
             this.IntestazioneEdit1.MaxLength = 28;
             this.IntestazioneEdit1.Name = "IntestazioneEdit1";
-            this.IntestazioneEdit1.Size = new System.Drawing.Size(264, 26);
+            this.IntestazioneEdit1.Size = new System.Drawing.Size(264, 27);
             this.IntestazioneEdit1.TabIndex = 0;
             // 
             // PiePaginaEdit1
             // 
-            this.PiePaginaEdit1.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PiePaginaEdit1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PiePaginaEdit1.Location = new System.Drawing.Point(27, 168);
             this.PiePaginaEdit1.MaxLength = 28;
             this.PiePaginaEdit1.Name = "PiePaginaEdit1";
-            this.PiePaginaEdit1.Size = new System.Drawing.Size(264, 26);
+            this.PiePaginaEdit1.Size = new System.Drawing.Size(264, 27);
             this.PiePaginaEdit1.TabIndex = 2;
             // 
             // PiePaginaEdit2
             // 
-            this.PiePaginaEdit2.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PiePaginaEdit2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PiePaginaEdit2.Location = new System.Drawing.Point(27, 230);
             this.PiePaginaEdit2.MaxLength = 28;
             this.PiePaginaEdit2.Name = "PiePaginaEdit2";
-            this.PiePaginaEdit2.Size = new System.Drawing.Size(264, 26);
+            this.PiePaginaEdit2.Size = new System.Drawing.Size(264, 27);
             this.PiePaginaEdit2.TabIndex = 3;
             // 
             // IntestazioneEdit2
             // 
-            this.IntestazioneEdit2.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.IntestazioneEdit2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.IntestazioneEdit2.Location = new System.Drawing.Point(27, 96);
             this.IntestazioneEdit2.MaxLength = 28;
             this.IntestazioneEdit2.Name = "IntestazioneEdit2";
-            this.IntestazioneEdit2.Size = new System.Drawing.Size(264, 26);
+            this.IntestazioneEdit2.Size = new System.Drawing.Size(264, 27);
             this.IntestazioneEdit2.TabIndex = 1;
             // 
             // Lbl_Intestazione1
@@ -88,7 +88,7 @@
             this.Lbl_Intestazione1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_Intestazione1.Location = new System.Drawing.Point(24, 20);
             this.Lbl_Intestazione1.Name = "Lbl_Intestazione1";
-            this.Lbl_Intestazione1.Size = new System.Drawing.Size(230, 16);
+            this.Lbl_Intestazione1.Size = new System.Drawing.Size(229, 16);
             this.Lbl_Intestazione1.TabIndex = 6;
             this.Lbl_Intestazione1.Text = "Intestazione 1 : (in alternativa al Logo)";
             // 
@@ -98,7 +98,7 @@
             this.Lbl_Intestazione2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_Intestazione2.Location = new System.Drawing.Point(24, 77);
             this.Lbl_Intestazione2.Name = "Lbl_Intestazione2";
-            this.Lbl_Intestazione2.Size = new System.Drawing.Size(97, 16);
+            this.Lbl_Intestazione2.Size = new System.Drawing.Size(96, 16);
             this.Lbl_Intestazione2.TabIndex = 7;
             this.Lbl_Intestazione2.Text = "Intestazione 2 :";
             // 
@@ -108,7 +108,7 @@
             this.Lbl_PiePagina1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_PiePagina1.Location = new System.Drawing.Point(24, 149);
             this.Lbl_PiePagina1.Name = "Lbl_PiePagina1";
-            this.Lbl_PiePagina1.Size = new System.Drawing.Size(101, 16);
+            this.Lbl_PiePagina1.Size = new System.Drawing.Size(100, 16);
             this.Lbl_PiePagina1.TabIndex = 8;
             this.Lbl_PiePagina1.Text = "Piè di Pagina 1 :";
             // 
@@ -118,7 +118,7 @@
             this.Lbl_PiePagina2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Lbl_PiePagina2.Location = new System.Drawing.Point(24, 211);
             this.Lbl_PiePagina2.Name = "Lbl_PiePagina2";
-            this.Lbl_PiePagina2.Size = new System.Drawing.Size(101, 16);
+            this.Lbl_PiePagina2.Size = new System.Drawing.Size(100, 16);
             this.Lbl_PiePagina2.TabIndex = 9;
             this.Lbl_PiePagina2.Text = "Piè di Pagina 2 :";
             // 

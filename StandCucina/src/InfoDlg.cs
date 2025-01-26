@@ -51,7 +51,7 @@ namespace StandFacile
                     break;
             }
 
-            if (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS)
+            if (PrintConfigLightDlg.GetPrinterTypeIsWinwows())
                 LblPrinter.Text = String.Format("Stampante windows : {0}", sGlbWinPrinterParams.sTckPrinterModel);
             else
                 LblPrinter.Text = String.Format("Stampante legacy : {0}, {1}, {2}", sConstLegacyModels[sGlbLegacyPrinterParams.iPrinterModel],

@@ -830,7 +830,7 @@ namespace StandFacile
                         // Invio alla Stampante
                         LogToFile("ClientTimer : stampa di " + sFileToPrint);
 
-                        if (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS)
+                        if (PrintConfigLightDlg.GetPrinterTypeIsWinwows())
                         {
                             _iWP_Delay = LED_TIMER;
                             printerPicBox.Image = Properties.Resources.circleRed; // Red

@@ -5,6 +5,7 @@
  **********************************************/
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 using static StandFacile.glb;
@@ -30,6 +31,8 @@ namespace StandFacile
         /// <summary>costruttore</summary>
         public EditHeaderFooterDlg()
         {
+            float fFontSize;
+
             InitializeComponent();
 
             _bListinoModificato = false;
@@ -38,6 +41,13 @@ namespace StandFacile
             IntestazioneEdit2.MaxLength = iMAX_RECEIPT_CHARS;
             PiePaginaEdit1.MaxLength = iMAX_RECEIPT_CHARS;
             PiePaginaEdit2.MaxLength = iMAX_RECEIPT_CHARS;
+
+            fFontSize = sGlbWinPrinterParams.bChars33 ? 11.0f : 12.0f;
+
+            IntestazioneEdit1.Font = new Font("Tahoma", fFontSize);
+            IntestazioneEdit2.Font = new Font("Tahoma", fFontSize);
+            PiePaginaEdit1.Font = new Font("Tahoma", fFontSize);
+            PiePaginaEdit2.Font = new Font("Tahoma", fFontSize);
 
             IntestazioneEdit1.Text = CenterJustify(SF_Data.sHeaders[0], iMAX_RECEIPT_CHARS);
             IntestazioneEdit2.Text = CenterJustify(SF_Data.sHeaders[1], iMAX_RECEIPT_CHARS);

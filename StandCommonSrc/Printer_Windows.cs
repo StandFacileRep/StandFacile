@@ -173,7 +173,11 @@ namespace StandCommonFiles
 
                 _iGruppoStampa = Convert.ToInt32(sTmp[iPos + 2]) - 48;
             }
-            else if (!_sFileToPrintParam.Contains(NOME_FILE_SAMPLE_TEXT))
+            else if (_sFileToPrintParam.Contains(NOME_FILE_SAMPLE_TEXT))
+            {
+                _fReceiptVsCopyZoom = sWinPrinterParams.bChars33 ? (28.0f / 33.0f) : 1.0f;
+            }
+            else
             {
                 _bLogo = false;
             }
@@ -571,7 +575,7 @@ namespace StandCommonFiles
             if ((_iPageRows < linesPerPage) && (_bCopiaCucina && _bStampaBarcode) || (_bIsTicket && _bStampaBarcodePrev) ||
                 _sFileToPrintParam.Contains(NOME_FILE_SAMPLE_TEXT))
             {
-                fBC_LeftMargin = _fLeftMargin + (MAX_RECEIPT_CHARS_CPY * fFont_HSize * _fHZoom * _fH_px_to_gu - 95 * blackPen.Width) / 2;
+                fBC_LeftMargin = _fLeftMargin + ((_sWinPrinterParams.bChars33 ? 33 : 28) * fFont_HSize * _fHZoom * _fH_px_to_gu - 95 * blackPen.Width) / 2;
 
                 if (fBC_LeftMargin < 0)
                     fBC_LeftMargin = 0;

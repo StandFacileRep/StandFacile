@@ -1,6 +1,6 @@
 ﻿/*****************************************************
  	NomeFile : StandCommonSrc/CommonFunc.cs
-    Data	 : 06.12.2024
+    Data	 : 25.01.2025
  	Autore	 : Mauro Artuso
 
 	Classi statiche di uso comune
@@ -11,7 +11,6 @@ using System.IO;
 using System.Text;
 using Microsoft.Win32;
 using System.Windows.Forms;
-using System.Configuration;
 using System.Drawing;
 using System.Xml.Serialization;
 
@@ -337,8 +336,9 @@ namespace StandCommonFiles
         public static String BuildSampleText()
         {
             int i, j, ich;
-            char[] cBuffer = new char[32];
-            int iLMargin = 0;
+            int iLMargin = 2;
+            int iMaxChars = 24;
+
             String sTmp;
             StreamWriter fData;
             String sDir = "";
@@ -350,6 +350,10 @@ namespace StandCommonFiles
 
 #if STAND_MONITOR
             sDir = sRootDir + "\\";
+#endif
+
+#if !STAND_ORDINI
+            iMaxChars = (sGlbWinPrinterParams.bChars33 ? 33 : 28) - 4;
 #endif
 
             File.Delete(sDir + NOME_FILE_SAMPLE_TEXT);
@@ -365,7 +369,14 @@ namespace StandCommonFiles
                 fData.WriteLine("");
 
 #if STANDFACILE || STAND_MONITOR
-                sTmp = CenterJustify(SF_Data.sHeaders[0], iMAX_RECEIPT_CHARS);
+
+                sTmp = CenterJustify(_LOGO, iMaxChars);
+
+                for (j = 0; j < iLMargin; j++)
+                    sTmp = sTmp.Insert(0, " ");
+                fData.WriteLine(sTmp + "\n");
+
+                sTmp = CenterJustify(SF_Data.sHeaders[0], iMaxChars);
 
                 for (j = 0; j < iLMargin; j++)
                     sTmp = sTmp.Insert(0, " ");
@@ -373,7 +384,7 @@ namespace StandCommonFiles
                 if (!String.IsNullOrEmpty(SF_Data.sHeaders[0]))
                     fData.WriteLine(sTmp + "\n");
 
-                sTmp = CenterJustify(SF_Data.sHeaders[1], iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(SF_Data.sHeaders[1], iMaxChars);
 
                 for (j = 0; j < iLMargin; j++)
                     sTmp = sTmp.Insert(0, " ");
@@ -381,7 +392,7 @@ namespace StandCommonFiles
                 if (!String.IsNullOrEmpty(SF_Data.sHeaders[1]))
                     fData.WriteLine(sTmp + "\n");
 #elif STAND_CUCINA
-                sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[0], iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[0], iMaxChars);
 
                 for (j = 0; j < iLMargin; j++)
                     sTmp = sTmp.Insert(0, " ");
@@ -389,7 +400,7 @@ namespace StandCommonFiles
                 if (!String.IsNullOrEmpty(dBaseIntf.DB_Data.sHeaders[0]))
                     fData.WriteLine(sTmp + "\n");
 
-                sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[1], iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[1], iMaxChars);
 
                 for (j = 0; j < iLMargin; j++)
                     sTmp = sTmp.Insert(0, " ");
@@ -398,15 +409,15 @@ namespace StandCommonFiles
                     fData.WriteLine(sTmp + "\n");
 #endif
 
-                sTmp = CenterJustify(GetDateTimeString(), iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(GetDateTimeString(), iMaxChars);
                 for (j = 0; j < iLMargin; j++)
                     sTmp = sTmp.Insert(0, " ");
                 fData.WriteLine(sTmp + "\n");
 
-                for (i = 0; i < iMAX_RECEIPT_CHARS / 2; i++)       // avanzamanto riga
+                for (i = 0; i < iMaxChars / 2; i++)       // avanzamanto riga
                 {
                     sTmp = "";
-                    for (j = 0; j < iMAX_RECEIPT_CHARS; j++) // ripetizione riga
+                    for (j = 0; j < iMaxChars; j++) // ripetizione riga
                     {
                         ich = '0' + (i + j);
 
@@ -424,35 +435,38 @@ namespace StandCommonFiles
                     fData.WriteLine(sTmp);
                 }
 
-                sTmp = CenterJustify("########################", iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify("########################", iMaxChars);
+                for (j = 0; j < iLMargin; j++)
+                    sTmp = sTmp.Insert(0, " ");
+
                 fData.WriteLine("{0}", sTmp);
                 fData.WriteLine("{0}", sTmp);
 
                 fData.WriteLine("");
 
 #if STANDFACILE
-                sTmp = CenterJustify(SF_Data.sHeaders[2], iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(SF_Data.sHeaders[2], iMaxChars);
                 for (j = 0; j < iLMargin; j++)
                     sTmp = sTmp.Insert(0, " ");
 
                 if (!String.IsNullOrEmpty(SF_Data.sHeaders[2]))
                     fData.WriteLine(sTmp + "\n");
 
-                sTmp = CenterJustify(SF_Data.sHeaders[MAX_NUM_HEADERS - 1], iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(SF_Data.sHeaders[MAX_NUM_HEADERS - 1], iMaxChars);
                 for (j = 0; j < iLMargin; j++)
                     sTmp = sTmp.Insert(0, " ");
 
                 if (!String.IsNullOrEmpty(SF_Data.sHeaders[MAX_NUM_HEADERS - 1]))
                     fData.WriteLine(sTmp + "\n");
 #elif STAND_CUCINA
-                sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[2], iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[2], iMaxChars);
                 for (j = 0; j < iLMargin; j++)
                     sTmp = sTmp.Insert(0, " ");
 
                 if (!String.IsNullOrEmpty(dBaseIntf.DB_Data.sHeaders[2]))
                     fData.WriteLine(sTmp + "\n");
 
-                sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[MAX_NUM_HEADERS - 1], iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[MAX_NUM_HEADERS - 1], iMaxChars);
                 for (j = 0; j < iLMargin; j++)
                     sTmp = sTmp.Insert(0, " ");
 

@@ -1210,7 +1210,7 @@ namespace StandFacile
 
             _iAnteprimaTotParziale = 0;
 
-            if (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS)
+            if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
                 ResetBtnScontrino();
             // else
             //  viene eseguito dopo la stampa Legacy con l'evento RESET_RECEIPT_BTN_EVENT
@@ -1304,10 +1304,11 @@ namespace StandFacile
         }
 
         // verifica inserimento dei coperti se non è esportazione e c'è almeno una Pietanza
+        // lo zero è consentito
         bool VerificaCopertoRichiesto()
         {
             if (SF_Data.bCopertoRichiesto && !BtnEsportazione.Checked && !CheckService(Define._AUTO_SEQ_TEST))
-                if (String.IsNullOrEmpty(_sEditCoperti) || (Convert.ToInt32(_sEditCoperti) <= 0))
+                if (String.IsNullOrEmpty(_sEditCoperti) || (Convert.ToInt32(_sEditCoperti) < 0))
                 {
                     MessageBox.Show("Inserisci il numero dei Coperti,\n\ncon (F2) passi dalla griglia alla casella dei Coperti.",
                         "Attenzione !", MessageBoxButtons.OK);

@@ -65,7 +65,15 @@ namespace StandFacile
         public static bool GetPrinterTypeIsWinwows() { return (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS); }
 
         /// <summary> overload funzione che ritorna true se la stampante copie in uso è windows</summary>
-        public static bool GetPrinterTypeIsWinwows(int i) { return (sGlbWinPrinterParams.sPrinterModel[i] != _LEGACY_PRINTER); }
+        public static bool GetPrinterTypeIsWinwows(int iPrinterIndex)
+        {
+            if (iPrinterIndex == NUM_EDIT_GROUPS + 1)  // stampa Messaggi
+                return (sGlbWinPrinterParams.sMsgPrinterModel != _LEGACY_PRINTER);
+            else if (iPrinterIndex == (NUM_EDIT_GROUPS)) // stampa Tickets
+                return (sGlbWinPrinterParams.sTckPrinterModel != _LEGACY_PRINTER);
+            else
+                return (sGlbWinPrinterParams.sPrinterModel[iPrinterIndex] != _LEGACY_PRINTER);
+        }
 
         readonly ToolTip _tt = new ToolTip
         {

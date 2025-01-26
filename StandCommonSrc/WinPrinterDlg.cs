@@ -175,7 +175,7 @@ namespace StandFacile
             else
                 PrintersListCombo.SelectedIndex = 0;
 
-#if STAND_FACILE
+#if STANDFACILE
             // 7+1, sPrinterModel è sopra
             sGlbWinPrinterParams.sLogoName = ReadRegistry(WIN_LOGO_NAME_KEY, "");
 #endif

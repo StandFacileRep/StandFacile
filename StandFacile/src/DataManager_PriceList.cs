@@ -117,6 +117,7 @@ namespace StandFacile
             int hIndex;     // scandisce le righe di Header
             int iPageNum;
             int iLineFeed;
+            int iMaxWrnCount = 3;
 
             uint uWebHashCode = 0, uLocHashCode = 0;
 
@@ -806,9 +807,14 @@ namespace StandFacile
                     }
                     else if ((sArticoloStr.Length > iMAX_ART_CHAR) && (sArticoloStr.Length <= MAX_ABS_ART_CHAR))
                     {
-                        _ErrMsg.iErrID = WRN_STL;
-                        _ErrMsg.sMsg = sArticoloStr;
-                        WarningManager(_ErrMsg);  // stringa troppo lunga con warning
+                        if (iMaxWrnCount > 0)
+                        {
+                            iMaxWrnCount--;
+
+                            _ErrMsg.iErrID = WRN_STL;
+                            _ErrMsg.sMsg = sArticoloStr;
+                            WarningManager(_ErrMsg);  // stringa troppo lunga con warning
+                        }
                     }
 
                     SF_Data.Articolo[iRiga].sTipo = sArticoloStr;

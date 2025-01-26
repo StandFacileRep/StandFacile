@@ -52,7 +52,7 @@
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(249, 355);
+            this.btnOK.Location = new System.Drawing.Point(249, 361);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 28);
             this.btnOK.TabIndex = 2;
@@ -66,7 +66,7 @@
             this.ManBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.ManBtn.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ManBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ManBtn.Location = new System.Drawing.Point(58, 353);
+            this.ManBtn.Location = new System.Drawing.Point(58, 359);
             this.ManBtn.Name = "ManBtn";
             this.ManBtn.Size = new System.Drawing.Size(98, 30);
             this.ManBtn.TabIndex = 1;
@@ -80,7 +80,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(396, 395);
+            this.ClientSize = new System.Drawing.Size(396, 401);
             this.Controls.Add(this.ManBtn);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.textBox);
