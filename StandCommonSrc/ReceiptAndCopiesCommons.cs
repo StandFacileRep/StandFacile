@@ -1,6 +1,6 @@
 ﻿/*********************************************************************************
  	NomeFile : StandCommonSrc/ReceiptAndCopies.cs
-    Data	 : 25.01.2025
+    Data	 : 28.01.2025
  	Autore	 : Mauro Artuso
 
 	Classi di uso comune a DataManager.Receipt(), VisOrdiniDlg.ReceiptRebuild()<br/>
@@ -754,7 +754,7 @@ namespace StandCommonFiles
                         ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) &&
                         WinPrinterDlg.GetCopies_LogoToBePrinted())
                     {
-                        sTmp = CenterJustify(_LOGO, iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(_LOGO, MAX_RECEIPT_CHARS_CPY);
                         sHeader1_ToPrintBeforeCut += String.Format("{0}\r\n\r\n", sTmp);
                     }
                     else
@@ -855,13 +855,15 @@ namespace StandCommonFiles
 
                                 // un solo footer
                                 WriteFooter(dataIdParam, fPrintParam);
-                                fPrintParam.WriteLine(_CUT_FMT, CenterJustify(_CUT, MAX_RECEIPT_CHARS_CPY));
+
+                                if (!CheckLastItemAndGroupToCut(dataIdParam, bSomethingInto_GrpToPrint))
+                                    fPrintParam.WriteLine(_CUT_FMT, CenterJustify(_CUT, MAX_RECEIPT_CHARS_CPY));
                             }
                         }
                     }
 
 
-                    // stampa #2: quantità UNO, però copia checked ha la priorità
+                    // stampa #2: quantità UNO
                     for (i = 0; i < NUM_COPIES_GRPS; i++)
                     {
                         for (j = 0; (j < MAX_NUM_ARTICOLI) && bSomethingInto_GrpToPrint[iGrpReorderPtr[i]]; j++)
@@ -904,7 +906,9 @@ namespace StandCommonFiles
 
                                 // un solo footer
                                 WriteFooter(dataIdParam, fPrintParam);
-                                fPrintParam.WriteLine(_CUT_FMT, CenterJustify(_CUT, MAX_RECEIPT_CHARS_CPY));
+
+                                if (!CheckLastItemAndGroupToCut(dataIdParam, bSomethingInto_GrpToPrint))
+                                    fPrintParam.WriteLine(_CUT_FMT, CenterJustify(_CUT, MAX_RECEIPT_CHARS_CPY));
                             }
                         }
                     }
@@ -942,10 +946,10 @@ namespace StandCommonFiles
 
                                 dataIdParam.Articolo[j].bLocalPrinted = true;
 
-                                //if (CheckLastItemAndGroupToCut(dataIdParam, _bSomethingInto_GrpToPrint, i, j))
                                 WriteFooter(dataIdParam, fPrintParam);
 
-                                fPrintParam.WriteLine(_CUT_FMT, CenterJustify(_CUT, MAX_RECEIPT_CHARS_CPY));
+                                if (!CheckLastItemAndGroupToCut(dataIdParam, bSomethingInto_GrpToPrint))
+                                    fPrintParam.WriteLine(_CUT_FMT, CenterJustify(_CUT, MAX_RECEIPT_CHARS_CPY));
                             }
                         }
                     }
@@ -1153,7 +1157,7 @@ namespace StandCommonFiles
 #endif
                             )
                         {
-                            sTmp = CenterJustify(_LOGO, iMAX_RECEIPT_CHARS);
+                            sTmp = CenterJustify(_LOGO, MAX_RECEIPT_CHARS_CPY);
                             fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
                             iEqRowsNumber += 2;
                         }

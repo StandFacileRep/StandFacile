@@ -22,7 +22,7 @@ using static StandFacile.MessageDlg;
 
 namespace StandCommonFiles
 {
-    #pragma warning disable IDE0079
+#pragma warning disable IDE0079
 
     /// <summary>
     /// definizione dei codici di errore e di warning
@@ -251,7 +251,7 @@ namespace StandCommonFiles
         /// </summary>
         public static void WarningManager(TErrMsg WrnMsg)
         {
-            #pragma warning disable CS0219
+#pragma warning disable CS0219
 
             bool bModal = false;
 
@@ -544,8 +544,14 @@ namespace StandCommonFiles
 
                 case WRN_STL: // Stringa Troppo Lunga
                     if (WrnMsg.iRiga >= 0)
-                        sWrnStr = "Stringa troppo lunga nel File:   " + WrnMsg.sNomeFile + "\r\n\r\n alla riga: " + WrnMsg.iRiga + ",   Articolo: " + WrnMsg.sMsg +
-                                "\r\n\r\ncorreggere per visualizzazione e stampa corretta degli Articoli,\r\npoi riavviare !";
+                    {
+                        if (String.IsNullOrEmpty(WrnMsg.sMsg))
+                            sWrnStr = "Stringa troppo lunga nel File:   " + WrnMsg.sNomeFile + "\r\n\r\n alla riga: " + WrnMsg.iRiga +
+                                    "\r\n\r\ncorreggere per visualizzazione e stampa corretta degli Articoli,\r\npoi riavviare !";
+                        else
+                            sWrnStr = "Stringa troppo lunga nel File:   " + WrnMsg.sNomeFile + "\r\n\r\n alla riga: " + WrnMsg.iRiga + ",   Articolo: " + WrnMsg.sMsg +
+                                    "\r\n\r\ncorreggere per visualizzazione e stampa corretta degli Articoli,\r\npoi riavviare !";
+                    }
                     else
                         sWrnStr = "Stringa troppo lunga per l'Articolo:\r\n\r\n   " + WrnMsg.sMsg + "\r\n\r\ncorreggere per visualizzazione e stampa corretta !";
                     break;

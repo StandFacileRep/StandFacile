@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 06.12.2024
+    Data	 : 28.01.2025
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -17,7 +17,7 @@ namespace StandCommonFiles
         #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.13.1";
+        public const String RELEASE_SW = "v5.13.2";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5b";

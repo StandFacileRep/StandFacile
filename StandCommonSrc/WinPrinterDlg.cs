@@ -350,8 +350,10 @@ namespace StandFacile
 
             LogToFile("WinPrinterDlg : Init out");
 
+            // caricato da CaricaListino(...)
+#if !STANDFACILE
             InitFormatStrings();
-
+#endif
             return (result == DialogResult.OK); // true se è cliccato OK
         }
 

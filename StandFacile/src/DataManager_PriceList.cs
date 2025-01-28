@@ -1,6 +1,6 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 06.12.2024
+	Data	 : 28.01.2025
     Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
@@ -300,10 +300,11 @@ namespace StandFacile
                         {
                             SF_Data.sHeaders[hIndex] = sInStr.Substring(5);
 
-                            if (SF_Data.sHeaders[hIndex].Length > iMAX_RECEIPT_CHARS)
+                            // iMAX_RECEIPT_CHARS viene caricato successivamente !
+                            if (SF_Data.sHeaders[hIndex].Length > MAX_ABS_RECEIPT_CHARS)
                             {
-                                _ErrMsg.iErrID = ERR_STL;
-                                ErrorManager(_ErrMsg);  // stringa troppo lunga
+                                _ErrMsg.iErrID = WRN_STL;
+                                WarningManager(_ErrMsg);  // stringa troppo lunga
                             }
 
                             hIndex++;

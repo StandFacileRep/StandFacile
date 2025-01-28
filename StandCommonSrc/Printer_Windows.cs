@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************
 	NomeFile : StandCommonSrc/Printer_Windows.cs
-    Data	 : 06.12.2024
+    Data	 : 28.01.2025
 	Autore   : Mauro Artuso
 
 	Descrizione :
@@ -72,7 +72,7 @@ namespace StandCommonFiles
 
         static TErrMsg _WrnMsg;
 
-        static Font _printFont;
+        static Font _printFont, _LogoFont;
         static StreamReader _fileToPrint;
 
         static TWinPrinterParams _sWinPrinterParams;
@@ -141,8 +141,6 @@ namespace StandCommonFiles
 
             if (sTmp.Contains("_TT") || sTmp.Contains("_TN"))
             {
-                _bIsTicket = true;
-
 #if STANDFACILE || STAND_MONITOR
                 // gruppi in fase di emissione ordine
                 if (SF_Data.bPrevendita)
@@ -156,6 +154,8 @@ namespace StandCommonFiles
 #endif
                 if (sTmp.Contains("_TT"))
                 {
+                    _bIsTicket = true;
+
                     _bTicketNumFound = false; // forza ricerca stringa
 
                     _fReceiptVsCopyZoom = sWinPrinterParams.bChars33 ? (28.0f / 33.0f) : 1.0f;
@@ -367,12 +367,18 @@ namespace StandCommonFiles
                     {
                         _printFont = new Font(_sWinPrinterParams.sRepFontType, _sWinPrinterParams.fRepFontSize * (_sWinPrinterParams.iRepZoomValue / 100.0f) * _fReceiptVsCopyZoom, _sWinPrinterParams.sRepFontStyle);
                         _fLeftMargin = _sWinPrinterParams.iRepLeftMargin * _fHZoom * _fH_px_to_gu;
+
+                        _LogoFont = _printFont;
                     }
                     else
                     {
                         _printFont = new Font(_sWinPrinterParams.sTckFontType, _sWinPrinterParams.fTckFontSize * (_sWinPrinterParams.iTckZoomValue / 100.0f) * _fReceiptVsCopyZoom, _sWinPrinterParams.sTckFontStyle);
 
                         _fLeftMargin = _sWinPrinterParams.iTckLeftMargin * _fHZoom * _fH_px_to_gu;
+
+                        // considera solo il Font per la Receipt in modo da non avere poi differenze con le copie
+                        if (_bIsTicket)
+                            _LogoFont = _printFont;
                     }
 
                     pd.PrintPage += new PrintPageEventHandler(pd_PrintPage);
@@ -424,7 +430,7 @@ namespace StandCommonFiles
             float fLogo_LeftMargin;
             float fBC_LeftMargin, fBC_Height, fBC_Zoom;
             float topMargin = ev.MarginBounds.Top;
-            float fFont_HSize, fFont_VSize;
+            float fFont_HSize, fFont_VSize, fLogoFont_HSize;
 
             string sTmp, sInStr;
             String sBarcode;
@@ -442,6 +448,8 @@ namespace StandCommonFiles
             // char width in pixels
             fFont_HSize = pg.MeasureString("W", _printFont).Width * 1.22f;
             fFont_VSize = pg.MeasureString("W", _printFont).Height * 1.22f;
+
+            fLogoFont_HSize = pg.MeasureString("W", _LogoFont).Width * 1.22f;
 
             i = (int)pg.PageUnit;
 
@@ -472,7 +480,7 @@ namespace StandCommonFiles
 
                     if (img != null)
                     {
-                        fLogo_LeftMargin = _fLeftMargin + (iMAX_RECEIPT_CHARS * fFont_HSize - img.Size.Width) * _fHZoom * _fH_px_to_gu / 2.0f;
+                        fLogo_LeftMargin = _fLeftMargin + (iMAX_RECEIPT_CHARS * fLogoFont_HSize - img.Size.Width) * _fHZoom * _fH_px_to_gu / 2.0f;
 
                         if (fLogo_LeftMargin < 0)
                             fLogo_LeftMargin = _fLeftMargin;
