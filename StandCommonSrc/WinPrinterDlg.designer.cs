@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.PrintersListCombo = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.BtnTicketsFontSelect = new System.Windows.Forms.Button();
@@ -43,7 +42,6 @@
             this.lblLogo = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.logoImage = new System.Windows.Forms.PictureBox();
             this.checkBox_A5_paper = new System.Windows.Forms.CheckBox();
             this.numUpDownTicket = new System.Windows.Forms.NumericUpDown();
@@ -235,11 +233,6 @@
             this.label5.TabIndex = 8;
             this.label5.Text = "Margine SX (0,1mm):";
             // 
-            // timer
-            // 
-            this.timer.Interval = 2000;
-            this.timer.Tick += new System.EventHandler(this.Timer_Tick);
-            // 
             // logoImage
             // 
             this.logoImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -289,7 +282,7 @@
             0,
             0,
             0});
-            this.numUpDownTicket.Click += new System.EventHandler(this.numUpDown_Click);
+            this.numUpDownTicket.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
             // numUpDownReports
             // 
@@ -318,7 +311,7 @@
             0,
             0,
             0});
-            this.numUpDownReports.Click += new System.EventHandler(this.numUpDown_Click);
+            this.numUpDownReports.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
             // numUpDownLogo
             // 
@@ -347,7 +340,7 @@
             0,
             0,
             0});
-            this.numUpDownLogo.Click += new System.EventHandler(this.numUpDown_Click);
+            this.numUpDownLogo.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
             // label3
             // 
@@ -459,7 +452,7 @@
             0,
             0,
             0});
-            this.numUpDown_T_margin.Click += new System.EventHandler(this.numUpDown_Click);
+            this.numUpDown_T_margin.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
             // numUpDown_R_margin
             // 
@@ -483,7 +476,7 @@
             0,
             0,
             0});
-            this.numUpDown_R_margin.Click += new System.EventHandler(this.numUpDown_Click);
+            this.numUpDown_R_margin.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
             // numUpDown_L_center
             // 
@@ -502,7 +495,7 @@
             this.numUpDown_L_center.Size = new System.Drawing.Size(45, 20);
             this.numUpDown_L_center.TabIndex = 77;
             this.numUpDown_L_center.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numUpDown_L_center.Click += new System.EventHandler(this.numUpDown_Click);
+            this.numUpDown_L_center.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
             // WinPrinterDlg
             // 
@@ -549,7 +542,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Impostazioni stampante Scontrino Windows";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WinPrinterDlg_FormClosing);
-            this.Click += new System.EventHandler(this.numUpDown_Click);
+            this.Click += new System.EventHandler(this.NumUpDown_Click);
             ((System.ComponentModel.ISupportInitialize)(this.logoImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownTicket)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownReports)).EndInit();
@@ -578,7 +571,6 @@
         private System.Windows.Forms.Label lblLogo;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.PictureBox logoImage;
         private System.Windows.Forms.CheckBox checkBox_A5_paper;
         private System.Windows.Forms.NumericUpDown numUpDownTicket;

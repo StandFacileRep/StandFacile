@@ -358,12 +358,7 @@ namespace StandFacile
             AggiornaAspettoControlli();
 
             if (bShow)
-            {
-                timer.Enabled = true;
                 result = ShowDialog();
-            }
-            else
-                timer.Enabled = false;
 
             LogToFile("WinPrinterDlg : Init out");
 
@@ -499,14 +494,6 @@ namespace StandFacile
             }
             else
                 lblLogo.Text = "Anteprima Logo :";
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            bool bNoErrors;
-
-            bNoErrors = true;
-
         }
 
         private void BtnTicketsFontSelect_Click(object sender, EventArgs e)
@@ -647,7 +634,7 @@ namespace StandFacile
 
         }
 
-        private void numUpDown_Click(object sender, EventArgs e)
+        private void NumUpDown_Click(object sender, EventArgs e)
         {
             UpdateWinPrinterParam();
         }
@@ -669,7 +656,6 @@ namespace StandFacile
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            timer.Enabled = false;
             _sWinPrinterParamsCopy = DeepCopy(sGlbWinPrinterParams);
             AggiornaAspettoControlli();
         }
@@ -779,7 +765,6 @@ namespace StandFacile
             else
                 WriteRegistry(PRINT_ON_A5_PAPER_KEY, 0);
 
-            timer.Enabled = false;
             LogToFile("WinPrinterDlg : OKBtnClick");
         }
 
