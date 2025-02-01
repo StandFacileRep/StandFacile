@@ -243,10 +243,10 @@ namespace StandFacile
                 sGlbWinPrinterParams.iLogoZoomValue = 100;
 
             if (sGlbWinPrinterParams.iLogoCenter < numUpDown_L_center.Minimum)
-                sGlbWinPrinterParams.iLogoCenter = 0;
+                sGlbWinPrinterParams.iLogoCenter = (int)numUpDown_L_center.Minimum;
 
             if (sGlbWinPrinterParams.iLogoCenter > numUpDown_L_center.Maximum)
-                sGlbWinPrinterParams.iLogoCenter = 0;
+                sGlbWinPrinterParams.iLogoCenter = (int)numUpDown_L_center.Maximum;
 
             numUpDownTicket.Value = sGlbWinPrinterParams.iTckZoomValue;
             numUpDownLogo.Value = sGlbWinPrinterParams.iLogoZoomValue;

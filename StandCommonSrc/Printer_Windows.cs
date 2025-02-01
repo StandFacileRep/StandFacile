@@ -74,7 +74,9 @@ namespace StandCommonFiles
 
         static TErrMsg _WrnMsg;
 
-        static Font _printFont, _LogoFont;
+        static Font _printFont = new Font("Lucida Console", 10.25f, FontStyle.Regular);
+        static Font _LogoFont = new Font("Lucida Console", 10.25f, FontStyle.Regular);
+
         static StreamReader _fileToPrint;
 
         static TWinPrinterParams _sWinPrinterParams;
