@@ -33,8 +33,6 @@ namespace StandCommonFiles
 
         static TErrMsg _ErrMsg;
 
-        /// <summary>se true evita la stampa dello scontrino</summary>
-        public static bool _bSkipTicketPrint = false;
         static bool _bCtrlS_UnitQtyItems = false;
 
 #if STANDFACILE
@@ -662,8 +660,7 @@ namespace StandCommonFiles
 
                 if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
                 {
-                    if (!_bSkipTicketPrint)
-                        Printer_Windows.PrintFile(sDirParam + sNomeFileTicketPrt, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
+                    Printer_Windows.PrintFile(sDirParam + sNomeFileTicketPrt, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
                 }
                 else
                 {

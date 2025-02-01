@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************
 	NomeFile : StandCommonSrc/Printer_Windows.cs
-    Data	 : 28.01.2025
+    Data	 : 01.02.2025
 	Autore   : Mauro Artuso
 
 	Descrizione :
@@ -51,20 +51,22 @@ namespace StandCommonFiles
         //const String WIDE_CONST_STRING = "*********_*********_********";
 
         static bool _bIsDati, _bIsTicket;
-        static bool _bLogo, _bSkipPageCut;
+        static bool _bLogo;
         static bool _bCopiaCucina;
         static bool _bStampaBarcode, _bStampaBarcodePrev;
         static bool _bTicketNumFound;
         static bool _bSkipNumeroScontrino, _bLogoPrinted;
 
+        /// <summary>se true evita la stampa dello scontrino</summary>
+        static bool _bSkipTicketPrint = false;
+
         /// <summary>imposta l'intervallo tra le stampe</summary>
         public static int iPrint_WaitInterval = 200;
 
-        static float _fLeftMargin;
+        static float _fLeftMargin, _fLogoCenter;
         static float _fCanvasVertPos;
 
         static int _iPageRows, _iGruppoStampa;
-        static long _lFileCursor;
 
         static Char[] _cGruppoStampa = { '9', '9' };
         static String _sDataStr = "";
@@ -90,6 +92,11 @@ namespace StandCommonFiles
         static float _fH_px_to_gu, _fV_px_to_gu; // conversion between pixels and graph units
 
         static string sPrevPrinter;
+
+        /// <summary>
+        /// imposta _bSkipTicketPrint
+        /// </summary>
+        public static void SetSkipTicketPrint(bool bParam) { _bSkipTicketPrint = bParam; }
 
         /// <summary>
         /// imposta _bSkipNumeroScontrino
@@ -118,7 +125,7 @@ namespace StandCommonFiles
         public static void PrintFile(String sFileToPrintParam, TWinPrinterParams sWinPrinterParams, int iPrinterIndex, string sPrinterNameParam = "")
         {
             int iPos;
-            String sTmp;
+            string sTmp;
 
             _bIsDati = false;
             _bCopiaCucina = false;
@@ -243,14 +250,10 @@ namespace StandCommonFiles
 
                 LogToFile("Printer_Windows : inizio stampa di " + _sFileToPrintParam);
 
-                _lFileCursor = 0;
-
                 // ciclo per consentire i tagli intermedi
                 while (!_fileToPrint.EndOfStream)
                 {
                     PrintDocument pd = new PrintDocument();
-
-                    _bSkipPageCut = false;
 
                     // controlli sul Logo
                     if (String.IsNullOrEmpty(_sWinPrinterParams.sLogoName))
@@ -341,6 +344,34 @@ namespace StandCommonFiles
 
                     }
 
+                    // controllo sullo zoom
+                    if (_fHZoom < 0.5f) _fHZoom = 0.5f;
+                    if (_fVZoom < 0.5f) _fVZoom = 0.5f;
+
+                    if (_bIsDati)
+                    {
+                        _printFont = new Font(_sWinPrinterParams.sRepFontType, _sWinPrinterParams.fRepFontSize * (_sWinPrinterParams.iRepZoomValue / 100.0f) * _fReceiptVsCopyZoom, _sWinPrinterParams.sRepFontStyle);
+                        _fLeftMargin = _sWinPrinterParams.iRepLeftMargin * _fH_px_to_gu;
+
+                        _LogoFont = _printFont;
+                    }
+                    else
+                    {
+                        _printFont = new Font(_sWinPrinterParams.sTckFontType, _sWinPrinterParams.fTckFontSize * (_sWinPrinterParams.iTckZoomValue / 100.0f) * _fReceiptVsCopyZoom, _sWinPrinterParams.sTckFontStyle);
+
+                        _fLeftMargin = _sWinPrinterParams.iTckLeftMargin * _fH_px_to_gu;
+
+#if STANDFACILE
+                        // considera solo il Font per la Receipt in modo da non avere poi differenze con le copie
+                        if (_bIsTicket)
+                            _LogoFont = _printFont;
+#else
+                        _LogoFont = _printFont;
+#endif
+                    }
+
+                    _fLogoCenter = _sWinPrinterParams.iLogoCenter * _fH_px_to_gu;
+
                     if (sPrevPrinter != pd.PrinterSettings.PrinterName)
                     {
                         sTmp = String.Format("Printer_Windows : PrinterResolution.Kind = {0}", (int)pd.PrinterSettings.DefaultPageSettings.PrinterResolution.Kind);
@@ -348,7 +379,7 @@ namespace StandCommonFiles
 
                         sTmp = String.Format("Printer_Windows : _fH_px_to_gu = {0}, _fV_px_to_gu = {1}", _fH_px_to_gu, _fV_px_to_gu);
                         LogToFile(sTmp);
-                        sTmp = String.Format("Printer_Windows : iTckFontSize = {0}, _fLeftMargin = {1}", _sWinPrinterParams.fTckFontSize, _fLeftMargin);
+                        sTmp = String.Format("Printer_Windows : iTckFontSize = {0}, _fLeftMargin = {1}, _fLogoCenter = {2}", _sWinPrinterParams.fTckFontSize, _fLeftMargin, _fLogoCenter);
                         LogToFile(sTmp);
                         sTmp = String.Format("Printer_Windows : _fHZoom = {0}, _fVZoom = {1}", _fHZoom, _fVZoom);
                         LogToFile(sTmp);
@@ -359,38 +390,20 @@ namespace StandCommonFiles
                         sPrevPrinter = pd.PrinterSettings.PrinterName;
                     }
 
-                    // controllo sullo zoom
-                    if (_fHZoom < 0.5f) _fHZoom = 0.5f;
-                    if (_fVZoom < 0.5f) _fVZoom = 0.5f;
-
-                    if (_bIsDati)
+                    // consente impostazioni: es. _LogoFont ma non stampa
+                    if (_bIsTicket && _bSkipTicketPrint)
                     {
-                        _printFont = new Font(_sWinPrinterParams.sRepFontType, _sWinPrinterParams.fRepFontSize * (_sWinPrinterParams.iRepZoomValue / 100.0f) * _fReceiptVsCopyZoom, _sWinPrinterParams.sRepFontStyle);
-                        _fLeftMargin = _sWinPrinterParams.iRepLeftMargin * _fHZoom * _fH_px_to_gu;
-
-                        _LogoFont = _printFont;
+                        break;
                     }
                     else
                     {
-                        _printFont = new Font(_sWinPrinterParams.sTckFontType, _sWinPrinterParams.fTckFontSize * (_sWinPrinterParams.iTckZoomValue / 100.0f) * _fReceiptVsCopyZoom, _sWinPrinterParams.sTckFontStyle);
 
-                        _fLeftMargin = _sWinPrinterParams.iTckLeftMargin * _fHZoom * _fH_px_to_gu;
+                        pd.PrintPage += new PrintPageEventHandler(pd_PrintPage);
 
-                        // considera solo il Font per la Receipt in modo da non avere poi differenze con le copie
-                        if (_bIsTicket)
-                            _LogoFont = _printFont;
-                    }
+                        LogToFile("Printer_Windows : PrintPage");
 
-                    pd.PrintPage += new PrintPageEventHandler(pd_PrintPage);
-
-                    LogToFile("Printer_Windows : PrintPage");
-
-                    pd.Print();
-
-                    if (_bSkipPageCut)
-                    {
-                        //pd.Dispose();
-                        break;
+                        // stampa
+                        pd.Print();
                     }
                 }
 
@@ -459,8 +472,6 @@ namespace StandCommonFiles
 
             while ((_iPageRows < linesPerPage) && ((sInStr = _fileToPrint.ReadLine()) != null))
             {
-                _lFileCursor += (sInStr.Length + 2); // CR
-
                 if (sInStr.IndexOf(_LOGO) != -1)
                 {
                     bLogoRequested = true;
@@ -480,10 +491,10 @@ namespace StandCommonFiles
 
                     if (img != null)
                     {
-                        fLogo_LeftMargin = _fLeftMargin + (iMAX_RECEIPT_CHARS * fLogoFont_HSize - img.Size.Width) * _fHZoom * _fH_px_to_gu / 2.0f;
+                        fLogo_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * fLogoFont_HSize - img.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
 
                         if (fLogo_LeftMargin < 0)
-                            fLogo_LeftMargin = _fLeftMargin;
+                            fLogo_LeftMargin = _fLogoCenter;
 
                         RectangleF imageRect = new RectangleF(fLogo_LeftMargin, _fCanvasVertPos, img.Size.Width * _fHZoom * _fH_px_to_gu,
                                                                 img.Size.Height * _fVZoom * _fV_px_to_gu);
@@ -551,16 +562,6 @@ namespace StandCommonFiles
                         sInStr = _fileToPrint.ReadLine();
                         sInStr = _fileToPrint.ReadLine();
 
-                        _lFileCursor += 4;
-
-                        // se _CUT è vicino alla fine del file si evita il taglio carta
-                        if (Math.Abs(_fileToPrint.BaseStream.Length - _lFileCursor) < 16)
-                        {
-                            //ev.Cancel = true;
-                            _bSkipPageCut = true;
-                            Console.WriteLine(String.Format("Printer Win: chars to endfile = {0}", _fileToPrint.BaseStream.Length - _lFileCursor));
-                        }
-
                         break;
                     }
 
@@ -583,7 +584,7 @@ namespace StandCommonFiles
             if ((_iPageRows < linesPerPage) && (_bCopiaCucina && _bStampaBarcode) || (_bIsTicket && _bStampaBarcodePrev) ||
                 _sFileToPrintParam.Contains(NOME_FILE_SAMPLE_TEXT))
             {
-                fBC_LeftMargin = _fLeftMargin + ((_sWinPrinterParams.bChars33 ? 33 : 28) * fFont_HSize * _fHZoom * _fH_px_to_gu - 95 * blackPen.Width) / 2;
+                fBC_LeftMargin = _fLogoCenter + ((_sWinPrinterParams.bChars33 ? 33 : 28) * fFont_HSize * _fHZoom * _fH_px_to_gu - 95 * blackPen.Width) / 2;
 
                 if (fBC_LeftMargin < 0)
                     fBC_LeftMargin = 0;

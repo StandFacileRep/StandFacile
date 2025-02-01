@@ -17,7 +17,7 @@ namespace StandCommonFiles
         #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.13.2";
+        public const String RELEASE_SW = "v5.13.3";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5b";
@@ -640,6 +640,7 @@ namespace StandCommonFiles
         /// struct per la gestione dei parametri della
         /// stampante windows (USB o RETE) dotata di driver,
         /// </summary>
+        [Serializable()]
         public struct TWinPrinterParams
         {
             /// <summary>flag per stampa Receipt a 33 caratteri per riga</summary>
@@ -694,6 +695,8 @@ namespace StandCommonFiles
             public int iRepZoomValue;
             /// <summary>valore di Zoom per stampa Logo in %</summary>
             public int iLogoZoomValue;
+            /// <summary>valore per centraggio Logo</summary>
+            public int iLogoCenter;
 
             /// <summary>costruttore</summary>
             public TWinPrinterParams(int i)
@@ -725,6 +728,8 @@ namespace StandCommonFiles
                 iTckZoomValue = 100;
                 iRepZoomValue = 100;
                 iLogoZoomValue = 100;
+
+                iLogoCenter = 0;
 
                 Console.WriteLine("TWinPrinterParams : costruttore {0}", i);
             }

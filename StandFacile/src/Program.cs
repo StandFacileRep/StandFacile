@@ -51,7 +51,7 @@ namespace StandFacile
 
                     // eventuale skip della stampa scontrino
                     if (args[i].Contains("-skipTicket"))
-                        ReceiptAndCopies._bSkipTicketPrint = true;
+                        Printer_Windows.SetSkipTicketPrint(true);
                 }
             }
             catch (Exception)

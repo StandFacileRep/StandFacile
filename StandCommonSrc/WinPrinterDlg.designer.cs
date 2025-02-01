@@ -43,8 +43,6 @@
             this.lblLogo = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.T_Edit = new System.Windows.Forms.TextBox();
-            this.R_Edit = new System.Windows.Forms.TextBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.logoImage = new System.Windows.Forms.PictureBox();
             this.checkBox_A5_paper = new System.Windows.Forms.CheckBox();
@@ -58,10 +56,17 @@
             this.checkBox_LogoNelleCopie = new System.Windows.Forms.CheckBox();
             this.checkBox_CopertiNelleCopie = new System.Windows.Forms.CheckBox();
             this.labelA5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.numUpDown_T_margin = new System.Windows.Forms.NumericUpDown();
+            this.numUpDown_R_margin = new System.Windows.Forms.NumericUpDown();
+            this.numUpDown_L_center = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.logoImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownTicket)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownReports)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_T_margin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_R_margin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_L_center)).BeginInit();
             this.SuspendLayout();
             // 
             // PrintersListCombo
@@ -99,7 +104,7 @@
             // BtnLogoFileSelect
             // 
             this.BtnLogoFileSelect.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnLogoFileSelect.Location = new System.Drawing.Point(26, 349);
+            this.BtnLogoFileSelect.Location = new System.Drawing.Point(26, 402);
             this.BtnLogoFileSelect.Name = "BtnLogoFileSelect";
             this.BtnLogoFileSelect.Size = new System.Drawing.Size(141, 23);
             this.BtnLogoFileSelect.TabIndex = 10;
@@ -124,7 +129,7 @@
             this.BtnDeleteLogo.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDeleteLogo.Image = global::StandFacile.Properties.Resources.Cancel;
             this.BtnDeleteLogo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnDeleteLogo.Location = new System.Drawing.Point(26, 392);
+            this.BtnDeleteLogo.Location = new System.Drawing.Point(26, 445);
             this.BtnDeleteLogo.Name = "BtnDeleteLogo";
             this.BtnDeleteLogo.Size = new System.Drawing.Size(141, 23);
             this.BtnDeleteLogo.TabIndex = 11;
@@ -136,7 +141,7 @@
             // 
             this.SampleTextBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SampleTextBtn.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SampleTextBtn.Location = new System.Drawing.Point(26, 435);
+            this.SampleTextBtn.Location = new System.Drawing.Point(26, 485);
             this.SampleTextBtn.Name = "SampleTextBtn";
             this.SampleTextBtn.Size = new System.Drawing.Size(141, 23);
             this.SampleTextBtn.TabIndex = 13;
@@ -163,7 +168,7 @@
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = global::StandFacile.Properties.Resources.Cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(159, 576);
+            this.btnCancel.Location = new System.Drawing.Point(159, 626);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(81, 28);
@@ -180,7 +185,7 @@
             this.btnOK.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(302, 576);
+            this.btnOK.Location = new System.Drawing.Point(302, 626);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(72, 28);
@@ -214,7 +219,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.label4.Location = new System.Drawing.Point(34, 150);
+            this.label4.Location = new System.Drawing.Point(34, 147);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(123, 14);
             this.label4.TabIndex = 5;
@@ -224,29 +229,11 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(34, 259);
+            this.label5.Location = new System.Drawing.Point(34, 246);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(123, 14);
             this.label5.TabIndex = 8;
             this.label5.Text = "Margine SX (0,1mm):";
-            // 
-            // T_Edit
-            // 
-            this.T_Edit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.T_Edit.Location = new System.Drawing.Point(181, 146);
-            this.T_Edit.MaxLength = 3;
-            this.T_Edit.Name = "T_Edit";
-            this.T_Edit.Size = new System.Drawing.Size(45, 22);
-            this.T_Edit.TabIndex = 6;
-            // 
-            // R_Edit
-            // 
-            this.R_Edit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R_Edit.Location = new System.Drawing.Point(181, 255);
-            this.R_Edit.MaxLength = 3;
-            this.R_Edit.Name = "R_Edit";
-            this.R_Edit.Size = new System.Drawing.Size(45, 22);
-            this.R_Edit.TabIndex = 9;
             // 
             // timer
             // 
@@ -268,7 +255,7 @@
             this.checkBox_A5_paper.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_A5_paper.AutoSize = true;
             this.checkBox_A5_paper.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_A5_paper.Location = new System.Drawing.Point(26, 523);
+            this.checkBox_A5_paper.Location = new System.Drawing.Point(26, 573);
             this.checkBox_A5_paper.Name = "checkBox_A5_paper";
             this.checkBox_A5_paper.Size = new System.Drawing.Size(108, 18);
             this.checkBox_A5_paper.TabIndex = 24;
@@ -296,11 +283,13 @@
             this.numUpDownTicket.Name = "numUpDownTicket";
             this.numUpDownTicket.Size = new System.Drawing.Size(45, 20);
             this.numUpDownTicket.TabIndex = 25;
+            this.numUpDownTicket.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numUpDownTicket.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
+            this.numUpDownTicket.Click += new System.EventHandler(this.numUpDown_Click);
             // 
             // numUpDownReports
             // 
@@ -323,11 +312,13 @@
             this.numUpDownReports.Name = "numUpDownReports";
             this.numUpDownReports.Size = new System.Drawing.Size(45, 20);
             this.numUpDownReports.TabIndex = 26;
+            this.numUpDownReports.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numUpDownReports.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
+            this.numUpDownReports.Click += new System.EventHandler(this.numUpDown_Click);
             // 
             // numUpDownLogo
             // 
@@ -350,11 +341,13 @@
             this.numUpDownLogo.Name = "numUpDownLogo";
             this.numUpDownLogo.Size = new System.Drawing.Size(45, 20);
             this.numUpDownLogo.TabIndex = 27;
+            this.numUpDownLogo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numUpDownLogo.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
+            this.numUpDownLogo.Click += new System.EventHandler(this.numUpDown_Click);
             // 
             // label3
             // 
@@ -391,7 +384,7 @@
             this.checkBox_Chars33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_Chars33.AutoSize = true;
             this.checkBox_Chars33.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_Chars33.Location = new System.Drawing.Point(26, 486);
+            this.checkBox_Chars33.Location = new System.Drawing.Point(26, 536);
             this.checkBox_Chars33.Name = "checkBox_Chars33";
             this.checkBox_Chars33.Size = new System.Drawing.Size(223, 18);
             this.checkBox_Chars33.TabIndex = 31;
@@ -403,7 +396,7 @@
             this.checkBox_LogoNelleCopie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_LogoNelleCopie.AutoSize = true;
             this.checkBox_LogoNelleCopie.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_LogoNelleCopie.Location = new System.Drawing.Point(276, 523);
+            this.checkBox_LogoNelleCopie.Location = new System.Drawing.Point(276, 573);
             this.checkBox_LogoNelleCopie.Name = "checkBox_LogoNelleCopie";
             this.checkBox_LogoNelleCopie.Size = new System.Drawing.Size(196, 18);
             this.checkBox_LogoNelleCopie.TabIndex = 72;
@@ -415,7 +408,7 @@
             this.checkBox_CopertiNelleCopie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_CopertiNelleCopie.AutoSize = true;
             this.checkBox_CopertiNelleCopie.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_CopertiNelleCopie.Location = new System.Drawing.Point(276, 486);
+            this.checkBox_CopertiNelleCopie.Location = new System.Drawing.Point(276, 536);
             this.checkBox_CopertiNelleCopie.Name = "checkBox_CopertiNelleCopie";
             this.checkBox_CopertiNelleCopie.Size = new System.Drawing.Size(205, 18);
             this.checkBox_CopertiNelleCopie.TabIndex = 73;
@@ -428,18 +421,98 @@
             this.labelA5.AutoSize = true;
             this.labelA5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelA5.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.labelA5.Location = new System.Drawing.Point(43, 544);
+            this.labelA5.Location = new System.Drawing.Point(43, 594);
             this.labelA5.Name = "labelA5";
             this.labelA5.Size = new System.Drawing.Size(187, 13);
             this.labelA5.TabIndex = 74;
             this.labelA5.Text = "evita righe aggiuntive per taglio carta";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(19, 358);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(152, 14);
+            this.label7.TabIndex = 8;
+            this.label7.Text = "Centro Logo (+/- 0,1mm):";
+            // 
+            // numUpDown_T_margin
+            // 
+            this.numUpDown_T_margin.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numUpDown_T_margin.Location = new System.Drawing.Point(181, 146);
+            this.numUpDown_T_margin.Maximum = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            this.numUpDown_T_margin.Name = "numUpDown_T_margin";
+            this.numUpDown_T_margin.Size = new System.Drawing.Size(45, 20);
+            this.numUpDown_T_margin.TabIndex = 75;
+            this.numUpDown_T_margin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDown_T_margin.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDown_T_margin.Click += new System.EventHandler(this.numUpDown_Click);
+            // 
+            // numUpDown_R_margin
+            // 
+            this.numUpDown_R_margin.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numUpDown_R_margin.Location = new System.Drawing.Point(181, 245);
+            this.numUpDown_R_margin.Maximum = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            this.numUpDown_R_margin.Name = "numUpDown_R_margin";
+            this.numUpDown_R_margin.Size = new System.Drawing.Size(45, 20);
+            this.numUpDown_R_margin.TabIndex = 76;
+            this.numUpDown_R_margin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDown_R_margin.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numUpDown_R_margin.Click += new System.EventHandler(this.numUpDown_Click);
+            // 
+            // numUpDown_L_center
+            // 
+            this.numUpDown_L_center.Increment = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numUpDown_L_center.Location = new System.Drawing.Point(181, 356);
+            this.numUpDown_L_center.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.numUpDown_L_center.Name = "numUpDown_L_center";
+            this.numUpDown_L_center.Size = new System.Drawing.Size(45, 20);
+            this.numUpDown_L_center.TabIndex = 77;
+            this.numUpDown_L_center.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDown_L_center.Click += new System.EventHandler(this.numUpDown_Click);
             // 
             // WinPrinterDlg
             // 
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(543, 620);
+            this.ClientSize = new System.Drawing.Size(543, 670);
+            this.Controls.Add(this.numUpDown_L_center);
+            this.Controls.Add(this.numUpDown_R_margin);
+            this.Controls.Add(this.numUpDown_T_margin);
             this.Controls.Add(this.labelA5);
             this.Controls.Add(this.checkBox_CopertiNelleCopie);
             this.Controls.Add(this.checkBox_LogoNelleCopie);
@@ -452,8 +525,7 @@
             this.Controls.Add(this.numUpDownTicket);
             this.Controls.Add(this.checkBox_A5_paper);
             this.Controls.Add(this.logoImage);
-            this.Controls.Add(this.R_Edit);
-            this.Controls.Add(this.T_Edit);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.lblLogo);
@@ -477,10 +549,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Impostazioni stampante Scontrino Windows";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WinPrinterDlg_FormClosing);
+            this.Click += new System.EventHandler(this.numUpDown_Click);
             ((System.ComponentModel.ISupportInitialize)(this.logoImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownTicket)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownReports)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_T_margin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_R_margin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_L_center)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -502,8 +578,6 @@
         private System.Windows.Forms.Label lblLogo;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox T_Edit;
-        private System.Windows.Forms.TextBox R_Edit;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.PictureBox logoImage;
         private System.Windows.Forms.CheckBox checkBox_A5_paper;
@@ -517,5 +591,9 @@
         private System.Windows.Forms.CheckBox checkBox_LogoNelleCopie;
         private System.Windows.Forms.CheckBox checkBox_CopertiNelleCopie;
         private System.Windows.Forms.Label labelA5;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown numUpDown_T_margin;
+        private System.Windows.Forms.NumericUpDown numUpDown_R_margin;
+        private System.Windows.Forms.NumericUpDown numUpDown_L_center;
     }
 }

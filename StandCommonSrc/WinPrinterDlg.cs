@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
 	NomeFile : StandCommonSrc/WinPrinterDlg.cs
-    Data	 : 06.12.2024
+    Data	 : 01.02.2025
 	Autore   : Mauro Artuso
 
 	Descrizione : classe per la gestione della Form per l'impostazione dei
@@ -65,11 +65,12 @@ namespace StandFacile
         const String REP_WIN_ZOOM_KEY = "iWinReportsZoom";
         /// <summary>stringa per il salvataggio nel registro dello zoom  per il Logo con stampa windows</summary>
         const String LOGO_WIN_ZOOM_KEY = "iWinLogoZoom";
+        /// <summary>stringa per il salvataggio nel registro del centro per il Logo con stampa windows</summary>
+        const String LOGO_WIN_CENTER_KEY = "iWinLogoCenter";
 
         static bool _bListinoModificato;
 
         bool _bInitComplete = false;
-        int _iMaxMarginWidth, _iTckLeftMargin, _iRepLeftMargin;
 
 #if !STANDFACILE
         int _yDisp = 0;
@@ -188,6 +189,12 @@ namespace StandFacile
             //if (sGlbWinPrinterParams.fTckFontSize < 5)
             //    sGlbWinPrinterParams.fTckFontSize = 11;
 
+            if (sGlbWinPrinterParams.iTckLeftMargin < numUpDown_T_margin.Minimum)
+                sGlbWinPrinterParams.iTckLeftMargin = (int)numUpDown_T_margin.Minimum;
+
+            if (sGlbWinPrinterParams.iTckLeftMargin > numUpDown_T_margin.Maximum)
+                sGlbWinPrinterParams.iTckLeftMargin = (int)numUpDown_T_margin.Maximum; ;
+
             String stmp = sGlbWinPrinterParams.sTckFontType;
 
             tckFont = new Font(sGlbWinPrinterParams.sTckFontType, sGlbWinPrinterParams.fTckFontSize, sGlbWinPrinterParams.sTckFontStyle);
@@ -200,10 +207,13 @@ namespace StandFacile
             //if (sGlbWinPrinterParams.fRepFontSize < 5)
             //    sGlbWinPrinterParams.fRepFontSize = 9;
 
-            repFont = new Font(sGlbWinPrinterParams.sRepFontType, sGlbWinPrinterParams.fRepFontSize, sGlbWinPrinterParams.sRepFontStyle);
+            if (sGlbWinPrinterParams.iRepLeftMargin < numUpDown_R_margin.Minimum)
+                sGlbWinPrinterParams.iRepLeftMargin = (int)numUpDown_R_margin.Minimum;
 
-            _iTckLeftMargin = sGlbWinPrinterParams.iTckLeftMargin;
-            _iRepLeftMargin = sGlbWinPrinterParams.iRepLeftMargin;
+            if (sGlbWinPrinterParams.iRepLeftMargin > numUpDown_R_margin.Maximum)
+                sGlbWinPrinterParams.iRepLeftMargin = (int)numUpDown_R_margin.Maximum;
+
+            repFont = new Font(sGlbWinPrinterParams.sRepFontType, sGlbWinPrinterParams.fRepFontSize, sGlbWinPrinterParams.sRepFontStyle);
 
             checkBox_A5_paper.Checked = (ReadRegistry(PRINT_ON_A5_PAPER_KEY, 0) == 1);
             sGlbWinPrinterParams.bA5Paper = checkBox_A5_paper.Checked;
@@ -211,6 +221,8 @@ namespace StandFacile
             sGlbWinPrinterParams.iTckZoomValue = ReadRegistry(TCK_WIN_ZOOM_KEY, 100);
             sGlbWinPrinterParams.iRepZoomValue = ReadRegistry(REP_WIN_ZOOM_KEY, 100);
             sGlbWinPrinterParams.iLogoZoomValue = ReadRegistry(LOGO_WIN_ZOOM_KEY, 100);
+
+            sGlbWinPrinterParams.iLogoCenter = ReadRegistry(LOGO_WIN_CENTER_KEY, 0);
 
             if (sGlbWinPrinterParams.iTckZoomValue < numUpDownTicket.Minimum)
                 sGlbWinPrinterParams.iTckZoomValue = 100;
@@ -230,9 +242,17 @@ namespace StandFacile
             if (sGlbWinPrinterParams.iLogoZoomValue > numUpDownLogo.Maximum)
                 sGlbWinPrinterParams.iLogoZoomValue = 100;
 
+            if (sGlbWinPrinterParams.iLogoCenter < numUpDown_L_center.Minimum)
+                sGlbWinPrinterParams.iLogoCenter = 0;
+
+            if (sGlbWinPrinterParams.iLogoCenter > numUpDown_L_center.Maximum)
+                sGlbWinPrinterParams.iLogoCenter = 0;
+
             numUpDownTicket.Value = sGlbWinPrinterParams.iTckZoomValue;
             numUpDownLogo.Value = sGlbWinPrinterParams.iLogoZoomValue;
             numUpDownReports.Value = sGlbWinPrinterParams.iRepZoomValue;
+
+            _sWinPrinterParamsCopy = DeepCopy(sGlbWinPrinterParams);
 
             //deve essere fdLimitSize per produrre effetto set
 
@@ -332,9 +352,6 @@ namespace StandFacile
                 LogToFile("WinPrinterDlg : Init nessun Logo");
             }
 
-            //copia locale
-            _sWinPrinterParamsCopy = sGlbWinPrinterParams;
-
             _bInitComplete = true;
 
             // non chiamare qui UpdateWinPrinterParam()
@@ -371,9 +388,9 @@ namespace StandFacile
             _sWinPrinterParamsCopy.sTckPrinterModel = sPrinterName;
             _sWinPrinterParamsCopy.iTckPrinterModel = PrintersListCombo.SelectedIndex;
 
-            _sWinPrinterParamsCopy.iTckLeftMargin = _iTckLeftMargin;
-
-            _sWinPrinterParamsCopy.iRepLeftMargin = _iRepLeftMargin;
+            _sWinPrinterParamsCopy.iTckLeftMargin = (int)numUpDown_T_margin.Value;
+            _sWinPrinterParamsCopy.iRepLeftMargin = (int)numUpDown_R_margin.Value; ;
+            _sWinPrinterParamsCopy.iLogoCenter = (int)numUpDown_L_center.Value; ;
 
             _sWinPrinterParamsCopy.iTckZoomValue = (int)numUpDownTicket.Value;
             _sWinPrinterParamsCopy.iRepZoomValue = (int)numUpDownReports.Value;
@@ -381,6 +398,9 @@ namespace StandFacile
 
             _sWinPrinterParamsCopy.bChars33 = checkBox_Chars33.Checked;
             _sWinPrinterParamsCopy.bA5Paper = checkBox_A5_paper.Checked;
+
+            _sWinPrinterParamsCopy.iLogoWidth = sGlbWinPrinterParams.iLogoWidth;
+            _sWinPrinterParamsCopy.iLogoHeight = sGlbWinPrinterParams.iLogoHeight;
         }
 
         private void SampleTextBtn_Click(object sender, EventArgs e)
@@ -408,8 +428,6 @@ namespace StandFacile
             {
                 try
                 {
-                    _iMaxMarginWidth = pd.PrinterSettings.DefaultPageSettings.PaperSize.Width / 3;
-
                     // istruzioni lente, quindi vanno entrambi prima del Clear()
                     iParam1 = pd.PrinterSettings.DefaultPageSettings.PaperSize.Width * pd.PrinterSettings.DefaultPageSettings.PrinterResolution.X / 100;
                     iParam2 = pd.PrinterSettings.DefaultPageSettings.PaperSize.Height * pd.PrinterSettings.DefaultPageSettings.PrinterResolution.Y / 100;
@@ -469,8 +487,9 @@ namespace StandFacile
             Memo.AppendText(sText); Memo.AppendText(Environment.NewLine);
 
             //Margini
-            T_Edit.Text = _sWinPrinterParamsCopy.iTckLeftMargin.ToString();
-            R_Edit.Text = _sWinPrinterParamsCopy.iRepLeftMargin.ToString();
+            numUpDown_T_margin.Value = _sWinPrinterParamsCopy.iTckLeftMargin;
+            numUpDown_R_margin.Value = _sWinPrinterParamsCopy.iRepLeftMargin;
+            numUpDown_L_center.Value = _sWinPrinterParamsCopy.iLogoCenter;
 
             if ((logoImage.Size.Height > 50) && !String.IsNullOrEmpty(_sWinPrinterParamsCopy.sLogoName))
             {
@@ -485,52 +504,8 @@ namespace StandFacile
         private void Timer_Tick(object sender, EventArgs e)
         {
             bool bNoErrors;
-            String sTick_Text, sRep_Text;
 
             bNoErrors = true;
-            sTick_Text = T_Edit.Text.Trim();
-            sRep_Text = R_Edit.Text.Trim();
-
-            if (!String.IsNullOrEmpty(sTick_Text) && this.Visible)
-            {
-                try
-                {
-                    _iTckLeftMargin = Convert.ToInt32(sTick_Text);
-                }
-                catch (Exception)
-                {
-                    bNoErrors = false;
-                }
-
-                if (bNoErrors && (_iTckLeftMargin < _iMaxMarginWidth))
-                    T_Edit.BackColor = Color.LightGreen;
-                else
-                    T_Edit.BackColor = Color.Red;
-            }
-
-            if (!String.IsNullOrEmpty(sRep_Text) && this.Visible)
-            {
-                try
-                {
-                    _iRepLeftMargin = Convert.ToInt32(sRep_Text);
-                }
-                catch (Exception)
-                {
-                    bNoErrors = false;
-                }
-
-                if (bNoErrors && (_iRepLeftMargin < _iMaxMarginWidth))
-                    R_Edit.BackColor = Color.LightGreen;
-                else
-                    R_Edit.BackColor = Color.Red;
-
-            }
-
-            if (R_Edit.Focused || T_Edit.Focused)
-            {
-                UpdateWinPrinterParam();
-                AggiornaAspettoControlli();
-            }
 
         }
 
@@ -672,6 +647,11 @@ namespace StandFacile
 
         }
 
+        private void numUpDown_Click(object sender, EventArgs e)
+        {
+            UpdateWinPrinterParam();
+        }
+
         private void BtnDeleteLogo_Click(object sender, EventArgs e)
         {
             _sWinPrinterParamsCopy.sLogoName = "";
@@ -690,7 +670,7 @@ namespace StandFacile
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             timer.Enabled = false;
-            _sWinPrinterParamsCopy = sGlbWinPrinterParams;
+            _sWinPrinterParamsCopy = DeepCopy(sGlbWinPrinterParams);
             AggiornaAspettoControlli();
         }
 
@@ -700,7 +680,7 @@ namespace StandFacile
             AggiornaAspettoControlli();
 
             // acquisizione impostazioni
-            sGlbWinPrinterParams = _sWinPrinterParamsCopy;
+            sGlbWinPrinterParams = DeepCopy(_sWinPrinterParamsCopy);
 
             // 8 scrittura nel registro
             WriteRegistry(WIN_PRINTER_MODEL_KEY, sGlbWinPrinterParams.sTckPrinterModel);
@@ -720,6 +700,8 @@ namespace StandFacile
             WriteRegistry(TCK_WIN_ZOOM_KEY, sGlbWinPrinterParams.iTckZoomValue);
             WriteRegistry(REP_WIN_ZOOM_KEY, sGlbWinPrinterParams.iRepZoomValue);
             WriteRegistry(LOGO_WIN_ZOOM_KEY, sGlbWinPrinterParams.iLogoZoomValue);
+
+            WriteRegistry(LOGO_WIN_CENTER_KEY, sGlbWinPrinterParams.iLogoCenter);
 
             _bListinoModificato = false;
 
