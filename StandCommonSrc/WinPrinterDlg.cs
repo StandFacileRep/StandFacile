@@ -184,7 +184,7 @@ namespace StandFacile
             sGlbWinPrinterParams.sTckFontType = ReadRegistry(TCK_WIN_FONT_TYPE_KEY, "Lucida Console");
             sGlbWinPrinterParams.fTckFontSize = ReadRegistry(TCK_WIN_FONT_SIZE_KEY, 1100) / 100.0f;
             sGlbWinPrinterParams.sTckFontStyle = (FontStyle)ReadRegistry(TCK_WIN_FONT_STYLE_KEY, 0);
-            sGlbWinPrinterParams.iTckLeftMargin = ReadRegistry(TCK_WIN_FONT_MARGIN_KEY, 4);
+            sGlbWinPrinterParams.iTckLeftMargin = ReadRegistry(TCK_WIN_FONT_MARGIN_KEY, 10);
 
             //if (sGlbWinPrinterParams.fTckFontSize < 5)
             //    sGlbWinPrinterParams.fTckFontSize = 11;
@@ -224,22 +224,22 @@ namespace StandFacile
 
             sGlbWinPrinterParams.iLogoCenter = ReadRegistry(LOGO_WIN_CENTER_KEY, 0);
 
-            if (sGlbWinPrinterParams.iTckZoomValue < numUpDownTicket.Minimum)
+            if (sGlbWinPrinterParams.iTckZoomValue < numUpDownTicketZoom.Minimum)
                 sGlbWinPrinterParams.iTckZoomValue = 100;
 
-            if (sGlbWinPrinterParams.iTckZoomValue > numUpDownTicket.Maximum)
+            if (sGlbWinPrinterParams.iTckZoomValue > numUpDownTicketZoom.Maximum)
                 sGlbWinPrinterParams.iTckZoomValue = 100;
 
-            if (sGlbWinPrinterParams.iRepZoomValue < numUpDownReports.Minimum)
+            if (sGlbWinPrinterParams.iRepZoomValue < numUpDownReportsZoom.Minimum)
                 sGlbWinPrinterParams.iRepZoomValue = 100;
 
-            if (sGlbWinPrinterParams.iRepZoomValue > numUpDownReports.Maximum)
+            if (sGlbWinPrinterParams.iRepZoomValue > numUpDownReportsZoom.Maximum)
                 sGlbWinPrinterParams.iRepZoomValue = 100;
 
-            if (sGlbWinPrinterParams.iLogoZoomValue < numUpDownLogo.Minimum)
+            if (sGlbWinPrinterParams.iLogoZoomValue < numUpDownLogoZoom.Minimum)
                 sGlbWinPrinterParams.iLogoZoomValue = 100;
 
-            if (sGlbWinPrinterParams.iLogoZoomValue > numUpDownLogo.Maximum)
+            if (sGlbWinPrinterParams.iLogoZoomValue > numUpDownLogoZoom.Maximum)
                 sGlbWinPrinterParams.iLogoZoomValue = 100;
 
             if (sGlbWinPrinterParams.iLogoCenter < numUpDown_L_center.Minimum)
@@ -248,9 +248,9 @@ namespace StandFacile
             if (sGlbWinPrinterParams.iLogoCenter > numUpDown_L_center.Maximum)
                 sGlbWinPrinterParams.iLogoCenter = (int)numUpDown_L_center.Maximum;
 
-            numUpDownTicket.Value = sGlbWinPrinterParams.iTckZoomValue;
-            numUpDownLogo.Value = sGlbWinPrinterParams.iLogoZoomValue;
-            numUpDownReports.Value = sGlbWinPrinterParams.iRepZoomValue;
+            numUpDownTicketZoom.Value = sGlbWinPrinterParams.iTckZoomValue;
+            numUpDownLogoZoom.Value = sGlbWinPrinterParams.iLogoZoomValue;
+            numUpDownReportsZoom.Value = sGlbWinPrinterParams.iRepZoomValue;
 
             _sWinPrinterParamsCopy = DeepCopy(sGlbWinPrinterParams);
 
@@ -387,9 +387,9 @@ namespace StandFacile
             _sWinPrinterParamsCopy.iRepLeftMargin = (int)numUpDown_R_margin.Value; ;
             _sWinPrinterParamsCopy.iLogoCenter = (int)numUpDown_L_center.Value; ;
 
-            _sWinPrinterParamsCopy.iTckZoomValue = (int)numUpDownTicket.Value;
-            _sWinPrinterParamsCopy.iRepZoomValue = (int)numUpDownReports.Value;
-            _sWinPrinterParamsCopy.iLogoZoomValue = (int)numUpDownLogo.Value;
+            _sWinPrinterParamsCopy.iTckZoomValue = (int)numUpDownTicketZoom.Value;
+            _sWinPrinterParamsCopy.iRepZoomValue = (int)numUpDownReportsZoom.Value;
+            _sWinPrinterParamsCopy.iLogoZoomValue = (int)numUpDownLogoZoom.Value;
 
             _sWinPrinterParamsCopy.bChars33 = checkBox_Chars33.Checked;
             _sWinPrinterParamsCopy.bA5Paper = checkBox_A5_paper.Checked;
@@ -652,6 +652,17 @@ namespace StandFacile
             AggiornaAspettoControlli();
 
             LogToFile("WinPrinterDlg : LogoDelete");
+        }
+
+        private void BtnCanc3_Click(object sender, EventArgs e)
+        {
+            numUpDown_T_margin.Value = 10;
+            numUpDown_R_margin.Value = 10;
+            numUpDown_L_center.Value = 0;
+
+            numUpDownTicketZoom.Value = 100;
+            numUpDownReportsZoom.Value = 100;
+            numUpDownLogoZoom.Value = 100;
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)

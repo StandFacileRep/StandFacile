@@ -44,9 +44,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.logoImage = new System.Windows.Forms.PictureBox();
             this.checkBox_A5_paper = new System.Windows.Forms.CheckBox();
-            this.numUpDownTicket = new System.Windows.Forms.NumericUpDown();
-            this.numUpDownReports = new System.Windows.Forms.NumericUpDown();
-            this.numUpDownLogo = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownTicketZoom = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownReportsZoom = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownLogoZoom = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.labelZoomLogo = new System.Windows.Forms.Label();
@@ -58,10 +58,12 @@
             this.numUpDown_T_margin = new System.Windows.Forms.NumericUpDown();
             this.numUpDown_R_margin = new System.Windows.Forms.NumericUpDown();
             this.numUpDown_L_center = new System.Windows.Forms.NumericUpDown();
+            this.BtnCanc3 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logoImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTicket)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownReports)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownLogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTicketZoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownReportsZoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownLogoZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_T_margin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_R_margin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_L_center)).BeginInit();
@@ -255,92 +257,92 @@
             this.checkBox_A5_paper.Text = "uso di carta A5";
             this.checkBox_A5_paper.UseVisualStyleBackColor = true;
             // 
-            // numUpDownTicket
+            // numUpDownTicketZoom
             // 
-            this.numUpDownTicket.Increment = new decimal(new int[] {
+            this.numUpDownTicketZoom.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numUpDownTicket.Location = new System.Drawing.Point(181, 105);
-            this.numUpDownTicket.Maximum = new decimal(new int[] {
+            this.numUpDownTicketZoom.Location = new System.Drawing.Point(181, 105);
+            this.numUpDownTicketZoom.Maximum = new decimal(new int[] {
             140,
             0,
             0,
             0});
-            this.numUpDownTicket.Minimum = new decimal(new int[] {
+            this.numUpDownTicketZoom.Minimum = new decimal(new int[] {
             60,
             0,
             0,
             0});
-            this.numUpDownTicket.Name = "numUpDownTicket";
-            this.numUpDownTicket.Size = new System.Drawing.Size(45, 20);
-            this.numUpDownTicket.TabIndex = 25;
-            this.numUpDownTicket.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numUpDownTicket.Value = new decimal(new int[] {
+            this.numUpDownTicketZoom.Name = "numUpDownTicketZoom";
+            this.numUpDownTicketZoom.Size = new System.Drawing.Size(45, 20);
+            this.numUpDownTicketZoom.TabIndex = 25;
+            this.numUpDownTicketZoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDownTicketZoom.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.numUpDownTicket.Click += new System.EventHandler(this.NumUpDown_Click);
+            this.numUpDownTicketZoom.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
-            // numUpDownReports
+            // numUpDownReportsZoom
             // 
-            this.numUpDownReports.Increment = new decimal(new int[] {
+            this.numUpDownReportsZoom.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numUpDownReports.Location = new System.Drawing.Point(181, 207);
-            this.numUpDownReports.Maximum = new decimal(new int[] {
+            this.numUpDownReportsZoom.Location = new System.Drawing.Point(181, 207);
+            this.numUpDownReportsZoom.Maximum = new decimal(new int[] {
             140,
             0,
             0,
             0});
-            this.numUpDownReports.Minimum = new decimal(new int[] {
+            this.numUpDownReportsZoom.Minimum = new decimal(new int[] {
             60,
             0,
             0,
             0});
-            this.numUpDownReports.Name = "numUpDownReports";
-            this.numUpDownReports.Size = new System.Drawing.Size(45, 20);
-            this.numUpDownReports.TabIndex = 26;
-            this.numUpDownReports.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numUpDownReports.Value = new decimal(new int[] {
+            this.numUpDownReportsZoom.Name = "numUpDownReportsZoom";
+            this.numUpDownReportsZoom.Size = new System.Drawing.Size(45, 20);
+            this.numUpDownReportsZoom.TabIndex = 26;
+            this.numUpDownReportsZoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDownReportsZoom.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.numUpDownReports.Click += new System.EventHandler(this.NumUpDown_Click);
+            this.numUpDownReportsZoom.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
-            // numUpDownLogo
+            // numUpDownLogoZoom
             // 
-            this.numUpDownLogo.Increment = new decimal(new int[] {
+            this.numUpDownLogoZoom.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numUpDownLogo.Location = new System.Drawing.Point(181, 316);
-            this.numUpDownLogo.Maximum = new decimal(new int[] {
+            this.numUpDownLogoZoom.Location = new System.Drawing.Point(181, 316);
+            this.numUpDownLogoZoom.Maximum = new decimal(new int[] {
             140,
             0,
             0,
             0});
-            this.numUpDownLogo.Minimum = new decimal(new int[] {
+            this.numUpDownLogoZoom.Minimum = new decimal(new int[] {
             60,
             0,
             0,
             0});
-            this.numUpDownLogo.Name = "numUpDownLogo";
-            this.numUpDownLogo.Size = new System.Drawing.Size(45, 20);
-            this.numUpDownLogo.TabIndex = 27;
-            this.numUpDownLogo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numUpDownLogo.Value = new decimal(new int[] {
+            this.numUpDownLogoZoom.Name = "numUpDownLogoZoom";
+            this.numUpDownLogoZoom.Size = new System.Drawing.Size(45, 20);
+            this.numUpDownLogoZoom.TabIndex = 27;
+            this.numUpDownLogoZoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDownLogoZoom.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.numUpDownLogo.Click += new System.EventHandler(this.NumUpDown_Click);
+            this.numUpDownLogoZoom.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
             // label3
             // 
@@ -497,12 +499,35 @@
             this.numUpDown_L_center.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numUpDown_L_center.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
+            // BtnCanc3
+            // 
+            this.BtnCanc3.Image = global::StandFacile.Properties.Resources.Cancel1;
+            this.BtnCanc3.Location = new System.Drawing.Point(470, 483);
+            this.BtnCanc3.Name = "BtnCanc3";
+            this.BtnCanc3.Size = new System.Drawing.Size(35, 26);
+            this.BtnCanc3.TabIndex = 78;
+            this.BtnCanc3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnCanc3.UseVisualStyleBackColor = true;
+            this.BtnCanc3.Click += new System.EventHandler(this.BtnCanc3_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(273, 489);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(181, 14);
+            this.label8.TabIndex = 79;
+            this.label8.Text = "ripristina default Zoom e margini";
+            // 
             // WinPrinterDlg
             // 
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(543, 670);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.BtnCanc3);
             this.Controls.Add(this.numUpDown_L_center);
             this.Controls.Add(this.numUpDown_R_margin);
             this.Controls.Add(this.numUpDown_T_margin);
@@ -513,9 +538,9 @@
             this.Controls.Add(this.labelZoomLogo);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.numUpDownLogo);
-            this.Controls.Add(this.numUpDownReports);
-            this.Controls.Add(this.numUpDownTicket);
+            this.Controls.Add(this.numUpDownLogoZoom);
+            this.Controls.Add(this.numUpDownReportsZoom);
+            this.Controls.Add(this.numUpDownTicketZoom);
             this.Controls.Add(this.checkBox_A5_paper);
             this.Controls.Add(this.logoImage);
             this.Controls.Add(this.label7);
@@ -544,9 +569,9 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WinPrinterDlg_FormClosing);
             this.Click += new System.EventHandler(this.NumUpDown_Click);
             ((System.ComponentModel.ISupportInitialize)(this.logoImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTicket)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownReports)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownLogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTicketZoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownReportsZoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownLogoZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_T_margin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_R_margin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_L_center)).EndInit();
@@ -573,9 +598,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox logoImage;
         private System.Windows.Forms.CheckBox checkBox_A5_paper;
-        private System.Windows.Forms.NumericUpDown numUpDownTicket;
-        private System.Windows.Forms.NumericUpDown numUpDownReports;
-        private System.Windows.Forms.NumericUpDown numUpDownLogo;
+        private System.Windows.Forms.NumericUpDown numUpDownTicketZoom;
+        private System.Windows.Forms.NumericUpDown numUpDownReportsZoom;
+        private System.Windows.Forms.NumericUpDown numUpDownLogoZoom;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelZoomLogo;
@@ -587,5 +612,7 @@
         private System.Windows.Forms.NumericUpDown numUpDown_T_margin;
         private System.Windows.Forms.NumericUpDown numUpDown_R_margin;
         private System.Windows.Forms.NumericUpDown numUpDown_L_center;
+        private System.Windows.Forms.Button BtnCanc3;
+        private System.Windows.Forms.Label label8;
     }
 }

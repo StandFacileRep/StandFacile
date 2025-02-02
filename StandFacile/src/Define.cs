@@ -86,11 +86,10 @@ namespace StandFacile
         /// <summary>evento reset del bottone di emissione scontrino</summary>
         public const string MAIN_GRID_UPDATE_EVENT = "mainGridUpdateEvent";
 
-        /********************************************************************
-               mnemonici chiave di registro sService per il Debug
-               queste stringhe inserite nella chiave di Registro di tipo
-               stringa, consentono l'attivazione di alcune funzioni di debug
-            ********************************************************************/
+        /**********************************************************************************
+               mnemonici chiavi del file config.ini:
+               queste stringhe consentono l'attivazione di alcune funzioni di debug
+         **********************************************************************************/
 
         /// <summary>registro: generazione random di scontrini per test</summary>
         public const string _AUTO_RECEIPT_GEN = "randTest";
@@ -109,8 +108,6 @@ namespace StandFacile
 
         /// <summary>registro:  evita le presentazione del dialogo relativo alla Data</summary>
         public const string _SKIP_DATA = "noData";
-        // consente la stampa su file del Codice di autorizzazione
-
 
         /// <summary>registro: refresh di sService * 250ms circa in StandFacile, 200 in StandClient</summary>
         public const int REFRESH_SSERVICE = 4 * 60;

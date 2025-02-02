@@ -392,8 +392,8 @@ namespace StandCommonFiles
                         sPrevPrinter = pd.PrinterSettings.PrinterName;
                     }
 
-                    // consente impostazioni: es. _LogoFont ma non stampa
-                    if (_bIsTicket && _bSkipTicketPrint)
+                    // non stampa la Receipt
+                    if (_bIsTicket && (_bSkipTicketPrint || CheckService(_SKIP_STAMPA_RCP)))
                     {
                         break;
                     }

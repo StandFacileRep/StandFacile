@@ -17,7 +17,7 @@ namespace StandCommonFiles
         #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.13.3";
+        public const String RELEASE_SW = "v5.13.3"; 
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5b";
@@ -67,19 +67,10 @@ namespace StandCommonFiles
         //public const String SERVICE = "sService";
 
         /// <summary>evita di stampare lo scontrino</summary>
-        public const String _SKIP_STAMPA = "noStampa";
+        public const String _SKIP_STAMPA_RCP = "noStampaRcp";
 
         /// <summary>abilita la modalità Esperto</summary>
         public const String _ESPERTO = "Esperto";
-
-        /// <summary>Attenzione che abilita la generazione di files di grande dimensione</summary>
-        public const String _LOG_MSG = "LogMsg";
-
-        /// <summary>Attenzione che abilita il Log del Server-Client</summary>
-        public const String _LOG_SRV = "LogSrv";
-
-        /// <summary>simulazione errore di checksum</summary>
-        public const String _TEST_CHECKSUM = "testChecksum";
 
         /// <summary>indicatore di ordine formattato JSON</summary>
         public const String _JS_ORDER_V5 = "js_order_v5b";
@@ -1218,9 +1209,6 @@ namespace StandCommonFiles
 
         /// <summary>testo descrittivo del formato per punto di taglio</summary>
         public static readonly String _CUT_FMT = "\r\n\r\n{0}\r\n\r\n\r\n";
-
-        // <summary>testo descrittivo del punto di taglio</summary>
-        //public static readonly String _NO_CUT = "- - - - - - - - - - - -";
 
         /// <summary>testo descrittivo dei coperti</summary>
         public static readonly String _COPERTO = "COPERTI";

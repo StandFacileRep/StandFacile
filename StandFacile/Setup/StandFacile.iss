@@ -1,13 +1,13 @@
-; 29.01.2025
+; 02.02.2025
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 ; tra una versione e l'altra cambiare GUID per facilitare l'installazione distinta
 ; The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 
 [Setup]
-AppVersion= 5.13.2
+AppVersion= 5.13.3
 
 AppVerName=StandFacile {#SetupSetting("AppVersion")}
-AppName=StandFacile 2024
+AppName=StandFacile 2025
 AppPublisher=Mauro Artuso
 AppId={{B295B56F-47A6-463F-B4FE-65E1FF4DA33A}
 DefaultDirName={sd}\StandFacile\StandFacile_513x
@@ -39,7 +39,9 @@ Source: "..\exe\Debug\QRCoder.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\x86\sqlite3.dll"; DestDir: "{app}\x86"
 Source: "..\exe\Debug\x64\sqlite3.dll"; DestDir: "{app}\x64"
 Source: "..\..\StandLibrary\Listino.txt"; DestDir: "{app}"; Flags: uninsneveruninstall confirmoverwrite; Languages: it
+Source: "..\..\StandLibrary\config.ini"; DestDir: "{app}";
 Source: "..\..\StandLibrary\Licenza.txt"; DestDir: "{app}"; Languages: it
+
 
 [Icons]
 Name: "{group}\StandFacile"; Filename: "{app}\StandFacile.exe"; WorkingDir: "{app}"

@@ -823,7 +823,7 @@ namespace StandFacile
                 if (_bCopyToPrint[i])
                 {
                     sFileToPrint = String.Format(NOME_FILE_COPIE, i);
-                    if (File.Exists(sFileToPrint) && !CheckService(_SKIP_STAMPA))
+                    if (File.Exists(sFileToPrint) && !CheckService(_SKIP_STAMPA_RCP))
                     {
                         Console.Beep();
 
@@ -857,7 +857,7 @@ namespace StandFacile
             String sFileToPrint;
 
             sFileToPrint = String.Format(NOME_FILE_MESSAGGIO);
-            if (File.Exists(sFileToPrint) && !CheckService(_SKIP_STAMPA) && !Get_StatusDate_IsChanged())
+            if (File.Exists(sFileToPrint) && !CheckService(_SKIP_STAMPA_RCP) && !Get_StatusDate_IsChanged())
             {
                 Console.Beep();
 
