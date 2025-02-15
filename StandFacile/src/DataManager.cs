@@ -409,7 +409,7 @@ namespace StandFacile
 
             Console.WriteLine(sTmp);
 
-            InitFormatStrings();
+            InitFormatStrings(sGlbWinPrinterParams.bChars33);
         }
 
         /// <summary>
@@ -567,6 +567,7 @@ namespace StandFacile
             TOrdineStrings sOrdineStrings = new TOrdineStrings();
 
             sOrdineStrings = SetupHeaderStrings(SF_Data, 0);
+            InitFormatStrings(sGlbWinPrinterParams.bChars33);
 
             /*******************************
              ***     STAMPA SCONTRINO    ***

@@ -280,12 +280,12 @@ namespace StandCommonFiles
             if (String.IsNullOrEmpty(dataIdParam.sTavolo))
                 sOrdineStringsTmp.sTavolo = String.Format("");
             else
-                sOrdineStringsTmp.sTavolo = String.Format(" Tavolo = {0}", dataIdParam.sTavolo);
+                sOrdineStringsTmp.sTavolo = String.Format("Tavolo = {0}", dataIdParam.sTavolo);
 
             if (String.IsNullOrEmpty(dataIdParam.sNome))
                 sOrdineStringsTmp.sNome = String.Format("");
             else
-                sOrdineStringsTmp.sNome = String.Format(" Nome = {0}", dataIdParam.sNome);
+                sOrdineStringsTmp.sNome = String.Format("Nome = {0}", dataIdParam.sNome);
 
             //sNome = CenterJustify(sNome, iMAX_RECEIPT_CHARS);
             //sTavolo = CenterJustify(sTavolo, iMAX_RECEIPT_CHARS);
@@ -381,18 +381,18 @@ namespace StandCommonFiles
                 if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) && !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
                 {
                     fPrintParam.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); fPrintParam.WriteLine();
-                    fPrintParam.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
-                    fPrintParam.WriteLine("  {0}", sOrdineStringsParam.sNome);
+                    fPrintParam.WriteLine(" {0}", sOrdineStringsParam.sTavolo);
+                    fPrintParam.WriteLine(" {0}", sOrdineStringsParam.sNome);
                 }
                 else if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
                 {
                     fPrintParam.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); fPrintParam.WriteLine();
-                    fPrintParam.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
+                    fPrintParam.WriteLine(" {0}", sOrdineStringsParam.sTavolo);
                 }
                 else if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
                 {
                     fPrintParam.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); fPrintParam.WriteLine();
-                    fPrintParam.WriteLine("  {0}", sOrdineStringsParam.sNome);
+                    fPrintParam.WriteLine(" {0}", sOrdineStringsParam.sNome);
                 }
                 else
                 {
@@ -787,15 +787,15 @@ namespace StandCommonFiles
 
                     if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) && !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
                     {
-                        sHeader2_ToPrintBeforeCut += String.Format("   {0}\r\n {1}\r\n", sOrdineStringsParam.sTavolo, sOrdineStringsParam.sNome);
+                        sHeader2_ToPrintBeforeCut += String.Format("  {0}\r\n  {1}\r\n", sOrdineStringsParam.sTavolo, sOrdineStringsParam.sNome);
                     }
                     else if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
                     {
-                        sHeader2_ToPrintBeforeCut += String.Format("   {0}\r\n", sOrdineStringsParam.sTavolo);
+                        sHeader2_ToPrintBeforeCut += String.Format("  {0}\r\n", sOrdineStringsParam.sTavolo);
                     }
                     else if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
                     {
-                        sHeader2_ToPrintBeforeCut += String.Format("   {0}\r\n", sOrdineStringsParam.sNome);
+                        sHeader2_ToPrintBeforeCut += String.Format("  {0}\r\n", sOrdineStringsParam.sNome);
                     }
                     else
                     {
@@ -1212,20 +1212,20 @@ namespace StandCommonFiles
                         if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) && !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
                         {
                             fPrintParam.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); fPrintParam.WriteLine();
-                            fPrintParam.WriteLine("   {0}", sOrdineStringsParam.sTavolo);
-                            fPrintParam.WriteLine("   {0}", sOrdineStringsParam.sNome);
+                            fPrintParam.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
+                            fPrintParam.WriteLine("  {0}", sOrdineStringsParam.sNome);
                             iEqRowsNumber += 4;
                         }
                         else if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
                         {
                             fPrintParam.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); fPrintParam.WriteLine();
-                            fPrintParam.WriteLine("   {0}", sOrdineStringsParam.sTavolo);
+                            fPrintParam.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
                             iEqRowsNumber += 3;
                         }
                         else if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
                         {
                             fPrintParam.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); fPrintParam.WriteLine();
-                            fPrintParam.WriteLine("   {0}", sOrdineStringsParam.sNome);
+                            fPrintParam.WriteLine("  {0}", sOrdineStringsParam.sNome);
                             iEqRowsNumber += 3;
                         }
                         else

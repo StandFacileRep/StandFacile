@@ -179,6 +179,9 @@ namespace StandFacile_DB
 
             _WrnMsg.iErrID = 0; // resetta errori in altra data
 
+#if !STAND_ORDINI
+            _iDBArticoliLength_Is33 = sGlbWinPrinterParams.bChars33;
+#endif
             // *** sicurezza ***
             if (!bUSA_NDB()) return -1;
 
@@ -314,6 +317,9 @@ namespace StandFacile_DB
                                 DB_Data.Articolo[i].sTipo = "";
                             else
                                 DB_Data.Articolo[i].sTipo = sTmp;
+
+                            if (!string.IsNullOrEmpty(sTmp) && (sTmp.Length > MAX_LEG_ART_CHAR))
+                                _iDBArticoliLength_Is33 = true;
 
                             DB_Data.Articolo[i].iGruppoStampa = readerDati.GetInt32("iGruppo_Stampa");
                             DB_Data.Articolo[i].iPrezzoUnitario = readerDati.GetInt32("iPrezzo_Unitario");
@@ -832,6 +838,9 @@ namespace StandFacile_DB
             // dbAzzeraDatiGen() va più sotto
             dbAzzeraDatiOrdine();
 
+#if !STAND_ORDINI
+            _iDBArticoliLength_Is33 = sGlbWinPrinterParams.bChars33;
+#endif
             try
             {
                 cmd.Connection = _Connection;
@@ -1022,6 +1031,10 @@ namespace StandFacile_DB
                             DB_Data.Articolo[iCount].iIndexListino = readerOrdine.GetInt32("iIndex_Listino");
                             DB_Data.Articolo[iCount].iGruppoStampa = readerOrdine.GetInt32("iGruppo_Stampa");
                             DB_Data.Articolo[iCount].iOptionsFlags = readerOrdine.GetInt32("iStatus");
+
+                            sTmp = readerOrdine.GetString("sTipo_Articolo");
+                            if (!string.IsNullOrEmpty(sTmp) && (sTmp.Length > MAX_LEG_ART_CHAR))
+                                _iDBArticoliLength_Is33 = true;
 
                             iCount++;
                         }

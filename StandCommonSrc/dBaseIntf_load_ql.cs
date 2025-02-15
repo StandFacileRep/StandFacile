@@ -62,6 +62,7 @@ namespace StandFacile_DB
             String sTmp, sTipo;
 
             _WrnMsg.iErrID = 0; // resetta errori in altra data
+            _iDBArticoliLength_Is33 = sGlbWinPrinterParams.bChars33;
 
             // *** sicurezza ***
             if (bUSA_NDB()) return -1;
@@ -197,6 +198,9 @@ namespace StandFacile_DB
                             else
                                 DB_Data.Articolo[i].sTipo = sTmp;
 
+                            if (!string.IsNullOrEmpty(sTmp) && (sTmp.Length > MAX_LEG_ART_CHAR))
+                                _iDBArticoliLength_Is33 = true;
+
                             DB_Data.Articolo[i].iGruppoStampa = readerDati.GetInt32("iGruppo_Stampa");
                             DB_Data.Articolo[i].iPrezzoUnitario = readerDati.GetInt32("iPrezzo_Unitario");
 
@@ -232,12 +236,12 @@ namespace StandFacile_DB
                 WarningManager(_WrnMsg);
                 LogToFile("dbCaricaDatidaOrdini : dbException");
 
-                    readerDati?.Close();
-            
+                readerDati?.Close();
+
                 return -1;
             }
 
-                readerDati?.Close();
+            readerDati?.Close();
 
             /*********************************************************************
              *  seconda parte: iNumOfTickets, iStartingNumOfReceipts, 
@@ -357,7 +361,7 @@ namespace StandFacile_DB
                 for (j = 1; j <= DB_Data.iNumOfLastReceipt; j++)
                 {
 
-                        readerOrdine?.Close();
+                    readerOrdine?.Close();
 
                     cmd_Ordini.CommandText = "SELECT * FROM " + _sDBTNameOrdini + String.Format(" WHERE (iOrdine_ID = {0})", j);
 
@@ -582,7 +586,7 @@ namespace StandFacile_DB
 
                 LogToFile("dbCaricaDatidaOrdini : dbException");
 
-                    readerOrdine?.Close();
+                readerOrdine?.Close();
 
                 return -1;
             }
@@ -623,7 +627,7 @@ namespace StandFacile_DB
             {
                 LogToFile("dbCaricaDisponibilità : dbException Open()");
 
-                    readerDisp?.Close();
+                readerDisp?.Close();
 
                 return false;
             }
@@ -668,7 +672,7 @@ namespace StandFacile_DB
                 LogToFile("dbCaricaDisponibilità : dbException");
             }
 
-                readerDisp?.Close();
+            readerDisp?.Close();
 
             return true; // tutto OK
         } // end dbCaricaDisponibilità
@@ -694,6 +698,8 @@ namespace StandFacile_DB
 
             // dbAzzeraDatiGen() va più sotto
             dbAzzeraDatiOrdine();
+
+            _iDBArticoliLength_Is33 = sGlbWinPrinterParams.bChars33;
 
             try
             {
@@ -886,6 +892,10 @@ namespace StandFacile_DB
                             DB_Data.Articolo[iCount].iGruppoStampa = readerOrdine.GetInt32("iGruppo_Stampa");
                             DB_Data.Articolo[iCount].iOptionsFlags = readerOrdine.GetInt32("iStatus");
 
+                            sTmp = readerOrdine.GetString("sTipo_Articolo");
+                            if (!string.IsNullOrEmpty(sTmp) && (sTmp.Length > MAX_LEG_ART_CHAR))
+                                _iDBArticoliLength_Is33 = true;
+
                             iCount++;
                         }
                     }
@@ -912,7 +922,7 @@ namespace StandFacile_DB
                 bNoProblem = false;
             }
 
-                readerOrdine?.Close();
+            readerOrdine?.Close();
 
             return bNoProblem; // tutto OK
         } // end dbCaricaOrdine

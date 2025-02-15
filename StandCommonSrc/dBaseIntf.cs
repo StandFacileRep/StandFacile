@@ -67,6 +67,9 @@ namespace StandFacile
         /// <summary>variabile che descrive la lunghezza della stringa _sDBTNameOrdini sensa estensione da chiusura</summary>
         public static int _iDBTNameOrdiniLength;
 
+        /// <summary>variabile che descrive la lunghezza degli Articoli letti dal DB</summary>
+        public static bool _iDBArticoliLength_Is33;
+
         /// <summary>numero degli ordini emessi da questa cassa</summary>
         public static int _iNumOfLocalOrdersFromDB;
         /// <summary>numero degli messaggi emessi da questa cassa</summary>
@@ -187,13 +190,19 @@ namespace StandFacile
         /// <summary>ottiene dal DB il numero degli ordini emessi da questa cassa</summary>
         public static int dbGetNumOfLocalOrdersFromDB() { return _iNumOfLocalOrdersFromDB; }
 
-        /// <summary>ottiene dal DB il numero dei messaggi emessi da questa cassa</summary>
-        public static int dbGetNumOfLastMessageFromDB() { return _iNumOfLastMessageFromDB; }
+        // <summary>ottiene dal DB il numero dei messaggi emessi da questa cassa</summary>
+        // public static int dbGetNumOfLastMessageFromDB() { return _iNumOfLastMessageFromDB; }
 
         /// <summary>imposta il numero degli ordini complessivi emessi</summary>
         public static void dbSetNumOfLastOrderFromDB(int iParam) { _iNumOfLocalOrdersFromDB = iParam; }
         /// <summary>imposta il numero dei messaggi complessivi emessi</summary>
         public static void dbSetNumOfLastMessageFromDB(int iParam) { _iNumOfLastMessageFromDB = iParam; }
+
+        /// <summary>
+        /// ottiene dal DB la lunghezza degli Articoli<br/>
+        /// usata da VisOrdini(), VisDati()
+        /// </summary>
+        public static bool dbGetLengthArticoli() { return _iDBArticoliLength_Is33; }
 
         /// <summary>costruttore</summary>
         public dBaseIntf()

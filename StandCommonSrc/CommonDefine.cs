@@ -17,7 +17,7 @@ namespace StandCommonFiles
         #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.13.3"; 
+        public const String RELEASE_SW = "v5.13.3";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5b";

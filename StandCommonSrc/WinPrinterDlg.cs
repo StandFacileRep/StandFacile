@@ -364,7 +364,7 @@ namespace StandFacile
 
             // caricato da CaricaListino(...)
 #if !STANDFACILE
-            InitFormatStrings();
+            InitFormatStrings(sGlbWinPrinterParams.bChars33);
 #endif
             return (result == DialogResult.OK); // true se è cliccato OK
         }
@@ -725,7 +725,7 @@ namespace StandFacile
                 }
             }
 
-            InitFormatStrings();
+            InitFormatStrings(sGlbWinPrinterParams.bChars33);
 
 #if STANDFACILE
 

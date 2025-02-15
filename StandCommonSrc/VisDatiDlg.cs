@@ -255,6 +255,8 @@ namespace StandFacile
                 else
                     _rdBaseIntf.dbCaricaDatidaOrdini(_SelDate, _iNumCassa, false, _sNomeTabellaParam, iReportParam);
 
+                InitFormatStrings(dbGetLengthArticoli());
+
                 /*************** fine punto di caricamento dati DB ******************/
 
                 //textEditDati.ScrollBars = ScrollBars.None;
@@ -848,6 +850,8 @@ namespace StandFacile
                             else
                                 _rdBaseIntf.dbCaricaDatidaOrdini(columnDay, _iNumCassa);
                         }
+
+                        InitFormatStrings(dbGetLengthArticoli());
 
                         if (DB_Data.iActualNumOfReceipts <= 0)
                         {

@@ -456,6 +456,8 @@ namespace StandFacile
             // va dopo dbAnnulloOrdine che entrambi azzerano DB_Data
             _bOrdineCaricato = _rdBaseIntf.dbCaricaOrdine(dateParam, iParam, !CkBoxTutteCasse.Checked, _sNomeTabella);
 
+            InitFormatStrings(dbGetLengthArticoli());
+
             bOrdineAnnullato = DB_Data.bAnnullato;
 
             if (DB_Data.bScaricato)
