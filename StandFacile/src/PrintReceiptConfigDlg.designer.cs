@@ -33,7 +33,7 @@
             this.RadioGroup_PrinterType = new System.Windows.Forms.GroupBox();
             this.prt_Legacy = new System.Windows.Forms.RadioButton();
             this.prt_Windows = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.printersGroupBox = new System.Windows.Forms.GroupBox();
             this.BtnLegacy = new System.Windows.Forms.Button();
             this.BtnWin = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -62,7 +62,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.RadioGroup_PrinterType.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.printersGroupBox.SuspendLayout();
             this.panelLocalCopies.SuspendLayout();
             this.panelCopies.SuspendLayout();
             this.SuspendLayout();
@@ -101,17 +101,17 @@
             this.prt_Windows.Text = "WINDOWS";
             this.prt_Windows.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // printersGroupBox
             // 
-            this.groupBox1.Controls.Add(this.BtnLegacy);
-            this.groupBox1.Controls.Add(this.BtnWin);
-            this.groupBox1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(30, 20);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(260, 94);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Impostazione stampanti Windows e Legacy";
+            this.printersGroupBox.Controls.Add(this.BtnLegacy);
+            this.printersGroupBox.Controls.Add(this.BtnWin);
+            this.printersGroupBox.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.printersGroupBox.Location = new System.Drawing.Point(30, 20);
+            this.printersGroupBox.Name = "printersGroupBox";
+            this.printersGroupBox.Size = new System.Drawing.Size(260, 94);
+            this.printersGroupBox.TabIndex = 1;
+            this.printersGroupBox.TabStop = false;
+            this.printersGroupBox.Text = "Impostazione stampanti Windows e Legacy";
             // 
             // BtnLegacy
             // 
@@ -143,7 +143,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(163, 551);
+            this.btnCancel.Location = new System.Drawing.Point(163, 542);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 28);
@@ -158,7 +158,7 @@
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(299, 551);
+            this.btnOK.Location = new System.Drawing.Point(299, 542);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 28);
@@ -170,6 +170,7 @@
             // 
             // panelLocalCopies
             // 
+            this.panelLocalCopies.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panelLocalCopies.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelLocalCopies.Controls.Add(this.checkBox_AvoidPrintGroups);
             this.panelLocalCopies.Controls.Add(this.labelWarn);
@@ -179,7 +180,7 @@
             this.panelLocalCopies.Controls.Add(this.checkBoxSingleRowItems);
             this.panelLocalCopies.Controls.Add(this.checkBoxSelectedOnly);
             this.panelLocalCopies.Controls.Add(this.checkBoxLocalCopy);
-            this.panelLocalCopies.Location = new System.Drawing.Point(16, 211);
+            this.panelLocalCopies.Location = new System.Drawing.Point(16, 198);
             this.panelLocalCopies.Name = "panelLocalCopies";
             this.panelLocalCopies.Size = new System.Drawing.Size(517, 325);
             this.panelLocalCopies.TabIndex = 30;
@@ -391,9 +392,10 @@
             // 
             // LinkLbl_Mnu_CCR
             // 
+            this.LinkLbl_Mnu_CCR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LinkLbl_Mnu_CCR.AutoSize = true;
             this.LinkLbl_Mnu_CCR.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LinkLbl_Mnu_CCR.Location = new System.Drawing.Point(351, 186);
+            this.LinkLbl_Mnu_CCR.Location = new System.Drawing.Point(346, 169);
             this.LinkLbl_Mnu_CCR.Name = "LinkLbl_Mnu_CCR";
             this.LinkLbl_Mnu_CCR.Size = new System.Drawing.Size(170, 14);
             this.LinkLbl_Mnu_CCR.TabIndex = 34;
@@ -403,9 +405,10 @@
             // 
             // label2
             // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(21, 165);
+            this.label2.Location = new System.Drawing.Point(21, 148);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(489, 16);
             this.label2.TabIndex = 37;
@@ -414,9 +417,10 @@
             // 
             // label3
             // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(21, 185);
+            this.label3.Location = new System.Drawing.Point(21, 168);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(317, 16);
             this.label3.TabIndex = 36;
@@ -424,9 +428,10 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(21, 145);
+            this.label1.Location = new System.Drawing.Point(21, 128);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(450, 16);
             this.label1.TabIndex = 35;
@@ -437,7 +442,7 @@
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 592);
+            this.ClientSize = new System.Drawing.Size(539, 583);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
@@ -445,7 +450,7 @@
             this.Controls.Add(this.panelLocalCopies);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.printersGroupBox);
             this.Controls.Add(this.RadioGroup_PrinterType);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -455,7 +460,7 @@
             this.Text = "Configurazione Stampa Scontrino e copie locali";
             this.RadioGroup_PrinterType.ResumeLayout(false);
             this.RadioGroup_PrinterType.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
+            this.printersGroupBox.ResumeLayout(false);
             this.panelLocalCopies.ResumeLayout(false);
             this.panelLocalCopies.PerformLayout();
             this.panelCopies.ResumeLayout(false);
@@ -470,7 +475,7 @@
         private System.Windows.Forms.GroupBox RadioGroup_PrinterType;
         private System.Windows.Forms.RadioButton prt_Legacy;
         private System.Windows.Forms.RadioButton prt_Windows;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox printersGroupBox;
         private System.Windows.Forms.Button BtnWin;
         private System.Windows.Forms.Button BtnLegacy;
         private System.Windows.Forms.Button btnCancel;

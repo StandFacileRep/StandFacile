@@ -314,6 +314,12 @@ namespace StandFacile
 
             _iAnteprimaTotParziale = 0;
             _bPasswordIsGood = false;
+
+            if (CheckService(_HIDE_LEGACY_PRINTER))
+            {
+                MnuImpostaStampanteLegacy.Visible = false;
+                MnuImpostaCopieLocali.Text = "Con&figurazione Copie locali...";
+            }
         }
 
         /// <summary>Init</summary>

@@ -62,12 +62,20 @@ namespace StandFacile
             che potrebbero non essere confermati con OK
          *****************************************************/
         /// <summary> funzione che ritorna true se la stampante in uso in CASSA è windows</summary>
-        public static bool GetPrinterTypeIsWinwows() { return (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS); }
+        public static bool GetPrinterTypeIsWinwows()
+        {
+            if (CheckService(_HIDE_LEGACY_PRINTER))
+                return true;
+            else
+                return (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS);
+        }
 
         /// <summary> overload funzione che ritorna true se la stampante copie in uso è windows</summary>
         public static bool GetPrinterTypeIsWinwows(int iPrinterIndex)
         {
-            if (iPrinterIndex == NUM_EDIT_GROUPS + 1)  // stampa Messaggi
+            if (CheckService(_HIDE_LEGACY_PRINTER))
+                return true;
+            else if (iPrinterIndex == NUM_EDIT_GROUPS + 1)  // stampa Messaggi
                 return (sGlbWinPrinterParams.sMsgPrinterModel != _LEGACY_PRINTER);
             else if (iPrinterIndex == (NUM_EDIT_GROUPS)) // stampa Tickets
                 return (sGlbWinPrinterParams.sTckPrinterModel != _LEGACY_PRINTER);
@@ -195,14 +203,22 @@ namespace StandFacile
                 _pPrintersListCombo[i].Items.Clear();
 
                 j = 0;
-                _pPrintersListCombo[i].Items.Add(_LEGACY_PRINTER);
+
+                if (!CheckService(_HIDE_LEGACY_PRINTER))
+                    _pPrintersListCombo[i].Items.Add(_LEGACY_PRINTER);
 
                 foreach (String printer in PrinterSettings.InstalledPrinters)
                 {
                     _pPrintersListCombo[i].Items.Add(printer);
 
                     if (printer == sGlbWinPrinterParams.sPrinterModel[i])
-                        sGlbWinPrinterParams.iPrinterModel[i] = j + 1; // tiene conto di _LEGACY_PRINTER
+                    {
+                        if (CheckService(_HIDE_LEGACY_PRINTER))
+                            sGlbWinPrinterParams.iPrinterModel[i] = j;
+                        else
+                            sGlbWinPrinterParams.iPrinterModel[i] = j + 1; // tiene conto di _LEGACY_PRINTER
+
+                    }
 
                     j++;
                 }

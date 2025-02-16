@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            this.Timer = new System.Windows.Forms.Timer();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.MnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuPrintTest = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,7 +62,7 @@
             this.BtnOnline = new System.Windows.Forms.Button();
             this.ME_TickNum = new System.Windows.Forms.TextBox();
             this.Label_ServerName = new System.Windows.Forms.Label();
-            this.ClientTimer = new System.Windows.Forms.Timer();
+            this.ClientTimer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.btnAnt = new System.Windows.Forms.Button();
             this.printerPicBox = new System.Windows.Forms.PictureBox();
@@ -191,7 +192,7 @@
             this.MnuConfigurazioneStampe.Enabled = false;
             this.MnuConfigurazioneStampe.Name = "MnuConfigurazioneStampe";
             this.MnuConfigurazioneStampe.Size = new System.Drawing.Size(239, 22);
-            this.MnuConfigurazioneStampe.Text = "Configurazione &Stampe ...";
+            this.MnuConfigurazioneStampe.Text = "Configurazione &Stampante ...";
             this.MnuConfigurazioneStampe.Click += new System.EventHandler(this.MnuConfigurazioneStampeToolStripMenuItem_Click);
             // 
             // MnuAiuto
@@ -206,14 +207,14 @@
             // MnuAiutoRapido
             // 
             this.MnuAiutoRapido.Name = "MnuAiutoRapido";
-            this.MnuAiutoRapido.Size = new System.Drawing.Size(180, 22);
+            this.MnuAiutoRapido.Size = new System.Drawing.Size(168, 22);
             this.MnuAiutoRapido.Text = "&Aiuto rapido";
             this.MnuAiutoRapido.Click += new System.EventHandler(this.MnuManuale_Click);
             // 
             // MnuInfo
             // 
             this.MnuInfo.Name = "MnuInfo";
-            this.MnuInfo.Size = new System.Drawing.Size(180, 22);
+            this.MnuInfo.Size = new System.Drawing.Size(168, 22);
             this.MnuInfo.Text = "&Informazioni su ...";
             this.MnuInfo.Click += new System.EventHandler(this.MnuAbout_Click);
             // 

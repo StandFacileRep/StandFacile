@@ -29,44 +29,44 @@
         private void InitializeComponent()
         {
             this.PrintersListCombo = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.BtnTicketsFontSelect = new System.Windows.Forms.Button();
+            this.labelPrintersList = new System.Windows.Forms.Label();
+            this.BtnRcpFontSelect = new System.Windows.Forms.Button();
             this.BtnLogoFileSelect = new System.Windows.Forms.Button();
-            this.BtnReportsFontSelect = new System.Windows.Forms.Button();
+            this.BtnRepFontSelect = new System.Windows.Forms.Button();
             this.BtnDeleteLogo = new System.Windows.Forms.Button();
             this.SampleTextBtn = new System.Windows.Forms.Button();
             this.Memo = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.lblLogo = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lblLogoPreview = new System.Windows.Forms.Label();
+            this.labelMarginRcp = new System.Windows.Forms.Label();
+            this.labelMarginRep = new System.Windows.Forms.Label();
             this.logoImage = new System.Windows.Forms.PictureBox();
             this.checkBox_A5_paper = new System.Windows.Forms.CheckBox();
-            this.numUpDownTicketZoom = new System.Windows.Forms.NumericUpDown();
-            this.numUpDownReportsZoom = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownRcpZoom = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownRepZoom = new System.Windows.Forms.NumericUpDown();
             this.numUpDownLogoZoom = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.labelZoomRcp = new System.Windows.Forms.Label();
+            this.labelZoomRep = new System.Windows.Forms.Label();
             this.labelZoomLogo = new System.Windows.Forms.Label();
             this.checkBox_Chars33 = new System.Windows.Forms.CheckBox();
             this.checkBox_LogoNelleCopie = new System.Windows.Forms.CheckBox();
             this.checkBox_CopertiNelleCopie = new System.Windows.Forms.CheckBox();
             this.labelA5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numUpDown_T_margin = new System.Windows.Forms.NumericUpDown();
-            this.numUpDown_R_margin = new System.Windows.Forms.NumericUpDown();
-            this.numUpDown_L_center = new System.Windows.Forms.NumericUpDown();
-            this.BtnCanc3 = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
+            this.labelCenterLogo = new System.Windows.Forms.Label();
+            this.numUpDown_RcpMargin = new System.Windows.Forms.NumericUpDown();
+            this.numUpDown_RepMargin = new System.Windows.Forms.NumericUpDown();
+            this.numUpDown_LogoCenter = new System.Windows.Forms.NumericUpDown();
+            this.BtnDefaults = new System.Windows.Forms.Button();
+            this.labelDefault = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logoImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTicketZoom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownReportsZoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownRcpZoom)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownRepZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownLogoZoom)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_T_margin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_R_margin)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_L_center)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RcpMargin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RepMargin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_LogoCenter)).BeginInit();
             this.SuspendLayout();
             // 
             // PrintersListCombo
@@ -79,27 +79,27 @@
             this.PrintersListCombo.TabIndex = 1;
             this.PrintersListCombo.SelectedIndexChanged += new System.EventHandler(this.PrintersListCombo_SelectedIndexChanged);
             // 
-            // label1
+            // labelPrintersList
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(23, 19);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(110, 14);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Elenco Stampanti :";
+            this.labelPrintersList.AutoSize = true;
+            this.labelPrintersList.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPrintersList.Location = new System.Drawing.Point(23, 19);
+            this.labelPrintersList.Name = "labelPrintersList";
+            this.labelPrintersList.Size = new System.Drawing.Size(110, 14);
+            this.labelPrintersList.TabIndex = 0;
+            this.labelPrintersList.Text = "Elenco Stampanti :";
             // 
-            // BtnTicketsFontSelect
+            // BtnRcpFontSelect
             // 
-            this.BtnTicketsFontSelect.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnTicketsFontSelect.Location = new System.Drawing.Point(26, 102);
-            this.BtnTicketsFontSelect.Name = "BtnTicketsFontSelect";
-            this.BtnTicketsFontSelect.Size = new System.Drawing.Size(141, 23);
-            this.BtnTicketsFontSelect.TabIndex = 4;
-            this.BtnTicketsFontSelect.Text = "Scegli &Font scontrini ...";
-            this.BtnTicketsFontSelect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnTicketsFontSelect.UseVisualStyleBackColor = true;
-            this.BtnTicketsFontSelect.Click += new System.EventHandler(this.BtnTicketsFontSelect_Click);
+            this.BtnRcpFontSelect.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnRcpFontSelect.Location = new System.Drawing.Point(26, 102);
+            this.BtnRcpFontSelect.Name = "BtnRcpFontSelect";
+            this.BtnRcpFontSelect.Size = new System.Drawing.Size(141, 23);
+            this.BtnRcpFontSelect.TabIndex = 4;
+            this.BtnRcpFontSelect.Text = "Scegli &Font scontrini ...";
+            this.BtnRcpFontSelect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnRcpFontSelect.UseVisualStyleBackColor = true;
+            this.BtnRcpFontSelect.Click += new System.EventHandler(this.BtnTicketsFontSelect_Click);
             // 
             // BtnLogoFileSelect
             // 
@@ -112,17 +112,17 @@
             this.BtnLogoFileSelect.UseVisualStyleBackColor = true;
             this.BtnLogoFileSelect.Click += new System.EventHandler(this.BtnLogoFileSelect_Click);
             // 
-            // BtnReportsFontSelect
+            // BtnRepFontSelect
             // 
-            this.BtnReportsFontSelect.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnReportsFontSelect.Location = new System.Drawing.Point(26, 205);
-            this.BtnReportsFontSelect.Name = "BtnReportsFontSelect";
-            this.BtnReportsFontSelect.Size = new System.Drawing.Size(141, 23);
-            this.BtnReportsFontSelect.TabIndex = 7;
-            this.BtnReportsFontSelect.Text = "Scegli F&ont riepiloghi ...";
-            this.BtnReportsFontSelect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnReportsFontSelect.UseVisualStyleBackColor = true;
-            this.BtnReportsFontSelect.Click += new System.EventHandler(this.BtnReportsFontSelect_Click);
+            this.BtnRepFontSelect.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnRepFontSelect.Location = new System.Drawing.Point(26, 205);
+            this.BtnRepFontSelect.Name = "BtnRepFontSelect";
+            this.BtnRepFontSelect.Size = new System.Drawing.Size(141, 23);
+            this.BtnRepFontSelect.TabIndex = 7;
+            this.BtnRepFontSelect.Text = "Scegli F&ont riepiloghi ...";
+            this.BtnRepFontSelect.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.BtnRepFontSelect.UseVisualStyleBackColor = true;
+            this.BtnRepFontSelect.Click += new System.EventHandler(this.BtnReportsFontSelect_Click);
             // 
             // BtnDeleteLogo
             // 
@@ -205,35 +205,35 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Riepilogo Impostazioni :";
             // 
-            // lblLogo
+            // lblLogoPreview
             // 
-            this.lblLogo.AutoSize = true;
-            this.lblLogo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLogo.Location = new System.Drawing.Point(273, 284);
-            this.lblLogo.Name = "lblLogo";
-            this.lblLogo.Size = new System.Drawing.Size(106, 16);
-            this.lblLogo.TabIndex = 12;
-            this.lblLogo.Text = "Anteprima Logo :";
+            this.lblLogoPreview.AutoSize = true;
+            this.lblLogoPreview.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLogoPreview.Location = new System.Drawing.Point(273, 284);
+            this.lblLogoPreview.Name = "lblLogoPreview";
+            this.lblLogoPreview.Size = new System.Drawing.Size(106, 16);
+            this.lblLogoPreview.TabIndex = 12;
+            this.lblLogoPreview.Text = "Anteprima Logo :";
             // 
-            // label4
+            // labelMarginRcp
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.label4.Location = new System.Drawing.Point(34, 147);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(123, 14);
-            this.label4.TabIndex = 5;
-            this.label4.Text = "Margine SX (0,1mm):";
+            this.labelMarginRcp.AutoSize = true;
+            this.labelMarginRcp.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.labelMarginRcp.Location = new System.Drawing.Point(34, 147);
+            this.labelMarginRcp.Name = "labelMarginRcp";
+            this.labelMarginRcp.Size = new System.Drawing.Size(123, 14);
+            this.labelMarginRcp.TabIndex = 5;
+            this.labelMarginRcp.Text = "Margine SX (0,1mm):";
             // 
-            // label5
+            // labelMarginRep
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(34, 246);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(123, 14);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "Margine SX (0,1mm):";
+            this.labelMarginRep.AutoSize = true;
+            this.labelMarginRep.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelMarginRep.Location = new System.Drawing.Point(34, 246);
+            this.labelMarginRep.Name = "labelMarginRep";
+            this.labelMarginRep.Size = new System.Drawing.Size(123, 14);
+            this.labelMarginRep.TabIndex = 8;
+            this.labelMarginRep.Text = "Margine SX (0,1mm):";
             // 
             // logoImage
             // 
@@ -257,66 +257,67 @@
             this.checkBox_A5_paper.Text = "uso di carta A5";
             this.checkBox_A5_paper.UseVisualStyleBackColor = true;
             // 
-            // numUpDownTicketZoom
+            // numUpDownRcpZoom
             // 
-            this.numUpDownTicketZoom.Increment = new decimal(new int[] {
+            this.numUpDownRcpZoom.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numUpDownTicketZoom.Location = new System.Drawing.Point(181, 105);
-            this.numUpDownTicketZoom.Maximum = new decimal(new int[] {
+            this.numUpDownRcpZoom.Location = new System.Drawing.Point(181, 105);
+            this.numUpDownRcpZoom.Maximum = new decimal(new int[] {
             140,
             0,
             0,
             0});
-            this.numUpDownTicketZoom.Minimum = new decimal(new int[] {
+            this.numUpDownRcpZoom.Minimum = new decimal(new int[] {
             60,
             0,
             0,
             0});
-            this.numUpDownTicketZoom.Name = "numUpDownTicketZoom";
-            this.numUpDownTicketZoom.Size = new System.Drawing.Size(45, 20);
-            this.numUpDownTicketZoom.TabIndex = 25;
-            this.numUpDownTicketZoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numUpDownTicketZoom.Value = new decimal(new int[] {
+            this.numUpDownRcpZoom.Name = "numUpDownRcpZoom";
+            this.numUpDownRcpZoom.Size = new System.Drawing.Size(45, 20);
+            this.numUpDownRcpZoom.TabIndex = 25;
+            this.numUpDownRcpZoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDownRcpZoom.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.numUpDownTicketZoom.Click += new System.EventHandler(this.NumUpDown_Click);
+            this.numUpDownRcpZoom.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
-            // numUpDownReportsZoom
+            // numUpDownRepZoom
             // 
-            this.numUpDownReportsZoom.Increment = new decimal(new int[] {
+            this.numUpDownRepZoom.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numUpDownReportsZoom.Location = new System.Drawing.Point(181, 207);
-            this.numUpDownReportsZoom.Maximum = new decimal(new int[] {
+            this.numUpDownRepZoom.Location = new System.Drawing.Point(181, 207);
+            this.numUpDownRepZoom.Maximum = new decimal(new int[] {
             140,
             0,
             0,
             0});
-            this.numUpDownReportsZoom.Minimum = new decimal(new int[] {
+            this.numUpDownRepZoom.Minimum = new decimal(new int[] {
             60,
             0,
             0,
             0});
-            this.numUpDownReportsZoom.Name = "numUpDownReportsZoom";
-            this.numUpDownReportsZoom.Size = new System.Drawing.Size(45, 20);
-            this.numUpDownReportsZoom.TabIndex = 26;
-            this.numUpDownReportsZoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numUpDownReportsZoom.Value = new decimal(new int[] {
+            this.numUpDownRepZoom.Name = "numUpDownRepZoom";
+            this.numUpDownRepZoom.Size = new System.Drawing.Size(45, 20);
+            this.numUpDownRepZoom.TabIndex = 26;
+            this.numUpDownRepZoom.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDownRepZoom.Value = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.numUpDownReportsZoom.Click += new System.EventHandler(this.NumUpDown_Click);
+            this.numUpDownRepZoom.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
             // numUpDownLogoZoom
             // 
+            this.numUpDownLogoZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.numUpDownLogoZoom.Increment = new decimal(new int[] {
             5,
             0,
@@ -344,28 +345,29 @@
             0});
             this.numUpDownLogoZoom.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
-            // label3
+            // labelZoomRcp
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(178, 86);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(55, 16);
-            this.label3.TabIndex = 28;
-            this.label3.Text = "Zoom %";
+            this.labelZoomRcp.AutoSize = true;
+            this.labelZoomRcp.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelZoomRcp.Location = new System.Drawing.Point(178, 86);
+            this.labelZoomRcp.Name = "labelZoomRcp";
+            this.labelZoomRcp.Size = new System.Drawing.Size(55, 16);
+            this.labelZoomRcp.TabIndex = 28;
+            this.labelZoomRcp.Text = "Zoom %";
             // 
-            // label6
+            // labelZoomRep
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(178, 188);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 16);
-            this.label6.TabIndex = 29;
-            this.label6.Text = "Zoom %";
+            this.labelZoomRep.AutoSize = true;
+            this.labelZoomRep.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelZoomRep.Location = new System.Drawing.Point(178, 188);
+            this.labelZoomRep.Name = "labelZoomRep";
+            this.labelZoomRep.Size = new System.Drawing.Size(55, 16);
+            this.labelZoomRep.TabIndex = 29;
+            this.labelZoomRep.Text = "Zoom %";
             // 
             // labelZoomLogo
             // 
+            this.labelZoomLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelZoomLogo.AutoSize = true;
             this.labelZoomLogo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelZoomLogo.Location = new System.Drawing.Point(90, 297);
@@ -422,103 +424,107 @@
             this.labelA5.TabIndex = 74;
             this.labelA5.Text = "evita righe aggiuntive per taglio carta";
             // 
-            // label7
+            // labelCenterLogo
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(19, 358);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(152, 14);
-            this.label7.TabIndex = 8;
-            this.label7.Text = "Centro Logo (+/- 0,1mm):";
+            this.labelCenterLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelCenterLogo.AutoSize = true;
+            this.labelCenterLogo.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCenterLogo.Location = new System.Drawing.Point(19, 358);
+            this.labelCenterLogo.Name = "labelCenterLogo";
+            this.labelCenterLogo.Size = new System.Drawing.Size(152, 14);
+            this.labelCenterLogo.TabIndex = 8;
+            this.labelCenterLogo.Text = "Centro Logo (+/- 0,1mm):";
             // 
-            // numUpDown_T_margin
+            // numUpDown_RcpMargin
             // 
-            this.numUpDown_T_margin.Increment = new decimal(new int[] {
+            this.numUpDown_RcpMargin.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numUpDown_T_margin.Location = new System.Drawing.Point(181, 146);
-            this.numUpDown_T_margin.Maximum = new decimal(new int[] {
+            this.numUpDown_RcpMargin.Location = new System.Drawing.Point(181, 146);
+            this.numUpDown_RcpMargin.Maximum = new decimal(new int[] {
             150,
             0,
             0,
             0});
-            this.numUpDown_T_margin.Name = "numUpDown_T_margin";
-            this.numUpDown_T_margin.Size = new System.Drawing.Size(45, 20);
-            this.numUpDown_T_margin.TabIndex = 75;
-            this.numUpDown_T_margin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numUpDown_T_margin.Value = new decimal(new int[] {
+            this.numUpDown_RcpMargin.Name = "numUpDown_RcpMargin";
+            this.numUpDown_RcpMargin.Size = new System.Drawing.Size(45, 20);
+            this.numUpDown_RcpMargin.TabIndex = 75;
+            this.numUpDown_RcpMargin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDown_RcpMargin.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numUpDown_T_margin.Click += new System.EventHandler(this.NumUpDown_Click);
+            this.numUpDown_RcpMargin.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
-            // numUpDown_R_margin
+            // numUpDown_RepMargin
             // 
-            this.numUpDown_R_margin.Increment = new decimal(new int[] {
+            this.numUpDown_RepMargin.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numUpDown_R_margin.Location = new System.Drawing.Point(181, 245);
-            this.numUpDown_R_margin.Maximum = new decimal(new int[] {
+            this.numUpDown_RepMargin.Location = new System.Drawing.Point(181, 245);
+            this.numUpDown_RepMargin.Maximum = new decimal(new int[] {
             150,
             0,
             0,
             0});
-            this.numUpDown_R_margin.Name = "numUpDown_R_margin";
-            this.numUpDown_R_margin.Size = new System.Drawing.Size(45, 20);
-            this.numUpDown_R_margin.TabIndex = 76;
-            this.numUpDown_R_margin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numUpDown_R_margin.Value = new decimal(new int[] {
+            this.numUpDown_RepMargin.Name = "numUpDown_RepMargin";
+            this.numUpDown_RepMargin.Size = new System.Drawing.Size(45, 20);
+            this.numUpDown_RepMargin.TabIndex = 76;
+            this.numUpDown_RepMargin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDown_RepMargin.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numUpDown_R_margin.Click += new System.EventHandler(this.NumUpDown_Click);
+            this.numUpDown_RepMargin.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
-            // numUpDown_L_center
+            // numUpDown_LogoCenter
             // 
-            this.numUpDown_L_center.Increment = new decimal(new int[] {
+            this.numUpDown_LogoCenter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.numUpDown_LogoCenter.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numUpDown_L_center.Location = new System.Drawing.Point(181, 356);
-            this.numUpDown_L_center.Minimum = new decimal(new int[] {
+            this.numUpDown_LogoCenter.Location = new System.Drawing.Point(181, 356);
+            this.numUpDown_LogoCenter.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.numUpDown_L_center.Name = "numUpDown_L_center";
-            this.numUpDown_L_center.Size = new System.Drawing.Size(45, 20);
-            this.numUpDown_L_center.TabIndex = 77;
-            this.numUpDown_L_center.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numUpDown_L_center.Click += new System.EventHandler(this.NumUpDown_Click);
+            this.numUpDown_LogoCenter.Name = "numUpDown_LogoCenter";
+            this.numUpDown_LogoCenter.Size = new System.Drawing.Size(45, 20);
+            this.numUpDown_LogoCenter.TabIndex = 77;
+            this.numUpDown_LogoCenter.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDown_LogoCenter.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
-            // BtnCanc3
+            // BtnDefaults
             // 
-            this.BtnCanc3.Image = global::StandFacile.Properties.Resources.Cancel1;
-            this.BtnCanc3.Location = new System.Drawing.Point(470, 483);
-            this.BtnCanc3.Name = "BtnCanc3";
-            this.BtnCanc3.Size = new System.Drawing.Size(35, 26);
-            this.BtnCanc3.TabIndex = 78;
-            this.BtnCanc3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.BtnCanc3.UseVisualStyleBackColor = true;
-            this.BtnCanc3.Click += new System.EventHandler(this.BtnCanc3_Click);
+            this.BtnDefaults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.BtnDefaults.Image = global::StandFacile.Properties.Resources.Cancel1;
+            this.BtnDefaults.Location = new System.Drawing.Point(470, 483);
+            this.BtnDefaults.Name = "BtnDefaults";
+            this.BtnDefaults.Size = new System.Drawing.Size(35, 26);
+            this.BtnDefaults.TabIndex = 78;
+            this.BtnDefaults.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnDefaults.UseVisualStyleBackColor = true;
+            this.BtnDefaults.Click += new System.EventHandler(this.BtnCanc3_Click);
             // 
-            // label8
+            // labelDefault
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(273, 489);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(181, 14);
-            this.label8.TabIndex = 79;
-            this.label8.Text = "ripristina default Zoom e margini";
+            this.labelDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelDefault.AutoSize = true;
+            this.labelDefault.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDefault.Location = new System.Drawing.Point(273, 489);
+            this.labelDefault.Name = "labelDefault";
+            this.labelDefault.Size = new System.Drawing.Size(181, 14);
+            this.labelDefault.TabIndex = 79;
+            this.labelDefault.Text = "ripristina default Zoom e margini";
             // 
             // WinPrinterDlg
             // 
@@ -526,37 +532,37 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(543, 670);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.BtnCanc3);
-            this.Controls.Add(this.numUpDown_L_center);
-            this.Controls.Add(this.numUpDown_R_margin);
-            this.Controls.Add(this.numUpDown_T_margin);
+            this.Controls.Add(this.labelDefault);
+            this.Controls.Add(this.BtnDefaults);
+            this.Controls.Add(this.numUpDown_LogoCenter);
+            this.Controls.Add(this.numUpDown_RepMargin);
+            this.Controls.Add(this.numUpDown_RcpMargin);
             this.Controls.Add(this.labelA5);
             this.Controls.Add(this.checkBox_CopertiNelleCopie);
             this.Controls.Add(this.checkBox_LogoNelleCopie);
             this.Controls.Add(this.checkBox_Chars33);
             this.Controls.Add(this.labelZoomLogo);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.labelZoomRep);
+            this.Controls.Add(this.labelZoomRcp);
             this.Controls.Add(this.numUpDownLogoZoom);
-            this.Controls.Add(this.numUpDownReportsZoom);
-            this.Controls.Add(this.numUpDownTicketZoom);
+            this.Controls.Add(this.numUpDownRepZoom);
+            this.Controls.Add(this.numUpDownRcpZoom);
             this.Controls.Add(this.checkBox_A5_paper);
             this.Controls.Add(this.logoImage);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.lblLogo);
+            this.Controls.Add(this.labelCenterLogo);
+            this.Controls.Add(this.labelMarginRep);
+            this.Controls.Add(this.labelMarginRcp);
+            this.Controls.Add(this.lblLogoPreview);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.Memo);
             this.Controls.Add(this.SampleTextBtn);
             this.Controls.Add(this.BtnDeleteLogo);
-            this.Controls.Add(this.BtnReportsFontSelect);
+            this.Controls.Add(this.BtnRepFontSelect);
             this.Controls.Add(this.BtnLogoFileSelect);
-            this.Controls.Add(this.BtnTicketsFontSelect);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.BtnRcpFontSelect);
+            this.Controls.Add(this.labelPrintersList);
             this.Controls.Add(this.PrintersListCombo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -569,12 +575,12 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.WinPrinterDlg_FormClosing);
             this.Click += new System.EventHandler(this.NumUpDown_Click);
             ((System.ComponentModel.ISupportInitialize)(this.logoImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownTicketZoom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownReportsZoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownRcpZoom)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownRepZoom)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownLogoZoom)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_T_margin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_R_margin)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_L_center)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RcpMargin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RepMargin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_LogoCenter)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -583,36 +589,36 @@
         #endregion
 
         private System.Windows.Forms.ComboBox PrintersListCombo;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button BtnTicketsFontSelect;
+        private System.Windows.Forms.Label labelPrintersList;
+        private System.Windows.Forms.Button BtnRcpFontSelect;
         private System.Windows.Forms.Button BtnLogoFileSelect;
-        private System.Windows.Forms.Button BtnReportsFontSelect;
+        private System.Windows.Forms.Button BtnRepFontSelect;
         private System.Windows.Forms.Button BtnDeleteLogo;
         private System.Windows.Forms.Button SampleTextBtn;
         private System.Windows.Forms.TextBox Memo;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lblLogo;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblLogoPreview;
+        private System.Windows.Forms.Label labelMarginRcp;
+        private System.Windows.Forms.Label labelMarginRep;
         private System.Windows.Forms.PictureBox logoImage;
         private System.Windows.Forms.CheckBox checkBox_A5_paper;
-        private System.Windows.Forms.NumericUpDown numUpDownTicketZoom;
-        private System.Windows.Forms.NumericUpDown numUpDownReportsZoom;
+        private System.Windows.Forms.NumericUpDown numUpDownRcpZoom;
+        private System.Windows.Forms.NumericUpDown numUpDownRepZoom;
         private System.Windows.Forms.NumericUpDown numUpDownLogoZoom;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labelZoomRcp;
+        private System.Windows.Forms.Label labelZoomRep;
         private System.Windows.Forms.Label labelZoomLogo;
         private System.Windows.Forms.CheckBox checkBox_Chars33;
         private System.Windows.Forms.CheckBox checkBox_LogoNelleCopie;
         private System.Windows.Forms.CheckBox checkBox_CopertiNelleCopie;
         private System.Windows.Forms.Label labelA5;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numUpDown_T_margin;
-        private System.Windows.Forms.NumericUpDown numUpDown_R_margin;
-        private System.Windows.Forms.NumericUpDown numUpDown_L_center;
-        private System.Windows.Forms.Button BtnCanc3;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label labelCenterLogo;
+        private System.Windows.Forms.NumericUpDown numUpDown_RcpMargin;
+        private System.Windows.Forms.NumericUpDown numUpDown_RepMargin;
+        private System.Windows.Forms.NumericUpDown numUpDown_LogoCenter;
+        private System.Windows.Forms.Button BtnDefaults;
+        private System.Windows.Forms.Label labelDefault;
     }
 }

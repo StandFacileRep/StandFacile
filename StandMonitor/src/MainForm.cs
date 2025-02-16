@@ -238,9 +238,6 @@ namespace StandFacile
                 N3.Visible = false;
             }
 
-            if (CheckService(_ESPERTO))
-                MnuEspertoClick(this, null);
-
         }
 
         /// <summary>Init()</summary>
@@ -257,6 +254,8 @@ namespace StandFacile
                 // Imposta il nome del server
                 NetConfigLightDlg.rNetConfigLightDlg.ShowDialog();
             }
+            else if (CheckService(_ESPERTO))
+                MnuEspertoClick(this, null);
 
             _rdBaseIntf.dbInit(GetActualDate(), CASSA_PRINCIPALE);
 
@@ -788,7 +787,10 @@ namespace StandFacile
 
         private void MnuConfigurazioneStampe_Click(object sender, EventArgs e)
         {
-            PrintConfigLightDlg.rPrintConfigLightDlg.Init(true);
+            if (CheckService(_HIDE_LEGACY_PRINTER))
+                WinPrinterDlg._rWinPrinterDlg.Init(true);
+            else
+                PrintConfigLightDlg.rPrintConfigLightDlg.Init(true);
         }
 
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)

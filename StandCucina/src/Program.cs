@@ -59,6 +59,9 @@ namespace StandFacile
             Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
+            // Caricamento configurazione
+            Config rConfig = new Config();
+
             LogServer rLogServer = new LogServer();
 
             // deve stare qui subito dopo il LogServer !

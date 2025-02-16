@@ -72,9 +72,6 @@ namespace StandFacile
 
         bool _bInitComplete = false;
 
-#if !STANDFACILE
-        int _yDisp = 0;
-#endif
         static Font tckFont, repFont;
         FontDialog fontTckDlg, fontRepDlg;
 
@@ -189,11 +186,11 @@ namespace StandFacile
             //if (sGlbWinPrinterParams.fTckFontSize < 5)
             //    sGlbWinPrinterParams.fTckFontSize = 11;
 
-            if (sGlbWinPrinterParams.iTckLeftMargin < numUpDown_T_margin.Minimum)
-                sGlbWinPrinterParams.iTckLeftMargin = (int)numUpDown_T_margin.Minimum;
+            if (sGlbWinPrinterParams.iTckLeftMargin < numUpDown_RcpMargin.Minimum)
+                sGlbWinPrinterParams.iTckLeftMargin = (int)numUpDown_RcpMargin.Minimum;
 
-            if (sGlbWinPrinterParams.iTckLeftMargin > numUpDown_T_margin.Maximum)
-                sGlbWinPrinterParams.iTckLeftMargin = (int)numUpDown_T_margin.Maximum; ;
+            if (sGlbWinPrinterParams.iTckLeftMargin > numUpDown_RcpMargin.Maximum)
+                sGlbWinPrinterParams.iTckLeftMargin = (int)numUpDown_RcpMargin.Maximum; ;
 
             String stmp = sGlbWinPrinterParams.sTckFontType;
 
@@ -207,11 +204,11 @@ namespace StandFacile
             //if (sGlbWinPrinterParams.fRepFontSize < 5)
             //    sGlbWinPrinterParams.fRepFontSize = 9;
 
-            if (sGlbWinPrinterParams.iRepLeftMargin < numUpDown_R_margin.Minimum)
-                sGlbWinPrinterParams.iRepLeftMargin = (int)numUpDown_R_margin.Minimum;
+            if (sGlbWinPrinterParams.iRepLeftMargin < numUpDown_RepMargin.Minimum)
+                sGlbWinPrinterParams.iRepLeftMargin = (int)numUpDown_RepMargin.Minimum;
 
-            if (sGlbWinPrinterParams.iRepLeftMargin > numUpDown_R_margin.Maximum)
-                sGlbWinPrinterParams.iRepLeftMargin = (int)numUpDown_R_margin.Maximum;
+            if (sGlbWinPrinterParams.iRepLeftMargin > numUpDown_RepMargin.Maximum)
+                sGlbWinPrinterParams.iRepLeftMargin = (int)numUpDown_RepMargin.Maximum;
 
             repFont = new Font(sGlbWinPrinterParams.sRepFontType, sGlbWinPrinterParams.fRepFontSize, sGlbWinPrinterParams.sRepFontStyle);
 
@@ -224,16 +221,16 @@ namespace StandFacile
 
             sGlbWinPrinterParams.iLogoCenter = ReadRegistry(LOGO_WIN_CENTER_KEY, 0);
 
-            if (sGlbWinPrinterParams.iTckZoomValue < numUpDownTicketZoom.Minimum)
+            if (sGlbWinPrinterParams.iTckZoomValue < numUpDownRcpZoom.Minimum)
                 sGlbWinPrinterParams.iTckZoomValue = 100;
 
-            if (sGlbWinPrinterParams.iTckZoomValue > numUpDownTicketZoom.Maximum)
+            if (sGlbWinPrinterParams.iTckZoomValue > numUpDownRcpZoom.Maximum)
                 sGlbWinPrinterParams.iTckZoomValue = 100;
 
-            if (sGlbWinPrinterParams.iRepZoomValue < numUpDownReportsZoom.Minimum)
+            if (sGlbWinPrinterParams.iRepZoomValue < numUpDownRepZoom.Minimum)
                 sGlbWinPrinterParams.iRepZoomValue = 100;
 
-            if (sGlbWinPrinterParams.iRepZoomValue > numUpDownReportsZoom.Maximum)
+            if (sGlbWinPrinterParams.iRepZoomValue > numUpDownRepZoom.Maximum)
                 sGlbWinPrinterParams.iRepZoomValue = 100;
 
             if (sGlbWinPrinterParams.iLogoZoomValue < numUpDownLogoZoom.Minimum)
@@ -242,15 +239,15 @@ namespace StandFacile
             if (sGlbWinPrinterParams.iLogoZoomValue > numUpDownLogoZoom.Maximum)
                 sGlbWinPrinterParams.iLogoZoomValue = 100;
 
-            if (sGlbWinPrinterParams.iLogoCenter < numUpDown_L_center.Minimum)
-                sGlbWinPrinterParams.iLogoCenter = (int)numUpDown_L_center.Minimum;
+            if (sGlbWinPrinterParams.iLogoCenter < numUpDown_LogoCenter.Minimum)
+                sGlbWinPrinterParams.iLogoCenter = (int)numUpDown_LogoCenter.Minimum;
 
-            if (sGlbWinPrinterParams.iLogoCenter > numUpDown_L_center.Maximum)
-                sGlbWinPrinterParams.iLogoCenter = (int)numUpDown_L_center.Maximum;
+            if (sGlbWinPrinterParams.iLogoCenter > numUpDown_LogoCenter.Maximum)
+                sGlbWinPrinterParams.iLogoCenter = (int)numUpDown_LogoCenter.Maximum;
 
-            numUpDownTicketZoom.Value = sGlbWinPrinterParams.iTckZoomValue;
+            numUpDownRcpZoom.Value = sGlbWinPrinterParams.iTckZoomValue;
             numUpDownLogoZoom.Value = sGlbWinPrinterParams.iLogoZoomValue;
-            numUpDownReportsZoom.Value = sGlbWinPrinterParams.iRepZoomValue;
+            numUpDownRepZoom.Value = sGlbWinPrinterParams.iRepZoomValue;
 
             _sWinPrinterParamsCopy = DeepCopy(sGlbWinPrinterParams);
 
@@ -274,8 +271,28 @@ namespace StandFacile
             BtnLogoFileSelect.Enabled = true;
             BtnDeleteLogo.Enabled = true;
             logoImage.Enabled = true;
-            lblLogo.Enabled = true;
+            lblLogoPreview.Enabled = true;
 #else
+
+            int _yDisp = 0;
+
+            labelMarginRep.Visible = false;
+            labelZoomRep.Visible = false;
+            BtnRepFontSelect.Enabled = false;
+            BtnRepFontSelect.Visible = false;
+            numUpDownRepZoom.Enabled = false;
+            numUpDownRepZoom.Visible = false;
+            numUpDown_RepMargin.Enabled = false;
+            numUpDown_RepMargin.Visible = false;
+
+            logoImage.Enabled = false;
+            logoImage.Visible = false;
+            lblLogoPreview.Enabled = false;
+            lblLogoPreview.Visible = false;
+            BtnLogoFileSelect.Enabled = false;
+            BtnLogoFileSelect.Visible = false;
+            BtnDeleteLogo.Enabled = false;
+            BtnDeleteLogo.Visible = false;
 
             checkBox_Chars33.Checked = (ReadRegistry(PRINT_ON_33CHARS_RECEIPT_KEY, 0) == 1);
             sGlbWinPrinterParams.bChars33 = checkBox_Chars33.Checked;
@@ -289,29 +306,18 @@ namespace StandFacile
 
             checkBox_LogoNelleCopie.Checked = false;
             checkBox_LogoNelleCopie.Visible = false;
-            BtnLogoFileSelect.Enabled = false;
-            BtnLogoFileSelect.Visible = false;
-            BtnDeleteLogo.Enabled = false;
-            BtnDeleteLogo.Visible = false;
-            logoImage.Enabled = false;
-            logoImage.Visible = false;
-            lblLogo.Enabled = false;
-            lblLogo.Visible = false;
 
             // esegue solo una volta
             if (_yDisp == 0)
             {
-                _yDisp = SampleTextBtn.Top - BtnLogoFileSelect.Top;
-
-                // dipende da proprieta Anchor
-                //btnOK.Top -= _yDisp;
-                //btnCancel.Top -= _yDisp;
-                //SampleTextBtn.Top -= _yDisp - 8;
-
-                //checkBox_Chars33.Top -= _yDisp;
-                //checkBox_A5_paper.Top -= _yDisp;
+                _yDisp = SampleTextBtn.Top - lblLogoPreview.Top;
 
                 Height -= _yDisp;
+
+                labelCenterLogo.Top = labelMarginRep.Top;
+                labelZoomLogo.Top = labelZoomRep.Top;
+                numUpDownLogoZoom.Top = numUpDownRepZoom.Top;
+                numUpDown_LogoCenter.Top = numUpDown_RepMargin.Top;
             }
 #endif
 
@@ -383,12 +389,12 @@ namespace StandFacile
             _sWinPrinterParamsCopy.sTckPrinterModel = sPrinterName;
             _sWinPrinterParamsCopy.iTckPrinterModel = PrintersListCombo.SelectedIndex;
 
-            _sWinPrinterParamsCopy.iTckLeftMargin = (int)numUpDown_T_margin.Value;
-            _sWinPrinterParamsCopy.iRepLeftMargin = (int)numUpDown_R_margin.Value; ;
-            _sWinPrinterParamsCopy.iLogoCenter = (int)numUpDown_L_center.Value; ;
+            _sWinPrinterParamsCopy.iTckLeftMargin = (int)numUpDown_RcpMargin.Value;
+            _sWinPrinterParamsCopy.iRepLeftMargin = (int)numUpDown_RepMargin.Value; ;
+            _sWinPrinterParamsCopy.iLogoCenter = (int)numUpDown_LogoCenter.Value; ;
 
-            _sWinPrinterParamsCopy.iTckZoomValue = (int)numUpDownTicketZoom.Value;
-            _sWinPrinterParamsCopy.iRepZoomValue = (int)numUpDownReportsZoom.Value;
+            _sWinPrinterParamsCopy.iTckZoomValue = (int)numUpDownRcpZoom.Value;
+            _sWinPrinterParamsCopy.iRepZoomValue = (int)numUpDownRepZoom.Value;
             _sWinPrinterParamsCopy.iLogoZoomValue = (int)numUpDownLogoZoom.Value;
 
             _sWinPrinterParamsCopy.bChars33 = checkBox_Chars33.Checked;
@@ -482,18 +488,18 @@ namespace StandFacile
             Memo.AppendText(sText); Memo.AppendText(Environment.NewLine);
 
             //Margini
-            numUpDown_T_margin.Value = _sWinPrinterParamsCopy.iTckLeftMargin;
-            numUpDown_R_margin.Value = _sWinPrinterParamsCopy.iRepLeftMargin;
-            numUpDown_L_center.Value = _sWinPrinterParamsCopy.iLogoCenter;
+            numUpDown_RcpMargin.Value = _sWinPrinterParamsCopy.iTckLeftMargin;
+            numUpDown_RepMargin.Value = _sWinPrinterParamsCopy.iRepLeftMargin;
+            numUpDown_LogoCenter.Value = _sWinPrinterParamsCopy.iLogoCenter;
 
             if ((logoImage.Size.Height > 50) && !String.IsNullOrEmpty(_sWinPrinterParamsCopy.sLogoName))
             {
                 String sTmp;
                 sTmp = String.Format("Anteprima Logo {0} x {1} px :\n", _sWinPrinterParamsCopy.iLogoWidth, _sWinPrinterParamsCopy.iLogoHeight);
-                lblLogo.Text = sTmp;
+                lblLogoPreview.Text = sTmp;
             }
             else
-                lblLogo.Text = "Anteprima Logo :";
+                lblLogoPreview.Text = "Anteprima Logo :";
         }
 
         private void BtnTicketsFontSelect_Click(object sender, EventArgs e)
@@ -656,12 +662,12 @@ namespace StandFacile
 
         private void BtnCanc3_Click(object sender, EventArgs e)
         {
-            numUpDown_T_margin.Value = 10;
-            numUpDown_R_margin.Value = 10;
-            numUpDown_L_center.Value = 0;
+            numUpDown_RcpMargin.Value = 10;
+            numUpDown_RepMargin.Value = 10;
+            numUpDown_LogoCenter.Value = 0;
 
-            numUpDownTicketZoom.Value = 100;
-            numUpDownReportsZoom.Value = 100;
+            numUpDownRcpZoom.Value = 100;
+            numUpDownRepZoom.Value = 100;
             numUpDownLogoZoom.Value = 100;
         }
 

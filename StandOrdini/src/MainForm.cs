@@ -98,9 +98,6 @@ namespace StandFacile
             // impostazione della directory di default per operazioni sui dati
             sRootDir = Directory.GetCurrentDirectory();
 
-            if (CheckService(_ESPERTO))
-                MnuEspertoClick(this, null);
-
             CheckMenuItems();
             FormResize(this, null);
 
@@ -139,6 +136,8 @@ namespace StandFacile
                 // Imposta il nome del server
                 NetConfigLightDlg.rNetConfigLightDlg.ShowDialog();
             }
+            else if (CheckService(_ESPERTO))
+                MnuEspertoClick(this, null);
 
             iScaricoDelayTimer = 2;
             Timer.Enabled = true;

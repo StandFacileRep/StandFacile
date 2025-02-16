@@ -129,9 +129,6 @@ namespace StandFacile
             sQueue_Object[0] = UPDATE_COM_LED_EVENT;
             sQueue_Object[1] = String.Format("{0:d1}", (int)COM_STATUS.COM_FREE);
             UpdateCOMLed(sQueue_Object);
-
-            if (CheckService(_ESPERTO))
-                MnuEspertoClick(this, null);
         }
 
         /// <summary>Init</summary>
@@ -629,7 +626,10 @@ namespace StandFacile
 
         private void MnuConfigurazioneStampeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            PrintConfigLightDlg.rPrintConfigLightDlg.Init(true);
+            if (CheckService(_HIDE_LEGACY_PRINTER))
+                WinPrinterDlg._rWinPrinterDlg.Init(true);
+            else
+                PrintConfigLightDlg.rPrintConfigLightDlg.Init(true);
         }
 
         private void MnuNetConfig_Click(object sender, EventArgs e)

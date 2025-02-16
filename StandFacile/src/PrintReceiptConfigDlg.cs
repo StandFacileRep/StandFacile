@@ -74,7 +74,15 @@ namespace StandFacile
             _pCheckBoxCopia[6] = checkBoxCopia_6;
             _pCheckBoxCopia[7] = checkBoxCopia_7;
 
-            Init(false);
+            if (CheckService(_HIDE_LEGACY_PRINTER))
+            {
+                printersGroupBox.Visible = false;
+                RadioGroup_PrinterType.Visible = false;
+
+                this.Height = 512;
+            }
+
+                Init(false);
         }
 
         /// <summary>
@@ -88,7 +96,8 @@ namespace StandFacile
             //inizializzazione stampante windows o Legacy
             iPrinterTypeRadio = ReadRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
 
-            if (iPrinterTypeRadio == (int)PRINTER_SEL.STAMPANTE_WINDOWS)
+            if ((iPrinterTypeRadio == (int)PRINTER_SEL.STAMPANTE_WINDOWS) || CheckService(_HIDE_LEGACY_PRINTER))
+
             {
                 prt_Windows.Checked = true;
                 iSysPrinterType = (int)PRINTER_SEL.STAMPANTE_WINDOWS;
@@ -282,7 +291,7 @@ namespace StandFacile
                 SF_Data.iReceiptCopyOptions = iReceiptCopyOptions;
             }
 
-            if (prt_Windows.Checked)
+            if (prt_Windows.Checked || CheckService(_HIDE_LEGACY_PRINTER))
             {
                 WriteRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
                 iSysPrinterType = (int)PRINTER_SEL.STAMPANTE_WINDOWS;

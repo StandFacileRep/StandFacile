@@ -17,7 +17,7 @@ namespace StandCommonFiles
         #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.13.3";
+        public const String RELEASE_SW = "v5.13.4";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5b";
@@ -71,6 +71,9 @@ namespace StandCommonFiles
 
         /// <summary>abilita la modalità Esperto</summary>
         public const String _ESPERTO = "Esperto";
+
+        /// <summary>abilita le stampanti legacy</summary>
+        public const String _HIDE_LEGACY_PRINTER = "noLegacyPrinters";
 
         /// <summary>indicatore di ordine formattato JSON</summary>
         public const String _JS_ORDER_V5 = "js_order_v5b";

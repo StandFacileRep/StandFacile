@@ -65,7 +65,7 @@ namespace StandFacile
             //inizializzazione stampante windows o Legacy
             iPrinterTypeRadio = ReadRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
 
-            if (iPrinterTypeRadio == (int)PRINTER_SEL.STAMPANTE_WINDOWS)
+            if ((iPrinterTypeRadio == (int)PRINTER_SEL.STAMPANTE_WINDOWS) || CheckService(_HIDE_LEGACY_PRINTER))
             {
                 prt_Windows.Checked = true;
                 iSysPrinterType = (int)PRINTER_SEL.STAMPANTE_WINDOWS;
@@ -87,7 +87,7 @@ namespace StandFacile
         private void BtnOK_Click(object sender, EventArgs e)
         {
 
-            if (prt_Windows.Checked)
+            if (prt_Windows.Checked || CheckService(_HIDE_LEGACY_PRINTER))
             {
                 WriteRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
                 iSysPrinterType = (int)PRINTER_SEL.STAMPANTE_WINDOWS;

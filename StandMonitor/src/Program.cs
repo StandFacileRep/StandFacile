@@ -46,6 +46,9 @@ namespace StandFacile
                 Printer_Windows.iPrint_WaitInterval = 500;
             }
 
+            // Caricamento configurazione
+            Config rConfig = new Config();
+
             LogServer rLogServer = new LogServer();
 
             // deve stare qui subito dopo il LogServer !

@@ -109,12 +109,12 @@
             this.RipristinaBtn.Click += new System.EventHandler(this.BtnRipristina_Click);
             this.RipristinaBtn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditDispArticoliDlg_KeyDown);
             // 
-            // label5
+            // labelMarginRep
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(161, 26);
-            this.label5.Name = "label5";
+            this.label5.Name = "labelMarginRep";
             this.label5.Size = new System.Drawing.Size(110, 14);
             this.label5.TabIndex = 4;
             this.label5.Text = "OK = nessun limite";
