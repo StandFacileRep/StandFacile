@@ -17,10 +17,10 @@ namespace StandCommonFiles
         #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.13.4";
+        public const String RELEASE_SW = "v5.14.0 RC1";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
-        public const String RELEASE_TBL = "v5b";
+        public const String RELEASE_TBL = "v5c";
 
         /// <summary>mail per informazioni</summary>
         public const String MAIL = "info@standfacile.org";
@@ -76,7 +76,7 @@ namespace StandCommonFiles
         public const String _HIDE_LEGACY_PRINTER = "noLegacyPrinters";
 
         /// <summary>indicatore di ordine formattato JSON</summary>
-        public const String _JS_ORDER_V5 = "js_order_v5b";
+        public const String _JS_ORDER_V5 = "js_order_v5c";
 
         /// <summary>radice segnaposto per indicare i tipi vuoti</summary>
         public const String SHMAGIC = "_#@$_";
@@ -745,25 +745,34 @@ namespace StandCommonFiles
         /// <summary>bit di iStatus che indica Scontrino caricato da una prevendita</summary>
         public const int BIT_CARICATO_DA_PREVENDITA = 2;
 
-        /// <summary>bit di iStatus che indica Scontrino caricato da web</summary>
+        /// <summary>bit di iStatus che indica Scontrino caricato da web,<br/>
+        /// settato da CaricaOrdineWeb, CaricaOrdine_QR_code
+        /// </summary>
         public const int BIT_CARICATO_DA_WEB = 3;
 
-        /// <summary>bit di iStatus che indica Scontrino diretto da web</summary>
+        /// <summary>bit di iStatus che indica Scontrino generato direttamente da web</summary>
         public const int BIT_ORDINE_DIRETTO_DA_WEB = 4;
 
-        /// <summary>bit di iStatus che indica il pagamento mediante CARD:<br/>
-        /// bancomat, carta di credito
-        /// </summary>
-        public const int BIT_PAGAM_CARD = 5;
-
-        /// <summary>bit di iStatus che indica il pagamento mediante Satispay</summary>
-        public const int BIT_PAGAM_SATISPAY = 6;
-
         /// <summary>bit di iStatus che indica che lo Scontrino è stato stampato da Stand Cucina</summary>
-        public const int BIT_RECEIPT_STAMPATO_DA_STANDCUCINA = 7;
+        public const int BIT_RECEIPT_STAMPATO_DA_STANDCUCINA = 5;
 
         /// <summary>bit di iStatus che indica che il messaggio è stato stampato da Stand Cucina</summary>
-        public const int BIT_MSG_STAMPATO_DA_STANDCUCINA = 8;
+        public const int BIT_MSG_STAMPATO_DA_STANDCUCINA = 6;
+
+        /// <summary>
+        /// bit di iStatus che indica il pagamento di default mediante contanti<br/>
+        /// serve utilizzarlo come LSB dei tipi di pagamento
+        /// </summary>
+        public const int BIT_PAGAM_CASH = 10;
+
+        /// <summary>
+        /// bit di iStatus che indica il pagamento mediante CARD:<br/>
+        /// bancomat, carta di credito
+        /// </summary>
+        public const int BIT_PAGAM_CARD = 11;
+
+        /// <summary>bit di iStatus che indica il pagamento mediante Satispay</summary>
+        public const int BIT_PAGAM_SATISPAY = 12;
 
         /****************************************************************
          *                Flags gestione stampa Articolo                *
@@ -1291,6 +1300,9 @@ namespace StandCommonFiles
         };
 
         /// <summary>testo descrittivo del tipo di pagamento CARD</summary>
+        public static readonly String sConst_Pagamento_da_EFFETTUARE = "@@@ PAGAM. DA EFFETTUARE @@@";
+
+        /// <summary>testo descrittivo del tipo di pagamento CARD</summary>
         public static readonly String sConst_Pagamento_CARD = "#### PAGAMENTO-CARD ####";
 
         /// <summary>testo descrittivo del tipo di pagamento SATISPAY</summary>
@@ -1299,6 +1311,7 @@ namespace StandCommonFiles
         /// <summary>testo descrittivo dei tipi di pagamento</summary>
         public static readonly String[] sConst_PaymentType =
         {
+            "da effettuare",
             "Contanti",
             "Card",
             "Satispay",
@@ -1322,6 +1335,17 @@ namespace StandCommonFiles
                 sWeb_DBase = "";
                 sWebEncryptedPwd = "";
             }
+        };
+
+        /// <summary>definizione della struttura per i test di accesso al tipo di database selezionato in NetConfigDlg</summary>
+        public struct TWebServerCheckParams
+        {
+            /// <summary>tipo di database di test</summary>
+            public int iDB_mode;
+            /// <summary>nome database di test</summary>
+            public String sDB_ServerName;
+            /// <summary>password criptata database di test</summary>
+            public String sDB_pwd;
         };
 
         /// <summary>struct della stringhe per gestione ordine</summary>

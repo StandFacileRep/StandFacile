@@ -450,7 +450,7 @@ namespace StandCommonFiles
 
                 case WRN_WSCS:
                     bModal = true;
-                    sWrnStr = String.Format("{0}\n\n{1}", "Stabilita connessione con il Web Server:", WrnMsg.sMsg);
+                    sWrnStr = String.Format("{0} {1}", "Stabilita connessione con il Web Server:", WrnMsg.sMsg);
                     break;
 
                 case WRN_WPNF:

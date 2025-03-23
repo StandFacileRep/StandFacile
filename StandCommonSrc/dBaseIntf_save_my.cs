@@ -1175,14 +1175,12 @@ namespace StandFacile_DB
 
                     sTmp = String.Format("dbSalvaOrdine : iUpdatedRows = {0}", iUpdatedRows);
 
-                    Console.WriteLine(sTmp);
+                    LogToFile(sTmp, true);
 
                     transaction.Commit();
 
                     dbDataAdapterInsert.Dispose();
                     dbDataAdapterSelect.Dispose();
-
-                    LogToFile(sTmp);
                 }
             }
 

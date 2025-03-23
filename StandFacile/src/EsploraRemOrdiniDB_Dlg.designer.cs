@@ -95,7 +95,7 @@
             this.dbGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dbGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dbGrid.ShowCellToolTips = false;
-            this.dbGrid.Size = new System.Drawing.Size(600, 419);
+            this.dbGrid.Size = new System.Drawing.Size(600, 348);
             this.dbGrid.TabIndex = 13;
             this.dbGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dbGrid_CellDoubleClick);
             // 
@@ -104,7 +104,7 @@
             this.BtnRem_Load.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnRem_Load.Image = global::StandFacile.Properties.Resources.ArrowR;
             this.BtnRem_Load.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnRem_Load.Location = new System.Drawing.Point(497, 532);
+            this.BtnRem_Load.Location = new System.Drawing.Point(497, 461);
             this.BtnRem_Load.Name = "BtnRem_Load";
             this.BtnRem_Load.Size = new System.Drawing.Size(104, 33);
             this.BtnRem_Load.TabIndex = 0;
@@ -133,8 +133,7 @@
             this.warn_lbl.Name = "warn_lbl";
             this.warn_lbl.Size = new System.Drawing.Size(558, 14);
             this.warn_lbl.TabIndex = 1;
-            this.warn_lbl.Text = "Attenzione: questa form accede al web-server e può provocare rallentamenti nell\'u" +
-    "so con più casse !";
+            this.warn_lbl.Text = "Attenzione: questa form accede al web-server e può provocare rallentamenti.";
             // 
             // DBR_lbl
             // 
@@ -157,7 +156,7 @@
             this.dbConnStatusBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.dbConnStatusBox.ErrorImage = global::StandFacile.Properties.Resources.Cancel;
             this.dbConnStatusBox.Image = global::StandFacile.Properties.Resources.circleRed;
-            this.dbConnStatusBox.Location = new System.Drawing.Point(283, 530);
+            this.dbConnStatusBox.Location = new System.Drawing.Point(283, 459);
             this.dbConnStatusBox.Name = "dbConnStatusBox";
             this.dbConnStatusBox.Size = new System.Drawing.Size(47, 44);
             this.dbConnStatusBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -169,7 +168,7 @@
             this.ckBoxAuto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ckBoxAuto.AutoSize = true;
             this.ckBoxAuto.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.ckBoxAuto.Location = new System.Drawing.Point(18, 540);
+            this.ckBoxAuto.Location = new System.Drawing.Point(18, 469);
             this.ckBoxAuto.Name = "ckBoxAuto";
             this.ckBoxAuto.Size = new System.Drawing.Size(248, 18);
             this.ckBoxAuto.TabIndex = 27;
@@ -182,7 +181,7 @@
             this.labelQueryTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelQueryTime.AutoSize = true;
             this.labelQueryTime.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.labelQueryTime.Location = new System.Drawing.Point(284, 596);
+            this.labelQueryTime.Location = new System.Drawing.Point(284, 525);
             this.labelQueryTime.Name = "labelQueryTime";
             this.labelQueryTime.Size = new System.Drawing.Size(130, 14);
             this.labelQueryTime.TabIndex = 28;
@@ -195,7 +194,7 @@
             this.groupBox1.Controls.Add(this.radioBtn1);
             this.groupBox1.Controls.Add(this.radioBtn0);
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.groupBox1.Location = new System.Drawing.Point(18, 576);
+            this.groupBox1.Location = new System.Drawing.Point(18, 505);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(248, 44);
@@ -245,7 +244,7 @@
             this.BtnRem_Canc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnRem_Canc.Image = ((System.Drawing.Image)(resources.GetObject("BtnRem_Canc.Image")));
             this.BtnRem_Canc.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnRem_Canc.Location = new System.Drawing.Point(349, 532);
+            this.BtnRem_Canc.Location = new System.Drawing.Point(349, 461);
             this.BtnRem_Canc.Name = "BtnRem_Canc";
             this.BtnRem_Canc.Size = new System.Drawing.Size(112, 33);
             this.BtnRem_Canc.TabIndex = 30;
@@ -260,7 +259,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::StandFacile.Properties.Resources.Cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(521, 587);
+            this.btnCancel.Location = new System.Drawing.Point(521, 516);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 33);
@@ -274,7 +273,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(624, 633);
+            this.ClientSize = new System.Drawing.Size(624, 562);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.BtnRem_Canc);
             this.Controls.Add(this.groupBox1);

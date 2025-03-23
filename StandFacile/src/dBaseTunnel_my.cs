@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************************
 	NomeFile : StandFacile/dBaseTunnel_my.cs
-    Data	 : 06.12.2024
+    Data	 : 20.03.2025
 	Autore   : Mauro Artuso
 
     Classe per la lettura degli ordini in remoto, utilizza HTTP tunneling
@@ -44,12 +44,15 @@ namespace StandFacile
 
         private static readonly string _NO_DB_ERRORS = "\"errornumber\":\"0\",\"errordescr\":\"";
 
-        private static readonly string _MYSQL_TUNNEL = "mysqlTunnel_v5b.php";
+        private static readonly string _MYSQL_TUNNEL = "mysqlTunnel_v5c.php";
 
         static bool _bStartReadRemTable, _bWebServiceRequested, _bPrimaVolta_o_ForzaCaricamentoListino, _bPrimaVoltaLog;
 
         /// <summary>prefisso per la gestione delle tabelle remote</summary>
         static String _sRemoteTablePrefix;
+
+        /// <summary>Struct fondamentale per i dati dell' RDB</summary>
+        public static TData RDB_Data = new TData(0);
 
         /// <summary>nome tabella per la gestione del numero progressivo degli ordini</summary>
         static string NOME_NSC_RDBTBL;
@@ -417,6 +420,11 @@ namespace StandFacile
                         WarningManager(_WrnMsg);
                     }
                 }
+                else if (sEvQueueObj[0] == WEB_ORDER_PRINT_DONE)
+                {
+                    // invoca rdb_aggiornaOrdiniWebServiti()
+                    _iTimerCounter = 1;
+                }
             }
 
             if (_iTimerCounter == 0)
@@ -442,7 +450,7 @@ namespace StandFacile
         /// <summary>funzione di caricamento per visione tabella ordini remota</summary>
         static void rdbCaricaTabellaOrdini()
         {
-            #pragma warning disable IDE0018
+#pragma warning disable IDE0018
 
             int iTableRow, iIndex, iNumCoperti, iNumOrdine, iPrevOrder = 0;
             String sInStr, sSQL_Query, sResponseFromServer;
@@ -534,14 +542,14 @@ namespace StandFacile
             EsploraRemOrdiniDB_Dlg.EventEnqueue(_sQueue_Object);
         }
 
-        ///<summary>funzione di caricamento per anteprima ordine remoto</summary>
+        ///<summary>funzione di caricamento ordine remoto mediante tunnel HTTP</summary>
         public static bool rdbCaricaOrdine(int iOrdineParam)    // verificare il caricamento di tutte le righe !!!
         {
             bool bNoProblem = true;
             int i, iIndex;
             String sTipo, sSQL_Query, sResponseFromServer;
 
-            dbAzzeraDatiOrdine();
+            dbAzzeraDatiOrdine(ref RDB_Data);
 
             try
             {
@@ -570,37 +578,37 @@ namespace StandFacile
                         //String sDebug = sTable[iIndex][8]["9"];
 
                         // | BIT_CARICATO_DA_WEB doppione utile per la comprensione
-                        DB_Data.iStatusReceipt = SetBit(Convert.ToInt32(sTable[iIndex][7]["8"]), BIT_CARICATO_DA_WEB); //readerOrdine.GetInt32("status");
-                        DB_Data.iNumOrdineWeb = Convert.ToInt32(sTable[iIndex][0]["1"]);    //readerOrdine.GetInt32("order_ID");
-                        DB_Data.sWebDateTime = Convert.ToString(sTable[iIndex][5]["6"]);    //readerOrdine.GetString("sText");
-                        DB_Data.bAnnullato = (Convert.ToInt32(sTable[iIndex][8]["9"]) != 0);    //readerOrdine.GetBoolean("iAnnullato");
-                        DB_Data.bStampato = (Convert.ToInt32(sTable[iIndex][10]["11"]) != 0);  //readerOrdine.GetBoolean("bStampato");
+                        RDB_Data.iStatusReceipt = SetBit(Convert.ToInt32(sTable[iIndex][7]["8"]), BIT_CARICATO_DA_WEB); //readerOrdine.GetInt32("status");
+                        RDB_Data.iNumOrdineWeb = Convert.ToInt32(sTable[iIndex][0]["1"]);    //readerOrdine.GetInt32("order_ID");
+                        RDB_Data.sWebDateTime = Convert.ToString(sTable[iIndex][5]["6"]);    //readerOrdine.GetString("sText");
+                        RDB_Data.bAnnullato = (Convert.ToInt32(sTable[iIndex][8]["9"]) != 0);    //readerOrdine.GetBoolean("iAnnullato");
+                        RDB_Data.bStampato = (Convert.ToInt32(sTable[iIndex][10]["11"]) != 0);  //readerOrdine.GetBoolean("bStampato");
                     }
 
                     // Tavolo
                     else if (sTipo == ORDER_CONST._TAVOLO)
-                        DB_Data.sTavolo = sTable[iIndex][5]["6"];
+                        RDB_Data.sTavolo = sTable[iIndex][5]["6"];
 
                     // Name
                     else if (sTipo == ORDER_CONST._NOME)
-                        DB_Data.sNome = sTable[iIndex][5]["6"];
+                        RDB_Data.sNome = sTable[iIndex][5]["6"];
 
                     // Nota
                     else if (sTipo == ORDER_CONST._NOTA)
-                        DB_Data.sNota = sTable[iIndex][5]["6"];
+                        RDB_Data.sNota = sTable[iIndex][5]["6"];
 
                     // Checksum
                     else if (sTipo == ORDER_CONST._PRICE_LIST_CHECKSUM)
                     {
-                        DB_Data.sPL_Checksum = sTable[iIndex][5]["6"];
+                        RDB_Data.sPL_Checksum = sTable[iIndex][5]["6"];
                     }
 
                     // Sconto alla cassa
 
                     else
                     {
-                        DB_Data.Articolo[i].sTipo = sTipo;
-                        DB_Data.Articolo[i].iQuantitaOrdine = Convert.ToInt32(sTable[iIndex][4]["5"]);   //readerOrdine.GetInt32("quantity");
+                        RDB_Data.Articolo[i].sTipo = sTipo;
+                        RDB_Data.Articolo[i].iQuantitaOrdine = Convert.ToInt32(sTable[iIndex][4]["5"]);   //readerOrdine.GetInt32("quantity");
                         i++;
                     }
 
@@ -693,10 +701,15 @@ namespace StandFacile
 
                 sResponseFromServer = SendWebRequest(sSQL_Query);
 
-                if (!sResponseFromServer.Contains(_NO_DB_ERRORS))
-                    return false;
-                else
+                if (sResponseFromServer.Contains(_NO_DB_ERRORS))
+                {
+                    String[] sQueue_Object = new String[2] { WEB_ORDER_PRINT_DONE, "" };
+                    EsploraRemOrdiniDB_Dlg.EventEnqueue(sQueue_Object);
+
                     return true;
+                }
+                else
+                    return false;
             }
             catch (Exception)
             {
@@ -1016,54 +1029,46 @@ namespace StandFacile
             bool bHostConnection_Ok;
             String sTmp;
 
-            if (SF_Data.iNumCassa == CASSA_PRINCIPALE)
+            bHostConnection_Ok = rdbPing();
+
+            // sicurezza : si prosegue solo se c'è la connessione all' rDB
+            if (!bHostConnection_Ok || !_bWebServiceRequested)
+                return false;
+
+            try
             {
-                bHostConnection_Ok = rdbPing();
+                iNumOrdineWeb = _rdBaseIntf.dbGetOrdiniWebServiti();
 
-                // sicurezza : si prosegue solo se c'è la connessione all' rDB
-                if (!bHostConnection_Ok || !_bWebServiceRequested)
-                    return false;
-
-                try
+                if (iNumOrdineWeb > 0)
                 {
-                    iNumOrdineWeb = _rdBaseIntf.dbGetOrdiniWebServiti();
-
-                    if (iNumOrdineWeb > 0)
+                    if (rdbSegnaOrdineStampato(iNumOrdineWeb))
                     {
-                        if (rdbSegnaOrdineStampato(iNumOrdineWeb))
-                        {
-                            _rdBaseIntf.dbClearOrdineWebServito(iNumOrdineWeb);
-                            sTmp = String.Format("rdb_aggiornaOrdiniWebServiti : ordine {0} aggiornato", iNumOrdineWeb);
+                        _rdBaseIntf.dbClearOrdineWebServito(iNumOrdineWeb);
+                        sTmp = String.Format("rdb_aggiornaOrdiniWebServiti : ordine {0} aggiornato", iNumOrdineWeb);
 
-                            LogToFile(sTmp);
-                            Console.WriteLine(sTmp);
-                            return true;
-                        }
-                        else
-                        {
-                            sTmp = String.Format("rdb_aggiornaOrdiniWebServiti : ordine {0} non aggiornato", iNumOrdineWeb);
-
-                            LogToFile(sTmp);
-                            Console.WriteLine(sTmp);
-                            return false;
-                        }
+                        LogToFile(sTmp, true);
+                        return true;
                     }
                     else
-                        return false;
-                }
+                    {
+                        sTmp = String.Format("rdb_aggiornaOrdiniWebServiti : ordine {0} non aggiornato", iNumOrdineWeb);
 
-                catch (Exception)
-                {
-                    _WrnMsg.iErrID = WRN_DBE;
-                    _WrnMsg.sMsg = String.Format("accesso alla tabella WEBORD_DBTBL non possibile");
-                    WarningManager(_WrnMsg);
-                    return false;
+                        LogToFile(sTmp, true);
+                        return false;
+                    }
                 }
+                else
+                    return false;
             }
 
-            return false;
+            catch (Exception)
+            {
+                _WrnMsg.iErrID = WRN_DBE;
+                _WrnMsg.sMsg = String.Format("accesso alla tabella WEBORD_DBTBL non possibile");
+                WarningManager(_WrnMsg);
+                return false;
+            }
         }
-
 
         /// <summary>overload Funzione di codifica AES-256</summary>
         public static string Encrypt_WS(string plainTextParam)

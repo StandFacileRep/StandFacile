@@ -1,6 +1,6 @@
 ﻿/****************************************************************
     NomeFile : StandCommonSrc/LogServer.cs
-    Data	 : 06.12.2024
+    Data	 : 20.03.2025
  	Autore	 : Mauro Artuso
  ****************************************************************/
 
@@ -45,6 +45,18 @@ namespace StandCommonFiles
 
         // coda delle stringhe di cui fare il Log
         static Queue logQueue = new Queue();
+
+        struct TLogData
+        {
+            public string sLogMsg;
+            public bool bLogToConsole;
+
+            public TLogData(string sTmpParam, bool bLogParam)
+            {
+                sLogMsg = sTmpParam;
+                bLogToConsole = bLogParam;
+            }
+        }
 
         /// <summary>
         /// costruttore ed avvio del LogThread
@@ -94,8 +106,10 @@ namespace StandCommonFiles
         ************************************/
         private static void LogServerThread()
         {
-            String sLog, sLogDir;
+            String sLogDir;
             String sNomeLogFile;
+
+            TLogData sLogObj;
 
             try
             {
@@ -128,15 +142,20 @@ namespace StandCommonFiles
 
                         while (bRunning && (logQueue.Count > 0))
                         {
-                            sLog = (String)logQueue.Dequeue();
+                            sLogObj = (TLogData) logQueue.Dequeue();
 
-                            fLog.WriteLine(sLog);
+                            fLog.WriteLine(sLogObj.sLogMsg);
+
+                            if (sLogObj.bLogToConsole)
+                                Console.WriteLine(sLogObj.sLogMsg);
                         }
 
                         fLog.Close();
                     }
 
 #if STANDFACILE
+
+                    String sLog;
 
                     if (CheckService(Define._AUTO_SEQ_TEST))
                     {
@@ -166,7 +185,7 @@ namespace StandCommonFiles
         }
 
         /// <summary>Funzione scrittura su LogFile</summary>
-        public static void LogToFile(String sLogMsg)
+        public static void LogToFile(String sLogMsg, bool bLogToConsole = false)
         {
 
             String sTime, sDate;
@@ -186,7 +205,9 @@ namespace StandCommonFiles
             // il lock() non dovrebbe servire qui !
             lock (logQueue.SyncRoot)
             {
-                logQueue.Enqueue(sTmpMsg);
+                TLogData LogQueue_Object = new TLogData(sTmpMsg, bLogToConsole);
+
+                logQueue.Enqueue(LogQueue_Object);
             }
 
             /*******************************

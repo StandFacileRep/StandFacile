@@ -886,22 +886,42 @@ namespace StandFacile_DB
         }
 
         /// <summary>funzione di scrittura parametri per accesso database remoto</summary>
-        public bool dbSetWebServerParams(TWebServerParams sWebServerParams)
+        public bool dbSetWebServerParams(TWebServerParams sWebServerParams, TWebServerCheckParams sWebServerCheckParams)
         {
             bool bDBConnection_Ok;
             MySqlCommand cmd = new MySqlCommand();
             MySqlDataReader readerStatus = null;
 
-            bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
+            if (String.IsNullOrEmpty(sWebServerCheckParams.sDB_ServerName))
+            {
+                bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
 
-            // sicurezza : si prosegue solo se c'è la connessione a DB
-            if (!bDBConnection_Ok)
-                return false;
+                // sicurezza : si prosegue solo se c'è la connessione a DB
+                if (!bDBConnection_Ok)
+                    return false;
+            }
+            else
+            {
+                _dbCSB.Host = sWebServerCheckParams.sDB_ServerName;
+                _dbCSB.Database = _database;
+                _dbCSB.UserId = _uid;
+                _dbCSB.Password = sWebServerCheckParams.sDB_pwd;
+                _dbCSB.FoundRows = true;
+                _dbCSB.Pooling = false;
+                _dbCSB.Unicode = true;
+                _dbCSB.ConnectionTimeout = TIMEOUT_DB_OPEN;
+            }
 
             if (SF_Data.iNumCassa == CASSA_PRINCIPALE)
             {
                 try
                 {
+                    if (!String.IsNullOrEmpty(sWebServerCheckParams.sDB_ServerName))
+                    {
+                        _Connection = new MySqlConnection(_dbCSB.ConnectionString);
+                        _Connection.Open();
+                    }
+
                     cmd.Connection = _Connection;
 
                     cmd.CommandText = "UPDATE " + NOME_STATO_DBTBL + " SET sText = '" + sWebServerParams.sWebTablePrefix + "' WHERE (key_ID = '" + WEB_SERVER_NAME_KEY + "')";
@@ -1055,11 +1075,6 @@ namespace StandFacile_DB
 
             bDBConnection_Ok = dbInitWeb();
 
-            // sicurezza : si prosegue solo se c'è la connessione a MySQL
-            // o se la Cassa secondaria non richiede il prelievo di un ordine dalla lista
-            if (!bDBConnection_Ok && (SF_Data.iNumCassa != CASSA_PRINCIPALE))
-                return false;
-
             try
             {
                 cmd.CommandText = String.Format("DELETE FROM " + NOME_WEBORD_DBTBL + " WHERE iOrdine_ID = {0}", iOrderParam);
@@ -1102,7 +1117,7 @@ namespace StandFacile_DB
             DataTable dataTable = new DataTable();
 
             // dbAzzeraDatiGen(); non serve e poi cancella gli Headers
-            dbAzzeraDatiOrdine();
+            dbAzzeraDatiOrdine(ref DB_Data);
 
             bAnnullato = false;
             iNumCassa = SF_Data.iNumCassa;

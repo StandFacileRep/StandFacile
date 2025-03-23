@@ -64,7 +64,7 @@ namespace StandFacile_DB
                 {
                     // inizializzazioni
                     iArrayIndex = 0;
-                    dbAzzeraDatiOrdine();
+                    dbAzzeraDatiOrdine(ref DB_Data);
 
                     /****************************************************
                          vista tabella ordinata e costruzione filtro

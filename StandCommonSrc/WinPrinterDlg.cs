@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
 	NomeFile : StandCommonSrc/WinPrinterDlg.cs
-    Data	 : 01.02.2025
+    Data	 : 16.02.2025
 	Autore   : Mauro Artuso
 
 	Descrizione : classe per la gestione della Form per l'impostazione dei
@@ -660,7 +660,7 @@ namespace StandFacile
             LogToFile("WinPrinterDlg : LogoDelete");
         }
 
-        private void BtnCanc3_Click(object sender, EventArgs e)
+        private void BtnDefaults_Click(object sender, EventArgs e)
         {
             numUpDown_RcpMargin.Value = 10;
             numUpDown_RepMargin.Value = 10;

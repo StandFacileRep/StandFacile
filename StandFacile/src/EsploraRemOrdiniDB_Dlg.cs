@@ -1,7 +1,7 @@
 ﻿/********************************************************************
-  	NomeFile  : StandFacile/EsploraRemOrdiniDB_Dlg.cs
-	Data	 : 06.12.2024
-  	Autore    : Mauro Artuso
+  	NomeFile : StandFacile/EsploraRemOrdiniDB_Dlg.cs
+	Data	 : 20.03.2025
+  	Autore   : Mauro Artuso
 
   Classe di esplorazione del database remoto, 
   ha senso chiamarla solo se il database remoto è selezionato
@@ -36,17 +36,27 @@ namespace StandFacile
         int iGridStringsCount, _iDBGridRowIndex;
         int iTableAutoLoadPeriod = REFRESH_PERIOD;
 
+        ulong ulStart, ulStop, ulPingTime;
+
+        static bool _bProcessingOrder = false;
+
+        /// <summary>struct per la gestione degli avvisi e/o errori</summary>
+        public static TErrMsg _ErrMsg, _WrnMsg;
+
         /// <summary>riferimento</summary>
         public static EsploraRemOrdiniDB_Dlg rEsploraRemOrdiniDB_Dlg;
 
         // gestione cross thread
         static readonly Queue eventQueue = new Queue();
 
-        /// <summary>mette evento in coda cross thread</summary>
+        /// <summary>mette eventi da dBaseTunnel_my in coda cross thread</summary>
         public static void EventEnqueue(String[] sEvQueueObj) { eventQueue.Enqueue(sEvQueueObj); }
 
         /// <summary>ottiene lo stato di ckBoxAuto</summary>
         public bool GetAutoCheckbox() { return ckBoxAuto.Checked; }
+
+        /// <summary>imposta _iPrevOrder = 0 per proseguire con la stampa automatica</summary>
+        public static void KeepPrintWebOrders() { _bProcessingOrder = false; }
 
         readonly ToolTip _tt = new ToolTip
         {
@@ -87,6 +97,11 @@ namespace StandFacile
             //    dbGrid.Enabled = false;
             //}
 
+            if (glb.SF_Data.iNumCassa == CASSA_PRINCIPALE)
+                ckBoxAuto.Enabled = true;
+            else
+                ckBoxAuto.Enabled = false;
+
             RefreshTable();
         }
 
@@ -103,7 +118,9 @@ namespace StandFacile
         /// <summary>ricarica il contenuto della tabella per l'esplorazione del database remoto</summary>
         void RefreshTable()
         {
-            int i, iDebug, iEventQueueCount;
+            bool bDbRead_Ok;
+            int i, iDebug, iMainFormEventQueueCount;
+            string sTmp;
 
             if (!Visible)
                 return;
@@ -122,7 +139,16 @@ namespace StandFacile
 
             iDebug = _sWebOrdersList.Count; // debug
 
-            iEventQueueCount = FrmMain.GetEventQueueCount();
+            iMainFormEventQueueCount = FrmMain.GetEventQueueCount();
+
+            ulStart = (ulong)Environment.TickCount;
+
+            rdbPing();
+
+            dbConnStatusBox.Image = Properties.Resources.circleGreen;
+            ulStop = (ulong)Environment.TickCount;
+            ulPingTime = ulStop - ulStart;
+            labelQueryTime.Text = String.Format("tempo risposta server: {0} ms", ulPingTime);
 
             for (i = 0; i < _sWebOrdersList.Count; i++)
             {
@@ -152,14 +178,60 @@ namespace StandFacile
                     }
 
                     // evita di caricare la coda di eventi quando è ancora in elaborazione
-                    if (IsBitSet(_sWebOrdersList[i].iStatus, BIT_ORDINE_DIRETTO_DA_WEB) && (iEventQueueCount <= 1) && ckBoxAuto.Checked)
+                    if (IsBitSet(_sWebOrdersList[i].iStatus, BIT_ORDINE_DIRETTO_DA_WEB) && (iMainFormEventQueueCount == 0) &&
+                        ckBoxAuto.Checked && (_bProcessingOrder == false))
                     {
-                        // <summary>evento per avvio stampa scontrino web</summary>
-                        String[] sQueue_Object = new String[2] { WEB_ORDER_PRINT_START, _sWebOrdersList[i].iNumOrdine.ToString() };
+                        ulStart = (ulong)Environment.TickCount;
 
-                        FrmMain.EventEnqueue(sQueue_Object);
-                        iTableAutoLoadPeriod = REFRESH_PERIOD_QUICK;
+                        bDbRead_Ok = rdbCaricaOrdine(_sWebOrdersList[i].iNumOrdine);
 
+                        dbConnStatusBox.Image = Properties.Resources.circleGreen;
+                        ulStop = (ulong)Environment.TickCount;
+                        ulPingTime = ulStop - ulStart;
+                        labelQueryTime.Text = String.Format("tempo risposta server: {0} ms", ulPingTime);
+
+                        sTmp = String.Format("rdbCaricaOrdine : {0} ms", ulPingTime);
+                        LogToFile(sTmp);
+
+                        // così ci passa una volta sola
+                        _bProcessingOrder = true;
+
+                        // se non si può caricare ad esempio per checksum errato lo annulla
+                        //if (!bDbRead_Ok && !RDB_Data.bAnnullato)
+                        //    bResult = rdbAnnullaOrdine(_sWebOrdersList[i].iNumOrdine);
+
+                        if (bDbRead_Ok)
+                        {
+                            if (FrmMain.rFrmMain.GetAnteprima_TP_IsZero())
+                            {
+                                DataManager.CaricaOrdineWeb();
+
+                                // avvia la stampa dell'ordine
+                                String[] sQueue_Object = new String[2] { WEB_ORDER_PRINT_START, _sWebOrdersList[i].iNumOrdine.ToString() };
+
+                                FrmMain.EventEnqueue(sQueue_Object);
+                                iTableAutoLoadPeriod = REFRESH_PERIOD_QUICK;
+
+                                LogToFile("EsploraRemOrdiniDB_Dlg : stampa automatica dell'ordine web", true);
+                            }
+                            else
+                            {
+                                // non è possibile continuare
+                                _bProcessingOrder = false;
+
+                                iTableAutoLoadPeriod = REFRESH_PERIOD;
+                            }
+                        }
+                        else
+                        {
+                            // caricamento ordine fallito
+                            _bProcessingOrder = false;
+                            _WrnMsg.iErrID = WRN_DBE;
+                            _WrnMsg.sMsg = String.Format("rdbCaricaOrdine fallito:\n\nrecord n. {0}", _sWebOrdersList[i].iNumOrdine);
+                            WarningManager(_WrnMsg);
+
+                            LogToFile("EsploraRemOrdiniDB_Dlg : rdbCaricaOrdine");
+                        }
                     }
 
                     iGridStringsCount++;
@@ -186,7 +258,7 @@ namespace StandFacile
             float fFontHeaderHeight, fFontHeight;
 
             // Posizione griglia
-            dbGrid.Height = this.Height - 235;
+            dbGrid.Height = this.Height - 250;
             //OrdiniGrid.Width = this.Width - 50;
 
             if ((dbGrid.ColumnCount > 0) && bPrimaVolta)// altrimenti genera eccezione
@@ -235,8 +307,10 @@ namespace StandFacile
         /// <summary>carica l'ordina remoto selezionato in MainForm senza stamparlo</summary>
         private void dbGrid_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            bool bDbRead_Ok;
             int iSelOrder, iRow;
-            ulong ulStart, ulStop, ulPingTime;
+            string sTmp;
+            String[] sQueue_Object = new String[2];
 
             Cursor = Cursors.AppStarting;
 
@@ -249,16 +323,40 @@ namespace StandFacile
                 iSelOrder = Convert.ToInt32(dbGrid.CurrentRow.Cells[0].Value);
                 iRow = Convert.ToInt32(dbGrid.CurrentRow.Index);
 
-                if (!IsBitSet(_sWebOrdersList[iRow].iStatus, BIT_ORDINE_DIRETTO_DA_WEB) || !ckBoxAuto.Checked)
+                if (!ckBoxAuto.Checked)
                 {
                     ulStart = (ulong)Environment.TickCount;
 
-                    DataManager.CaricaOrdineWeb(iSelOrder);
+                    bDbRead_Ok = rdbCaricaOrdine(iSelOrder);
 
                     dbConnStatusBox.Image = Properties.Resources.circleGreen;
                     ulStop = (ulong)Environment.TickCount;
                     ulPingTime = ulStop - ulStart;
                     labelQueryTime.Text = String.Format("tempo risposta server: {0} ms", ulPingTime);
+
+                    sTmp = String.Format("rdbCaricaOrdine : {0} ms", ulPingTime);
+                    LogToFile(sTmp, true);
+
+                    if (!bDbRead_Ok)
+                    {
+                        // caricamento ordine fallito
+                        _WrnMsg.iErrID = WRN_DBE;
+                        _WrnMsg.sMsg = String.Format("rdbCaricaOrdine fallito:\n\nrecord n. {0}", iSelOrder);
+                        WarningManager(_WrnMsg);
+
+                        LogToFile("EsploraRemOrdiniDB_Dlg : rdbCaricaOrdine");
+                    }
+                    else
+                    {
+                        DataManager.CaricaOrdineWeb();
+
+                        // avvia la stampa dell'ordine
+                        sQueue_Object[0] = WEB_ORDER_LOAD_DONE;
+                        sQueue_Object[1] = "";
+                        FrmMain.EventEnqueue(sQueue_Object);
+
+                        LogToFile("EsploraRemOrdiniDB_Dlg : ordine web caricato", true);
+                    }
                 }
             }
 
@@ -382,6 +480,7 @@ namespace StandFacile
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
+            ckBoxAuto.Checked = false;
             Close();
         }
 

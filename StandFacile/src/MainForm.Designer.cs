@@ -126,7 +126,7 @@
             this.lblStatus_Date = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblStatus_Time = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
-            this.EditStatus_BC = new System.Windows.Forms.TextBox();
+            this.EditStatus_QRC = new System.Windows.Forms.TextBox();
             this.lblRead_bcd = new System.Windows.Forms.Label();
             this.toolStripR = new System.Windows.Forms.ToolStrip();
             this.btnSep_R1 = new System.Windows.Forms.ToolStripButton();
@@ -1128,21 +1128,21 @@
             this.StatusBar.TabIndex = 11;
             this.StatusBar.Text = "StatusBar";
             // 
-            // EditStatus_BC
+            // EditStatus_QRC
             // 
-            this.EditStatus_BC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.EditStatus_BC.BackColor = System.Drawing.Color.Honeydew;
-            this.EditStatus_BC.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditStatus_BC.Location = new System.Drawing.Point(923, 512);
-            this.EditStatus_BC.Margin = new System.Windows.Forms.Padding(0);
-            this.EditStatus_BC.MaxLength = 0;
-            this.EditStatus_BC.Name = "EditStatus_BC";
-            this.EditStatus_BC.Size = new System.Drawing.Size(142, 26);
-            this.EditStatus_BC.TabIndex = 21;
-            this.EditStatus_BC.Text = "1234567890123";
-            this.EditStatus_BC.WordWrap = false;
-            this.EditStatus_BC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
-            this.EditStatus_BC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditStatus_BC_KeyPress);
+            this.EditStatus_QRC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.EditStatus_QRC.BackColor = System.Drawing.Color.Honeydew;
+            this.EditStatus_QRC.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditStatus_QRC.Location = new System.Drawing.Point(923, 512);
+            this.EditStatus_QRC.Margin = new System.Windows.Forms.Padding(0);
+            this.EditStatus_QRC.MaxLength = 0;
+            this.EditStatus_QRC.Name = "EditStatus_QRC";
+            this.EditStatus_QRC.Size = new System.Drawing.Size(142, 26);
+            this.EditStatus_QRC.TabIndex = 21;
+            this.EditStatus_QRC.Text = "1234567890123";
+            this.EditStatus_QRC.WordWrap = false;
+            this.EditStatus_QRC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
+            this.EditStatus_QRC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditStatus_QRC_KeyPress);
             // 
             // lblRead_bcd
             // 
@@ -1318,7 +1318,7 @@
             this.Controls.Add(this.comboCashPos);
             this.Controls.Add(this.toolStripR);
             this.Controls.Add(this.lblRead_bcd);
-            this.Controls.Add(this.EditStatus_BC);
+            this.Controls.Add(this.EditStatus_QRC);
             this.Controls.Add(this.EditCoperti);
             this.Controls.Add(this.lblCoperti);
             this.Controls.Add(this.MainGrid);
@@ -1340,7 +1340,7 @@
             this.Name = "FrmMain";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "StandFacile 2024";
+            this.Text = "StandFacile 2025";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Resize += new System.EventHandler(this.FormResize);
             this.MainMenu.ResumeLayout(false);
@@ -1451,7 +1451,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblStatus_Date;
         private System.Windows.Forms.ToolStripStatusLabel lblStatus_Time;
         private System.Windows.Forms.StatusStrip StatusBar;
-        private System.Windows.Forms.TextBox EditStatus_BC;
+        private System.Windows.Forms.TextBox EditStatus_QRC;
         private System.Windows.Forms.Label lblRead_bcd;
         private System.Windows.Forms.ToolStripMenuItem MnuEsploraOrdiniWeb;
         private System.Windows.Forms.ToolStrip toolStripR;

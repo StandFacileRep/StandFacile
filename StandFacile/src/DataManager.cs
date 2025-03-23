@@ -1,6 +1,6 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 06.12.2024
+	Data	 : 20.03.2025
     Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
@@ -12,6 +12,7 @@ using System.IO;
 using static StandFacile.glb;
 using static StandFacile.Define;
 using static StandFacile.dBaseIntf;
+using static StandFacile.dBaseTunnel_my;
 using static StandFacile.FrmMain;
 
 using StandCommonFiles;
@@ -59,8 +60,6 @@ namespace StandFacile
         /// da CaricaListino() e modificato da FrmSetGrid.OKBtnClick
         /// </summary>
         static int _iLastArticoloIndex;
-
-        static ulong ulStart, ulStop, ulPingTime;
 
         /// <summary>variabile calcolata su tutti i dati del Listino</summary>
         static String _sLocListinoChecksum;
@@ -183,7 +182,7 @@ namespace StandFacile
             else
                 SF_Data.iNumCassa = CASSA_PRINCIPALE;   // SQLite
 
-            SF_Data.iStatusReceipt = 0;
+            SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
             SF_Data.iScontoStdReceipt = 0;
             SF_Data.iScontoFissoReceipt = 0;
             SF_Data.iScontoGratisReceipt = 0;
@@ -266,7 +265,7 @@ namespace StandFacile
         public static void ClearGrid()
         {
             // per pulire Stato, Sconti, Anteprima
-            SF_Data.iStatusReceipt = 0;
+            SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
             SF_Data.iStatusSconto = 0;
             SF_Data.iScontoStdReceipt = 0;
             SF_Data.iScontoFissoReceipt = 0;
@@ -293,7 +292,7 @@ namespace StandFacile
 
             rFrmMain.ResetPayment();
 
-            rFrmMain.ClearAnteprima();
+            rFrmMain.ClearAnteprima_TP();
 
             LogToFile("DataManager : resetGrid");
         }
@@ -405,9 +404,7 @@ namespace StandFacile
                 LogToFile("Datamanager Init !WebOrderEnabled");
 
             sTmp = String.Format("Datamanager Init: iMAX_RECEIPT_CHARS = {0}", iMAX_RECEIPT_CHARS);
-            LogToFile(sTmp);
-
-            Console.WriteLine(sTmp);
+            LogToFile(sTmp, true);
 
             InitFormatStrings(sGlbWinPrinterParams.bChars33);
         }
@@ -552,7 +549,7 @@ namespace StandFacile
         /// </summary>
         public static void Receipt()
         {
-            #pragma warning disable IDE0059
+#pragma warning disable IDE0059
 
             int i;
 
@@ -623,7 +620,7 @@ namespace StandFacile
             }
 
             // per pulire Stato, Sconti, Anteprima
-            SF_Data.iStatusReceipt = 0;
+            SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
             SF_Data.iStatusSconto = 0;
             SF_Data.iScontoStdReceipt = 0;
             SF_Data.iScontoFissoReceipt = 0;
@@ -1215,46 +1212,29 @@ namespace StandFacile
 
         static int _iPrevOrder = 0;
 
-        /// <summary>funzione per il caricamento dell'ordine web/// </summary>
-        public static bool CaricaOrdineWeb(int iNumParam)
+        /// <summary>
+        /// funzione per il caricamento dei dati dell'ordine web da RDB_Data a SF_Data,<br/>
+        /// imposta anche i controlli della MainForm dis/abilitandone però gli eventi
+        /// </summary>
+        public static bool CaricaOrdineWeb()
         {
-            bool bDbRead_Ok, bMatch, bSingleWarn;
+            bool bMatch, bSingleWarn;
             int i, j, iDebug;
-            String sDebug, sTmp;
+            String sDebug;
             String[] sQueue_Object = new String[2];
+
+            rFrmMain.EnableTextBox(false);
 
             DataManager.ClearGrid();
 
-            ulStart = (ulong)Environment.TickCount;
-
-            SF_Data.iNumOrdineWeb = iNumParam;
-
-            bDbRead_Ok = dBaseTunnel_my.rdbCaricaOrdine(iNumParam);
-
-            ulStop = (ulong)Environment.TickCount;
-            ulPingTime = ulStop - ulStart;
-            sTmp = String.Format("CaricaOrdineWeb : {0} ms", ulPingTime);
-            LogToFile(sTmp);
-            Console.WriteLine(sTmp);
-
-            if (!bDbRead_Ok && (_iPrevOrder != DB_Data.iNumOrdineWeb))
-            {
-                // caricamento ordine fallito
-                _iPrevOrder = DB_Data.iNumOrdineWeb;
-                _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("CaricaOrdineWeb fallito:\n\nrecord n. {0}", iNumParam);
-                WarningManager(_WrnMsg);
-
-                LogToFile("CaricaOrdineWeb : rdbCaricaOrdine");
-                return false;
-            }
+            SF_Data.iNumOrdineWeb = RDB_Data.iNumOrdineWeb;
 
             // se è gia annullato
-            if (DB_Data.bAnnullato && (_iPrevOrder != DB_Data.iNumOrdineWeb))
+            if (RDB_Data.bAnnullato && (_iPrevOrder != RDB_Data.iNumOrdineWeb))
             {
-                _iPrevOrder = DB_Data.iNumOrdineWeb;
+                _iPrevOrder = RDB_Data.iNumOrdineWeb;
 
-                _WrnMsg.sMsg = "di ordine web n." + iNumParam.ToString();
+                _WrnMsg.sMsg = "di ordine web n." + RDB_Data.iNumOrdineWeb.ToString();
 
                 _WrnMsg.iErrID = WRN_RAN;
                 WarningManager(_WrnMsg);
@@ -1262,11 +1242,11 @@ namespace StandFacile
 
                 return false;
             }
-            else if (DB_Data.bStampato && (_iPrevOrder != DB_Data.iNumOrdineWeb)) // se è gia stampato
+            else if (RDB_Data.bStampato && (_iPrevOrder != RDB_Data.iNumOrdineWeb)) // se è gia stampato
             {
-                _iPrevOrder = DB_Data.iNumOrdineWeb;
+                _iPrevOrder = RDB_Data.iNumOrdineWeb;
 
-                _WrnMsg.sMsg = "di ordine web n." + iNumParam.ToString();
+                _WrnMsg.sMsg = "di ordine web n." + RDB_Data.iNumOrdineWeb.ToString();
                 _WrnMsg.iErrID = WRN_RPS;
                 WarningManager(_WrnMsg);
                 LogToFile("CaricaOrdineWeb : record di ordine web " + _WrnMsg.sMsg + " già stampato !");
@@ -1277,26 +1257,26 @@ namespace StandFacile
             /************************************
              *		controllo di sicurezza
              ************************************/
-            if (_sWebListinoChecksum == DB_Data.sPL_Checksum)
+            if (_sWebListinoChecksum == RDB_Data.sPL_Checksum)
             {
                 bSingleWarn = false;
 
                 for (j = 0; j < MAX_NUM_ARTICOLI; j++)
                 {
-                    if (String.IsNullOrEmpty(DB_Data.Articolo[j].sTipo))
+                    if (String.IsNullOrEmpty(RDB_Data.Articolo[j].sTipo))
                         continue;
                     else
                     {
                         bMatch = false;
-                        sDebug = DB_Data.Articolo[j].sTipo;
-                        iDebug = DB_Data.Articolo[j].iQuantitaOrdine;
+                        sDebug = RDB_Data.Articolo[j].sTipo;
+                        iDebug = RDB_Data.Articolo[j].iQuantitaOrdine;
 
                         for (i = 0; i < MAX_NUM_ARTICOLI; i++)
                         {
                             // caricamento in Articolo[], esclusi Prezzi Unitario e Scontato, iGruppo_Stampa
-                            if (SF_Data.Articolo[i].sTipo == DB_Data.Articolo[j].sTipo)
+                            if (SF_Data.Articolo[i].sTipo == RDB_Data.Articolo[j].sTipo)
                             {
-                                SF_Data.Articolo[i].iQuantitaOrdine = DB_Data.Articolo[j].iQuantitaOrdine;
+                                SF_Data.Articolo[i].iQuantitaOrdine = RDB_Data.Articolo[j].iQuantitaOrdine;
 
                                 bMatch = true;
                                 break;
@@ -1304,9 +1284,9 @@ namespace StandFacile
                         }
 
                         // dà un solo avviso alla prima discordanza
-                        if (bDbRead_Ok && !bMatch && !bSingleWarn)
+                        if (!bMatch && !bSingleWarn)
                         {
-                            _ErrMsg.sMsg = DB_Data.Articolo[j].sTipo;
+                            _ErrMsg.sMsg = RDB_Data.Articolo[j].sTipo;
                             _ErrMsg.iErrID = WRN_MNF;
                             WarningManager(_ErrMsg);
                             bSingleWarn = true;
@@ -1314,17 +1294,43 @@ namespace StandFacile
                     }
                 }
 
-                SF_Data.iStatusReceipt = SetBit(DB_Data.iStatusReceipt, BIT_CARICATO_DA_WEB);
-                SF_Data.sWebDateTime = DB_Data.sDateTime;
+                SF_Data.sWebDateTime = RDB_Data.sWebDateTime;
+                SF_Data.iStatusReceipt = RDB_Data.iStatusReceipt;
 
-                if (IsBitSet(SF_Data.iStatusReceipt, BIT_ESPORTAZIONE))
+                // sicurezza
+                SF_Data.iStatusReceipt = SetBit(RDB_Data.iStatusReceipt, BIT_CARICATO_DA_WEB);
+
+                if (IsBitSet(RDB_Data.iStatusReceipt, BIT_ESPORTAZIONE))
                     rFrmMain.BtnEsportazione_Click(null, null);
 
+                // giusto SF_Data.Articolo[MAX_NUM_ARTICOLI - 1]
                 rFrmMain.SetEditCoperto(SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
 
-                rFrmMain.SetEditTavolo(DB_Data.sTavolo);
-                rFrmMain.SetEditNome(DB_Data.sNome);
-                rFrmMain.SetEditNota(DB_Data.sNota);
+                SF_Data.sTavolo = RDB_Data.sTavolo;
+                SF_Data.sNome = RDB_Data.sNome;
+                SF_Data.sNota = RDB_Data.sNota;
+
+                rFrmMain.SetEditTavolo(RDB_Data.sTavolo);
+                rFrmMain.SetEditNome(RDB_Data.sNome);
+                rFrmMain.SetEditNota(RDB_Data.sNota);
+
+                if (!IsBitSet(RDB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB))
+                {
+                    // impostazione che non agisce sul comboCashPos
+                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
+                }
+                else if (IsBitSet(RDB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) && IsBitSet(RDB_Data.iStatusReceipt, BIT_PAGAM_CASH))
+                {
+                    rFrmMain.SetPagamento_CASH();
+                }
+                else if (IsBitSet(RDB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) && IsBitSet(RDB_Data.iStatusReceipt, BIT_PAGAM_CARD))
+                {
+                    rFrmMain.SetPagamento_CARD();
+                }
+                else if (IsBitSet(RDB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) && IsBitSet(RDB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY))
+                {
+                    rFrmMain.SetPagamento_SATISPAY();
+                }
 
                 bool bEsploraAuto = false;
 
@@ -1332,12 +1338,14 @@ namespace StandFacile
                     bEsploraAuto = true;
 
                 // anteprima solo se non è ordine Automatico
-                if (!IsBitSet(SF_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) || !bEsploraAuto)
+                if (!(IsBitSet(RDB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) && bEsploraAuto))
                     AnteprimaDlg.rAnteprimaDlg.Show();
+
+                rFrmMain.EnableTextBox(true);
 
                 AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
-                // avvia la visualizzazione della tabella
+                // avvia la visualizzazione dell'ordine
                 sQueue_Object[0] = WEB_ORDER_LOAD_DONE;
                 sQueue_Object[1] = "";
 
@@ -1347,49 +1355,50 @@ namespace StandFacile
             }
             else
             {
-                if (_iPrevOrder != DB_Data.iNumOrdineWeb)
+                if (_iPrevOrder != RDB_Data.iNumOrdineWeb)
                 {
-                    _iPrevOrder = DB_Data.iNumOrdineWeb;
+                    _iPrevOrder = RDB_Data.iNumOrdineWeb;
 
-                    _WrnMsg.sMsg = DB_Data.iNumOrdineWeb.ToString();
+                    _WrnMsg.sMsg = RDB_Data.iNumOrdineWeb.ToString();
                     _WrnMsg.iErrID = WRN_CKWO;
                     WarningManager(_WrnMsg);
                 }
 
+                rFrmMain.EnableTextBox(true);
                 return false;
             }
         }
 
-        /// <summary>funzione per il caricamento dell'ordine mediante QRCode,<br/>
-        /// non c'è il match ARTICOLI dato che proprio non sono presenti nel json
+        /// <summary>funzione per il caricamento dei dati dell'ordine web da DB_Data a SF_Data mediante QRCode,<br/>
+        /// non c'è il match ARTICOLI dato che proprio non sono presenti nel json ma si controlla il checksum
         /// </summary>
-        public static bool CaricaOrdine_QR_code(int iNumParam)
+        public static bool CaricaOrdine_QR_code()
         {
             int i;
             String[] sQueue_Object = new String[2];
 
             DataManager.ClearGrid();
 
-            SF_Data.iNumOrdineWeb = iNumParam;
+            SF_Data.iNumOrdineWeb = DB_Data.iNumOrdineWeb;
 
             // se è gia annullato
             if (DB_Data.bAnnullato)
             {
-                _WrnMsg.sMsg = "di ordine web n." + iNumParam.ToString();
+                _WrnMsg.sMsg = "di ordine QR_code n." + DB_Data.iNumOrdineWeb.ToString();
 
                 _WrnMsg.iErrID = WRN_RAN;
                 WarningManager(_WrnMsg);
-                LogToFile("CaricaOrdineWeb : record di ordine web " + _WrnMsg.sMsg + " annullato !");
+                LogToFile("CaricaOrdine_QR_code : record di ordine QR_code " + _WrnMsg.sMsg + " annullato !");
 
                 return false;
             }
             else if (DB_Data.bStampato) // se è gia bStampato
             {
-                _WrnMsg.sMsg = "di ordine web n." + iNumParam.ToString();
+                _WrnMsg.sMsg = "di ordine QR_code n." + DB_Data.iNumOrdineWeb.ToString();
 
                 _WrnMsg.iErrID = WRN_RPS;
                 WarningManager(_WrnMsg);
-                LogToFile("CaricaOrdineWeb : record di ordine web " + _WrnMsg.sMsg + " già elaborato !");
+                LogToFile("CaricaOrdine_QR_code : record di ordine QR_code " + _WrnMsg.sMsg + " già elaborato !");
 
                 return false;
             }
@@ -1415,7 +1424,13 @@ namespace StandFacile
             }
 
             SF_Data.iStatusReceipt = SetBit(DB_Data.iStatusReceipt, BIT_CARICATO_DA_WEB);
+
+            // impostazione che non agisce sul comboCashPos
+            SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
+
             SF_Data.sWebDateTime = DB_Data.sDateTime;
+
+            rFrmMain.EnableTextBox(false);
 
             if (IsBitSet(DB_Data.iStatusReceipt, BIT_ESPORTAZIONE))
                 rFrmMain.BtnEsportazione_Click(null, null);
@@ -1426,10 +1441,12 @@ namespace StandFacile
             rFrmMain.SetEditTavolo(DB_Data.sTavolo);
             rFrmMain.SetEditNota(DB_Data.sNota);
 
+            rFrmMain.EnableTextBox(true);
+
             AnteprimaDlg.rAnteprimaDlg.Show();
             AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
-            // avvia la visualizzazione della tabella
+            // avvia la visualizzazione dell'ordine
             sQueue_Object[0] = WEB_ORDER_LOAD_DONE;
             sQueue_Object[1] = "";
 

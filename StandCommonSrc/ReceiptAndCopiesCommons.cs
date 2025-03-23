@@ -241,6 +241,12 @@ namespace StandCommonFiles
 
             TOrdineStrings sOrdineStringsTmp = new TOrdineStrings();
 
+            if(string.IsNullOrEmpty(dataIdParam.sWebDateTime))
+                dataIdParam.sWebDateTime = GetDateTimeString();
+
+            if (string.IsNullOrEmpty(dataIdParam.sPrevDateTime))
+                dataIdParam.sPrevDateTime = GetDateTimeString();
+
             if (iNumOfReceiptsParam == 0)
                 iNumOfReceiptsParam = dataIdParam.iNumOfLastReceipt;
 
@@ -580,7 +586,11 @@ namespace StandCommonFiles
                     fPrintParam.WriteLine();
                 }
 
-                if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_CARD))
+                if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_CASH))
+                {
+                    // non scrivere nulla
+                }
+                else if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_CARD))
                 {
                     sTmp = CenterJustify(sConst_Pagamento_CARD, iMAX_RECEIPT_CHARS);
                     fPrintParam.WriteLine("{0}", sTmp);
@@ -589,6 +599,12 @@ namespace StandCommonFiles
                 else if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_SATISPAY))
                 {
                     sTmp = CenterJustify(sConst_Pagamento_Satispay, iMAX_RECEIPT_CHARS);
+                    fPrintParam.WriteLine("{0}", sTmp);
+                    fPrintParam.WriteLine();
+                }
+                else
+                {
+                    sTmp = CenterJustify(sConst_Pagamento_da_EFFETTUARE, iMAX_RECEIPT_CHARS);
                     fPrintParam.WriteLine("{0}", sTmp);
                     fPrintParam.WriteLine();
                 }

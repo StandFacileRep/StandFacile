@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.PrintersListCombo = new System.Windows.Forms.ComboBox();
-            this.labelPrintersList = new System.Windows.Forms.Label();
+            this.lblPrintersList = new System.Windows.Forms.Label();
             this.BtnRcpFontSelect = new System.Windows.Forms.Button();
             this.BtnLogoFileSelect = new System.Windows.Forms.Button();
             this.BtnRepFontSelect = new System.Windows.Forms.Button();
@@ -38,7 +38,7 @@
             this.Memo = new System.Windows.Forms.TextBox();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblRecap = new System.Windows.Forms.Label();
             this.lblLogoPreview = new System.Windows.Forms.Label();
             this.labelMarginRcp = new System.Windows.Forms.Label();
             this.labelMarginRep = new System.Windows.Forms.Label();
@@ -79,15 +79,15 @@
             this.PrintersListCombo.TabIndex = 1;
             this.PrintersListCombo.SelectedIndexChanged += new System.EventHandler(this.PrintersListCombo_SelectedIndexChanged);
             // 
-            // labelPrintersList
+            // lblPrintersList
             // 
-            this.labelPrintersList.AutoSize = true;
-            this.labelPrintersList.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPrintersList.Location = new System.Drawing.Point(23, 19);
-            this.labelPrintersList.Name = "labelPrintersList";
-            this.labelPrintersList.Size = new System.Drawing.Size(110, 14);
-            this.labelPrintersList.TabIndex = 0;
-            this.labelPrintersList.Text = "Elenco Stampanti :";
+            this.lblPrintersList.AutoSize = true;
+            this.lblPrintersList.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrintersList.Location = new System.Drawing.Point(23, 19);
+            this.lblPrintersList.Name = "lblPrintersList";
+            this.lblPrintersList.Size = new System.Drawing.Size(110, 14);
+            this.lblPrintersList.TabIndex = 0;
+            this.lblPrintersList.Text = "Elenco Stampanti :";
             // 
             // BtnRcpFontSelect
             // 
@@ -195,15 +195,15 @@
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
-            // label2
+            // lblRecap
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(273, 19);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(144, 16);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Riepilogo Impostazioni :";
+            this.lblRecap.AutoSize = true;
+            this.lblRecap.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRecap.Location = new System.Drawing.Point(273, 19);
+            this.lblRecap.Name = "lblRecap";
+            this.lblRecap.Size = new System.Drawing.Size(144, 16);
+            this.lblRecap.TabIndex = 2;
+            this.lblRecap.Text = "Riepilogo Impostazioni :";
             // 
             // lblLogoPreview
             // 
@@ -513,7 +513,7 @@
             this.BtnDefaults.TabIndex = 78;
             this.BtnDefaults.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnDefaults.UseVisualStyleBackColor = true;
-            this.BtnDefaults.Click += new System.EventHandler(this.BtnCanc3_Click);
+            this.BtnDefaults.Click += new System.EventHandler(this.BtnDefaults_Click);
             // 
             // labelDefault
             // 
@@ -553,7 +553,7 @@
             this.Controls.Add(this.labelMarginRep);
             this.Controls.Add(this.labelMarginRcp);
             this.Controls.Add(this.lblLogoPreview);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.lblRecap);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.Memo);
@@ -562,7 +562,7 @@
             this.Controls.Add(this.BtnRepFontSelect);
             this.Controls.Add(this.BtnLogoFileSelect);
             this.Controls.Add(this.BtnRcpFontSelect);
-            this.Controls.Add(this.labelPrintersList);
+            this.Controls.Add(this.lblPrintersList);
             this.Controls.Add(this.PrintersListCombo);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -589,7 +589,7 @@
         #endregion
 
         private System.Windows.Forms.ComboBox PrintersListCombo;
-        private System.Windows.Forms.Label labelPrintersList;
+        private System.Windows.Forms.Label lblPrintersList;
         private System.Windows.Forms.Button BtnRcpFontSelect;
         private System.Windows.Forms.Button BtnLogoFileSelect;
         private System.Windows.Forms.Button BtnRepFontSelect;
@@ -598,7 +598,7 @@
         private System.Windows.Forms.TextBox Memo;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblRecap;
         private System.Windows.Forms.Label lblLogoPreview;
         private System.Windows.Forms.Label labelMarginRcp;
         private System.Windows.Forms.Label labelMarginRep;

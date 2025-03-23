@@ -130,8 +130,8 @@ namespace StandFacile
             String sInStr, sTmp;
             String sDebug1, sDebug2;
 
-            int iTagStart_IA, iTagStart_ET, iTagStart_ES, iTagStart_IF, iTagStart_CS, iTagStart_PC, iTagStart_PS, iTagStart_AO;
-            int iTagStop_IA, iTagStop_ET, iTagStop_ES, iTagStop_IF, iTagStop_CS, iTagStop_PC, iTagStop_PS, iTagStop_AO;
+            int iTagStart_IA, iTagStart_ET, iTagStart_ES, iTagStart_IF, iTagStart_CS, iTagStart_PH, iTagStart_PC, iTagStart_PS, iTagStart_AO;
+            int iTagStop_IA, iTagStop_ET, iTagStop_ES, iTagStop_IF, iTagStop_CS, iTagStop_PH, iTagStop_PC, iTagStop_PS, iTagStop_AO;
 
             int iTagStart_CN, iTagStart_CP, iTagStart_NT, iTagStart_NA, iTagStart_TV, iTagStart_NM, iTagStart_SP, iTagStart_SF, iTagStart_SG;
             int iTagStop_CN, iTagStop_CP, iTagStop_NT, iTagStop_NA, iTagStop_TV, iTagStop_NM, iTagStop_SP, iTagStop_SF, iTagStop_SG;
@@ -223,6 +223,7 @@ namespace StandFacile
             iTagStart_NA = sInStr.IndexOf("<NA>"); // Nota Articolo
             iTagStart_TV = sInStr.IndexOf("<TV>"); // Tavolo
             iTagStart_NM = sInStr.IndexOf("<NM>"); // Nome
+            iTagStart_PH = sInStr.IndexOf("<PH>"); // Pagamento CASH
             iTagStart_PC = sInStr.IndexOf("<PC>"); // Pagamento CARD
             iTagStart_PS = sInStr.IndexOf("<PS>"); // Pagamento SATISPAY
             iTagStart_AO = sInStr.IndexOf("<AO>"); // Annullo Ordine
@@ -244,6 +245,7 @@ namespace StandFacile
             iTagStop_TV = sInStr.IndexOf("</TV>");
             iTagStop_NM = sInStr.IndexOf("</NM>");
             iTagStop_AO = sInStr.IndexOf("</AO>");
+            iTagStop_PH = sInStr.IndexOf("</PH>");
             iTagStop_PC = sInStr.IndexOf("</PC>");
             iTagStop_PS = sInStr.IndexOf("</PS>");
             iTagStop_AN = sInStr.IndexOf("</AN>");
@@ -519,6 +521,14 @@ namespace StandFacile
                 _iCounter = 1;
                 bCMD_OK = true;
             }
+            else if ((iTagStart_PH != -1) && (iTagStop_PH != -1))
+            {
+                if (_iNumCassa == SF_Data.iNumCassa)
+                    rFrmMain.SetPagamento_CASH();
+
+                _iCounter = 1;
+                bCMD_OK = true;
+            }
             else if ((iTagStart_PC != -1) && (iTagStop_PC != -1))
             {
                 if (_iNumCassa == SF_Data.iNumCassa)
@@ -581,7 +591,7 @@ namespace StandFacile
             {
                 AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
-                rFrmMain.SetAnteprima();
+                rFrmMain.SetAnteprima_TP();
                 rFrmMain.MainGrid_Redraw(null, null);
                 return true;
             }

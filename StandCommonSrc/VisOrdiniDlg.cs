@@ -32,13 +32,14 @@ namespace StandFacile
     public partial class VisOrdiniDlg : Form
     {
 #pragma warning disable IDE0044
+#pragma warning disable IDE0059
 
         const int SEARCH_LIMIT = 999;
 
         /// <summary>massimo numero di scontrini per ricerca</summary>
         public const int MAX_NUM_TICKET = 9999;
 
-        bool _bOrdineCaricato, _bAnnulloOrdine;
+        bool _bOrdineCaricato, _bAnnulloOrdine, _bCambiaPagamento;
         int _iNum, _iUpperLimit;
         DateTime _dateOrdine;
         String _sNomeFileTicket, _sNomeFileTicketNpPrt, _sNomeTabella;
@@ -54,7 +55,7 @@ namespace StandFacile
         /// <summary>costruttore</summary>
         public VisOrdiniDlg(DateTime dateParam, int iNumParam, String sNomeTabellaParam = "", VIEW_TYPE eViewTypeParam = VIEW_TYPE.NORMAL)
         {
-            bool bCambiaPagamento, bHide;
+            bool bHide;
 
             InitializeComponent();
 
@@ -63,7 +64,8 @@ namespace StandFacile
             _sNomeTabella = sNomeTabellaParam;
 
             _bAnnulloOrdine = (eViewTypeParam == VIEW_TYPE.CANCEL_ORDER);
-            bCambiaPagamento = (eViewTypeParam == VIEW_TYPE.CHANGE_PAYMENT);
+            _bCambiaPagamento = (eViewTypeParam == VIEW_TYPE.CHANGE_PAYMENT);
+
             bHide = (eViewTypeParam == VIEW_TYPE.NO_VIEW);
 
             // SQLite
@@ -108,8 +110,12 @@ namespace StandFacile
             {
                 this.Text = "Annulla Ordine";
 
-                comboCashPos.Enabled = false;
-                comboCashPos.Visible = false;
+                comboPaymentType.Enabled = false;
+                comboPaymentType.Visible = false;
+
+                checkBoxNotPaid.Enabled = false;
+                checkBoxNotPaid.Visible = false;
+
                 labelPayMethod.Visible = false;
 
                 if (GetActualDate().ToString("dd/MM/yy") == dateParam.ToString("dd/MM/yy"))
@@ -123,30 +129,30 @@ namespace StandFacile
                 CkBoxTutteCasse.Enabled = ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bUSA_NDB());
                 OKBtn.Text = "Esci";
             }
-            else if (bCambiaPagamento)
+            else if (_bCambiaPagamento)
             {
                 this.Text = "Cambia pagamento Ordini";
 
-                comboCashPos.Items.Clear();
+                comboPaymentType.Items.Clear();
 
                 for (int i = sConst_PaymentType.Length - 1; i >= 0; i--) // OK
-                    comboCashPos.Items.Insert(0, sConst_PaymentType[i]);
+                    comboPaymentType.Items.Insert(0, sConst_PaymentType[i]);
 
-                comboCashPos.Top = AnnulloBtn.Top;
-                labelPayMethod.Top = comboCashPos.Top - 20;
+                comboPaymentType.Top = AnnulloBtn.Top;
+                labelPayMethod.Top = comboPaymentType.Top - 20;
 
                 AnnulloBtn.Enabled = false;
                 AnnulloBtn.Visible = false;
 
                 if (GetActualDate().ToString("dd/MM/yy") == dateParam.ToString("dd/MM/yy"))
                 {
-                    comboCashPos.Enabled = true;
+                    comboPaymentType.Enabled = true;
                 }
 
                 BtnPrt.Enabled = false;
 
                 CkBoxTutteCasse.Enabled = ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bUSA_NDB());
-                comboCashPos.Visible = true;
+                comboPaymentType.Visible = true;
                 labelPayMethod.Visible = true;
 
                 OKBtn.Text = "Esci";
@@ -157,8 +163,8 @@ namespace StandFacile
 
                 AnnulloBtn.Enabled = false;
                 AnnulloBtn.Visible = false;
-                comboCashPos.Enabled = false;
-                comboCashPos.Visible = false;
+                comboPaymentType.Enabled = false;
+                comboPaymentType.Visible = false;
                 labelPayMethod.Visible = false;
 
                 BtnPrt.Enabled = true;
@@ -194,18 +200,8 @@ namespace StandFacile
             {
                 // utilizza CkBoxTutteCasse
                 VisualizzaTicket(_iNum, (int)SEARCH_TYPE.SEARCH_DOWN);
-
-                if (bCambiaPagamento)
-                {
-                    if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CARD))
-                        comboCashPos.SelectedIndex = 1;
-
-                    else if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY))
-                        comboCashPos.SelectedIndex = 2;
-
-                    else
-                        comboCashPos.SelectedIndex = 0;
-                }
+                
+                AggiornaAspettoControlli();
 
                 ShowDialog();
             }
@@ -227,7 +223,7 @@ namespace StandFacile
             LogToFile(String.Format("VisTicketsDlg : {0}, {1}", iNum, iDir));
 
             sDir = GetVisTicketsDir() + "\\";
-            
+
             i = DB_Data.iStartingNumOfReceipts;
 
             // mantiene il filtraggio entro i limiti
@@ -319,14 +315,49 @@ namespace StandFacile
 
         private void PrevBtn_Click(object sender, EventArgs e)
         {
-            _iNum -= 1;
-            VisualizzaTicket(_iNum, (int)SEARCH_TYPE.SEARCH_DOWN);
+            bool bSomePayment_IsPresent;
+            int iDebug;
+
+            do
+            {
+                _iNum -= 1;
+
+                _rdBaseIntf.dbCaricaOrdine(GetActualDate(), _iNum, false);
+
+                bSomePayment_IsPresent = IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CASH) ||
+                    IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CARD) || IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
+
+                iDebug = DB_Data.iStatusReceipt;
+            }
+            while (checkBoxNotPaid.Checked && (_iNum > DB_Data.iStartingNumOfReceipts) && (bSomePayment_IsPresent || DB_Data.bAnnullato));
+
+            if (! (checkBoxNotPaid.Checked && (bSomePayment_IsPresent || DB_Data.bAnnullato)))
+                VisualizzaTicket(_iNum, (int)SEARCH_TYPE.SEARCH_DOWN);
+            
+            AggiornaAspettoControlli();
         }
 
         private void NextBtn_Click(object sender, EventArgs e)
         {
-            _iNum += 1;
-            VisualizzaTicket(_iNum, (int)SEARCH_TYPE.SEARCH_UP);
+            bool bSomePayment_IsPresent;
+            int iDebug;
+
+            do
+            {
+                _iNum += 1;
+                _rdBaseIntf.dbCaricaOrdine(GetActualDate(), _iNum, false);
+
+                bSomePayment_IsPresent = IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CASH) ||
+                    IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CARD) || IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
+
+                iDebug = DB_Data.iStatusReceipt;
+            }
+            while (checkBoxNotPaid.Checked && (_iNum < _iUpperLimit) && (bSomePayment_IsPresent || DB_Data.bAnnullato));
+
+            if (!(checkBoxNotPaid.Checked && (bSomePayment_IsPresent || DB_Data.bAnnullato)))
+                VisualizzaTicket(_iNum, (int)SEARCH_TYPE.SEARCH_UP);
+
+            AggiornaAspettoControlli();
         }
 
         private void VisTicketsDlg_KeyDown(object sender, KeyEventArgs e)
@@ -337,14 +368,12 @@ namespace StandFacile
             {
                 case KEY_LEFT:
                 case KEY_UP:
-                    _iNum -= 1;
-                    VisualizzaTicket(_iNum, (int)SEARCH_TYPE.SEARCH_DOWN);
+                    PrevBtn_Click(this, null);
                     break;
 
                 case KEY_RIGHT:
                 case KEY_DOWN:
-                    _iNum += 1;
-                    VisualizzaTicket(_iNum, (int)SEARCH_TYPE.SEARCH_UP);
+                    NextBtn_Click(this, null);
                     break;
 
                 case KEY_HOME:
@@ -365,6 +394,26 @@ namespace StandFacile
                     VisualizzaTicket(_iNum, (int)SEARCH_TYPE.SEARCH_UP);
                     break;
 
+            }
+
+            AggiornaAspettoControlli();
+        }
+
+        void AggiornaAspettoControlli()
+        {
+            if (_bCambiaPagamento)
+            {
+                if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CASH))
+                    comboPaymentType.SelectedIndex = 1;
+
+                else if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CARD))
+                    comboPaymentType.SelectedIndex = 2;
+
+                else if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY))
+                    comboPaymentType.SelectedIndex = 3;
+
+                else
+                    comboPaymentType.SelectedIndex = 0;
             }
         }
 
@@ -440,7 +489,7 @@ namespace StandFacile
         /// <summary>se ricostruisce il file ritorna true/// </summary>
         public bool ReceiptRebuild(DateTime dateParam, int iParam)
         {
-            bool bOrdineAnnullato;
+            bool bOrdineAnnullato, bSomePayment_IsPresent;
 
             bool[] bGroupsColorPrinted = new bool[NUM_EDIT_GROUPS];
             bool[] bSelectedGroups = new bool[NUM_EDIT_GROUPS];
@@ -456,33 +505,46 @@ namespace StandFacile
             // va dopo dbAnnulloOrdine che entrambi azzerano DB_Data
             _bOrdineCaricato = _rdBaseIntf.dbCaricaOrdine(dateParam, iParam, !CkBoxTutteCasse.Checked, _sNomeTabella);
 
+            bSomePayment_IsPresent = IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CASH) ||
+                    IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CARD) || IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
+
             InitFormatStrings(dbGetLengthArticoli());
 
             bOrdineAnnullato = DB_Data.bAnnullato;
 
-            if (DB_Data.bScaricato)
+            // importante la priorità, in ordine di gravità
+            if (bOrdineAnnullato)
+            {
+                textEdit_Ticket.ForeColor = System.Drawing.SystemColors.Window;
+                textEdit_Ticket.BackColor = System.Drawing.Color.Red; // annullato
+                AnnulloBtn.Enabled = false;
+            }
+            else if (DB_Data.bScaricato)
             {
                 textEdit_Ticket.ForeColor = System.Drawing.Color.Black;
                 textEdit_Ticket.BackColor = System.Drawing.Color.Gold; // bScaricato
-                AnnulloBtn.Enabled = false;
+                AnnulloBtn.Enabled = false; // già consegnato
             }
-            else if (!bOrdineAnnullato && (DB_Data.iNumCassa == SF_Data.iNumCassa))
+            else if (!bSomePayment_IsPresent)
+            {
+                textEdit_Ticket.ForeColor = System.Drawing.SystemColors.Window;
+                textEdit_Ticket.BackColor = System.Drawing.Color.Salmon; // da pagare
+                
+                if (DB_Data.iNumCassa == SF_Data.iNumCassa)
+                    AnnulloBtn.Enabled = _bAnnulloOrdine;
+            }
+            // questi ultimi 2 casi sono esaustivi del 100% delle situazioni restanti
+            else if (DB_Data.iNumCassa == SF_Data.iNumCassa)
             {
                 textEdit_Ticket.ForeColor = System.Drawing.SystemColors.Window;
                 textEdit_Ticket.BackColor = System.Drawing.Color.Teal; // tutto OK
                 AnnulloBtn.Enabled = _bAnnulloOrdine;
             }
-            else if (!bOrdineAnnullato && (DB_Data.iNumCassa != SF_Data.iNumCassa)) // cassa diversa
+            else if (DB_Data.iNumCassa != SF_Data.iNumCassa) // cassa diversa
             {
                 textEdit_Ticket.ForeColor = System.Drawing.SystemColors.Window;
                 textEdit_Ticket.BackColor = System.Drawing.Color.RoyalBlue;
-                AnnulloBtn.Enabled = false;
-            }
-            else
-            {
-                textEdit_Ticket.ForeColor = System.Drawing.SystemColors.Window;
-                textEdit_Ticket.BackColor = System.Drawing.Color.Red; // annullato
-                AnnulloBtn.Enabled = false;
+                AnnulloBtn.Enabled = false; // altra cassa
             }
 
             if (!_bOrdineCaricato) // solo caso di return false
@@ -571,18 +633,26 @@ namespace StandFacile
 
             iNewStatus = DB_Data.iStatusReceipt;
 
-            switch (comboCashPos.SelectedIndex)
+            switch (comboPaymentType.SelectedIndex)
             {
                 case 0:
-                    iNewStatus = ClearBit(iNewStatus ,BIT_PAGAM_CARD);
+                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_CASH);
+                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_CARD);
                     iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_SATISPAY);
                     break;
                 case 1:
-                    iNewStatus = SetBit(iNewStatus , BIT_PAGAM_CARD);
+                    iNewStatus = SetBit(iNewStatus, BIT_PAGAM_CASH);
+                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_CARD);
                     iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_SATISPAY);
                     break;
                 case 2:
-                    iNewStatus = ClearBit(iNewStatus , BIT_PAGAM_CARD);
+                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_CASH);
+                    iNewStatus = SetBit(iNewStatus, BIT_PAGAM_CARD);
+                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_SATISPAY);
+                    break;
+                case 3:
+                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_CASH);
+                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_CARD);
                     iNewStatus = SetBit(iNewStatus, BIT_PAGAM_SATISPAY);
                     break;
                 default:
@@ -592,14 +662,17 @@ namespace StandFacile
             if (iNewStatus == DB_Data.iStatusReceipt)
                 return;
 
-            if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CARD))
-                sPagamento = "Pagammento corrente di tipo Card\n\nSei sicuro di voler cambiare il tipo di pagamento ?";
+            if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CASH))
+                sPagamento = "Pagamento corrente in contanti\n\nSei sicuro di voler cambiare il tipo di pagamento ?";
+
+            else if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CARD))
+                sPagamento = "Pagamento corrente di tipo Card\n\nSei sicuro di voler cambiare il tipo di pagamento ?";
 
             else if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY))
-                sPagamento = "Pagammento corrente di tipo Satispay\n\nSei sicuro di voler cambiare il tipo di pagamento ?";
+                sPagamento = "Pagamento corrente di tipo Satispay\n\nSei sicuro di voler cambiare il tipo di pagamento ?";
 
             else
-                sPagamento = "Pagamento corrente di tipo Contanti\n\nSei sicuro di voler cambiare il tipo di pagamento ?";
+                sPagamento = "Sei sicuro di voler applicare un tipo di pagamento ?";
 
             dResult = MessageBox.Show(sPagamento, "Attenzione !", MessageBoxButtons.YesNo);
 

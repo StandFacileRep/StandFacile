@@ -605,11 +605,6 @@ namespace StandFacile_DB
 
             bDBConnection_Ok = dbInitWeb();
 
-            // sicurezza : si prosegue solo se c'è la connessione a MySQL
-            // o se la Cassa secondaria non richiede il prelievo di un ordine dalla lista
-            if (!bDBConnection_Ok)
-                return false;
-
             try
             {
                 cmd.CommandText = String.Format("DELETE FROM " + NOME_WEBORD_DBTBL + " WHERE iOrdine_ID = {0}", iOrderParam);
@@ -651,7 +646,7 @@ namespace StandFacile_DB
             DataTable dataTable = new DataTable();
 
             // dbAzzeraDatiGen(); non serve e poi cancella gli Headers
-            dbAzzeraDatiOrdine();
+            dbAzzeraDatiOrdine(ref DB_Data);
 
             bAnnullato = false;
             iNumCassa = SF_Data.iNumCassa;

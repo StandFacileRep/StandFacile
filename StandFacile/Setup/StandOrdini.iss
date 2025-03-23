@@ -1,15 +1,15 @@
-; 15.02.2025
+; 01.03.2025
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
-AppVersion= 5.13.3 
+AppVersion= 5.14.0
 
 AppVerName=StandOrdini {#SetupSetting("AppVersion")}
 AppName=StandOrdini 2025
 AppPublisher=Mauro Artuso
-AppId={{29B79D6E-F9A1-4968-9D2D-207581B31A20}
-DefaultDirName={sd}\StandFacile\StandOrdini_513x
-DefaultGroupName=StandFacile\StandOrdini_513x\
+AppId={{783104EA-9D30-44D9-9C65-F3135DC0A141}
+DefaultDirName={sd}\StandFacile\StandOrdini_514x
+DefaultGroupName=StandFacile\StandOrdini_514x\
 SourceDir=..\exe
 OutputDir=..\Setup
 OutputBaseFilename=StandOrdiniSetup_{#SetupSetting("AppVersion")}

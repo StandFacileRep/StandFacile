@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandCucina/Program.cs
-	Data	 : 06.12.2024
+	Data	 : 16.02.2025
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -89,7 +89,7 @@ namespace StandFacile
             Barcode_EAN13 rBarcode_EAN13 = new Barcode_EAN13();
 
             // inizializza i parametri di stampa
-            LegacyPrinterDlg rThermPrinterDlg = new LegacyPrinterDlg();
+            LegacyPrinterDlg rLegacyPrinterDlg = new LegacyPrinterDlg();
 
             // inizializza i parametri di stampa
             WinPrinterDlg rWinPrinterDlg = new WinPrinterDlg();

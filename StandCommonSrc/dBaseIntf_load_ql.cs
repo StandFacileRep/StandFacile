@@ -78,7 +78,7 @@ namespace StandFacile_DB
             // qualche variabile azzerata provoca elaborazioni aggiuntive
             // ma maggiore sicurezza, tanto si invoca poche volte
             dbAzzeraDatiGen();
-            dbAzzeraDatiOrdine();
+            dbAzzeraDatiOrdine(ref DB_Data);
 
             /*********************************************************************
              *      prima parte Dati 1/2 caricamento da CASSA_PRINCIPALE
@@ -617,7 +617,7 @@ namespace StandFacile_DB
             cmd.CommandText = "SELECT * FROM " + _sDBTNameDati + " WHERE (iRiga_ID >= 0) ORDER BY iRiga_ID ASC";
 
             dbAzzeraDatiGen();
-            dbAzzeraDatiOrdine();
+            dbAzzeraDatiOrdine(ref DB_Data);
 
             try
             {
@@ -697,7 +697,7 @@ namespace StandFacile_DB
             dbInit(dateParam, false, sNomeTabellaParam);
 
             // dbAzzeraDatiGen() va più sotto
-            dbAzzeraDatiOrdine();
+            dbAzzeraDatiOrdine(ref DB_Data);
 
             _iDBArticoliLength_Is33 = sGlbWinPrinterParams.bChars33;
 
@@ -947,7 +947,7 @@ namespace StandFacile_DB
             if (!bDBConnection_Ok)
                 return false;
 
-            dbAzzeraDatiOrdine();
+            dbAzzeraDatiOrdine(ref DB_Data);
 
             try
             {

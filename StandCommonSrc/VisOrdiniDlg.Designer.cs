@@ -41,8 +41,9 @@
             this.BtnNext = new System.Windows.Forms.Button();
             this.BtnPrt = new System.Windows.Forms.Button();
             this.labelPrint = new System.Windows.Forms.Label();
-            this.comboCashPos = new System.Windows.Forms.ComboBox();
+            this.comboPaymentType = new System.Windows.Forms.ComboBox();
             this.labelPayMethod = new System.Windows.Forms.Label();
+            this.checkBoxNotPaid = new System.Windows.Forms.CheckBox();
             this.VisTicketStatusBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,9 +104,10 @@
             // 
             // CkBoxTutteCasse
             // 
+            this.CkBoxTutteCasse.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.CkBoxTutteCasse.AutoSize = true;
             this.CkBoxTutteCasse.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CkBoxTutteCasse.Location = new System.Drawing.Point(29, 461);
+            this.CkBoxTutteCasse.Location = new System.Drawing.Point(29, 475);
             this.CkBoxTutteCasse.Name = "CkBoxTutteCasse";
             this.CkBoxTutteCasse.Size = new System.Drawing.Size(129, 18);
             this.CkBoxTutteCasse.TabIndex = 2;
@@ -115,10 +117,11 @@
             // 
             // OKBtn
             // 
+            this.OKBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKBtn.Image = global::StandFacile.Properties.Resources.OK;
             this.OKBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OKBtn.Location = new System.Drawing.Point(308, 521);
+            this.OKBtn.Location = new System.Drawing.Point(308, 535);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(70, 35);
             this.OKBtn.TabIndex = 3;
@@ -128,9 +131,10 @@
             // 
             // AnnulloBtn
             // 
+            this.AnnulloBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.AnnulloBtn.Image = ((System.Drawing.Image)(resources.GetObject("AnnulloBtn.Image")));
             this.AnnulloBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AnnulloBtn.Location = new System.Drawing.Point(29, 521);
+            this.AnnulloBtn.Location = new System.Drawing.Point(29, 535);
             this.AnnulloBtn.Name = "AnnulloBtn";
             this.AnnulloBtn.Size = new System.Drawing.Size(113, 35);
             this.AnnulloBtn.TabIndex = 4;
@@ -141,9 +145,10 @@
             // 
             // BtnPrev
             // 
+            this.BtnPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnPrev.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.BtnPrev.Image = global::StandFacile.Properties.Resources.ArrowSLeft;
-            this.BtnPrev.Location = new System.Drawing.Point(211, 452);
+            this.BtnPrev.Location = new System.Drawing.Point(211, 466);
             this.BtnPrev.Name = "BtnPrev";
             this.BtnPrev.Size = new System.Drawing.Size(70, 35);
             this.BtnPrev.TabIndex = 5;
@@ -153,9 +158,10 @@
             // 
             // BtnNext
             // 
+            this.BtnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.BtnNext.Image = global::StandFacile.Properties.Resources.ArrowSRight;
-            this.BtnNext.Location = new System.Drawing.Point(308, 452);
+            this.BtnNext.Location = new System.Drawing.Point(308, 466);
             this.BtnNext.Name = "BtnNext";
             this.BtnNext.Size = new System.Drawing.Size(70, 35);
             this.BtnNext.TabIndex = 6;
@@ -165,8 +171,9 @@
             // 
             // BtnPrt
             // 
+            this.BtnPrt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnPrt.Image = global::StandFacile.Properties.Resources.printer_s;
-            this.BtnPrt.Location = new System.Drawing.Point(211, 521);
+            this.BtnPrt.Location = new System.Drawing.Point(211, 535);
             this.BtnPrt.Name = "BtnPrt";
             this.BtnPrt.Size = new System.Drawing.Size(70, 35);
             this.BtnPrt.TabIndex = 7;
@@ -175,49 +182,64 @@
             // 
             // labelPrint
             // 
+            this.labelPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPrint.AutoSize = true;
             this.labelPrint.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPrint.Location = new System.Drawing.Point(209, 501);
+            this.labelPrint.Location = new System.Drawing.Point(209, 515);
             this.labelPrint.Name = "labelPrint";
             this.labelPrint.Size = new System.Drawing.Size(110, 13);
             this.labelPrint.TabIndex = 9;
             this.labelPrint.Text = "stampa tutto in locale";
             // 
-            // comboCashPos
+            // comboPaymentType
             // 
-            this.comboCashPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboCashPos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboCashPos.FormattingEnabled = true;
-            this.comboCashPos.ItemHeight = 13;
-            this.comboCashPos.Items.AddRange(new object[] {
+            this.comboPaymentType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboPaymentType.FormattingEnabled = true;
+            this.comboPaymentType.ItemHeight = 13;
+            this.comboPaymentType.Items.AddRange(new object[] {
             "CONTANTI",
             "CARD",
             "SATYSPAY",
             "   "});
-            this.comboCashPos.Location = new System.Drawing.Point(29, 493);
-            this.comboCashPos.Name = "comboCashPos";
-            this.comboCashPos.Size = new System.Drawing.Size(113, 21);
-            this.comboCashPos.TabIndex = 25;
-            this.comboCashPos.SelectedIndexChanged += new System.EventHandler(this.ComboCashPos_SelectedIndexChanged);
+            this.comboPaymentType.Location = new System.Drawing.Point(29, 507);
+            this.comboPaymentType.Name = "comboPaymentType";
+            this.comboPaymentType.Size = new System.Drawing.Size(113, 21);
+            this.comboPaymentType.TabIndex = 25;
+            this.comboPaymentType.SelectedIndexChanged += new System.EventHandler(this.ComboCashPos_SelectedIndexChanged);
             // 
             // labelPayMethod
             // 
+            this.labelPayMethod.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labelPayMethod.AutoSize = true;
             this.labelPayMethod.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPayMethod.Location = new System.Drawing.Point(28, 475);
+            this.labelPayMethod.Location = new System.Drawing.Point(28, 489);
             this.labelPayMethod.Name = "labelPayMethod";
             this.labelPayMethod.Size = new System.Drawing.Size(147, 13);
             this.labelPayMethod.TabIndex = 26;
             this.labelPayMethod.Text = "cambia metodo di pagamento";
+            // 
+            // checkBoxNotPaid
+            // 
+            this.checkBoxNotPaid.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.checkBoxNotPaid.AutoSize = true;
+            this.checkBoxNotPaid.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxNotPaid.Location = new System.Drawing.Point(29, 447);
+            this.checkBoxNotPaid.Name = "checkBoxNotPaid";
+            this.checkBoxNotPaid.Size = new System.Drawing.Size(154, 18);
+            this.checkBoxNotPaid.TabIndex = 27;
+            this.checkBoxNotPaid.Text = "filtra pag. da effettuare";
+            this.checkBoxNotPaid.UseVisualStyleBackColor = true;
             // 
             // VisOrdiniDlg
             // 
             this.AcceptButton = this.OKBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 583);
+            this.ClientSize = new System.Drawing.Size(400, 586);
+            this.Controls.Add(this.checkBoxNotPaid);
             this.Controls.Add(this.labelPayMethod);
-            this.Controls.Add(this.comboCashPos);
+            this.Controls.Add(this.comboPaymentType);
             this.Controls.Add(this.labelPrint);
             this.Controls.Add(this.AnnulloBtn);
             this.Controls.Add(this.CkBoxTutteCasse);
@@ -258,7 +280,8 @@
         private System.Windows.Forms.CheckBox CkBoxTutteCasse;
         private System.Windows.Forms.Button AnnulloBtn;
         private System.Windows.Forms.Label labelPrint;
-        private System.Windows.Forms.ComboBox comboCashPos;
+        private System.Windows.Forms.ComboBox comboPaymentType;
         private System.Windows.Forms.Label labelPayMethod;
+        private System.Windows.Forms.CheckBox checkBoxNotPaid;
     }
 }

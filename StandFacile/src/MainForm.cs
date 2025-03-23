@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 06.12.2024
+    Data	 : 20.03.2025
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -24,6 +24,7 @@ using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
 using System.Web.Script.Serialization;
+using System.Reflection;
 
 namespace StandFacile
 {
@@ -83,6 +84,7 @@ namespace StandFacile
 
         String _sOrdiniPrevDBTable;
         String _sEditNotaCopy;
+        string _sShortDBType;
 
         DataGridViewCellStyle _prevStyle = new DataGridViewCellStyle();
         DataGridViewCellStyle[,] _gridStyle = new DataGridViewCellStyle[NUM_COLOR_THEMES, NUM_COPIES_GRPS];
@@ -157,28 +159,46 @@ namespace StandFacile
         static readonly Queue scannerInputQueue = new Queue();
 
         /// <summary>imposta il testo dei coperti</summary>
-        public void SetEditCoperto(String sCopertoParam) { EditCoperti.Text = sCopertoParam; TextBox_KeyUp(null, null); }
+        public void SetEditCoperto(String sCopertoParam)
+        {
+            EditCoperti.Text = sCopertoParam;
+            if (EditCoperti.Enabled)
+                TextBox_KeyUp(null, null);
+        }
 
         /// <summary>ottiene il testo dei coperti</summary>
         public String GetEditCoperto() { return EditCoperti.Text; }
 
         /// <summary>imposta il testo del tavolo</summary>
-        public void SetEditTavolo(String sTavoloParam) { EditTavolo.Text = sTavoloParam; TextBox_KeyUp(null, null); }
-
-        /// <summary>imposta il testo del nome</summary>
-        public void SetEditNome(String sNomeParam) { EditNome.Text = sNomeParam; TextBox_KeyUp(null, null); }
+        public void SetEditTavolo(String sTavoloParam)
+        {
+            EditTavolo.Text = sTavoloParam;
+            if (EditTavolo.Enabled)
+                TextBox_KeyUp(null, null);
+        }
 
         /// <summary>ottiene il testo del tavolo</summary>
         public String GetEditTavolo() { return EditTavolo.Text; }
 
+        /// <summary>imposta il testo del nome</summary>
+        public void SetEditNome(String sNomeParam)
+        {
+            EditNome.Text = sNomeParam;
+            if (EditNome.Enabled)
+                TextBox_KeyUp(null, null);
+        }
+
         /// <summary>resetta il tipo di pagamento CONT./CARD/SATISPAY</summary>
-        public void ResetPayment() { comboCashPos.SelectedIndex = sConst_PaymentType.Length - 1; }
+        public void ResetPayment() { comboCashPos.SelectedIndex = sConst_PaymentType.Length - 2; } // esclude "da effettuare"
 
         /// <summary>imposta _iAnteprimaTotParziale</summary>
-        public void SetAnteprima() { _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt(); }
+        public void SetAnteprima_TP() { _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt(); }
+
+        /// <summary>ottiene _iAnteprimaTotParziale</summary>
+        public bool GetAnteprima_TP_IsZero() { return _iAnteprimaTotParziale == 0; }
 
         /// <summary>azzera _iAnteprimaTotParziale</summary>
-        public void ClearAnteprima() { _iAnteprimaTotParziale = 0; }
+        public void ClearAnteprima_TP() { _iAnteprimaTotParziale = 0; }
 
         /// <summary>ottiene il testo della nota</summary>
         public String GetEditNota() { return EditNota.Text; }
@@ -187,7 +207,12 @@ namespace StandFacile
         public bool GetStatusNota() { return EditNota.BackColor == Color.Gainsboro; }
 
         /// <summary>imposta il testo della nota</summary>
-        public void SetEditNota(String sNotaParam) { EditNota.Text = sNotaParam; TextBox_KeyUp(null, null); }
+        public void SetEditNota(String sNotaParam)
+        {
+            EditNota.Text = sNotaParam;
+            if (EditNota.Enabled)
+                TextBox_KeyUp(null, null);
+        }
 
         /// <summary>imposta il testo della nota Articolo, usato da TestManager</summary>
         public void SetEditNotaArticolo(int iCellParam, String sNotaParam)
@@ -208,7 +233,7 @@ namespace StandFacile
         }
 
         /// <summary>imposta il testo della nota</summary>
-        public void SetEditStatus_BC(String sBCParam) { EditStatus_BC.Text = sBCParam; TextBox_KeyUp(null, null); }
+        public void SetEditStatus_BC(String sBCParam) { EditStatus_QRC.Text = sBCParam; TextBox_KeyUp(null, null); }
 
         /// <summary>imposta il testo dello stato</summary>
         public void SetStatus(String sNotaParam) { sStatusText = sNotaParam; }
@@ -243,6 +268,16 @@ namespace StandFacile
 
         }
 
+        /// <summary>abilita/disabilita TextBox di MainForm</summary>
+        public void EnableTextBox(bool bEnable)
+        {
+            MainGrid.Enabled = bEnable;
+            EditNome.Enabled = bEnable;
+            EditTavolo.Enabled = bEnable;
+            EditCoperti.Enabled = bEnable;
+            EditNota.Enabled = bEnable;
+        }
+
         /// <summary>costruttore</summary>
         public FrmMain()
         {
@@ -255,7 +290,7 @@ namespace StandFacile
             _tt.SetToolTip(EditNota, "click o (F3) dalla griglia per inserire una Nota nello scontrino\ncon Crtl+click su una cella per inserire una nota relativa all'Articolo");
             _tt.SetToolTip(EditResto, "resto calcolato");
             _tt.SetToolTip(EditContante, "click o (F4) dalla griglia per inserire il resto");
-            _tt.SetToolTip(EditStatus_BC, "area per lettura barcode prevendite e pre-ordini web");
+            _tt.SetToolTip(EditStatus_QRC, "area per lettura barcode prevendite e pre-ordini web");
             _tt.SetToolTip(comboCashPos, "tipo di pagamento: Contanti/Card/Satispay");
 
             // layout Toolbar e Menu
@@ -263,7 +298,7 @@ namespace StandFacile
 
             comboCashPos.Items.Clear();
 
-            for (int i = sConst_PaymentType.Length - 1; i >= 0; i--) // OK
+            for (int i = sConst_PaymentType.Length - 1; i > 0; i--) // OK esclude "da effettuare"
                 comboCashPos.Items.Insert(0, sConst_PaymentType[i]);
 
             ResetPayment();
@@ -289,7 +324,6 @@ namespace StandFacile
 
             rFrmMain = this;
 
-            Text = String.Format("{0} {1} {2} {1} webcks Listino = {3}", TITLE, "    ", RELEASE_SW, DataManager.GetWebListinoChecksum());
             MinimumSize = new Size(MAINWD_WIDTH, MAINWD_HEIGHT);
 
             // Larghezza barra di stato
@@ -304,8 +338,8 @@ namespace StandFacile
             EditNome.MaxLength = 20;
             EditNome.Width = 140;
 
-            EditStatus_BC.Text = "";
-            EditStatus_BC.MaxLength = 0; // nessun limite
+            EditStatus_QRC.Text = "";
+            EditStatus_QRC.MaxLength = 0; // nessun limite
 
 
             SetColorsTheme();
@@ -346,6 +380,22 @@ namespace StandFacile
             {
                 _bPasswordIsGood = true;
                 MnuEsperto_Click(this, null);
+            }
+
+            switch (dBaseIntf.iUSA_NDB())
+            {
+                case (int)DB_MODE.SQLITE:
+                    _sShortDBType = "ql";
+                    break;
+                case (int)DB_MODE.MYSQL:
+                    _sShortDBType = "my";
+                    break;
+                case (int)DB_MODE.POSTGRES:
+                    _sShortDBType = "pg";
+                    break;
+                default:
+                    _sShortDBType = "";
+                    break;
             }
 
             sDataStr = GetActualDate().ToString("dddd  dd/MM/yy");
@@ -392,7 +442,6 @@ namespace StandFacile
             // altrimenti con F3 si riordinano le colonne !!!
             foreach (DataGridViewColumn column in MainGrid.Columns)
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
-
         }
 
         /// <summary>imposta i Temi colore</summary>
@@ -518,7 +567,6 @@ namespace StandFacile
 
         private void MainFormTimer_Tick(object sender, EventArgs e)
         {
-            bool bResult;
             int iPageNumTmp;
             String[] sEvQueueObj;
 
@@ -545,15 +593,15 @@ namespace StandFacile
             else
                 lblStatus_Status.Text = sStatusText;
 
-            if ((iFocusFlash == 0) && EditStatus_BC.Focused)
+            if ((iFocusFlash == 0) && EditStatus_QRC.Focused)
             {
                 iFocusFlash = 4;
                 bFocusFlash = !bFocusFlash;
 
-                if (bFocusFlash && EditStatus_BC.Focused)
-                    EditStatus_BC.BackColor = Color.Gainsboro;
+                if (bFocusFlash && EditStatus_QRC.Focused)
+                    EditStatus_QRC.BackColor = Color.Gainsboro;
                 else
-                    EditStatus_BC.BackColor = Color.Honeydew;
+                    EditStatus_QRC.BackColor = Color.Honeydew;
             }
             else
             {
@@ -569,7 +617,7 @@ namespace StandFacile
                 if (bPrevFlash && SF_Data.bPrevendita)
                     Text = TITLE + String.Format("{0,42}", sConst_Prevendita[1]);
                 else
-                    Text = String.Format("{0} {1} {2} {1} webcks Listino = {3}", TITLE, "    ", RELEASE_SW, DataManager.GetWebListinoChecksum());
+                    Text = String.Format("{0} {1} {2} {1} webcks Listino = {3}   {4}", TITLE, "   ", RELEASE_SW, DataManager.GetWebListinoChecksum(), _sShortDBType);
             }
             else
             {
@@ -589,6 +637,9 @@ namespace StandFacile
                     LogToFile("Mainform : #W ResetBtnScontrino() per Timeout");
                 }
             }
+
+            if (_webPrintTimeout > 0)
+                _webPrintTimeout = 0;
 
             // generazione automatica di scontrini debug se c'è la
             // giusta stringa nel Registro
@@ -644,9 +695,9 @@ namespace StandFacile
                 if (iFocus_BC_Timeout == 0)
                 {
                     iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
-                    EditStatus_BC.Focus();
+                    EditStatus_QRC.Focus();
                     // EditStatus_BC.UseSystemPasswordChar = false;
-                    EditStatus_BC.Text = ""; // pulizia
+                    EditStatus_QRC.Text = ""; // pulizia
                 }
             }
 
@@ -764,40 +815,41 @@ namespace StandFacile
                     sEvQueueObj = (String[])eventQueue.Dequeue();
                 }
 
+                // solo da qu in poi "else if"
                 if (sEvQueueObj[0] == RESET_RECEIPT_BTN_EVENT)
                 {
                     ResetBtnScontrino();
                 }
+
                 else if (sEvQueueObj[0] == PREV_ORDER_LOAD_DONE)
                 {
                     _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
-                    EditStatus_BC.Focus();
+                    EditStatus_QRC.Focus();
                     MainGrid_Redraw(this, null);
                 }
+
+                // avvia la visualizzazione dell'ordine
                 else if (sEvQueueObj[0] == WEB_ORDER_LOAD_DONE)
                 {
                     bool bEsploraAuto = false;
 
-                    if ((EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg != null) && !EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg.GetAutoCheckbox())
+                    if ((EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg != null) && EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg.GetAutoCheckbox())
                         bEsploraAuto = true;
 
                     /********************************************************************************************
                         importante perchè gli ordini con QR_Code si possono editare
                         quelli automatici da servlet invece no perchè mantengono _iAnteprimaTotParziale == 0
                     *********************************************************************************************/
-                    if (!IsBitSet(DB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) || bEsploraAuto)
+                    if (!(IsBitSet(RDB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) && bEsploraAuto))
                         _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
 
                     // EditStatus_BC.UseSystemPasswordChar = false;
-                    EditStatus_BC.Text = ""; // pulizia
-                    MainGrid_Redraw(this, null);
-                }
-                else if (sEvQueueObj[0] == MAIN_GRID_UPDATE_EVENT)
-                {
+                    EditStatus_QRC.Text = ""; // pulizia
                     MainGrid_Redraw(this, null);
                 }
 
                 // solo se non c'è emissione di scontrini in corso _iAnteprimaTotParziale == 0
+                // avvia la stampa dell'ordine
                 else if ((sEvQueueObj[0] == WEB_ORDER_PRINT_START) && (_iAnteprimaTotParziale == 0))
                 {
                     if ((_webPrintTimeout <= 0) && !bOrderProcessingRunning)
@@ -805,41 +857,25 @@ namespace StandFacile
                         bOrderProcessingRunning = true;
 
                         // timeout lungo per eseguire operazioni
-                        _webPrintTimeout = TIMEOUT_WEB_PRINT * 100;
-
-                        MainGrid.Enabled = false;
-                        EditNome.Enabled = false;
-                        EditTavolo.Enabled = false;
-                        EditCoperti.Enabled = false;
-                        EditNota.Enabled = false;
-
-                        // bOrderProcessingRunning evita che l'attesa di premere Ok provoca altri eventi del timer
-                        bResult = DataManager.CaricaOrdineWeb(Convert.ToInt32(sEvQueueObj[1]));
-
-                        // se non si può caricare ad esempio per checksum errato lo annulla
-                        if (!bResult && !DB_Data.bAnnullato)
-                            bResult = rdbAnnullaOrdine(SF_Data.iNumOrdineWeb);
+                        _webPrintTimeout = TIMEOUT_WEB_PRINT * 10;
 
                         sEvQueueObj = (String[])eventQueue.Dequeue();
 
-                        MainGrid.Enabled = true;
-                        EditNome.Enabled = true;
-                        EditTavolo.Enabled = true;
-                        EditCoperti.Enabled = true;
-                        EditNota.Enabled = true;
-
-                        MainGrid_Redraw(this, null);
-
                         // emissione scontrino
                         BtnScontrino_Click(sender, null);
+
+                        EsploraRemOrdiniDB_Dlg.KeepPrintWebOrders();
 
                         // timeout corto
                         _webPrintTimeout = TIMEOUT_WEB_PRINT;
 
                         bOrderProcessingRunning = false;
                     }
-                    else
-                        _webPrintTimeout--;
+                }
+
+                else if (sEvQueueObj[0] == MAIN_GRID_UPDATE_EVENT)
+                {
+                    MainGrid_Redraw(this, null);
                 }
 
             }
@@ -952,7 +988,7 @@ namespace StandFacile
             iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
 
             // ridà il controllo alla griglia
-            if ((sender == EditStatus_BC && String.IsNullOrEmpty(EditStatus_BC.Text)) &&
+            if ((sender == EditStatus_QRC && String.IsNullOrEmpty(EditStatus_QRC.Text)) &&
                 ((e.KeyValue == KEY_DOWN) || (e.KeyValue == KEY_UP) ||
                 (e.KeyValue == KEY_LEFT) || (e.KeyValue == KEY_RIGHT)))
             {
@@ -1202,6 +1238,15 @@ namespace StandFacile
             else
                 SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_EMESSO_IN_PREVENDITA);
 
+            // non deve passarci quando è emesso direttamente dal WEB oppure quando è presente qualche forma di pagamento,
+            // è scontato che si pagano gli ordini emessi dalle casse
+            if (!(IsBitSet(SF_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) || IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_CARD) || 
+                  IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY) || IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_CASH)))
+            {
+                // impostazione che non agisce sul comboCashPos
+                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
+            }
+
             if (CheckService(Define._REC_TEST))
                 TestManager.TestRecord_order();  // ogni 250ms
 
@@ -1275,15 +1320,15 @@ namespace StandFacile
 
             lblStatus_TC.Text = "";
 
-            EditStatus_BC.Text = "";
+            EditStatus_QRC.Text = "";
 
             UpdateStatusBar(DataManager.GetNumOfLocalOrders(), SF_Data.iTotaleReceiptDovuto);
 
             // comboCashPos.Text = ""; // inutile cambio SelectedIndex lo reimposta
-            comboCashPos.SelectedIndex = sConst_PaymentType.Length - 1;
+            comboCashPos.SelectedIndex = sConst_PaymentType.Length - 2; // esclude "da effettuare"
 
             if (OptionsDlg._rOptionsDlg.GetPresales_LoadMode())
-                EditStatus_BC.Focus();
+                EditStatus_QRC.Focus();
             else
                 MainGrid.Focus(); // evita inserimenti indesiderati del tavolo
 
@@ -2007,7 +2052,6 @@ namespace StandFacile
         /// <summary>Verifica che tutto sia pronto per l'emissione dello scontrino</summary>
         public void BtnScontrino_Click(object sender, EventArgs e)
         {
-            bool bResult;
             String sActualDateStr;
             String[] sQueue_Object = new String[2] { WEB_ORDER_PRINT_DONE, "" };
 
@@ -2031,20 +2075,10 @@ namespace StandFacile
             // verifiche : scontrino non nulle, quantità < disponibilità, dimenticanza tavolo
             if (DataManager.TicketIsGood() && VerificaTutteQuantita() && VerificaTavoloRichiesto() && VerificaCopertoRichiesto() && VerificaPOS_Richiesto())
             {
-                //
                 if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_WEB))
                 {
-                    // scarico immediato solo per la CASSA_PRINCIPALE, per le CASSE_SECONDARIE
-                    // si mette in coda l'ordine
-                    //if (SF_Data.iNumCassa == CASSA_PRINCIPALE)
-                    bResult = rdbSegnaOrdineStampato(SF_Data.iNumOrdineWeb);
-                    //else
-                    //    bResult = false;
-
-                    if (bResult)
-                        EsploraRemOrdiniDB_Dlg.EventEnqueue(sQueue_Object);
-                    else
-                        _rdBaseIntf.dbWebOrderEnqueue(SF_Data.iNumOrdineWeb);
+                    _rdBaseIntf.dbWebOrderEnqueue(SF_Data.iNumOrdineWeb);
+                    dBaseTunnel_my.EventEnqueue(sQueue_Object);
                 }
 
                 if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA))
@@ -2058,6 +2092,9 @@ namespace StandFacile
                 comboCashPos.Enabled = true;
                 EditResto.Enabled = true;
 
+                // sicurezza
+                rFrmMain.EnableTextBox(true);
+
                 if (bUSA_NDB())
                 {
                     /***********************************************************************************
@@ -2068,6 +2105,9 @@ namespace StandFacile
                     {
                         EmissioneScontrino();
                         LogToFile("Mainform : EmissioneScontrino");
+
+                        // sicurezza
+                        EsploraRemOrdiniDB_Dlg.KeepPrintWebOrders();
                     }
                     else
                     {
@@ -2086,6 +2126,9 @@ namespace StandFacile
 
                     EmissioneScontrino();
                     LogToFile("Mainform : EmissioneScontrino _ql");
+
+                    // sicurezza
+                    EsploraRemOrdiniDB_Dlg.KeepPrintWebOrders();
                 }
 
                 AnteprimaDlg.rAnteprimaDlg.RedrawTicketNum();
@@ -2095,10 +2138,10 @@ namespace StandFacile
                 BtnScontrino.Checked = false;
                 BtnScontrino.Enabled = true;
 
-                EditStatus_BC.Text = "";
+                EditStatus_QRC.Text = "";
 
                 if (OptionsDlg._rOptionsDlg.GetPresales_LoadMode())
-                    EditStatus_BC.Focus();
+                    EditStatus_QRC.Focus();
             }
 
             CheckMenuItems();
@@ -2302,19 +2345,26 @@ namespace StandFacile
 
         private void ComboCashPos_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // se non c'è Init()
+            if (!Timer.Enabled)
+                return;
+
             switch (comboCashPos.SelectedIndex)
             {
                 case 0:
+                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_CARD);
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
                     AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
                 case 1:
+                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
                     SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CARD);
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
                     AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
                 case 2:
+                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_CARD);
                     SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
                     AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
@@ -2323,8 +2373,20 @@ namespace StandFacile
                     // se si toglie il commento si pulisce l'Anteprima dopo la stampa dello scontrino
                     // perchè tutte le quantità sono a 0
                     // AnteprimaDlg.rAnteprimaDlg.RedrawReceipt(); 
+
+                    // si assume che in cassa si paga sempre
+                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
+                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_CARD);
+                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
                     break;
             }
+        }
+
+        /// <summary>/// imposta CASH come metodo di pagamento/// </summary>
+        public void SetPagamento_CASH()
+        {
+            comboCashPos.SelectedIndex = 1;
+            comboCashPos.SelectedIndex = 0; // forza la chiamata di ComboCashPos_SelectedIndexChanged
         }
 
         /// <summary>/// imposta CARD come metodo di pagamento/// </summary>

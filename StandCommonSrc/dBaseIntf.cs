@@ -98,6 +98,8 @@ namespace StandFacile
         /// <summary>Struct fondamentale per i dati del DB</summary>
         public static TData DB_Data = new TData(0);
 
+        TWebServerCheckParams _sWebServerCheckParams = new TWebServerCheckParams();
+
 #if STAND_CUCINA
 
         /// <summary> flag di cambio data utilizzato da STAND_CUCINA </summary>
@@ -212,7 +214,7 @@ namespace StandFacile
             _rdBaseIntf = this;
 
             dbAzzeraDatiGen();
-            dbAzzeraDatiOrdine();
+            dbAzzeraDatiOrdine(ref DB_Data);
 
             _sDB_ServerName = ReadRegistry(DBASE_SERVER_NAME_KEY, Dns.GetHostName());
             _password = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
@@ -355,52 +357,52 @@ namespace StandFacile
         }
 
         /// <summary>
-        /// azzera DB_Data[] per la parte per la parte articolo
-        /// e dati legati al singolo ordine
+        /// azzera DB_Data[] per la parte per la parte articolo e dati legati al singolo ordine,<br/>
+        /// usata anche da dBaseTunnel_my
         /// </summary>
-        public static void dbAzzeraDatiOrdine()
+        public static void dbAzzeraDatiOrdine(ref TData dataIdParam)
         {
             int i;
 
-            DB_Data.iNumCassa = 1;
+            dataIdParam.iNumCassa = 1;
 
-            DB_Data.iTotaleReceipt = 0;
-            DB_Data.iTotaleReceiptDovuto = 0;
-            DB_Data.iStatusReceipt = 0;
-            DB_Data.iScontoStdReceipt = 0;
-            DB_Data.iScontoFissoReceipt = 0;
-            DB_Data.iScontoGratisReceipt = 0;
-            DB_Data.iStatusSconto = 0;
-            DB_Data.sScontoReceipt = "";
-            DB_Data.bAnnullato = false;
-            DB_Data.bScaricato = false;
-            DB_Data.bStampato = false;
+            dataIdParam.iTotaleReceipt = 0;
+            dataIdParam.iTotaleReceiptDovuto = 0;
+            dataIdParam.iStatusReceipt = 0;
+            dataIdParam.iScontoStdReceipt = 0;
+            dataIdParam.iScontoFissoReceipt = 0;
+            dataIdParam.iScontoGratisReceipt = 0;
+            dataIdParam.iStatusSconto = 0;
+            dataIdParam.sScontoReceipt = "";
+            dataIdParam.bAnnullato = false;
+            dataIdParam.bScaricato = false;
+            dataIdParam.bStampato = false;
 
-            DB_Data.sTavolo = "";
-            DB_Data.sNome = "";
-            DB_Data.sNota = "";
-            DB_Data.sDateTime = GetDateTimeString();
-            DB_Data.sWebDateTime = "";
-            DB_Data.sPrevDateTime = "";
-            DB_Data.sMessaggio = "";
+            dataIdParam.sTavolo = "";
+            dataIdParam.sNome = "";
+            dataIdParam.sNota = "";
+            dataIdParam.sDateTime = GetDateTimeString();
+            dataIdParam.sWebDateTime = "";
+            dataIdParam.sPrevDateTime = "";
+            dataIdParam.sMessaggio = "";
 
-            DB_Data.iNumOrdinePrev = 0;
-            DB_Data.iNumOrdineWeb = 0;
+            dataIdParam.iNumOrdinePrev = 0;
+            dataIdParam.iNumOrdineWeb = 0;
 
             for (i = 0; i < MAX_NUM_ARTICOLI + EXTRA_NUM_ARTICOLI; i++) // azzeramento
             {
-                DB_Data.Articolo[i].bLocalPrinted = false;
-                DB_Data.Articolo[i].iPrezzoUnitario = 0;
-                DB_Data.Articolo[i].iQuantita_Scaricata = 0;
-                DB_Data.Articolo[i].iGruppoStampa = 0;
-                DB_Data.Articolo[i].iOptionsFlags = 0;
-                DB_Data.Articolo[i].iQuantitaOrdine = 0;
-                DB_Data.Articolo[i].iIndexListino = 0;
-                DB_Data.Articolo[i].iQuantitaVenduta = 0;
-                DB_Data.Articolo[i].iQtaEsportata = 0;
-                DB_Data.Articolo[i].iDisponibilita = DISP_OK;
-                DB_Data.Articolo[i].sTipo = "";
-                DB_Data.Articolo[i].sNotaArt = "";
+                dataIdParam.Articolo[i].bLocalPrinted = false;
+                dataIdParam.Articolo[i].iPrezzoUnitario = 0;
+                dataIdParam.Articolo[i].iQuantita_Scaricata = 0;
+                dataIdParam.Articolo[i].iGruppoStampa = 0;
+                dataIdParam.Articolo[i].iOptionsFlags = 0;
+                dataIdParam.Articolo[i].iQuantitaOrdine = 0;
+                dataIdParam.Articolo[i].iIndexListino = 0;
+                dataIdParam.Articolo[i].iQuantitaVenduta = 0;
+                dataIdParam.Articolo[i].iQtaEsportata = 0;
+                dataIdParam.Articolo[i].iDisponibilita = DISP_OK;
+                dataIdParam.Articolo[i].sTipo = "";
+                dataIdParam.Articolo[i].sNotaArt = "";
             }
         }
 
@@ -520,14 +522,17 @@ namespace StandFacile
 #endif
         }
 
-        /// <summary>funzione di scrittura parametri per accesso database remoto</summary>
-        public bool dbSetWebServerParams(TWebServerParams sWebServerParams)
+        /// <summary>
+        /// funzione di scrittura parametri per accesso database remoto<br/>
+        /// viene fatta sul database passato come parametro, non su _iNDbMode
+        /// </summary>
+        public bool dbSetWebServerParams(TWebServerParams sWebServerParams, int iNDbModeParam)
         {
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbSetWebServerParams(sWebServerParams);
+            if (iNDbModeParam == (int)DB_MODE.MYSQL)
+                return _rdBaseIntf_my.dbSetWebServerParams(sWebServerParams, _sWebServerCheckParams);
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbSetWebServerParams(sWebServerParams);
+            if (iNDbModeParam == (int)DB_MODE.POSTGRES)
+                return _rdBaseIntf_pg.dbSetWebServerParams(sWebServerParams, _sWebServerCheckParams);
             else
 #if STANDFACILE
                 return _rdBaseIntf_ql.dbSetWebServerParams(sWebServerParams);
@@ -1054,28 +1059,64 @@ namespace StandFacile
 #endif
 
         /// <summary>
-        /// Test di connessione al db server MySQL
-        /// se serve istanzia il gestore DB corretto
+        /// Test di connessione al db server, in caso di successo salva copia dei parametri
         /// </summary>
         public bool dbCheck(String sDB_ServerNamePrm, String sDB_pwdPrm, int iDbModePrm, bool bSilentParam = false)
         {
+            bool bDBCheck;
+
             if (iDbModePrm == (int)DB_MODE.MYSQL)
             {
                 if (Program._rBdBaseIntf_my == null)
                     Program._rBdBaseIntf_my = new dBaseIntf_my();
 
-                return _rdBaseIntf_my.dbCheck(sDB_ServerNamePrm, sDB_pwdPrm, bSilentParam);
+                bDBCheck = _rdBaseIntf_my.dbCheck(sDB_ServerNamePrm, sDB_pwdPrm, bSilentParam);
+
+                if (bDBCheck)
+                {
+                    _sWebServerCheckParams.iDB_mode = (int)DB_MODE.MYSQL;
+                    _sWebServerCheckParams.sDB_ServerName = sDB_ServerNamePrm;
+                    _sWebServerCheckParams.sDB_pwd = sDB_pwdPrm;
+                }
+                else
+                {
+                    _sWebServerCheckParams.iDB_mode = -1;
+                    _sWebServerCheckParams.sDB_ServerName = "";
+                    _sWebServerCheckParams.sDB_pwd = "";
+                }
+
+                return bDBCheck;
             }
-            else
-            if (iDbModePrm == (int)DB_MODE.POSTGRES)
+            else if (iDbModePrm == (int)DB_MODE.POSTGRES)
             {
                 if (Program._rBdBaseIntf_pg == null)
                     Program._rBdBaseIntf_pg = new dBaseIntf_pg();
 
-                return _rdBaseIntf_pg.dbCheck(sDB_ServerNamePrm, sDB_pwdPrm, bSilentParam);
+                bDBCheck = _rdBaseIntf_pg.dbCheck(sDB_ServerNamePrm, sDB_pwdPrm, bSilentParam);
+
+                if (bDBCheck)
+                {
+                    _sWebServerCheckParams.iDB_mode = (int)DB_MODE.POSTGRES;
+                    _sWebServerCheckParams.sDB_ServerName = sDB_ServerNamePrm;
+                    _sWebServerCheckParams.sDB_pwd = sDB_pwdPrm;
+                }
+                else
+                {
+                    _sWebServerCheckParams.iDB_mode = -1;
+                    _sWebServerCheckParams.sDB_ServerName = "";
+                    _sWebServerCheckParams.sDB_pwd = "";
+                }
+
+                return bDBCheck;
             }
             else
+            {
+                _sWebServerCheckParams.iDB_mode = (int)DB_MODE.SQLITE;
+                _sWebServerCheckParams.sDB_ServerName = "";
+                _sWebServerCheckParams.sDB_pwd = "";
+
                 return false;
+            }
         }
 
         /// <summary>

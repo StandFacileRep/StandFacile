@@ -83,7 +83,7 @@ namespace StandFacile
                 EditContante.Enabled = false;
 
                 comboCashPos.Enabled = false;
-                EditStatus_BC.Enabled = false;
+                EditStatus_QRC.Enabled = false;
                 lblRead_bcd.Enabled = false;
             }
             else if (MnuImpListino.Checked)
@@ -148,7 +148,7 @@ namespace StandFacile
                 EditContante.Enabled = false;
 
                 comboCashPos.Enabled = false;
-                EditStatus_BC.Enabled = false;
+                EditStatus_QRC.Enabled = false;
                 lblRead_bcd.Enabled = false;
             }
             // con BtnVisListino->Enabled = false -->  BtnVisListino->Down == true sempre
@@ -198,7 +198,7 @@ namespace StandFacile
                 EditContante.Enabled = false;
 
                 comboCashPos.Enabled = false;
-                EditStatus_BC.Enabled = false;
+                EditStatus_QRC.Enabled = false;
                 lblRead_bcd.Enabled = false;
             }
             else
@@ -235,12 +235,12 @@ namespace StandFacile
                 // per sicurezza accettazione BarCode non con la prevendita in corso
                 if (SF_Data.bPrevendita)
                 {
-                    EditStatus_BC.Enabled = false;
+                    EditStatus_QRC.Enabled = false;
                     lblRead_bcd.Enabled = false;
                 }
                 else
                 {
-                    EditStatus_BC.Enabled = true;
+                    EditStatus_QRC.Enabled = true;
                     lblRead_bcd.Enabled = true;
                 }
 
@@ -434,20 +434,20 @@ namespace StandFacile
                 // EAN13 contains 13 characters
                 if (scannerInputQueue.Count >= 14)
                 {
-                    EditStatus_BC.Text = "";
+                    EditStatus_QRC.Text = "";
                     DataManager.ClearGrid();
 
                     while (scannerInputQueue.Count > 0)
                     {
                         i = (int)scannerInputQueue.Dequeue();
-                        EditStatus_BC.Text += Convert.ToChar(i);
+                        EditStatus_QRC.Text += Convert.ToChar(i);
                     }
 
                     // elimina quantità spurie
                     DataManager.ClearGrid();
 
                     KeyPressEventArgs ek = new KeyPressEventArgs('\r');
-                    EditStatus_BC_KeyPress(EditStatus_BC, ek);
+                    EditStatus_QRC_KeyPress(EditStatus_QRC, ek);
                 }
             }
 
@@ -700,7 +700,7 @@ namespace StandFacile
                 !MnuImpListino.Checked &&       // non si è in modo modifica del Listino
                 !BtnVisListino.Checked &&       // non si stanno consultando i prezzi
                 !MnuModDispArticoli.Checked)    // non si sta modificando la disponibilità
-            {
+            {              
                 if (SF_Data.Articolo[_iCellPt].iDisponibilita != 0) //
                 {
                     if (BtnX10.Checked) // Q.tà ordinazioni a 2 cifre
@@ -1108,7 +1108,7 @@ namespace StandFacile
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        private void EditStatus_BC_KeyPress(object sender, KeyPressEventArgs e)
+        private void EditStatus_QRC_KeyPress(object sender, KeyPressEventArgs e)
         {
             bool bResult;
             int iNumScontrino, iGruppo, iLength;
@@ -1127,11 +1127,11 @@ namespace StandFacile
             if (e.KeyChar == '\r')
             {
                 // scarta edit vuoti
-                if (String.IsNullOrEmpty(EditStatus_BC.Text))
+                if (String.IsNullOrEmpty(EditStatus_QRC.Text))
                     return;
                 else
                 {
-                    sStrBarcode = EditStatus_BC.Text;
+                    sStrBarcode = EditStatus_QRC.Text;
                     sStrBarcode = sStrBarcode.Trim();
 
                     iLength = sStrBarcode.Length;
@@ -1162,7 +1162,7 @@ namespace StandFacile
 
                         if (JSON_Type == _JS_ORDER_V5)
                         {
-                            dbAzzeraDatiOrdine();
+                            dbAzzeraDatiOrdine(ref DB_Data);
 
                             DB_Data.iNumOrdineWeb = Convert.ToInt32(dict["-9"]);
 
@@ -1197,7 +1197,7 @@ namespace StandFacile
                                     WarningManager(WrnMsg);
 
                                     bResult = false;
-                                    EditStatus_BC.Text = ""; // pulizia
+                                    EditStatus_QRC.Text = ""; // pulizia
                                     return;
                                 }
                             }
@@ -1223,13 +1223,13 @@ namespace StandFacile
                                 LogToFile(sLog);
 
                                 // ************* caricamento in SF_Data e MainForm *************
-                                bResult = DataManager.CaricaOrdine_QR_code(DB_Data.iNumOrdineWeb);
+                                bResult = DataManager.CaricaOrdine_QR_code();
                             }
 
                             if (!bResult)
-                                EditStatus_BC.Text = ""; // pulizia
+                                EditStatus_QRC.Text = ""; // pulizia
 
-                            sLog = String.Format("Mainform : barcode web = {0}, {1}", DB_Data.iNumOrdineWeb, bResult);
+                            sLog = String.Format("Mainform : QR_code = {0}, {1}", DB_Data.iNumOrdineWeb, bResult);
                             LogToFile(sLog);
 
                             if (CheckService(Define._AUTO_QRCODE_TEST))
@@ -1260,16 +1260,9 @@ namespace StandFacile
                                 bResult = DataManager.CaricaOrdinePrev(iNumScontrino, _sOrdiniPrevDBTable);
 
                                 if (!bResult)
-                                    EditStatus_BC.Text = ""; // pulizia
+                                    EditStatus_QRC.Text = ""; // pulizia
 
                                 sLog = String.Format("Mainform : barcode prevendita = {0}, {1}, {2}", _sOrdiniPrevDBTable, sStrNum, bResult);
-                                LogToFile(sLog);
-                            }
-                            else if (iGruppo == NUM_WEB_SALE_GRP) // sicurezza
-                            {
-                                bResult = DataManager.CaricaOrdineWeb(iNumScontrino);
-
-                                sLog = String.Format("Mainform : barcode web = {0}", iNumScontrino);
                                 LogToFile(sLog);
                             }
 
@@ -1282,14 +1275,14 @@ namespace StandFacile
                         }
                         else
                         {
-                            EditStatus_BC.Text = "";
+                            EditStatus_QRC.Text = "";
                             return;
                         }
 
                     }
                     catch (Exception)
                     {
-                        EditStatus_BC.Text = "";
+                        EditStatus_QRC.Text = "";
                         WarningManager(WRN_QRE);
                     }
 
@@ -1704,7 +1697,7 @@ namespace StandFacile
             }
 
             // aggiorna il web checksum in caso di modifica Listino
-            Text = String.Format("{0} {1} {2} {1} webcks Listino = {3}", TITLE, "    ", RELEASE_SW, DataManager.GetWebListinoChecksum());
+            Text = String.Format("{0} {1} {2} {1} webcks Listino = {3}   {4}", TITLE, "   ", RELEASE_SW, DataManager.GetWebListinoChecksum(), _sShortDBType);
 
             MainGrid.Refresh();
         } // end MainGrid_Redraw

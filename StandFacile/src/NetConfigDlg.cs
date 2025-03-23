@@ -370,7 +370,7 @@ namespace StandFacile
                     bRiavvio = true;
                 }
 
-                _rdBaseIntf.dbSetWebServerParams(_sWebServerParams);
+                _rdBaseIntf.dbSetWebServerParams(_sWebServerParams, combo_TipoDBase.SelectedIndex);
             }
 
             if (bRiavvio)
