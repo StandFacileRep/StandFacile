@@ -55,7 +55,7 @@ namespace StandFacile
         /// <summary>ottiene lo stato di ckBoxAuto</summary>
         public bool GetAutoCheckbox() { return ckBoxAuto.Checked; }
 
-        /// <summary>imposta _iPrevOrder = 0 per proseguire con la stampa automatica</summary>
+        /// <summary>imposta _bProcessingOrder = false per proseguire con la stampa automatica</summary>
         public static void KeepPrintWebOrders() { _bProcessingOrder = false; }
 
         readonly ToolTip _tt = new ToolTip
@@ -398,8 +398,7 @@ namespace StandFacile
                     if (iGridStringsCount > 0)
                         iSelOrder = Convert.ToInt32(dbGrid.CurrentRow.Cells[0].Value);
 
-                    iTableAutoLoadPeriod = REFRESH_PERIOD;
-                    rdbCaricaTabellaStart();
+                    iTableAutoLoadPeriod = REFRESH_PERIOD_QUICK;
                 }
 
             }
