@@ -558,7 +558,7 @@ namespace StandCommonFiles
                     sTmp = CenterJustify(sConst_Sconti[0], iMAX_RECEIPT_CHARS);
                     fPrintParam.WriteLine("{0}", sTmp);
 
-                    sTmp = CenterJustify(dataIdParam.sScontoReceipt, iMAX_RECEIPT_CHARS);
+                    sTmp = CenterJustify(dataIdParam.sScontoText, iMAX_RECEIPT_CHARS);
                     if (!String.IsNullOrEmpty(sTmp))
                         fPrintParam.WriteLine("{0}", sTmp);
 
@@ -569,7 +569,7 @@ namespace StandCommonFiles
                 {
                     sTmp = CenterJustify(sConst_Sconti[1], iMAX_RECEIPT_CHARS);
                     fPrintParam.WriteLine("{0}", sTmp);
-                    sTmp = CenterJustify(dataIdParam.sScontoReceipt, iMAX_RECEIPT_CHARS);
+                    sTmp = CenterJustify(dataIdParam.sScontoText, iMAX_RECEIPT_CHARS);
                     fPrintParam.WriteLine("{0}", sTmp);
                     sTmp = CenterJustify(sConst_Sconti[3], iMAX_RECEIPT_CHARS);
                     fPrintParam.WriteLine("{0}", sTmp);
@@ -579,7 +579,7 @@ namespace StandCommonFiles
                 {
                     sTmp = CenterJustify(sConst_Sconti[2], iMAX_RECEIPT_CHARS);
                     fPrintParam.WriteLine("{0}", sTmp);
-                    sTmp = CenterJustify(dataIdParam.sScontoReceipt, iMAX_RECEIPT_CHARS);
+                    sTmp = CenterJustify(dataIdParam.sScontoText, iMAX_RECEIPT_CHARS);
                     fPrintParam.WriteLine("{0}", sTmp);
                     sTmp = CenterJustify(sConst_Sconti[3], iMAX_RECEIPT_CHARS);
                     fPrintParam.WriteLine("{0}", sTmp);
@@ -698,6 +698,7 @@ namespace StandCommonFiles
 
             int i, j, k;
             int iNumCoperti = 0;
+            int iDebug = 0;
 
             String sTmp, sDebug, sNomeFileTicketNpPrt;
             String sHeader1_ToPrintBeforeCut, sHeader2_ToPrintBeforeCut;
@@ -987,6 +988,9 @@ namespace StandCommonFiles
 
                             if (dataIdParam.Articolo[j].bLocalPrinted == true)
                                 continue;
+
+                            if ((dataIdParam.Articolo[j].iQuantitaOrdine > 0))
+                                iDebug++;
 
                             if ((!_bPrintSelectedOnly || _bPrintSelectedOnly && (!_bAvoidPrintOtherGroups || _bSelectedGroups[iGrpReorderPtr[i]])) &&
                                 (dataIdParam.Articolo[j].iQuantitaOrdine > 0) && (dataIdParam.Articolo[j].iGruppoStampa == iGrpReorderPtr[i]))

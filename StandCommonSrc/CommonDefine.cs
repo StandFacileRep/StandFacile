@@ -733,7 +733,7 @@ namespace StandCommonFiles
         public const int DISP_OK = 99999;
 
         /****************************************************************
-         *                   Flags gestione Ordine                      *
+         *              Flags di di stato gestione Ordine               *
          ****************************************************************/
 
         /// <summary>bit di iStatus che indica l'esportazione</summary>
@@ -989,7 +989,7 @@ namespace StandCommonFiles
             /// <summary>numero hex i cui bit rappresentano lo stato degli sconti</summary>
             public int iStatusSconto;
             /// <summary>testo dello sconto applicato</summary>
-            public String sScontoReceipt;
+            public String sScontoText;
             /// <summary>numero hex per gestione barcode nelle copie</summary>
             public int iBarcodeRichiesto;
             /// <summary>numero hex per gestione della stampa copie locali e copie con quantità Uno</summary>
@@ -1092,7 +1092,7 @@ namespace StandCommonFiles
                 iScontoFissoReceipt = 0;
                 iScontoGratisReceipt = 0;
                 iStatusSconto = 0;
-                sScontoReceipt = "";
+                sScontoText = "";
                 iBarcodeRichiesto = 0;
                 iReceiptCopyOptions = 0;
                 iGridCols = 0;
@@ -1328,7 +1328,7 @@ namespace StandCommonFiles
             /// <summary>password criptata database remoto</summary>
             public String sWebEncryptedPwd;
 
-            /// <summary>costruttore</summary>
+            /// <summary>costruttore indispensabile per inizializzare le stringhe</summary>
             public TWebServerParams(int iParam)
             {
                 sWebTablePrefix = "";
@@ -1344,8 +1344,17 @@ namespace StandCommonFiles
             public int iDB_mode;
             /// <summary>nome database di test</summary>
             public String sDB_ServerName;
-            /// <summary>password criptata database di test</summary>
+            /// <summary>password database di test</summary>
             public String sDB_pwd;
+
+
+            /// <summary>costruttore per inizializzazione</summary>
+            public TWebServerCheckParams(int iParam)
+            {
+                iDB_mode = 0;
+                sDB_ServerName = "";
+                sDB_pwd = "";
+            }
         };
 
         /// <summary>struct della stringhe per gestione ordine</summary>

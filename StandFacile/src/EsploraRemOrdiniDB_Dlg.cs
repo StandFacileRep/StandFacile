@@ -53,7 +53,7 @@ namespace StandFacile
         public static void EventEnqueue(String[] sEvQueueObj) { eventQueue.Enqueue(sEvQueueObj); }
 
         /// <summary>ottiene lo stato di ckBoxAuto</summary>
-        public bool GetAutoCheckbox() { return ckBoxAuto.Checked; }
+        public bool GetAutoCheckbox() { return ckBoxAutoLoad.Checked; }
 
         /// <summary>imposta _bProcessingOrder = false per proseguire con la stampa automatica</summary>
         public static void KeepPrintWebOrders() { _bProcessingOrder = false; }
@@ -98,9 +98,9 @@ namespace StandFacile
             //}
 
             if (glb.SF_Data.iNumCassa == CASSA_PRINCIPALE)
-                ckBoxAuto.Enabled = true;
+                ckBoxAutoLoad.Enabled = true;
             else
-                ckBoxAuto.Enabled = false;
+                ckBoxAutoLoad.Enabled = false;
 
             RefreshTable();
         }
@@ -179,7 +179,7 @@ namespace StandFacile
 
                     // evita di caricare la coda di eventi quando è ancora in elaborazione
                     if (IsBitSet(_sWebOrdersList[i].iStatus, BIT_ORDINE_DIRETTO_DA_WEB) && (iMainFormEventQueueCount == 0) &&
-                        ckBoxAuto.Checked && (_bProcessingOrder == false))
+                        ckBoxAutoLoad.Checked && (_bProcessingOrder == false))
                     {
                         ulStart = (ulong)Environment.TickCount;
 
@@ -323,7 +323,7 @@ namespace StandFacile
                 iSelOrder = Convert.ToInt32(dbGrid.CurrentRow.Cells[0].Value);
                 iRow = Convert.ToInt32(dbGrid.CurrentRow.Index);
 
-                if (!ckBoxAuto.Checked)
+                if (!ckBoxAutoLoad.Checked)
                 {
                     ulStart = (ulong)Environment.TickCount;
 
@@ -467,8 +467,6 @@ namespace StandFacile
 
         private void CheckBoxAuto_CheckedChanged(object sender, EventArgs e)
         {
-            DataManager.ClearGrid();
-
             iTableAutoLoadPeriod = REFRESH_PERIOD_QUICK;
         }
 
@@ -479,7 +477,7 @@ namespace StandFacile
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            ckBoxAuto.Checked = false;
+            ckBoxAutoLoad.Checked = false;
             Close();
         }
 

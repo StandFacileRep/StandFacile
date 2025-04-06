@@ -39,7 +39,7 @@
             this.DBR_lbl = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.dbConnStatusBox = new System.Windows.Forms.PictureBox();
-            this.ckBoxAuto = new System.Windows.Forms.CheckBox();
+            this.ckBoxAutoLoad = new System.Windows.Forms.CheckBox();
             this.labelQueryTime = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioBtn2 = new System.Windows.Forms.RadioButton();
@@ -131,7 +131,7 @@
             this.warn_lbl.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.warn_lbl.Location = new System.Drawing.Point(16, 9);
             this.warn_lbl.Name = "warn_lbl";
-            this.warn_lbl.Size = new System.Drawing.Size(558, 14);
+            this.warn_lbl.Size = new System.Drawing.Size(433, 14);
             this.warn_lbl.TabIndex = 1;
             this.warn_lbl.Text = "Attenzione: questa form accede al web-server e può provocare rallentamenti.";
             // 
@@ -163,18 +163,18 @@
             this.dbConnStatusBox.TabIndex = 25;
             this.dbConnStatusBox.TabStop = false;
             // 
-            // ckBoxAuto
+            // ckBoxAutoLoad
             // 
-            this.ckBoxAuto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ckBoxAuto.AutoSize = true;
-            this.ckBoxAuto.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.ckBoxAuto.Location = new System.Drawing.Point(18, 469);
-            this.ckBoxAuto.Name = "ckBoxAuto";
-            this.ckBoxAuto.Size = new System.Drawing.Size(248, 18);
-            this.ckBoxAuto.TabIndex = 27;
-            this.ckBoxAuto.Text = "caricamento automatico ordini autorizzati";
-            this.ckBoxAuto.UseVisualStyleBackColor = true;
-            this.ckBoxAuto.CheckedChanged += new System.EventHandler(this.CheckBoxAuto_CheckedChanged);
+            this.ckBoxAutoLoad.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ckBoxAutoLoad.AutoSize = true;
+            this.ckBoxAutoLoad.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.ckBoxAutoLoad.Location = new System.Drawing.Point(18, 469);
+            this.ckBoxAutoLoad.Name = "ckBoxAutoLoad";
+            this.ckBoxAutoLoad.Size = new System.Drawing.Size(248, 18);
+            this.ckBoxAutoLoad.TabIndex = 27;
+            this.ckBoxAutoLoad.Text = "caricamento automatico ordini autorizzati";
+            this.ckBoxAutoLoad.UseVisualStyleBackColor = true;
+            this.ckBoxAutoLoad.CheckedChanged += new System.EventHandler(this.CheckBoxAuto_CheckedChanged);
             // 
             // labelQueryTime
             // 
@@ -278,7 +278,7 @@
             this.Controls.Add(this.BtnRem_Canc);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelQueryTime);
-            this.Controls.Add(this.ckBoxAuto);
+            this.Controls.Add(this.ckBoxAutoLoad);
             this.Controls.Add(this.dbConnStatusBox);
             this.Controls.Add(this.dbGrid);
             this.Controls.Add(this.BtnRem_Load);
@@ -311,7 +311,7 @@
         private System.Windows.Forms.Label DBR_lbl;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.PictureBox dbConnStatusBox;
-        private System.Windows.Forms.CheckBox ckBoxAuto;
+        private System.Windows.Forms.CheckBox ckBoxAutoLoad;
         private System.Windows.Forms.Label labelQueryTime;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioBtn0;

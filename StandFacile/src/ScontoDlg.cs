@@ -481,11 +481,11 @@ namespace StandFacile
                 SF_Data.iScontoFissoReceipt = _scontoTmp.iScontoValFisso;
 
                 if (DS_rdBtnDiscountStd.Checked)
-                    SF_Data.sScontoReceipt = _scontoTmp.sScontoText[(int)DISC_TYPE.DISC_STD];
+                    SF_Data.sScontoText = _scontoTmp.sScontoText[(int)DISC_TYPE.DISC_STD];
                 else if (DS_rdBtnDiscountFixed.Checked)
-                    SF_Data.sScontoReceipt = _scontoTmp.sScontoText[(int)DISC_TYPE.DISC_FIXED];
+                    SF_Data.sScontoText = _scontoTmp.sScontoText[(int)DISC_TYPE.DISC_FIXED];
                 else if (DS_rdBtnDiscountGratis.Checked)
-                    SF_Data.sScontoReceipt = _scontoTmp.sScontoText[(int)DISC_TYPE.DISC_GRATIS];
+                    SF_Data.sScontoText = _scontoTmp.sScontoText[(int)DISC_TYPE.DISC_GRATIS];
             }
             else
             {
@@ -499,13 +499,36 @@ namespace StandFacile
             LogToFile(sTmp);
         }
 
-        /// <summary>imposta il tipo di sconto applicato e tutta la struct</summary>
+        /// <summary>imposta solo il tipo di sconto applicato e legge i dati presenti nella struct</summary>
+        public static void SetSconto(int iDiscParam)
+        {
+            _Sconto.iStatusSconto &= 0x7FFFFF00;
+            _Sconto.iStatusSconto |= (iDiscParam & 0x000000FF);
+
+            SF_Data.iScontoFissoReceipt = _Sconto.iScontoValFisso;
+            SF_Data.iStatusSconto = _Sconto.iStatusSconto;
+
+            if (iDiscParam == SetBit(0, BIT_SCONTO_STD))
+            {
+                SF_Data.sScontoText = _Sconto.sScontoText[(int)DISC_TYPE.DISC_STD];
+            }
+            else if (iDiscParam == SetBit(0, BIT_SCONTO_FISSO))
+            {
+                SF_Data.sScontoText = _Sconto.sScontoText[(int)DISC_TYPE.DISC_FIXED];
+            }
+            if (iDiscParam == SetBit(0, BIT_SCONTO_GRATIS))
+            {
+                SF_Data.sScontoText = _Sconto.sScontoText[(int)DISC_TYPE.DISC_GRATIS];
+            }
+        }
+
+        /// <summary>imposta la struct per il tipo di sconto applicato, usato da CaricaListino()</summary>
         public static void SetSconto(DISC_TYPE eDiscParam, int iScontoFlagParam, int iScontoValParam, string sScontoTextParam)
         {
             switch (eDiscParam)
             {
                 case DISC_TYPE.DISC_STD:
-                    _Sconto.iStatusSconto = SetBit(0, BIT_SCONTO_STD);             // 0x000000FF
+                    _Sconto.iStatusSconto = 0;                          // 0x000000FF
                     _Sconto.iStatusSconto += (iScontoFlagParam << 8);   // 0x0000FF00
                     _Sconto.iStatusSconto += (iScontoValParam << 16);   // 0x00FF0000
 
@@ -525,7 +548,6 @@ namespace StandFacile
 
                 case DISC_TYPE.DISC_FIXED:
                     _Sconto.iStatusSconto &= 0x7FFFFF00;
-                    _Sconto.iStatusSconto = SetBit(_Sconto.iStatusSconto, BIT_SCONTO_FISSO);
 
                     _Sconto.iScontoValFisso = iScontoValParam;
                     _Sconto.sScontoText[(int)DISC_TYPE.DISC_FIXED] = sScontoTextParam;
@@ -533,7 +555,6 @@ namespace StandFacile
 
                 case DISC_TYPE.DISC_GRATIS:
                     _Sconto.iStatusSconto &= 0x7FFFFF00;
-                    _Sconto.iStatusSconto = SetBit(_Sconto.iStatusSconto, BIT_SCONTO_GRATIS);
 
                     _Sconto.sScontoText[(int)DISC_TYPE.DISC_GRATIS] = sScontoTextParam;
                     break;
@@ -551,7 +572,7 @@ namespace StandFacile
                 // dato che viene ricalcolato a partire dalla % dentro a SF_Data.iStatusSconto
                 SF_Data.iScontoFissoReceipt = _Sconto.iScontoValFisso;
 
-                SF_Data.sScontoReceipt = sScontoTextParam;
+                SF_Data.sScontoText = sScontoTextParam;
             }
         }
 

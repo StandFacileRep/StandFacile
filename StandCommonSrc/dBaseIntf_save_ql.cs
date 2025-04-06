@@ -1008,7 +1008,7 @@ namespace StandFacile_DB
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
                         //row["iGruppo_Stampa"] = 0;
-                        row["sText"] = SF_Data.sScontoReceipt;
+                        row["sText"] = SF_Data.sScontoText;
                         row["iStatus"] = SF_Data.iStatusSconto;
                         row["iNumCassa"] = SF_Data.iNumCassa;
                         row["iScaricato"] = 0;
@@ -1027,7 +1027,7 @@ namespace StandFacile_DB
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
                         //row["iGruppo_Stampa"] = 0;
-                        row["sText"] = SF_Data.sScontoReceipt;
+                        row["sText"] = SF_Data.sScontoText;
                         row["iStatus"] = SF_Data.iStatusSconto;
                         row["iNumCassa"] = SF_Data.iNumCassa;
                         row["iScaricato"] = 0;
@@ -1046,7 +1046,7 @@ namespace StandFacile_DB
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
                         //row["iGruppo_Stampa"] = 0;
-                        row["sText"] = SF_Data.sScontoReceipt;
+                        row["sText"] = SF_Data.sScontoText;
                         row["iStatus"] = SF_Data.iStatusSconto;
                         row["iNumCassa"] = SF_Data.iNumCassa;
                         row["iScaricato"] = 0;

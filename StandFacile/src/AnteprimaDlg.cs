@@ -384,7 +384,7 @@ namespace StandFacile
                 sTmp = CenterJustify(sConst_Sconti[0], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
 
-                sTmp = CenterJustify(SF_Data.sScontoReceipt, iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(SF_Data.sScontoText, iMAX_RECEIPT_CHARS);
                 if (!String.IsNullOrEmpty(sTmp))
                     PrintCanvas(pg, sTmp);
 
@@ -397,7 +397,7 @@ namespace StandFacile
                 sTmp = CenterJustify(sConst_Sconti[1], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
 
-                sTmp = CenterJustify(SF_Data.sScontoReceipt, iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(SF_Data.sScontoText, iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
 
                 sTmp = CenterJustify(sConst_Sconti[3], iMAX_RECEIPT_CHARS);
@@ -409,7 +409,7 @@ namespace StandFacile
             {
                 sTmp = CenterJustify(sConst_Sconti[2], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
-                sTmp = CenterJustify(SF_Data.sScontoReceipt, iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(SF_Data.sScontoText, iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
                 sTmp = CenterJustify(sConst_Sconti[3], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);

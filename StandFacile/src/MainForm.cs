@@ -173,8 +173,7 @@ namespace StandFacile
         public void SetEditTavolo(String sTavoloParam)
         {
             EditTavolo.Text = sTavoloParam;
-            if (EditTavolo.Enabled)
-                TextBox_KeyUp(null, null);
+            TextBox_KeyUp(null, null);
         }
 
         /// <summary>ottiene il testo del tavolo</summary>
@@ -184,8 +183,7 @@ namespace StandFacile
         public void SetEditNome(String sNomeParam)
         {
             EditNome.Text = sNomeParam;
-            if (EditNome.Enabled)
-                TextBox_KeyUp(null, null);
+            TextBox_KeyUp(null, null);
         }
 
         /// <summary>resetta il tipo di pagamento CONT./CARD/SATISPAY</summary>
@@ -210,8 +208,7 @@ namespace StandFacile
         public void SetEditNota(String sNotaParam)
         {
             EditNota.Text = sNotaParam;
-            if (EditNota.Enabled)
-                TextBox_KeyUp(null, null);
+            TextBox_KeyUp(null, null);
         }
 
         /// <summary>imposta il testo della nota Articolo, usato da TestManager</summary>
@@ -1240,7 +1237,7 @@ namespace StandFacile
 
             // non deve passarci quando è emesso direttamente dal WEB oppure quando è presente qualche forma di pagamento,
             // è scontato che si pagano gli ordini emessi dalle casse
-            if (!(IsBitSet(SF_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) || IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_CARD) || 
+            if (!(IsBitSet(SF_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) || IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_CARD) ||
                   IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY) || IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_CASH)))
             {
                 // impostazione che non agisce sul comboCashPos
@@ -2076,10 +2073,10 @@ namespace StandFacile
             if (DataManager.TicketIsGood() && VerificaTutteQuantita() && VerificaTavoloRichiesto() && VerificaCopertoRichiesto() && VerificaPOS_Richiesto())
             {
                 if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_WEB))
-                {
                     _rdBaseIntf.dbWebOrderEnqueue(SF_Data.iNumOrdineWeb);
-                    dBaseTunnel_my.EventEnqueue(sQueue_Object);
-                }
+
+                // dopo ogni scontrino valuta subito lo scarico di ordini web
+                dBaseTunnel_my.EventEnqueue(sQueue_Object);
 
                 if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA))
                     _rdBaseIntf.dbScaricaOrdinePrevendita(SF_Data.iNumOrdinePrev, _sOrdiniPrevDBTable);

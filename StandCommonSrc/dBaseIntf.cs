@@ -98,7 +98,7 @@ namespace StandFacile
         /// <summary>Struct fondamentale per i dati del DB</summary>
         public static TData DB_Data = new TData(0);
 
-        TWebServerCheckParams _sWebServerCheckParams = new TWebServerCheckParams();
+        TWebServerCheckParams _sWebServerCheckParams = new TWebServerCheckParams(0);
 
 #if STAND_CUCINA
 
@@ -373,7 +373,7 @@ namespace StandFacile
             dataIdParam.iScontoFissoReceipt = 0;
             dataIdParam.iScontoGratisReceipt = 0;
             dataIdParam.iStatusSconto = 0;
-            dataIdParam.sScontoReceipt = "";
+            dataIdParam.sScontoText = "";
             dataIdParam.bAnnullato = false;
             dataIdParam.bScaricato = false;
             dataIdParam.bStampato = false;
@@ -529,13 +529,31 @@ namespace StandFacile
         public bool dbSetWebServerParams(TWebServerParams sWebServerParams, int iNDbModeParam)
         {
             if (iNDbModeParam == (int)DB_MODE.MYSQL)
+            {
+                // ci pensa già dbCheck()
+                //if (_rdBaseIntf_my == null)
+                //    _rdBaseIntf_my = new dBaseIntf_my();
+
                 return _rdBaseIntf_my.dbSetWebServerParams(sWebServerParams, _sWebServerCheckParams);
+            }
             else
             if (iNDbModeParam == (int)DB_MODE.POSTGRES)
+            {
+                // ci pensa già dbCheck()
+                //if (_rdBaseIntf_pg == null)
+                //    _rdBaseIntf_pg = new dBaseIntf_pg();
+
                 return _rdBaseIntf_pg.dbSetWebServerParams(sWebServerParams, _sWebServerCheckParams);
+            }
             else
 #if STANDFACILE
+            {
+                // qui invece dbCheck() non viene chiamato
+                if (_rdBaseIntf_ql == null)
+                    _rdBaseIntf_ql = new dBaseIntf_ql();
+
                 return _rdBaseIntf_ql.dbSetWebServerParams(sWebServerParams);
+            }
 #else
                 return false;
 #endif
@@ -1111,6 +1129,11 @@ namespace StandFacile
             }
             else
             {
+//#if STANDFACILE
+//                // serve a dbSetWebServerParams()
+//                if (Program._rBdBaseIntf_ql == null)
+//                    Program._rBdBaseIntf_ql = new dBaseIntf_ql();
+//#endif
                 _sWebServerCheckParams.iDB_mode = (int)DB_MODE.SQLITE;
                 _sWebServerCheckParams.sDB_ServerName = "";
                 _sWebServerCheckParams.sDB_pwd = "";

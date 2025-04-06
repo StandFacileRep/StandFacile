@@ -124,7 +124,10 @@ namespace StandFacile
 
             _sWebServerParams = _rdBaseIntf.dbGetWebServerParams(); // si prendono dal DB
 
-            _sRemoteTablePrefix = Path.GetFileName(_sWebServerParams.sWebTablePrefix).ToLower();
+            if (_sWebServerParams.sWebTablePrefix == null)
+                _sRemoteTablePrefix = "";
+            else
+                _sRemoteTablePrefix = Path.GetFileName(_sWebServerParams.sWebTablePrefix).ToLower();
 
             NOME_NSC_RDBTBL = RELEASE_TBL + "_" + _sRemoteTablePrefix + "_num_of_orders";
             NOME_PREZZI_RDBTBL = RELEASE_TBL + "_" + _sRemoteTablePrefix + "_price_list";
@@ -577,8 +580,15 @@ namespace StandFacile
                     {
                         //String sDebug = sTable[iIndex][8]["9"];
 
+                        int iRDB_StatusWeb = Convert.ToInt32(sTable[iIndex][7]["8"]); //readerOrdine.GetInt32("status");
+
+                        RDB_Data.iStatusReceipt = iRDB_StatusWeb & 0xFFF1;
                         // | BIT_CARICATO_DA_WEB doppione utile per la comprensione
-                        RDB_Data.iStatusReceipt = SetBit(Convert.ToInt32(sTable[iIndex][7]["8"]), BIT_CARICATO_DA_WEB); //readerOrdine.GetInt32("status");
+                        RDB_Data.iStatusReceipt = SetBit(RDB_Data.iStatusReceipt, BIT_CARICATO_DA_WEB);
+
+                        // shift per rialineare i bit da web e maschera bit sconti
+                        RDB_Data.iStatusSconto = (iRDB_StatusWeb >> 1) & 0x0007;
+
                         RDB_Data.iNumOrdineWeb = Convert.ToInt32(sTable[iIndex][0]["1"]);    //readerOrdine.GetInt32("order_ID");
                         RDB_Data.sWebDateTime = Convert.ToString(sTable[iIndex][5]["6"]);    //readerOrdine.GetString("sText");
                         RDB_Data.bAnnullato = (Convert.ToInt32(sTable[iIndex][8]["9"]) != 0);    //readerOrdine.GetBoolean("iAnnullato");
@@ -1029,46 +1039,52 @@ namespace StandFacile
             bool bHostConnection_Ok;
             String sTmp;
 
-            bHostConnection_Ok = rdbPing();
-
-            // sicurezza : si prosegue solo se c'è la connessione all' rDB
-            if (!bHostConnection_Ok || !_bWebServiceRequested)
-                return false;
-
-            try
+            if (SF_Data.iNumCassa == CASSA_PRINCIPALE)
             {
-                iNumOrdineWeb = _rdBaseIntf.dbGetOrdiniWebServiti();
+                bHostConnection_Ok = rdbPing();
 
-                if (iNumOrdineWeb > 0)
+                // sicurezza : si prosegue solo se c'è la connessione all' rDB
+                if (!bHostConnection_Ok || !_bWebServiceRequested)
+                    return false;
+
+                try
                 {
-                    if (rdbSegnaOrdineStampato(iNumOrdineWeb))
-                    {
-                        _rdBaseIntf.dbClearOrdineWebServito(iNumOrdineWeb);
-                        sTmp = String.Format("rdb_aggiornaOrdiniWebServiti : ordine {0} aggiornato", iNumOrdineWeb);
+                    iNumOrdineWeb = _rdBaseIntf.dbGetOrdiniWebServiti();
 
-                        LogToFile(sTmp, true);
-                        return true;
+                    if (iNumOrdineWeb > 0)
+                    {
+                        if (rdbSegnaOrdineStampato(iNumOrdineWeb))
+                        {
+                            _rdBaseIntf.dbClearOrdineWebServito(iNumOrdineWeb);
+                            sTmp = String.Format("rdb_aggiornaOrdiniWebServiti : ordine {0} aggiornato", iNumOrdineWeb);
+
+                            LogToFile(sTmp, true);
+                            return true;
+                        }
+                        else
+                        {
+                            sTmp = String.Format("rdb_aggiornaOrdiniWebServiti : ordine {0} non aggiornato", iNumOrdineWeb);
+
+                            LogToFile(sTmp, true);
+                            return false;
+                        }
                     }
                     else
-                    {
-                        sTmp = String.Format("rdb_aggiornaOrdiniWebServiti : ordine {0} non aggiornato", iNumOrdineWeb);
-
-                        LogToFile(sTmp, true);
                         return false;
-                    }
                 }
-                else
-                    return false;
-            }
 
-            catch (Exception)
-            {
-                _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("accesso alla tabella WEBORD_DBTBL non possibile");
-                WarningManager(_WrnMsg);
-                return false;
+                catch (Exception)
+                {
+                    _WrnMsg.iErrID = WRN_DBE;
+                    _WrnMsg.sMsg = String.Format("accesso alla tabella WEBORD_DBTBL non possibile");
+                    WarningManager(_WrnMsg);
+                    return false;
+                }
             }
+            else
+                return false;
         }
+
 
         /// <summary>overload Funzione di codifica AES-256</summary>
         public static string Encrypt_WS(string plainTextParam)

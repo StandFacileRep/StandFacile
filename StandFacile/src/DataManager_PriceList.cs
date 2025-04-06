@@ -491,8 +491,7 @@ namespace StandFacile
                             ErrorManager(_ErrMsg);  // stringa troppo lunga
                         }
 
-                        if (!CheckService(Define._AUTO_SEQ_TEST))
-                            SetSconto((DISC_TYPE)iDiscType, iScontoFlag, iScontoVal, sScontoText);
+                        SetSconto((DISC_TYPE)iDiscType, iScontoFlag, iScontoVal, sScontoText);
 
                         continue;
                     }

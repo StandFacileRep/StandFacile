@@ -133,8 +133,8 @@ namespace StandFacile
             int iTagStart_IA, iTagStart_ET, iTagStart_ES, iTagStart_IF, iTagStart_CS, iTagStart_PH, iTagStart_PC, iTagStart_PS, iTagStart_AO;
             int iTagStop_IA, iTagStop_ET, iTagStop_ES, iTagStop_IF, iTagStop_CS, iTagStop_PH, iTagStop_PC, iTagStop_PS, iTagStop_AO;
 
-            int iTagStart_CN, iTagStart_CP, iTagStart_NT, iTagStart_NA, iTagStart_TV, iTagStart_NM, iTagStart_SP, iTagStart_SF, iTagStart_SG;
-            int iTagStop_CN, iTagStop_CP, iTagStop_NT, iTagStop_NA, iTagStop_TV, iTagStop_NM, iTagStop_SP, iTagStop_SF, iTagStop_SG;
+            int iTagStart_CN, iTagStart_NT, iTagStart_NA, iTagStart_TV, iTagStart_NM, iTagStart_DS;
+            int iTagStop_CN, iTagStop_NT, iTagStop_NA, iTagStop_TV, iTagStop_NM, iTagStop_DS;
 
             int iTagStart_AN;
             int iTagStop_AN;
@@ -147,7 +147,7 @@ namespace StandFacile
             int iTagStart_tv, iTagStop_tv;
 
             int iIndex, iquantArticolo, idispArticolo, iPrezzoUnitario;
-            int iFlagSconto, iImportoSconto, iPercSconto;
+            int iFlagSconto;
 
             String sTipoArticolo;
 
@@ -213,12 +213,9 @@ namespace StandFacile
             iTagStart_ET = sInStr.IndexOf("<ET>"); // Emissione scontrino
             iTagStart_ES = sInStr.IndexOf("<ES>"); // Esportazione
             iTagStart_IF = sInStr.IndexOf("<IF>"); // Ignora file
-            iTagStart_SP = sInStr.IndexOf("<SP>"); // Sconto Percentuale
-            iTagStart_SF = sInStr.IndexOf("<SF>"); // Sconto Fisso
-            iTagStart_SG = sInStr.IndexOf("<SG>"); // Sconto Gratis
+            iTagStart_DS = sInStr.IndexOf("<DS>"); // Sconto
             iTagStart_CS = sInStr.IndexOf("<CS>"); // Cassa
             iTagStart_CN = sInStr.IndexOf("<CN>"); // Coperti numero
-            iTagStart_CP = sInStr.IndexOf("<CP>"); // Coperti prezzo
             iTagStart_NT = sInStr.IndexOf("<NT>"); // Nota
             iTagStart_NA = sInStr.IndexOf("<NA>"); // Nota Articolo
             iTagStart_TV = sInStr.IndexOf("<TV>"); // Tavolo
@@ -234,12 +231,9 @@ namespace StandFacile
             iTagStop_ET = sInStr.IndexOf("</ET>");
             iTagStop_ES = sInStr.IndexOf("</ES>");
             iTagStop_IF = sInStr.IndexOf("</IF>");
-            iTagStop_SP = sInStr.IndexOf("</SP>");
-            iTagStop_SF = sInStr.IndexOf("</SF>");
-            iTagStop_SG = sInStr.IndexOf("</SG>");
+            iTagStop_DS = sInStr.IndexOf("</DS>");
             iTagStop_CS = sInStr.IndexOf("</CS>");
             iTagStop_CN = sInStr.IndexOf("</CN>");
-            iTagStop_CP = sInStr.IndexOf("</CP>");
             iTagStop_NT = sInStr.IndexOf("</NT>");
             iTagStop_NA = sInStr.IndexOf("</NA>");
             iTagStop_TV = sInStr.IndexOf("</TV>");
@@ -404,50 +398,20 @@ namespace StandFacile
                 _iCounter = 1;
                 bCMD_OK = true;
             }
-            else if ((iTagStart_SP != -1) && (iTagStop_SP != -1) && (iTagStart_tv != -1) && (iTagStop_tv != -1))
+            else if ((iTagStart_DS != -1) && (iTagStop_DS != -1))
             {
                 iFlagSconto = 0;
 
-                // Sconto Articoli
-                sTmp = sInStr.Substring(iTagStart_iv + 4, iTagStop_iv - iTagStart_iv - 4).Trim();
-                iPercSconto = ToInt32(sTmp);
-
-                if ((iTagStart_bv != -1) && (iTagStop_bv != -1))
+                // tipo di Sconto
+                if ((iTagStart_iv != -1) && (iTagStop_iv != -1))
                 {
-                    sTmp = sInStr.Substring(iTagStart_bv + 4, iTagStop_bv - iTagStart_bv - 4).Trim();
+                    sTmp = sInStr.Substring(iTagStart_iv + 4, iTagStop_iv - iTagStart_iv - 4).Trim();
                     iFlagSconto = ToInt32(sTmp);
                 }
 
-                sTmp = sInStr.Substring(iTagStart_tv + 4, iTagStop_tv - iTagStart_tv - 4).Trim();
-
                 if ((_iNumCassa == SF_Data.iNumCassa) && !SF_Data.bPrevendita)
-                    SetSconto(DISC_TYPE.DISC_STD, iFlagSconto, iPercSconto, sTmp);
-
-                _iCounter = 1;
-                bCMD_OK = true;
-            }
-            else if ((iTagStart_SF != -1) && (iTagStop_SF != -1))
-            {
-                // Sconto Fisso
-
-                sTmp = sInStr.Substring(iTagStart_iv + 4, iTagStop_iv - iTagStart_iv - 4).Trim();
-                iImportoSconto = EuroToInt(sTmp, EURO_CONVERSION.EUROCONV_Z_ERROR, _ErrMsg);
-
-                sTmp = sInStr.Substring(iTagStart_tv + 4, iTagStop_tv - iTagStart_tv - 4).Trim();
-
-                if ((_iNumCassa == SF_Data.iNumCassa) && !SF_Data.bPrevendita)
-                    SetSconto(DISC_TYPE.DISC_FIXED, 0, iImportoSconto, sTmp);
-
-                _iCounter = 1;
-                bCMD_OK = true;
-            }
-            else if ((iTagStart_SG != -1) && (iTagStop_SG != -1))
-            {
-                // Sconto Gratis
-                sTmp = sInStr.Substring(iTagStart_tv + 4, iTagStop_tv - iTagStart_tv - 4).Trim();
-
-                if ((_iNumCassa == SF_Data.iNumCassa) && !SF_Data.bPrevendita)
-                    SetSconto(DISC_TYPE.DISC_GRATIS, 0, 0, sTmp);
+                    
+                    SetSconto(iFlagSconto);
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -459,19 +423,6 @@ namespace StandFacile
 
                 if (_iNumCassa == SF_Data.iNumCassa)
                     rFrmMain.SetEditCoperto(sTmp);
-
-                _iCounter = 1;
-                bCMD_OK = true;
-            }
-            else if ((iTagStart_CP != -1) && (iTagStop_CP != -1))
-            {
-                // coperti prezzo, comune a tutte le casse
-                sTmp = sInStr.Substring(iTagStart_tv + 4, iTagStop_tv - iTagStart_tv - 4).Trim();
-
-                int iPrz = EuroToInt(sTmp, EURO_CONVERSION.EUROCONV_DONT_CARE, _WrnMsg);
-
-                if ((_iNumCassa <= CASSA_PRINCIPALE) && (iPrz != -1)) // accetta anche lo zero
-                    SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario = iPrz;
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -619,17 +570,7 @@ namespace StandFacile
             // sconti
             if (IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_STD))
             {
-                sTmpRec = String.Format("<SP><iv>{0}</iv><tv>{1}</tv></SP>", (SF_Data.iStatusSconto & 0x00FF0000) >> 16, SF_Data.sScontoReceipt);
-                _fRecording.WriteLine(sTmpRec);
-            }
-            else if (IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_FISSO))
-            {
-                sTmpRec = String.Format("<SF><iv>{0}</iv><tv>{1}</tv></SF>", IntToEuro(SF_Data.iScontoFissoReceipt), SF_Data.sScontoReceipt);
-                _fRecording.WriteLine(sTmpRec);
-            }
-            else if (IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_GRATIS))
-            {
-                sTmpRec = String.Format("<SG><tv>{0}</tv></SG>", SF_Data.sScontoReceipt);
+                sTmpRec = String.Format("<DS><iv>{0}</iv></DS>", (SF_Data.iStatusSconto & 0x000000FF));
                 _fRecording.WriteLine(sTmpRec);
             }
 

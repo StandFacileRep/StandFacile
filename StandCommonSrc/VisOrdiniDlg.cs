@@ -68,7 +68,7 @@ namespace StandFacile
 
             bHide = (eViewTypeParam == VIEW_TYPE.NO_VIEW);
 
-            // SQLite
+            // SQLite, impostazione comune
             if (!bUSA_NDB())
             {
                 CkBoxTutteCasse.Visible = false;
@@ -106,7 +106,7 @@ namespace StandFacile
             CkBoxTutteCasse.Enabled = false;
 #endif
 
-            if (_bAnnulloOrdine) // Annullo
+            if (_bAnnulloOrdine) // Annullo, mantiene posizione by Design
             {
                 this.Text = "Annulla Ordine";
 
@@ -138,9 +138,6 @@ namespace StandFacile
                 for (int i = sConst_PaymentType.Length - 1; i >= 0; i--) // OK
                     comboPaymentType.Items.Insert(0, sConst_PaymentType[i]);
 
-                comboPaymentType.Top = AnnulloBtn.Top;
-                labelPayMethod.Top = comboPaymentType.Top - 20;
-
                 AnnulloBtn.Enabled = false;
                 AnnulloBtn.Visible = false;
 
@@ -156,6 +153,9 @@ namespace StandFacile
                 labelPayMethod.Visible = true;
 
                 OKBtn.Text = "Esci";
+
+                labelPayMethod.Top = labelPrint.Top;
+                comboPaymentType.Top = labelPayMethod.Top + 20;
             }
             else  // vis Ordini
             {
@@ -177,12 +177,19 @@ namespace StandFacile
                 {
                     BtnPrev.Left -= 200;
                     BtnNext.Left = BtnPrev.Left + 90;
-                    OKBtn.Left = BtnPrt.Left + 96;
+                    //OKBtn.Left = BtnPrt.Left + 96;
 
+                    BtnPrev.Top += 8;
+
+                    BtnNext.Top = BtnPrev.Top;
                     BtnPrt.Top = BtnPrev.Top;
                     OKBtn.Top = BtnPrev.Top;
 
-                    Height -= 50;
+                    labelPrint.Top = BtnPrev.Top - 22;
+                    checkBoxNotPaid.Top = labelPrint.Top;
+
+                    Height -= 54;
+                    //textEdit_Ticket.Height = Height;   
                 }
             }
 
@@ -200,7 +207,7 @@ namespace StandFacile
             {
                 // utilizza CkBoxTutteCasse
                 VisualizzaTicket(_iNum, (int)SEARCH_TYPE.SEARCH_DOWN);
-                
+
                 AggiornaAspettoControlli();
 
                 ShowDialog();
@@ -331,9 +338,9 @@ namespace StandFacile
             }
             while (checkBoxNotPaid.Checked && (_iNum > DB_Data.iStartingNumOfReceipts) && (bSomePayment_IsPresent || DB_Data.bAnnullato));
 
-            if (! (checkBoxNotPaid.Checked && (bSomePayment_IsPresent || DB_Data.bAnnullato)))
+            if (!(checkBoxNotPaid.Checked && (bSomePayment_IsPresent || DB_Data.bAnnullato)))
                 VisualizzaTicket(_iNum, (int)SEARCH_TYPE.SEARCH_DOWN);
-            
+
             AggiornaAspettoControlli();
         }
 
@@ -529,7 +536,7 @@ namespace StandFacile
             {
                 textEdit_Ticket.ForeColor = System.Drawing.SystemColors.Window;
                 textEdit_Ticket.BackColor = System.Drawing.Color.Salmon; // da pagare
-                
+
                 if (DB_Data.iNumCassa == SF_Data.iNumCassa)
                     AnnulloBtn.Enabled = _bAnnulloOrdine;
             }

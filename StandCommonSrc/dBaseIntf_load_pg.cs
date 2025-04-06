@@ -995,7 +995,7 @@ namespace StandFacile_DB
                         else if (sInStr == ORDER_CONST._SCONTO)
                         {
                             DB_Data.iStatusSconto = readerOrdine.GetInt32("iStatus");
-                            DB_Data.sScontoReceipt = readerOrdine.GetString("sText");
+                            DB_Data.sScontoText = readerOrdine.GetString("sText");
 
                             if (IsBitSet(DB_Data.iStatusSconto, BIT_SCONTO_STD))
                                 DB_Data.iScontoStdReceipt = readerOrdine.GetInt32("iPrezzo_Unitario");

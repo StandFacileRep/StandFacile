@@ -802,10 +802,10 @@ namespace StandCommonFiles
         /// </summary>
         public static int Arrotonda(double fParam)
         {
-            int iDebug;
+            int iRounded;
 
-            iDebug = (int)Math.Round(fParam / 10.0) * 10;
-            return iDebug;
+            iRounded = (int)Math.Round(fParam / 10.0) * 10;
+            return iRounded;
         }
 
         /// <summary>

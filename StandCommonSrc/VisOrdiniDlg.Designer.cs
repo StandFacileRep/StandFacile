@@ -104,7 +104,6 @@
             // 
             // CkBoxTutteCasse
             // 
-            this.CkBoxTutteCasse.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.CkBoxTutteCasse.AutoSize = true;
             this.CkBoxTutteCasse.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CkBoxTutteCasse.Location = new System.Drawing.Point(29, 475);
@@ -117,7 +116,6 @@
             // 
             // OKBtn
             // 
-            this.OKBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKBtn.Image = global::StandFacile.Properties.Resources.OK;
             this.OKBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -131,7 +129,6 @@
             // 
             // AnnulloBtn
             // 
-            this.AnnulloBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.AnnulloBtn.Image = ((System.Drawing.Image)(resources.GetObject("AnnulloBtn.Image")));
             this.AnnulloBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AnnulloBtn.Location = new System.Drawing.Point(29, 535);
@@ -145,7 +142,6 @@
             // 
             // BtnPrev
             // 
-            this.BtnPrev.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnPrev.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.BtnPrev.Image = global::StandFacile.Properties.Resources.ArrowSLeft;
             this.BtnPrev.Location = new System.Drawing.Point(211, 466);
@@ -158,7 +154,6 @@
             // 
             // BtnNext
             // 
-            this.BtnNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.BtnNext.Image = global::StandFacile.Properties.Resources.ArrowSRight;
             this.BtnNext.Location = new System.Drawing.Point(308, 466);
@@ -171,7 +166,6 @@
             // 
             // BtnPrt
             // 
-            this.BtnPrt.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.BtnPrt.Image = global::StandFacile.Properties.Resources.printer_s;
             this.BtnPrt.Location = new System.Drawing.Point(211, 535);
             this.BtnPrt.Name = "BtnPrt";
@@ -182,7 +176,6 @@
             // 
             // labelPrint
             // 
-            this.labelPrint.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPrint.AutoSize = true;
             this.labelPrint.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPrint.Location = new System.Drawing.Point(209, 515);
@@ -193,7 +186,6 @@
             // 
             // comboPaymentType
             // 
-            this.comboPaymentType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboPaymentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboPaymentType.FormattingEnabled = true;
             this.comboPaymentType.ItemHeight = 13;
@@ -210,7 +202,6 @@
             // 
             // labelPayMethod
             // 
-            this.labelPayMethod.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.labelPayMethod.AutoSize = true;
             this.labelPayMethod.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelPayMethod.Location = new System.Drawing.Point(28, 489);
@@ -221,7 +212,6 @@
             // 
             // checkBoxNotPaid
             // 
-            this.checkBoxNotPaid.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.checkBoxNotPaid.AutoSize = true;
             this.checkBoxNotPaid.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxNotPaid.Location = new System.Drawing.Point(29, 447);

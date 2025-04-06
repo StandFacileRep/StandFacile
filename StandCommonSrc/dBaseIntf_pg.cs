@@ -1074,6 +1074,11 @@ namespace StandFacile_DB
 
             bDBConnection_Ok = dbInitWeb();
 
+            // sicurezza : si prosegue solo se c'è la connessione a MySQL
+            // o se la Cassa secondaria non richiede il prelievo di un ordine dalla lista
+            if (!bDBConnection_Ok && (SF_Data.iNumCassa != CASSA_PRINCIPALE))
+                return false;
+
             try
             {
                 cmd.CommandText = String.Format("DELETE FROM " + NOME_WEBORD_DBTBL + " WHERE \"iOrdine_ID\" = {0}", iOrderParam);
@@ -1081,14 +1086,14 @@ namespace StandFacile_DB
 
                 cmd.ExecuteNonQuery();
 
-                sTmp = String.Format("dbSetOrdiniWebServiti : cancellazione da coda ordine web {0}", iOrderNum);
-                LogToFile(sTmp);
+                sTmp = String.Format("dbClearOrdineWebServito : cancellazione da coda ordine web {0}", iOrderNum);
+                LogToFile(sTmp, true);
             }
 
             catch (Exception)
             {
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbSetOrdiniWebServiti :accesso alla tabella WEBORD_DBTBL non possibile");
+                _WrnMsg.sMsg = String.Format("dbClearOrdineWebServito :accesso alla tabella WEBORD_DBTBL non possibile");
                 WarningManager(_WrnMsg);
                 return false;
             }
@@ -1890,10 +1895,14 @@ namespace StandFacile_DB
         public void dbWebOrderEnqueue(int iEnqueueParam)
         {
             bool bDBConnection_Ok;
-            String sQueryTxt;
+            String sTmp, sQueryTxt;
             PgSqlCommand cmd = new PgSqlCommand();
 
             bDBConnection_Ok = dbInit(GetActualDate(), SF_Data.iNumCassa, true);
+
+            // sicurezza
+            if (iEnqueueParam < 1001)
+                return;
 
             try
             {
@@ -1905,6 +1914,9 @@ namespace StandFacile_DB
                     cmd.CommandText = sQueryTxt;
                     cmd.Connection = _Connection;
                     var qResult = cmd.ExecuteScalar();
+
+                    sTmp = String.Format("dbWebOrderEnqueue : inserimento record Ordine web = {0}", iEnqueueParam);
+                    LogToFile(sTmp, true);
                 }
             }
 

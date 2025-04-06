@@ -1111,7 +1111,7 @@ namespace StandFacile
         private void EditStatus_QRC_KeyPress(object sender, KeyPressEventArgs e)
         {
             bool bResult;
-            int iNumScontrino, iGruppo, iLength;
+            int iNumScontrino, iRDB_StatusWeb, iGruppo, iLength;
             String sLog, sStrBarcode, sStrNum, sStrDay, sStrGruppo;
             String JSON_Type = "";
 
@@ -1174,6 +1174,15 @@ namespace StandFacile
 
                             DB_Data.iNumCassa = Convert.ToInt32(dict["-6"]);
                             DB_Data.iStatusReceipt = Convert.ToInt32(dict["-5"]);
+
+                            iRDB_StatusWeb = Convert.ToInt32(dict["-5"]); // GetInt32("status");
+
+                            DB_Data.iStatusReceipt = iRDB_StatusWeb & 0xFFF1;
+                            // | BIT_CARICATO_DA_WEB doppione utile per la comprensione
+                            DB_Data.iStatusReceipt = SetBit(DB_Data.iStatusReceipt, BIT_CARICATO_DA_WEB);
+
+                            // shift per rialineare i bit da web e maschera bit sconti
+                            DB_Data.iStatusSconto = (iRDB_StatusWeb >> 1) & 0x0007;
 
                             if (dict.ContainsKey("-4"))
                                 DB_Data.sNome = dict["-4"].ToString();
