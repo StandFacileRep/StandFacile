@@ -480,7 +480,8 @@ namespace StandFacile
             _gridStyle[0, 5].ForeColor = Color.Aquamarine; _gridStyle[0, 5].BackColor = Color.Teal; // VARIE
             _gridStyle[0, 6].ForeColor = Color.LemonChiffon; _gridStyle[0, 6].BackColor = Color.Teal; // PANINI
             _gridStyle[0, 7].ForeColor = Color.MistyRose; _gridStyle[0, 7].BackColor = Color.Teal;  // GRUPPO 8 NOWEB
-            _gridStyle[0, 8].ForeColor = Color.White; _gridStyle[0, 8].BackColor = Color.Teal;      // CONTATORI
+            _gridStyle[0, 8].ForeColor = Color.White; _gridStyle[0, 8].BackColor = Color.Teal;      // COPIE SINGOLE
+            _gridStyle[0, 9].ForeColor = Color.White; _gridStyle[0, 9].BackColor = Color.Teal;      // CONTATORI
 
             // chiaro
             _gridStyle[1, 0].ForeColor = Color.Black; _gridStyle[1, 0].BackColor = Color.LightYellow; // Cornsilk
@@ -492,6 +493,7 @@ namespace StandFacile
             _gridStyle[1, 6].ForeColor = Color.Black; _gridStyle[1, 6].BackColor = Color.PowderBlue; // Ivory
             _gridStyle[1, 7].ForeColor = Color.Black; _gridStyle[1, 7].BackColor = Color.WhiteSmoke;
             _gridStyle[1, 8].ForeColor = Color.Black; _gridStyle[1, 8].BackColor = Color.WhiteSmoke; // SeaShell
+            _gridStyle[1, 9].ForeColor = Color.Black; _gridStyle[1, 9].BackColor = Color.WhiteSmoke; // LightSteelBlue
 
             // scuro
             _gridStyle[2, 0].ForeColor = Color.White; _gridStyle[2, 0].BackColor = Color.Goldenrod;
@@ -503,6 +505,7 @@ namespace StandFacile
             _gridStyle[2, 6].ForeColor = Color.White; _gridStyle[2, 6].BackColor = Color.SlateGray;  // DarkGray
             _gridStyle[2, 7].ForeColor = Color.White; _gridStyle[2, 7].BackColor = Color.SeaGreen;
             _gridStyle[2, 8].ForeColor = Color.White; _gridStyle[2, 8].BackColor = Color.SeaGreen;
+            _gridStyle[2, 9].ForeColor = Color.White; _gridStyle[2, 9].BackColor = Color.SeaGreen;
         }
 
         /// <summary>imposta grafica TABS</summary>
@@ -2239,7 +2242,7 @@ namespace StandFacile
             {
                 ScontoDlg.rScontoDlg.Init();
 
-                if ((SF_Data.iStatusSconto & 0x000000FF) != 0)
+                if ((SF_Data.iStatusSconto & 0x0000000F) != 0)
                 {
                     BtnSconto.Checked = true;
                     BtnSconto.Image = Properties.Resources.sconto_si;

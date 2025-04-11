@@ -120,10 +120,9 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnReset.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABEAAAASCAYAAAC9+TVUAAAABGdBTUEAALGPC/xhBQAAAGxJREFUOE+l
-        j0EOgCAMBOvP+3N0DyRFpiYriXPoQEeNK+IYlC4oXVC6oBzPQ17Q2TJMdDHhchffxOQdysxhR0QNdQGB
-        sqLlr4BAWTmOaPnod2qA5somRLfQfc0mvt6oMwotw19QuqB0QekRcQN0GDli+DUyEwAAAABJRU5ErkJg
-        gg==
+        iVBORw0KGgoAAAANSUhEUgAAABEAAAASCAYAAAC9+TVUAAAABGdBTUEAALGPC/xhBQAAAGNJREFUOE+9
+        kDEOwCAMA92f5+epOmSJY1CNxHADRzgBeACcQsKBhAMJBxIfCWR3qz0aqsEYhqeAjEyhiMjfkR5SgW2k
+        Dq8CdyLHz+kf29fbiDqgbkNCBWpvCtGgAwkHEg4kHF50GDli+LC44wAAAABJRU5ErkJggg==
 </value>
   </data>
   <metadata name="timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

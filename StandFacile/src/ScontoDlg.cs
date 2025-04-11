@@ -1,6 +1,6 @@
 ﻿/***********************************************
 	NomeFile : StandFacile/ScontoDlg.cs
-    Data	 : 06.12.2024
+    Data	 : 11.04.2025
 	Autore	 : Mauro Artuso
  ***********************************************/
 
@@ -49,8 +49,8 @@ namespace StandFacile
         /// <summary>resetta solo il tipo di sconto applicato</summary>
         static public void ResetSconto()
         {
-            // meglio impostare solo lo stato con 0x7FFFFF00
-            _Sconto.iStatusSconto &= 0x7FFFFF00;
+            // meglio impostare solo lo stato con 0x7FFFFFF0
+            _Sconto.iStatusSconto &= 0x7FFFFFF0;
         }
 
         /// <summary>costruttore</summary>
@@ -58,7 +58,7 @@ namespace StandFacile
         {
             InitializeComponent();
 
-            _pCheckBoxGrp = new CheckBox[NUM_EDIT_GROUPS];
+            _pCheckBoxGrp = new CheckBox[NUM_SEP_PRINT_GROUPS];
 
             _pCheckBoxGrp[0] = ckBox_0;
             _pCheckBoxGrp[1] = ckBox_1;
@@ -68,6 +68,7 @@ namespace StandFacile
             _pCheckBoxGrp[5] = ckBox_5;
             _pCheckBoxGrp[6] = ckBox_6;
             _pCheckBoxGrp[7] = ckBox_7;
+            _pCheckBoxGrp[8] = ckBox_8;
 
             _tt.SetToolTip(DS_btnSave, "salve le impostazioni nel Listino");
             _tt.SetToolTip(radioBtn100, "clicca per impostare il 100%, cioè gratis per i gruppi selezionati");
@@ -177,7 +178,7 @@ namespace StandFacile
 
         private void DS_rdBtnDiscountNone_Click(object sender, EventArgs e)
         {
-            _scontoTmp.iStatusSconto &= 0x7FFFFF00;
+            _scontoTmp.iStatusSconto &= 0x7FFFFFF0;
 
             textBoxPercVal.Enabled = false;
             textBoxPercVal.Text = "";
@@ -186,7 +187,7 @@ namespace StandFacile
             DS_lblDiscountPerc.Enabled = false;
             radioBtn100.Enabled = false;
 
-            for (int i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (int i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 _pCheckBoxGrp[i].Enabled = false;
                 _pCheckBoxGrp[i].Checked = false;
@@ -206,7 +207,7 @@ namespace StandFacile
 
         private void DS_rdBtnDiscountStd_Click(object sender, EventArgs e)
         {
-            _scontoTmp.iStatusSconto &= 0x7FFFFF00;
+            _scontoTmp.iStatusSconto &= 0x7FFFFFF0;
             _scontoTmp.iStatusSconto = SetBit(_scontoTmp.iStatusSconto, BIT_SCONTO_STD);
 
             DS_lblDiscountPerc.Enabled = true;
@@ -217,12 +218,12 @@ namespace StandFacile
             TextBoxPerc_KeyUp(null, null);
 
             // setup Flags
-            for (int i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (int i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && FrmMain.rFrmMain.GetEsperto())
                     _pCheckBoxGrp[i].Enabled = true;
 
-                _pCheckBoxGrp[i].Checked = IsBitSet(_scontoTmp.iStatusSconto, 8 + i);
+                _pCheckBoxGrp[i].Checked = IsBitSet(_scontoTmp.iStatusSconto, 4 + i);
             }
 
             radioBtn100.Enabled = true;
@@ -240,7 +241,7 @@ namespace StandFacile
 
         private void DS_rdBtnDiscountFixed_Click(object sender, EventArgs e)
         {
-            _scontoTmp.iStatusSconto &= 0x7FFFFF00;
+            _scontoTmp.iStatusSconto &= 0x7FFFFFF0;
             _scontoTmp.iStatusSconto = SetBit(_scontoTmp.iStatusSconto, BIT_SCONTO_FISSO);
 
             DS_lblDiscountPerc.Enabled = false;
@@ -252,7 +253,7 @@ namespace StandFacile
             textBoxPercVal.BackColor = System.Drawing.SystemColors.Window;
             radioBtn100.Enabled = false;
 
-            for (int i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (int i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 _pCheckBoxGrp[i].Enabled = false;
                 _pCheckBoxGrp[i].Checked = false;
@@ -270,7 +271,7 @@ namespace StandFacile
 
         private void DS_rdBtnDiscountGratis_Click(object sender, EventArgs e)
         {
-            _scontoTmp.iStatusSconto &= 0x7FFFFF00;
+            _scontoTmp.iStatusSconto &= 0x7FFFFFF0;
             _scontoTmp.iStatusSconto = SetBit(_scontoTmp.iStatusSconto, BIT_SCONTO_GRATIS);
 
             DS_lblDiscountPerc.Enabled = false;
@@ -282,7 +283,7 @@ namespace StandFacile
             textBoxPercVal.BackColor = System.Drawing.SystemColors.Window;
             radioBtn100.Enabled = false;
 
-            for (int i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (int i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 _pCheckBoxGrp[i].Enabled = false;
                 _pCheckBoxGrp[i].Checked = false;
@@ -360,13 +361,13 @@ namespace StandFacile
             for (int i = 0; i < NUM_EDIT_GROUPS; i++)
                 _scontoTmp.bScontoGruppo[i] = false;
 
-            _scontoTmp.iStatusSconto &= 0x7FFF00FF;
+            _scontoTmp.iStatusSconto &= 0x7FFF000F;
 
-            for (int i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (int i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 if (_pCheckBoxGrp[i].Checked)
                 {
-                    _scontoTmp.iStatusSconto += (int)Math.Pow(2, 8 + i); // 0x0000FF00
+                    _scontoTmp.iStatusSconto += (int)Math.Pow(2, 4 + i); // 0x0000FFF0
                     _scontoTmp.bScontoGruppo[i] = true;
                 }
                 else
@@ -502,8 +503,8 @@ namespace StandFacile
         /// <summary>imposta solo il tipo di sconto applicato e legge i dati presenti nella struct</summary>
         public static void SetSconto(int iDiscParam)
         {
-            _Sconto.iStatusSconto &= 0x7FFFFF00;
-            _Sconto.iStatusSconto |= (iDiscParam & 0x000000FF);
+            _Sconto.iStatusSconto &= 0x7FFFFFF0;
+            _Sconto.iStatusSconto |= (iDiscParam & 0x0000000F);
 
             SF_Data.iScontoFissoReceipt = _Sconto.iScontoValFisso;
             SF_Data.iStatusSconto = _Sconto.iStatusSconto;
@@ -528,15 +529,15 @@ namespace StandFacile
             switch (eDiscParam)
             {
                 case DISC_TYPE.DISC_STD:
-                    _Sconto.iStatusSconto = 0;                          // 0x000000FF
-                    _Sconto.iStatusSconto += (iScontoFlagParam << 8);   // 0x0000FF00
+                    _Sconto.iStatusSconto = 0;                          // 0x0000000F
+                    _Sconto.iStatusSconto += (iScontoFlagParam << 4);   // 0x0000FFF0
                     _Sconto.iStatusSconto += (iScontoValParam << 16);   // 0x00FF0000
 
                     // per compatibilità dimensione vettore
-                    for (int i = 0; i < NUM_EDIT_GROUPS; i++)
+                    for (int i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
                         _Sconto.bScontoGruppo[i] = false;
 
-                    for (int h = 0; h < NUM_EDIT_GROUPS; h++)
+                    for (int h = 0; h < NUM_SEP_PRINT_GROUPS; h++)
                     {
                         if (IsBitSet(iScontoFlagParam, h))
                             _Sconto.bScontoGruppo[h] = true;
@@ -547,14 +548,14 @@ namespace StandFacile
                     break;
 
                 case DISC_TYPE.DISC_FIXED:
-                    _Sconto.iStatusSconto &= 0x7FFFFF00;
+                    _Sconto.iStatusSconto &= 0x7FFFFFF0;
 
                     _Sconto.iScontoValFisso = iScontoValParam;
                     _Sconto.sScontoText[(int)DISC_TYPE.DISC_FIXED] = sScontoTextParam;
                     break;
 
                 case DISC_TYPE.DISC_GRATIS:
-                    _Sconto.iStatusSconto &= 0x7FFFFF00;
+                    _Sconto.iStatusSconto &= 0x7FFFFFF0;
 
                     _Sconto.sScontoText[(int)DISC_TYPE.DISC_GRATIS] = sScontoTextParam;
                     break;

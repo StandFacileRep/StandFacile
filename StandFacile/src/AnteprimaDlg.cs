@@ -34,7 +34,7 @@ namespace StandFacile
 
         static bool _bInit = false;
 
-        bool[] _bScontoGruppo = new bool[NUM_EDIT_GROUPS];
+        bool[] _bScontoGruppo = new bool[NUM_SEP_PRINT_GROUPS];
 
         static bool[] _bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS];
         static bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS];
@@ -245,8 +245,8 @@ namespace StandFacile
 
             double fPerc = ((SF_Data.iStatusSconto & 0x00FF0000) >> 16) / 100.0f;
 
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
-                _bScontoGruppo[i] = IsBitSet(SF_Data.iStatusSconto, 8 + i);
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
+                _bScontoGruppo[i] = IsBitSet(SF_Data.iStatusSconto, 4 + i);
 
             SF_Data.iScontoStdReceipt = 0;   // richiede calcolo
             SF_Data.iScontoGratisReceipt = 0; // richiede calcolo
@@ -282,7 +282,8 @@ namespace StandFacile
                 PrintCanvas(pg, "");
             }
 
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            // stampa CONTATORI esclusi
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 if (_bSomethingInto_GrpToPrint[i])
                 {
@@ -573,7 +574,7 @@ namespace StandFacile
 
         /// <summary>
         /// da utilizzare solo per le verifiche di scontrino scontato significativo, <br/>
-        /// utilizzato da DataManager per inserire nota nello Scontrino
+        /// utilizzato da AnteprimaDlg() per inserire nota nello Scontrino
         /// </summary>
         public bool TicketScontatoStdIsGood()
         {
@@ -585,7 +586,7 @@ namespace StandFacile
             // totale scontrino corrente
             for (i = 0; i < MAX_NUM_ARTICOLI; i++)
             {
-                if ((SF_Data.Articolo[i].iGruppoStampa < NUM_EDIT_GROUPS) && _bScontoGruppo[SF_Data.Articolo[i].iGruppoStampa])
+                if ((SF_Data.Articolo[i].iGruppoStampa < NUM_SEP_PRINT_GROUPS) && _bScontoGruppo[SF_Data.Articolo[i].iGruppoStampa])
                     iTotaleScontatoCurrTicket += (int)Math.Round(SF_Data.Articolo[i].iQuantitaOrdine * SF_Data.Articolo[i].iPrezzoUnitario * fPerc);
             }
 

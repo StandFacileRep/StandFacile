@@ -99,11 +99,11 @@ namespace StandFacile
             _rPrintConfigDlg = this;
             //Inizializzazione dei puntatori ai componenti per un codice più chiaro
 
-            _pBtnPrintCheck = new Button[NUM_EDIT_GROUPS];
-            _pPrintCopyText = new TextBox[NUM_EDIT_GROUPS];
-            _pCheckBoxCopia = new CheckBox[NUM_EDIT_GROUPS];
-            _pCheckBox_BCD = new CheckBox[NUM_EDIT_GROUPS];
-            _pPrintersListCombo = new ComboBox[NUM_EDIT_GROUPS];
+            _pBtnPrintCheck = new Button[NUM_SEP_PRINT_GROUPS];
+            _pPrintCopyText = new TextBox[NUM_SEP_PRINT_GROUPS];
+            _pCheckBoxCopia = new CheckBox[NUM_SEP_PRINT_GROUPS];
+            _pCheckBox_BCD = new CheckBox[NUM_SEP_PRINT_GROUPS];
+            _pPrintersListCombo = new ComboBox[NUM_SEP_PRINT_GROUPS];
 
             _pTextBoxColor = new TextBox[NUM_GROUPS_COLORS];
 
@@ -116,6 +116,7 @@ namespace StandFacile
             _pBtnPrintCheck[5] = BtnPrintCheck_5;
             _pBtnPrintCheck[6] = BtnPrintCheck_6;
             _pBtnPrintCheck[7] = BtnPrintCheck_7;
+            _pBtnPrintCheck[8] = BtnPrintCheck_8;
 
             _pCheckBoxCopia[0] = checkBoxCopia_0;
             _pCheckBoxCopia[1] = checkBoxCopia_1;
@@ -125,6 +126,7 @@ namespace StandFacile
             _pCheckBoxCopia[5] = checkBoxCopia_5;
             _pCheckBoxCopia[6] = checkBoxCopia_6;
             _pCheckBoxCopia[7] = checkBoxCopia_7;
+            _pCheckBoxCopia[8] = checkBoxCopia_8;
 
             _pCheckBox_BCD[0] = checkBoxBCD_0;
             _pCheckBox_BCD[1] = checkBoxBCD_1;
@@ -134,6 +136,7 @@ namespace StandFacile
             _pCheckBox_BCD[5] = checkBoxBCD_5;
             _pCheckBox_BCD[6] = checkBoxBCD_6;
             _pCheckBox_BCD[7] = checkBoxBCD_7;
+            _pCheckBox_BCD[8] = checkBoxBCD_8;
 
             _pPrintCopyText[0] = CopiaText_0;
             _pPrintCopyText[1] = CopiaText_1;
@@ -143,6 +146,7 @@ namespace StandFacile
             _pPrintCopyText[5] = CopiaText_5;
             _pPrintCopyText[6] = CopiaText_6;
             _pPrintCopyText[7] = CopiaText_7;
+            _pPrintCopyText[8] = CopiaText_8;
 
             _pTextBoxColor[0] = textBoxColor_0;
             _pTextBoxColor[1] = textBoxColor_1;
@@ -160,6 +164,7 @@ namespace StandFacile
             _pPrintersListCombo[5] = PrintersListCombo_5;
             _pPrintersListCombo[6] = PrintersListCombo_6;
             _pPrintersListCombo[7] = PrintersListCombo_7;
+            _pPrintersListCombo[8] = PrintersListCombo_8;
 
             for (i = 0; i < NUM_EDIT_GROUPS; i++)
             {
@@ -180,7 +185,10 @@ namespace StandFacile
             for (i = 0; i < NUM_GROUPS_COLORS - 1; i++)
                 _pTextBoxColor[i].MaxLength = MAX_COPIES_TEXT_CHARS;
 
+            _pPrintCopyText[NUM_EDIT_GROUPS].ReadOnly = true;
+
             _bListinoModificato = false;
+
             Init(false);
         }
 
@@ -195,7 +203,7 @@ namespace StandFacile
             // stampante Windows di Default
             _sDefaultPrinter = _settings.PrinterName;
 
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 sTmp = String.Format(WIN_CPY_PRINTER_MODEL_MKEY, i);
                 sGlbWinPrinterParams.sPrinterModel[i] = ReadRegistry(sTmp, _sDefaultPrinter); //stampa copie
@@ -230,7 +238,7 @@ namespace StandFacile
             }
 
             //letture dal DataManager
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 _pCheckBoxCopia[i].Checked = SF_Data.bCopiesGroupsFlag[i];
                 _pPrintCopyText[i].Text = SF_Data.sCopiesGroupsText[i]; //copia locale
@@ -249,13 +257,13 @@ namespace StandFacile
 
             if (bUSA_NDB())
             {
-                for (i = 0; i < NUM_EDIT_GROUPS; i++)
+                for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
                     _pCheckBox_BCD[i].Checked = IsBitSet(SF_Data.iBarcodeRichiesto, i);
             }
 
             if (DataManager.CheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
             {
-                for (i = 0; i < NUM_EDIT_GROUPS; i++)
+                for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
                 {
                     _pCheckBoxCopia[i].Enabled = false;
                     _pPrintCopyText[i].Enabled = false;
@@ -270,11 +278,15 @@ namespace StandFacile
             }
             else
             {
-                for (i = 0; i < NUM_EDIT_GROUPS; i++)
+                for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
                 {
                     _pCheckBoxCopia[i].Enabled = true;
                     _pPrintCopyText[i].Enabled = true;
-                    _pPrintCopyText[i].ReadOnly = false;
+
+                    // mantiene  _pPrintCopyText[NUM_EDIT_GROUPS].ReadOnly = true
+                    if (i != NUM_EDIT_GROUPS)
+                        _pPrintCopyText[i].ReadOnly = false;
+
                     _pPrintCopyText[i].BackColor = System.Drawing.SystemColors.Window;
                 }
 
@@ -383,7 +395,7 @@ namespace StandFacile
 
             sFileToPrint = BuildSampleText();
 
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 if (sender == _pBtnPrintCheck[i])
                 {
@@ -464,7 +476,7 @@ namespace StandFacile
             _bListinoModificato = false;
 
             // controllo lunghezza minima del testo di descrizione dei gruppi
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 // trim() opportuno
                 _pPrintCopyText[i].Text = _pPrintCopyText[i].Text.Trim();
@@ -495,7 +507,7 @@ namespace StandFacile
             }
 
             //scrittura nel registro del PC locale, ma non nel Listino condiviso
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 sGlbWinPrinterParams.sPrinterModel[i] = _pPrintersListCombo[i].Text;
                 sGlbWinPrinterParams.iPrinterModel[i] = _pPrintersListCombo[i].SelectedIndex;
@@ -505,7 +517,7 @@ namespace StandFacile
             }
 
             iBarcodeRichiestoTmp = 0;
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 if (_pCheckBox_BCD[i].Checked)
                     iBarcodeRichiestoTmp += (int)Math.Pow(2, i); // 0x000000FF
@@ -520,7 +532,7 @@ namespace StandFacile
             }
 
             // controllo _bListinoModificato a gruppi
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 // controllo _bListinoModificato a gruppi, salvataggio in : SF_Data[]
                 if ((SF_Data.bCopiesGroupsFlag[i] != _pCheckBoxCopia[i].Checked) || (SF_Data.sCopiesGroupsText[i] != _pPrintCopyText[i].Text))

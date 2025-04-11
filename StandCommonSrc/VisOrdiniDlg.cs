@@ -44,7 +44,7 @@ namespace StandFacile
         DateTime _dateOrdine;
         String _sNomeFileTicket, _sNomeFileTicketNpPrt, _sNomeTabella;
 
-        bool[] _bScontoGruppo = new bool[NUM_EDIT_GROUPS];
+        bool[] _bScontoGruppo = new bool[NUM_SEP_PRINT_GROUPS];
 
         TErrMsg _ErrMsg;
 
@@ -475,6 +475,24 @@ namespace StandFacile
                     else
                         Printer_Legacy.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbLegacyPrinterParams,
                         (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
+                }
+            }
+
+            for (i = 0; i < MAX_NUM_ARTICOLI; i++)
+            {
+                if ((DB_Data.Articolo[i].iQuantitaOrdine > 0) && (DB_Data.Articolo[i].iGruppoStampa == (int) DEST_TYPE.DEST_SINGLE))
+                {
+                    sNomeFileCopiePrt = String.Format(NOME_FILE_COPIE_SINGOLE, DB_Data.iNumCassa, _iNum, (int) DEST_TYPE.DEST_SINGLE,
+                                        DB_Data.Articolo[i].iIndexListino);
+
+                    // *** MESSA IN CODA DI STAMPA COPIE SINGOLE ***
+                    if (SF_Data.bCopiesGroupsFlag[(int) DEST_TYPE.DEST_SINGLE])
+                    {
+                        if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
+                            Printer_Windows.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbWinPrinterParams, (int) DEST_TYPE.DEST_SINGLE);
+                        else
+                            Printer_Legacy.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
+                    }
                 }
             }
 

@@ -161,6 +161,15 @@ namespace StandFacile
                     Console.WriteLine("DataManager : uLocHashCode = {0}, uWebHashCode = {1}, sPrzRow = {2}", uLocHashCode, uWebHashCode, sPrzRow);
                 }
 
+                if (SF_Data.bCopiesGroupsFlag[NUM_EDIT_GROUPS])
+                    sPrzRow = String.Format("#GS{0}", NUM_EDIT_GROUPS); // Set
+                else
+                    sPrzRow = String.Format("#GC{0}", NUM_EDIT_GROUPS); // Clear
+
+                fPrz.WriteLine(sPrzRow);
+                iRowIndex++;
+                uLocHashCode += Hash(sPrzRow); // no uWebHashCode
+
                 Console.WriteLine("DataManager : uLocHashCode = {0}, uWebHashCode = {1}, sPrzRow = {2}", uLocHashCode, uWebHashCode, sPrzRow);
 
                 // salva tutti i testi dei colori
@@ -177,12 +186,12 @@ namespace StandFacile
                 }
 
                 // sconti
-                int iDebug = GetSconto().iStatusSconto & 0x0000FF00;
+                int iDebug = GetSconto().iStatusSconto & 0x0000FFF0;
 
                 fPrz.WriteLine(";\n; sconti");
                 iRowIndex += 2;
 
-                sPrzRow = String.Format("#SC0 {0}; {1}; {2}", GetSconto().iScontoValPerc, (GetSconto().iStatusSconto & 0x0000FF00) >> 8, GetSconto().sScontoText[(int)DISC_TYPE.DISC_STD]);
+                sPrzRow = String.Format("#SC0 {0}; {1}; {2}", GetSconto().iScontoValPerc, (GetSconto().iStatusSconto & 0x0000FFF0) >> 4, GetSconto().sScontoText[(int)DISC_TYPE.DISC_STD]);
                 fPrz.WriteLine(sPrzRow);
                 uLocHashCode += Hash(sPrzRow);
 

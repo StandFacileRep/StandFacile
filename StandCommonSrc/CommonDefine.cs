@@ -14,7 +14,7 @@ namespace StandCommonFiles
     /// </summary>
     public static class ComDef
     {
-        #pragma warning disable IDE0060
+#pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
         public const String RELEASE_SW = "v5.14.0 RC1";
@@ -111,7 +111,7 @@ namespace StandCommonFiles
             public const String _PRICE_LIST_CHECKSUM = "_PriceListChecksum" + SHMAGIC;
 
             /// <summary>array per la ricerca di una stringa</summary>
-            public static readonly String[] sArray = new String[] { _START_OF_ORDER, _TAVOLO, _NOME, _NOTA, _SCONTO, 
+            public static readonly String[] sArray = new String[] { _START_OF_ORDER, _TAVOLO, _NOME, _NOTA, _SCONTO,
                                                                         _NUM_ORD_WEB, _NUM_ORD_PREV };
         }
 
@@ -595,11 +595,13 @@ namespace StandCommonFiles
             DEST_TIPO7,
             /// <summary>gruppo generico es: GRUPPO 8 (no-QRcode)</summary>
             DEST_TIPO8,
+            /// <summary>gruppo destinazioni singole</summary>
+            DEST_SINGLE,
             /// <summary>gruppo dei contatori: non ha un prezzo significativo</summary>
             DEST_COUNTER
         };
 
-        /// <summary>numero=9 dei diversi gruppi di Articoli compresi i contatori</summary>
+        /// <summary>numero totale =10 dei diversi gruppi di Articoli compresi i contatori</summary>
         public static readonly int NUM_COPIES_GRPS = Enum.GetNames(typeof(DEST_TYPE)).Length;
 
         /// <summary>numero=10 del "gruppo di stampa virtuale" che identifica barcode di prevendita</summary>
@@ -607,6 +609,9 @@ namespace StandCommonFiles
 
         /// <summary>numero=11 del "gruppo di stampa virtuale" che identifica barcode di vendita WEB</summary>
         public static readonly int NUM_WEB_SALE_GRP = 11;
+
+        /// <summary>numero=9 dei gruppi di stampa separata, comprese copie sigole ma esclusi i contatori</summary>
+        public static readonly int NUM_SEP_PRINT_GROUPS = NUM_COPIES_GRPS - 1;
 
         /// <summary>numero=8 dei gruppi di stampa con label editabile, sono i primi 8</summary>
         public static readonly int NUM_EDIT_GROUPS = (int)DEST_TYPE.DEST_TIPO8 + 1;
@@ -703,8 +708,8 @@ namespace StandCommonFiles
                 sMsgPrinterModel = "";
                 iMsgPrinterModel = 0;
 
-                sPrinterModel = new String[NUM_EDIT_GROUPS];
-                iPrinterModel = new int[NUM_EDIT_GROUPS];
+                sPrinterModel = new String[NUM_COPIES_GRPS];
+                iPrinterModel = new int[NUM_COPIES_GRPS];
                 sLogoName = "";
                 iLogoWidth = 0;
                 iLogoHeight = 0;
@@ -784,9 +789,9 @@ namespace StandCommonFiles
         /// </summary>
         public const int BIT_STAMPA_SINGOLA_NELLA_COPIA_RECEIPT = 0;
 
-      /****************************************************************
-       *                Flags gestione stampa Copie Locali            *
-       ****************************************************************/
+        /****************************************************************
+         *                Flags gestione stampa Copie Locali            *
+         ****************************************************************/
 
         /// <summary>bit di iReceiptCopyOptions per stampa gruppi contemporanea</summary>
         public const int BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED = 16;
@@ -838,7 +843,7 @@ namespace StandCommonFiles
         /// <summary>bit che indica il caricamento della disponibilità precedente</summary>
         public const int BIT_PREV_DISP_LOAD = 4;
 
- 
+
         /// <summary>numero max delle righe di Header-Footer</summary>
         public const int MAX_NUM_HEADERS = 4;
 
@@ -1128,9 +1133,9 @@ namespace StandCommonFiles
                 sPageTabs = new String[PAGES_NUM_TABM];
 
                 sCopiesGroupsText = new String[NUM_COPIES_GRPS]; // deve contenere anche stringhe per i contatori
-                bCopiesGroupsFlag = new bool[NUM_EDIT_GROUPS];
+                bCopiesGroupsFlag = new bool[NUM_COPIES_GRPS];
 
-                iGroupsColor = new int[NUM_EDIT_GROUPS];
+                iGroupsColor = new int[NUM_COPIES_GRPS];
                 sColorGroupsText = new String[NUM_GROUPS_COLORS - 1];
                 iNumOrdinePrev = 0;
                 iNumOrdineWeb = 0;
@@ -1226,15 +1231,15 @@ namespace StandCommonFiles
         public static readonly String _COPERTO = "COPERTI";
 
         /// <summary>testo descrittivo delle 6 casse</summary>
-        public static readonly String[] sConstCassaType = { "Cassa n.1 Principale", "Cassa n.2 Secondaria", "Cassa n.3 Secondaria", 
+        public static readonly String[] sConstCassaType = { "Cassa n.1 Principale", "Cassa n.2 Secondaria", "Cassa n.3 Secondaria",
                                                             "Cassa n.4 Secondaria", "Cassa n.5 Secondaria", "Cassa n.6 Secondaria" };
 
         /// <summary>testo descrittivo dei gruppi di stampa</summary>
         public static readonly String[] sConstGruppi = { "gruppo 1", "gruppo 2", "gruppo 3", "gruppo 4", "gruppo 5", "gruppo 6",
-                                                          "gruppo 7", "gruppo 8 (no-QRcode)", "Contatori" };
+                                                          "gruppo 7", "gruppo 8 (no-QRcode)", "Copie singole", "Contatori" };
 
         /// <summary>testo short descrittivo dei gruppi di stampa</summary>
-        public static readonly String[] sConstGruppiShort = { "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "CN" };
+        public static readonly String[] sConstGruppiShort = { "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "CS", "CN" };
 
         /// <summary>testo esteso descrittivo dei gruppi di stampa</summary>
         public static readonly String[] sConstCopiesGroupsText =
@@ -1247,7 +1252,8 @@ namespace StandCommonFiles
             "##### COPIA GRUPPO6 #####",
             "##### COPIA GRUPPO7 #####",
             "## COPIA GRUPPO8 NOQRC ##",
-            "##### CONTATORI #####"
+            " ###  COPIE SINGOLE  ### ",
+            " ###    CONTATORI    ### "
         };
 
         /// <summary>testo esteso descrittivo dei gruppi di stampa raggruppati per colore</summary>

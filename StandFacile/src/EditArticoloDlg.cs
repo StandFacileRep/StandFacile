@@ -61,7 +61,7 @@ namespace StandFacile
 
             groupsCombo.Items.Clear();
 
-            for (i = NUM_EDIT_GROUPS; (i >= 0); i--) // OK
+            for (i = NUM_SEP_PRINT_GROUPS; (i >= 0); i--) // OK
             {
                 sTmp = string.Format("{0}, {1}", sConstGruppi[i], SF_Data.sCopiesGroupsText[i]);
 

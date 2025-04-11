@@ -31,6 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PrintNetCopiesConfigDlg));
             this.GroupBoxStampe = new System.Windows.Forms.GroupBox();
+            this.checkBoxBCD_8 = new System.Windows.Forms.CheckBox();
+            this.CopiaText_8 = new System.Windows.Forms.TextBox();
+            this.checkBoxCopia_8 = new System.Windows.Forms.CheckBox();
+            this.PrintersListCombo_8 = new System.Windows.Forms.ComboBox();
+            this.BtnPrintCheck_8 = new System.Windows.Forms.Button();
             this.checkBoxBCD_7 = new System.Windows.Forms.CheckBox();
             this.checkBoxBCD_6 = new System.Windows.Forms.CheckBox();
             this.checkBoxBCD_5 = new System.Windows.Forms.CheckBox();
@@ -89,6 +94,11 @@
             // GroupBoxStampe
             // 
             this.GroupBoxStampe.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.GroupBoxStampe.Controls.Add(this.checkBoxBCD_8);
+            this.GroupBoxStampe.Controls.Add(this.CopiaText_8);
+            this.GroupBoxStampe.Controls.Add(this.checkBoxCopia_8);
+            this.GroupBoxStampe.Controls.Add(this.PrintersListCombo_8);
+            this.GroupBoxStampe.Controls.Add(this.BtnPrintCheck_8);
             this.GroupBoxStampe.Controls.Add(this.checkBoxBCD_7);
             this.GroupBoxStampe.Controls.Add(this.checkBoxBCD_6);
             this.GroupBoxStampe.Controls.Add(this.checkBoxBCD_5);
@@ -133,10 +143,67 @@
             this.GroupBoxStampe.Location = new System.Drawing.Point(15, 15);
             this.GroupBoxStampe.Name = "GroupBoxStampe";
             this.GroupBoxStampe.Padding = new System.Windows.Forms.Padding(1);
-            this.GroupBoxStampe.Size = new System.Drawing.Size(828, 334);
+            this.GroupBoxStampe.Size = new System.Drawing.Size(828, 405);
             this.GroupBoxStampe.TabIndex = 5;
             this.GroupBoxStampe.TabStop = false;
             this.GroupBoxStampe.Text = "GRUPPI DI STAMPA COPIE SCONTRINO";
+            // 
+            // checkBoxBCD_8
+            // 
+            this.checkBoxBCD_8.AutoSize = true;
+            this.checkBoxBCD_8.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxBCD_8.Image = global::StandFacile.Properties.Resources.barcode;
+            this.checkBoxBCD_8.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.checkBoxBCD_8.Location = new System.Drawing.Point(7, 358);
+            this.checkBoxBCD_8.Name = "checkBoxBCD_8";
+            this.checkBoxBCD_8.Padding = new System.Windows.Forms.Padding(1);
+            this.checkBoxBCD_8.Size = new System.Drawing.Size(63, 34);
+            this.checkBoxBCD_8.TabIndex = 78;
+            this.checkBoxBCD_8.Text = " ";
+            this.checkBoxBCD_8.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
+            this.checkBoxBCD_8.UseVisualStyleBackColor = true;
+            // 
+            // CopiaText_8
+            // 
+            this.CopiaText_8.BackColor = System.Drawing.SystemColors.Control;
+            this.CopiaText_8.Location = new System.Drawing.Point(150, 336);
+            this.CopiaText_8.Name = "CopiaText_8";
+            this.CopiaText_8.ReadOnly = true;
+            this.CopiaText_8.Size = new System.Drawing.Size(194, 20);
+            this.CopiaText_8.TabIndex = 75;
+            this.CopiaText_8.Text = "##### COPIE SINGOLE #####";
+            this.CopiaText_8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // checkBoxCopia_8
+            // 
+            this.checkBoxCopia_8.AutoSize = true;
+            this.checkBoxCopia_8.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxCopia_8.Location = new System.Drawing.Point(7, 338);
+            this.checkBoxCopia_8.Name = "checkBoxCopia_8";
+            this.checkBoxCopia_8.Padding = new System.Windows.Forms.Padding(1);
+            this.checkBoxCopia_8.Size = new System.Drawing.Size(127, 19);
+            this.checkBoxCopia_8.TabIndex = 74;
+            this.checkBoxCopia_8.Text = "stampa copie singole";
+            this.checkBoxCopia_8.UseVisualStyleBackColor = true;
+            // 
+            // PrintersListCombo_8
+            // 
+            this.PrintersListCombo_8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PrintersListCombo_8.FormattingEnabled = true;
+            this.PrintersListCombo_8.Location = new System.Drawing.Point(150, 368);
+            this.PrintersListCombo_8.Name = "PrintersListCombo_8";
+            this.PrintersListCombo_8.Size = new System.Drawing.Size(194, 21);
+            this.PrintersListCombo_8.TabIndex = 76;
+            // 
+            // BtnPrintCheck_8
+            // 
+            this.BtnPrintCheck_8.Image = global::StandFacile.Properties.Resources.OK;
+            this.BtnPrintCheck_8.Location = new System.Drawing.Point(360, 334);
+            this.BtnPrintCheck_8.Name = "BtnPrintCheck_8";
+            this.BtnPrintCheck_8.Size = new System.Drawing.Size(27, 23);
+            this.BtnPrintCheck_8.TabIndex = 77;
+            this.BtnPrintCheck_8.UseVisualStyleBackColor = true;
+            this.BtnPrintCheck_8.Click += new System.EventHandler(this.BtnCheck_Click);
             // 
             // checkBoxBCD_7
             // 
@@ -278,7 +345,7 @@
             // 
             this.labelNoWebLoad.AutoSize = true;
             this.labelNoWebLoad.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.labelNoWebLoad.Location = new System.Drawing.Point(426, 243);
+            this.labelNoWebLoad.Location = new System.Drawing.Point(429, 243);
             this.labelNoWebLoad.Name = "labelNoWebLoad";
             this.labelNoWebLoad.Size = new System.Drawing.Size(153, 13);
             this.labelNoWebLoad.TabIndex = 64;
@@ -292,6 +359,7 @@
             this.BtnPrintCheck_7.Size = new System.Drawing.Size(27, 23);
             this.BtnPrintCheck_7.TabIndex = 61;
             this.BtnPrintCheck_7.UseVisualStyleBackColor = true;
+            this.BtnPrintCheck_7.Click += new System.EventHandler(this.BtnCheck_Click);
             // 
             // PrintersListCombo_7
             // 
@@ -333,6 +401,7 @@
             this.BtnPrintCheck_6.Size = new System.Drawing.Size(27, 23);
             this.BtnPrintCheck_6.TabIndex = 55;
             this.BtnPrintCheck_6.UseVisualStyleBackColor = true;
+            this.BtnPrintCheck_6.Click += new System.EventHandler(this.BtnCheck_Click);
             // 
             // PrintersListCombo_6
             // 
@@ -513,7 +582,7 @@
             this.checkBoxCopia_3.AutoCheck = false;
             this.checkBoxCopia_3.AutoSize = true;
             this.checkBoxCopia_3.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopia_3.Location = new System.Drawing.Point(8, 261);
+            this.checkBoxCopia_3.Location = new System.Drawing.Point(7, 261);
             this.checkBoxCopia_3.Name = "checkBoxCopia_3";
             this.checkBoxCopia_3.Padding = new System.Windows.Forms.Padding(1);
             this.checkBoxCopia_3.Size = new System.Drawing.Size(137, 19);
@@ -545,7 +614,7 @@
             this.checkBoxCopia_2.AutoCheck = false;
             this.checkBoxCopia_2.AutoSize = true;
             this.checkBoxCopia_2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopia_2.Location = new System.Drawing.Point(8, 184);
+            this.checkBoxCopia_2.Location = new System.Drawing.Point(7, 184);
             this.checkBoxCopia_2.Name = "checkBoxCopia_2";
             this.checkBoxCopia_2.Padding = new System.Windows.Forms.Padding(1);
             this.checkBoxCopia_2.Size = new System.Drawing.Size(137, 19);
@@ -577,7 +646,7 @@
             this.checkBoxCopia_1.AutoCheck = false;
             this.checkBoxCopia_1.AutoSize = true;
             this.checkBoxCopia_1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopia_1.Location = new System.Drawing.Point(8, 107);
+            this.checkBoxCopia_1.Location = new System.Drawing.Point(7, 107);
             this.checkBoxCopia_1.Name = "checkBoxCopia_1";
             this.checkBoxCopia_1.Padding = new System.Windows.Forms.Padding(1);
             this.checkBoxCopia_1.Size = new System.Drawing.Size(137, 19);
@@ -610,7 +679,7 @@
             this.checkBoxCopia_0.AutoCheck = false;
             this.checkBoxCopia_0.AutoSize = true;
             this.checkBoxCopia_0.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopia_0.Location = new System.Drawing.Point(8, 30);
+            this.checkBoxCopia_0.Location = new System.Drawing.Point(7, 30);
             this.checkBoxCopia_0.Name = "checkBoxCopia_0";
             this.checkBoxCopia_0.Padding = new System.Windows.Forms.Padding(1);
             this.checkBoxCopia_0.Size = new System.Drawing.Size(137, 19);
@@ -624,7 +693,7 @@
             this.btnReset.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReset.Image = ((System.Drawing.Image)(resources.GetObject("btnReset.Image")));
             this.btnReset.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnReset.Location = new System.Drawing.Point(78, 485);
+            this.btnReset.Location = new System.Drawing.Point(78, 561);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(164, 28);
             this.btnReset.TabIndex = 4;
@@ -638,7 +707,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::StandFacile.Properties.Resources.Cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(325, 485);
+            this.btnCancel.Location = new System.Drawing.Point(325, 561);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 28);
@@ -652,7 +721,7 @@
             // 
             this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(468, 485);
+            this.btnOK.Location = new System.Drawing.Point(468, 561);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 28);
@@ -670,7 +739,7 @@
             // textBox_ColorsInfo
             // 
             this.textBox_ColorsInfo.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox_ColorsInfo.Location = new System.Drawing.Point(15, 373);
+            this.textBox_ColorsInfo.Location = new System.Drawing.Point(15, 449);
             this.textBox_ColorsInfo.Multiline = true;
             this.textBox_ColorsInfo.Name = "textBox_ColorsInfo";
             this.textBox_ColorsInfo.ReadOnly = true;
@@ -685,7 +754,7 @@
             this.groupBoxColors.Controls.Add(this.textBoxColor_1);
             this.groupBoxColors.Controls.Add(this.textBoxColor_0);
             this.groupBoxColors.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxColors.Location = new System.Drawing.Point(609, 358);
+            this.groupBoxColors.Location = new System.Drawing.Point(609, 434);
             this.groupBoxColors.Name = "groupBoxColors";
             this.groupBoxColors.Size = new System.Drawing.Size(246, 168);
             this.groupBoxColors.TabIndex = 70;
@@ -741,7 +810,7 @@
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(858, 538);
+            this.ClientSize = new System.Drawing.Size(858, 613);
             this.Controls.Add(this.groupBoxColors);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.textBox_ColorsInfo);
@@ -816,5 +885,10 @@
         private System.Windows.Forms.TextBox textBoxColor_2;
         private System.Windows.Forms.TextBox textBoxColor_1;
         private System.Windows.Forms.TextBox textBoxColor_0;
+        private System.Windows.Forms.CheckBox checkBoxBCD_8;
+        private System.Windows.Forms.TextBox CopiaText_8;
+        private System.Windows.Forms.CheckBox checkBoxCopia_8;
+        private System.Windows.Forms.ComboBox PrintersListCombo_8;
+        private System.Windows.Forms.Button BtnPrintCheck_8;
     }
 }

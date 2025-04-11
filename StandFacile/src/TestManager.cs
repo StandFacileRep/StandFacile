@@ -570,7 +570,7 @@ namespace StandFacile
             // sconti
             if (IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_STD))
             {
-                sTmpRec = String.Format("<DS><iv>{0}</iv></DS>", (SF_Data.iStatusSconto & 0x000000FF));
+                sTmpRec = String.Format("<DS><iv>{0}</iv></DS>", (SF_Data.iStatusSconto & 0x0000000F));
                 _fRecording.WriteLine(sTmpRec);
             }
 

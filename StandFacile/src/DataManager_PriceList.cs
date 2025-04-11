@@ -354,6 +354,10 @@ namespace StandFacile
                                     SF_Data.iGroupsColor[i] = j;
                             }
                         }
+                        else if (i == NUM_EDIT_GROUPS)
+                        {
+                            SF_Data.bCopiesGroupsFlag[i] = true;
+                        }
 
                         continue;
                     }
@@ -398,6 +402,10 @@ namespace StandFacile
                                 if ((j >= 0) && (j < NUM_GROUPS_COLORS))
                                     SF_Data.iGroupsColor[i] = j;
                             }
+                        }
+                        else if (i == NUM_EDIT_GROUPS)
+                        {
+                            SF_Data.bCopiesGroupsFlag[i] = false;
                         }
 
                         continue;
@@ -874,7 +882,7 @@ namespace StandFacile
                     else if (iDest == NUM_COPIES_GRPS)
                     {
                         // compatibilità Listino 5.9.6
-                        SF_Data.Articolo[iRiga].iGruppoStampa = NUM_COPIES_GRPS - 1;
+                        SF_Data.Articolo[iRiga].iGruppoStampa = NUM_SEP_PRINT_GROUPS;
                         SF_Data.Articolo[iRiga].iPrezzoUnitario = iPrzTmp;
                     }
                     else

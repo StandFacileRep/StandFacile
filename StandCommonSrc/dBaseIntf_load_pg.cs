@@ -597,7 +597,7 @@ namespace StandFacile_DB
                                                 }
 
                                                 // considera solo i gruppi cui lo sconto è applicato
-                                                if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, DB_Data.Articolo[i].iGruppoStampa + 8) &&
+                                                if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, DB_Data.Articolo[i].iGruppoStampa + 4) &&
                                                     (VisDatiDlg.rVisDatiDlg.GetBitReport(iReportParam) == BIT_SCONTO_STD))
                                                 {
                                                     bMatch = true;

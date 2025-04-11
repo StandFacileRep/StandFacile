@@ -379,7 +379,7 @@ namespace StandFacile
                     BtnSconto.Enabled = true;
 
                 // ripristina lo stato dopo che si sono consultati i prezzi
-                if ((SF_Data.iStatusSconto & 0x000000FF) != 0)
+                if ((SF_Data.iStatusSconto & 0x0000000F) != 0)
                 {
                     BtnSconto.Checked = true;
                     BtnSconto.Image = Properties.Resources.sconto_si;
@@ -1635,6 +1635,12 @@ namespace StandFacile
                                 sCellText = String.Format(sGRD_FMT_TCH, "G8", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G8", SF_Data.Articolo[h].sTipo, sPrzTmp);
+                            break;
+                        case (int)DEST_TYPE.DEST_SINGLE:
+                            if (SF_Data.bTouchMode)
+                                sCellText = String.Format(sGRD_FMT_TCH, "CS", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
+                            else
+                                sCellText = String.Format(sGRD_FMT_STD, "CS", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_COUNTER:
                             if (SF_Data.bTouchMode)

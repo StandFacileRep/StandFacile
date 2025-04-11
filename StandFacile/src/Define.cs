@@ -137,6 +137,8 @@ namespace StandFacile
 
         /// <summary>formato nome copie</summary>
         public const string NOME_FILE_COPIE = "C{0}_CT{1:d4}_G{2}.txt";
+        /// <summary>formato nome copie singole</summary>
+        public const string NOME_FILE_COPIE_SINGOLE = "C{0}_CT{1:d4}_G{2}_S{3}.txt";
 
         /// <summary>formato nome del messaggio</summary>
         public const string NOME_FILE_MESSAGGIO = "C{0}_Msg{1:d4}.txt";
@@ -179,9 +181,9 @@ namespace StandFacile
         public struct TSconto
         {
             /// <summary>
-            /// stato dello sconto 0x00zzyyxx :<br/>
-            /// xx rappresenta il tipo di sconto da applicare
-            /// yy rappresenta i flag bScontoGruppo[]<br/>
+            /// stato dello sconto 0x00zzyyyx :<br/>
+            /// x rappresenta il tipo di sconto da applicare
+            /// yyy rappresenta i flag bScontoGruppo[]<br/>
             /// zz rappresenta la percentuale dello sconto standard
             /// </summary>
             public int iStatusSconto;
@@ -212,7 +214,7 @@ namespace StandFacile
                 sScontoText[(int)DISC_TYPE.DISC_FIXED] = "";
                 sScontoText[(int)DISC_TYPE.DISC_GRATIS] = "";
 
-                bScontoGruppo = new bool[NUM_EDIT_GROUPS];
+                bScontoGruppo = new bool[NUM_SEP_PRINT_GROUPS];
             }
         }
 
