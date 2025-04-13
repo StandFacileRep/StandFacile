@@ -194,14 +194,18 @@ namespace StandFacile
                 sPrzRow = String.Format("#SC0 {0}; {1}; {2}", GetSconto().iScontoValPerc, (GetSconto().iStatusSconto & 0x0000FFF0) >> 4, GetSconto().sScontoText[(int)DISC_TYPE.DISC_STD]);
                 fPrz.WriteLine(sPrzRow);
                 uLocHashCode += Hash(sPrzRow);
+                //uWebHashCode += Hash(sPrzRow);
 
                 sPrzRow = String.Format("#SC1 {0}; {1}", IntToEuro(GetSconto().iScontoValFisso), GetSconto().sScontoText[(int)DISC_TYPE.DISC_FIXED]);
                 fPrz.WriteLine(sPrzRow);
                 uLocHashCode += Hash(sPrzRow);
+                //uWebHashCode += Hash(sPrzRow);
 
                 sPrzRow = String.Format("#SC2 {0}", GetSconto().sScontoText[(int)DISC_TYPE.DISC_GRATIS]);
                 fPrz.WriteLine(sPrzRow);
                 uLocHashCode += Hash(sPrzRow);
+                //uWebHashCode += Hash(sPrzRow);
+
                 iRowIndex += 3;
 
                 // salva tutte le pagine

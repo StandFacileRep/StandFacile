@@ -68,6 +68,8 @@ namespace StandFacile
 
             bHide = (eViewTypeParam == VIEW_TYPE.NO_VIEW);
 
+            Height = MAINWD_HEIGHT;
+
             // SQLite, impostazione comune
             if (!bUSA_NDB())
             {
@@ -443,10 +445,10 @@ namespace StandFacile
             if (PrintConfigLightDlg.GetPrinterTypeIsWinwows())
 #endif
             {
-                Printer_Windows.PrintFile(GetVisTicketsDir() + "\\" + _sNomeFileTicket, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
+                Printer_Windows.PrintFile(GetVisTicketsDir() + "\\" + _sNomeFileTicket, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
 
                 if (bTicketCopy_NoPrice)
-                    Printer_Windows.PrintFile(GetVisTicketsDir() + "\\" + _sNomeFileTicketNpPrt, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
+                    Printer_Windows.PrintFile(GetVisTicketsDir() + "\\" + _sNomeFileTicketNpPrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
             }
             else
             {
@@ -471,7 +473,7 @@ namespace StandFacile
                 if (_dataIdentifierParam.bCopiesGroupsFlag[i])
                 {
                     if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
-                        Printer_Windows.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
+                        Printer_Windows.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
                     else
                         Printer_Legacy.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbLegacyPrinterParams,
                         (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
@@ -489,7 +491,7 @@ namespace StandFacile
                     if (SF_Data.bCopiesGroupsFlag[(int) DEST_TYPE.DEST_SINGLE])
                     {
                         if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
-                            Printer_Windows.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbWinPrinterParams, (int) DEST_TYPE.DEST_SINGLE);
+                            Printer_Windows.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
                         else
                             Printer_Legacy.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
                     }
@@ -626,27 +628,6 @@ namespace StandFacile
         private void CkBoxTutteCasse_Click(object sender, EventArgs e)
         {
             VisualizzaTicket(_iNum, (int)SEARCH_TYPE.NO_SEARCH);
-        }
-
-        /// <summary>
-        /// da utilizzare solo per le verifiche di scontrino scontato significativo, <br/>
-        /// utilizzato da DataManager per inserire nota nello Scontrino
-        /// </summary>
-        public bool TicketScontatoIsGood()
-        {
-            int i;
-            int iTotaleScontatoCurrTicket = 0;
-
-            double fPerc = (double)((DB_Data.iStatusSconto & 0x00FF0000) >> 16) / 100.0d;
-
-            // totale scontrino corrente
-            for (i = 0; i < MAX_NUM_ARTICOLI; i++)
-            {
-                if ((DB_Data.Articolo[i].iGruppoStampa < NUM_EDIT_GROUPS) && _bScontoGruppo[DB_Data.Articolo[i].iGruppoStampa])
-                    iTotaleScontatoCurrTicket += (int)Math.Round(DB_Data.Articolo[i].iQuantitaOrdine * DB_Data.Articolo[i].iPrezzoUnitario * fPerc);
-            }
-
-            return (iTotaleScontatoCurrTicket > 0);
         }
 
         private void ComboCashPos_SelectedIndexChanged(object sender, EventArgs e)

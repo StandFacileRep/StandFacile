@@ -1,10 +1,10 @@
-; 01.03.2025
+; 12.04.2025
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 ; tra una versione e l'altra cambiare GUID per facilitare l'installazione distinta
 ; The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 
 [Setup]
-AppVersion= 5.14.0
+AppVersion= 5.14.1
 
 AppVerName=StandFacile {#SetupSetting("AppVersion")}
 AppName=StandFacile 2025

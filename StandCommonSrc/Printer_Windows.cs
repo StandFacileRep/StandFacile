@@ -110,15 +110,15 @@ namespace StandCommonFiles
          ****************************************************/
         public static void PrintFile(String sFileToPrintParam)
         {
-            PrintFile(sFileToPrintParam, sGlbWinPrinterParams, NUM_EDIT_GROUPS); // OK
+            PrintFile(sFileToPrintParam, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS); // OK
         }
 
         /// <summary>
         ///  STAMPA su stampante gestita da driver windows,<br/>
         ///  diversa per le 8 copie + scontrino principale<br/>
-        ///  iPrinterIndex da 0 a NUM_EDIT_GROUPS - 1 identifica stampante copie,<br/>
-        ///  NUM_EDIT_GROUPS == NUM_EDIT_GROUPS  identifica stampante Receipt,<br/>
-        ///  NUM_EDIT_GROUPS == NUM_EDIT_GROUPS + 1 identifica stampante Messaggi
+        ///  iPrinterIndex da 0 a NUM_EDIT_GROUPS - 1   identifica stampante copie,<br/>
+        ///  iPrinterIndex == NUM_SEP_PRINT_GROUPS      identifica stampante Receipt,<br/>
+        ///  iPrinterIndex == NUM_SEP_PRINT_GROUPS + 1  identifica stampante Messaggi
         /// </summary>
         /// <param name="sFileToPrintParam"></param>
         /// <param name="sWinPrinterParams"></param>
@@ -273,9 +273,9 @@ namespace StandCommonFiles
 
                     if (String.IsNullOrEmpty(sPrinterNameParam))
                     {
-                        if (iPrinterIndex == NUM_EDIT_GROUPS + 1)  // stampa Messaggi
+                        if (iPrinterIndex == NUM_SEP_PRINT_GROUPS + 1)  // stampa Messaggi
                             pd.PrinterSettings.PrinterName = _sWinPrinterParams.sMsgPrinterModel;
-                        else if (iPrinterIndex == (NUM_EDIT_GROUPS)) // stampa Tickets
+                        else if (iPrinterIndex == (NUM_SEP_PRINT_GROUPS)) // stampa Tickets
                             pd.PrinterSettings.PrinterName = _sWinPrinterParams.sTckPrinterModel;
                         else
                             pd.PrinterSettings.PrinterName = _sWinPrinterParams.sPrinterModel[iPrinterIndex];
@@ -678,7 +678,7 @@ namespace StandCommonFiles
             sTmp = String.Format("Printer_Windows : printWinSampleText() {0}", sFileToPrint);
             LogToFile(sTmp);
 
-            PrintFile(sFileToPrint, sWinPrinterParams, NUM_EDIT_GROUPS); // OK
+            PrintFile(sFileToPrint, sWinPrinterParams, NUM_SEP_PRINT_GROUPS); // OK
         }
 
     }

@@ -587,7 +587,7 @@ namespace StandFacile_DB
                                             {
 #if STANDFACILE || STAND_MONITOR
                                                 // considera solo gli sconti
-                                                if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.GetBitReport(iReportParam)))
+                                                if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.GetDiscountReport(iReportParam)))
                                                 {
                                                     bMatch = true;
                                                     break;
@@ -595,7 +595,7 @@ namespace StandFacile_DB
 
                                                 // considera solo i gruppi cui lo sconto è applicato
                                                 if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, DB_Data.Articolo[i].iGruppoStampa + 4) &&
-                                                    (VisDatiDlg.rVisDatiDlg.GetBitReport(iReportParam) == BIT_SCONTO_STD))
+                                                    (VisDatiDlg.rVisDatiDlg.GetDiscountReport(iReportParam) == BIT_SCONTO_STD))
                                                 {
                                                     bMatch = true;
                                                     break;
@@ -634,7 +634,7 @@ namespace StandFacile_DB
                                     DB_Data.iTotaleAnnullato += iPrezzoUnitario * iQuantitaOrdine;
                                 }
 #if STANDFACILE || STAND_MONITOR
-                                else if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.GetBitReport(iReportParam)))
+                                else if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.GetDiscountReport(iReportParam)))
                                 {
                                     bMatch = true;
                                 }

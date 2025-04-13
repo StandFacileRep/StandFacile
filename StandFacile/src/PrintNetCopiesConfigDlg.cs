@@ -75,9 +75,9 @@ namespace StandFacile
         {
             if (CheckService(_HIDE_LEGACY_PRINTER))
                 return true;
-            else if (iPrinterIndex == NUM_EDIT_GROUPS + 1)  // stampa Messaggi
+            else if (iPrinterIndex == NUM_SEP_PRINT_GROUPS + 1)  // stampa Messaggi
                 return (sGlbWinPrinterParams.sMsgPrinterModel != _LEGACY_PRINTER);
-            else if (iPrinterIndex == (NUM_EDIT_GROUPS)) // stampa Tickets
+            else if (iPrinterIndex == (NUM_SEP_PRINT_GROUPS)) // stampa Tickets
                 return (sGlbWinPrinterParams.sTckPrinterModel != _LEGACY_PRINTER);
             else
                 return (sGlbWinPrinterParams.sPrinterModel[iPrinterIndex] != _LEGACY_PRINTER);
@@ -166,14 +166,20 @@ namespace StandFacile
             _pPrintersListCombo[7] = PrintersListCombo_7;
             _pPrintersListCombo[8] = PrintersListCombo_8;
 
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 _tt.SetToolTip(_pCheckBoxCopia[i], "Ctrl + click per cambiare il colore");
 
-                if (i < NUM_EDIT_GROUPS - 1)
-                    _tt.SetToolTip(_pPrintCopyText[i], "etichetta modificabile che apparirà nelle stampe e negli ordini web");
-                else
+                if (i == (int)DEST_TYPE.DEST_SINGLE)
+                {
+                    _tt.SetToolTip(_pPrintCopyText[i], "etichetta non modificabile che apparirà nelle stampe e negli ordini web");
+                }
+                else if (i == (int)DEST_TYPE.DEST_TIPO8)
+                {
                     _tt.SetToolTip(_pPrintCopyText[i], "etichetta modificabile che apparirà nelle stampe ma non negli ordini web");
+                }
+                else
+                    _tt.SetToolTip(_pPrintCopyText[i], "etichetta modificabile che apparirà nelle stampe e negli ordini web");
 
                 _tt.SetToolTip(_pBtnPrintCheck[i], "effettua stampa di prova");
                 _tt.SetToolTip(_pCheckBox_BCD[i], "stampa il barcode nella copia");
@@ -185,7 +191,7 @@ namespace StandFacile
             for (i = 0; i < NUM_GROUPS_COLORS - 1; i++)
                 _pTextBoxColor[i].MaxLength = MAX_COPIES_TEXT_CHARS;
 
-            _pPrintCopyText[NUM_EDIT_GROUPS].ReadOnly = true;
+            _pPrintCopyText[(int)DEST_TYPE.DEST_SINGLE].ReadOnly = true;
 
             _bListinoModificato = false;
 
@@ -452,7 +458,7 @@ namespace StandFacile
         {
             int i, iActualIndex = 0;
 
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 if (sender == _pCheckBox_BCD[i])
                 {

@@ -358,7 +358,7 @@ namespace StandFacile
         private void CheckBox_Click(object sender, EventArgs e)
         {
             // per compatibilità dimensione vettore
-            for (int i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (int i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
                 _scontoTmp.bScontoGruppo[i] = false;
 
             _scontoTmp.iStatusSconto &= 0x7FFF000F;
@@ -424,14 +424,22 @@ namespace StandFacile
         /// <summary>salva tutti i dati Sconto nel Listino</summary>
         private void DS_btnSalva_Click(object sender, EventArgs e)
         {
+            //DialogResult dResult;
+
             if (!((SF_Data.iNumCassa == CASSA_PRINCIPALE) && FrmMain.rFrmMain.GetEsperto()))
                 return;
 
             _Sconto = DeepCopy(_scontoTmp);
 
-            DataManager.SalvaListino();
+            //dResult = MessageBox.Show("Il salvataggio dello sconto può cambiare il checksum per l'accettazione degli ordini web.\r\n\r\n" +
+            //    "Sei sicuro di procedere ?", "Attenzione !", MessageBoxButtons.YesNo);
 
-            MessageBox.Show("Impostazione Salvate !", "Attenzione !", MessageBoxButtons.OK);
+            //if (dResult == DialogResult.Yes)
+            {
+                DataManager.SalvaListino();
+
+                MessageBox.Show("Impostazione Salvate !", "Attenzione !", MessageBoxButtons.OK);
+            }
         }
 
         private void BT_Cancel_Click(object sender, EventArgs e)
@@ -450,7 +458,7 @@ namespace StandFacile
             if ((_Sconto.iScontoValFisso != _scontoTmp.iScontoValFisso) || (_Sconto.iScontoValPerc != _scontoTmp.iScontoValPerc))
                 bListinoModificato = true;
 
-            for (int i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (int i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 if (_Sconto.bScontoGruppo[i] != _scontoTmp.bScontoGruppo[i])
                     bListinoModificato = true;

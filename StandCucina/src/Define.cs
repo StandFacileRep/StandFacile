@@ -18,6 +18,9 @@ namespace StandFacile
         /// <summary>numero minimo di righe visualizzate</summary>
         public const int MIN_ROWS_NUMBER = 15;
 
+        /// <summary>altezza minima di Visordini()</summary>
+        public const int MAINWD_HEIGHT = 660;
+
         /// <summary>File temporaneo di stampa Scontrino</summary>
         public const string NOME_FILE_STAMPA_RECEIPT = "StampaTckTmp.txt";
         /// <summary>File temporaneo di stampa messaggio</summary>

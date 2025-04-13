@@ -56,7 +56,7 @@ namespace StandFacile
         }
 
         /// <summary>ottiene la selezione del tipo di report</summary>
-        public int GetBitReport(int iParam)
+        public int GetDiscountReport(int iParam)
         {
             if (comboReport != null)
             {
@@ -500,18 +500,18 @@ namespace StandFacile
 
                     textEditDati.AppendText("\r\n");
 
-                    if ((DB_Data.iTotaleScontatoGratis > 0) && (GetReport() == 0 || GetBitReport(comboReport.SelectedIndex) == BIT_SCONTO_GRATIS))
+                    if ((DB_Data.iTotaleScontatoGratis > 0) && (GetReport() == 0 || GetDiscountReport(comboReport.SelectedIndex) == BIT_SCONTO_GRATIS))
                     {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "valore gratuiti", IntToEuro(DB_Data.iTotaleScontatoGratis));
                         textEditDati.AppendText(sTmp);
                     }
-                    if ((DB_Data.iTotaleScontatoFisso > 0) && (GetReport() == 0 || GetBitReport(comboReport.SelectedIndex) == BIT_SCONTO_FISSO))
+                    if ((DB_Data.iTotaleScontatoFisso > 0) && (GetReport() == 0 || GetDiscountReport(comboReport.SelectedIndex) == BIT_SCONTO_FISSO))
                     {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "valore sconto fisso", IntToEuro(DB_Data.iTotaleScontatoFisso));
                         textEditDati.AppendText(sTmp);
                     }
 
-                    if ((DB_Data.iTotaleScontatoStd > 0) && (GetReport() == 0 || GetBitReport(comboReport.SelectedIndex) == BIT_SCONTO_STD))
+                    if ((DB_Data.iTotaleScontatoStd > 0) && (GetReport() == 0 || GetDiscountReport(comboReport.SelectedIndex) == BIT_SCONTO_STD))
                     {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "valore sconto articoli", IntToEuro(DB_Data.iTotaleScontatoStd));
                         textEditDati.AppendText(sTmp);

@@ -23,8 +23,7 @@ using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
-using System.Web.Script.Serialization;
-using System.Reflection;
+using StandCommonFiles;
 
 namespace StandFacile
 {
@@ -1395,14 +1394,9 @@ namespace StandFacile
          **********************************************/
         private void MnuPrintTest_Click(object sender, EventArgs e)
         {
-            String sTmp, sFileToPrint;
+            LogToFile("Mainform : PrintSampleText()");
 
-            sFileToPrint = BuildSampleText();
-
-            sTmp = String.Format("Mainform : PrintSampleText() {0}", sFileToPrint);
-            LogToFile(sTmp);
-
-            GenPrintFile(sFileToPrint);
+            Printer_Windows.PrintSampleText(sGlbWinPrinterParams);
         }
 
         private void MnuStampaFile_Click(object sender, EventArgs e)

@@ -162,6 +162,7 @@
             this.checkBoxBCD_8.Text = " ";
             this.checkBoxBCD_8.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.checkBoxBCD_8.UseVisualStyleBackColor = true;
+            this.checkBoxBCD_8.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxBCD_MouseClick);
             // 
             // CopiaText_8
             // 

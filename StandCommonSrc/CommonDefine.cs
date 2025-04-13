@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 28.01.2025
+    Data	 : 11.04.2025
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.14.0 RC1";
+        public const String RELEASE_SW = "v5.14.1 RC1";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5c";
@@ -610,7 +610,10 @@ namespace StandCommonFiles
         /// <summary>numero=11 del "gruppo di stampa virtuale" che identifica barcode di vendita WEB</summary>
         public static readonly int NUM_WEB_SALE_GRP = 11;
 
-        /// <summary>numero=9 dei gruppi di stampa separata, comprese copie sigole ma esclusi i contatori</summary>
+        /// <summary>
+        /// numero=9 dei gruppi di stampa separata, comprese copie sigole ma esclusi i contatori<br/>
+        /// corrisponde ad indice stampa Locale
+        /// </summary>
         public static readonly int NUM_SEP_PRINT_GROUPS = NUM_COPIES_GRPS - 1;
 
         /// <summary>numero=8 dei gruppi di stampa con label editabile, sono i primi 8</summary>
@@ -708,8 +711,8 @@ namespace StandCommonFiles
                 sMsgPrinterModel = "";
                 iMsgPrinterModel = 0;
 
-                sPrinterModel = new String[NUM_COPIES_GRPS];
-                iPrinterModel = new int[NUM_COPIES_GRPS];
+                sPrinterModel = new String[NUM_SEP_PRINT_GROUPS];
+                iPrinterModel = new int[NUM_SEP_PRINT_GROUPS];
                 sLogoName = "";
                 iLogoWidth = 0;
                 iLogoHeight = 0;
@@ -1133,9 +1136,9 @@ namespace StandCommonFiles
                 sPageTabs = new String[PAGES_NUM_TABM];
 
                 sCopiesGroupsText = new String[NUM_COPIES_GRPS]; // deve contenere anche stringhe per i contatori
-                bCopiesGroupsFlag = new bool[NUM_COPIES_GRPS];
+                bCopiesGroupsFlag = new bool[NUM_SEP_PRINT_GROUPS];
 
-                iGroupsColor = new int[NUM_COPIES_GRPS];
+                iGroupsColor = new int[NUM_EDIT_GROUPS];
                 sColorGroupsText = new String[NUM_GROUPS_COLORS - 1];
                 iNumOrdinePrev = 0;
                 iNumOrdineWeb = 0;

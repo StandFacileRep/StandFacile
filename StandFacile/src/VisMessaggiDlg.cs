@@ -402,8 +402,8 @@ namespace StandFacile
                     // Invio alla Stampante
                     LogToFile("VisMessaggiDlg : stampa di " + sNomeFileMsg);
 
-                    if (PrintNetCopiesConfigDlg.GetPrinterTypeIsWinwows(NUM_EDIT_GROUPS + 1))
-                        Printer_Windows.PrintFile(sNomeFileMsg, sGlbWinPrinterParams, NUM_EDIT_GROUPS + 1);
+                    if (PrintNetCopiesConfigDlg.GetPrinterTypeIsWinwows(NUM_SEP_PRINT_GROUPS + 1))
+                        Printer_Windows.PrintFile(sNomeFileMsg, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS + 1);
                     else
                         Printer_Legacy.PrintFile(sNomeFileMsg, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_NOW);
 

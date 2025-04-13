@@ -202,9 +202,10 @@ namespace StandFacileTests
             bool bResult;
 
             TData DB_Data = new TData(0);
-            bool[] bScontoGruppo = new bool[NUM_EDIT_GROUPS];
+            bool[] bScontoGruppo = new bool[NUM_SEP_PRINT_GROUPS];
 
             // Arrange
+
             DB_Data.iStatusSconto = 0x000A0000;
 
             bScontoGruppo[1] = false;

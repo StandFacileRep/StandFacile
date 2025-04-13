@@ -1663,6 +1663,7 @@ namespace StandFacile
 
                         sToolTip += string.Format("   {0}: {1}\n", "gruppo breve", sConstGruppiShort[SF_Data.Articolo[h].iGruppoStampa]);
 
+                        sToolTip += string.Format("   {0}: {1}\n", "indice listino", SF_Data.Articolo[h].iIndexListino);
                     }
 
                     MainGrid.Rows[i].Cells[j].ToolTipText = sToolTip;

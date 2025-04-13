@@ -1,8 +1,8 @@
-; 01.03.2025
+; 12.04.2025
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
-AppVersion= 5.14.0
+AppVersion= 5.14.1
 
 AppVerName=StandMonitor {#SetupSetting("AppVersion")}
 AppName=StandMonitor 2025

@@ -97,7 +97,7 @@ namespace StandFacile
              iPrezzoScontato viene sempre calcolato,
              iScontoPerc viene letto solo se presente e non calcolato
 
-             - 'iGruppoStampa' può valere da 0 a NUM_EDIT_GROUPS-1 in modo da
+             - 'iGruppoStampa' può valere da 0 a NUM_SEP_PRINT_GROUPS-1 in modo da
              distinguere diversi ragruppamenti di pietanze omogenee nella stampa
              delle copie
 
@@ -446,6 +446,7 @@ namespace StandFacile
                         _ErrMsg.iErrID = ERR_SNF;
 
                         sTmp = sInStr.Substring(3, 1);
+                        //uWebHashCode += Hash(sInStr);
 
                         iDiscType = ToInt32(sTmp) + 1;
 

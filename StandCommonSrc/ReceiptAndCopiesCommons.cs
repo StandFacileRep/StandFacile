@@ -676,7 +676,7 @@ namespace StandCommonFiles
 
                 if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
                 {
-                    Printer_Windows.PrintFile(sDirParam + sNomeFileTicketPrt, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
+                    Printer_Windows.PrintFile(sDirParam + sNomeFileTicketPrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
                 }
                 else
                 {
@@ -1087,7 +1087,7 @@ namespace StandCommonFiles
                 if (!CheckService(Define._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data))
                 {
                     if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
-                        Printer_Windows.PrintFile(sDirParam + sNomeFileTicketNpPrt, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
+                        Printer_Windows.PrintFile(sDirParam + sNomeFileTicketNpPrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
                     else
                         Printer_Legacy.PrintFile(sDirParam + sNomeFileTicketNpPrt, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
                 }
@@ -1436,9 +1436,9 @@ namespace StandCommonFiles
                 iEqRowsNumber = 1; // riga di partenza
                 iNumCoperti = iNumCopertiBackupCopy;
 
-                if ((dataIdParam.Articolo[i].iQuantitaOrdine > 0) && (dataIdParam.Articolo[i].iGruppoStampa == (NUM_EDIT_GROUPS)))
+                if ((dataIdParam.Articolo[i].iQuantitaOrdine > 0) && (dataIdParam.Articolo[i].iGruppoStampa == ((int) DEST_TYPE.DEST_SINGLE)))
                 {
-                    sNomeFileCopiePrt = String.Format(NOME_FILE_COPIE_SINGOLE, dataIdParam.iNumCassa, iNumOfReceiptsParam, NUM_EDIT_GROUPS,
+                    sNomeFileCopiePrt = String.Format(NOME_FILE_COPIE_SINGOLE, dataIdParam.iNumCassa, iNumOfReceiptsParam, (int) DEST_TYPE.DEST_SINGLE,
                                         dataIdParam.Articolo[i].iIndexListino);
 
                     // verifica se serve ricostruire, commentare per debug
@@ -1620,10 +1620,10 @@ namespace StandCommonFiles
                      *  la stampa ; serve ad evitare problemi di Shared data
                      *  durante _AUTO_SEQ_TEST richiede tempo e provoca disallineamenti
                      *****************************************************************************/
-                    if (dataIdParam.bCopiesGroupsFlag[NUM_EDIT_GROUPS] && !CheckService(Define._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data))
+                    if (dataIdParam.bCopiesGroupsFlag[(int) DEST_TYPE.DEST_SINGLE] && !CheckService(Define._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data))
                     {
-                        if (PrintNetCopiesConfigDlg.GetPrinterTypeIsWinwows(NUM_EDIT_GROUPS))
-                            Printer_Windows.PrintFile(sDirParam + sNomeFileCopiePrt, sGlbWinPrinterParams, NUM_EDIT_GROUPS);
+                        if (PrintNetCopiesConfigDlg.GetPrinterTypeIsWinwows((int) DEST_TYPE.DEST_SINGLE))
+                            Printer_Windows.PrintFile(sDirParam + sNomeFileCopiePrt, sGlbWinPrinterParams, (int) DEST_TYPE.DEST_SINGLE);
                         else
                             Printer_Legacy.PrintFile(sDirParam + sNomeFileCopiePrt, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
                     }

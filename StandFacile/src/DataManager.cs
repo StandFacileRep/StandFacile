@@ -956,7 +956,7 @@ namespace StandFacile
                     fTxtFile.WriteLine(DB_Data.sMessaggio);
                     fTxtFile.Close();
 
-                    for (i = 0; (i < NUM_COPIES_GRPS) && !SF_Data.bPrevendita; i++)
+                    for (i = 0; (i < NUM_SEP_PRINT_GROUPS) && !SF_Data.bPrevendita; i++)
                     {
                         // evita di stampare più di una volta gruppi dello stesso colore
                         if (!CheckCopy_ToBePrintedOnce(i, bGroupsColorPrinted, SF_Data))
