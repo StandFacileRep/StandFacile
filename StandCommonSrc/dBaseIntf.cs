@@ -129,6 +129,21 @@ namespace StandFacile
 
 #if STAND_MONITOR
 
+        /// <summary>contatore per gestione avvisi dbCheck()</summary>
+        public static int _iAvvisoDbCheckCounter = 3;
+
+        /// <summary>
+        /// imposta il contatore per gestione avvisi dbCheck()<br/>
+        /// se è _iAvvisoDbCheckCounter LT 0, è silente 
+        /// </summary>
+        public static void SetAvvisoDbCheckCounter(int i) { _iAvvisoDbCheckCounter = i; }
+
+        /// <summary>
+        /// imposta il contatore per gestione avvisi dbCheck()<br/>
+        /// se è _iAvvisoDbCheckCounter LT 0, è silente 
+        /// </summary>
+        public static void IncAvvisoDbCheckCounter() { _iAvvisoDbCheckCounter++; }
+
         /// <summary>numero degli ultimi scontrini emessi</summary>
         public const int NUM_ULTIMI_SCONTRINI = 5;
         /// <summary>stringa per facilitare visualizzazione tabella ordini</summary>

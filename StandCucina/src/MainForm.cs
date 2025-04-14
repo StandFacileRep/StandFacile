@@ -68,6 +68,8 @@ namespace StandFacile
         bool[] _bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS]; // OK
         bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
 
+        string _sShortDBType;
+
         // gestione cross thread
         static readonly Queue eventQueue = new Queue();
 
@@ -114,8 +116,6 @@ namespace StandFacile
             String[] sQueue_Object = new String[2];
 
             rFrmMain = this;
-
-            Text = Define.TITLE;
 
             _bOnLine = true;
             _iPrevShownOnline_TicketNum = -100;
@@ -169,6 +169,24 @@ namespace StandFacile
 
             TB_Tickets.ReadOnly = true;
             TB_Messaggi.ReadOnly = true;
+
+            switch (dBaseIntf.iUSA_NDB())
+            {
+                case (int)DB_MODE.SQLITE:
+                    _sShortDBType = "ql";
+                    break;
+                case (int)DB_MODE.MYSQL:
+                    _sShortDBType = "my";
+                    break;
+                case (int)DB_MODE.POSTGRES:
+                    _sShortDBType = "pg";
+                    break;
+                default:
+                    _sShortDBType = "";
+                    break;
+            }
+
+            Text = String.Format("{0}   {1}", Define.TITLE, _sShortDBType);
 
             LogToFile("FrmMain : Init");
         }

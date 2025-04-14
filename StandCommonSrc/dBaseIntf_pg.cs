@@ -908,7 +908,7 @@ namespace StandFacile_DB
                 _dbCSB.Password = sWebServerCheckParams.sDB_pwd;
                 _dbCSB.Pooling = false;
                 _dbCSB.Unicode = true;
-                _dbCSB.ConnectionTimeout = TIMEOUT_DB_OPEN;           
+                _dbCSB.ConnectionTimeout = TIMEOUT_DB_OPEN;
             }
 
             if (SF_Data.iNumCassa == CASSA_PRINCIPALE)
@@ -1301,7 +1301,7 @@ namespace StandFacile_DB
 #if STANDFACILE
                     if (!CheckService(Define._AUTO_SEQ_TEST))
 #endif
-                        WarningManager(_WrnMsg);
+                    WarningManager(_WrnMsg);
 
                     sTmp = String.Format("dbAnnulloOrdine : annullo eseguito iOrdine_ID = {0} !", iNumAnnulloParam);
                     LogToFile(sTmp);
@@ -1760,7 +1760,7 @@ namespace StandFacile_DB
                 }
                 else
 #endif
-                    return 0;
+                return 0;
             }
         }
 
@@ -1844,7 +1844,7 @@ namespace StandFacile_DB
                 }
                 else
 #endif
-                    return 0;
+                return 0;
             }
         }
 
@@ -2220,6 +2220,10 @@ namespace StandFacile_DB
                 // imposta la variabile membro solo se si connette
                 if (_Connection.State == ConnectionState.Open)
                 {
+#if STAND_MONITOR
+                    if (_iAvvisoDbCheckCounter < 0)
+                        bSilentParam = true;
+#endif
                     if (!bSilentParam) // Messaggio di connessione
                     {
                         _WrnMsg.iErrID = WRN_TDS;

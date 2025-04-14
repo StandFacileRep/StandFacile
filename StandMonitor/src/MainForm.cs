@@ -59,6 +59,8 @@ namespace StandFacile
         /// <summary>griglia per ordini</summary>
         public DataGridView pDBGrid;
 
+        string _sShortDBType;
+
         /// <summary>ottiene flag modo esperto</summary>
         /// <returns></returns>
         public bool GetEsperto() { return MnuEsperto.Checked; }
@@ -92,7 +94,6 @@ namespace StandFacile
 
             LogToFile("Mainform : Avvio StandMonitor");
 
-            Text = Define.TITLE;
             this.MinimumSize = new System.Drawing.Size(Define.MAINWD_WIDTH, Define.MAINWD_HEIGHT);
 
             this.Size = new System.Drawing.Size(1000, 680);
@@ -272,6 +273,24 @@ namespace StandFacile
 
             Timer.Enabled = true;
 
+            switch (dBaseIntf.iUSA_NDB())
+            {
+                case (int)DB_MODE.SQLITE:
+                    _sShortDBType = "ql";
+                    break;
+                case (int)DB_MODE.MYSQL:
+                    _sShortDBType = "my";
+                    break;
+                case (int)DB_MODE.POSTGRES:
+                    _sShortDBType = "pg";
+                    break;
+                default:
+                    _sShortDBType = "";
+                    break;
+            }
+
+            Text = String.Format("{0}   {1}", Define.TITLE, _sShortDBType);
+
             LogToFile("FrmMain : Init");
 
             // VisOrdiniFrm.rVisOrdiniFrm.ShowDialog(); // debug
@@ -286,6 +305,8 @@ namespace StandFacile
             bool bFilterFound, bExcludedItem;
 
             int iArrayIndex, iGlbNumOfTickets, i, j;
+            int iDiffQtaVendutaScaricata;
+
             ulong ulStart, ulStop, ulPingTime;
 
             String sTime, sData, sExcludedItem;
@@ -306,11 +327,13 @@ namespace StandFacile
 
             if (iRefresh == 0)
             {
-                iRefresh = Define.REFRESH_TIMER;
+                iRefresh = REFRESH_TIMER;
 
                 try
                 {
                     ulStart = (ulong)Environment.TickCount;
+
+                    IncAvvisoDbCheckCounter();
 
                     _rdBaseIntf.dbCheckStatus();
 
@@ -460,9 +483,22 @@ namespace StandFacile
 
                                 row["sTipo_Articolo"] = DB_Data.Articolo[iArrayIndex].sTipo;
                                 row["iQuantita_Venduta"] = DB_Data.Articolo[iArrayIndex].iQuantitaVenduta;
-                                row["iQuantita_Residua"] = DB_Data.Articolo[iArrayIndex].iQuantitaVenduta - DB_Data.Articolo[iArrayIndex].iQuantita_Scaricata;
                                 row["sGruppo_Stampa"] = sConstGruppiShort[DB_Data.Articolo[iArrayIndex].iGruppoStampa];
                                 row["sDisponibilita"] = sDisp;
+
+                                iDiffQtaVendutaScaricata = DB_Data.Articolo[iArrayIndex].iQuantitaVenduta - DB_Data.Articolo[iArrayIndex].iQuantita_Scaricata;
+
+                                if (iDiffQtaVendutaScaricata >= 0)
+                                {
+                                    row["iQuantita_Residua"] = iDiffQtaVendutaScaricata;
+                                }
+                                else
+                                {
+                                    row["iQuantita_Residua"] = 0;
+
+                                    sTmpStr = String.Format("Main TimerLoop diff Qta Venduta-Scaricata: {0} - {1}", DB_Data.Articolo[iArrayIndex].iQuantitaVenduta, DB_Data.Articolo[iArrayIndex].iQuantita_Scaricata);
+                                    LogToFile(sTmpStr, true);
+                                }
 
                                 if (j == 0)
                                     table_0.Rows.Add(row);
@@ -687,7 +723,9 @@ namespace StandFacile
 
             ulStart = (ulong)Environment.TickCount;
 
-            _rdBaseIntf.dbCheck();
+            if (_rdBaseIntf.dbCheck())
+                SetAvvisoDbCheckCounter(-4); // rinvia messaggi ulteriori
+
             iRefresh = 0; // AuxRefresh immediato
 
             // misura del tempo in ms per eseguire dbScaricaOrdine

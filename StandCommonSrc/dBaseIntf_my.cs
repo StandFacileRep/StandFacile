@@ -2218,6 +2218,10 @@ namespace StandFacile_DB
                 // imposta la variabile membro solo se si connette
                 if (_Connection.State == ConnectionState.Open)
                 {
+#if STAND_MONITOR
+                    if (_iAvvisoDbCheckCounter < 0)
+                        bSilentParam = true;
+#endif
                     if (!bSilentParam) // Messaggio di connessione
                     {
                         _WrnMsg.iErrID = WRN_TDS;

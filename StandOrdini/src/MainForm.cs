@@ -57,6 +57,8 @@ namespace StandFacile
         String[] textLine_L;
         String[] textLine_R;
 
+        static string _sShortDBType;
+
         static TErrMsg _WrnMsg;
 
         /// <summary>costruttore</summary>
@@ -90,7 +92,6 @@ namespace StandFacile
 
             LabelClock.Text = "";
 
-            Text = Define.TITLE;
             this.MinimumSize = new System.Drawing.Size(Define.MAINWD_WIDTH, Define.MAINWD_HEIGHT);
 
             this.Size = new System.Drawing.Size(640, 480);
@@ -141,6 +142,24 @@ namespace StandFacile
 
             iScaricoDelayTimer = 2;
             Timer.Enabled = true;
+
+            switch (dBaseIntf.iUSA_NDB())
+            {
+                case (int)DB_MODE.SQLITE:
+                    _sShortDBType = "ql";
+                    break;
+                case (int)DB_MODE.MYSQL:
+                    _sShortDBType = "my";
+                    break;
+                case (int)DB_MODE.POSTGRES:
+                    _sShortDBType = "pg";
+                    break;
+                default:
+                    _sShortDBType = "";
+                    break;
+            }
+
+            Text = String.Format("{0}   {1}", Define.TITLE, _sShortDBType);
 
             LogToFile("FrmMain : Init");
 
