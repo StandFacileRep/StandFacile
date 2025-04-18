@@ -49,6 +49,12 @@ namespace StandFacile
         /// <summary>ottiene flag di attivazione Pulsanti + - X</summary>
         public bool Get_VButtons() { return checkBox_VButtons.Checked; }
 
+        readonly ToolTip _tt = new ToolTip
+        {
+            InitialDelay = 50,
+            ShowAlways = true
+        };
+
         /// <summary>costruttore</summary>
         public OptionsDlg()
         {
@@ -56,6 +62,10 @@ namespace StandFacile
             InitializeComponent();
 
             _rOptionsDlg = this;
+
+            _tt.SetToolTip(checkBox_ZeroPriceItems, "consente o meno Articoli con Prezzo = zero,\nattenzione che la disattivazione modifica il Listino eliminando eventuali Articoli con prezzo nullo,\nin questo caso si modifica anche il checksum web!");
+
+            _tt.SetToolTip(checkBoxPrivacy, "attiva il modo riservato: si richiede cioè l'inserimento della password per visualizzare gli incassi");
 
             Init(false);
         }
@@ -66,7 +76,7 @@ namespace StandFacile
             checkBoxTavolo.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED);
             checkBoxCoperti.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED);
             checkBoxPayment.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED);
-            checkBox_ZeroPriceItems.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_ZERO_PRICE_ITEMS_AUTHORIZED);
+            checkBox_ZeroPriceItems.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_ZERO_PRICE_ITEMS_ALLOWED);
             checkBoxPrivacy.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PRIVACY);
             checkBox_Enter.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_ENTER_PRINT_RECEIPT_ENABLED);
 
@@ -142,7 +152,7 @@ namespace StandFacile
                 iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED);
 
             if (checkBox_ZeroPriceItems.Checked)
-                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_ZERO_PRICE_ITEMS_AUTHORIZED);
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_ZERO_PRICE_ITEMS_ALLOWED);
 
             if (checkBoxPrivacy.Checked)
                 iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_PRIVACY);

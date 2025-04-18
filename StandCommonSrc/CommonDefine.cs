@@ -814,7 +814,7 @@ namespace StandCommonFiles
             BIT_PAYMENT_REQUIRED,
 
             /// <summary>bit di iGeneralOptions per consentire Articoli con Prezzo = zero</summary>
-            BIT_ZERO_PRICE_ITEMS_AUTHORIZED,
+            BIT_ZERO_PRICE_ITEMS_ALLOWED,
 
             /// <summary>bit di iGeneralOptions per consentire la riservatezza</summary>
             BIT_PRIVACY,

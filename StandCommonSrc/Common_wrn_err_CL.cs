@@ -88,8 +88,10 @@ namespace StandCommonFiles
         public const int WRN_ECE = 440;
         /// <summary> Log File Error</summary>
         public const int WRN_LFE = 450;
-        /// <summary>Match Not Found</summary>
-        public const int WRN_MNF = 460;
+        /// <summary>Match Not Found nel Listino</summary>
+        public const int WRN_MNFL = 460;
+        /// <summary>Match Not Found nel Database</summary>
+        public const int WRN_MNFD = 465;
         /// <summary>Errore nel Tipo di Articolo Vuoto</summary>
         public const int WRN_TPV = 470;
         /// <summary>Errore Prezzo nullo</summary>
@@ -340,7 +342,11 @@ namespace StandCommonFiles
                     sWrnStr = "Attenzione !\nManca il nome del  TCP/IP Server!";
                     break;
 
-                case WRN_MNF: // Match Not Found
+                case WRN_MNFL: // Match Not Found
+                    sWrnStr = "\nArticolo:\n\n " + WrnMsg.sMsg + " \n\nnon trovato nel Listino!";
+                    break;
+
+                case WRN_MNFD: // Match Not Found
                     sWrnStr = "\nArticolo:\n\n " + WrnMsg.sMsg + " \n\nnon trovato nel database!";
                     break;
 

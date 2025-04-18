@@ -512,7 +512,7 @@ namespace StandFacile
                         if (bDbRead_Ok && !bMatch && !bSingleWarn && !bSilentParam)
                         {
                             _ErrMsg.sMsg = DB_Data.Articolo[j].sTipo;
-                            _ErrMsg.iErrID = WRN_MNF;
+                            _ErrMsg.iErrID = WRN_MNFL;
                             WarningManager(_ErrMsg);
                             bSingleWarn = true;
                         }
@@ -736,7 +736,7 @@ namespace StandFacile
                                 if (!bMatch && !bSingleWarn)
                                 {
                                     _ErrMsg.sMsg = DB_Data.Articolo[j].sTipo;
-                                    _ErrMsg.iErrID = WRN_MNF;
+                                    _ErrMsg.iErrID = WRN_MNFL;
                                     WarningManager(_ErrMsg);
                                     bSingleWarn = true;
                                     LogToFile("AggiornaDisponibilità : record1 " + _ErrMsg.sMsg + "non trovato I !");
@@ -799,7 +799,7 @@ namespace StandFacile
                             if (bDbRead_Ok && !bMatch && !bSingleWarn)
                             {
                                 _ErrMsg.sMsg = SF_Data.Articolo[i].sTipo;
-                                _ErrMsg.iErrID = WRN_MNF;
+                                _ErrMsg.iErrID = WRN_MNFD;
                                 WarningManager(_ErrMsg);
                                 bSingleWarn = true;
                                 _ErrMsg.sMsg = "";
@@ -851,7 +851,7 @@ namespace StandFacile
                     if (!bMatch && !bSingleWarn)
                     {
                         _ErrMsg.sMsg = SF_Data.Articolo[i].sTipo;
-                        _ErrMsg.iErrID = WRN_MNF;
+                        _ErrMsg.iErrID = WRN_MNFD;
                         WarningManager(_ErrMsg);
                         bSingleWarn = true;
                     }
@@ -1185,7 +1185,7 @@ namespace StandFacile
                     if (bDbRead_Ok && !bMatch && !bSingleWarn)
                     {
                         _ErrMsg.sMsg = DB_Data.Articolo[j].sTipo;
-                        _ErrMsg.iErrID = WRN_MNF;
+                        _ErrMsg.iErrID = WRN_MNFL;
                         WarningManager(_ErrMsg);
                         bSingleWarn = true;
                     }
@@ -1290,7 +1290,7 @@ namespace StandFacile
                         if (!bMatch && !bSingleWarn)
                         {
                             _ErrMsg.sMsg = RDB_Data.Articolo[j].sTipo;
-                            _ErrMsg.iErrID = WRN_MNF;
+                            _ErrMsg.iErrID = WRN_MNFL;
                             WarningManager(_ErrMsg);
                             bSingleWarn = true;
                         }
