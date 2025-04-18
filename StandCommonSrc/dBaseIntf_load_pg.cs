@@ -527,7 +527,7 @@ namespace StandFacile_DB
                                 iStatus = readerOrdine.GetInt32("iStatus");
                                 bScaricato = readerOrdine.GetBoolean("iScaricato");
 
-                                if (IsBitSet(iStatus, BIT_CARICATO_DA_WEB))
+                                if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                                     DB_Data.iNumOfWebReceipts++;
 
                                 DB_Data.bAnnullato = readerOrdine.GetBoolean("iAnnullato");
@@ -610,7 +610,7 @@ namespace StandFacile_DB
                                                 DB_Data.iTotaleIncasso += iPrezzoUnitario * iQuantitaOrdine;
                                             }
 
-                                            if (IsBitSet(iStatus, BIT_ESPORTAZIONE))
+                                            if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
                                                 DB_Data.Articolo[i].iQtaEsportata += iQuantitaOrdine;
 
                                             if (bScaricato)
@@ -648,7 +648,7 @@ namespace StandFacile_DB
                                     DB_Data.iTotaleIncasso += iPrezzoUnitario * iQuantitaOrdine;
                                     iTotaleReceipt += iPrezzoUnitario * iQuantitaOrdine;
 
-                                    if (IsBitSet(iStatus, BIT_ESPORTAZIONE))
+                                    if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
                                         DB_Data.Articolo[iLastArticoloDBIndexP1].iQtaEsportata += iQuantitaOrdine;
 
                                     if (bScaricato)
@@ -686,13 +686,13 @@ namespace StandFacile_DB
 
                         } // end while (readerOrdine.Read())
 
-                        if (IsBitSet(iStatus, BIT_PAGAM_CARD))
+                        if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
                         {
                             DB_Data.iTotaleIncassoCard += iTotaleReceipt - iScontoStdReceipt - iScontoFissoReceipt - iScontoGratisReceipt;
                             iDebug = DB_Data.iTotaleIncassoCard;
                         }
 
-                        if (IsBitSet(iStatus, BIT_PAGAM_SATISPAY))
+                        if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
                         {
                             DB_Data.iTotaleIncassoSatispay += iTotaleReceipt - iScontoStdReceipt - iScontoFissoReceipt - iScontoGratisReceipt;
                             iDebug = DB_Data.iTotaleIncassoSatispay;

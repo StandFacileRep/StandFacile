@@ -273,7 +273,7 @@ namespace StandCommonFiles
             else
                 sOrdineStringsTmp.sOrdineNum = String.Format(sFmt_QM, _TICK_NUM, i);
 
-            if (IsBitSet(dataIdParam.iStatusReceipt, BIT_CARICATO_DA_WEB))
+            if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                 sOrdineStringsTmp.sOrdNumWeb = String.Format("* {0} {1}, {2} *", _WEB_NUM, dataIdParam.iNumOrdineWeb, dataIdParam.sWebDateTime.Substring(4, 8));
             else
                 sOrdineStringsTmp.sOrdNumWeb = "";
@@ -407,12 +407,12 @@ namespace StandCommonFiles
 
                 fPrintParam.WriteLine();
 
-                if (IsBitSet(dataIdParam.iStatusReceipt, BIT_CARICATO_DA_WEB))
+                if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                 {
                     fPrintParam.WriteLine("{0}", sOrdineStringsParam.sOrdNumWeb); fPrintParam.WriteLine();
                 }
 
-                if (IsBitSet(dataIdParam.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA))
+                if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA))
                 {
                     fPrintParam.WriteLine("{0}", sOrdineStringsParam.sOrdNumPrev); fPrintParam.WriteLine();
                 }
@@ -495,10 +495,10 @@ namespace StandCommonFiles
 
                     dataIdParam.iTotaleScontatoStd += dataIdParam.iScontoStdReceipt;
 
-                    if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_CARD))
+                    if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
                         dataIdParam.iTotaleIncassoCard += dataIdParam.iTotaleReceipt - dataIdParam.iScontoStdReceipt;
 
-                    if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_SATISPAY))
+                    if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
                         dataIdParam.iTotaleIncassoSatispay += dataIdParam.iTotaleReceipt - dataIdParam.iScontoStdReceipt;
                 }
                 else if (IsBitSet(dataIdParam.iStatusSconto, BIT_SCONTO_FISSO))
@@ -521,10 +521,10 @@ namespace StandCommonFiles
 
                     dataIdParam.iTotaleScontatoFisso += dataIdParam.iScontoFissoReceipt;
 
-                    if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_CARD))
+                    if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
                         dataIdParam.iTotaleIncassoCard += dataIdParam.iTotaleReceipt - dataIdParam.iScontoFissoReceipt;
 
-                    if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_SATISPAY))
+                    if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
                         dataIdParam.iTotaleIncassoSatispay += dataIdParam.iTotaleReceipt - dataIdParam.iScontoFissoReceipt;
                 }
                 else if (IsBitSet(dataIdParam.iStatusSconto, BIT_SCONTO_GRATIS))
@@ -541,10 +541,10 @@ namespace StandCommonFiles
                 {
                     dataIdParam.iTotaleReceiptDovuto = dataIdParam.iTotaleReceipt;
 
-                    if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_CARD))
+                    if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
                         dataIdParam.iTotaleIncassoCard += dataIdParam.iTotaleReceipt;
 
-                    if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_SATISPAY))
+                    if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
                         dataIdParam.iTotaleIncassoSatispay += dataIdParam.iTotaleReceipt;
 
                     fPrintParam.WriteLine(sRCP_FMT_TOT + "\r\n", "TOTALE", IntToEuro(dataIdParam.iTotaleReceipt));
@@ -586,17 +586,17 @@ namespace StandCommonFiles
                     fPrintParam.WriteLine();
                 }
 
-                if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_CASH))
+                if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH))
                 {
                     // non scrivere nulla
                 }
-                else if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_CARD))
+                else if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
                 {
                     sTmp = CenterJustify(sConst_Pagamento_CARD, iMAX_RECEIPT_CHARS);
                     fPrintParam.WriteLine("{0}", sTmp);
                     fPrintParam.WriteLine();
                 }
-                else if (IsBitSet(dataIdParam.iStatusReceipt, BIT_PAGAM_SATISPAY))
+                else if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
                 {
                     sTmp = CenterJustify(sConst_Pagamento_Satispay, iMAX_RECEIPT_CHARS);
                     fPrintParam.WriteLine("{0}", sTmp);
@@ -621,7 +621,7 @@ namespace StandCommonFiles
                     fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
                 }
 
-                if (IsBitSet(dataIdParam.iStatusReceipt, BIT_ESPORTAZIONE))
+                if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
                 {
                     sTmp = CenterJustify(sConst_Esportazione[0], iMAX_RECEIPT_CHARS);
                     fPrintParam.WriteLine("{0}", sTmp);
@@ -724,17 +724,17 @@ namespace StandCommonFiles
             sNomeFileTicketNpPrt = String.Format(NOME_FILE_RECEIPT_NP, dataIdParam.iNumCassa, iNumOfReceiptsParam);
             _ErrMsg.sNomeFile = sNomeFileTicketNpPrt;
 
-            _bAvoidPrintOtherGroups = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
+            _bAvoidPrintOtherGroups = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
 
-            bLocalCopyRequested = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_RECEIPT_LOCAL_COPY_REQUIRED);
+            bLocalCopyRequested = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
 
-            _bPrintSelectedOnly = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_SELECTEDONLY_PRINT_REQUIRED);
+            _bPrintSelectedOnly = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_SELECTEDONLY_PRINT_REQUIRED);
 
-            bSingleRowItems = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_SINGLEROWITEMS_PRINT_REQUIRED);
+            bSingleRowItems = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_SINGLEROWITEMS_PRINT_REQUIRED);
 
-            bUnitQtyItems = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_QUANTITYONE_PRINT_REQUIRED);
+            bUnitQtyItems = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_QUANTITYONE_PRINT_REQUIRED);
 
-            bTicketCopies_CutRequired = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_PRINT_GROUPS_CUT_REQUIRED);
+            bTicketCopies_CutRequired = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
 
             // conferma dalle altre dipendenze
             _bAvoidPrintOtherGroups |= !(_bPrintSelectedOnly && (bSingleRowItems || bUnitQtyItems));
@@ -752,7 +752,7 @@ namespace StandCommonFiles
                 iGrpReorderPtr[i + 1] = i;
 
 
-            if (bLocalCopyRequested && !(dataIdParam.bPrevendita || IsBitSet(dataIdParam.iStatusReceipt, BIT_EMESSO_IN_PREVENDITA) && !IsBitSet(dataIdParam.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA)))
+            if (bLocalCopyRequested && !(dataIdParam.bPrevendita || IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_EMESSO_IN_PREVENDITA) && !IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA)))
             {
 
                 fPrintParam = File.CreateText(sDirParam + sNomeFileTicketNpPrt);
@@ -819,12 +819,12 @@ namespace StandCommonFiles
                         sHeader2_ToPrintBeforeCut += ""; //  String.Format("{0}", sNum);
                     }
 
-                    if (IsBitSet(dataIdParam.iStatusReceipt, BIT_CARICATO_DA_WEB))
+                    if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                     {
                         sHeader2_ToPrintBeforeCut += String.Format("{0}\r\n", sOrdineStringsParam.sOrdNumWeb);
                     }
 
-                    if (IsBitSet(dataIdParam.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA))
+                    if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA))
                     {
                         sHeader2_ToPrintBeforeCut += String.Format("{0}\r\n", sOrdineStringsParam.sOrdNumPrev);
                     }
@@ -1022,7 +1022,7 @@ namespace StandCommonFiles
                                 {
                                     bHeaderToBePrinted = false;
 
-                                    if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED) ||
+                                    if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED) ||
                                         (iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_COUNTER)))
                                     {
                                         sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
@@ -1143,7 +1143,7 @@ namespace StandCommonFiles
 
             ResetCopies_ToBePrintedOnce(bGroupsColorPrinted);
 
-            for (i = 0; (i < NUM_EDIT_GROUPS) && !(dataIdParam.bPrevendita || IsBitSet(dataIdParam.iStatusReceipt, BIT_EMESSO_IN_PREVENDITA) && !IsBitSet(dataIdParam.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA)); i++)
+            for (i = 0; (i < NUM_EDIT_GROUPS) && !(dataIdParam.bPrevendita || IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_EMESSO_IN_PREVENDITA) && !IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA)); i++)
             {
                 // evita di stampare più di una volta gruppi dello stesso colore
                 if (!CheckCopy_ToBePrintedOnce(i, bGroupsColorPrinted, dataIdParam))
@@ -1275,13 +1275,13 @@ namespace StandCommonFiles
                         fPrintParam.WriteLine();
                         iEqRowsNumber += 1;
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, BIT_CARICATO_DA_WEB))
+                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                         {
                             fPrintParam.WriteLine("{0}", sOrdineStringsParam.sOrdNumWeb); fPrintParam.WriteLine();
                             iEqRowsNumber += 2;
                         }
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA))
+                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA))
                         {
                             fPrintParam.WriteLine("{0}", sOrdineStringsParam.sOrdNumPrev); fPrintParam.WriteLine();
                             iEqRowsNumber += 2;
@@ -1320,7 +1320,7 @@ namespace StandCommonFiles
                                 if ((bSomethingInto_GrpToPrint[k]) || (iNumCoperti >= 0))
                                 {
                                     // stampa COPERTI
-                                    if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED) ||
+                                    if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED) ||
                                         (k == (int)DEST_TYPE.DEST_TIPO1))) // COPERTI si stampano assieme a DEST_TYPE.DEST_TIPO1
                                     {
                                         sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
@@ -1371,7 +1371,7 @@ namespace StandCommonFiles
                             iEqRowsNumber += 4;
                         }
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, BIT_ESPORTAZIONE))
+                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
                         {
                             sTmp = CenterJustify(sConst_Esportazione[0], MAX_RECEIPT_CHARS_CPY);
                             fPrintParam.WriteLine("{0}", sTmp);
@@ -1427,7 +1427,7 @@ namespace StandCommonFiles
 
 #if STANDFACILE
 
-            for (i = 0; (i < MAX_NUM_ARTICOLI) && !(dataIdParam.bPrevendita || IsBitSet(dataIdParam.iStatusReceipt, BIT_EMESSO_IN_PREVENDITA) && !IsBitSet(dataIdParam.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA)); i++)
+            for (i = 0; (i < MAX_NUM_ARTICOLI) && !(dataIdParam.bPrevendita || IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_EMESSO_IN_PREVENDITA) && !IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA)); i++)
             {
                 // evita le stampe attualmente non richieste
                 if (!SF_Data.bCopiesGroupsFlag[NUM_EDIT_GROUPS])
@@ -1535,20 +1535,20 @@ namespace StandCommonFiles
                         fPrintParam.WriteLine();
                         iEqRowsNumber += 1;
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, BIT_CARICATO_DA_WEB))
+                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                         {
                             fPrintParam.WriteLine("{0}", sOrdineStringsParam.sOrdNumWeb); fPrintParam.WriteLine();
                             iEqRowsNumber += 2;
                         }
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA))
+                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA))
                         {
                             fPrintParam.WriteLine("{0}", sOrdineStringsParam.sOrdNumPrev); fPrintParam.WriteLine();
                             iEqRowsNumber += 2;
                         }
 
                         // stampa COPERTI
-                        if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED)))
+                        if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED)))
                         {
                             sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
                             fPrintParam.WriteLine("{0}", sTmp);
@@ -1584,7 +1584,7 @@ namespace StandCommonFiles
                             iEqRowsNumber += 4;
                         }
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, BIT_ESPORTAZIONE))
+                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
                         {
                             sTmp = CenterJustify(sConst_Esportazione[0], MAX_RECEIPT_CHARS_CPY);
                             fPrintParam.WriteLine("{0}", sTmp);
@@ -1655,7 +1655,7 @@ namespace StandCommonFiles
                 fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
             }
 
-            if (IsBitSet(dataIdParam.iStatusReceipt, BIT_ESPORTAZIONE))
+            if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
             {
                 sTmp = CenterJustify(sConst_Esportazione[0], MAX_RECEIPT_CHARS_CPY);
                 fPrintParam.WriteLine("{0}", sTmp);

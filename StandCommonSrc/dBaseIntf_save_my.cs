@@ -307,6 +307,7 @@ namespace StandFacile_DB
 
                             dataRow["iPrezzo_Unitario"] = SF_Data.Articolo[i].iPrezzoUnitario;
                             dataRow["iQuantita_Venduta"] = SF_Data.Articolo[i].iQuantitaVenduta;
+                            //dataRow["iQuantita_Scaricata"] = SF_Data.Articolo[i].iQuantita_Scaricata;
 
                             dataRow["iGruppo_Stampa"] = SF_Data.Articolo[i].iGruppoStampa;
 
@@ -1083,7 +1084,7 @@ namespace StandFacile_DB
                         ordiniTable.Rows.Add(row);
                     }
 
-                    if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_WEB))
+                    if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                     {
                         row = ordiniTable.NewRow();
 
@@ -1101,7 +1102,7 @@ namespace StandFacile_DB
                         ordiniTable.Rows.Add(row);
                     }
 
-                    if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA))
+                    if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA))
                     {
                         row = ordiniTable.NewRow();
 

@@ -229,13 +229,13 @@ namespace StandFacile
 
             PrintCanvas(pg, "");
 
-            if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_WEB))
+            if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
             {
                 PrintCanvas(pg, sOrdineStrings.sOrdNumWeb);
                 PrintCanvas(pg, "");
             }
 
-            if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA))
+            if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA))
             {
                 PrintCanvas(pg, sOrdineStrings.sOrdNumPrev);
                 PrintCanvas(pg, "");
@@ -417,17 +417,17 @@ namespace StandFacile
                 PrintCanvas(pg, "");
             }
 
-            if (IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_CASH))
+            if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH))
             {
                 // non scrivere nulla
             }
-            else if (IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_CARD))
+            else if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
             {
                 sTmp = CenterJustify(sConst_Pagamento_CARD, iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
                 PrintCanvas(pg, "");
             }
-            else if (IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY))
+            else if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
             {
                 sTmp = CenterJustify(sConst_Pagamento_Satispay, iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
@@ -453,7 +453,7 @@ namespace StandFacile
                 PrintCanvas(pg, "");
             }
 
-            if (IsBitSet(SF_Data.iStatusReceipt, BIT_ESPORTAZIONE))
+            if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
             {
                 sTmp = CenterJustify(sConst_Esportazione[0], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);

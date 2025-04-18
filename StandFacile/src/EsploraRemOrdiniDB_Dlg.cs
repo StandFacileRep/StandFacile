@@ -153,8 +153,8 @@ namespace StandFacile
             for (i = 0; i < _sWebOrdersList.Count; i++)
             {
                 if (radioBtn0.Checked ||                                                                    //  tutti
-                    radioBtn1.Checked && !IsBitSet(_sWebOrdersList[i].iStatus, BIT_ORDINE_DIRETTO_DA_WEB) || // solo pre-ordini
-                    radioBtn2.Checked && IsBitSet(_sWebOrdersList[i].iStatus, BIT_ORDINE_DIRETTO_DA_WEB))   // solo ordini diretti autorizzati
+                    radioBtn1.Checked && !IsBitSet(_sWebOrdersList[i].iStatus, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB) || // solo pre-ordini
+                    radioBtn2.Checked && IsBitSet(_sWebOrdersList[i].iStatus, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB))   // solo ordini diretti autorizzati
                 {
                     dbGrid.RowCount = iGridStringsCount + 1;
 
@@ -166,7 +166,7 @@ namespace StandFacile
                     dbGrid.Rows[iGridStringsCount].Cells[5].Value = _sWebOrdersList[i].sChecksum;
                     dbGrid.Rows[iGridStringsCount].Height = 26;
 
-                    if (IsBitSet(_sWebOrdersList[i].iStatus, BIT_ORDINE_DIRETTO_DA_WEB))
+                    if (IsBitSet(_sWebOrdersList[i].iStatus, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB))
                     {
                         dbGrid.Rows[iGridStringsCount].DefaultCellStyle.ForeColor = Color.Black;
                         dbGrid.Rows[iGridStringsCount].DefaultCellStyle.BackColor = Color.LightYellow;
@@ -178,7 +178,7 @@ namespace StandFacile
                     }
 
                     // evita di caricare la coda di eventi quando è ancora in elaborazione
-                    if (IsBitSet(_sWebOrdersList[i].iStatus, BIT_ORDINE_DIRETTO_DA_WEB) && (iMainFormEventQueueCount == 0) &&
+                    if (IsBitSet(_sWebOrdersList[i].iStatus, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB) && (iMainFormEventQueueCount == 0) &&
                         ckBoxAutoLoad.Checked && (_bProcessingOrder == false))
                     {
                         ulStart = (ulong)Environment.TickCount;

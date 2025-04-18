@@ -68,8 +68,6 @@ namespace StandFacile
         bool[] _bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS]; // OK
         bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
 
-        string _sShortDBType;
-
         // gestione cross thread
         static readonly Queue eventQueue = new Queue();
 
@@ -134,6 +132,8 @@ namespace StandFacile
         /// <summary>Init</summary>
         public void Init()
         {
+            string _sShortDBType;
+
             String sKeyGood;
 
             sKeyGood = ReadRegistry(DBASE_SERVER_NAME_KEY, "");
@@ -313,7 +313,7 @@ namespace StandFacile
                     iDebug2 = DB_Data.iStatusReceipt;
                 }
                 while (checkBoxSkipPrinted.Checked && (iGlbCurrentOffline_TicketNum > DB_Data.iStartingNumOfReceipts) &&
-                    (IsBitSet(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA) || DB_Data.bAnnullato || !bThereIsSomethingToPrint));
+                    (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA) || DB_Data.bAnnullato || !bThereIsSomethingToPrint));
             }
 
             ME_TickNum.Text = iGlbCurrentOffline_TicketNum.ToString();
@@ -365,7 +365,7 @@ namespace StandFacile
                     iDebug = DB_Data.iStatusReceipt;
                 }
                 while (checkBoxSkipPrinted.Checked && (iGlbCurrentOffline_TicketNum < iGlbNumOfTickets) &&
-                    (IsBitSet(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA) || DB_Data.bAnnullato || !bThereIsSomethingToPrint));
+                    (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA) || DB_Data.bAnnullato || !bThereIsSomethingToPrint));
             }
 
             ME_TickNum.Text = iGlbCurrentOffline_TicketNum.ToString();
@@ -415,7 +415,7 @@ namespace StandFacile
 
             iDebug = DB_Data.iStatusReceipt;
 
-            if (IsBitSet(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
+            if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
             {
                 sTmp = "Copia cucina già stampata !\n\nSei sicuro di voler ripetere la stampa?";
                 dResult = MessageBox.Show(sTmp, "Attenzione !", MessageBoxButtons.YesNo);
@@ -430,7 +430,7 @@ namespace StandFacile
                 StampaCopie();
 
                 // aggiorna il flag BIT_TICKET_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
-                _rdBaseIntf.dbEditStatus(iGlbCurrentOffline_TicketNum, SetBit(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
+                _rdBaseIntf.dbEditStatus(iGlbCurrentOffline_TicketNum, SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
 
                 TB_Tickets.BackColor = System.Drawing.Color.Gold;
                 TB_Tickets.ForeColor = System.Drawing.Color.Black;
@@ -449,7 +449,7 @@ namespace StandFacile
             StampaMessaggio();
 
             // aggiorna il flag BIT_MSG_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
-            _rdBaseIntf.dbEditStatus(-iGlbCurrentOffline_MessageNum, SetBit(DB_Data.iStatusReceipt, BIT_MSG_STAMPATO_DA_STANDCUCINA));
+            _rdBaseIntf.dbEditStatus(-iGlbCurrentOffline_MessageNum, SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_MSG_STAMPATO_DA_STANDCUCINA));
 
             TB_Messaggi.BackColor = System.Drawing.Color.Gold;
             TB_Messaggi.ForeColor = System.Drawing.Color.Black;
@@ -735,12 +735,12 @@ namespace StandFacile
                         if (!Get_StatusDate_IsChanged() && _bOnLine)
                         {
                             // *** stampa solo le copie e non lo scontrino ***
-                            if ((_sNomeFileTicket != NOME_FILE_RECEIPT) && !GetStampaSoloManuale() && !DB_Data.bAnnullato && !IsBitSet(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
+                            if ((_sNomeFileTicket != NOME_FILE_RECEIPT) && !GetStampaSoloManuale() && !DB_Data.bAnnullato && !IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
                             {
                                 StampaCopie();
 
                                 // aggiorna il flag BIT_RECEIPT_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
-                                _rdBaseIntf.dbEditStatus(_iPrevShownOnline_TicketNum, SetBit(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
+                                _rdBaseIntf.dbEditStatus(_iPrevShownOnline_TicketNum, SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
 
                                 TB_Tickets.BackColor = System.Drawing.Color.Gold;
                                 TB_Tickets.ForeColor = System.Drawing.Color.Black;
@@ -748,7 +748,7 @@ namespace StandFacile
                             else // visualizza soltanto
                             {
                                 // aggiorna l'elenco di ordini per i quali non è richiesta la stampa
-                                if (!IsBitSet(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
+                                if (!IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
                                     if (!_iElencoOrdiniNoPrint.Contains(_iPrevShownOnline_TicketNum))
                                         _iElencoOrdiniNoPrint.Add(_iPrevShownOnline_TicketNum);
 
@@ -798,12 +798,12 @@ namespace StandFacile
 
                         VisualizzaMsg(_iPrevShownOnline_MessageNum);
 
-                        if (!Get_StatusDate_IsChanged() && !GetStampaSoloManuale() && !IsBitSet(DB_Data.iStatusReceipt, BIT_MSG_STAMPATO_DA_STANDCUCINA))
+                        if (!Get_StatusDate_IsChanged() && !GetStampaSoloManuale() && !IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_MSG_STAMPATO_DA_STANDCUCINA))
                         {
                             StampaMessaggio();
 
                             // aggiorna il flag BIT_MSG_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
-                            _rdBaseIntf.dbEditStatus(-_iPrevShownOnline_MessageNum, SetBit(DB_Data.iStatusReceipt, BIT_MSG_STAMPATO_DA_STANDCUCINA));
+                            _rdBaseIntf.dbEditStatus(-_iPrevShownOnline_MessageNum, SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_MSG_STAMPATO_DA_STANDCUCINA));
 
                             TB_Messaggi.BackColor = System.Drawing.Color.Gold;
                             TB_Messaggi.ForeColor = System.Drawing.Color.Black;
@@ -956,7 +956,7 @@ namespace StandFacile
                 TB_Tickets.BackColor = System.Drawing.Color.Red;
                 TB_Tickets.ForeColor = System.Drawing.SystemColors.Window;
             }
-            else if (IsBitSet(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
+            else if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
             {
                 TB_Tickets.BackColor = System.Drawing.Color.Gold;
                 TB_Tickets.ForeColor = System.Drawing.Color.Black;
@@ -1028,7 +1028,7 @@ namespace StandFacile
             TB_Messaggi.Clear();
             TB_Messaggi.BackColor = System.Drawing.Color.Teal;
 
-            if (IsBitSet(DB_Data.iStatusReceipt, BIT_MSG_STAMPATO_DA_STANDCUCINA))
+            if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_MSG_STAMPATO_DA_STANDCUCINA))
             {
                 TB_Messaggi.BackColor = System.Drawing.Color.Gold;
                 TB_Messaggi.ForeColor = System.Drawing.Color.Black;

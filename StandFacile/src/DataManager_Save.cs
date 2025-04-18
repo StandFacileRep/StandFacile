@@ -1,9 +1,7 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 06.12.2024
+	Data	 : 18.04.2025
     Autore   : Mauro Artuso
-
-     nb: DB_Data compare sempre a destra nelle assegnazioni
  **********************************************************************/
 
 using System;
@@ -82,7 +80,7 @@ namespace StandFacile
             // verifica presenza di almeno un Articolo significativo
             bListinoIsGood = false;
             for (i = 0; i < MAX_NUM_ARTICOLI; i++)
-                if (!String.IsNullOrEmpty(SF_Data.Articolo[i].sTipo) && (SF_Data.Articolo[i].iPrezzoUnitario > 0))
+                if (!String.IsNullOrEmpty(SF_Data.Articolo[i].sTipo) && ((SF_Data.Articolo[i].iPrezzoUnitario > 0) || OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()))
                 {
                     bListinoIsGood = true;
                     break;
@@ -243,46 +241,6 @@ namespace StandFacile
                 fPrz.WriteLine(";\n; flag vari");
                 iRowIndex += 2;
 
-                // Flag modo Touch
-                if (SF_Data.bTouchMode)
-                    sPrzRow = "#TMS"; // Set
-                else
-                    sPrzRow = "#TMC"; // Clear
-
-                fPrz.WriteLine(sPrzRow);
-                iRowIndex++;
-                uLocHashCode += Hash(sPrzRow);
-
-                // Flag Tavolo richiesto Set/Clear
-                if (SF_Data.bTavoloRichiesto)
-                    sPrzRow = "#TVS"; // Set
-                else
-                    sPrzRow = "#TVC"; // Clear
-
-                fPrz.WriteLine(sPrzRow);
-                iRowIndex++;
-                uLocHashCode += Hash(sPrzRow);
-
-                // Flag Coperti richiesto Set/Clear
-                if (SF_Data.bCopertoRichiesto)
-                    sPrzRow = "#CPS"; // Set
-                else
-                    sPrzRow = "#CPC"; // Clear
-
-                fPrz.WriteLine(sPrzRow);
-                iRowIndex++;
-                uLocHashCode += Hash(sPrzRow);
-
-                // Flag Riservatezza richiesta Set/Clear
-                if (SF_Data.bRiservatezzaRichiesta)
-                    sPrzRow = "#RSS"; // Set
-                else
-                    sPrzRow = "#RSC"; // Clear
-
-                fPrz.WriteLine(sPrzRow);
-                iRowIndex++;
-                uLocHashCode += Hash(sPrzRow);
-
                 // Flag Prevendita richiesto Set/Clear
                 if (SF_Data.bPrevendita)
                     sPrzRow = "#PVS"; // Set
@@ -293,25 +251,22 @@ namespace StandFacile
                 iRowIndex++;
                 uLocHashCode += Hash(sPrzRow);
 
-                // Flag Modo pagamento richiesto Set/Clear
-                if (SF_Data.bModoPagamRichiesto)
-                    sPrzRow = "#MPS"; // Set
-                else
-                    sPrzRow = "#MPC"; // Clear
-
-                fPrz.WriteLine(sPrzRow);
-                iRowIndex++;
-                uLocHashCode += Hash(sPrzRow);
-
                 //numero per gestione barcode nelle copie
-                sPrzRow = String.Format("{0}{1}", "#BC", SF_Data.iBarcodeRichiesto);
+                sPrzRow = String.Format("{0}{1:X5}", "#BC", SF_Data.iBarcodeRichiesto);
 
                 fPrz.WriteLine(sPrzRow);
                 iRowIndex++;
                 uLocHashCode += Hash(sPrzRow);
 
-                //numero hex per gestione della stampa QuantitàUno nella copia senza prezzo
-                sPrzRow = String.Format("{0}{1:X5}", "#TN", SF_Data.iReceiptCopyOptions);
+                //numero hex per gestione della opzioni generali
+                sPrzRow = String.Format("{0}{1:X5}", "#GO", SF_Data.iGeneralOptions);
+
+                fPrz.WriteLine(sPrzRow);
+                iRowIndex++;
+                uLocHashCode += Hash(sPrzRow);
+
+                //numero hex per gestione delle opzioni di stampa
+                sPrzRow = String.Format("{0}{1:X5}", "#LC", SF_Data.iReceiptCopyOptions);
 
                 fPrz.WriteLine(sPrzRow);
                 iRowIndex++;
@@ -369,7 +324,9 @@ namespace StandFacile
                         }
                     }
 
-                    if ((SF_Data.Articolo[i].iPrezzoUnitario > 0) || (SF_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
+                    if ((SF_Data.Articolo[i].iPrezzoUnitario > 0) ||
+                        (!String.IsNullOrEmpty(SF_Data.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()) ||
+                        (SF_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
                     {
                         sPrzRow = String.Format(sDAT_FMT_PRL, SF_Data.Articolo[i].sTipo, IntToEuro(SF_Data.Articolo[i].iPrezzoUnitario),
                                     SF_Data.Articolo[i].iGruppoStampa);
@@ -516,10 +473,13 @@ namespace StandFacile
                 for (i = 0; i < MAX_NUM_ARTICOLI + EXTRA_NUM_ARTICOLI; i++)
                 {
                     // separa voci aggiuntive
-                    if ((i == MAX_NUM_ARTICOLI) && (SF_Data.Articolo[i].iPrezzoUnitario > 0))
+                    if ((i == MAX_NUM_ARTICOLI) && ((SF_Data.Articolo[i].iPrezzoUnitario > 0) ||
+                        (!String.IsNullOrEmpty(SF_Data.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled())))
                         fData.WriteLine();
 
-                    if ((SF_Data.Articolo[i].iPrezzoUnitario > 0) || (SF_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
+                    if ((SF_Data.Articolo[i].iPrezzoUnitario > 0) ||
+                        (!String.IsNullOrEmpty(SF_Data.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()) ||
+                        (SF_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
                     {
                         if (SF_Data.Articolo[i].iDisponibilita == DISP_OK)
                             sDisp = "OK";

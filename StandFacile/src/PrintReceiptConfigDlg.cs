@@ -133,15 +133,15 @@ namespace StandFacile
                 _pCheckBoxCopia[i].Checked = IsBitSet(SF_Data.iReceiptCopyOptions, i);
             }
 
-            checkBox_AvoidPrintGroups.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
+            checkBox_AvoidPrintGroups.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
             _bCheckBox_AvoidPrintGroupsCheckedCopy = checkBox_AvoidPrintGroups.Checked;
 
-            checkBoxLocalCopy.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_RECEIPT_LOCAL_COPY_REQUIRED);
-            checkBoxSelectedOnly.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_SELECTEDONLY_PRINT_REQUIRED);
-            checkBoxSingleRowItems.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_SINGLEROWITEMS_PRINT_REQUIRED);
-            checkBoxUnitItems.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_QUANTITYONE_PRINT_REQUIRED);
+            checkBoxLocalCopy.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
+            checkBoxSelectedOnly.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_SELECTEDONLY_PRINT_REQUIRED);
+            checkBoxSingleRowItems.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_SINGLEROWITEMS_PRINT_REQUIRED);
+            checkBoxUnitItems.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_QUANTITYONE_PRINT_REQUIRED);
 
-            checkBox_CUT.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_PRINT_GROUPS_CUT_REQUIRED);
+            checkBox_CUT.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
             _bCheckBox_CUT_CheckedCopy = checkBox_CUT.Checked;
 
             CheckBoxNoPrice_CheckedChanged(this, null);
@@ -257,31 +257,31 @@ namespace StandFacile
             }
 
             if (checkBox_AvoidPrintGroups.Checked)
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
+                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
 
             if (checkBoxLocalCopy.Checked)
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, BIT_RECEIPT_LOCAL_COPY_REQUIRED);
+                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
 
             if (checkBoxSelectedOnly.Checked)
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, BIT_SELECTEDONLY_PRINT_REQUIRED);
+                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_SELECTEDONLY_PRINT_REQUIRED);
 
             if (checkBoxSingleRowItems.Checked)
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, BIT_SINGLEROWITEMS_PRINT_REQUIRED);
+                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_SINGLEROWITEMS_PRINT_REQUIRED);
 
             if (checkBoxUnitItems.Checked)
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, BIT_QUANTITYONE_PRINT_REQUIRED);
+                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_QUANTITYONE_PRINT_REQUIRED);
 
             if (checkBox_CUT.Checked)
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, BIT_PRINT_GROUPS_CUT_REQUIRED);
+                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
 
             if (WinPrinterDlg.GetCopies_PlaceSettingsToBePrinted())
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED);
+                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED);
 
             if (WinPrinterDlg.GetCopies_LogoToBePrinted())
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, BIT_LOGO_PRINT_REQUIRED);
+                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_LOGO_PRINT_REQUIRED);
 
             if (sGlbWinPrinterParams.bChars33)
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, BIT_CHARS33_PRINT_REQUIRED);
+                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_CHARS33_PRINT_REQUIRED);
 
             // controllo _bListinoModificato per gestione della stampa QuantitàUno, salvataggio in : SF_Data[]
             if (SF_Data.iReceiptCopyOptions != iReceiptCopyOptions)

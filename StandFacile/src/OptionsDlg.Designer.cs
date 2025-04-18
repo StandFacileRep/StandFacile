@@ -45,6 +45,7 @@
             this.checkBox_VButtons = new System.Windows.Forms.CheckBox();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.checkBoxShowPrevReceipt = new System.Windows.Forms.CheckBox();
+            this.checkBox_ZeroPriceItems = new System.Windows.Forms.CheckBox();
             this.panelPresale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
@@ -53,7 +54,7 @@
             // 
             this.checkBoxCoperti.AutoSize = true;
             this.checkBoxCoperti.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCoperti.Location = new System.Drawing.Point(15, 95);
+            this.checkBoxCoperti.Location = new System.Drawing.Point(15, 107);
             this.checkBoxCoperti.Name = "checkBoxCoperti";
             this.checkBoxCoperti.Size = new System.Drawing.Size(296, 18);
             this.checkBoxCoperti.TabIndex = 3;
@@ -64,7 +65,7 @@
             // 
             this.checkBoxTavolo.AutoSize = true;
             this.checkBoxTavolo.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxTavolo.Location = new System.Drawing.Point(15, 60);
+            this.checkBoxTavolo.Location = new System.Drawing.Point(15, 69);
             this.checkBoxTavolo.Name = "checkBoxTavolo";
             this.checkBoxTavolo.Size = new System.Drawing.Size(252, 18);
             this.checkBoxTavolo.TabIndex = 2;
@@ -75,7 +76,7 @@
             // 
             this.checkBoxDisp.AutoSize = true;
             this.checkBoxDisp.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxDisp.Location = new System.Drawing.Point(360, 95);
+            this.checkBoxDisp.Location = new System.Drawing.Point(360, 107);
             this.checkBoxDisp.Name = "checkBoxDisp";
             this.checkBoxDisp.Size = new System.Drawing.Size(328, 18);
             this.checkBoxDisp.TabIndex = 7;
@@ -115,7 +116,7 @@
             this.panelPresale.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelPresale.Controls.Add(this.checkBoxPresales_loadMode);
             this.panelPresale.Controls.Add(this.checkBoxPresale_workMode);
-            this.panelPresale.Location = new System.Drawing.Point(349, 165);
+            this.panelPresale.Location = new System.Drawing.Point(349, 186);
             this.panelPresale.Name = "panelPresale";
             this.panelPresale.Size = new System.Drawing.Size(312, 90);
             this.panelPresale.TabIndex = 8;
@@ -149,7 +150,7 @@
             // 
             this.checkBoxPayment.AutoSize = true;
             this.checkBoxPayment.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxPayment.Location = new System.Drawing.Point(15, 130);
+            this.checkBoxPayment.Location = new System.Drawing.Point(15, 145);
             this.checkBoxPayment.Name = "checkBoxPayment";
             this.checkBoxPayment.Size = new System.Drawing.Size(326, 18);
             this.checkBoxPayment.TabIndex = 4;
@@ -160,7 +161,7 @@
             // 
             this.checkBoxPrivacy.AutoSize = true;
             this.checkBoxPrivacy.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxPrivacy.Location = new System.Drawing.Point(15, 165);
+            this.checkBoxPrivacy.Location = new System.Drawing.Point(15, 259);
             this.checkBoxPrivacy.Name = "checkBoxPrivacy";
             this.checkBoxPrivacy.Size = new System.Drawing.Size(205, 18);
             this.checkBoxPrivacy.TabIndex = 5;
@@ -194,7 +195,7 @@
             // 
             this.checkBox_Enter.AutoSize = true;
             this.checkBox_Enter.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_Enter.Location = new System.Drawing.Point(15, 201);
+            this.checkBox_Enter.Location = new System.Drawing.Point(15, 221);
             this.checkBox_Enter.Name = "checkBox_Enter";
             this.checkBox_Enter.Size = new System.Drawing.Size(234, 18);
             this.checkBox_Enter.TabIndex = 6;
@@ -206,7 +207,7 @@
             this.checkBox_VButtons.AutoSize = true;
             this.checkBox_VButtons.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox_VButtons.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox_VButtons.Location = new System.Drawing.Point(360, 60);
+            this.checkBox_VButtons.Location = new System.Drawing.Point(360, 69);
             this.checkBox_VButtons.Name = "checkBox_VButtons";
             this.checkBox_VButtons.Size = new System.Drawing.Size(156, 18);
             this.checkBox_VButtons.TabIndex = 23;
@@ -218,7 +219,7 @@
             this.pictureBox.ErrorImage = null;
             this.pictureBox.Image = global::StandFacile.Properties.Resources.plusMinCan;
             this.pictureBox.InitialImage = null;
-            this.pictureBox.Location = new System.Drawing.Point(495, 56);
+            this.pictureBox.Location = new System.Drawing.Point(495, 65);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.Size = new System.Drawing.Size(70, 26);
@@ -230,18 +231,30 @@
             // 
             this.checkBoxShowPrevReceipt.AutoSize = true;
             this.checkBoxShowPrevReceipt.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxShowPrevReceipt.Location = new System.Drawing.Point(360, 130);
+            this.checkBoxShowPrevReceipt.Location = new System.Drawing.Point(360, 145);
             this.checkBoxShowPrevReceipt.Name = "checkBoxShowPrevReceipt";
             this.checkBoxShowPrevReceipt.Size = new System.Drawing.Size(319, 18);
             this.checkBoxShowPrevReceipt.TabIndex = 25;
             this.checkBoxShowPrevReceipt.Text = "mostra nello stato il totale dello scontrino precedente";
             this.checkBoxShowPrevReceipt.UseVisualStyleBackColor = true;
             // 
+            // checkBox_ZeroPriceItems
+            // 
+            this.checkBox_ZeroPriceItems.AutoSize = true;
+            this.checkBox_ZeroPriceItems.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox_ZeroPriceItems.Location = new System.Drawing.Point(15, 183);
+            this.checkBox_ZeroPriceItems.Name = "checkBox_ZeroPriceItems";
+            this.checkBox_ZeroPriceItems.Size = new System.Drawing.Size(202, 18);
+            this.checkBox_ZeroPriceItems.TabIndex = 26;
+            this.checkBox_ZeroPriceItems.Text = "consenti Articoli con prezzo zero";
+            this.checkBox_ZeroPriceItems.UseVisualStyleBackColor = true;
+            // 
             // OptionsDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(696, 347);
+            this.Controls.Add(this.checkBox_ZeroPriceItems);
             this.Controls.Add(this.checkBoxShowPrevReceipt);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.checkBox_VButtons);
@@ -289,5 +302,6 @@
         private System.Windows.Forms.CheckBox checkBox_VButtons;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.CheckBox checkBoxShowPrevReceipt;
+        private System.Windows.Forms.CheckBox checkBox_ZeroPriceItems;
     }
 }

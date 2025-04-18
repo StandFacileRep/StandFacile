@@ -584,7 +584,7 @@ namespace StandFacile
 
                         RDB_Data.iStatusReceipt = iRDB_StatusWeb & 0xFFF1;
                         // | BIT_CARICATO_DA_WEB doppione utile per la comprensione
-                        RDB_Data.iStatusReceipt = SetBit(RDB_Data.iStatusReceipt, BIT_CARICATO_DA_WEB);
+                        RDB_Data.iStatusReceipt = SetBit(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB);
 
                         // shift per rialineare i bit da web e maschera bit sconti
                         RDB_Data.iStatusSconto = (iRDB_StatusWeb >> 1) & 0x0007;

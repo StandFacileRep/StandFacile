@@ -156,7 +156,7 @@ namespace StandCommonFiles
                 {
                     _iGruppoStampa = NUM_PRE_SALE_GRP;
                 }
-                else if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_WEB))
+                else if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                 {
                     _iGruppoStampa = NUM_WEB_SALE_GRP;
                 }
@@ -203,7 +203,7 @@ namespace StandCommonFiles
             _bStampaBarcode = IsBitSet(SF_Data.iBarcodeRichiesto, _iGruppoStampa) && bUSA_NDB();
 
             // OK verificato
-            _bStampaBarcodePrev = SF_Data.bPrevendita || IsBitSet(DB_Data.iStatusReceipt, BIT_EMESSO_IN_PREVENDITA) && !IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA);
+            _bStampaBarcodePrev = SF_Data.bPrevendita || IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_EMESSO_IN_PREVENDITA) && !IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA);
 
             //numero di colonne ridotto -> font più grande
             if (_sFileToPrintParam.Contains(NOME_FILE_STAMPA_LOC_TMP) || _sFileToPrintParam.Contains(NOME_FILE_STAMPA_LOC_RID_TMP) ||

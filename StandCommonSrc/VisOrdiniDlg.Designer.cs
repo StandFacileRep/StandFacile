@@ -57,7 +57,7 @@
             this.textEdit_Ticket.Name = "textEdit_Ticket";
             this.textEdit_Ticket.ReadOnly = true;
             this.textEdit_Ticket.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textEdit_Ticket.Size = new System.Drawing.Size(376, 381);
+            this.textEdit_Ticket.Size = new System.Drawing.Size(376, 409);
             this.textEdit_Ticket.TabIndex = 1;
             // 
             // VisTicketStatusBar
@@ -70,7 +70,7 @@
             this.toolStripTotaleOrdine,
             this.toolStripCassa});
             this.VisTicketStatusBar.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.VisTicketStatusBar.Location = new System.Drawing.Point(13, 410);
+            this.VisTicketStatusBar.Location = new System.Drawing.Point(13, 424);
             this.VisTicketStatusBar.Name = "VisTicketStatusBar";
             this.VisTicketStatusBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.VisTicketStatusBar.Size = new System.Drawing.Size(375, 22);
@@ -106,7 +106,7 @@
             // 
             this.CkBoxTutteCasse.AutoSize = true;
             this.CkBoxTutteCasse.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CkBoxTutteCasse.Location = new System.Drawing.Point(29, 475);
+            this.CkBoxTutteCasse.Location = new System.Drawing.Point(29, 486);
             this.CkBoxTutteCasse.Name = "CkBoxTutteCasse";
             this.CkBoxTutteCasse.Size = new System.Drawing.Size(129, 18);
             this.CkBoxTutteCasse.TabIndex = 2;
@@ -119,7 +119,7 @@
             this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKBtn.Image = global::StandFacile.Properties.Resources.OK;
             this.OKBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OKBtn.Location = new System.Drawing.Point(308, 535);
+            this.OKBtn.Location = new System.Drawing.Point(308, 546);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(70, 35);
             this.OKBtn.TabIndex = 3;
@@ -131,7 +131,7 @@
             // 
             this.AnnulloBtn.Image = ((System.Drawing.Image)(resources.GetObject("AnnulloBtn.Image")));
             this.AnnulloBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.AnnulloBtn.Location = new System.Drawing.Point(29, 535);
+            this.AnnulloBtn.Location = new System.Drawing.Point(29, 546);
             this.AnnulloBtn.Name = "AnnulloBtn";
             this.AnnulloBtn.Size = new System.Drawing.Size(113, 35);
             this.AnnulloBtn.TabIndex = 4;
@@ -144,7 +144,7 @@
             // 
             this.BtnPrev.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.BtnPrev.Image = global::StandFacile.Properties.Resources.ArrowSLeft;
-            this.BtnPrev.Location = new System.Drawing.Point(211, 466);
+            this.BtnPrev.Location = new System.Drawing.Point(211, 477);
             this.BtnPrev.Name = "BtnPrev";
             this.BtnPrev.Size = new System.Drawing.Size(70, 35);
             this.BtnPrev.TabIndex = 5;
@@ -156,7 +156,7 @@
             // 
             this.BtnNext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.BtnNext.Image = global::StandFacile.Properties.Resources.ArrowSRight;
-            this.BtnNext.Location = new System.Drawing.Point(308, 466);
+            this.BtnNext.Location = new System.Drawing.Point(308, 477);
             this.BtnNext.Name = "BtnNext";
             this.BtnNext.Size = new System.Drawing.Size(70, 35);
             this.BtnNext.TabIndex = 6;
@@ -167,7 +167,7 @@
             // BtnPrt
             // 
             this.BtnPrt.Image = global::StandFacile.Properties.Resources.printer_s;
-            this.BtnPrt.Location = new System.Drawing.Point(211, 535);
+            this.BtnPrt.Location = new System.Drawing.Point(211, 546);
             this.BtnPrt.Name = "BtnPrt";
             this.BtnPrt.Size = new System.Drawing.Size(70, 35);
             this.BtnPrt.TabIndex = 7;
@@ -178,7 +178,7 @@
             // 
             this.labelPrint.AutoSize = true;
             this.labelPrint.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPrint.Location = new System.Drawing.Point(209, 515);
+            this.labelPrint.Location = new System.Drawing.Point(209, 526);
             this.labelPrint.Name = "labelPrint";
             this.labelPrint.Size = new System.Drawing.Size(110, 13);
             this.labelPrint.TabIndex = 9;
@@ -194,7 +194,7 @@
             "CARD",
             "SATYSPAY",
             "   "});
-            this.comboPaymentType.Location = new System.Drawing.Point(29, 507);
+            this.comboPaymentType.Location = new System.Drawing.Point(29, 518);
             this.comboPaymentType.Name = "comboPaymentType";
             this.comboPaymentType.Size = new System.Drawing.Size(113, 21);
             this.comboPaymentType.TabIndex = 25;
@@ -204,7 +204,7 @@
             // 
             this.labelPayMethod.AutoSize = true;
             this.labelPayMethod.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPayMethod.Location = new System.Drawing.Point(28, 489);
+            this.labelPayMethod.Location = new System.Drawing.Point(28, 500);
             this.labelPayMethod.Name = "labelPayMethod";
             this.labelPayMethod.Size = new System.Drawing.Size(147, 13);
             this.labelPayMethod.TabIndex = 26;
@@ -214,7 +214,7 @@
             // 
             this.checkBoxNotPaid.AutoSize = true;
             this.checkBoxNotPaid.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxNotPaid.Location = new System.Drawing.Point(29, 447);
+            this.checkBoxNotPaid.Location = new System.Drawing.Point(29, 458);
             this.checkBoxNotPaid.Name = "checkBoxNotPaid";
             this.checkBoxNotPaid.Size = new System.Drawing.Size(154, 18);
             this.checkBoxNotPaid.TabIndex = 27;
@@ -226,7 +226,7 @@
             this.AcceptButton = this.OKBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(400, 586);
+            this.ClientSize = new System.Drawing.Size(400, 594);
             this.Controls.Add(this.checkBoxNotPaid);
             this.Controls.Add(this.labelPayMethod);
             this.Controls.Add(this.comboPaymentType);

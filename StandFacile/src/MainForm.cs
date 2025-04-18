@@ -545,7 +545,7 @@ namespace StandFacile
                     case 2: tabPage2.Text = sTmp; break;
                     case 3: tabPage3.Text = sTmp; break;
                     case 4:
-                        if (SF_Data.bTouchMode)
+                        if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                             tabPage4.Text = sTmp;
                         else
                             tabPage4.Text = "";
@@ -706,7 +706,7 @@ namespace StandFacile
             else
                 iChangePageDxTimeout = CHANGE_PAGE_TIMEOUT;
 
-            if (SF_Data.bTouchMode)
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                 iPageNumTmp = PAGES_NUM_TABM;
             else
                 iPageNumTmp = PAGES_NUM_TXTM;
@@ -839,7 +839,7 @@ namespace StandFacile
                         importante perchè gli ordini con QR_Code si possono editare
                         quelli automatici da servlet invece no perchè mantengono _iAnteprimaTotParziale == 0
                     *********************************************************************************************/
-                    if (!(IsBitSet(RDB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) && bEsploraAuto))
+                    if (!(IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB) && bEsploraAuto))
                         _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
 
                     // EditStatus_BC.UseSystemPasswordChar = false;
@@ -1228,22 +1228,22 @@ namespace StandFacile
 
             // ripetuto per sicurezza
             if (BtnEsportazione.Checked)
-                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_ESPORTAZIONE);
+                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE);
             else
-                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_ESPORTAZIONE);
+                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE);
 
             if (SF_Data.bPrevendita)
-                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_EMESSO_IN_PREVENDITA);
+                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_EMESSO_IN_PREVENDITA);
             else
-                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_EMESSO_IN_PREVENDITA);
+                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_EMESSO_IN_PREVENDITA);
 
             // non deve passarci quando è emesso direttamente dal WEB oppure quando è presente qualche forma di pagamento,
             // è scontato che si pagano gli ordini emessi dalle casse
-            if (!(IsBitSet(SF_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) || IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_CARD) ||
-                  IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY) || IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_CASH)))
+            if (!(IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB) || IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD) ||
+                  IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY) || IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH)))
             {
                 // impostazione che non agisce sul comboCashPos
-                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
+                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
             }
 
             if (CheckService(Define._REC_TEST))
@@ -1338,7 +1338,7 @@ namespace StandFacile
         // verifica inserimento del Tavolo se non è esportazione e c'è almeno una Pietanza
         bool VerificaTavoloRichiesto()
         {
-            if (SF_Data.bTavoloRichiesto && !BtnEsportazione.Checked && !CheckService(Define._AUTO_SEQ_TEST))
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED) && !BtnEsportazione.Checked && !CheckService(Define._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(_sEditTavolo))
                 {
                     MessageBox.Show("Inserisci il numero del Tavolo,\n\ncon (F1) passi dalla griglia alla casella del Tavolo.",
@@ -1357,7 +1357,7 @@ namespace StandFacile
         // lo zero è consentito
         bool VerificaCopertoRichiesto()
         {
-            if (SF_Data.bCopertoRichiesto && !BtnEsportazione.Checked && !CheckService(Define._AUTO_SEQ_TEST))
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED) && !BtnEsportazione.Checked && !CheckService(Define._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(_sEditCoperti) || (Convert.ToInt32(_sEditCoperti) < 0))
                 {
                     MessageBox.Show("Inserisci il numero dei Coperti,\n\ncon (F2) passi dalla griglia alla casella dei Coperti.",
@@ -1375,7 +1375,7 @@ namespace StandFacile
         // verifica inserimento del pagamento in Contanti/Card/Satispay
         bool VerificaPOS_Richiesto()
         {
-            if (SF_Data.bModoPagamRichiesto && !CheckService(Define._AUTO_SEQ_TEST))
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED) && !CheckService(Define._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(comboCashPos.Text.Trim()))
                 {
                     MessageBox.Show("Inserisci il tipo di pagamento Contanti/Card/Satispay",
@@ -2069,13 +2069,13 @@ namespace StandFacile
             // verifiche : scontrino non nulle, quantità < disponibilità, dimenticanza tavolo
             if (DataManager.TicketIsGood() && VerificaTutteQuantita() && VerificaTavoloRichiesto() && VerificaCopertoRichiesto() && VerificaPOS_Richiesto())
             {
-                if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_WEB))
+                if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                     _rdBaseIntf.dbWebOrderEnqueue(SF_Data.iNumOrdineWeb);
 
                 // dopo ogni scontrino valuta subito lo scarico di ordini web
                 dBaseTunnel_my.EventEnqueue(sQueue_Object);
 
-                if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA))
+                if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA))
                     _rdBaseIntf.dbScaricaOrdinePrevendita(SF_Data.iNumOrdinePrev, _sOrdiniPrevDBTable);
 
                 _bPrintTimeoutEnabled = true;
@@ -2162,7 +2162,7 @@ namespace StandFacile
             {
                 iArrayOffset = 3 * iLastGridIndex;
             }
-            else if ((TabSet.SelectedTab == tabPage4) && SF_Data.bTouchMode)
+            else if ((TabSet.SelectedTab == tabPage4) && IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
             {
                 iArrayOffset = 4 * iLastGridIndex;
             }
@@ -2346,21 +2346,21 @@ namespace StandFacile
             switch (comboCashPos.SelectedIndex)
             {
                 case 0:
-                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
-                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_CARD);
-                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
+                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
+                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD);
+                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
                     AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
                 case 1:
-                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
-                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CARD);
-                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
+                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
+                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD);
+                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
                     AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
                 case 2:
-                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
-                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_CARD);
-                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
+                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
+                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD);
+                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
                     AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
                 default:
@@ -2369,9 +2369,9 @@ namespace StandFacile
                     // AnteprimaDlg.rAnteprimaDlg.RedrawReceipt(); 
 
                     // si assume che in cassa si paga sempre
-                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
-                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_CARD);
-                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
+                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
+                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD);
+                    SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
                     break;
             }
         }
@@ -2439,7 +2439,7 @@ namespace StandFacile
                 WarningManager(_WrnMsg);
             }
 
-            else if (SF_Data.bTouchMode && (_iCellPt == _iNewCellPt) && !MnuModDispArticoli.Checked && !MnuImpListino.Checked)
+            else if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED) && (_iCellPt == _iNewCellPt) && !MnuModDispArticoli.Checked && !MnuImpListino.Checked)
                 BtnPlus_Click(sender, e);
 
             _iCellPt = _iNewCellPt;
@@ -2454,9 +2454,9 @@ namespace StandFacile
 
             // ripetuto per sicurezza
             if (BtnEsportazione.Checked)
-                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_ESPORTAZIONE);
+                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE);
             else
-                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, BIT_ESPORTAZIONE);
+                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE);
 
             AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
         }

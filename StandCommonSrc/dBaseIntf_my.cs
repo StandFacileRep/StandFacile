@@ -681,12 +681,12 @@ namespace StandFacile_DB
                 if (bModeNextParam)
                 {
                     cmd.CommandText = String.Format("SELECT iOrdine_ID FROM " + _sDBTNameOrdini + " WHERE (iOrdine_ID >= {0}) AND (sTipo_Articolo = \'{1}\') AND (iAnnullato = 0) AND (iStatus & 0x{2:X8} = 0)",
-                        iNumOfReceiptParam, ORDER_CONST._START_OF_ORDER, SetBit(0, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
+                        iNumOfReceiptParam, ORDER_CONST._START_OF_ORDER, SetBit(0, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
                 }
                 else
                 {
                     cmd.CommandText = String.Format("SELECT iOrdine_ID FROM " + _sDBTNameOrdini + " WHERE (iOrdine_ID < {0}) AND (sTipo_Articolo = \'{1}\') AND (iAnnullato = 0) AND (iStatus & 0x{2:X8} = 0)",
-                        iNumOfReceiptParam, ORDER_CONST._START_OF_ORDER, SetBit(0, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
+                        iNumOfReceiptParam, ORDER_CONST._START_OF_ORDER, SetBit(0, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
                 }
 
                 readerOrdine = cmd.ExecuteReader();

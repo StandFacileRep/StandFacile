@@ -329,6 +329,7 @@ namespace StandFacile
         {
             int i;
 
+            DB_Data.iGeneralOptions = 0;
             DB_Data.iReceiptCopyOptions = 0;
             DB_Data.iGridCols = DEF_GRID_NCOLS;
             DB_Data.iGridRows = DEF_GRID_NROWS;

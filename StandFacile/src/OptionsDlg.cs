@@ -1,6 +1,6 @@
 ﻿/***************************************************
 	NomeFile : StandFacile\optionsDlg.cs
-    Data	 : 06.12.2024
+    Data	 : 18.04.2025
 	Autore   : Mauro Artuso
 
      un solo flag viene salvato nel registro
@@ -43,6 +43,9 @@ namespace StandFacile
         /// <summary>ottiene flag di avvio stampa Scontrino con il tasto Enter</summary>
         public bool GetEnterPrintReceipt() { return checkBox_Enter.Checked; }
 
+        /// <summary>ottiene flag di consenso agli articoli con Prezzo zero Euro</summary>
+        public bool GetZeroPriceEnabled() { return checkBox_ZeroPriceItems.Checked; }
+
         /// <summary>ottiene flag di attivazione Pulsanti + - X</summary>
         public bool Get_VButtons() { return checkBox_VButtons.Checked; }
 
@@ -60,12 +63,15 @@ namespace StandFacile
         /// <summary>Inizializzazione dei vari Flag caricati dal Listino e dal Registry</summary>
         public void Init(bool bShow)
         {
-            checkBoxTavolo.Checked = SF_Data.bTavoloRichiesto;
-            checkBoxCoperti.Checked = SF_Data.bCopertoRichiesto;
-            checkBoxPayment.Checked = SF_Data.bModoPagamRichiesto;
-            checkBoxPrivacy.Checked = SF_Data.bRiservatezzaRichiesta;
+            checkBoxTavolo.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED);
+            checkBoxCoperti.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED);
+            checkBoxPayment.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED);
+            checkBox_ZeroPriceItems.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_ZERO_PRICE_ITEMS_AUTHORIZED);
+            checkBoxPrivacy.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PRIVACY);
+            checkBox_Enter.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_ENTER_PRINT_RECEIPT_ENABLED);
 
             checkBoxPresale_workMode.Checked = SF_Data.bPrevendita; //  passato dal Listino
+
 
             if (DataManager.CheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
             {
@@ -75,6 +81,8 @@ namespace StandFacile
                 checkBoxCoperti.Enabled = false;
                 checkBoxPayment.Enabled = false;
                 checkBoxPrivacy.Enabled = false;
+                checkBox_Enter.Enabled = false;
+                checkBox_ZeroPriceItems.Enabled = false;
                 checkBoxPresale_workMode.Enabled = false;
 
                 // il modo prevendita impedisce il caricamento ordini nelle casse secondarie
@@ -91,6 +99,8 @@ namespace StandFacile
                 checkBoxCoperti.Enabled = true;
                 checkBoxPayment.Enabled = true;
                 checkBoxPrivacy.Enabled = true;
+                checkBox_Enter.Enabled = true;
+                checkBox_ZeroPriceItems.Enabled = true;
                 checkBoxPresale_workMode.Enabled = true;
             }
 
@@ -98,8 +108,6 @@ namespace StandFacile
             checkBoxShowPrevReceipt.Checked = (ReadRegistry(VIEW_PREV_RECEIPT_KEY, 0) == 1);
 
             checkBoxPresales_loadMode.Checked = (ReadRegistry(PRESALE_LOAD_MODE_KEY, 0) == 1);
-
-            checkBox_Enter.Checked = (ReadRegistry(ENTER_PRINT_RECEIPT_KEY, 0) == 1);
 
             checkBox_VButtons.Checked = (ReadRegistry(VBUTTONS_KEY, 1) == 1);
 
@@ -119,25 +127,35 @@ namespace StandFacile
         private void BtnOK_Click(object sender, EventArgs e)
         {
             bool bRiavvio = false;
+            int iGeneralOptionsCopy;
             String sTmp;
 
-            if (comboColorTheme.SelectedIndex != _iColorThemeIndex)
-            {
-                _iColorThemeIndex = comboColorTheme.SelectedIndex;
-                WriteRegistry(COLOR_THEME_KEY, _iColorThemeIndex);
-            }
+            iGeneralOptionsCopy = 0;
+
+            if (checkBoxTavolo.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_TABLE_REQUIRED);
+
+            if (checkBoxCoperti.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED);
+
+            if (checkBoxPayment.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED);
+
+            if (checkBox_ZeroPriceItems.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_ZERO_PRICE_ITEMS_AUTHORIZED);
+
+            if (checkBoxPrivacy.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_PRIVACY);
+
+            if (checkBox_Enter.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_ENTER_PRINT_RECEIPT_ENABLED);
 
             // controllo _bListinoModificato a gruppi, salvataggio in : SF_Data[]
-            if ((SF_Data.bTavoloRichiesto != checkBoxTavolo.Checked) || (SF_Data.bCopertoRichiesto != checkBoxCoperti.Checked) ||
-                 (SF_Data.bPrevendita != checkBoxPresale_workMode.Checked) || (SF_Data.bModoPagamRichiesto != checkBoxPayment.Checked) ||
-                 (SF_Data.bRiservatezzaRichiesta != checkBoxPrivacy.Checked))
+            if (SF_Data.iGeneralOptions != iGeneralOptionsCopy) 
             {
                 _bListinoModificato = true;
 
-                SF_Data.bTavoloRichiesto = checkBoxTavolo.Checked;
-                SF_Data.bCopertoRichiesto = checkBoxCoperti.Checked;
-                SF_Data.bModoPagamRichiesto = checkBoxPayment.Checked;
-                SF_Data.bRiservatezzaRichiesta = checkBoxPrivacy.Checked;
+                SF_Data.iGeneralOptions = iGeneralOptionsCopy;
             }
 
             if (SF_Data.bPrevendita != checkBoxPresale_workMode.Checked)
@@ -149,17 +167,21 @@ namespace StandFacile
             }
 
             if (checkBoxDisp.Checked)
-                _iDispMngStatus = SetBit( 0 ,BIT_SHOW_DISP_DLG);
+                _iDispMngStatus = SetBit(0, BIT_SHOW_DISP_DLG);
             else
                 _iDispMngStatus = ClearBit(_iDispMngStatus, BIT_SHOW_DISP_DLG);
+
+            if (comboColorTheme.SelectedIndex != _iColorThemeIndex)
+            {
+                _iColorThemeIndex = comboColorTheme.SelectedIndex;
+                WriteRegistry(COLOR_THEME_KEY, _iColorThemeIndex);
+            }
 
             WriteRegistry(DISP_DLG_MNG_KEY, _iDispMngStatus);
 
             WriteRegistry(VIEW_PREV_RECEIPT_KEY, checkBoxShowPrevReceipt.Checked ? 1 : 0);
 
             WriteRegistry(PRESALE_LOAD_MODE_KEY, checkBoxPresales_loadMode.Checked ? 1 : 0);
-
-            WriteRegistry(ENTER_PRINT_RECEIPT_KEY, checkBox_Enter.Checked ? 1 : 0);
 
             WriteRegistry(VBUTTONS_KEY, checkBox_VButtons.Checked ? 1 : 0);
 

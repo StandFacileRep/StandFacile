@@ -142,7 +142,6 @@ namespace StandFacile
             int iTagStart_qa, iTagStop_qa; // quantità Articolo
             int iTagStart_da, iTagStop_da; // disponibilità Articolo
 
-            int iTagStart_bv, iTagStop_bv;
             int iTagStart_iv, iTagStop_iv;
             int iTagStart_tv, iTagStop_tv;
 
@@ -249,11 +248,9 @@ namespace StandFacile
             iTagStop_qa = sInStr.IndexOf("</qa>");
             iTagStop_da = sInStr.IndexOf("</da>");
 
-            iTagStart_bv = sInStr.IndexOf("<bv>"); // binary value
             iTagStart_iv = sInStr.IndexOf("<iv>"); // integer value
             iTagStart_tv = sInStr.IndexOf("<tv>"); // text value
 
-            iTagStop_bv = sInStr.IndexOf("</bv>");
             iTagStop_iv = sInStr.IndexOf("</iv>");
             iTagStop_tv = sInStr.IndexOf("</tv>");
 
@@ -594,7 +591,7 @@ namespace StandFacile
             }
 
             // esportazione
-            if (IsBitSet(SF_Data.iStatusReceipt, BIT_ESPORTAZIONE))
+            if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
                 _fRecording.WriteLine("<ES><bv>1</bv></ES>");
 
             // ordine

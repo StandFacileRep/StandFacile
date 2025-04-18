@@ -1,6 +1,6 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 20.03.2025
+	Data	 : 18.04.2025
     Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
@@ -167,12 +167,7 @@ namespace StandFacile
         {
             int i;
 
-            SF_Data.bTavoloRichiesto = false;
-            SF_Data.bCopertoRichiesto = false;
-            SF_Data.bRiservatezzaRichiesta = false;
             SF_Data.bPrevendita = false;
-            SF_Data.bTouchMode = false;
-            SF_Data.bModoPagamRichiesto = false;
             SF_Data.bAnnullato = false;
             SF_Data.bScaricato = false;
             SF_Data.bStampato = false;
@@ -182,13 +177,14 @@ namespace StandFacile
             else
                 SF_Data.iNumCassa = CASSA_PRINCIPALE;   // SQLite
 
-            SF_Data.iStatusReceipt = SetBit(0, BIT_PAGAM_CASH);
+            SF_Data.iStatusReceipt = SetBit(0, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
             SF_Data.iScontoStdReceipt = 0;
             SF_Data.iScontoFissoReceipt = 0;
             SF_Data.iScontoGratisReceipt = 0;
             SF_Data.iStatusSconto = 0;
             SF_Data.sScontoText = "";
             SF_Data.iBarcodeRichiesto = 0;
+            SF_Data.iGeneralOptions = 0;
             SF_Data.iReceiptCopyOptions = 0;
             SF_Data.iGridCols = DEF_GRID_NCOLS;
             SF_Data.iGridRows = DEF_GRID_NROWS;
@@ -265,7 +261,7 @@ namespace StandFacile
         public static void ClearGrid()
         {
             // per pulire Stato, Sconti, Anteprima
-            SF_Data.iStatusReceipt = SetBit(0, BIT_PAGAM_CASH);
+            SF_Data.iStatusReceipt = SetBit(0, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
             SF_Data.iStatusSconto = 0;
             SF_Data.iScontoStdReceipt = 0;
             SF_Data.iScontoFissoReceipt = 0;
@@ -620,7 +616,7 @@ namespace StandFacile
             }
 
             // per pulire Stato, Sconti, Anteprima
-            SF_Data.iStatusReceipt = SetBit(0, BIT_PAGAM_CASH);
+            SF_Data.iStatusReceipt = SetBit(0, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
             SF_Data.iStatusSconto = 0;
             SF_Data.iScontoStdReceipt = 0;
             SF_Data.iScontoFissoReceipt = 0;
@@ -985,10 +981,11 @@ namespace StandFacile
             return bResult;
         }
 
-        /// <summary>da utilizzare solo per le verifiche di scontrino significativo</summary>
+        /// <summary>da utilizzare per le verifiche di scontrino significativo</summary>
         public static bool TicketIsGood()
         {
             bool bCounterPresente = false;
+            bool bArticoloConPrezzoNulloPresente_e_Consentito = false;
             int i, iTotaleCurrTicket = 0;
 
             // totale scontrino corrente
@@ -998,9 +995,15 @@ namespace StandFacile
 
                 if ((SF_Data.Articolo[i].iQuantitaOrdine > 0) && (SF_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
                     bCounterPresente = true;
+
+                if (!String.IsNullOrEmpty(SF_Data.Articolo[i].sTipo) && (SF_Data.Articolo[i].iPrezzoUnitario == 0) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled())
+                    bArticoloConPrezzoNulloPresente_e_Consentito = true;
+
+                if ((iTotaleCurrTicket > 0) || bCounterPresente || bArticoloConPrezzoNulloPresente_e_Consentito)
+                    break;
             }
 
-            if ((iTotaleCurrTicket > 0) || bCounterPresente)
+            if ((iTotaleCurrTicket > 0) || bCounterPresente || bArticoloConPrezzoNulloPresente_e_Consentito)
                 return true;
             else
                 return false;
@@ -1189,10 +1192,10 @@ namespace StandFacile
                 }
             }
 
-            SF_Data.iStatusReceipt = SetBit(DB_Data.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA);
+            SF_Data.iStatusReceipt = SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA);
             SF_Data.sPrevDateTime = DB_Data.sDateTime;
 
-            if (IsBitSet(DB_Data.iStatusReceipt, BIT_ESPORTAZIONE))
+            if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
                 rFrmMain.BtnEsportazione_Click(null, null);
 
             rFrmMain.SetEditCoperto(DB_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
@@ -1301,9 +1304,9 @@ namespace StandFacile
                 ScontoDlg.SetSconto(RDB_Data.iStatusSconto);
 
                 // sicurezza
-                SF_Data.iStatusReceipt = SetBit(RDB_Data.iStatusReceipt, BIT_CARICATO_DA_WEB);
+                SF_Data.iStatusReceipt = SetBit(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB);
 
-                if (IsBitSet(RDB_Data.iStatusReceipt, BIT_ESPORTAZIONE))
+                if (IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
                     rFrmMain.BtnEsportazione_Click(null, null);
 
                 // giusto SF_Data.Articolo[MAX_NUM_ARTICOLI - 1]
@@ -1317,20 +1320,20 @@ namespace StandFacile
                 rFrmMain.SetEditNome(RDB_Data.sNome);
                 rFrmMain.SetEditNota(RDB_Data.sNota);
 
-                if (!IsBitSet(RDB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB))
+                if (!IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB))
                 {
                     // impostazione che non agisce sul comboCashPos
-                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
+                    SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
                 }
-                else if (IsBitSet(RDB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) && IsBitSet(RDB_Data.iStatusReceipt, BIT_PAGAM_CASH))
+                else if (IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB) && IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH))
                 {
                     rFrmMain.SetPagamento_CASH();
                 }
-                else if (IsBitSet(RDB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) && IsBitSet(RDB_Data.iStatusReceipt, BIT_PAGAM_CARD))
+                else if (IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB) && IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
                 {
                     rFrmMain.SetPagamento_CARD();
                 }
-                else if (IsBitSet(RDB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) && IsBitSet(RDB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY))
+                else if (IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB) && IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
                 {
                     rFrmMain.SetPagamento_SATISPAY();
                 }
@@ -1341,7 +1344,7 @@ namespace StandFacile
                     bEsploraAuto = true;
 
                 // anteprima solo se non è ordine Automatico
-                if (!(IsBitSet(RDB_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) && bEsploraAuto))
+                if (!(IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB) && bEsploraAuto))
                     AnteprimaDlg.rAnteprimaDlg.Show();
 
                 rFrmMain.EnableTextBox(true);
@@ -1433,18 +1436,18 @@ namespace StandFacile
             ScontoDlg.SetSconto(DB_Data.iStatusSconto);
 
             // sicurezza
-            SF_Data.iStatusReceipt = SetBit(DB_Data.iStatusReceipt, BIT_CARICATO_DA_WEB);
+            SF_Data.iStatusReceipt = SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB);
 
-            if (!(IsBitSet(SF_Data.iStatusReceipt, BIT_ORDINE_DIRETTO_DA_WEB) || IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_CARD) ||
-                  IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_SATISPAY) || IsBitSet(SF_Data.iStatusReceipt, BIT_PAGAM_CASH)))
+            if (!(IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB) || IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD) ||
+                  IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY) || IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH)))
             {
                 // impostazione che non agisce sul comboCashPos
-                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, BIT_PAGAM_CASH);
+                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
             }
 
             rFrmMain.EnableTextBox(false);
 
-            if (IsBitSet(DB_Data.iStatusReceipt, BIT_ESPORTAZIONE))
+            if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
                 rFrmMain.BtnEsportazione_Click(null, null);
 
             rFrmMain.SetEditCoperto(DB_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());

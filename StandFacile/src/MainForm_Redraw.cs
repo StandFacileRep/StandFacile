@@ -300,7 +300,7 @@ namespace StandFacile
 
                     // Menù Modifica
                     // Menù Visualizza
-                    if (SF_Data.bRiservatezzaRichiesta)
+                    if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PRIVACY))
                     {
                         MnuVisIncassoOggi.Enabled = false;
                         MnuVisIncassoAltraData.Enabled = false;
@@ -421,7 +421,7 @@ namespace StandFacile
 
             String sTmp;
 
-            if (SF_Data.bTouchMode)
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                 iPageNumTmp = PAGES_NUM_TABM;
             else
                 iPageNumTmp = PAGES_NUM_TXTM;
@@ -856,7 +856,7 @@ namespace StandFacile
                 m = ToCellX * MainGrid.RowCount + ToCellY + iArrayOffset;
                 n = iSwapStartIndex;
 
-                if (SF_Data.bTouchMode)
+                if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                     iLastArticoloPageIndex = SF_Data.iGridRows * SF_Data.iGridCols * PAGES_NUM_TABM;
                 else
                     iLastArticoloPageIndex = SF_Data.iGridRows * SF_Data.iGridCols * PAGES_NUM_TXTM;
@@ -962,7 +962,7 @@ namespace StandFacile
         {
             int iPageNumTmp, iRow, iCol;
 
-            if (SF_Data.bTouchMode)
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                 iPageNumTmp = PAGES_NUM_TABM;
             else
                 iPageNumTmp = PAGES_NUM_TXTM;
@@ -1179,7 +1179,7 @@ namespace StandFacile
 
                             DB_Data.iStatusReceipt = iRDB_StatusWeb & 0xFFF1;
                             // | BIT_CARICATO_DA_WEB doppione utile per la comprensione
-                            DB_Data.iStatusReceipt = SetBit(DB_Data.iStatusReceipt, BIT_CARICATO_DA_WEB);
+                            DB_Data.iStatusReceipt = SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB);
 
                             // shift per rialineare i bit da web e maschera bit sconti
                             DB_Data.iStatusSconto = (iRDB_StatusWeb >> 1) & 0x0007;
@@ -1319,7 +1319,7 @@ namespace StandFacile
             // tutto dipende dal topPanel
             topPanel.Width = this.Size.Width - 22;
 
-            if (SF_Data.bTouchMode) // priorità
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED)) // priorità
             {
                 TabSet.Height = 34;
                 TabSet.ItemSize = new Size(67, TabSet.Height - 3);
@@ -1437,7 +1437,7 @@ namespace StandFacile
 
                 if (MnuImpListino.Checked || BtnVisListino.Checked)
                 {
-                    if (SF_Data.bTouchMode)
+                    if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                         sText = sGlbWinPrinterParams.bChars33 ? "12345678901234567890123" : "123456789012345678";
                     else
                         // String.Format(" {0,2} {1,-18} {2,5:0.00}", // width=28
@@ -1445,7 +1445,7 @@ namespace StandFacile
                 }
                 else
                 {
-                    if (SF_Data.bTouchMode)
+                    if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                         sText = sGlbWinPrinterParams.bChars33 ? "12345678901234567809123" : "123456789012345678";
                     else
                         // String.Format("{0,3} {1,-18} {2,2}" : // width=25
@@ -1585,65 +1585,65 @@ namespace StandFacile
 
                     switch (SF_Data.Articolo[h].iGruppoStampa)
                     {
-                        // ******** allineamento *******
+                        // ******** allineamento *******        
                         // 89 123456789012345678 9876.00
                         // fPrint.WriteLine("{0,2} {1,-18} {2,5}", // width=28
                         case (int)DEST_TYPE.DEST_TIPO1:
-                            if (SF_Data.bTouchMode)
+                            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                                 sCellText = String.Format(sGRD_FMT_TCH, "G1", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G1", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO2:
-                            if (SF_Data.bTouchMode)
+                            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                                 sCellText = String.Format(sGRD_FMT_TCH, "G2", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G2", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO3:
-                            if (SF_Data.bTouchMode)
+                            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                                 sCellText = String.Format(sGRD_FMT_TCH, "G3", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G3", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO4:
-                            if (SF_Data.bTouchMode)
+                            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                                 sCellText = String.Format(sGRD_FMT_TCH, "G4", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G4", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO5:
-                            if (SF_Data.bTouchMode)
+                            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                                 sCellText = String.Format(sGRD_FMT_TCH, "G5", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G5", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO6:
-                            if (SF_Data.bTouchMode)
+                            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                                 sCellText = String.Format(sGRD_FMT_TCH, "G6", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G6", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO7:
-                            if (SF_Data.bTouchMode)
+                            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                                 sCellText = String.Format(sGRD_FMT_TCH, "G7", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G7", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO8:
-                            if (SF_Data.bTouchMode)
+                            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                                 sCellText = String.Format(sGRD_FMT_TCH, "G8", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G8", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_SINGLE:
-                            if (SF_Data.bTouchMode)
+                            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                                 sCellText = String.Format(sGRD_FMT_TCH, "CS", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "CS", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_COUNTER:
-                            if (SF_Data.bTouchMode)
+                            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                                 sCellText = String.Format(sGRD_FMT_TCH, "CN", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "CN", SF_Data.Articolo[h].sTipo, sPrzTmp);
@@ -1679,7 +1679,7 @@ namespace StandFacile
                         MainGrid.Rows[i].Cells[j].Style.Font = new Font(MainGrid.DefaultCellStyle.Font.Name, _fFontWidth, FontStyle.Bold);
                     }
 
-                    if (SF_Data.bTouchMode)
+                    if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                     {
                         if (string.IsNullOrEmpty(sDispQty))
                             sCellText = String.Format(sGRDZ_FMT_TCH, sTickQty, Environment.NewLine, CenterJustify(sTipoTmp, 18));

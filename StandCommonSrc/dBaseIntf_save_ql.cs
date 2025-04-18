@@ -1055,7 +1055,7 @@ namespace StandFacile_DB
                         ordiniTable.Rows.Add(row);
                     }
 
-                    if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_WEB))
+                    if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                     {
                         row = ordiniTable.NewRow();
 
@@ -1073,7 +1073,7 @@ namespace StandFacile_DB
                         ordiniTable.Rows.Add(row);
                     }
 
-                    if (IsBitSet(SF_Data.iStatusReceipt, BIT_CARICATO_DA_PREVENDITA))
+                    if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA))
                     {
                         row = ordiniTable.NewRow();
 

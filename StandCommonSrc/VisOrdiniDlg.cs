@@ -68,7 +68,7 @@ namespace StandFacile
 
             bHide = (eViewTypeParam == VIEW_TYPE.NO_VIEW);
 
-            Height = MAINWD_HEIGHT;
+            Height = 636; // MAINWD_HEIGHT = 660
 
             // SQLite, impostazione comune
             if (!bUSA_NDB())
@@ -333,8 +333,8 @@ namespace StandFacile
 
                 _rdBaseIntf.dbCaricaOrdine(GetActualDate(), _iNum, false);
 
-                bSomePayment_IsPresent = IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CASH) ||
-                    IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CARD) || IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
+                bSomePayment_IsPresent = IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH) ||
+                    IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD) || IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
 
                 iDebug = DB_Data.iStatusReceipt;
             }
@@ -356,8 +356,8 @@ namespace StandFacile
                 _iNum += 1;
                 _rdBaseIntf.dbCaricaOrdine(GetActualDate(), _iNum, false);
 
-                bSomePayment_IsPresent = IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CASH) ||
-                    IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CARD) || IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
+                bSomePayment_IsPresent = IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH) ||
+                    IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD) || IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
 
                 iDebug = DB_Data.iStatusReceipt;
             }
@@ -412,13 +412,13 @@ namespace StandFacile
         {
             if (_bCambiaPagamento)
             {
-                if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CASH))
+                if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH))
                     comboPaymentType.SelectedIndex = 1;
 
-                else if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CARD))
+                else if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
                     comboPaymentType.SelectedIndex = 2;
 
-                else if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY))
+                else if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
                     comboPaymentType.SelectedIndex = 3;
 
                 else
@@ -436,7 +436,7 @@ namespace StandFacile
             _sNomeFileTicket = String.Format(NOME_FILE_RECEIPT, DB_Data.iNumCassa, _iNum);
             _sNomeFileTicketNpPrt = String.Format(NOME_FILE_RECEIPT_NP, DB_Data.iNumCassa, _iNum);
 
-            bTicketCopy_NoPrice = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_RECEIPT_LOCAL_COPY_REQUIRED);
+            bTicketCopy_NoPrice = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
 
             // STAMPA SCONTRINO PRINCIPALE
 #if STANDFACILE
@@ -532,8 +532,8 @@ namespace StandFacile
             // va dopo dbAnnulloOrdine che entrambi azzerano DB_Data
             _bOrdineCaricato = _rdBaseIntf.dbCaricaOrdine(dateParam, iParam, !CkBoxTutteCasse.Checked, _sNomeTabella);
 
-            bSomePayment_IsPresent = IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CASH) ||
-                    IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CARD) || IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY);
+            bSomePayment_IsPresent = IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH) ||
+                    IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD) || IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
 
             InitFormatStrings(dbGetLengthArticoli());
 
@@ -642,24 +642,24 @@ namespace StandFacile
             switch (comboPaymentType.SelectedIndex)
             {
                 case 0:
-                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_CASH);
-                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_CARD);
-                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_SATISPAY);
+                    iNewStatus = ClearBit(iNewStatus, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
+                    iNewStatus = ClearBit(iNewStatus, (int)STATUS_FLAGS.BIT_PAGAM_CARD);
+                    iNewStatus = ClearBit(iNewStatus, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
                     break;
                 case 1:
-                    iNewStatus = SetBit(iNewStatus, BIT_PAGAM_CASH);
-                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_CARD);
-                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_SATISPAY);
+                    iNewStatus = SetBit(iNewStatus, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
+                    iNewStatus = ClearBit(iNewStatus, (int)STATUS_FLAGS.BIT_PAGAM_CARD);
+                    iNewStatus = ClearBit(iNewStatus, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
                     break;
                 case 2:
-                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_CASH);
-                    iNewStatus = SetBit(iNewStatus, BIT_PAGAM_CARD);
-                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_SATISPAY);
+                    iNewStatus = ClearBit(iNewStatus, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
+                    iNewStatus = SetBit(iNewStatus, (int)STATUS_FLAGS.BIT_PAGAM_CARD);
+                    iNewStatus = ClearBit(iNewStatus, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
                     break;
                 case 3:
-                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_CASH);
-                    iNewStatus = ClearBit(iNewStatus, BIT_PAGAM_CARD);
-                    iNewStatus = SetBit(iNewStatus, BIT_PAGAM_SATISPAY);
+                    iNewStatus = ClearBit(iNewStatus, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
+                    iNewStatus = ClearBit(iNewStatus, (int)STATUS_FLAGS.BIT_PAGAM_CARD);
+                    iNewStatus = SetBit(iNewStatus, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
                     break;
                 default:
                     break;
@@ -668,13 +668,13 @@ namespace StandFacile
             if (iNewStatus == DB_Data.iStatusReceipt)
                 return;
 
-            if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CASH))
+            if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH))
                 sPagamento = "Pagamento corrente in contanti\n\nSei sicuro di voler cambiare il tipo di pagamento ?";
 
-            else if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_CARD))
+            else if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
                 sPagamento = "Pagamento corrente di tipo Card\n\nSei sicuro di voler cambiare il tipo di pagamento ?";
 
-            else if (IsBitSet(DB_Data.iStatusReceipt, BIT_PAGAM_SATISPAY))
+            else if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
                 sPagamento = "Pagamento corrente di tipo Satispay\n\nSei sicuro di voler cambiare il tipo di pagamento ?";
 
             else

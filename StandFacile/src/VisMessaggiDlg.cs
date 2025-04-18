@@ -138,7 +138,7 @@ namespace StandFacile
             // il messaggio corrente, quindi leggo prima
             _bMessaggioCaricato = _rdBaseIntf.dbCaricaMessaggio(_iNum, ckBoxTutteCasse.Checked);
 
-            if (IsBitSet(DB_Data.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
+            if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
             {
                 textEdit_Messaggi.BackColor = System.Drawing.Color.Gold;
                 textEdit_Messaggi.ForeColor = System.Drawing.Color.Black;
@@ -408,9 +408,9 @@ namespace StandFacile
                         Printer_Legacy.PrintFile(sNomeFileMsg, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_NOW);
 
                     // aggiorna se serve il flag BIT_TICKET_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta, attenzione al '-'
-                    if (!IsBitSet(dataIdentifierParam.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
+                    if (!IsBitSet(dataIdentifierParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
                     {
-                        _rdBaseIntf.dbEditStatus(-_iNum, SetBit(dataIdentifierParam.iStatusReceipt, BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
+                        _rdBaseIntf.dbEditStatus(-_iNum, SetBit(dataIdentifierParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
 
                         textEdit_Messaggi.BackColor = System.Drawing.Color.Gold;
                         textEdit_Messaggi.ForeColor = System.Drawing.Color.Black;

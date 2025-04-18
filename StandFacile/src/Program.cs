@@ -1,6 +1,6 @@
 ﻿/*********************************************************
     NomeFile : StandFacile
-    Data	 : 06.12.2024
+    Data	 : 18.04.2025
     Autore   : Mauro Artuso
 
     Avvia le classi visuali e non, nell'ordine corretto
@@ -135,14 +135,15 @@ namespace StandFacile
             // Avvio della Form di gestione Sconti prima di leggere dal Listino
             ScontoDlg rScontoDlg = new ScontoDlg();
 
-            OptionsDlg rOptionsDlg = new OptionsDlg();
-
             // gestisce la tipologia di Cassa memorizzando i server con
             // cui è possibile comunicare
             NetConfigDlg rTipoCassaDlg = new NetConfigDlg();
 
             // Caricamento Listino e Dati
             rDataManager.Init();
+
+            // dopo caricamento Listino
+            OptionsDlg rOptionsDlg = new OptionsDlg();
 
             // inizializza la form di selezione data dei reports
             SelDataDlg rSelDataDlg = new SelDataDlg();

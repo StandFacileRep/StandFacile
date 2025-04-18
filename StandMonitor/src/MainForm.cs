@@ -59,8 +59,6 @@ namespace StandFacile
         /// <summary>griglia per ordini</summary>
         public DataGridView pDBGrid;
 
-        string _sShortDBType;
-
         /// <summary>ottiene flag modo esperto</summary>
         /// <returns></returns>
         public bool GetEsperto() { return MnuEsperto.Checked; }
@@ -244,6 +242,7 @@ namespace StandFacile
         /// <summary>Init()</summary>
         public void Init()
         {
+            string sShortDBType;
             String sKeyGood;
 
             sKeyGood = ReadRegistry(DBASE_SERVER_NAME_KEY, "");
@@ -276,20 +275,20 @@ namespace StandFacile
             switch (dBaseIntf.iUSA_NDB())
             {
                 case (int)DB_MODE.SQLITE:
-                    _sShortDBType = "ql";
+                    sShortDBType = "ql";
                     break;
                 case (int)DB_MODE.MYSQL:
-                    _sShortDBType = "my";
+                    sShortDBType = "my";
                     break;
                 case (int)DB_MODE.POSTGRES:
-                    _sShortDBType = "pg";
+                    sShortDBType = "pg";
                     break;
                 default:
-                    _sShortDBType = "";
+                    sShortDBType = "";
                     break;
             }
 
-            Text = String.Format("{0}   {1}", Define.TITLE, _sShortDBType);
+            Text = String.Format("{0}   {1}", Define.TITLE, sShortDBType);
 
             LogToFile("FrmMain : Init");
 

@@ -57,8 +57,6 @@ namespace StandFacile
         String[] textLine_L;
         String[] textLine_R;
 
-        static string _sShortDBType;
-
         static TErrMsg _WrnMsg;
 
         /// <summary>costruttore</summary>
@@ -109,6 +107,7 @@ namespace StandFacile
         /// <summary>Init()</summary>
         public void Init()
         {
+            string sShortDBType;
             String sKeyGood;
 
             sKeyGood = ReadRegistry(DBASE_SERVER_NAME_KEY, "");
@@ -146,20 +145,20 @@ namespace StandFacile
             switch (dBaseIntf.iUSA_NDB())
             {
                 case (int)DB_MODE.SQLITE:
-                    _sShortDBType = "ql";
+                    sShortDBType = "ql";
                     break;
                 case (int)DB_MODE.MYSQL:
-                    _sShortDBType = "my";
+                    sShortDBType = "my";
                     break;
                 case (int)DB_MODE.POSTGRES:
-                    _sShortDBType = "pg";
+                    sShortDBType = "pg";
                     break;
                 default:
-                    _sShortDBType = "";
+                    sShortDBType = "";
                     break;
             }
 
-            Text = String.Format("{0}   {1}", Define.TITLE, _sShortDBType);
+            Text = String.Format("{0}   {1}", Define.TITLE, sShortDBType);
 
             LogToFile("FrmMain : Init");
 

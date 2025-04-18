@@ -546,82 +546,35 @@ namespace StandFacile
                     }
                     else if (sInStr.StartsWith("#TMS") || sInStr.StartsWith("#MS")) // compatibilit‡ ver. prec.
                     {
-                        /*****************************
-                         *	Touch mode Flag, SET
-                         *****************************/
-
-                        SF_Data.bTouchMode = true;
-
                         continue;
                     }
                     else if (sInStr.StartsWith("#TMC") || sInStr.StartsWith("#MC")) // compatibilit‡ ver. prec.
                     {
-                        /*******************************
-                         *	Touch mode Flag, CLEAR
-                         *******************************/
-
-                        SF_Data.bTouchMode = false;
 
                         continue;
                     }
                     else if (sInStr.StartsWith("#TVS") || sInStr.StartsWith("#TS")) // compatibilit‡ ver. prec.
                     {
-                        /***************************************************
-                         *	inserimento Tavolo richiesto Flag SET
-                         ***************************************************/
-
-                        SF_Data.bTavoloRichiesto = true;
-
                         continue;
                     }
                     else if (sInStr.StartsWith("#TVC") || sInStr.StartsWith("#TC")) // compatibilit‡ ver. prec.
                     {
-                        /*****************************************************
-                         *	inserimento Tavolo non richiesto Flag CLEAR
-                         *****************************************************/
-
-                        SF_Data.bTavoloRichiesto = false;
-
                         continue;
                     }
                     else if (sInStr.StartsWith("#CPS") || sInStr.StartsWith("#CS")) // compatibilit‡ ver. prec.
                     {
-                        /*************************************************
-                         *	inserimento Coperti richiesto Flag, SET
-                         *************************************************/
-
-                        SF_Data.bCopertoRichiesto = true;
-
                         continue;
                     }
                     else if (sInStr.StartsWith("#CPC") || sInStr.StartsWith("#CC")) // compatibilit‡ ver. prec.
                     {
-                        /***************************************************
-                         *	inserimento Coperti non richiesto Flag, CLEAR
-                         ***************************************************/
-
-                        SF_Data.bCopertoRichiesto = false;
-
                         continue;
                     }
-                    else if (sInStr.StartsWith("#RSS"))
+                    else if (sInStr.StartsWith("#MPS") || sInStr.StartsWith("#MPC")) // compatibilit‡ ver. prec.
                     {
-                        /*************************************************
-                         *	riservatezza richiesta Flag, SET
-                         *************************************************/
-
-                        SF_Data.bRiservatezzaRichiesta = true;
-
                         continue;
                     }
-                    else if (sInStr.StartsWith("#RSC"))
+                    else if (sInStr.StartsWith("#RSS") || sInStr.StartsWith("#RSC")) // compatibilit‡ ver. prec.
                     {
-                        /***************************************************
-                         *	riservatezza non richiesta Flag, CLEAR
-                         ***************************************************/
-
-                        SF_Data.bRiservatezzaRichiesta = false;
-
                         continue;
                     }
                     else if (sInStr.StartsWith("#PVS") || sInStr.StartsWith("#PS")) // compatibilit‡ ver. prec.
@@ -662,7 +615,7 @@ namespace StandFacile
                         {
                             sTmp = sInStr.Substring(3);
 
-                            i = ToInt32(sTmp);
+                            i = ToInt32(sTmp, 16);
 
                             SF_Data.iBarcodeRichiesto = i;
                         }
@@ -671,11 +624,23 @@ namespace StandFacile
 
                         continue;
                     }
-                    else if (sInStr.StartsWith("#TN"))
+                    else if (sInStr.StartsWith("#GO"))
+                    {
+                        /****************************************************
+                         *	caricamento hex per gestione opzioni generali
+                         ****************************************************/
+                        sTmp = sInStr.Substring(3);
+
+                        i = ToInt32(sTmp, 16);
+
+                        SF_Data.iGeneralOptions = i;
+
+                        continue;
+                    }
+                    else if (sInStr.StartsWith("#TN") || sInStr.StartsWith("#LC")) // compatibilit‡
                     {
                         /******************************************************************
-                         *	caricamento hex per gestione della stampa copie e Quantit‡Uno 
-                         *	nella copia Scontrino senza prezzo
+                         *	caricamento hex per gestione della stampa copie Locali
                          ******************************************************************/
                         sTmp = sInStr.Substring(3);
 
@@ -683,30 +648,10 @@ namespace StandFacile
 
                         SF_Data.iReceiptCopyOptions = i;
 
-                        sGlbWinPrinterParams.bChars33 = IsBitSet(SF_Data.iReceiptCopyOptions, BIT_CHARS33_PRINT_REQUIRED);
+                        sGlbWinPrinterParams.bChars33 = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_CHARS33_PRINT_REQUIRED);
 
                         iMAX_RECEIPT_CHARS = sGlbWinPrinterParams.bChars33 ? MAX_ABS_RECEIPT_CHARS : MAX_LEG_RECEIPT_CHARS;
                         iMAX_ART_CHAR = sGlbWinPrinterParams.bChars33 ? MAX_ABS_ART_CHAR : MAX_LEG_ART_CHAR;
-
-                        continue;
-                    }
-                    else if (sInStr.StartsWith("#MPS"))
-                    {
-                        /****************************************************
-                         *	inserimento Modo pagamento richiesto Flag, SET
-                         ****************************************************/
-
-                        SF_Data.bModoPagamRichiesto = true;
-
-                        continue;
-                    }
-                    else if (sInStr.StartsWith("#MPC"))
-                    {
-                        /******************************************************
-                         *	inserimento Modo pagam. non richiesto Flag, CLEAR
-                         ******************************************************/
-
-                        SF_Data.bModoPagamRichiesto = false;
 
                         continue;
                     }
@@ -763,7 +708,7 @@ namespace StandFacile
                     /*********************************************************
                      *	imposta numero di possibili Articoli nelle pagine
                      *********************************************************/
-                    if (SF_Data.bTouchMode)
+                    if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                         _iLastArticoloIndex = SF_Data.iGridRows * SF_Data.iGridCols * PAGES_NUM_TABM;
                     else
                         _iLastArticoloIndex = SF_Data.iGridRows * SF_Data.iGridCols * PAGES_NUM_TXTM;
@@ -773,7 +718,7 @@ namespace StandFacile
                     {
                         LogToFile("Datamanager : aumento dimensioni griglia");
 
-                        if (SF_Data.bTouchMode)
+                        if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
                         {
                             SF_Data.iGridRows = MAX_GRID_NROWS_TABM;
                             SF_Data.iGridCols = MAX_GRID_NCOLS_TABM;

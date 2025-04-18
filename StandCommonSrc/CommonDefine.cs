@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 11.04.2025
+    Data	 : 18.04.2025
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.14.1  RC1";
+        public const String RELEASE_SW = "v5.14.2  RC1";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5c";
@@ -305,9 +305,6 @@ namespace StandCommonFiles
         /// <summary>chiave che descrive se è richiesta la stampa del barcode</summary>
         public const String STAMPA_BARCODE_KEY = "iStampaBarcode";
 
-        /// <summary>chiave che descrive se il tasto Enter avvia la stampa dello Scontrino</summary>
-        public const String ENTER_PRINT_RECEIPT_KEY = "iEnterPrintReceipt";
-
         /// <summary>chiave che descrive se si stampano 4righe prima del taglio carta</summary>
         public const String PRINT_ON_A5_PAPER_KEY = "iPrintOnA5Paper";
 
@@ -534,9 +531,9 @@ namespace StandCommonFiles
             EUROCONV_WARN,
             /// <summary>lancia errore</summary>
             EUROCONV_ERROR,
-            /// <summary>accetta zero altrimenti lancia warning</summary>
+            /// <summary>accetta zero ma lancia warning</summary>
             EUROCONV_Z_WARN,
-            /// <summary>accetta zero altrimenti lancia errore</summary>
+            /// <summary>accetta zero ma lancia errore</summary>
             EUROCONV_Z_ERROR
         };
 
@@ -612,7 +609,7 @@ namespace StandCommonFiles
 
         /// <summary>
         /// numero=9 dei gruppi di stampa separata, comprese copie sigole ma esclusi i contatori<br/>
-        /// corrisponde ad indice stampa Locale
+        /// corrisponde all'indice della stampante Locale
         /// </summary>
         public static readonly int NUM_SEP_PRINT_GROUPS = NUM_COPIES_GRPS - 1;
 
@@ -744,43 +741,48 @@ namespace StandCommonFiles
          *              Flags di di stato gestione Ordine               *
          ****************************************************************/
 
-        /// <summary>bit di iStatus che indica l'esportazione</summary>
-        public const int BIT_ESPORTAZIONE = 0;
+        /// <summary>Flags  di Stato</summary>
+        public enum STATUS_FLAGS
+        {
+            /// <summary>bit di iStatus che indica l'esportazione</summary>
+            BIT_ESPORTAZIONE = 0,
 
-        /// <summary>bit di iStatus che indica Scontrino emesso durante la prevendita</summary>
-        public const int BIT_EMESSO_IN_PREVENDITA = 1;
+            /// <summary>bit di iStatus che indica Scontrino emesso durante la prevendita</summary>
+            BIT_EMESSO_IN_PREVENDITA,
 
-        /// <summary>bit di iStatus che indica Scontrino caricato da una prevendita</summary>
-        public const int BIT_CARICATO_DA_PREVENDITA = 2;
+            /// <summary>bit di iStatus che indica Scontrino caricato da una prevendita</summary>
+            BIT_CARICATO_DA_PREVENDITA,
 
-        /// <summary>bit di iStatus che indica Scontrino caricato da web,<br/>
-        /// settato da CaricaOrdineWeb, CaricaOrdine_QR_code
-        /// </summary>
-        public const int BIT_CARICATO_DA_WEB = 3;
+            /// <summary>bit di iStatus che indica Scontrino caricato da web,<br/>
+            /// settato da CaricaOrdineWeb, CaricaOrdine_QR_code
+            /// </summary>
+            BIT_CARICATO_DA_WEB,
 
-        /// <summary>bit di iStatus che indica Scontrino generato direttamente da web</summary>
-        public const int BIT_ORDINE_DIRETTO_DA_WEB = 4;
+            /// <summary>bit di iStatus che indica Scontrino generato direttamente da web</summary>
+            BIT_ORDINE_DIRETTO_DA_WEB,
 
-        /// <summary>bit di iStatus che indica che lo Scontrino è stato stampato da Stand Cucina</summary>
-        public const int BIT_RECEIPT_STAMPATO_DA_STANDCUCINA = 5;
+            /// <summary>bit di iStatus che indica che lo Scontrino è stato stampato da Stand Cucina</summary>
+            BIT_RECEIPT_STAMPATO_DA_STANDCUCINA,
 
-        /// <summary>bit di iStatus che indica che il messaggio è stato stampato da Stand Cucina</summary>
-        public const int BIT_MSG_STAMPATO_DA_STANDCUCINA = 6;
+            /// <summary>bit di iStatus che indica che il messaggio è stato stampato da Stand Cucina</summary>
+            BIT_MSG_STAMPATO_DA_STANDCUCINA,
 
-        /// <summary>
-        /// bit di iStatus che indica il pagamento di default mediante contanti<br/>
-        /// serve utilizzarlo come LSB dei tipi di pagamento
-        /// </summary>
-        public const int BIT_PAGAM_CASH = 10;
 
-        /// <summary>
-        /// bit di iStatus che indica il pagamento mediante CARD:<br/>
-        /// bancomat, carta di credito
-        /// </summary>
-        public const int BIT_PAGAM_CARD = 11;
+            /// <summary>
+            /// bit di iStatus che indica il pagamento di default mediante contanti<br/>
+            /// serve utilizzarlo come LSB dei tipi di pagamento
+            /// </summary>
+            BIT_PAGAM_CASH = 10,
 
-        /// <summary>bit di iStatus che indica il pagamento mediante Satispay</summary>
-        public const int BIT_PAGAM_SATISPAY = 12;
+            /// <summary>
+            /// bit di iStatus che indica il pagamento mediante CARD:<br/>
+            /// bancomat, carta di credito
+            /// </summary>
+            BIT_PAGAM_CARD,
+
+            /// <summary>bit di iStatus che indica il pagamento mediante Satispay</summary>
+            BIT_PAGAM_SATISPAY
+        }
 
         /****************************************************************
          *                Flags gestione stampa Articolo                *
@@ -793,35 +795,72 @@ namespace StandCommonFiles
         public const int BIT_STAMPA_SINGOLA_NELLA_COPIA_RECEIPT = 0;
 
         /****************************************************************
+         *                Flags generali di StandFacile                 *
+         ****************************************************************/
+
+        /// <summary>Flags generali di StandFacile</summary>
+        public enum GEN_OPTS
+        {
+            /// <summary>bit di iGeneralOptions per gestione Tablet Mode</summary>
+            BIT_TOUCH_MODE_REQUIRED = 0,
+
+            /// <summary>bit di iGeneralOptions per obbligare ad indicazione del Tavolo ante emissione Receipt</summary>
+            BIT_TABLE_REQUIRED,
+
+            /// <summary>bit di iGeneralOptions per obbligare ad indicazione dei Coperti ante emissione Receipt</summary>
+            BIT_PLACE_SETTINGS_REQUIRED,
+
+            /// <summary>bit di iGeneralOptions per obbligare ad indicazione del Pagamento ante emissione Receipt</summary>
+            BIT_PAYMENT_REQUIRED,
+
+            /// <summary>bit di iGeneralOptions per consentire Articoli con Prezzo = zero</summary>
+            BIT_ZERO_PRICE_ITEMS_AUTHORIZED,
+
+            /// <summary>bit di iGeneralOptions per consentire la riservatezza</summary>
+            BIT_PRIVACY,
+
+            /// <summary>bit di iGeneralOptions per consentire la stampa con ENTER</summary>
+            BIT_ENTER_PRINT_RECEIPT_ENABLED
+        }
+
+        /****************************************************************
          *                Flags gestione stampa Copie Locali            *
          ****************************************************************/
 
-        /// <summary>bit di iReceiptCopyOptions per stampa gruppi contemporanea</summary>
-        public const int BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED = 16;
+        /// <summary>Flags per gestione stampa Copie Locali</summary>
+        public enum LOCAL_COPIES_OPTS
+        {
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa a 33 caratteri deli Articoli</summary>
+            BIT_CHARS33_PRINT_REQUIRED = 8, // 0-7 è occupatoda _pCheckBoxCopia[i]
 
-        /// <summary>bit di iReceiptCopyOptions per gestione stampa copia locale dello scontrino</summary>
-        public const int BIT_RECEIPT_LOCAL_COPY_REQUIRED = 15;
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa del Logo nelle copie</summary>
+            BIT_LOGO_PRINT_REQUIRED,
 
-        /// <summary>bit di iReceiptCopyOptions per gestione stampa solo dei gruppi selezionati</summary>
-        public const int BIT_SELECTEDONLY_PRINT_REQUIRED = 14;
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa dei coperti nelle copie</summary>
+            BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED,
 
-        /// <summary>bit di iReceiptCopyOptions per gestione stampa di un solo Articolo nella copia locale Receipt</summary>
-        public const int BIT_SINGLEROWITEMS_PRINT_REQUIRED = 13;
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa con taglio nella copia locale Receipt</summary>
+            BIT_PRINT_GROUPS_CUT_REQUIRED,
 
-        /// <summary>bit di iReceiptCopyOptions per gestione stampa Articoli con quantità uno nella copia locale Receipt</summary>
-        public const int BIT_QUANTITYONE_PRINT_REQUIRED = 12;
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa Articoli con quantità uno nella copia locale Receipt</summary>
+            BIT_QUANTITYONE_PRINT_REQUIRED,
 
-        /// <summary>bit di iReceiptCopyOptions per gestione stampa con taglio nella copia locale Receipt</summary>
-        public const int BIT_PRINT_GROUPS_CUT_REQUIRED = 11;
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa di un solo Articolo nella copia locale Receipt</summary>
+            BIT_SINGLEROWITEMS_PRINT_REQUIRED,
 
-        /// <summary>bit di iReceiptCopyOptions per gestione stampa dei coperti nelle copie</summary>
-        public const int BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED = 10;
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa solo dei gruppi selezionati</summary>
+            BIT_SELECTEDONLY_PRINT_REQUIRED,
 
-        /// <summary>bit di iReceiptCopyOptions per gestione stampa del Logo nelle copie</summary>
-        public const int BIT_LOGO_PRINT_REQUIRED = 9;
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa copia locale dello scontrino</summary>
+            BIT_RECEIPT_LOCAL_COPY_REQUIRED,
 
-        /// <summary>bit di iReceiptCopyOptions per gestione stampa a 33 caratteri deli Articoli</summary>
-        public const int BIT_CHARS33_PRINT_REQUIRED = 8;
+            /// <summary>bit di iReceiptCopyOptions per stampa gruppi contemporanea</summary>
+            BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED
+        }
+
+        /*****************************************************************************************
+         i primi 8 bit di iReceiptCopyOptions sono riservati per gestione _bSelectedGroups[i]
+         *****************************************************************************************/
 
         /****************************************************************
          *                   Flags gestione sconti                      *
@@ -965,18 +1004,8 @@ namespace StandCommonFiles
         [Serializable()]
         public struct TData
         {
-            /// <summary>checked se l'inserimento del tavolo è richiesto</summary>
-            public bool bTavoloRichiesto;
-            /// <summary>checked se l'inserimento dei coperti è richiesto</summary>
-            public bool bCopertoRichiesto;
-            /// <summary>checked se l'inserimento del metodo di pagamento è richiesto</summary>
-            public bool bModoPagamRichiesto;
-            /// <summary>checked se la riservatezza sugli incassi è richiesta</summary>
-            public bool bRiservatezzaRichiesta;
             /// <summary>flag per gestione del modo Prevendita attiva, salvato nel Listino</summary>
             public bool bPrevendita;
-            /// <summary>modo Touch</summary>
-            public bool bTouchMode;
             /// <summary>flag di stato = scaricato usato con MySQL, PostGreSQL</summary>
             public bool bScaricato;
             /// <summary>flag di stato = stampato usato per ordini web</summary>
@@ -1000,6 +1029,8 @@ namespace StandCommonFiles
             public String sScontoText;
             /// <summary>numero hex per gestione barcode nelle copie</summary>
             public int iBarcodeRichiesto;
+            /// <summary>numero hex per gestione delle opzioni generali</summary>
+            public int iGeneralOptions;
             /// <summary>numero hex per gestione della stampa copie locali e copie con quantità Uno</summary>
             public int iReceiptCopyOptions;
             /// <summary>numero di colonne della griglia</summary>
@@ -1084,12 +1115,7 @@ namespace StandCommonFiles
             /// <summary>costruttore</summary>
             public TData(int iParam)
             {
-                bTavoloRichiesto = false;
-                bCopertoRichiesto = false;
-                bModoPagamRichiesto = false;
-                bRiservatezzaRichiesta = false;
                 bPrevendita = false;
-                bTouchMode = false;
                 bScaricato = false;
                 bStampato = false;
                 bAnnullato = false;
@@ -1102,6 +1128,7 @@ namespace StandCommonFiles
                 iStatusSconto = 0;
                 sScontoText = "";
                 iBarcodeRichiesto = 0;
+                iGeneralOptions = 0;
                 iReceiptCopyOptions = 0;
                 iGridCols = 0;
                 iGridRows = 0;

@@ -55,7 +55,7 @@ namespace StandFacile
             Edit_3.MaxLength = MAX_PAGES_CHAR;
             Edit_4.MaxLength = MAX_PAGES_CHAR;
 
-            checkBoxTouchMode.Checked = SF_Data.bTouchMode;
+            checkBoxTouchMode.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED);
 
             Edit_0.Text = SF_Data.sPageTabs[0];
             Edit_1.Text = SF_Data.sPageTabs[1];
@@ -220,7 +220,8 @@ namespace StandFacile
 
             if (bModificaOK)
             {
-                SF_Data.bTouchMode = checkBoxTouchMode.Checked;
+                if (checkBoxTouchMode.Checked)
+                    SF_Data.iGeneralOptions = SetBit(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED);
 
                 SF_Data.iGridCols = iNumColonneTmp;
                 SF_Data.iGridRows = iNumRigheTmp;

@@ -1,6 +1,6 @@
 ﻿/***************************************************
     NomeFile : StandFacile/EditArticoloDlg.cs
-	Data	 : 06.12.2024
+	Data	 : 18.04.2025
     Autore   : Mauro Artuso
  ***************************************************/
 using System;
@@ -210,8 +210,10 @@ namespace StandFacile
 
             _Articolo.iPrezzoUnitario = EuroToInt(PrzEdit.Text, EURO_CONVERSION.EUROCONV_DONT_CARE, _WrnMsg);
 
-            if (((_Articolo.iPrezzoUnitario == -1) ||  // Errore di formato del Prezzo in Euro !
-                 (tabEditArticolo.SelectedIndex == 0) && ((_Articolo.iPrezzoUnitario == 0) && (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER)))) // TAB Articoli
+            if ((_Articolo.iPrezzoUnitario == -1) ||  // Errore di formato del Prezzo in Euro !
+                 ((tabEditArticolo.SelectedIndex == 0) && (_Articolo.iPrezzoUnitario == 0) && !OptionsDlg._rOptionsDlg.GetZeroPriceEnabled() &&
+                 (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER) 
+               )) // TAB Articoli
             {
                 PrzEdit.BackColor = Color.Red;
                 PrzEdit.ForeColor = SystemColors.HighlightText;
@@ -271,7 +273,7 @@ namespace StandFacile
             sArticolo = SF_Data.Articolo[_iPt].sTipo.ToUpper().Trim();
             sEditText = TipoEdit.Text.ToUpper().Trim();
 
-            #pragma warning disable IDE0059
+#pragma warning disable IDE0059
             iDebug1 = groupsCombo.SelectedIndex;
             iGruppoStampa = SF_Data.Articolo[_iPt].iGruppoStampa;
 
@@ -474,8 +476,8 @@ namespace StandFacile
                     _WrnMsg.sMsg = TipoEdit.Text;
                     WarningManager(_WrnMsg);
                 }
-                // prezzo e tipoArticolo entrambi presenti
-                else if (!String.IsNullOrEmpty(PrzEdit.Text) && !String.IsNullOrEmpty(TipoEdit.Text))
+                // tipoArticolo e prezzo (salvo GetZeroPriceEnabled()) entrambi presenti
+                else if (!String.IsNullOrEmpty(TipoEdit.Text) && (!String.IsNullOrEmpty(PrzEdit.Text) || OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()))
                 {
                     // conversione
                     if (groupsCombo.SelectedIndex == (int)DEST_TYPE.DEST_COUNTER)
@@ -489,7 +491,18 @@ namespace StandFacile
                             iPrz = EuroToInt(PrzEdit.Text, EURO_CONVERSION.EUROCONV_Z_WARN, _WrnMsg);
                     }
                     else
-                        iPrz = EuroToInt(PrzEdit.Text, EURO_CONVERSION.EUROCONV_WARN, _WrnMsg);
+                    {
+                        if (OptionsDlg._rOptionsDlg.GetZeroPriceEnabled())
+                        {
+                            iPrz = EuroToInt(PrzEdit.Text, EURO_CONVERSION.EUROCONV_DONT_CARE, _WrnMsg);
+
+                            if (iPrz == 0)
+                                PrzEdit.Text = "0,00";
+                        }
+                        else
+                            iPrz = EuroToInt(PrzEdit.Text, EURO_CONVERSION.EUROCONV_WARN, _WrnMsg);
+
+                    }
 
                     if (tabEditArticolo.SelectedIndex == 0)
                     {
@@ -503,7 +516,8 @@ namespace StandFacile
                     }
                 }
                 // una sola voce presente o prezzo o tipoArticolo che non sia un contatore
-                else if (!String.IsNullOrEmpty(PrzEdit.Text) || (!String.IsNullOrEmpty(TipoEdit.Text) && (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER)))
+                else if (!String.IsNullOrEmpty(TipoEdit.Text) || (!String.IsNullOrEmpty(PrzEdit.Text) &&
+                    (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER) && !OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()))
                 {
                     if (tabEditArticolo.SelectedIndex == 0)
                     {
