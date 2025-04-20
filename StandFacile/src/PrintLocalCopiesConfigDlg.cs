@@ -277,7 +277,7 @@ namespace StandFacile
                 iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
 
             if (WinPrinterDlg.GetCopies_PlaceSettingsToBePrinted())
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED);
+                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
 
             if (WinPrinterDlg.GetCopies_LogoToBePrinted())
                 iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_LOGO_PRINT_REQUIRED);

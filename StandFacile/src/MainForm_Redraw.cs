@@ -459,9 +459,9 @@ namespace StandFacile
             //Console.WriteLine("iKey = {0}, e.Modifiers = {1}, Ctrl = {2}", e.KeyValue, e.Modifiers, e.Control);
 
             if (e.Modifiers == Keys.Control)
-                _bCrtlIsPressed = true;
+                _bCtrlIsPressed = true;
             else
-                _bCrtlIsPressed = false;
+                _bCtrlIsPressed = false;
 
             switch (iKey)
             {
@@ -759,11 +759,11 @@ namespace StandFacile
         private void MainGrid_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Modifiers == Keys.Control)
-                _bCrtlIsPressed = true;
+                _bCtrlIsPressed = true;
             else
-                _bCrtlIsPressed = false;
+                _bCtrlIsPressed = false;
 
-            if ((EditNota.BackColor == Color.LightBlue) && !_bCrtlIsPressed)
+            if ((EditNota.BackColor == Color.LightBlue) && !_bCtrlIsPressed)
             {
                 // reset EditNota
                 EditNota.BackColor = Color.Gainsboro;
@@ -774,7 +774,7 @@ namespace StandFacile
                 MainGrid_Redraw(this, null);
             }
 
-            Console.WriteLine("MainGrid_KeyUp: {0}", _bCrtlIsPressed);
+            Console.WriteLine("MainGrid_KeyUp: {0}", _bCtrlIsPressed);
         }
 
         private void MainGrid_Resize(object sender, EventArgs e)

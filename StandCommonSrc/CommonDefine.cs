@@ -664,7 +664,7 @@ namespace StandCommonFiles
             BIT_LOGO_PRINT_REQUIRED,
 
             /// <summary>bit di iReceiptCopyOptions per gestione stampa dei coperti nelle copie</summary>
-            BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED,
+            BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED,
 
             /// <summary>bit di iReceiptCopyOptions per gestione stampa con taglio nella copia locale Receipt</summary>
             BIT_PRINT_GROUPS_CUT_REQUIRED,

@@ -44,7 +44,7 @@ namespace StandFacile
         static bool _bShowTotaleScontrinoPrec;
 
         /// <summary>variabile per tracking tasto Crtl pressed per gestione Note</summary>
-        static bool _bCrtlIsPressed;
+        static bool _bCtrlIsPressed;
 
         bool _bPrimaEsecuzione;
         bool _bPrintTimeoutEnabled;
@@ -219,7 +219,7 @@ namespace StandFacile
             i = iCellParam % MainGrid.RowCount;
             j = iCellParam / MainGrid.RowCount;
 
-            _bCrtlIsPressed = true;
+            _bCtrlIsPressed = true;
             MainGrid_CellClick(this, new DataGridViewCellEventArgs(j, i));
 
             EditNota.Text = sNotaParam; // simulta input testo
@@ -311,7 +311,7 @@ namespace StandFacile
 
             _bPrintTimeoutEnabled = false;
             _bPrimaEsecuzione = true;
-            _bCrtlIsPressed = false;
+            _bCtrlIsPressed = false;
 
             bSkipDrag = false;
             bMouseWrongPos = false;
@@ -1021,7 +1021,7 @@ namespace StandFacile
                     {
                         MainGrid.Focus();
 
-                        if ((EditNota.BackColor == Color.LightBlue) && !_bCrtlIsPressed)
+                        if ((EditNota.BackColor == Color.LightBlue) && !_bCtrlIsPressed)
                         {
                             // reset EditNota
                             EditNota.BackColor = Color.Gainsboro;
@@ -2206,7 +2206,8 @@ namespace StandFacile
 
                     sRemDBChecksum = dBaseTunnel_my.rdbCheckListino(2000); // se il listino non esiste ritorna una stringa vuota
 
-                    if (!String.IsNullOrEmpty(sRemDBChecksum) && (sRemDBChecksum != DataManager.GetWebListinoChecksum()) && (SF_Data.iNumCassa == CASSA_PRINCIPALE))
+                    // Ctrl forza il caricameno del Listino
+                    if (!String.IsNullOrEmpty(sRemDBChecksum) && (sRemDBChecksum != DataManager.GetWebListinoChecksum() || _bCtrlIsPressed) && (SF_Data.iNumCassa == CASSA_PRINCIPALE))
                     {
                         LogToFile("Mainform : rdbSalvaListino() per checksum non corrispondente");
 
@@ -2405,7 +2406,7 @@ namespace StandFacile
             // _iNewCellPt serve a non incrementare quando ci si sposta sulla griglia
             int _iNewCellPt = e.ColumnIndex * MainGrid.RowCount + e.RowIndex + iArrayOffset;
 
-            if ((EditNota.BackColor == Color.LightBlue) && !_bCrtlIsPressed)
+            if ((EditNota.BackColor == Color.LightBlue) && !_bCtrlIsPressed)
             {
                 // reset EditNota
                 EditNota.BackColor = Color.Gainsboro;
@@ -2416,7 +2417,7 @@ namespace StandFacile
                 MainGrid_Redraw(this, null);
             }
             // si impone che deve essere iQuantitaOrdine > 0 per imporstare la nota Articolo
-            else if ((!MnuImpListino.Checked) && (!MnuModDispArticoli.Checked) && _bCrtlIsPressed &&
+            else if ((!MnuImpListino.Checked) && (!MnuModDispArticoli.Checked) && _bCtrlIsPressed &&
                     (SF_Data.Articolo[_iNewCellPt].iQuantitaOrdine > 0))
             {
                 _sEditNotaCopy = EditNota.Text;
@@ -2427,13 +2428,13 @@ namespace StandFacile
                 EditNota.MaxLength = 25;
                 lblNota.Text = "Nota Art:";
 
-                _bCrtlIsPressed = false; // altrimenti rimane troppo a lungo il Focus()
+                _bCtrlIsPressed = false; // altrimenti rimane troppo a lungo il Focus()
                 EditNota.Focus();
             }
-            else if ((!MnuImpListino.Checked) && (!MnuModDispArticoli.Checked) && _bCrtlIsPressed &&
+            else if ((!MnuImpListino.Checked) && (!MnuModDispArticoli.Checked) && _bCtrlIsPressed &&
                     (SF_Data.Articolo[_iNewCellPt].iQuantitaOrdine == 0))
             {
-                _bCrtlIsPressed = false; // altrimenti rimane troppo a lungo il Focus()
+                _bCtrlIsPressed = false; // altrimenti rimane troppo a lungo il Focus()
 
                 _WrnMsg.iErrID = WRN_NQZ;
                 WarningManager(_WrnMsg);

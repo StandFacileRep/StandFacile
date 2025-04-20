@@ -1021,7 +1021,7 @@ namespace StandCommonFiles
                                 {
                                     bHeaderToBePrinted = false;
 
-                                    if ((iNumCoperti > 0) && bTicketCopies_CutRequired && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED) ||
+                                    if ((iNumCoperti > 0) && bTicketCopies_CutRequired && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED) ||
                                         (iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_COUNTER)))
                                     {
                                         sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
@@ -1319,7 +1319,7 @@ namespace StandCommonFiles
                                 if ((bSomethingInto_GrpToPrint[k]) || (iNumCoperti >= 0))
                                 {
                                     // stampa COPERTI
-                                    if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED) ||
+                                    if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED) ||
                                         (k == (int)DEST_TYPE.DEST_TIPO1))) // COPERTI si stampano assieme a DEST_TYPE.DEST_TIPO1
                                     {
                                         sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
@@ -1547,7 +1547,7 @@ namespace StandCommonFiles
                         }
 
                         // stampa COPERTI
-                        if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED)))
+                        if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED)))
                         {
                             sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
                             fPrintParam.WriteLine("{0}", sTmp);

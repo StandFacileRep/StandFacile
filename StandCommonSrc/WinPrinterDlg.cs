@@ -263,7 +263,7 @@ namespace StandFacile
 
             checkBox_LogoNelleCopie.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_LOGO_PRINT_REQUIRED);
 
-            checkBox_CopertiNelleCopie.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED);
+            checkBox_CopertiNelleCopie.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
 
             sDir = DataManager.GetExeDir() + "\\";
             //FileOpenLogo.InitialDirectory = DataManager.GetExeDir();
@@ -300,9 +300,9 @@ namespace StandFacile
             checkBox_CopertiNelleCopie.Checked = (ReadRegistry(PRINT_PLACESETTINGS_ON_COPIES_KEY, 0) == 1);
 
             if (checkBox_CopertiNelleCopie.Checked)
-                SF_Data.iReceiptCopyOptions = SetBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED);
+                SF_Data.iReceiptCopyOptions = SetBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
             else
-                SF_Data.iReceiptCopyOptions = ClearBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED);
+                SF_Data.iReceiptCopyOptions = ClearBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
 
             checkBox_LogoNelleCopie.Checked = false;
             checkBox_LogoNelleCopie.Visible = false;
@@ -758,9 +758,9 @@ namespace StandFacile
 
             if (checkBox_CopertiNelleCopie.Checked)
             {
-                if (!IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED))
+                if (!IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED))
                 {
-                    SF_Data.iReceiptCopyOptions = SetBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED);
+                    SF_Data.iReceiptCopyOptions = SetBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
 
                     WriteRegistry(PRINT_PLACESETTINGS_ON_COPIES_KEY, 1);
                     _bListinoModificato = true;
@@ -768,9 +768,9 @@ namespace StandFacile
             }
             else
             {
-                if (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED))
+                if (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED))
                 {
-                    SF_Data.iReceiptCopyOptions = ClearBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED);
+                    SF_Data.iReceiptCopyOptions = ClearBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
 
                     WriteRegistry(PRINT_PLACESETTINGS_ON_COPIES_KEY, 0);
                     _bListinoModificato = true;
