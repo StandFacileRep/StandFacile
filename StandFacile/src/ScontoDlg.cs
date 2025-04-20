@@ -1,6 +1,6 @@
 ﻿/***********************************************
 	NomeFile : StandFacile/ScontoDlg.cs
-    Data	 : 11.04.2025
+    Data	 : 18.04.2025
 	Autore	 : Mauro Artuso
  ***********************************************/
 
@@ -69,6 +69,7 @@ namespace StandFacile
             _pCheckBoxGrp[6] = ckBox_6;
             _pCheckBoxGrp[7] = ckBox_7;
             _pCheckBoxGrp[8] = ckBox_8;
+            _pCheckBoxGrp[9] = ckBox_9;
 
             _tt.SetToolTip(DS_btnSave, "salve le impostazioni nel Listino");
             _tt.SetToolTip(radioBtn100, "clicca per impostare il 100%, cioè gratis per i gruppi selezionati");

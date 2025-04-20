@@ -586,35 +586,37 @@ namespace StandCommonFiles
             DEST_TIPO4,
             /// <summary>gruppo generico es:alcolici</summary>
             DEST_TIPO5,
-            /// <summary>gruppo generico es:varie</summary>
+            /// <summary>gruppo generico es:dessert</summary>
             DEST_TIPO6,
             /// <summary>gruppo generico es:panini</summary>
             DEST_TIPO7,
-            /// <summary>gruppo generico es: GRUPPO 8 (no-QRcode)</summary>
+            /// <summary>gruppo generico es:caffetteria</summary>
             DEST_TIPO8,
+            /// <summary>gruppo generico es: GRUPPO 9 (no-QRcode)</summary>
+            DEST_TIPO9_NOWEB,
             /// <summary>gruppo destinazioni singole</summary>
             DEST_SINGLE,
             /// <summary>gruppo dei contatori: non ha un prezzo significativo</summary>
             DEST_COUNTER
         };
 
-        /// <summary>numero totale =10 dei diversi gruppi di Articoli compresi i contatori</summary>
+        /// <summary>numero totale =11 dei diversi gruppi di Articoli compresi i contatori</summary>
         public static readonly int NUM_COPIES_GRPS = Enum.GetNames(typeof(DEST_TYPE)).Length;
 
-        /// <summary>numero=10 del "gruppo di stampa virtuale" che identifica barcode di prevendita</summary>
-        public static readonly int NUM_PRE_SALE_GRP = 10;
+        /// <summary>numero=11 del "gruppo di stampa virtuale" che identifica barcode di prevendita</summary>
+        public static readonly int NUM_PRE_SALE_GRP = 11;
 
-        /// <summary>numero=11 del "gruppo di stampa virtuale" che identifica barcode di vendita WEB</summary>
-        public static readonly int NUM_WEB_SALE_GRP = 11;
+        /// <summary>numero=12 del "gruppo di stampa virtuale" che identifica barcode di vendita WEB</summary>
+        public static readonly int NUM_WEB_SALE_GRP = 12;
 
         /// <summary>
-        /// numero=9 dei gruppi di stampa separata, comprese copie sigole ma esclusi i contatori<br/>
-        /// corrisponde all'indice della stampante Locale
+        /// numero=10 dei gruppi di stampa separata, comprese copie sigole ma esclusi i contatori<br/>
+        /// corrisponde anche all'indice della stampante Locale
         /// </summary>
         public static readonly int NUM_SEP_PRINT_GROUPS = NUM_COPIES_GRPS - 1;
 
-        /// <summary>numero=8 dei gruppi di stampa con label editabile, sono i primi 8</summary>
-        public static readonly int NUM_EDIT_GROUPS = (int)DEST_TYPE.DEST_TIPO8 + 1;
+        /// <summary>numero=9 dei gruppi di stampa con label editabile, sono i primi 9</summary>
+        public static readonly int NUM_EDIT_GROUPS = (int)DEST_TYPE.DEST_TIPO9_NOWEB + 1;
 
         /// <summary>numero=5 dei colori dei gruppi di stampa: 0 corrisponde al trasparente</summary>
         public static readonly int NUM_GROUPS_COLORS = 5;
@@ -831,7 +833,7 @@ namespace StandCommonFiles
         public enum LOCAL_COPIES_OPTS
         {
             /// <summary>bit di iReceiptCopyOptions per gestione stampa a 33 caratteri deli Articoli</summary>
-            BIT_CHARS33_PRINT_REQUIRED = 8, // 0-7 è occupatoda _pCheckBoxCopia[i]
+            BIT_CHARS33_PRINT_REQUIRED = 10, // 0-9 è occupato da _pCheckBoxCopia[i]
 
             /// <summary>bit di iReceiptCopyOptions per gestione stampa del Logo nelle copie</summary>
             BIT_LOGO_PRINT_REQUIRED,
@@ -856,11 +858,11 @@ namespace StandCommonFiles
 
             /// <summary>bit di iReceiptCopyOptions per stampa gruppi contemporanea</summary>
             BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED
-        }
 
-        /*****************************************************************************************
-         i primi 8 bit di iReceiptCopyOptions sono riservati per gestione _bSelectedGroups[i]
-         *****************************************************************************************/
+	        /*****************************************************************************************
+	         i primi 8 bit di iReceiptCopyOptions sono riservati per gestione _bSelectedGroups[i]
+	         *****************************************************************************************/
+        }
 
         /****************************************************************
          *                   Flags gestione sconti                      *
@@ -1266,10 +1268,10 @@ namespace StandCommonFiles
 
         /// <summary>testo descrittivo dei gruppi di stampa</summary>
         public static readonly String[] sConstGruppi = { "gruppo 1", "gruppo 2", "gruppo 3", "gruppo 4", "gruppo 5", "gruppo 6",
-                                                          "gruppo 7", "gruppo 8 (no-QRcode)", "Copie singole", "Contatori" };
+                                                          "gruppo 7", "gruppo 8", "gruppo 9 (no-QRcode)", "Copie singole", "Contatori" };
 
         /// <summary>testo short descrittivo dei gruppi di stampa</summary>
-        public static readonly String[] sConstGruppiShort = { "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "CS", "CN" };
+        public static readonly String[] sConstGruppiShort = { "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "CS", "CN" };
 
         /// <summary>testo esteso descrittivo dei gruppi di stampa</summary>
         public static readonly String[] sConstCopiesGroupsText =
@@ -1281,7 +1283,8 @@ namespace StandCommonFiles
             "##### COPIA GRUPPO5 #####",
             "##### COPIA GRUPPO6 #####",
             "##### COPIA GRUPPO7 #####",
-            "## COPIA GRUPPO8 NOQRC ##",
+            "##### COPIA GRUPPO8 #####",
+            "## COPIA GRUPPO9 NOQRC ##",
             " ###  COPIE SINGOLE  ### ",
             " ###    CONTATORI    ### "
         };

@@ -155,7 +155,7 @@ namespace StandFacile
             startDlg rStartDlg = new startDlg();
 
             // inizializza le impostazioni di stampa copie locali
-            PrintReceiptConfigDlg rPrintConfigReceiptDlg = new PrintReceiptConfigDlg();
+            PrintLocalCopiesConfigDlg rPrintConfigReceiptDlg = new PrintLocalCopiesConfigDlg();
 
             // inizializza i parametri di stampa
             PrintNetCopiesConfigDlg rFrmPrintConfig = new PrintNetCopiesConfigDlg();

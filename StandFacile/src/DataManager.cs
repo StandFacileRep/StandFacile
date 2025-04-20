@@ -588,7 +588,7 @@ namespace StandFacile
             WriteNetworkCopy(SF_Data, 0, fPrint, sDir, sOrdineStrings, false);
 
             // AVVIO STAMPE LEGACY DOPO IL SALVATAGGIO SU DATABASE PER EVITARE PROBLEMI EVENTUALI
-            if (!PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
+            if (!PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
             {
                 // Avvia eventuali code delle copie Legacy
                 Printer_Legacy.PrintFile("", sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_START);

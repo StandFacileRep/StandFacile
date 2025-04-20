@@ -678,7 +678,7 @@ namespace StandFacile
 
                 // stampa copia locale scontrino singola
                 case 'S':
-                    if ((e.Modifiers == Keys.Control) && PrintReceiptConfigDlg.GetTicketNoPriceCopy())
+                    if ((e.Modifiers == Keys.Control) && PrintLocalCopiesConfigDlg.GetTicketNoPriceCopy())
                         SF_Data.Articolo[_iCellPt].iOptionsFlags = SetBit(SF_Data.Articolo[_iCellPt].iOptionsFlags, BIT_STAMPA_SINGOLA_NELLA_COPIA_RECEIPT);
                     break;
 
@@ -1635,6 +1635,12 @@ namespace StandFacile
                                 sCellText = String.Format(sGRD_FMT_TCH, "G8", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G8", SF_Data.Articolo[h].sTipo, sPrzTmp);
+                            break;
+                        case (int)DEST_TYPE.DEST_TIPO9_NOWEB:
+                            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
+                                sCellText = String.Format(sGRD_FMT_TCH, "G9", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
+                            else
+                                sCellText = String.Format(sGRD_FMT_STD, "G9", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_SINGLE:
                             if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))

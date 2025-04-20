@@ -1,6 +1,6 @@
 ﻿/*****************************************************
- 	NomeFile : StandFacile/PrintConfigDlg.cs
-    Data	 : 06.12.2024
+ 	NomeFile : StandFacile/PrintNetCopiesConfigDlg.cs
+    Data	 : 18.04.2025
  	Autore   : Mauro Artuso
  *****************************************************/
 
@@ -117,6 +117,7 @@ namespace StandFacile
             _pBtnPrintCheck[6] = BtnPrintCheck_6;
             _pBtnPrintCheck[7] = BtnPrintCheck_7;
             _pBtnPrintCheck[8] = BtnPrintCheck_8;
+            _pBtnPrintCheck[9] = BtnPrintCheck_9;
 
             _pCheckBoxCopia[0] = checkBoxCopia_0;
             _pCheckBoxCopia[1] = checkBoxCopia_1;
@@ -127,6 +128,7 @@ namespace StandFacile
             _pCheckBoxCopia[6] = checkBoxCopia_6;
             _pCheckBoxCopia[7] = checkBoxCopia_7;
             _pCheckBoxCopia[8] = checkBoxCopia_8;
+            _pCheckBoxCopia[9] = checkBoxCopia_9;
 
             _pCheckBox_BCD[0] = checkBoxBCD_0;
             _pCheckBox_BCD[1] = checkBoxBCD_1;
@@ -137,6 +139,7 @@ namespace StandFacile
             _pCheckBox_BCD[6] = checkBoxBCD_6;
             _pCheckBox_BCD[7] = checkBoxBCD_7;
             _pCheckBox_BCD[8] = checkBoxBCD_8;
+            _pCheckBox_BCD[9] = checkBoxBCD_9;
 
             _pPrintCopyText[0] = CopiaText_0;
             _pPrintCopyText[1] = CopiaText_1;
@@ -147,6 +150,7 @@ namespace StandFacile
             _pPrintCopyText[6] = CopiaText_6;
             _pPrintCopyText[7] = CopiaText_7;
             _pPrintCopyText[8] = CopiaText_8;
+            _pPrintCopyText[9] = CopiaText_9;
 
             _pTextBoxColor[0] = textBoxColor_0;
             _pTextBoxColor[1] = textBoxColor_1;
@@ -165,16 +169,18 @@ namespace StandFacile
             _pPrintersListCombo[6] = PrintersListCombo_6;
             _pPrintersListCombo[7] = PrintersListCombo_7;
             _pPrintersListCombo[8] = PrintersListCombo_8;
+            _pPrintersListCombo[9] = PrintersListCombo_9;
 
             for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
-                _tt.SetToolTip(_pCheckBoxCopia[i], "Ctrl + click per cambiare il colore");
+                if (i != (int)DEST_TYPE.DEST_SINGLE)
+                    _tt.SetToolTip(_pCheckBoxCopia[i], "Click attiva/disattiva la stampa di questo gruppo\nCtrl + click cambia il colore");
 
                 if (i == (int)DEST_TYPE.DEST_SINGLE)
                 {
                     _tt.SetToolTip(_pPrintCopyText[i], "etichetta non modificabile che apparirà nelle stampe e negli ordini web");
                 }
-                else if (i == (int)DEST_TYPE.DEST_TIPO8)
+                else if (i == (int)DEST_TYPE.DEST_TIPO9_NOWEB)
                 {
                     _tt.SetToolTip(_pPrintCopyText[i], "etichetta modificabile che apparirà nelle stampe ma non negli ordini web");
                 }
@@ -441,6 +447,11 @@ namespace StandFacile
                     else
                     {
                         _pCheckBoxCopia[i].Checked = !_pCheckBoxCopia[i].Checked;
+
+                        // estende selezione a tutti i gruppi dello stesso colore
+                        for (int j = 0; j < NUM_EDIT_GROUPS; j++)
+                            if ((_iGroupsColor[i] == _iGroupsColor[j]) && (_iGroupsColor[i] > 0) && (i != j))
+                                _pCheckBoxCopia[j].Checked = _pCheckBoxCopia[i].Checked;
                     }
 
                     iActualIndex = i;
@@ -448,10 +459,6 @@ namespace StandFacile
                 }
             }
 
-            // estende selezione a tutti i gruppi dello stesso colore
-            for (int j = 0; j < NUM_EDIT_GROUPS; j++)
-                if ((_iGroupsColor[i] == _iGroupsColor[j]) && (_iGroupsColor[i] > 0) && (i != j))
-                    _pCheckBoxCopia[j].Checked = _pCheckBoxCopia[i].Checked;
         }
 
         private void CheckBoxBCD_MouseClick(object sender, MouseEventArgs e)

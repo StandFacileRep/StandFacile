@@ -120,19 +120,19 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnCancel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAACgAAAAeCAYAAABe3VzdAAAABGdBTUEAALGPC/xhBQAAAIxJREFUWEft
-        0WEKgCAMhmEP40G9ZqcxFxvoh1a/NqPvJYmm0QMlxhj7cLVdR1ty15FvNecLoI9DhrOlY796QCllACAO
-        911aIbbAWTMMPuvRuBC5Fc6aIbcCIm4r4OoXywpH3uFshSFnOMHgzOb6mk8r3NOeW4hAQL/vjpPeAORM
-        CM6Sj4cCGGPsF6V0AiDW5Pyo+kc0AAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAACgAAAAeCAYAAABe3VzdAAAABGdBTUEAALGPC/xhBQAAAIdJREFUWEft
+        1dEJgDAMRdEM00G7ptNEKhT0kVR/TCK+CyI2Fg+CKMIYY99NRXQT0XHGWUja2gHA9dHEzQPnr3cG9N4v
+        AMThPCQP4a2nZGHwGveEh8hSuJmFLAVEXCmg9fbKIFe4dKSFw684Denh7mZhIQIBq79MSE8A4x5vFtJ4
+        eCqAMcZ+0g4g1uT80cLl/wAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="btnOK.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAACgAAAAeCAYAAABe3VzdAAAABGdBTUEAALGPC/xhBQAAAN1JREFUWEft
-        08sKAVEcx/F5KknN5JKOGgvXkUsuGyMpl5QFqZm8gKKQJ7CRhRXKZeWpfvw1vIH8y/9bZ3H+Z/PpnI4m
-        SZIkfb/mtQA1GsDb8opwlU0D0e6EH5Bw8WUGatxDcVriBSRc9ZiE3ikgN8vwwtkXC9Y+Bp9t8sSVT3EE
-        +sHf4ugJ38sbvXC0Nxwd1jz125uzdikMb204F/cD7dxqUDMGOCqxUlBzA/Yhj+G9hfo5C3Ot8/qthDQX
-        YaS3oSfW/8LRzDvmEYEM14fIJMgP945gbHGSJEnSX6dpD6refw4RY5dyAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAACgAAAAeCAYAAABe3VzdAAAABGdBTUEAALGPC/xhBQAAAN5JREFUWEft
+        08sLAVEUx3F/laRm8khXjYXHGHnksTGS8khZjBT5B5Qp5C+wkYUVymPlr/rpqLGw15xyvnUX93QXn7qd
+        QECSJEn6ee17CWo8wvecRYSr7VpI9Of8gIRLrU2oyQDlRYUXkHD1cwZar4TC0uSFs28WrGMSQdvgiate
+        UggPI/7i6Au9480IR3d9qsFys/7hKOuQhfPoYnqbfaC9RwNqyQBHpTcKytVhn4pwnh00r3kYW43XthLS
+        WMWQ20eh3NAbR7Pvd75GIH0WRHwe4YfzIhhbnCRJkvTnvQCq3n8OdCQIxwAAAABJRU5ErkJggg==
 </value>
   </data>
 </root>

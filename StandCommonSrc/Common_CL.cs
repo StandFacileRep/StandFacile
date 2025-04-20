@@ -485,7 +485,7 @@ namespace StandCommonFiles
         public static void GenPrintFile(String sFileToPrintParm)
         {
 #if STANDFACILE
-            if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
+            if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
 #else
             if (PrintConfigLightDlg.GetPrinterTypeIsWinwows())
 #endif

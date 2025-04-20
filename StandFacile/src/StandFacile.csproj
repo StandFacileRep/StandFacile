@@ -273,8 +273,8 @@
     <Compile Include="AnteprimaDlg.Designer.cs">
       <DependentUpon>AnteprimaDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="DataManager_PriceList.cs" />
-    <Compile Include="DataManager_Save.cs" />
+    <Compile Include="DataManager_PL_Load.cs" />
+    <Compile Include="DataManager_PL_Save.cs" />
     <Compile Include="dBaseTunnel_my.cs" />
     <Compile Include="EsploraRemOrdiniDB_Dlg.cs">
       <SubType>Form</SubType>
@@ -297,11 +297,11 @@
     <Compile Include="PasswordDlg.Designer.cs">
       <DependentUpon>PasswordDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="PrintReceiptConfigDlg.cs">
+    <Compile Include="PrintLocalCopiesConfigDlg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PrintReceiptConfigDlg.designer.cs">
-      <DependentUpon>PrintReceiptConfigDlg.cs</DependentUpon>
+    <Compile Include="PrintLocalCopiesConfigDlg.designer.cs">
+      <DependentUpon>PrintLocalCopiesConfigDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="startDispDlg.cs">
       <SubType>Form</SubType>
@@ -393,8 +393,8 @@
     <EmbeddedResource Include="PasswordDlg.resx">
       <DependentUpon>PasswordDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PrintReceiptConfigDlg.resx">
-      <DependentUpon>PrintReceiptConfigDlg.cs</DependentUpon>
+    <EmbeddedResource Include="PrintLocalCopiesConfigDlg.resx">
+      <DependentUpon>PrintLocalCopiesConfigDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="startDispDlg.resx">
       <DependentUpon>startDispDlg.cs</DependentUpon>

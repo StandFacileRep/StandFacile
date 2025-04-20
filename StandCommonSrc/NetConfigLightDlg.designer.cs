@@ -56,6 +56,7 @@
             this.textBoxColor_1 = new System.Windows.Forms.TextBox();
             this.textBoxColor_0 = new System.Windows.Forms.TextBox();
             this.textBoxWarn = new System.Windows.Forms.TextBox();
+            this.checkBoxCopia_8 = new System.Windows.Forms.CheckBox();
             this.panelCopies.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,7 +83,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(146, 544);
+            this.btnCancel.Location = new System.Drawing.Point(146, 566);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 32);
             this.btnCancel.TabIndex = 2;
@@ -94,7 +95,7 @@
             // 
             this.btnOK.Image = ((System.Drawing.Image)(resources.GetObject("btnOK.Image")));
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(287, 544);
+            this.btnOK.Location = new System.Drawing.Point(287, 566);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 32);
             this.btnOK.TabIndex = 3;
@@ -180,7 +181,7 @@
             this.checkBoxCopia_4.AutoCheck = false;
             this.checkBoxCopia_4.AutoSize = true;
             this.checkBoxCopia_4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopia_4.Location = new System.Drawing.Point(268, 10);
+            this.checkBoxCopia_4.Location = new System.Drawing.Point(21, 124);
             this.checkBoxCopia_4.Name = "checkBoxCopia_4";
             this.checkBoxCopia_4.Size = new System.Drawing.Size(218, 20);
             this.checkBoxCopia_4.TabIndex = 10;
@@ -193,7 +194,7 @@
             this.checkBoxCopia_5.AutoCheck = false;
             this.checkBoxCopia_5.AutoSize = true;
             this.checkBoxCopia_5.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopia_5.Location = new System.Drawing.Point(268, 38);
+            this.checkBoxCopia_5.Location = new System.Drawing.Point(268, 10);
             this.checkBoxCopia_5.Name = "checkBoxCopia_5";
             this.checkBoxCopia_5.Size = new System.Drawing.Size(218, 20);
             this.checkBoxCopia_5.TabIndex = 11;
@@ -267,6 +268,7 @@
             // panelCopies
             // 
             this.panelCopies.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelCopies.Controls.Add(this.checkBoxCopia_8);
             this.panelCopies.Controls.Add(this.checkBoxCopia_7);
             this.panelCopies.Controls.Add(this.checkBoxCopia_6);
             this.panelCopies.Controls.Add(this.checkBoxCopia_5);
@@ -277,7 +279,7 @@
             this.panelCopies.Controls.Add(this.checkBoxCopia_0);
             this.panelCopies.Location = new System.Drawing.Point(19, 223);
             this.panelCopies.Name = "panelCopies";
-            this.panelCopies.Size = new System.Drawing.Size(496, 128);
+            this.panelCopies.Size = new System.Drawing.Size(496, 154);
             this.panelCopies.TabIndex = 19;
             // 
             // checkBoxCopia_7
@@ -285,7 +287,7 @@
             this.checkBoxCopia_7.AutoCheck = false;
             this.checkBoxCopia_7.AutoSize = true;
             this.checkBoxCopia_7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopia_7.Location = new System.Drawing.Point(268, 94);
+            this.checkBoxCopia_7.Location = new System.Drawing.Point(268, 66);
             this.checkBoxCopia_7.Name = "checkBoxCopia_7";
             this.checkBoxCopia_7.Size = new System.Drawing.Size(218, 20);
             this.checkBoxCopia_7.TabIndex = 11;
@@ -298,7 +300,7 @@
             this.checkBoxCopia_6.AutoCheck = false;
             this.checkBoxCopia_6.AutoSize = true;
             this.checkBoxCopia_6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopia_6.Location = new System.Drawing.Point(268, 66);
+            this.checkBoxCopia_6.Location = new System.Drawing.Point(268, 38);
             this.checkBoxCopia_6.Name = "checkBoxCopia_6";
             this.checkBoxCopia_6.Size = new System.Drawing.Size(218, 20);
             this.checkBoxCopia_6.TabIndex = 11;
@@ -310,7 +312,7 @@
             // 
             this.textBoxColor_3.BackColor = System.Drawing.Color.Red;
             this.textBoxColor_3.ForeColor = System.Drawing.Color.White;
-            this.textBoxColor_3.Location = new System.Drawing.Point(287, 502);
+            this.textBoxColor_3.Location = new System.Drawing.Point(287, 524);
             this.textBoxColor_3.Name = "textBoxColor_3";
             this.textBoxColor_3.ReadOnly = true;
             this.textBoxColor_3.Size = new System.Drawing.Size(194, 20);
@@ -322,7 +324,7 @@
             // 
             this.labelColors.AutoSize = true;
             this.labelColors.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelColors.Location = new System.Drawing.Point(32, 442);
+            this.labelColors.Location = new System.Drawing.Point(32, 464);
             this.labelColors.Name = "labelColors";
             this.labelColors.Size = new System.Drawing.Size(268, 14);
             this.labelColors.TabIndex = 67;
@@ -332,7 +334,7 @@
             // 
             this.textBoxColor_2.BackColor = System.Drawing.Color.Yellow;
             this.textBoxColor_2.ForeColor = System.Drawing.Color.Black;
-            this.textBoxColor_2.Location = new System.Drawing.Point(34, 502);
+            this.textBoxColor_2.Location = new System.Drawing.Point(34, 524);
             this.textBoxColor_2.Name = "textBoxColor_2";
             this.textBoxColor_2.ReadOnly = true;
             this.textBoxColor_2.Size = new System.Drawing.Size(194, 20);
@@ -344,7 +346,7 @@
             // 
             this.textBoxColor_1.BackColor = System.Drawing.Color.Blue;
             this.textBoxColor_1.ForeColor = System.Drawing.Color.White;
-            this.textBoxColor_1.Location = new System.Drawing.Point(288, 466);
+            this.textBoxColor_1.Location = new System.Drawing.Point(288, 488);
             this.textBoxColor_1.Name = "textBoxColor_1";
             this.textBoxColor_1.ReadOnly = true;
             this.textBoxColor_1.Size = new System.Drawing.Size(194, 20);
@@ -356,7 +358,7 @@
             // 
             this.textBoxColor_0.BackColor = System.Drawing.Color.LimeGreen;
             this.textBoxColor_0.ForeColor = System.Drawing.Color.Black;
-            this.textBoxColor_0.Location = new System.Drawing.Point(34, 466);
+            this.textBoxColor_0.Location = new System.Drawing.Point(34, 488);
             this.textBoxColor_0.Name = "textBoxColor_0";
             this.textBoxColor_0.ReadOnly = true;
             this.textBoxColor_0.Size = new System.Drawing.Size(194, 20);
@@ -367,7 +369,7 @@
             // textBoxWarn
             // 
             this.textBoxWarn.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.textBoxWarn.Location = new System.Drawing.Point(19, 368);
+            this.textBoxWarn.Location = new System.Drawing.Point(19, 390);
             this.textBoxWarn.Multiline = true;
             this.textBoxWarn.Name = "textBoxWarn";
             this.textBoxWarn.Size = new System.Drawing.Size(496, 58);
@@ -375,13 +377,25 @@
             this.textBoxWarn.Text = "il grigio mantiene gli accorpamenti per gruppo di articoli, gli altri colori inve" +
     "ce producono accorpamenti che hanno priorità rispetti ai gruppi.";
             // 
+            // checkBoxCopia_8
+            // 
+            this.checkBoxCopia_8.AutoCheck = false;
+            this.checkBoxCopia_8.AutoSize = true;
+            this.checkBoxCopia_8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxCopia_8.Location = new System.Drawing.Point(268, 94);
+            this.checkBoxCopia_8.Name = "checkBoxCopia_8";
+            this.checkBoxCopia_8.Size = new System.Drawing.Size(218, 20);
+            this.checkBoxCopia_8.TabIndex = 12;
+            this.checkBoxCopia_8.Text = "##### COPIA GRUPPO9 #####";
+            this.checkBoxCopia_8.UseVisualStyleBackColor = true;
+            // 
             // NetConfigLightDlg
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(532, 593);
+            this.ClientSize = new System.Drawing.Size(532, 620);
             this.Controls.Add(this.textBoxWarn);
             this.Controls.Add(this.textBoxColor_3);
             this.Controls.Add(this.labelColors);
@@ -446,5 +460,6 @@
         private System.Windows.Forms.TextBox textBoxColor_1;
         private System.Windows.Forms.TextBox textBoxColor_0;
         private System.Windows.Forms.TextBox textBoxWarn;
+        private System.Windows.Forms.CheckBox checkBoxCopia_8;
     }
 }

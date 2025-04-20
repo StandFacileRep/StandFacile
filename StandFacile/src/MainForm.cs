@@ -1260,7 +1260,7 @@ namespace StandFacile
 
             _iAnteprimaTotParziale = 0;
 
-            if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
+            if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
                 ResetBtnScontrino();
             // else
             //  viene eseguito dopo la stampa Legacy con l'evento RESET_RECEIPT_BTN_EVENT
@@ -1909,9 +1909,9 @@ namespace StandFacile
 
         private void MnuImpostaCopieLocali_Click(object sender, EventArgs e)
         {
-            PrintReceiptConfigDlg._rPrintTckConfigDlg.Init(true);
+            PrintLocalCopiesConfigDlg._rPrintTckConfigDlg.Init(true);
 
-            if (PrintReceiptConfigDlg.GetListinoModificato())
+            if (PrintLocalCopiesConfigDlg.GetListinoModificato())
                 DataManager.SalvaListino();
         }
 

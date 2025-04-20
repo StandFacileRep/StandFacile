@@ -440,7 +440,7 @@ namespace StandFacile
 
             // STAMPA SCONTRINO PRINCIPALE
 #if STANDFACILE
-            if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
+            if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
 #else
             if (PrintConfigLightDlg.GetPrinterTypeIsWinwows())
 #endif
@@ -472,7 +472,7 @@ namespace StandFacile
 
                 if (_dataIdentifierParam.bCopiesGroupsFlag[i])
                 {
-                    if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
+                    if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
                         Printer_Windows.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
                     else
                         Printer_Legacy.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbLegacyPrinterParams,
@@ -490,7 +490,7 @@ namespace StandFacile
                     // *** MESSA IN CODA DI STAMPA COPIE SINGOLE ***
                     if (SF_Data.bCopiesGroupsFlag[(int) DEST_TYPE.DEST_SINGLE])
                     {
-                        if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
+                        if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
                             Printer_Windows.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
                         else
                             Printer_Legacy.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
@@ -501,7 +501,7 @@ namespace StandFacile
 #endif
 
 #if STANDFACILE
-            if (!PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
+            if (!PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
 #else
             if (!PrintConfigLightDlg.GetPrinterTypeIsWinwows())
 #endif

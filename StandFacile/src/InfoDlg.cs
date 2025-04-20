@@ -68,7 +68,7 @@ namespace StandFacile
                     break;
             }
 
-            if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
+            if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
                 lbl_Printer.Text = String.Format("Stampante windows : {0}", sGlbWinPrinterParams.sTckPrinterModel);
             else
                 lbl_Printer.Text = String.Format("Stampante legacy : {0}, {1}, {2}", sConstLegacyModels[sGlbLegacyPrinterParams.iPrinterModel],

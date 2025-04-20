@@ -52,6 +52,7 @@
             this.ckBox_7 = new System.Windows.Forms.CheckBox();
             this.DS_lblDiscountWarn = new System.Windows.Forms.Label();
             this.radioBtn100 = new System.Windows.Forms.RadioButton();
+            this.ckBox_9 = new System.Windows.Forms.CheckBox();
             this.ckBox_8 = new System.Windows.Forms.CheckBox();
             this.DS_grpBxDiscount.SuspendLayout();
             this.SuspendLayout();
@@ -339,16 +340,26 @@
             this.radioBtn100.UseVisualStyleBackColor = true;
             this.radioBtn100.Click += new System.EventHandler(this.RadioBtn100_Click);
             // 
+            // ckBox_9
+            // 
+            this.ckBox_9.AutoSize = true;
+            this.ckBox_9.Location = new System.Drawing.Point(558, 175);
+            this.ckBox_9.Name = "ckBox_9";
+            this.ckBox_9.Size = new System.Drawing.Size(40, 17);
+            this.ckBox_9.TabIndex = 32;
+            this.ckBox_9.Text = "CS";
+            this.ckBox_9.UseVisualStyleBackColor = true;
+            this.ckBox_9.Click += new System.EventHandler(this.CheckBox_Click);
+            // 
             // ckBox_8
             // 
             this.ckBox_8.AutoSize = true;
-            this.ckBox_8.Location = new System.Drawing.Point(558, 174);
+            this.ckBox_8.Location = new System.Drawing.Point(495, 175);
             this.ckBox_8.Name = "ckBox_8";
             this.ckBox_8.Size = new System.Drawing.Size(40, 17);
-            this.ckBox_8.TabIndex = 32;
-            this.ckBox_8.Text = "CS";
+            this.ckBox_8.TabIndex = 33;
+            this.ckBox_8.Text = "G9";
             this.ckBox_8.UseVisualStyleBackColor = true;
-            this.ckBox_8.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // ScontoDlg
             // 
@@ -357,6 +368,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(614, 326);
             this.Controls.Add(this.ckBox_8);
+            this.Controls.Add(this.ckBox_9);
             this.Controls.Add(this.radioBtn100);
             this.Controls.Add(this.DS_lblDiscountWarn);
             this.Controls.Add(this.ckBox_7);
@@ -419,6 +431,7 @@
         private System.Windows.Forms.CheckBox ckBox_7;
         private System.Windows.Forms.Label DS_lblDiscountWarn;
         private System.Windows.Forms.RadioButton radioBtn100;
+        private System.Windows.Forms.CheckBox ckBox_9;
         private System.Windows.Forms.CheckBox ckBox_8;
     }
 }

@@ -1,6 +1,6 @@
 ﻿/******************************************************
   	NomeFile : StandCommonSrc/NetConfigLightDlg.cs
-    Data	 : 06.12.2024
+    Data	 : 18.04.2025
   	Autore   : Mauro Artuso
 
  ******************************************************/
@@ -75,6 +75,7 @@ namespace StandFacile
             _pCheckBoxCopia[5] = checkBoxCopia_5;
             _pCheckBoxCopia[6] = checkBoxCopia_6;
             _pCheckBoxCopia[7] = checkBoxCopia_7;
+            _pCheckBoxCopia[8] = checkBoxCopia_8;
 
             _pTextBoxColor[0] = textBoxColor_0;
             _pTextBoxColor[1] = textBoxColor_1;

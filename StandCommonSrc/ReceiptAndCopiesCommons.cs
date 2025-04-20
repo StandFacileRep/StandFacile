@@ -1,6 +1,6 @@
 ﻿/*********************************************************************************
  	NomeFile : StandCommonSrc/ReceiptAndCopies.cs
-    Data	 : 28.01.2025
+    Data	 : 18.04.2025
  	Autore	 : Mauro Artuso
 
 	Classi di uso comune a DataManager.Receipt(), VisOrdiniDlg.ReceiptRebuild()<br/>
@@ -674,7 +674,7 @@ namespace StandCommonFiles
 
                 LogToFile("DataManager dbSalvaOrdine : dbFuncTime = " + sTmp);
 
-                if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
+                if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
                 {
                     Printer_Windows.PrintFile(sDirParam + sNomeFileTicketPrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
                 }
@@ -739,7 +739,7 @@ namespace StandCommonFiles
             // conferma dalle altre dipendenze
             _bAvoidPrintOtherGroups |= !(_bPrintSelectedOnly && (bSingleRowItems || bUnitQtyItems));
 
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
                 _bSelectedGroups[i] = IsBitSet(SF_Data.iReceiptCopyOptions, i);
 
             // CONTATORI mai selezionati
@@ -748,7 +748,7 @@ namespace StandCommonFiles
             // puntatore di riordino per consentire per primi DEST_TYPE.DEST_COUNTER
             iGrpReorderPtr[0] = (int)DEST_TYPE.DEST_COUNTER;
 
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
                 iGrpReorderPtr[i + 1] = i;
 
 
@@ -887,8 +887,6 @@ namespace StandCommonFiles
 
                             if ((!_bPrintSelectedOnly || _bSelectedGroups[iGrpReorderPtr[i]]) && bUnitQtyItems && (dataIdParam.Articolo[j].iQuantitaOrdine > 0) && (dataIdParam.Articolo[j].iGruppoStampa == iGrpReorderPtr[i]))
                             {
-                                //_bCtrlS_UnitQtyItems = true;
-
                                 for (k = 0; k < dataIdParam.Articolo[j].iQuantitaOrdine; k++)
                                 {
                                     if (!String.IsNullOrEmpty(sHeader1_ToPrintBeforeCut))
@@ -935,7 +933,8 @@ namespace StandCommonFiles
                             if (dataIdParam.Articolo[j].bLocalPrinted == true)
                                 continue;
 
-                            if ((!_bPrintSelectedOnly || _bSelectedGroups[iGrpReorderPtr[i]]) && bSingleRowItems && (dataIdParam.Articolo[j].iQuantitaOrdine > 0) && (dataIdParam.Articolo[j].iGruppoStampa == iGrpReorderPtr[i]))
+                            if ((!_bPrintSelectedOnly || _bSelectedGroups[iGrpReorderPtr[i]]) && (bSingleRowItems || dataIdParam.Articolo[j].iGruppoStampa == (int)DEST_TYPE.DEST_SINGLE) && 
+                                (dataIdParam.Articolo[j].iQuantitaOrdine > 0) && (dataIdParam.Articolo[j].iGruppoStampa == iGrpReorderPtr[i]))
                             {
                                 if (!String.IsNullOrEmpty(sHeader1_ToPrintBeforeCut))
                                     fPrintParam.WriteLine("{0}", sHeader1_ToPrintBeforeCut);
@@ -1022,7 +1021,7 @@ namespace StandCommonFiles
                                 {
                                     bHeaderToBePrinted = false;
 
-                                    if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED) ||
+                                    if ((iNumCoperti > 0) && bTicketCopies_CutRequired && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED) ||
                                         (iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_COUNTER)))
                                     {
                                         sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
@@ -1086,7 +1085,7 @@ namespace StandCommonFiles
                  *****************************************************************************/
                 if (!CheckService(Define._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data))
                 {
-                    if (PrintReceiptConfigDlg.GetPrinterTypeIsWinwows())
+                    if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
                         Printer_Windows.PrintFile(sDirParam + sNomeFileTicketNpPrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
                     else
                         Printer_Legacy.PrintFile(sDirParam + sNomeFileTicketNpPrt, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
