@@ -621,6 +621,74 @@ namespace StandCommonFiles
         /// <summary>numero=5 dei colori dei gruppi di stampa: 0 corrisponde al trasparente</summary>
         public static readonly int NUM_GROUPS_COLORS = 5;
 
+        /****************************************************************
+         *                Flags generali di StandFacile                 *
+         ****************************************************************/
+
+        /// <summary>Flags generali di StandFacile</summary>
+        public enum GEN_OPTS
+        {
+            /// <summary>bit di iGeneralOptions per gestione Tablet Mode</summary>
+            BIT_TOUCH_MODE_REQUIRED = 0,
+
+            /// <summary>bit di iGeneralOptions per obbligare ad indicazione del Tavolo ante emissione Receipt</summary>
+            BIT_TABLE_REQUIRED,
+
+            /// <summary>bit di iGeneralOptions per obbligare ad indicazione dei Coperti ante emissione Receipt</summary>
+            BIT_PLACE_SETTINGS_REQUIRED,
+
+            /// <summary>bit di iGeneralOptions per obbligare ad indicazione del Pagamento ante emissione Receipt</summary>
+            BIT_PAYMENT_REQUIRED,
+
+            /// <summary>bit di iGeneralOptions per consentire Articoli con Prezzo = zero</summary>
+            BIT_ZERO_PRICE_ITEMS_ALLOWED,
+
+            /// <summary>bit di iGeneralOptions per consentire la riservatezza</summary>
+            BIT_PRIVACY,
+
+            /// <summary>bit di iGeneralOptions per consentire la stampa con ENTER</summary>
+            BIT_ENTER_PRINT_RECEIPT_ENABLED
+        }
+
+        /****************************************************************
+         *                Flags gestione stampa Copie Locali            *
+         ****************************************************************/
+
+        /// <summary>Flags per gestione stampa Copie Locali</summary>
+        public enum LOCAL_COPIES_OPTS
+        {
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa a 33 caratteri deli Articoli</summary>
+            BIT_CHARS33_PRINT_REQUIRED = 10, // 0-9 è occupato da _pCheckBoxCopia[i]
+
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa del Logo nelle copie</summary>
+            BIT_LOGO_PRINT_REQUIRED,
+
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa dei coperti nelle copie</summary>
+            BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED,
+
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa con taglio nella copia locale Receipt</summary>
+            BIT_PRINT_GROUPS_CUT_REQUIRED,
+
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa Articoli con quantità uno nella copia locale Receipt</summary>
+            BIT_QUANTITYONE_PRINT_REQUIRED,
+
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa di un solo Articolo nella copia locale Receipt</summary>
+            BIT_SINGLEROWITEMS_PRINT_REQUIRED,
+
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa solo dei gruppi selezionati</summary>
+            BIT_SELECTEDONLY_PRINT_REQUIRED,
+
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa copia locale dello scontrino</summary>
+            BIT_RECEIPT_LOCAL_COPY_REQUIRED,
+
+            /// <summary>bit di iReceiptCopyOptions per stampa gruppi contemporanea</summary>
+            BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED
+
+            /*****************************************************************************************
+	         i primi 8 bit di iReceiptCopyOptions sono riservati per gestione _bSelectedGroups[i]
+	         *****************************************************************************************/
+        }
+
         /// <summary>indica il tipo di sconto</summary>
         public enum DISC_TYPE
         {
@@ -795,74 +863,6 @@ namespace StandCommonFiles
         /// copia locale dello scontrino
         /// </summary>
         public const int BIT_STAMPA_SINGOLA_NELLA_COPIA_RECEIPT = 0;
-
-        /****************************************************************
-         *                Flags generali di StandFacile                 *
-         ****************************************************************/
-
-        /// <summary>Flags generali di StandFacile</summary>
-        public enum GEN_OPTS
-        {
-            /// <summary>bit di iGeneralOptions per gestione Tablet Mode</summary>
-            BIT_TOUCH_MODE_REQUIRED = 0,
-
-            /// <summary>bit di iGeneralOptions per obbligare ad indicazione del Tavolo ante emissione Receipt</summary>
-            BIT_TABLE_REQUIRED,
-
-            /// <summary>bit di iGeneralOptions per obbligare ad indicazione dei Coperti ante emissione Receipt</summary>
-            BIT_PLACE_SETTINGS_REQUIRED,
-
-            /// <summary>bit di iGeneralOptions per obbligare ad indicazione del Pagamento ante emissione Receipt</summary>
-            BIT_PAYMENT_REQUIRED,
-
-            /// <summary>bit di iGeneralOptions per consentire Articoli con Prezzo = zero</summary>
-            BIT_ZERO_PRICE_ITEMS_ALLOWED,
-
-            /// <summary>bit di iGeneralOptions per consentire la riservatezza</summary>
-            BIT_PRIVACY,
-
-            /// <summary>bit di iGeneralOptions per consentire la stampa con ENTER</summary>
-            BIT_ENTER_PRINT_RECEIPT_ENABLED
-        }
-
-        /****************************************************************
-         *                Flags gestione stampa Copie Locali            *
-         ****************************************************************/
-
-        /// <summary>Flags per gestione stampa Copie Locali</summary>
-        public enum LOCAL_COPIES_OPTS
-        {
-            /// <summary>bit di iReceiptCopyOptions per gestione stampa a 33 caratteri deli Articoli</summary>
-            BIT_CHARS33_PRINT_REQUIRED = 10, // 0-9 è occupato da _pCheckBoxCopia[i]
-
-            /// <summary>bit di iReceiptCopyOptions per gestione stampa del Logo nelle copie</summary>
-            BIT_LOGO_PRINT_REQUIRED,
-
-            /// <summary>bit di iReceiptCopyOptions per gestione stampa dei coperti nelle copie</summary>
-            BIT_EXTEND_PLACESETTINGS_PRINT_REQUIRED,
-
-            /// <summary>bit di iReceiptCopyOptions per gestione stampa con taglio nella copia locale Receipt</summary>
-            BIT_PRINT_GROUPS_CUT_REQUIRED,
-
-            /// <summary>bit di iReceiptCopyOptions per gestione stampa Articoli con quantità uno nella copia locale Receipt</summary>
-            BIT_QUANTITYONE_PRINT_REQUIRED,
-
-            /// <summary>bit di iReceiptCopyOptions per gestione stampa di un solo Articolo nella copia locale Receipt</summary>
-            BIT_SINGLEROWITEMS_PRINT_REQUIRED,
-
-            /// <summary>bit di iReceiptCopyOptions per gestione stampa solo dei gruppi selezionati</summary>
-            BIT_SELECTEDONLY_PRINT_REQUIRED,
-
-            /// <summary>bit di iReceiptCopyOptions per gestione stampa copia locale dello scontrino</summary>
-            BIT_RECEIPT_LOCAL_COPY_REQUIRED,
-
-            /// <summary>bit di iReceiptCopyOptions per stampa gruppi contemporanea</summary>
-            BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED
-
-	        /*****************************************************************************************
-	         i primi 8 bit di iReceiptCopyOptions sono riservati per gestione _bSelectedGroups[i]
-	         *****************************************************************************************/
-        }
 
         /****************************************************************
          *                   Flags gestione sconti                      *
