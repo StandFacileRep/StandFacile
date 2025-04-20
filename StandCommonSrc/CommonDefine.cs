@@ -622,6 +622,53 @@ namespace StandCommonFiles
         public static readonly int NUM_GROUPS_COLORS = 5;
 
         /****************************************************************
+         *              Flags di di stato gestione Ordine               *
+         ****************************************************************/
+
+        /// <summary>Flags  di Stato</summary>
+        public enum STATUS_FLAGS
+        {
+            /// <summary>bit di iStatus che indica l'esportazione</summary>
+            BIT_ESPORTAZIONE = 0,
+
+            /// <summary>bit di iStatus che indica Scontrino emesso durante la prevendita</summary>
+            BIT_EMESSO_IN_PREVENDITA,
+
+            /// <summary>bit di iStatus che indica Scontrino caricato da una prevendita</summary>
+            BIT_CARICATO_DA_PREVENDITA,
+
+            /// <summary>bit di iStatus che indica Scontrino caricato da web,<br/>
+            /// settato da CaricaOrdineWeb, CaricaOrdine_QR_code
+            /// </summary>
+            BIT_CARICATO_DA_WEB,
+
+            /// <summary>bit di iStatus che indica Scontrino generato direttamente da web</summary>
+            BIT_ORDINE_DIRETTO_DA_WEB,
+
+            /// <summary>bit di iStatus che indica che lo Scontrino è stato stampato da Stand Cucina</summary>
+            BIT_RECEIPT_STAMPATO_DA_STANDCUCINA,
+
+            /// <summary>bit di iStatus che indica che il messaggio è stato stampato da Stand Cucina</summary>
+            BIT_MSG_STAMPATO_DA_STANDCUCINA,
+
+
+            /// <summary>
+            /// bit di iStatus che indica il pagamento di default mediante contanti<br/>
+            /// serve utilizzarlo come LSB dei tipi di pagamento
+            /// </summary>
+            BIT_PAGAM_CASH = 10,
+
+            /// <summary>
+            /// bit di iStatus che indica il pagamento mediante CARD:<br/>
+            /// bancomat, carta di credito
+            /// </summary>
+            BIT_PAGAM_CARD,
+
+            /// <summary>bit di iStatus che indica il pagamento mediante Satispay</summary>
+            BIT_PAGAM_SATISPAY
+        }
+        
+        /****************************************************************
          *                Flags generali di StandFacile                 *
          ****************************************************************/
 
@@ -807,52 +854,6 @@ namespace StandCommonFiles
         /// <summary> valori massimi</summary>
         public const int DISP_OK = 99999;
 
-        /****************************************************************
-         *              Flags di di stato gestione Ordine               *
-         ****************************************************************/
-
-        /// <summary>Flags  di Stato</summary>
-        public enum STATUS_FLAGS
-        {
-            /// <summary>bit di iStatus che indica l'esportazione</summary>
-            BIT_ESPORTAZIONE = 0,
-
-            /// <summary>bit di iStatus che indica Scontrino emesso durante la prevendita</summary>
-            BIT_EMESSO_IN_PREVENDITA,
-
-            /// <summary>bit di iStatus che indica Scontrino caricato da una prevendita</summary>
-            BIT_CARICATO_DA_PREVENDITA,
-
-            /// <summary>bit di iStatus che indica Scontrino caricato da web,<br/>
-            /// settato da CaricaOrdineWeb, CaricaOrdine_QR_code
-            /// </summary>
-            BIT_CARICATO_DA_WEB,
-
-            /// <summary>bit di iStatus che indica Scontrino generato direttamente da web</summary>
-            BIT_ORDINE_DIRETTO_DA_WEB,
-
-            /// <summary>bit di iStatus che indica che lo Scontrino è stato stampato da Stand Cucina</summary>
-            BIT_RECEIPT_STAMPATO_DA_STANDCUCINA,
-
-            /// <summary>bit di iStatus che indica che il messaggio è stato stampato da Stand Cucina</summary>
-            BIT_MSG_STAMPATO_DA_STANDCUCINA,
-
-
-            /// <summary>
-            /// bit di iStatus che indica il pagamento di default mediante contanti<br/>
-            /// serve utilizzarlo come LSB dei tipi di pagamento
-            /// </summary>
-            BIT_PAGAM_CASH = 10,
-
-            /// <summary>
-            /// bit di iStatus che indica il pagamento mediante CARD:<br/>
-            /// bancomat, carta di credito
-            /// </summary>
-            BIT_PAGAM_CARD,
-
-            /// <summary>bit di iStatus che indica il pagamento mediante Satispay</summary>
-            BIT_PAGAM_SATISPAY
-        }
 
         /****************************************************************
          *                Flags gestione stampa Articolo                *

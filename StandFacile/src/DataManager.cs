@@ -984,7 +984,7 @@ namespace StandFacile
         /// <summary>da utilizzare per le verifiche di scontrino significativo</summary>
         public static bool TicketIsGood()
         {
-            bool bCounterPresente = false;
+            bool bArticoloPresente = false, bCounterPresente = false;
             bool bArticoloConPrezzoNulloPresente_e_Consentito = false;
             int i, iTotaleCurrTicket = 0;
 
@@ -992,6 +992,9 @@ namespace StandFacile
             for (i = 0; i < MAX_NUM_ARTICOLI; i++)
             {
                 iTotaleCurrTicket += SF_Data.Articolo[i].iQuantitaOrdine * SF_Data.Articolo[i].iPrezzoUnitario;
+
+                if (SF_Data.Articolo[i].iQuantitaOrdine > 0)
+                    bArticoloPresente = true;
 
                 if ((SF_Data.Articolo[i].iQuantitaOrdine > 0) && (SF_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
                     bCounterPresente = true;
@@ -1003,7 +1006,7 @@ namespace StandFacile
                     break;
             }
 
-            if ((iTotaleCurrTicket > 0) || bCounterPresente || bArticoloConPrezzoNulloPresente_e_Consentito)
+            if ((iTotaleCurrTicket > 0) || bCounterPresente || bArticoloPresente && bArticoloConPrezzoNulloPresente_e_Consentito)
                 return true;
             else
                 return false;
