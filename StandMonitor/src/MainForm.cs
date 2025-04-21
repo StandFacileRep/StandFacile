@@ -254,7 +254,7 @@ namespace StandFacile
                 // Imposta il nome del server
                 NetConfigLightDlg.rNetConfigLightDlg.ShowDialog();
             }
-            else if (CheckService(_ESPERTO))
+            else if (CheckService(CFG_COMMON_STRINGS._ESPERTO))
                 MnuEspertoClick(this, null);
 
             _rdBaseIntf.dbInit(GetActualDate(), CASSA_PRINCIPALE);
@@ -581,7 +581,7 @@ namespace StandFacile
             String sTmp;
             DialogResult dResult;
 
-            if (!CheckService(_ESPERTO) && (!MnuEsperto.Checked))
+            if (!CheckService(CFG_COMMON_STRINGS._ESPERTO) && (!MnuEsperto.Checked))
                 dResult = MessageBox.Show("E' importante aver letto e compreso il manuale prima di proseguire !\r\n\r\n" +
                        "Il manuale pdf è presente nella cartella di installazione e si può aprire anche dal pulsante presente nel menù di Aiuto->Aiuto Rapido.",
                        "Attenzione !", MessageBoxButtons.OKCancel);
@@ -824,7 +824,7 @@ namespace StandFacile
 
         private void MnuConfigurazioneStampe_Click(object sender, EventArgs e)
         {
-            if (CheckService(_HIDE_LEGACY_PRINTER))
+            if (CheckService(CFG_COMMON_STRINGS._HIDE_LEGACY_PRINTER))
                 WinPrinterDlg._rWinPrinterDlg.Init(true);
             else
                 PrintConfigLightDlg.rPrintConfigLightDlg.Init(true);

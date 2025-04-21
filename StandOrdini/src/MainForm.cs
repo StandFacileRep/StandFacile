@@ -136,7 +136,7 @@ namespace StandFacile
                 // Imposta il nome del server
                 NetConfigLightDlg.rNetConfigLightDlg.ShowDialog();
             }
-            else if (CheckService(_ESPERTO))
+            else if (CheckService(CFG_COMMON_STRINGS._ESPERTO))
                 MnuEspertoClick(this, null);
 
             iScaricoDelayTimer = 2;
@@ -687,7 +687,7 @@ namespace StandFacile
             DialogResult dResult;
             String sTmp;
 
-            if (!CheckService(_ESPERTO) && (!MnuEsperto.Checked))
+            if (!CheckService(CFG_COMMON_STRINGS._ESPERTO) && (!MnuEsperto.Checked))
                 dResult = MessageBox.Show("E' importante aver letto e compreso il manuale prima di proseguire !\r\n\r\n" +
                         "Il manuale pdf è presente nella cartella di installazione e si può aprire anche dal pulsante presente nel menù di Aiuto->Aiuto Rapido.",
                         "Attenzione !", MessageBoxButtons.OKCancel);

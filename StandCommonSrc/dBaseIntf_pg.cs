@@ -1299,7 +1299,7 @@ namespace StandFacile_DB
                     _WrnMsg.iErrID = WRN_SEX;
 
 #if STANDFACILE
-                    if (!CheckService(Define._AUTO_SEQ_TEST))
+                    if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
 #endif
                     WarningManager(_WrnMsg);
 

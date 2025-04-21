@@ -67,7 +67,7 @@ namespace StandFacile
 
             Lbl_Listino.Text = "data Listino : " + SF_Data.sListinoDateTime;
 
-            if (CheckService(_SKIP_DATA))
+            if (CheckService(CFG_SERVICE_STRINGS._SKIP_DATA))
                 timer.Enabled = false;
             else
             {

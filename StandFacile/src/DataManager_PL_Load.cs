@@ -146,7 +146,7 @@ namespace StandFacile
                     // ******* caricamento sInputStrings dal DB *******
 
                     // segnala che il File Prezzi locale verrà ignorato
-                    if (File.Exists(sDir + NOME_FILE_LISTINO) && !CheckService(Define._AUTO_SEQ_TEST))
+                    if (File.Exists(sDir + NOME_FILE_LISTINO) && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                         WarningManager(WRN_FPI);
 
                     _ErrMsg.sNomeFile = NOME_LISTINO_DBTBL;
@@ -837,7 +837,7 @@ namespace StandFacile
                         ErrorManager(_ErrMsg);
                     }
 
-                    if (CheckService(Define._AUTO_SEQ_TEST))
+                    if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                         LogToFile(String.Format("DataManager : CaricaListino {0,-20} {1}", sArticoloStr, iRiga));
 
                     iRiga++; // ********* riga successiva *********

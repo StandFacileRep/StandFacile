@@ -50,7 +50,7 @@ namespace StandFacile
             String[] sQueue_Object = new String[2];
 
             // sicurezza e coerenza con CaricaListino(), altra App lo salva
-            if (CheckIf_CassaSec_and_NDB() || CheckService(Define._AUTO_SEQ_TEST)) // cassa secondaria e DB, seqTest
+            if (CheckIf_CassaSec_and_NDB() || CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST)) // cassa secondaria e DB, seqTest
                 return false;
 
             sDir = _sExeDir + "\\";

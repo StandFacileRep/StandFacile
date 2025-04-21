@@ -61,7 +61,7 @@ namespace StandFacile
 
         /// <summary>evento fine caricamento ordine di prevendita</summary>
         public const string PREV_ORDER_LOAD_DONE = "fattoCaricamento_PrevOrdineDB_Dlg_Event";
-        
+
         /// <summary>evento inizio caricamento sintesi di tutti gli ordini</summary>
         public const string WEB_ALL_ORDERS_LOAD_START = "avviaCaricamento_EsploraWebOrdiniDB_Dlg_Event";
 
@@ -91,23 +91,30 @@ namespace StandFacile
                queste stringhe consentono l'attivazione di alcune funzioni di debug
          **********************************************************************************/
 
-        /// <summary>registro: generazione random di scontrini per test</summary>
-        public const string _AUTO_RECEIPT_GEN = "randTest";
-
         /// <summary>
-        /// registro: generazione automatica di scontrini da file di sequenza per test <br/>
-        /// aggiungendo "_C1" esegue test con sola cassa 1
+        ///  mnemonici chiavi del file config.ini:<br/>
+        /// queste stringhe consentono l'attivazione di alcune funzioni di debug
         /// </summary>
-        public const string _AUTO_SEQ_TEST = "seqTest"; // _C1
+        public struct CFG_SERVICE_STRINGS
+        {
+            /// <summary>registro: generazione random di scontrini per test</summary>
+            public const string _AUTO_RECEIPT_GEN = "randTest";
 
-        /// <summary>registro: generazione automatica scontrini mediante qrcode per test</summary>
-        public const string _AUTO_QRCODE_TEST = "qrcodeTest";
+            /// <summary>
+            /// registro: generazione automatica di scontrini da file di sequenza per test <br/>
+            /// aggiungendo "_C1" esegue test con sola cassa 1
+            /// </summary>
+            public const string _AUTO_SEQ_TEST = "seqTest"; // _C1
 
-        /// <summary>registro: acquisizione di scontrini per test</summary>
-        public const string _REC_TEST = "recTest";
+            /// <summary>registro: generazione automatica scontrini mediante qrcode per test</summary>
+            public const string _AUTO_QRCODE_TEST = "qrcodeTest";
 
-        /// <summary>registro:  evita le presentazione del dialogo relativo alla Data</summary>
-        public const string _SKIP_DATA = "noData";
+            /// <summary>registro: acquisizione di scontrini per test</summary>
+            public const string _REC_TEST = "recTest";
+
+            /// <summary>registro:  evita le presentazione del dialogo relativo alla Data</summary>
+            public const string _SKIP_DATA = "noData";
+        }
 
         /// <summary>registro: refresh di sService * 250ms circa in StandFacile, 200 in StandClient</summary>
         public const int REFRESH_SSERVICE = 4 * 60;

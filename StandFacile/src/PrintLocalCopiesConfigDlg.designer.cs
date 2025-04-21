@@ -40,7 +40,7 @@
             this.btnOK = new System.Windows.Forms.Button();
             this.panelLocalCopies = new System.Windows.Forms.Panel();
             this.checkBox_AvoidPrintGroups = new System.Windows.Forms.CheckBox();
-            this.labelWarn = new System.Windows.Forms.Label();
+            this.labelWarn2 = new System.Windows.Forms.Label();
             this.checkBox_CUT = new System.Windows.Forms.CheckBox();
             this.checkBoxUnitItems = new System.Windows.Forms.CheckBox();
             this.panelCopies = new System.Windows.Forms.Panel();
@@ -63,6 +63,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.labelWarn1 = new System.Windows.Forms.Label();
             this.RadioGroup_PrinterType.SuspendLayout();
             this.printersGroupBox.SuspendLayout();
             this.panelLocalCopies.SuspendLayout();
@@ -174,8 +175,9 @@
             // 
             this.panelLocalCopies.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panelLocalCopies.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelLocalCopies.Controls.Add(this.labelWarn1);
             this.panelLocalCopies.Controls.Add(this.checkBox_AvoidPrintGroups);
-            this.panelLocalCopies.Controls.Add(this.labelWarn);
+            this.panelLocalCopies.Controls.Add(this.labelWarn2);
             this.panelLocalCopies.Controls.Add(this.checkBox_CUT);
             this.panelLocalCopies.Controls.Add(this.checkBoxUnitItems);
             this.panelLocalCopies.Controls.Add(this.panelCopies);
@@ -199,17 +201,17 @@
             this.checkBox_AvoidPrintGroups.UseVisualStyleBackColor = true;
             this.checkBox_AvoidPrintGroups.Click += new System.EventHandler(this.CheckBox_AvoidPrintGroups_Click);
             // 
-            // labelWarn
+            // labelWarn2
             // 
-            this.labelWarn.AutoSize = true;
-            this.labelWarn.BackColor = System.Drawing.SystemColors.Control;
-            this.labelWarn.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.labelWarn.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.labelWarn.Location = new System.Drawing.Point(291, 73);
-            this.labelWarn.Name = "labelWarn";
-            this.labelWarn.Size = new System.Drawing.Size(185, 13);
-            this.labelWarn.TabIndex = 69;
-            this.labelWarn.Text = "opzioni ad elevato consumo di carta !";
+            this.labelWarn2.AutoSize = true;
+            this.labelWarn2.BackColor = System.Drawing.SystemColors.Control;
+            this.labelWarn2.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.labelWarn2.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.labelWarn2.Location = new System.Drawing.Point(291, 73);
+            this.labelWarn2.Name = "labelWarn2";
+            this.labelWarn2.Size = new System.Drawing.Size(185, 13);
+            this.labelWarn2.TabIndex = 69;
+            this.labelWarn2.Text = "opzioni ad elevato consumo di carta !";
             // 
             // checkBox_CUT
             // 
@@ -405,9 +407,9 @@
             this.checkBoxLocalCopy.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxLocalCopy.Location = new System.Drawing.Point(17, 15);
             this.checkBoxLocalCopy.Name = "checkBoxLocalCopy";
-            this.checkBoxLocalCopy.Size = new System.Drawing.Size(206, 18);
+            this.checkBoxLocalCopy.Size = new System.Drawing.Size(165, 18);
             this.checkBoxLocalCopy.TabIndex = 29;
-            this.checkBoxLocalCopy.Text = "abilita stampa copie locali in cassa";
+            this.checkBoxLocalCopy.Text = "abilita stampa copie Locali";
             this.checkBoxLocalCopy.UseVisualStyleBackColor = true;
             this.checkBoxLocalCopy.CheckedChanged += new System.EventHandler(this.CheckBoxNoPrice_CheckedChanged);
             // 
@@ -462,6 +464,18 @@
             this.label1.Size = new System.Drawing.Size(450, 16);
             this.label1.TabIndex = 35;
             this.label1.Text = "da qui si effettuano le impostazioni di stampa delle sole copie in cassa locale:";
+            // 
+            // labelWarn1
+            // 
+            this.labelWarn1.AutoSize = true;
+            this.labelWarn1.BackColor = System.Drawing.SystemColors.Control;
+            this.labelWarn1.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.labelWarn1.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.labelWarn1.Location = new System.Drawing.Point(264, 32);
+            this.labelWarn1.Name = "labelWarn1";
+            this.labelWarn1.Size = new System.Drawing.Size(240, 13);
+            this.labelWarn1.TabIndex = 71;
+            this.labelWarn1.Text = "attivabile se sono selezionate le opzioni qui sotto";
             // 
             // PrintLocalCopiesConfigDlg
             // 
@@ -524,12 +538,13 @@
         private System.Windows.Forms.CheckBox checkBox_CUT;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.LinkLabel LinkLbl_Mnu_CCR;
-        private System.Windows.Forms.Label labelWarn;
+        private System.Windows.Forms.Label labelWarn2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBox_AvoidPrintGroups;
         private System.Windows.Forms.CheckBox checkBoxCopia_8;
         private System.Windows.Forms.CheckBox checkBoxCopia_9;
+        private System.Windows.Forms.Label labelWarn1;
     }
 }

@@ -64,7 +64,7 @@ namespace StandFacile
         /// <summary> funzione che ritorna true se la stampante in uso in CASSA è windows</summary>
         public static bool GetPrinterTypeIsWinwows()
         {
-            if (CheckService(_HIDE_LEGACY_PRINTER))
+            if (CheckService(CFG_COMMON_STRINGS._HIDE_LEGACY_PRINTER))
                 return true;
             else
                 return (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS);
@@ -73,7 +73,7 @@ namespace StandFacile
         /// <summary> overload funzione che ritorna true se la stampante copie in uso è windows</summary>
         public static bool GetPrinterTypeIsWinwows(int iPrinterIndex)
         {
-            if (CheckService(_HIDE_LEGACY_PRINTER))
+            if (CheckService(CFG_COMMON_STRINGS._HIDE_LEGACY_PRINTER))
                 return true;
             else if (iPrinterIndex == NUM_SEP_PRINT_GROUPS + 1)  // stampa Messaggi
                 return (sGlbWinPrinterParams.sMsgPrinterModel != _LEGACY_PRINTER);
@@ -224,7 +224,7 @@ namespace StandFacile
 
                 j = 0;
 
-                if (!CheckService(_HIDE_LEGACY_PRINTER))
+                if (!CheckService(CFG_COMMON_STRINGS._HIDE_LEGACY_PRINTER))
                     _pPrintersListCombo[i].Items.Add(_LEGACY_PRINTER);
 
                 foreach (String printer in PrinterSettings.InstalledPrinters)
@@ -233,7 +233,7 @@ namespace StandFacile
 
                     if (printer == sGlbWinPrinterParams.sPrinterModel[i])
                     {
-                        if (CheckService(_HIDE_LEGACY_PRINTER))
+                        if (CheckService(CFG_COMMON_STRINGS._HIDE_LEGACY_PRINTER))
                             sGlbWinPrinterParams.iPrinterModel[i] = j;
                         else
                             sGlbWinPrinterParams.iPrinterModel[i] = j + 1; // tiene conto di _LEGACY_PRINTER
@@ -342,14 +342,14 @@ namespace StandFacile
         {
             int i, j;
 
-            bool[] bFirstColorPrinterFound = new bool[NUM_EDIT_GROUPS];
+            bool[] bFirstColorPrinterFound = new bool[NUM_SEP_PRINT_GROUPS];
 
-            for (j = 0; j < NUM_EDIT_GROUPS; j++)
-                bFirstColorPrinterFound[j] = false;
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
+                bFirstColorPrinterFound[i] = false;
 
             _sDefaultPrinter = _settings.PrinterName;
 
-            for (i = 0; i < NUM_EDIT_GROUPS; i++)
+            for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 if (!bFirstColorPrinterFound[i])
                 {
@@ -376,7 +376,7 @@ namespace StandFacile
                     // estende le selezioni a tutti i gruppi dello stesso colore
                     // solo per colori diversi dal grigio rende non modificabili
                     // le stampanti successiva alla prima, associate allo stesso colore e spuntate
-                    if (_iGroupsColor[i] > 0)
+                    if ((i < NUM_EDIT_GROUPS) && (_iGroupsColor[i] > 0))
                     {
                         for (j = i + 1; j < NUM_EDIT_GROUPS; j++)
                         {
@@ -533,7 +533,7 @@ namespace StandFacile
             for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
             {
                 if (_pCheckBox_BCD[i].Checked)
-                    iBarcodeRichiestoTmp += (int)Math.Pow(2, i); // 0x000000FF
+                    iBarcodeRichiestoTmp += (int)Math.Pow(2, i); // 0x000003FF
             }
 
             // controllo _bListinoModificato per barcode, salvataggio in : SF_Data[]

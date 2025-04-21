@@ -729,7 +729,7 @@ namespace StandCommonFiles
                 if (String.IsNullOrEmpty(sFileToPrintParm) || !File.Exists(sFileToPrintParm))
                     return;
 
-                if (!CheckService(_SKIP_STAMPA_RCP))
+                if (!CheckService(CFG_COMMON_STRINGS._SKIP_STAMPA_RCP))
                 {
                     // PRINT_NOW, PRINT_ENQUEUE
                     // importante : al thread bisogna passare parametri per valore,

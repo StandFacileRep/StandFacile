@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.14.2  RC1";
+        public const String RELEASE_SW = "v5.14.2 RC1";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5c";
@@ -63,17 +63,21 @@ namespace StandCommonFiles
         /// <summary>prefisso tabella dei dati di prevendita</summary>
         public const string _dbPreDataTablePrefix = RELEASE_TBL + "_dati_prev";
 
-        // <summary>chiave Stringa di Opzioni per il debug da inserire nella voce _SERVICE del Registry</summary>
-        //public const String SERVICE = "sService";
+        /// <summary>
+        ///  mnemonici chiavi del file config.ini:<br/>
+        /// queste stringhe consentono l'attivazione di alcune funzioni di debug
+        /// </summary>
+        public struct CFG_COMMON_STRINGS
+        {
+            /// <summary>evita di stampare lo scontrino</summary>
+            public const String _SKIP_STAMPA_RCP = "noStampaRcp";
 
-        /// <summary>evita di stampare lo scontrino</summary>
-        public const String _SKIP_STAMPA_RCP = "noStampaRcp";
+            /// <summary>abilita la modalità Esperto</summary>
+            public const String _ESPERTO = "Esperto";
 
-        /// <summary>abilita la modalità Esperto</summary>
-        public const String _ESPERTO = "Esperto";
-
-        /// <summary>abilita le stampanti legacy</summary>
-        public const String _HIDE_LEGACY_PRINTER = "noLegacyPrinters";
+            /// <summary>abilita le stampanti legacy</summary>
+            public const String _HIDE_LEGACY_PRINTER = "noLegacyPrinters";
+        }
 
         /// <summary>indicatore di ordine formattato JSON</summary>
         public const String _JS_ORDER_V5 = "js_order_v5c";

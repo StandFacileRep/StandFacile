@@ -1083,7 +1083,7 @@ namespace StandCommonFiles
                  *  la stampa ; serve ad evitare problemi di Shared data
                  *  durante _AUTO_SEQ_TEST richiede tempo e provoca disallineamenti
                  *****************************************************************************/
-                if (!CheckService(Define._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data))
+                if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data))
                 {
                     if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
                         Printer_Windows.PrintFile(sDirParam + sNomeFileTicketNpPrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
@@ -1166,7 +1166,7 @@ namespace StandCommonFiles
                     sNomeFileCopiePrt = String.Format(NOME_FILE_COPIE, dataIdParam.iNumCassa, iNumOfReceiptsParam, i);
 
                     // verifica se serve ricostruire, commentare per debug
-                    if (!bOrdineAnnullatoParam && !CheckService(Define._AUTO_SEQ_TEST) && File.Exists(sDirParam + sNomeFileCopiePrt))
+                    if (!bOrdineAnnullatoParam && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && File.Exists(sDirParam + sNomeFileCopiePrt))
                         continue;
 #elif STAND_CUCINA
                     sNomeFileCopiePrt = String.Format(NOME_FILE_COPIE, i);
@@ -1408,7 +1408,7 @@ namespace StandCommonFiles
                      *  la stampa ; serve ad evitare problemi di Shared data
                      *  durante _AUTO_SEQ_TEST richiede tempo e provoca disallineamenti
                      *****************************************************************************/
-                    if (dataIdParam.bCopiesGroupsFlag[i] && !CheckService(Define._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data))
+                    if (dataIdParam.bCopiesGroupsFlag[i] && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data))
                     {
                         if (PrintNetCopiesConfigDlg.GetPrinterTypeIsWinwows(i))
                             Printer_Windows.PrintFile(sDirParam + sNomeFileCopiePrt, sGlbWinPrinterParams, i);
@@ -1441,7 +1441,7 @@ namespace StandCommonFiles
                                         dataIdParam.Articolo[i].iIndexListino);
 
                     // verifica se serve ricostruire, commentare per debug
-                    if (!bOrdineAnnullatoParam && !CheckService(Define._AUTO_SEQ_TEST) && File.Exists(sDirParam + sNomeFileCopiePrt))
+                    if (!bOrdineAnnullatoParam && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && File.Exists(sDirParam + sNomeFileCopiePrt))
                         continue;
 
                     _ErrMsg.sNomeFile = sNomeFileCopiePrt;
@@ -1619,7 +1619,7 @@ namespace StandCommonFiles
                      *  la stampa ; serve ad evitare problemi di Shared data
                      *  durante _AUTO_SEQ_TEST richiede tempo e provoca disallineamenti
                      *****************************************************************************/
-                    if (dataIdParam.bCopiesGroupsFlag[(int) DEST_TYPE.DEST_SINGLE] && !CheckService(Define._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data))
+                    if (dataIdParam.bCopiesGroupsFlag[(int) DEST_TYPE.DEST_SINGLE] && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data))
                     {
                         if (PrintNetCopiesConfigDlg.GetPrinterTypeIsWinwows((int) DEST_TYPE.DEST_SINGLE))
                             Printer_Windows.PrintFile(sDirParam + sNomeFileCopiePrt, sGlbWinPrinterParams, (int) DEST_TYPE.DEST_SINGLE);

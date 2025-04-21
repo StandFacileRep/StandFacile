@@ -63,12 +63,12 @@ namespace StandFacile
             _iNoteIndex = 0;
             _sInputStrings = new List<string>();
 
-            if (!CheckService(Define._AUTO_SEQ_TEST))
+            if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 return;
 
             sDir = DataManager.GetExeDir() + "\\";
 
-            if (CheckService(Define._AUTO_SEQ_TEST + "_C1"))
+            if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST + "_C1"))
                 _iNumCassa = 1;
             else
                 _iNumCassa = 0;
@@ -113,7 +113,7 @@ namespace StandFacile
 
                 // ******* fine caricamento stringhe dal DB o file *******
 
-                if (Directory.Exists(sDir) && CheckService(Define._REC_TEST))
+                if (Directory.Exists(sDir) && CheckService(Define.CFG_SERVICE_STRINGS._REC_TEST))
                 {
                     if (File.Exists(sDir + NOME_FILE_REC))
                         File.Delete(sDir + NOME_FILE_REC);
@@ -387,7 +387,7 @@ namespace StandFacile
                 sTmp = sInStr.Substring(iTagStart_iv + 4, iTagStop_iv - iTagStart_iv - 4).Trim();
 
                 // Sovrascrive per test con sola cassa 1
-                if (CheckService(Define._AUTO_SEQ_TEST + "_C1"))
+                if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST + "_C1"))
                     _iNumCassa = 1;
                 else
                     _iNumCassa = ToInt32(sTmp);
@@ -557,7 +557,7 @@ namespace StandFacile
         {
             string sTmpRec;
 
-            if (!CheckService(Define._REC_TEST))
+            if (!CheckService(Define.CFG_SERVICE_STRINGS._REC_TEST))
                 return;
 
             // cassa
@@ -619,7 +619,7 @@ namespace StandFacile
         {
             string sTmpRec;
 
-            if (!CheckService(Define._REC_TEST))
+            if (!CheckService(Define.CFG_SERVICE_STRINGS._REC_TEST))
                 return;
 
             sTmpRec = String.Format("<IA><iv>{0,3}</iv> <tv>{1,-20}</tv> <da>{2}</da></IA>", iParam, sParam, iDispParam);
@@ -636,7 +636,7 @@ namespace StandFacile
         {
             string sTmpRec;
 
-            if (!CheckService(Define._REC_TEST))
+            if (!CheckService(Define.CFG_SERVICE_STRINGS._REC_TEST))
                 return;
 
             if (bPrimaVoltaComp)

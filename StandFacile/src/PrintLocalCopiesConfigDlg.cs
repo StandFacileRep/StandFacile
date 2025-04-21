@@ -13,6 +13,7 @@ using static StandFacile.glb;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.LogServer;
+using static StandFacile.Define;
 
 namespace StandFacile
 {
@@ -76,7 +77,7 @@ namespace StandFacile
             _pCheckBoxCopia[8] = checkBoxCopia_8;
             _pCheckBoxCopia[9] = checkBoxCopia_9;
 
-            if (CheckService(_HIDE_LEGACY_PRINTER))
+            if (CheckService(CFG_COMMON_STRINGS._HIDE_LEGACY_PRINTER))
             {
                 printersGroupBox.Visible = false;
                 RadioGroup_PrinterType.Visible = false;
@@ -98,7 +99,7 @@ namespace StandFacile
             //inizializzazione stampante windows o Legacy
             iPrinterTypeRadio = ReadRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
 
-            if ((iPrinterTypeRadio == (int)PRINTER_SEL.STAMPANTE_WINDOWS) || CheckService(_HIDE_LEGACY_PRINTER))
+            if ((iPrinterTypeRadio == (int)PRINTER_SEL.STAMPANTE_WINDOWS) || CheckService(CFG_COMMON_STRINGS._HIDE_LEGACY_PRINTER))
 
             {
                 prt_Windows.Checked = true;
@@ -181,7 +182,7 @@ namespace StandFacile
 
             panelCopies.Enabled = checkBoxLocalCopy.Checked && checkBoxSelectedOnly.Checked;
 
-            labelWarn.Enabled = checkBoxLocalCopy.Checked;
+            labelWarn2.Enabled = checkBoxLocalCopy.Checked;
         }
 
         private void CheckBoxSingleRowItems_CheckedChanged(object sender, EventArgs e)
@@ -293,7 +294,7 @@ namespace StandFacile
                 SF_Data.iReceiptCopyOptions = iReceiptCopyOptions;
             }
 
-            if (prt_Windows.Checked || CheckService(_HIDE_LEGACY_PRINTER))
+            if (prt_Windows.Checked || CheckService(CFG_COMMON_STRINGS._HIDE_LEGACY_PRINTER))
             {
                 WriteRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
                 iSysPrinterType = (int)PRINTER_SEL.STAMPANTE_WINDOWS;

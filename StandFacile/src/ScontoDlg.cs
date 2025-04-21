@@ -574,7 +574,7 @@ namespace StandFacile
                     break;
             }
 
-            if (CheckService(Define._AUTO_SEQ_TEST))
+            if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {
                 SF_Data.iStatusSconto = _Sconto.iStatusSconto;
 

@@ -393,7 +393,7 @@ namespace StandCommonFiles
                     }
 
                     // non stampa la Receipt
-                    if (_bIsTicket && (_bSkipTicketPrint || CheckService(_SKIP_STAMPA_RCP)))
+                    if (_bIsTicket && (_bSkipTicketPrint || CheckService(CFG_COMMON_STRINGS._SKIP_STAMPA_RCP)))
                     {
                         break;
                     }
@@ -412,7 +412,7 @@ namespace StandCommonFiles
                 _fileToPrint.Close();
 
 #if STANDFACILE
-                if (!CheckService(Define._AUTO_SEQ_TEST))
+                if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                     Thread.Sleep(iPrint_WaitInterval);
 #endif
 

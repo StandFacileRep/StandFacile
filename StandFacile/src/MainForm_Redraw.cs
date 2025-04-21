@@ -1241,7 +1241,7 @@ namespace StandFacile
                             sLog = String.Format("Mainform : QR_code = {0}, {1}", DB_Data.iNumOrdineWeb, bResult);
                             LogToFile(sLog);
 
-                            if (CheckService(Define._AUTO_QRCODE_TEST))
+                            if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_QRCODE_TEST))
                             {
                                 // emissione scontrino
                                 BtnScontrino_Click(this, null);
@@ -1275,7 +1275,7 @@ namespace StandFacile
                                 LogToFile(sLog);
                             }
 
-                            if (CheckService(Define._AUTO_QRCODE_TEST))
+                            if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_QRCODE_TEST))
                             {
                                 // emissione scontrino
                                 BtnScontrino_Click(this, null);

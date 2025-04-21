@@ -157,7 +157,7 @@ namespace StandCommonFiles
 
                     String sLog;
 
-                    if (CheckService(Define._AUTO_SEQ_TEST))
+                    if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                     {
                         // registrazione del LogTest
                         lock (logTestQueue.SyncRoot)
@@ -224,7 +224,7 @@ namespace StandCommonFiles
             String sTime, sDate;
             String sTmpMsg;
 
-            if (!CheckService(Define._AUTO_SEQ_TEST))
+            if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 return;
 
             sDate = DateTime.Now.ToString("yy/MM/dd");

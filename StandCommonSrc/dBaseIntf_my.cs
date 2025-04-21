@@ -1300,9 +1300,9 @@ namespace StandFacile_DB
                     _WrnMsg.iErrID = WRN_SEX;
 
 #if STANDFACILE
-                    if (!CheckService(Define._AUTO_SEQ_TEST))
+                    if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
 #endif
-                        WarningManager(_WrnMsg);
+                    WarningManager(_WrnMsg);
 
                     sTmp = String.Format("dbAnnulloOrdine : annullo eseguito iOrdine_ID = {0} !", iNumAnnulloParam);
                     LogToFile(sTmp);

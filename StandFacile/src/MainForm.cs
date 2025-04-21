@@ -246,7 +246,7 @@ namespace StandFacile
             int iPageIndex = iParam / (MainGrid.RowCount * MainGrid.ColumnCount);
 
             // sicurezza
-            if (CheckService(Define._AUTO_SEQ_TEST) || (MnuImpListino.Checked == true))
+            if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) || (MnuImpListino.Checked == true))
             {
                 if (iPageIndex == 1)
                     TabSet.SelectedTab = tabPage1;
@@ -345,7 +345,7 @@ namespace StandFacile
             _iAnteprimaTotParziale = 0;
             _bPasswordIsGood = false;
 
-            if (CheckService(_HIDE_LEGACY_PRINTER))
+            if (CheckService(CFG_COMMON_STRINGS._HIDE_LEGACY_PRINTER))
             {
                 MnuImpostaStampanteLegacy.Visible = false;
                 MnuImpostaCopieLocali.Text = "Con&figurazione Copie locali...";
@@ -372,7 +372,7 @@ namespace StandFacile
                 // default
                 WriteRegistry(SYS_PRINTER_TYPE_KEY, (int)PRINTER_SEL.STAMPANTE_WINDOWS);
             }
-            else if (CheckService(_ESPERTO))
+            else if (CheckService(CFG_COMMON_STRINGS._ESPERTO))
             {
                 _bPasswordIsGood = true;
                 MnuEsperto_Click(this, null);
@@ -584,7 +584,7 @@ namespace StandFacile
             // lampeggio
             bFlash = !bFlash;
 
-            if (CheckService(Define._AUTO_SEQ_TEST))
+            if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 lblStatus_Status.Text = sStatusText;
             // lampeggia quando uno dei menù è attivo
             else if (bFlash && !String.IsNullOrEmpty(lblStatus_Status.Text) && !lblStatus_Status.Text.Equals("Pronto"))
@@ -642,10 +642,10 @@ namespace StandFacile
 
             // generazione automatica di scontrini debug se c'è la
             // giusta stringa nel Registro
-            if (CheckService(Define._AUTO_RECEIPT_GEN))
+            if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_RECEIPT_GEN))
                 AutoTicketGenerator();  // ogni 250ms
 
-            if (CheckService(Define._AUTO_SEQ_TEST))
+            if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 TestManager.CaricaTest();  // ogni 250ms
 
             // visualizzazione del Listino
@@ -1246,7 +1246,7 @@ namespace StandFacile
                 SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
             }
 
-            if (CheckService(Define._REC_TEST))
+            if (CheckService(Define.CFG_SERVICE_STRINGS._REC_TEST))
                 TestManager.TestRecord_order();  // ogni 250ms
 
             DataManager.Receipt(); // salva anche i Dati
@@ -1338,7 +1338,7 @@ namespace StandFacile
         // verifica inserimento del Tavolo se non è esportazione e c'è almeno una Pietanza
         bool VerificaTavoloRichiesto()
         {
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED) && !BtnEsportazione.Checked && !CheckService(Define._AUTO_SEQ_TEST))
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED) && !BtnEsportazione.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(_sEditTavolo))
                 {
                     MessageBox.Show("Inserisci il numero del Tavolo,\n\ncon (F1) passi dalla griglia alla casella del Tavolo.",
@@ -1357,7 +1357,7 @@ namespace StandFacile
         // lo zero è consentito
         bool VerificaCopertoRichiesto()
         {
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED) && !BtnEsportazione.Checked && !CheckService(Define._AUTO_SEQ_TEST))
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED) && !BtnEsportazione.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(_sEditCoperti) || (Convert.ToInt32(_sEditCoperti) < 0))
                 {
                     MessageBox.Show("Inserisci il numero dei Coperti,\n\ncon (F2) passi dalla griglia alla casella dei Coperti.",
@@ -1375,7 +1375,7 @@ namespace StandFacile
         // verifica inserimento del pagamento in Contanti/Card/Satispay
         bool VerificaPOS_Richiesto()
         {
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED) && !CheckService(Define._AUTO_SEQ_TEST))
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED) && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(comboCashPos.Text.Trim()))
                 {
                     MessageBox.Show("Inserisci il tipo di pagamento Contanti/Card/Satispay",
@@ -1848,7 +1848,7 @@ namespace StandFacile
 
             if (!_bPasswordIsGood)
             {
-                if (!CheckService(_ESPERTO) && !MnuEsperto.Checked)
+                if (!CheckService(CFG_COMMON_STRINGS._ESPERTO) && !MnuEsperto.Checked)
                 {
                     MessageBox.Show("E' importante aver letto e compreso il manuale prima di proseguire !\r\n\r\n" +
                             "Il manuale pdf è presente nella cartella di installazione e si può aprire anche dal pulsante presente nel menù di Aiuto->Aiuto Rapido.",
@@ -2050,7 +2050,7 @@ namespace StandFacile
             String[] sQueue_Object = new String[2] { WEB_ORDER_PRINT_DONE, "" };
 
             // se si arriva qui dal test
-            if (CheckService(Define._AUTO_SEQ_TEST))
+            if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {
                 BtnScontrino.Checked = true;
                 Thread.Sleep(1000); // per rendere il push visibile
@@ -2500,7 +2500,7 @@ namespace StandFacile
             if (_bListinoModificato)
                 DataManager.SalvaListino();
 
-            if (!CheckService(Define._AUTO_RECEIPT_GEN) && !CheckService(Define._AUTO_SEQ_TEST))
+            if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_RECEIPT_GEN) && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {
                 // ***** puliza finale *****
                 try

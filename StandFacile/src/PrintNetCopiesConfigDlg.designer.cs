@@ -223,7 +223,7 @@
             this.checkBoxCopia_8.Padding = new System.Windows.Forms.Padding(1);
             this.checkBoxCopia_8.Size = new System.Drawing.Size(137, 19);
             this.checkBoxCopia_8.TabIndex = 79;
-            this.checkBoxCopia_8.Text = "stampa copia gruppo 8";
+            this.checkBoxCopia_8.Text = "stampa copia gruppo 9";
             this.checkBoxCopia_8.UseVisualStyleBackColor = true;
             this.checkBoxCopia_8.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
@@ -265,6 +265,7 @@
             this.checkBoxCopia_9.TabIndex = 74;
             this.checkBoxCopia_9.Text = "stampa copie singole";
             this.checkBoxCopia_9.UseVisualStyleBackColor = true;
+            this.checkBoxCopia_9.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
             // 
             // PrintersListCombo_9
             // 

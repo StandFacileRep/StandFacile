@@ -971,7 +971,7 @@ namespace StandFacile
 
             SalvaDati();    // salva disponibilità
 
-            if (CheckService(Define._AUTO_SEQ_TEST))
+            if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {
                 CaricaDatidaOrdini(true, true); // attenzione che sovrascrive SF_Data.Articolo[i].iDisponibilita !
 
@@ -1002,14 +1002,11 @@ namespace StandFacile
                 if (!String.IsNullOrEmpty(SF_Data.Articolo[i].sTipo) && (SF_Data.Articolo[i].iPrezzoUnitario == 0) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled())
                     bArticoloConPrezzoNulloPresente_e_Consentito = true;
 
-                if ((iTotaleCurrTicket > 0) || bCounterPresente || bArticoloConPrezzoNulloPresente_e_Consentito)
-                    break;
+                if ((iTotaleCurrTicket > 0) || bCounterPresente || bArticoloPresente && bArticoloConPrezzoNulloPresente_e_Consentito)
+                    return true;
             }
 
-            if ((iTotaleCurrTicket > 0) || bCounterPresente || bArticoloPresente && bArticoloConPrezzoNulloPresente_e_Consentito)
-                return true;
-            else
-                return false;
+            return false;
         }
 
         /// <summary>
