@@ -1,4 +1,4 @@
-; 21.04.2025
+; 25.04.2025
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]

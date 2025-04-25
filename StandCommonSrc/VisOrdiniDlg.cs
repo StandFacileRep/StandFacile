@@ -86,10 +86,10 @@ namespace StandFacile
             _clrNonAncoraPagatoBkgr = System.Drawing.Color.MistyRose;
 
             _clrScaricatoBkgr = System.Drawing.Color.PaleGreen;
-            _clrEAC_ScaricatoBkgr = System.Drawing.Color.LightBlue;
+            _clrEAC_ScaricatoBkgr = System.Drawing.Color.LightSkyBlue;
 
             _clrNonAncoraScaricatoBkgr = System.Drawing.Color.Teal;
-            _clrEAC_NonAncoraScaricatoBkgr = System.Drawing.Color.RoyalBlue;
+            _clrEAC_NonAncoraScaricatoBkgr = System.Drawing.Color.MediumBlue;
 
             _iNum = 0;
             _dateOrdine = dateParam;

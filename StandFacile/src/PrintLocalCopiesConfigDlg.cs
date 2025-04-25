@@ -82,10 +82,10 @@ namespace StandFacile
                 printersGroupBox.Visible = false;
                 RadioGroup_PrinterType.Visible = false;
 
-                this.Height = 512;
+                this.Height = this.Height - printersGroupBox.Height - 20;
             }
 
-                Init(false);
+            Init(false);
         }
 
         /// <summary>

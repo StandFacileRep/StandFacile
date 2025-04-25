@@ -2559,7 +2559,7 @@ namespace StandFacile
 
                     if (NetConfigDlg.rNetConfigDlg.GetWebOrderEnabled())
                     {
-                        sTmp = String.Format("Chiusura StandFacile: RCPs={0}, C={1}", iNumTicket, SF_Data.iNumCassa);
+                        sTmp = String.Format("Chiusura StandFacile: RCPs={0}, V={1}, C={2}", iNumTicket, RELEASE_SW, SF_Data.iNumCassa);
                         rdbLogWriteVersion(sTmp);
                     }
                 }
