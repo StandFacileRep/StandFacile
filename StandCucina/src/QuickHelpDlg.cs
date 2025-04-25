@@ -1,6 +1,6 @@
 ﻿/*************************************************
 	NomeFile : StandCucina/QuickHelpDlg.cs
-	Data	 : 01.10.2023
+	Data	 : 25.04.2025
 	Autore	 : Mauro Artuso
  
  *************************************************/
@@ -64,6 +64,11 @@ namespace StandFacile
 
             if (iKey == KEY_ESC)
                 DialogResult = DialogResult.Cancel;
+        }
+
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

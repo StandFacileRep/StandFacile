@@ -121,7 +121,10 @@
     <value>
 Passando con F2 da MANUALE al modo ONLINE si stampano tutti gli scontrini successivi a quello corrente compreso che sono ancora da stampare.
 
-Lo sfondo GIALLO indica che lo scontrino è già stato stampato da StandCucina.
+Lo sfondo VERDE-CHIARO indica che lo scontrino è stato stampato da StandCucina,
+lo sfondo VERDE-BLU indica che lo scontrino non è stato stampato da StandCucina,
+lo sfondo GRIGIO indica che lo scontrino non è significativo,
+lo sfondo ROSSO indica che lo scontrino è stato Annullato.
 </value>
   </data>
 </root>

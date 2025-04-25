@@ -346,7 +346,7 @@ namespace StandFacile
             }
 
             // Web params
-            if (SF_Data.iNumCassa == CASSA_PRINCIPALE)
+            if (WO_ckBox.Checked && (SF_Data.iNumCassa == CASSA_PRINCIPALE))
             {
                 if ((Edit_WebServiceDBaseName.Text != _sWebServerParams.sWeb_DBase) && (!String.IsNullOrEmpty(Edit_WebServiceDBaseName.Text)))
                 {

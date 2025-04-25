@@ -1,7 +1,7 @@
 ﻿/***************************************************************************
 	NomeFile : StandCommonSrc/VisOrdiniDlg.cs
-    Data	 : 06.12.2024
-	Autore	  : Mauro Artuso
+	Data	 : 25.04.2025
+	Autore	 : Mauro Artuso
 	 
  ***************************************************************************/
 
@@ -46,6 +46,28 @@ namespace StandFacile
 
         bool[] _bScontoGruppo = new bool[NUM_SEP_PRINT_GROUPS];
 
+        /// <summary>colore di sfondo dello scontrino Annullato</summary>
+        System.Drawing.Color _clrAnnullatoBkgr;
+        /// <summary>colore di sfondo della copia scontrino da pagare</summary>
+        System.Drawing.Color _clrNonAncoraPagatoBkgr;
+        /// <summary>colore di sfondo della copia scontrino scaricato da StandOrdini</summary>
+        System.Drawing.Color _clrScaricatoBkgr;
+        /// <summary>colore di sfondo della copia scontrino emesso da altra cassa e scaricato da StandOrdini</summary>
+        System.Drawing.Color _clrEAC_ScaricatoBkgr;
+        /// <summary>colore di sfondo della copia scontrino emessa non ancora scaricato da StandOrdini</summary>
+        System.Drawing.Color _clrNonAncoraScaricatoBkgr;
+        /// <summary>colore di sfondo della copia scontrino emesso da altra cassa e non ancora scaricato da StandOrdini</summary>
+        System.Drawing.Color _clrEAC_NonAncoraScaricatoBkgr;
+
+        // TextBox ToolTip
+        ToolTip tt = new ToolTip()
+        {
+            InitialDelay = 0,
+            ShowAlways = true
+        };
+
+        String _tt_InfoLabelText;
+
         TErrMsg _ErrMsg;
 
 #if STANDFACILE
@@ -58,6 +80,16 @@ namespace StandFacile
             bool bHide;
 
             InitializeComponent();
+
+            // impostazione colori di sfondo
+            _clrAnnullatoBkgr = System.Drawing.Color.Red;
+            _clrNonAncoraPagatoBkgr = System.Drawing.Color.MistyRose;
+
+            _clrScaricatoBkgr = System.Drawing.Color.PaleGreen;
+            _clrEAC_ScaricatoBkgr = System.Drawing.Color.LightBlue;
+
+            _clrNonAncoraScaricatoBkgr = System.Drawing.Color.Teal;
+            _clrEAC_NonAncoraScaricatoBkgr = System.Drawing.Color.RoyalBlue;
 
             _iNum = 0;
             _dateOrdine = dateParam;
@@ -77,6 +109,20 @@ namespace StandFacile
                 CkBoxTutteCasse.Enabled = false;
 
                 AnnulloBtn.Top = BtnPrev.Top;
+                lbl_Info.Top = AnnulloBtn.Top - 10;
+            }
+            else
+            {
+                _tt_InfoLabelText = "Lo sfondo VERDE-CHIARO indica che lo scontrino è stato scaricato da StandOrdini,\r\n" +
+                    "Lo sfondo BLU-CHIARO indica che lo scontrino emesso da altra cassa è stato scaricato da StandOrdini,,\r\n\r\n" +
+                    "lo sfondo VERDE-BLU indica che lo scontrino non è stato scaricato da StandOrdini,\r\n" +
+                    "lo sfondo BLU indica che lo scontrino emesso da altra cassa non è stato scaricato da StandOrdini,\r\n,\r\n" +
+                    "lo sfondo ROSA indica che lo scontrino emesso online non è stato pagato,\r\n" +
+                    "lo sfondo ROSSO indica che lo scontrino è stato Annullato.\r\n";
+
+                tt.SetToolTip(lbl_Info, _tt_InfoLabelText);
+
+                lbl_Info.Top = AnnulloBtn.Top;
             }
 
 #if STANDFACILE
@@ -127,6 +173,7 @@ namespace StandFacile
                 }
 
                 BtnPrt.Enabled = false;
+                lbl_Info.Visible = false;
 
                 CkBoxTutteCasse.Enabled = ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bUSA_NDB());
                 OKBtn.Text = "Esci";
@@ -149,6 +196,7 @@ namespace StandFacile
                 }
 
                 BtnPrt.Enabled = false;
+                lbl_Info.Visible = false;
 
                 CkBoxTutteCasse.Enabled = ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bUSA_NDB());
                 comboPaymentType.Visible = true;
@@ -170,6 +218,7 @@ namespace StandFacile
                 labelPayMethod.Visible = false;
 
                 BtnPrt.Enabled = true;
+                lbl_Info.Visible = bUSA_NDB();
 
                 CkBoxTutteCasse.Enabled = true;
                 OKBtn.Text = "OK";
@@ -482,13 +531,13 @@ namespace StandFacile
 
             for (i = 0; i < MAX_NUM_ARTICOLI; i++)
             {
-                if ((DB_Data.Articolo[i].iQuantitaOrdine > 0) && (DB_Data.Articolo[i].iGruppoStampa == (int) DEST_TYPE.DEST_SINGLE))
+                if ((DB_Data.Articolo[i].iQuantitaOrdine > 0) && (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_SINGLE))
                 {
-                    sNomeFileCopiePrt = String.Format(NOME_FILE_COPIE_SINGOLE, DB_Data.iNumCassa, _iNum, (int) DEST_TYPE.DEST_SINGLE,
+                    sNomeFileCopiePrt = String.Format(NOME_FILE_COPIE_SINGOLE, DB_Data.iNumCassa, _iNum, (int)DEST_TYPE.DEST_SINGLE,
                                         DB_Data.Articolo[i].iIndexListino);
 
                     // *** MESSA IN CODA DI STAMPA COPIE SINGOLE ***
-                    if (SF_Data.bCopiesGroupsFlag[(int) DEST_TYPE.DEST_SINGLE])
+                    if (SF_Data.bCopiesGroupsFlag[(int)DEST_TYPE.DEST_SINGLE])
                     {
                         if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
                             Printer_Windows.PrintFile(GetVisCopiesDir() + "\\" + sNomeFileCopiePrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
@@ -543,34 +592,40 @@ namespace StandFacile
             if (bOrdineAnnullato)
             {
                 textEdit_Ticket.ForeColor = System.Drawing.SystemColors.Window;
-                textEdit_Ticket.BackColor = System.Drawing.Color.Red; // annullato
+                textEdit_Ticket.BackColor = _clrAnnullatoBkgr; // annullato
                 AnnulloBtn.Enabled = false;
-            }
-            else if (DB_Data.bScaricato)
-            {
-                textEdit_Ticket.ForeColor = System.Drawing.Color.Black;
-                textEdit_Ticket.BackColor = System.Drawing.Color.Gold; // bScaricato
-                AnnulloBtn.Enabled = false; // già consegnato
             }
             else if (!bSomePayment_IsPresent)
             {
-                textEdit_Ticket.ForeColor = System.Drawing.SystemColors.Window;
-                textEdit_Ticket.BackColor = System.Drawing.Color.Salmon; // da pagare
+                textEdit_Ticket.ForeColor = System.Drawing.Color.Black;
+                textEdit_Ticket.BackColor = _clrNonAncoraPagatoBkgr; // da pagare
 
                 if (DB_Data.iNumCassa == SF_Data.iNumCassa)
                     AnnulloBtn.Enabled = _bAnnulloOrdine;
+            }
+            else if (DB_Data.bScaricato && (DB_Data.iNumCassa == SF_Data.iNumCassa))
+            {
+                textEdit_Ticket.ForeColor = System.Drawing.Color.Black;
+                textEdit_Ticket.BackColor = _clrScaricatoBkgr; // bScaricato
+                AnnulloBtn.Enabled = false; // già consegnato
+            }
+            else if (DB_Data.bScaricato && (DB_Data.iNumCassa != SF_Data.iNumCassa))
+            {
+                textEdit_Ticket.ForeColor = System.Drawing.Color.Black;
+                textEdit_Ticket.BackColor = _clrEAC_ScaricatoBkgr; // bScaricato
+                AnnulloBtn.Enabled = false; // già consegnato
             }
             // questi ultimi 2 casi sono esaustivi del 100% delle situazioni restanti
             else if (DB_Data.iNumCassa == SF_Data.iNumCassa)
             {
                 textEdit_Ticket.ForeColor = System.Drawing.SystemColors.Window;
-                textEdit_Ticket.BackColor = System.Drawing.Color.Teal; // tutto OK
+                textEdit_Ticket.BackColor = _clrNonAncoraScaricatoBkgr; // tutto OK
                 AnnulloBtn.Enabled = _bAnnulloOrdine;
             }
             else if (DB_Data.iNumCassa != SF_Data.iNumCassa) // cassa diversa
             {
                 textEdit_Ticket.ForeColor = System.Drawing.SystemColors.Window;
-                textEdit_Ticket.BackColor = System.Drawing.Color.RoyalBlue;
+                textEdit_Ticket.BackColor = _clrEAC_NonAncoraScaricatoBkgr;
                 AnnulloBtn.Enabled = false; // altra cassa
             }
 
@@ -628,6 +683,12 @@ namespace StandFacile
         private void CkBoxTutteCasse_Click(object sender, EventArgs e)
         {
             VisualizzaTicket(_iNum, (int)SEARCH_TYPE.NO_SEARCH);
+        }
+
+        private void Lbl_Info_Click(object sender, EventArgs e)
+        {
+            int durationMilliseconds = 10000;
+            tt.Show(_tt_InfoLabelText, lbl_Info, durationMilliseconds);
         }
 
         private void ComboCashPos_SelectedIndexChanged(object sender, EventArgs e)

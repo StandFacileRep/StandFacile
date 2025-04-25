@@ -44,6 +44,7 @@
             this.comboPaymentType = new System.Windows.Forms.ComboBox();
             this.labelPayMethod = new System.Windows.Forms.Label();
             this.checkBoxNotPaid = new System.Windows.Forms.CheckBox();
+            this.lbl_Info = new System.Windows.Forms.Label();
             this.VisTicketStatusBar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -221,12 +222,26 @@
             this.checkBoxNotPaid.Text = "filtra pag. da effettuare";
             this.checkBoxNotPaid.UseVisualStyleBackColor = true;
             // 
+            // lbl_Info
+            // 
+            this.lbl_Info.AutoSize = true;
+            this.lbl_Info.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbl_Info.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_Info.Location = new System.Drawing.Point(50, 575);
+            this.lbl_Info.Name = "lbl_Info";
+            this.lbl_Info.Padding = new System.Windows.Forms.Padding(2);
+            this.lbl_Info.Size = new System.Drawing.Size(79, 19);
+            this.lbl_Info.TabIndex = 28;
+            this.lbl_Info.Text = "  info colori ?  ";
+            this.lbl_Info.Click += new System.EventHandler(this.Lbl_Info_Click);
+            // 
             // VisOrdiniDlg
             // 
             this.AcceptButton = this.OKBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(400, 594);
+            this.Controls.Add(this.lbl_Info);
             this.Controls.Add(this.checkBoxNotPaid);
             this.Controls.Add(this.labelPayMethod);
             this.Controls.Add(this.comboPaymentType);
@@ -273,5 +288,6 @@
         private System.Windows.Forms.ComboBox comboPaymentType;
         private System.Windows.Forms.Label labelPayMethod;
         private System.Windows.Forms.CheckBox checkBoxNotPaid;
+        private System.Windows.Forms.Label lbl_Info;
     }
 }

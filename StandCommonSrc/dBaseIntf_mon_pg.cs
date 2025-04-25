@@ -394,19 +394,24 @@ namespace StandFacile_DB
                 i = 0;
                 foreach (DataRow dtr in DS.Tables[0].Rows)
                 {
-                    if ((i == 0) && (sTableItems[i].sArticoloRiga == ORDER_START_STR) && (sTableItems[i].iReceiptNum != sTableItems[i + 1].iReceiptNum))
+                    if (DS.Tables[0].Rows.Count > 1)
                     {
-                        sTmp = String.Format("{0} {1}", (int)dtr[0], (String)dtr[1]);
-                        dtr.Delete();
-                    }
-                    else if ((sTableItems[i].sArticoloRiga == ORDER_START_STR) &&
-                        (sTableItems[i].sArticoloRiga == sTableItems[i - 1].sArticoloRiga) && (sTableItems[i].iReceiptNum != sTableItems[i - 1].iReceiptNum))
-                    {
-                        sTmp = String.Format("{0} {1}", (int)dtr[0], (String)dtr[1]);
-                        dtr.Delete();
-                    }
+                        if ((i == 0) && (sTableItems[i].sArticoloRiga == ORDER_START_STR) && (sTableItems[i].iReceiptNum != sTableItems[i + 1].iReceiptNum))
+                        {
+                            sTmp = String.Format("{0} {1}", (int)dtr[0], (String)dtr[1]);
+                            dtr.Delete();
+                        }
+                        else if ((sTableItems[i].sArticoloRiga == ORDER_START_STR) &&
+                            (sTableItems[i].sArticoloRiga == sTableItems[i - 1].sArticoloRiga) && (sTableItems[i].iReceiptNum != sTableItems[i - 1].iReceiptNum))
+                        {
+                            sTmp = String.Format("{0} {1}", (int)dtr[0], (String)dtr[1]);
+                            dtr.Delete();
+                        }
 
-                    i++;
+                        i++;
+                    }
+                    else if (sTableItems[0].sArticoloRiga == ORDER_START_STR)
+                        dtr.Delete();
                 }
 
                 DS.AcceptChanges();

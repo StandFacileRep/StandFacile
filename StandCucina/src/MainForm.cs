@@ -1,6 +1,6 @@
 ﻿/************************************************************
   	NomeFile : StandCucina/MainForm.cs
-	Data	 : 16.02.2025
+	Data	 : 25.04.2025
   	Autore   : Mauro Artuso
  ************************************************************/
 
@@ -81,6 +81,15 @@ namespace StandFacile
 
         VisOrdiniDlg _rVisOrdiniDlg;
 
+        /// <summary>colore di sfondo dello scontrino Annullato</summary>
+        System.Drawing.Color _clrAnnullatoBkgr;
+        /// <summary>colore di sfondo della copia scontrino da stampare</summary>
+        System.Drawing.Color _clrNonAncoraStampato;
+        /// <summary>colore di sfondo della copia scontrino stampata da StandCucina</summary>
+        System.Drawing.Color _clrPrintedFromStandCucinaBkgr;
+        /// <summary>colore di sfondo della copia scontrino non significativa</summary>
+        System.Drawing.Color  _clrNonInteressaBkgr;
+
         /// <summary>costruttore</summary>
         public FrmMain()
         {
@@ -88,6 +97,12 @@ namespace StandFacile
 
             TB_Tickets.ScrollBars = ScrollBars.Vertical;
             TB_Messaggi.ScrollBars = ScrollBars.Vertical;
+
+            // impostazione colori di sfondo
+            _clrAnnullatoBkgr = System.Drawing.Color.Red;
+            _clrNonInteressaBkgr = System.Drawing.Color.Gray;
+            _clrNonAncoraStampato = System.Drawing.Color.Teal;
+            _clrPrintedFromStandCucinaBkgr = System.Drawing.Color.PaleGreen;
 
             // TextBox ToolTip
             ToolTip tt = new ToolTip()
@@ -432,7 +447,7 @@ namespace StandFacile
                 // aggiorna il flag BIT_TICKET_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
                 _rdBaseIntf.dbEditStatus(iGlbCurrentOffline_TicketNum, SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
 
-                TB_Tickets.BackColor = System.Drawing.Color.Gold;
+                TB_Tickets.BackColor = _clrPrintedFromStandCucinaBkgr;
                 TB_Tickets.ForeColor = System.Drawing.Color.Black;
 
                 _iNextTicketNum--; // sottrae 1 a _iNextTicketNum
@@ -451,7 +466,7 @@ namespace StandFacile
             // aggiorna il flag BIT_MSG_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
             _rdBaseIntf.dbEditStatus(-iGlbCurrentOffline_MessageNum, SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_MSG_STAMPATO_DA_STANDCUCINA));
 
-            TB_Messaggi.BackColor = System.Drawing.Color.Gold;
+            TB_Messaggi.BackColor = _clrPrintedFromStandCucinaBkgr;
             TB_Messaggi.ForeColor = System.Drawing.Color.Black;
         }
 
@@ -712,12 +727,14 @@ namespace StandFacile
                 /****************************************
                  *      controllo emissione Ticket
                  ****************************************/
-                if ((_iPrevShownOnline_TicketNum != iGlbNumOfTickets) && (iGlbNumOfTickets > 0))
+                if (_iPrevShownOnline_TicketNum < iGlbNumOfTickets)
                 {
                     if (_iPrevShownOnline_TicketNum == -100) // skip la prima volta
                     {
                         iGlbCurrentOffline_TicketNum = iGlbNumOfTickets;
                         _iPrevShownOnline_TicketNum = iGlbNumOfTickets;
+
+                        Reset_StatusDate_Changed();
 
                         VisualizzaTicket(iGlbNumOfTickets);
                     }
@@ -742,7 +759,7 @@ namespace StandFacile
                                 // aggiorna il flag BIT_RECEIPT_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
                                 _rdBaseIntf.dbEditStatus(_iPrevShownOnline_TicketNum, SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
 
-                                TB_Tickets.BackColor = System.Drawing.Color.Gold;
+                                TB_Tickets.BackColor = _clrPrintedFromStandCucinaBkgr;
                                 TB_Tickets.ForeColor = System.Drawing.Color.Black;
                             }
                             else // visualizza soltanto
@@ -762,9 +779,6 @@ namespace StandFacile
                                 ClientTimer.Interval = DB_CLIENT_TIMER_SHORT / 2; // accelera ancora di più se non stampa
                             }
                         }
-
-                        // *** alla fine c'è il reset cambio data ***
-                        Reset_StatusDate_Changed();
                     }
                 }
                 else
@@ -778,7 +792,7 @@ namespace StandFacile
                 /****************************************
                  *    controllo emissione messaggi
                  ****************************************/
-                if (_iPrevShownOnline_MessageNum != iGlbNumOfMessages)
+                if (_iPrevShownOnline_MessageNum < iGlbNumOfMessages)
                 {
                     iDebug = iGlbNumOfMessages;
 
@@ -805,7 +819,7 @@ namespace StandFacile
                             // aggiorna il flag BIT_MSG_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
                             _rdBaseIntf.dbEditStatus(-_iPrevShownOnline_MessageNum, SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_MSG_STAMPATO_DA_STANDCUCINA));
 
-                            TB_Messaggi.BackColor = System.Drawing.Color.Gold;
+                            TB_Messaggi.BackColor = _clrPrintedFromStandCucinaBkgr;
                             TB_Messaggi.ForeColor = System.Drawing.Color.Black;
                         }
 
@@ -947,28 +961,27 @@ namespace StandFacile
              ********************************/
 
             TB_Tickets.Clear();
-            TB_Tickets.BackColor = System.Drawing.Color.Teal;
             TB_Tickets.Refresh();
 
             // gestione colori
             if (DB_Data.bAnnullato)
             {
-                TB_Tickets.BackColor = System.Drawing.Color.Red;
+                TB_Tickets.BackColor = _clrAnnullatoBkgr;
                 TB_Tickets.ForeColor = System.Drawing.SystemColors.Window;
             }
             else if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
             {
-                TB_Tickets.BackColor = System.Drawing.Color.Gold;
+                TB_Tickets.BackColor = _clrPrintedFromStandCucinaBkgr;
                 TB_Tickets.ForeColor = System.Drawing.Color.Black;
             }
             else if (_sNomeFileTicket == NOME_FILE_RECEIPT) // non c'è contenuto significativo
             {
-                TB_Tickets.BackColor = System.Drawing.Color.Gray;
+                TB_Tickets.BackColor = _clrNonInteressaBkgr;
                 TB_Tickets.ForeColor = System.Drawing.SystemColors.Window;
             }
             else
             {
-                TB_Tickets.BackColor = System.Drawing.Color.Teal;
+                TB_Tickets.BackColor = _clrNonAncoraStampato;
                 TB_Tickets.ForeColor = System.Drawing.SystemColors.Window;
             }
 
@@ -1026,16 +1039,15 @@ namespace StandFacile
              ***********************************/
 
             TB_Messaggi.Clear();
-            TB_Messaggi.BackColor = System.Drawing.Color.Teal;
 
             if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_MSG_STAMPATO_DA_STANDCUCINA))
             {
-                TB_Messaggi.BackColor = System.Drawing.Color.Gold;
+                TB_Messaggi.BackColor = _clrPrintedFromStandCucinaBkgr;
                 TB_Messaggi.ForeColor = System.Drawing.Color.Black;
             }
             else
             {
-                TB_Messaggi.BackColor = System.Drawing.Color.Teal;
+                TB_Messaggi.BackColor = _clrNonAncoraStampato;
                 TB_Messaggi.ForeColor = System.Drawing.SystemColors.Window;
             }
 
