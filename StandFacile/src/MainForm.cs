@@ -39,7 +39,7 @@ namespace StandFacile
         const int CHANGE_PAGE_TIMEOUT = 5;      // *250ms
         const int BC_FOCUS_TIMEOUT = 8 * 4;     // *250ms
 
-        static bool _bListinoModificato;  // true se ci son state modifiche al Listino
+        static bool _bListinoModificato;  // true se ci sono state modifiche al Listino
         static bool _bPasswordIsGood;
         static bool _bShowTotaleScontrinoPrec;
 
@@ -172,7 +172,8 @@ namespace StandFacile
         public void SetEditTavolo(String sTavoloParam)
         {
             EditTavolo.Text = sTavoloParam;
-            TextBox_KeyUp(null, null);
+            if (EditTavolo.Enabled)
+                TextBox_KeyUp(null, null);
         }
 
         /// <summary>ottiene il testo del tavolo</summary>
@@ -182,7 +183,8 @@ namespace StandFacile
         public void SetEditNome(String sNomeParam)
         {
             EditNome.Text = sNomeParam;
-            TextBox_KeyUp(null, null);
+            if (EditNome.Enabled)
+                TextBox_KeyUp(null, null);
         }
 
         /// <summary>resetta il tipo di pagamento CONT./CARD/SATISPAY</summary>
@@ -478,21 +480,23 @@ namespace StandFacile
             _gridStyle[0, 4].ForeColor = Color.Bisque; _gridStyle[0, 4].BackColor = Color.Teal;     // ALCOLICI
             _gridStyle[0, 5].ForeColor = Color.Aquamarine; _gridStyle[0, 5].BackColor = Color.Teal; // VARIE
             _gridStyle[0, 6].ForeColor = Color.LemonChiffon; _gridStyle[0, 6].BackColor = Color.Teal; // PANINI
-            _gridStyle[0, 7].ForeColor = Color.MistyRose; _gridStyle[0, 7].BackColor = Color.Teal;  // GRUPPO 8 NOWEB
-            _gridStyle[0, 8].ForeColor = Color.White; _gridStyle[0, 8].BackColor = Color.Teal;      // COPIE SINGOLE
-            _gridStyle[0, 9].ForeColor = Color.White; _gridStyle[0, 9].BackColor = Color.Teal;      // CONTATORI
+            _gridStyle[0, 7].ForeColor = Color.MistyRose; _gridStyle[0, 7].BackColor = Color.Teal;  // GRUPPO 8
+            _gridStyle[0, 8].ForeColor = Color.White; _gridStyle[0, 8].BackColor = Color.Teal;      // GRUPPO 9 NOWEB
+            _gridStyle[0, 9].ForeColor = Color.White; _gridStyle[0, 9].BackColor = Color.Teal;      // COPIE SINGOLE
+            _gridStyle[0, 10].ForeColor = Color.White; _gridStyle[0, 10].BackColor = Color.Teal;    // CONTATORI
 
             // chiaro
-            _gridStyle[1, 0].ForeColor = Color.Black; _gridStyle[1, 0].BackColor = Color.LightYellow; // Cornsilk
+            _gridStyle[1, 0].ForeColor = Color.Black; _gridStyle[1, 0].BackColor = Color.LightYellow;
             _gridStyle[1, 1].ForeColor = Color.Black; _gridStyle[1, 1].BackColor = Color.Wheat;
             _gridStyle[1, 2].ForeColor = Color.Black; _gridStyle[1, 2].BackColor = Color.LightGreen;
             _gridStyle[1, 3].ForeColor = Color.Black; _gridStyle[1, 3].BackColor = Color.SkyBlue;
             _gridStyle[1, 4].ForeColor = Color.Black; _gridStyle[1, 4].BackColor = Color.MistyRose;
-            _gridStyle[1, 5].ForeColor = Color.Black; _gridStyle[1, 5].BackColor = Color.PaleGoldenrod; // RosyBrown
-            _gridStyle[1, 6].ForeColor = Color.Black; _gridStyle[1, 6].BackColor = Color.PowderBlue; // Ivory
-            _gridStyle[1, 7].ForeColor = Color.Black; _gridStyle[1, 7].BackColor = Color.WhiteSmoke;
-            _gridStyle[1, 8].ForeColor = Color.Black; _gridStyle[1, 8].BackColor = Color.WhiteSmoke; // SeaShell
-            _gridStyle[1, 9].ForeColor = Color.Black; _gridStyle[1, 9].BackColor = Color.WhiteSmoke; // LightSteelBlue
+            _gridStyle[1, 5].ForeColor = Color.Black; _gridStyle[1, 5].BackColor = Color.PaleGoldenrod;
+            _gridStyle[1, 6].ForeColor = Color.Black; _gridStyle[1, 6].BackColor = Color.PowderBlue;
+            _gridStyle[1, 7].ForeColor = Color.Black; _gridStyle[1, 7].BackColor = Color.Aquamarine;
+            _gridStyle[1, 8].ForeColor = Color.Black; _gridStyle[1, 8].BackColor = Color.SeaShell;
+            _gridStyle[1, 9].ForeColor = Color.Black; _gridStyle[1, 9].BackColor = Color.AliceBlue;
+            _gridStyle[1, 10].ForeColor = Color.Black; _gridStyle[1, 10].BackColor = Color.WhiteSmoke;
 
             // scuro
             _gridStyle[2, 0].ForeColor = Color.White; _gridStyle[2, 0].BackColor = Color.Goldenrod;
@@ -501,10 +505,11 @@ namespace StandFacile
             _gridStyle[2, 3].ForeColor = Color.White; _gridStyle[2, 3].BackColor = Color.MediumBlue;
             _gridStyle[2, 4].ForeColor = Color.White; _gridStyle[2, 4].BackColor = Color.MediumOrchid;
             _gridStyle[2, 5].ForeColor = Color.White; _gridStyle[2, 5].BackColor = Color.SaddleBrown;
-            _gridStyle[2, 6].ForeColor = Color.White; _gridStyle[2, 6].BackColor = Color.SlateGray;  // DarkGray
+            _gridStyle[2, 6].ForeColor = Color.White; _gridStyle[2, 6].BackColor = Color.SlateGray;
             _gridStyle[2, 7].ForeColor = Color.White; _gridStyle[2, 7].BackColor = Color.SeaGreen;
-            _gridStyle[2, 8].ForeColor = Color.White; _gridStyle[2, 8].BackColor = Color.SeaGreen;
+            _gridStyle[2, 8].ForeColor = Color.White; _gridStyle[2, 8].BackColor = Color.Olive;
             _gridStyle[2, 9].ForeColor = Color.White; _gridStyle[2, 9].BackColor = Color.SeaGreen;
+            _gridStyle[2, 10].ForeColor = Color.White; _gridStyle[2, 10].BackColor = Color.SeaGreen;
         }
 
         /// <summary>imposta grafica TABS</summary>

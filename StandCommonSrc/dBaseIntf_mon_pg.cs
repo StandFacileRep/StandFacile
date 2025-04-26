@@ -32,12 +32,12 @@ using static StandFacile.dBaseIntf;
 
 namespace StandFacile_DB
 {
-    /// <summary>classe per la gestione di PostGreSQL</summary>
-    public partial class dBaseIntf_pg
-    {
 #pragma warning disable IDE0059
 #pragma warning disable IDE1006
 
+    /// <summary>classe per la gestione di PostGreSQL</summary>
+    public partial class dBaseIntf_pg
+    {
         /// <summary> costruisce la tabella del venduto </summary>
         public void dbBuildMonitorTable()
         {
