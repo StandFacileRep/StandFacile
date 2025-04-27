@@ -24,6 +24,7 @@ using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
 using StandCommonFiles;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace StandFacile
 {
@@ -221,7 +222,7 @@ namespace StandFacile
             i = iCellParam % MainGrid.RowCount;
             j = iCellParam / MainGrid.RowCount;
 
-            _bCtrlIsPressed = true;
+            _bCtrlIsPressed = true; // perchè usato da TestManager
             MainGrid_CellClick(this, new DataGridViewCellEventArgs(j, i));
 
             EditNota.Text = sNotaParam; // simulta input testo
@@ -282,6 +283,10 @@ namespace StandFacile
             InitializeComponent();
 
             //bool bTmp = StringBelongsTo_ORDER_CONST(ORDER_CONST._NOTA, ORDER_CONST._NOTA);
+
+            BtnDB.ToolTipText = "test connessione DB:\n" +
+                "se attivi ordini web webservice verifica anche la connessione\n" +
+                "al DB remoto e con Ctrl premuto forza upload Listino";
 
             _tt.SetToolTip(EditTavolo, "click o (F1) dalla griglia per inserire il Tavolo");
             _tt.SetToolTip(EditCoperti, "click o (F2) dalla griglia per inserire i coperti");

@@ -1,6 +1,6 @@
 ﻿/*********************************************************************************
  	NomeFile : StandCommonSrc/ReceiptAndCopies.cs
-    Data	 : 18.04.2025
+    Data	 : 27.04.2025
  	Autore	 : Mauro Artuso
 
 	Classi di uso comune a DataManager.Receipt(), VisOrdiniDlg.ReceiptRebuild()<br/>
@@ -970,6 +970,16 @@ namespace StandCommonFiles
                     // aggiornamento che tiene conto delle stampe effettuate
                     CheckSomethingToPrint(bSomethingInto_GrpToPrint, bSomethingInto_ClrToPrint, dataIdParam, false);
 
+                    // identificazione dei coperti
+                    for (j = 0; j < MAX_NUM_ARTICOLI; j++)
+                    {
+                        if ((dataIdParam.Articolo[j].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER) && (dataIdParam.Articolo[j].iIndexListino == MAX_NUM_ARTICOLI - 1))
+                        {
+                            iNumCoperti = dataIdParam.Articolo[j].iQuantitaOrdine;
+                            break;
+                        }
+                    }
+                    
                     // stampa #4: raggruppamento per iGruppoStampa
                     for (i = 0; i < NUM_COPIES_GRPS; i++)
                     {
@@ -982,9 +992,6 @@ namespace StandCommonFiles
 
                         for (j = 0; (j < MAX_NUM_ARTICOLI) && bSomethingInto_GrpToPrint[iGrpReorderPtr[i]]; j++)
                         {
-                            if (dataIdParam.Articolo[j].iIndexListino == MAX_NUM_ARTICOLI - 1)
-                                iNumCoperti = dataIdParam.Articolo[j].iQuantitaOrdine;
-
                             if (dataIdParam.Articolo[j].bLocalPrinted == true)
                                 continue;
 
@@ -1030,7 +1037,7 @@ namespace StandCommonFiles
                                         // spazio aggiuntivo
                                         if (iGrpReorderPtr[i] != (int)DEST_TYPE.DEST_COUNTER) // && (iGrpReorderPtr[i] != (int)DEST_TYPE.DEST_TIPO1))
                                             fPrintParam.WriteLine();
-                                    }
+                                                                   }
                                 }
 
                                 if ((dataIdParam.Articolo[j].iIndexListino != MAX_NUM_ARTICOLI - 1) || (dataIdParam.Articolo[j].iGruppoStampa != (int)DEST_TYPE.DEST_COUNTER))
