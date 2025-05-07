@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.14.2 RC3"; 
+        public const String RELEASE_SW = "v5.14.2 RC4"; 
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5c";
@@ -1262,7 +1262,7 @@ namespace StandCommonFiles
         public static readonly String _LOGO = "#####   LOGO   #####";
 
         /// <summary>testo descrittivo del formato per punto di taglio</summary>
-        public static readonly String _CUT_FMT = "\r\n\r\n{0}\r\n\r\n\r\n";
+        public static readonly String _CUT_FMT = "{0}\r\n\r\n";
 
         /// <summary>testo descrittivo dei coperti</summary>
         public static readonly String _COPERTO = "COPERTI";
@@ -1423,6 +1423,11 @@ namespace StandCommonFiles
             public int iReceiptStartNumber;
             /// <summary>stringa per gestione Service Mode</summary>
             public String sService;
+
+            /// <summary>flag per richiesta stampa copia Receipt</summary>
+            public bool bRcpCopyRequired;
+            /// <summary>stringa per testo descrittivo della copia Receipt</summary>
+            public String sRcpCopyHeader;
         }
 
     } // end struct

@@ -243,7 +243,7 @@
             // ckBox_4
             // 
             this.ckBox_4.AutoSize = true;
-            this.ckBox_4.Location = new System.Drawing.Point(369, 151);
+            this.ckBox_4.Location = new System.Drawing.Point(369, 156);
             this.ckBox_4.Name = "ckBox_4";
             this.ckBox_4.Size = new System.Drawing.Size(40, 17);
             this.ckBox_4.TabIndex = 6;
@@ -254,7 +254,7 @@
             // ckBox_5
             // 
             this.ckBox_5.AutoSize = true;
-            this.ckBox_5.Location = new System.Drawing.Point(432, 151);
+            this.ckBox_5.Location = new System.Drawing.Point(432, 156);
             this.ckBox_5.Name = "ckBox_5";
             this.ckBox_5.Size = new System.Drawing.Size(40, 17);
             this.ckBox_5.TabIndex = 7;
@@ -298,7 +298,7 @@
             // ckBox_6
             // 
             this.ckBox_6.AutoSize = true;
-            this.ckBox_6.Location = new System.Drawing.Point(495, 151);
+            this.ckBox_6.Location = new System.Drawing.Point(495, 156);
             this.ckBox_6.Name = "ckBox_6";
             this.ckBox_6.Size = new System.Drawing.Size(40, 17);
             this.ckBox_6.TabIndex = 28;
@@ -309,7 +309,7 @@
             // ckBox_7
             // 
             this.ckBox_7.AutoSize = true;
-            this.ckBox_7.Location = new System.Drawing.Point(558, 151);
+            this.ckBox_7.Location = new System.Drawing.Point(558, 156);
             this.ckBox_7.Name = "ckBox_7";
             this.ckBox_7.Size = new System.Drawing.Size(40, 17);
             this.ckBox_7.TabIndex = 29;
@@ -343,7 +343,7 @@
             // ckBox_9
             // 
             this.ckBox_9.AutoSize = true;
-            this.ckBox_9.Location = new System.Drawing.Point(558, 175);
+            this.ckBox_9.Location = new System.Drawing.Point(558, 184);
             this.ckBox_9.Name = "ckBox_9";
             this.ckBox_9.Size = new System.Drawing.Size(40, 17);
             this.ckBox_9.TabIndex = 32;
@@ -354,7 +354,7 @@
             // ckBox_8
             // 
             this.ckBox_8.AutoSize = true;
-            this.ckBox_8.Location = new System.Drawing.Point(495, 175);
+            this.ckBox_8.Location = new System.Drawing.Point(495, 185);
             this.ckBox_8.Name = "ckBox_8";
             this.ckBox_8.Size = new System.Drawing.Size(40, 17);
             this.ckBox_8.TabIndex = 33;

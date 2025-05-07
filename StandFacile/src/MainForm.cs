@@ -445,6 +445,7 @@ namespace StandFacile
             // altrimenti con F3 si riordinano le colonne !!!
             foreach (DataGridViewColumn column in MainGrid.Columns)
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
+
         }
 
         /// <summary>imposta i Temi colore</summary>
@@ -824,7 +825,7 @@ namespace StandFacile
                     sEvQueueObj = (String[])eventQueue.Dequeue();
                 }
 
-                // solo da qu in poi "else if"
+                // solo da qui in poi "else if"
                 if (sEvQueueObj[0] == RESET_RECEIPT_BTN_EVENT)
                 {
                     ResetBtnScontrino();
@@ -1213,9 +1214,12 @@ namespace StandFacile
         {
             int i;
 
-            // totale scontrino corrente
             for (i = 0; i < MAX_NUM_ARTICOLI - 1; i++)
-                if (SF_Data.Articolo[i].iQuantitaOrdine > SF_Data.Articolo[i].iDisponibilita)
+            {
+                if (SF_Data.Articolo[i].iQuantitaOrdine == 0)
+                    continue;
+
+                else if (SF_Data.Articolo[i].iQuantitaOrdine > SF_Data.Articolo[i].iDisponibilita)
                 {
                     WrnMsg.sMsg = SF_Data.Articolo[i].sTipo;
                     WrnMsg.iErrID = WRN_QMD;
@@ -1223,6 +1227,7 @@ namespace StandFacile
                     WarningManager(WrnMsg);
                     return false;
                 }
+            }
 
             return true;
         }

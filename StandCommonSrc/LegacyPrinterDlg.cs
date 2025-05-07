@@ -1,5 +1,5 @@
 ﻿/*****************************************************************************
-	NomeFile : StandCommonSrc/ThermPrinterDlg.cs
+	NomeFile : StandCommonSrc/LegacyPrinterDlg.cs
     Data	 : 06.12.2024
 	Autore   : Mauro Artuso
  ****************************************************************************/
@@ -267,7 +267,7 @@ namespace StandFacile
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
-            // AuxRefresh lettura controlli
+            // Refresh lettura controlli
             UpdateLegacyPrinterParam();
 
             // acquisizione impostazioni

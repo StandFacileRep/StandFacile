@@ -1,7 +1,7 @@
 ﻿/*****************************************************
-  	NomeFile  : StandFacile/Config.cs
-	Data	 : 16.02.2025
-  	Autore	: Mauro Artuso
+  	NomeFile : StandFacile/Config.cs
+	Data	 : 06.05.2025
+  	Autore	 : Mauro Artuso
  *****************************************************/
 
 using System;
@@ -16,7 +16,7 @@ namespace StandFacile
     /// <summary>classe per caricamento della configurazione</summary>
     public class Config
     {
-        #pragma warning disable IDE1006
+#pragma warning disable IDE1006
 
         /// <summary>nome del file di filtro</summary>
         const String CONFIG_FILE = "config.ini";
@@ -31,6 +31,9 @@ namespace StandFacile
 
             sConfig.iReceiptStartNumber = 1; // giusto 1 e non 0
             sConfig.sService = "";
+
+            sConfig.bRcpCopyRequired = false;
+            sConfig.sRcpCopyHeader = "";
 
             LoadConfig();
         }
@@ -77,7 +80,7 @@ namespace StandFacile
                     else if (String.IsNullOrEmpty(sInStr))
                         continue;
 
-                    else if(sInStr.Contains("receiptStartNumber"))
+                    else if (sInStr.Contains("receiptStartNumber"))
                     {
                         iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
                         sInStr = sInStr.Remove(0, iPos + 1);
@@ -91,6 +94,18 @@ namespace StandFacile
                         catch (Exception)
                         {
                         }
+
+                        continue;
+                    }
+
+                    // stringhe per stampa copia Receipt() completa dei prezzi
+                    else if (sInStr.Contains("receiptCopyRequired_HeaderIs"))
+                    {
+                        iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
+                        sInStr = sInStr.Remove(0, iPos + 1).Trim();
+
+                        sConfig.bRcpCopyRequired = true;
+                        sConfig.sRcpCopyHeader = sInStr;
 
                         continue;
                     }

@@ -273,8 +273,8 @@ StandFacile/Logo/
 StandFacile/exe/StandDati/
 StandFacile/doc/tutorial/
 StandFacile/doc/CattureSchermo/
-StandFacile/doc/Manuale_StandFacile.docx
 StandFacile/Setup/
+StandFacile/doc/Manuale_StandFacile.docx
 
 StandCucina/doc/CattureSchermo/
 StandCucina/doc/Manuale_StandCucina.docx
@@ -291,3 +291,4 @@ _testNet/
 _Images/
 _Licenza_CC/
 _testNet/
+

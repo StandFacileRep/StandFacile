@@ -1585,7 +1585,7 @@ namespace StandFacile
 
                     switch (SF_Data.Articolo[h].iGruppoStampa)
                     {
-                        // ******** allineamento *******        
+                        // ******** allineamento *******
                         // 89 123456789012345678 9876.00
                         // fPrint.WriteLine("{0,2} {1,-18} {2,5}", // width=28
                         case (int)DEST_TYPE.DEST_TIPO1:
