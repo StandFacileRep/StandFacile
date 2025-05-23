@@ -1,6 +1,6 @@
 ﻿/****************************************************************************
     NomeFile : StandFacile/ImpostaGrigliaDlg.cs
-	Data	 : 06.12.2024
+	Data	 : 23.05.2025
     Autore   : Mauro Artuso
 
     modo Touch:     3 4 5 	colonne
@@ -93,7 +93,7 @@ namespace StandFacile
 
         private void BtnCanc_4_Click(object sender, EventArgs e)
         {
-            Edit_3.Text = "Pagina 5";
+            Edit_4.Text = "Pagina 5";
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
@@ -222,6 +222,8 @@ namespace StandFacile
             {
                 if (checkBoxTouchMode.Checked)
                     SF_Data.iGeneralOptions = SetBit(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED);
+                else
+                    SF_Data.iGeneralOptions = ClearBit(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED);
 
                 SF_Data.iGridCols = iNumColonneTmp;
                 SF_Data.iGridRows = iNumRigheTmp;
