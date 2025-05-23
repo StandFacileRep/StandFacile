@@ -706,6 +706,17 @@ namespace StandFacile
                     sInStrCopy = sInStr;
 
                     /*********************************************************
+                     *	controllo coerenza TouchMode e numero di righe
+                     *	perchè c'è il rischio di non vedere gli Articoli
+                     *********************************************************/
+                    if ((SF_Data.iGridRows > MAX_GRID_NROWS_TABM) && IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
+                    {
+                        SF_Data.iGeneralOptions = ClearBit(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED);
+                        SF_Data.iGridCols = DEF_GRID_NCOLS;
+                        SF_Data.iGridRows = DEF_GRID_NROWS;
+                    }
+
+                    /*********************************************************
                      *	imposta numero di possibili Articoli nelle pagine
                      *********************************************************/
                     if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))

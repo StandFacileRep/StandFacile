@@ -30,11 +30,12 @@
         {
             this.radioRows1 = new System.Windows.Forms.RadioButton();
             this.radioCols1 = new System.Windows.Forms.RadioButton();
-            this.radioRows2 = new System.Windows.Forms.RadioButton();
             this.radioRows3 = new System.Windows.Forms.RadioButton();
+            this.radioRows4 = new System.Windows.Forms.RadioButton();
             this.radioCols2 = new System.Windows.Forms.RadioButton();
             this.RadioRows = new System.Windows.Forms.GroupBox();
             this.RadioCols = new System.Windows.Forms.GroupBox();
+            this.radioCols3 = new System.Windows.Forms.RadioButton();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.Edit_0 = new System.Windows.Forms.TextBox();
@@ -48,8 +49,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxTouchMode = new System.Windows.Forms.CheckBox();
             this.Edit_4 = new System.Windows.Forms.TextBox();
-            this.radioCols3 = new System.Windows.Forms.RadioButton();
             this.BtnCanc_4 = new System.Windows.Forms.Button();
+            this.radioRows2 = new System.Windows.Forms.RadioButton();
             this.RadioRows.SuspendLayout();
             this.RadioCols.SuspendLayout();
             this.SuspendLayout();
@@ -62,7 +63,7 @@
             this.radioRows1.Size = new System.Drawing.Size(37, 17);
             this.radioRows1.TabIndex = 0;
             this.radioRows1.TabStop = true;
-            this.radioRows1.Text = "16";
+            this.radioRows1.Text = "10";
             this.radioRows1.UseVisualStyleBackColor = true;
             // 
             // radioCols1
@@ -76,32 +77,32 @@
             this.radioCols1.Text = "3";
             this.radioCols1.UseVisualStyleBackColor = true;
             // 
-            // radioRows2
-            // 
-            this.radioRows2.AutoSize = true;
-            this.radioRows2.Location = new System.Drawing.Point(19, 85);
-            this.radioRows2.Name = "radioRows2";
-            this.radioRows2.Size = new System.Drawing.Size(37, 17);
-            this.radioRows2.TabIndex = 1;
-            this.radioRows2.TabStop = true;
-            this.radioRows2.Text = "20";
-            this.radioRows2.UseVisualStyleBackColor = true;
-            // 
             // radioRows3
             // 
             this.radioRows3.AutoSize = true;
-            this.radioRows3.Location = new System.Drawing.Point(19, 139);
+            this.radioRows3.Location = new System.Drawing.Point(19, 113);
             this.radioRows3.Name = "radioRows3";
             this.radioRows3.Size = new System.Drawing.Size(37, 17);
-            this.radioRows3.TabIndex = 2;
+            this.radioRows3.TabIndex = 1;
             this.radioRows3.TabStop = true;
-            this.radioRows3.Text = "25";
+            this.radioRows3.Text = "20";
             this.radioRows3.UseVisualStyleBackColor = true;
+            // 
+            // radioRows4
+            // 
+            this.radioRows4.AutoSize = true;
+            this.radioRows4.Location = new System.Drawing.Point(19, 154);
+            this.radioRows4.Name = "radioRows4";
+            this.radioRows4.Size = new System.Drawing.Size(37, 17);
+            this.radioRows4.TabIndex = 2;
+            this.radioRows4.TabStop = true;
+            this.radioRows4.Text = "25";
+            this.radioRows4.UseVisualStyleBackColor = true;
             // 
             // radioCols2
             // 
             this.radioCols2.AutoSize = true;
-            this.radioCols2.Location = new System.Drawing.Point(21, 85);
+            this.radioCols2.Location = new System.Drawing.Point(21, 93);
             this.radioCols2.Name = "radioCols2";
             this.radioCols2.Size = new System.Drawing.Size(31, 17);
             this.radioCols2.TabIndex = 1;
@@ -111,12 +112,13 @@
             // 
             // RadioRows
             // 
-            this.RadioRows.Controls.Add(this.radioRows3);
             this.RadioRows.Controls.Add(this.radioRows2);
+            this.RadioRows.Controls.Add(this.radioRows4);
+            this.RadioRows.Controls.Add(this.radioRows3);
             this.RadioRows.Controls.Add(this.radioRows1);
-            this.RadioRows.Location = new System.Drawing.Point(12, 71);
+            this.RadioRows.Location = new System.Drawing.Point(12, 57);
             this.RadioRows.Name = "RadioRows";
-            this.RadioRows.Size = new System.Drawing.Size(90, 178);
+            this.RadioRows.Size = new System.Drawing.Size(90, 199);
             this.RadioRows.TabIndex = 0;
             this.RadioRows.TabStop = false;
             this.RadioRows.Text = "Righe";
@@ -126,12 +128,23 @@
             this.RadioCols.Controls.Add(this.radioCols3);
             this.RadioCols.Controls.Add(this.radioCols2);
             this.RadioCols.Controls.Add(this.radioCols1);
-            this.RadioCols.Location = new System.Drawing.Point(121, 71);
+            this.RadioCols.Location = new System.Drawing.Point(121, 57);
             this.RadioCols.Name = "RadioCols";
-            this.RadioCols.Size = new System.Drawing.Size(90, 178);
+            this.RadioCols.Size = new System.Drawing.Size(90, 199);
             this.RadioCols.TabIndex = 1;
             this.RadioCols.TabStop = false;
             this.RadioCols.Text = "Colonne";
+            // 
+            // radioCols3
+            // 
+            this.radioCols3.AutoSize = true;
+            this.radioCols3.Location = new System.Drawing.Point(21, 155);
+            this.radioCols3.Name = "radioCols3";
+            this.radioCols3.Size = new System.Drawing.Size(31, 17);
+            this.radioCols3.TabIndex = 2;
+            this.radioCols3.TabStop = true;
+            this.radioCols3.Text = "5";
+            this.radioCols3.UseVisualStyleBackColor = true;
             // 
             // btnCancel
             // 
@@ -163,7 +176,7 @@
             // Edit_0
             // 
             this.Edit_0.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Edit_0.Location = new System.Drawing.Point(249, 50);
+            this.Edit_0.Location = new System.Drawing.Point(249, 57);
             this.Edit_0.Name = "Edit_0";
             this.Edit_0.Size = new System.Drawing.Size(112, 21);
             this.Edit_0.TabIndex = 3;
@@ -171,7 +184,7 @@
             // Edit_1
             // 
             this.Edit_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Edit_1.Location = new System.Drawing.Point(249, 94);
+            this.Edit_1.Location = new System.Drawing.Point(249, 101);
             this.Edit_1.Name = "Edit_1";
             this.Edit_1.Size = new System.Drawing.Size(112, 21);
             this.Edit_1.TabIndex = 5;
@@ -179,7 +192,7 @@
             // Edit_2
             // 
             this.Edit_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Edit_2.Location = new System.Drawing.Point(249, 138);
+            this.Edit_2.Location = new System.Drawing.Point(249, 145);
             this.Edit_2.Name = "Edit_2";
             this.Edit_2.Size = new System.Drawing.Size(112, 21);
             this.Edit_2.TabIndex = 7;
@@ -187,7 +200,7 @@
             // Edit_3
             // 
             this.Edit_3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Edit_3.Location = new System.Drawing.Point(249, 182);
+            this.Edit_3.Location = new System.Drawing.Point(249, 189);
             this.Edit_3.Name = "Edit_3";
             this.Edit_3.Size = new System.Drawing.Size(112, 21);
             this.Edit_3.TabIndex = 9;
@@ -195,7 +208,7 @@
             // BtnCanc_0
             // 
             this.BtnCanc_0.Image = global::StandFacile.Properties.Resources.Cancel1;
-            this.BtnCanc_0.Location = new System.Drawing.Point(384, 50);
+            this.BtnCanc_0.Location = new System.Drawing.Point(384, 57);
             this.BtnCanc_0.Name = "BtnCanc_0";
             this.BtnCanc_0.Size = new System.Drawing.Size(27, 23);
             this.BtnCanc_0.TabIndex = 4;
@@ -205,7 +218,7 @@
             // BtnCanc_1
             // 
             this.BtnCanc_1.Image = global::StandFacile.Properties.Resources.Cancel1;
-            this.BtnCanc_1.Location = new System.Drawing.Point(384, 94);
+            this.BtnCanc_1.Location = new System.Drawing.Point(384, 101);
             this.BtnCanc_1.Name = "BtnCanc_1";
             this.BtnCanc_1.Size = new System.Drawing.Size(27, 23);
             this.BtnCanc_1.TabIndex = 6;
@@ -215,7 +228,7 @@
             // BtnCanc_2
             // 
             this.BtnCanc_2.Image = global::StandFacile.Properties.Resources.Cancel1;
-            this.BtnCanc_2.Location = new System.Drawing.Point(384, 138);
+            this.BtnCanc_2.Location = new System.Drawing.Point(384, 145);
             this.BtnCanc_2.Name = "BtnCanc_2";
             this.BtnCanc_2.Size = new System.Drawing.Size(27, 23);
             this.BtnCanc_2.TabIndex = 8;
@@ -225,7 +238,7 @@
             // BtnCanc_3
             // 
             this.BtnCanc_3.Image = global::StandFacile.Properties.Resources.Cancel1;
-            this.BtnCanc_3.Location = new System.Drawing.Point(384, 182);
+            this.BtnCanc_3.Location = new System.Drawing.Point(384, 189);
             this.BtnCanc_3.Name = "BtnCanc_3";
             this.BtnCanc_3.Size = new System.Drawing.Size(27, 23);
             this.BtnCanc_3.TabIndex = 10;
@@ -236,7 +249,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(253, 18);
+            this.label1.Location = new System.Drawing.Point(258, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(90, 14);
             this.label1.TabIndex = 2;
@@ -259,31 +272,31 @@
             // Edit_4
             // 
             this.Edit_4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Edit_4.Location = new System.Drawing.Point(249, 226);
+            this.Edit_4.Location = new System.Drawing.Point(249, 233);
             this.Edit_4.Name = "Edit_4";
             this.Edit_4.Size = new System.Drawing.Size(112, 21);
             this.Edit_4.TabIndex = 15;
             // 
-            // radioCols3
-            // 
-            this.radioCols3.AutoSize = true;
-            this.radioCols3.Location = new System.Drawing.Point(21, 139);
-            this.radioCols3.Name = "radioCols3";
-            this.radioCols3.Size = new System.Drawing.Size(31, 17);
-            this.radioCols3.TabIndex = 2;
-            this.radioCols3.TabStop = true;
-            this.radioCols3.Text = "5";
-            this.radioCols3.UseVisualStyleBackColor = true;
-            // 
             // BtnCanc_4
             // 
             this.BtnCanc_4.Image = global::StandFacile.Properties.Resources.Cancel1;
-            this.BtnCanc_4.Location = new System.Drawing.Point(384, 226);
+            this.BtnCanc_4.Location = new System.Drawing.Point(384, 233);
             this.BtnCanc_4.Name = "BtnCanc_4";
             this.BtnCanc_4.Size = new System.Drawing.Size(27, 23);
             this.BtnCanc_4.TabIndex = 16;
             this.BtnCanc_4.UseVisualStyleBackColor = true;
             this.BtnCanc_4.Click += new System.EventHandler(this.BtnCanc_4_Click);
+            // 
+            // radioRows2
+            // 
+            this.radioRows2.AutoSize = true;
+            this.radioRows2.Location = new System.Drawing.Point(19, 72);
+            this.radioRows2.Name = "radioRows2";
+            this.radioRows2.Size = new System.Drawing.Size(37, 17);
+            this.radioRows2.TabIndex = 3;
+            this.radioRows2.TabStop = true;
+            this.radioRows2.Text = "15";
+            this.radioRows2.UseVisualStyleBackColor = true;
             // 
             // EditGrigliaDlg
             // 
@@ -328,8 +341,8 @@
 
         private System.Windows.Forms.RadioButton radioRows1;
         private System.Windows.Forms.RadioButton radioCols1;
-        private System.Windows.Forms.RadioButton radioRows2;
         private System.Windows.Forms.RadioButton radioRows3;
+        private System.Windows.Forms.RadioButton radioRows4;
         private System.Windows.Forms.RadioButton radioCols2;
         private System.Windows.Forms.GroupBox RadioRows;
         private System.Windows.Forms.GroupBox RadioCols;
@@ -348,5 +361,6 @@
         private System.Windows.Forms.TextBox Edit_4;
         private System.Windows.Forms.RadioButton radioCols3;
         private System.Windows.Forms.Button BtnCanc_4;
+        private System.Windows.Forms.RadioButton radioRows2;
     }
 }

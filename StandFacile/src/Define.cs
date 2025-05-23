@@ -77,8 +77,11 @@ namespace StandFacile
         /// <summary>evento fine stampa ordine web, usato in 2 code eventi diverse: dBaseTunnel_my, EsploraRemOrdiniDB_Dlg</summary>
         public const string WEB_ORDER_PRINT_DONE = "fattaStampa_EsploraWebOrdiniDB_Dlg_Event";
 
-        /// <summary>evento avvio caricamento Listino</summary>
+        /// <summary>evento avvio caricamento del Listino</summary>
         public const string WEB_PRICELIST_LOAD_START = "avviaCaricamentoListino_dBaseTunnel_my_Event";
+
+        /// <summary>evento avvio caricamento forzato del Listino</summary>
+        public const string WEB_PRICELIST_FORCE_LOAD_START = "avviaCaricamentoForzatoListino_dBaseTunnel_my_Event";
 
         /// <summary>evento fine caricamento Listino</summary>
         public const string WEB_PRICELIST_LOAD_DONE = "fattoCaricamentoListino_dBaseTunnel_my_Event";

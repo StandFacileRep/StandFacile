@@ -111,6 +111,17 @@ namespace StandFacile
 
             if (checkBoxTouchMode.Checked)
             {
+                if (radioRows1.Checked)
+                    iNumRigheTmp = 3;
+                else if (radioRows2.Checked)
+                    iNumRigheTmp = 4;
+                else if (radioRows3.Checked)
+                    iNumRigheTmp = 4;
+                else if (radioRows4.Checked)
+                    iNumRigheTmp = 4;
+                else
+                    iNumRigheTmp = 3;
+
                 if (radioCols1.Checked)
                     iNumColonneTmp = 3;
                 else if (radioCols2.Checked)
@@ -119,18 +130,20 @@ namespace StandFacile
                     iNumColonneTmp = 5;
                 else
                     iNumColonneTmp = 3;
-
-                if (radioRows1.Checked)
-                    iNumRigheTmp = 3;
-                else if (radioRows2.Checked)
-                    iNumRigheTmp = 4;
-                else if (radioRows3.Checked)
-                    iNumRigheTmp = 4;
-                else
-                    iNumRigheTmp = 3;
             }
             else
             {
+                if (radioRows1.Checked)
+                    iNumRigheTmp = 10;
+                else if (radioRows2.Checked)
+                    iNumRigheTmp = 15;
+                else if (radioRows3.Checked)
+                    iNumRigheTmp = 20;
+                else if (radioRows4.Checked)
+                    iNumRigheTmp = 25;
+                else
+                    iNumRigheTmp = 16;
+
                 if (radioCols1.Checked)
                     iNumColonneTmp = 3;
                 else if (radioCols2.Checked)
@@ -139,15 +152,6 @@ namespace StandFacile
                     iNumColonneTmp = 4;
                 else
                     iNumColonneTmp = 4;
-
-                if (radioRows1.Checked)
-                    iNumRigheTmp = 16;
-                else if (radioRows2.Checked)
-                    iNumRigheTmp = 20;
-                else if (radioRows3.Checked)
-                    iNumRigheTmp = 25;
-                else
-                    iNumRigheTmp = 16;
             }
 
             for (i = 0; i < MAX_NUM_ARTICOLI; i++)
@@ -256,19 +260,34 @@ namespace StandFacile
             if (checkBoxTouchMode.Checked)
             {
                 // modo Touch: poca scelta di righe, più colonne e 5 Tabs
-                radioCols3.Enabled = true;
                 radioRows3.Enabled = false;
+                radioRows4.Enabled = false;
+                radioCols3.Enabled = true;
 
                 Edit_4.Enabled = true;
                 BtnCanc_4.Enabled = true;
+
+                radioRows1.Text = "3";
+                radioRows2.Text = "4";
+                radioRows3.Text = "---";
+                radioRows4.Text = "---";
 
                 radioCols1.Text = "3";
                 radioCols2.Text = "4";
                 radioCols3.Text = "5";
 
-                radioRows1.Text = "3";
-                radioRows2.Text = "4";
-                radioRows3.Text = "---";
+                switch (SF_Data.iGridRows)
+                {
+                    case 3:
+                        radioRows1.Checked = true;
+                        break;
+                    case 4:
+                        radioRows2.Checked = true;
+                        break;
+                    default:
+                        radioRows1.Checked = true;
+                        break;
+                }
 
                 switch (SF_Data.iGridCols)
                 {
@@ -285,36 +304,44 @@ namespace StandFacile
                         radioCols1.Checked = true;
                         break;
                 }
-
-                switch (SF_Data.iGridRows)
-                {
-                    case 3:
-                        radioRows1.Checked = true;
-                        break;
-                    case 4:
-                        radioRows2.Checked = true;
-                        break;
-                    default:
-                        radioRows1.Checked = true;
-                        break;
-                }
             }
             else
             {
                 // modo solo testo poca scelta di colonne e di Tabs, molte righe
-                radioCols3.Enabled = false;
                 radioRows3.Enabled = true;
+                radioRows4.Enabled = true;
+                radioCols3.Enabled = false;
 
                 Edit_4.Enabled = false;
                 BtnCanc_4.Enabled = false;
+
+                radioRows1.Text = "10";
+                radioRows2.Text = "15";
+                radioRows3.Text = "20";
+                radioRows4.Text = "25";
 
                 radioCols1.Text = "3";
                 radioCols2.Text = "4";
                 radioCols3.Text = "---";
 
-                radioRows1.Text = "16";
-                radioRows2.Text = "20";
-                radioRows3.Text = "25";
+                switch (SF_Data.iGridRows)
+                {
+                    case 10:
+                        radioRows1.Checked = true;
+                        break;
+                    case 15:
+                        radioRows2.Checked = true;
+                        break;
+                    case 20:
+                        radioRows3.Checked = true;
+                        break;
+                    case 25:
+                        radioRows4.Checked = true;
+                        break;
+                    default:
+                        radioRows1.Checked = true;
+                        break;
+                }
 
                 switch (SF_Data.iGridCols)
                 {
@@ -326,22 +353,6 @@ namespace StandFacile
                         break;
                     default:
                         radioCols1.Checked = true;
-                        break;
-                }
-
-                switch (SF_Data.iGridRows)
-                {
-                    case 16:
-                        radioRows1.Checked = true;
-                        break;
-                    case 20:
-                        radioRows2.Checked = true;
-                        break;
-                    case 25:
-                        radioRows3.Checked = true;
-                        break;
-                    default:
-                        radioRows1.Checked = true;
                         break;
                 }
             }

@@ -1281,7 +1281,7 @@ namespace StandFacile
             //  viene eseguito dopo la stampa Legacy con l'evento RESET_RECEIPT_BTN_EVENT
         }
 
-        /// <summary>aggiorna la barra di stato</summary>
+        /// <summary>aggiorna iNumOfTicketsParm nella barra di stato</summary>
         public void UpdateStatusBar(int iNumOfTicketsParm, int iTotaleTicketParm)
         {
             if (_bShowTotaleScontrinoPrec)
@@ -1978,7 +1978,9 @@ namespace StandFacile
 
                 SetTabsAppearance();
                 UpdateStatusBar("Pronto");
+
                 FormResize(this, null);
+                MainGrid_Redraw(this, null);
             }
 
             rSetGridDlg.Dispose();
@@ -2200,7 +2202,7 @@ namespace StandFacile
             String sRemDBChecksum;
             String[] sQueue_Object = new String[2];
 
-            if (bUSA_NDB())
+            if (bUSA_NDB() && !_bCtrlIsPressed)
             {
                 SF_Data.iNumOfLastReceipt = DataManager.GetNumOfOrders();
                 UpdateStatusBar(SF_Data.iNumOfLastReceipt, 0);
@@ -2213,7 +2215,7 @@ namespace StandFacile
                 _iDBDispTimeout = _REFRESH_DISP_SHORT; // dopo 2s dbCaricaDisponibilità()
             }
 
-            if (dBaseTunnel_my.GetWebServiceReq())
+            if (dBaseTunnel_my.GetWebServiceReq() || _bCtrlIsPressed)
             {
                 if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && dBaseTunnel_my.rdbPing())
                 {
@@ -2227,7 +2229,7 @@ namespace StandFacile
                         LogToFile("Mainform : rdbSalvaListino() per checksum non corrispondente");
 
                         // avvia rdbSalvaListino()
-                        sQueue_Object[0] = WEB_PRICELIST_LOAD_START;
+                        sQueue_Object[0] = WEB_PRICELIST_FORCE_LOAD_START;
 
                         dBaseTunnel_my.EventEnqueue(sQueue_Object);
                     }

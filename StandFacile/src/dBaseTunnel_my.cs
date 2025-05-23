@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************************
 	NomeFile : StandFacile/dBaseTunnel_my.cs
-    Data	 : 20.03.2025
+    Data	 : 23.05.2025
 	Autore   : Mauro Artuso
 
     Classe per la lettura degli ordini in remoto, utilizza HTTP tunneling
@@ -414,7 +414,19 @@ namespace StandFacile
                 // avvia Upload del Listino mediante altro Thread
                 if (sEvQueueObj[0] == WEB_PRICELIST_LOAD_START)
                 {
-                    if (rdbUploadListino())
+                    if (rdbUploadListino(false))
+                    {
+                        DataManager.SetRemDBChecksum();
+
+                        _WrnMsg.sMsg = _sHost;
+                        _WrnMsg.iErrID = WRN_PUPS;
+                        WarningManager(_WrnMsg);
+                    }
+                }
+                // avvia Upload del Listino mediante altro Thread
+                if (sEvQueueObj[0] == WEB_PRICELIST_FORCE_LOAD_START)
+                {
+                    if (rdbUploadListino(true))
                     {
                         DataManager.SetRemDBChecksum();
 
@@ -914,7 +926,7 @@ namespace StandFacile
         /// Funzione di upload nel database MySQL remoto del listino <br/>
         /// da parte della cassa primaria, a disposizione poi degli ordini web
         /// </summary>
-        static bool rdbUploadListino()
+        static bool rdbUploadListino(bool bForceUpload)
         {
             bool bHostConnection_Ok;
 
@@ -934,7 +946,10 @@ namespace StandFacile
                 bHostConnection_Ok = rdbPing();
 
                 // sicurezza : si prosegue solo se c'è la connessione all' rDB
-                if (!bHostConnection_Ok || !_bWebServiceRequested || (SF_Data.iNumCassa != CASSA_PRINCIPALE))
+                if (!bHostConnection_Ok || !(_bWebServiceRequested || bForceUpload) || (SF_Data.iNumCassa != CASSA_PRINCIPALE))
+                    return false;
+
+                if (String.IsNullOrEmpty(_sWebServerParams.sWeb_DBase))
                     return false;
 
                 // ulteriore sicurezza MessageBox modale 
