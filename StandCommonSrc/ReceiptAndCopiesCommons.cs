@@ -326,15 +326,10 @@ namespace StandCommonFiles
 
             CheckSomethingToPrint(bSomethingInto_GrpToPrint, bSomethingInto_ClrToPrint, dataIdParam);
 
-            dataIdParam.iTotaleReceipt = 0;
-
             double fPerc = ((dataIdParam.iStatusSconto & 0x00FF0000) >> 16) / 100.0f;
 
             for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
                 bScontoGruppo[i] = IsBitSet(dataIdParam.iStatusSconto, 4 + i);
-
-            dataIdParam.iScontoStdReceipt = 0;   // richiede calcolo
-            dataIdParam.iScontoGratisReceipt = 0; // richiede calcolo
 
             sNomeFileTicketPrt = String.Format(NOME_FILE_RECEIPT, dataIdParam.iNumCassa, iNumOfReceiptsParam);
             _ErrMsg.sNomeFile = sNomeFileTicketPrt;
@@ -351,6 +346,10 @@ namespace StandCommonFiles
 
                 for (k = 0; k < iRcpCopyLoop; k++)
                 {
+
+                    dataIdParam.iTotaleReceipt = 0;         // richiede calcolo
+                    dataIdParam.iScontoStdReceipt = 0;      //      "
+                    dataIdParam.iScontoGratisReceipt = 0;   //      "
 
                     // se non c'è il logo stampa sHeaders[0]
                     if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName)) ||
@@ -511,13 +510,16 @@ namespace StandCommonFiles
 
                         fPrintParam.WriteLine(sRCP_FMT_DIF + "\r\n", "DIFF. DOVUTA", IntToEuro(dataIdParam.iTotaleReceiptDovuto));
 
-                        dataIdParam.iTotaleScontatoStd += dataIdParam.iScontoStdReceipt;
+                        if (k == 0)
+                        {
+                            dataIdParam.iTotaleScontatoStd += dataIdParam.iScontoStdReceipt;
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
-                            dataIdParam.iTotaleIncassoCard += dataIdParam.iTotaleReceipt - dataIdParam.iScontoStdReceipt;
+                            if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
+                                dataIdParam.iTotaleIncassoCard += dataIdParam.iTotaleReceipt - dataIdParam.iScontoStdReceipt;
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
-                            dataIdParam.iTotaleIncassoSatispay += dataIdParam.iTotaleReceipt - dataIdParam.iScontoStdReceipt;
+                            if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
+                                dataIdParam.iTotaleIncassoSatispay += dataIdParam.iTotaleReceipt - dataIdParam.iScontoStdReceipt;
+                        }
                     }
                     else if (IsBitSet(dataIdParam.iStatusSconto, BIT_SCONTO_FISSO))
                     {
@@ -537,13 +539,16 @@ namespace StandCommonFiles
 
                         fPrintParam.WriteLine(sRCP_FMT_DIF + "\r\n", "DIFF. DOVUTA", IntToEuro(dataIdParam.iTotaleReceiptDovuto));
 
-                        dataIdParam.iTotaleScontatoFisso += dataIdParam.iScontoFissoReceipt;
+                        if (k == 0)
+                        {
+                            dataIdParam.iTotaleScontatoFisso += dataIdParam.iScontoFissoReceipt;
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
-                            dataIdParam.iTotaleIncassoCard += dataIdParam.iTotaleReceipt - dataIdParam.iScontoFissoReceipt;
+                            if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
+                                dataIdParam.iTotaleIncassoCard += dataIdParam.iTotaleReceipt - dataIdParam.iScontoFissoReceipt;
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
-                            dataIdParam.iTotaleIncassoSatispay += dataIdParam.iTotaleReceipt - dataIdParam.iScontoFissoReceipt;
+                            if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
+                                dataIdParam.iTotaleIncassoSatispay += dataIdParam.iTotaleReceipt - dataIdParam.iScontoFissoReceipt;
+                        }
                     }
                     else if (IsBitSet(dataIdParam.iStatusSconto, BIT_SCONTO_GRATIS))
                     {
@@ -553,22 +558,28 @@ namespace StandCommonFiles
 
                         dataIdParam.iTotaleReceiptDovuto = 0;
                         dataIdParam.iScontoGratisReceipt = dataIdParam.iTotaleReceipt;
-                        dataIdParam.iTotaleScontatoGratis += dataIdParam.iTotaleReceipt;
+
+                        if (k == 0)
+                            dataIdParam.iTotaleScontatoGratis += dataIdParam.iTotaleReceipt;
                     }
                     else
                     {
                         dataIdParam.iTotaleReceiptDovuto = dataIdParam.iTotaleReceipt;
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
-                            dataIdParam.iTotaleIncassoCard += dataIdParam.iTotaleReceipt;
-
-                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
-                            dataIdParam.iTotaleIncassoSatispay += dataIdParam.iTotaleReceipt;
-
                         fPrintParam.WriteLine(sRCP_FMT_TOT + "\r\n", "TOTALE", IntToEuro(dataIdParam.iTotaleReceipt));
+
+                        if (k == 0)
+                        {
+                            if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
+                                dataIdParam.iTotaleIncassoCard += dataIdParam.iTotaleReceipt;
+
+                            if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
+                                dataIdParam.iTotaleIncassoSatispay += dataIdParam.iTotaleReceipt;
+                        }
                     }
 
-                    dataIdParam.iTotaleIncasso += dataIdParam.iTotaleReceipt;
+                    if (k == 0)
+                        dataIdParam.iTotaleIncasso += dataIdParam.iTotaleReceipt;
 
                     // inserimento indicazione di sconto
                     if (IsBitSet(dataIdParam.iStatusSconto, BIT_SCONTO_STD) && TicketScontatoStdIsGood(dataIdParam, bScontoGruppo))
