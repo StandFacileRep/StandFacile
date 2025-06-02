@@ -1,6 +1,6 @@
 ﻿/*****************************************************
  	NomeFile : StandCommonSrc/CommonFunc.cs
-    Data	 : 06.12.2024
+    Data	 : 02.06.2025
  	Autore	 : Mauro Artuso
 
 	Classi statiche di uso comune
@@ -232,6 +232,9 @@ namespace StandCommonFiles
 
         /// <summary>Richiesta aggiunta commento con quantità Zero</summary>
         public const int WRN_NQZ = 1050;
+
+        /// <summary>nessuna stampante presente</summary>
+        public const int WRN_PRTNP = 1060;
 
         /// <summary>
         /// Funzione di gestione dei warning,
@@ -565,6 +568,10 @@ namespace StandCommonFiles
                 case WRN_NQZ:
                     bModal = true;
                     sWrnStr = " Attenzione !\r\n\r\n per inserire una nota la quantità Articolo deve essere maggiore di zero !";
+                    break;
+
+                case WRN_PRTNP:
+                    sWrnStr = " Attenzione nessuna stampante presente !\r\n\r\nInstallarne almeno una.";
                     break;
 
                 default:

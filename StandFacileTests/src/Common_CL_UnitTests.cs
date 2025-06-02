@@ -336,5 +336,49 @@ namespace StandFacileTests
             // Assert
             Assert.IsTrue(bResult);
         }
+
+        [TestMethod]
+        [DataRow(0, true, 3)]
+        [DataRow(3, true, 3)]
+        [DataRow(4, true, 4)]
+        [DataRow(5, true, 4)]
+        [DataRow(0, false, 10)]
+        [DataRow(10, false, 10)]
+        [DataRow(12, false, 10)]
+        [DataRow(15, false, 15)]
+        [DataRow(20, false, 20)]
+        [DataRow(22, false, 20)]
+        [DataRow(24, false, 25)]
+        [DataRow(30, false, 25)]
+        public void CheckGridRows_Returns(int iRowsParam, bool bTouchParam, int iExpResultParam)
+        {
+            // Arrange
+
+            // Act
+            int iresult = EditGrigliaDlg.CheckGridRows(iRowsParam, bTouchParam);
+
+            // Assert
+            Assert.AreEqual(iresult, iExpResultParam);
+        }
+
+        [TestMethod]
+        [DataRow(0, true, 3)]
+        [DataRow(3, true, 3)]
+        [DataRow(4, true, 4)]
+        [DataRow(5, true, 5)]
+        [DataRow(6, true, 5)]
+        [DataRow(3, false, 3)]
+        [DataRow(4, false, 4)]
+        [DataRow(5, false, 4)]
+        public void CheckGridColsRows_Returns(int iColsParam, bool bTouchParam, int iExpResultParam)
+        {
+            // Arrange
+
+            // Act
+            int iresult = EditGrigliaDlg.CheckGridCols(iColsParam, bTouchParam);
+
+            // Assert
+            Assert.AreEqual(iresult, iExpResultParam);
+        }
     }
 }

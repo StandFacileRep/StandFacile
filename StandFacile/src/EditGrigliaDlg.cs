@@ -1,13 +1,15 @@
 ﻿/****************************************************************************
     NomeFile : StandFacile/ImpostaGrigliaDlg.cs
-	Data	 : 23.05.2025
+	Data	 : 02.06.2025
     Autore   : Mauro Artuso
 
-    modo Touch:     3 4 5 	colonne
-                    3 4 -	righe
+    modo Touch:         3 4 -	righe
+                        3 4 5 	colonne
+                    
 
-    modo solo testo: 3  4  - colonne
-                    16 20 25 righe
+    modo solo testo:    10 15 20 25 righe
+                        3  4  - colonne
+                    
 
   Classe di scelta delle dimensioni di Griglia nella modalità Touch e non,
   se necessario si procede a compattare il vettore del listino
@@ -94,6 +96,188 @@ namespace StandFacile
         private void BtnCanc_4_Click(object sender, EventArgs e)
         {
             Edit_4.Text = "Pagina 5";
+        }
+
+        private void CheckBoxTouchMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxTouchMode.Checked)
+            {
+                // modo Touch: poca scelta di righe, più colonne e 5 Tabs
+                radioRows3.Enabled = false;
+                radioRows4.Enabled = false;
+                radioCols3.Enabled = true;
+
+                Edit_4.Enabled = true;
+                BtnCanc_4.Enabled = true;
+
+                radioRows1.Text = "3";
+                radioRows2.Text = "4";
+                radioRows3.Text = "---";
+                radioRows4.Text = "---";
+
+                radioCols1.Text = "3";
+                radioCols2.Text = "4";
+                radioCols3.Text = "5";
+
+                switch (SF_Data.iGridRows)
+                {
+                    case 3:
+                        radioRows1.Checked = true;
+                        break;
+                    case 4:
+                        radioRows2.Checked = true;
+                        break;
+                    default:
+                        radioRows1.Checked = true;
+                        break;
+                }
+
+                switch (SF_Data.iGridCols)
+                {
+                    case 3:
+                        radioCols1.Checked = true;
+                        break;
+                    case 4:
+                        radioCols2.Checked = true;
+                        break;
+                    case 5:
+                        radioCols3.Checked = true;
+                        break;
+                    default:
+                        radioCols1.Checked = true;
+                        break;
+                }
+            }
+            else
+            {
+                // modo solo testo poca scelta di colonne e di Tabs, molte righe
+                radioRows3.Enabled = true;
+                radioRows4.Enabled = true;
+                radioCols3.Enabled = false;
+
+                Edit_4.Enabled = false;
+                BtnCanc_4.Enabled = false;
+
+                radioRows1.Text = "10";
+                radioRows2.Text = "15";
+                radioRows3.Text = "20";
+                radioRows4.Text = "25";
+
+                radioCols1.Text = "3";
+                radioCols2.Text = "4";
+                radioCols3.Text = "---";
+
+                switch (SF_Data.iGridRows)
+                {
+                    case 10:
+                        radioRows1.Checked = true;
+                        break;
+                    case 15:
+                        radioRows2.Checked = true;
+                        break;
+                    case 20:
+                        radioRows3.Checked = true;
+                        break;
+                    case 25:
+                        radioRows4.Checked = true;
+                        break;
+                    default:
+                        radioRows1.Checked = true;
+                        break;
+                }
+
+                switch (SF_Data.iGridCols)
+                {
+                    case 3:
+                        radioCols1.Checked = true;
+                        break;
+                    case 4:
+                        radioCols2.Checked = true;
+                        break;
+                    default:
+                        radioCols1.Checked = true;
+                        break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// funzione di filtro sui valori possibili delle righe, utile in caso di importazione del Listino
+        /// </summary>
+        public static int CheckGridRows(int iRowsParam, bool bTouchParam)
+        {
+            int iRowNextVal = 15;
+
+            if (bTouchParam)
+            {
+                if (iRowsParam <= 3)  // inf
+                    return 3;
+                else if (iRowsParam >= 4)  // sup
+                    return 4;
+            }
+            else
+            {
+                if (iRowsParam <= 10)  // inf
+                    return 10;
+                else if (iRowsParam >= 25)  // sup
+                    return 25;
+
+                switch (iRowsParam)  // da 11 a 24
+                {
+                    case 11:
+                    case 12:
+                        iRowNextVal = 10;
+                        break;
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                        iRowNextVal = 15;
+                        break;
+                    case 18:
+                    case 19:
+                    case 20:
+                    case 21:
+                    case 22:
+                        iRowNextVal = 20;
+                        break;
+                    case 23:
+                    case 24:
+                        iRowNextVal = 25;
+                        break;
+                    default:
+                        iRowNextVal = 15;
+                        break;
+                }
+            }
+
+            return iRowNextVal;
+        }
+
+        /// <summary>
+        /// funzione di filtro sui valori possibili delle colonne, utile in caso di importazione del Listino
+        /// </summary>
+        public static int CheckGridCols(int iColsParam, bool bTouchParam)
+        {
+            if (bTouchParam)
+            {
+                if (iColsParam <= 3)  // inf
+                    return 3;
+                else if (iColsParam == 4)
+                    return 4;
+                else if (iColsParam >= 5)  // sup
+                    return 5;
+            }
+            else
+            {
+                if (iColsParam <= 3)  // inf
+                    return 3;
+                else if (iColsParam >= 4)  // sup
+                    return 4;
+            }
+
+            return 3;
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
@@ -253,109 +437,6 @@ namespace StandFacile
             }
 
             Close();
-        }
-
-        private void CheckBoxTouchMode_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxTouchMode.Checked)
-            {
-                // modo Touch: poca scelta di righe, più colonne e 5 Tabs
-                radioRows3.Enabled = false;
-                radioRows4.Enabled = false;
-                radioCols3.Enabled = true;
-
-                Edit_4.Enabled = true;
-                BtnCanc_4.Enabled = true;
-
-                radioRows1.Text = "3";
-                radioRows2.Text = "4";
-                radioRows3.Text = "---";
-                radioRows4.Text = "---";
-
-                radioCols1.Text = "3";
-                radioCols2.Text = "4";
-                radioCols3.Text = "5";
-
-                switch (SF_Data.iGridRows)
-                {
-                    case 3:
-                        radioRows1.Checked = true;
-                        break;
-                    case 4:
-                        radioRows2.Checked = true;
-                        break;
-                    default:
-                        radioRows1.Checked = true;
-                        break;
-                }
-
-                switch (SF_Data.iGridCols)
-                {
-                    case 3:
-                        radioCols1.Checked = true;
-                        break;
-                    case 4:
-                        radioCols2.Checked = true;
-                        break;
-                    case 5:
-                        radioCols3.Checked = true;
-                        break;
-                    default:
-                        radioCols1.Checked = true;
-                        break;
-                }
-            }
-            else
-            {
-                // modo solo testo poca scelta di colonne e di Tabs, molte righe
-                radioRows3.Enabled = true;
-                radioRows4.Enabled = true;
-                radioCols3.Enabled = false;
-
-                Edit_4.Enabled = false;
-                BtnCanc_4.Enabled = false;
-
-                radioRows1.Text = "10";
-                radioRows2.Text = "15";
-                radioRows3.Text = "20";
-                radioRows4.Text = "25";
-
-                radioCols1.Text = "3";
-                radioCols2.Text = "4";
-                radioCols3.Text = "---";
-
-                switch (SF_Data.iGridRows)
-                {
-                    case 10:
-                        radioRows1.Checked = true;
-                        break;
-                    case 15:
-                        radioRows2.Checked = true;
-                        break;
-                    case 20:
-                        radioRows3.Checked = true;
-                        break;
-                    case 25:
-                        radioRows4.Checked = true;
-                        break;
-                    default:
-                        radioRows1.Checked = true;
-                        break;
-                }
-
-                switch (SF_Data.iGridCols)
-                {
-                    case 3:
-                        radioCols1.Checked = true;
-                        break;
-                    case 4:
-                        radioCols2.Checked = true;
-                        break;
-                    default:
-                        radioCols1.Checked = true;
-                        break;
-                }
-            }
         }
 
     }

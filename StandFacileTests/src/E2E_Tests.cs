@@ -63,9 +63,9 @@ namespace StandFacileTests
             Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
 
             if (String.IsNullOrEmpty(sStartNumParam))
-                sDirRefReceiptData = Directory.GetCurrentDirectory() + "\\..\\..\\refData\\" + sDirParam + ("1123");
+                sDirRefReceiptData = Directory.GetCurrentDirectory() + "\\..\\..\\refData\\" + sDirParam + ("0420");
             else
-                sDirRefReceiptData = Directory.GetCurrentDirectory() + "\\..\\..\\refData\\" + sDirParam + sStartNumParam + ("_1123");
+                sDirRefReceiptData = Directory.GetCurrentDirectory() + "\\..\\..\\refData\\" + sDirParam + sStartNumParam + ("_0420");
 
             string[] sAllRefReceiptFiles = Directory.GetFiles(sDirRefReceiptData, "*.*", SearchOption.AllDirectories);
 
@@ -281,7 +281,7 @@ namespace StandFacileTests
 
             if (sFileParam == "refData")
             {
-                sReferenceReceiptDataFile = Directory.GetCurrentDirectory() + "\\..\\..\\refData\\" + "C1_Dati_1123.txt";
+                sReferenceReceiptDataFile = Directory.GetCurrentDirectory() + "\\..\\..\\refData\\" + "C1_Dati_0322.txt";
 
                 if (_DEBUG_VERIFY_DIR)
                     sCurrentReceiptDataFile = Directory.GetCurrentDirectory() + "\\..\\..\\..\\StandFacile\\exe\\StandDati" + "\\" + ANNO_DIR + GetActualDate().ToString("yyyy") + "\\" + sNomeFileDati;

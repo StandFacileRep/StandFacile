@@ -1,6 +1,6 @@
 ﻿/*********************************************************************************
  	NomeFile : StandCommonSrc/ReceiptAndCopies.cs
-    Data	 : 06.05.2025
+    Data	 : 25.05.2025
  	Autore	 : Mauro Artuso
 
 	Classi di uso comune a DataManager.Receipt(), VisOrdiniDlg.ReceiptRebuild()<br/>
@@ -187,7 +187,7 @@ namespace StandCommonFiles
 #endif
 
         /// <summary>verifica se è l'ultimo Articolo significativo da stampare per unita nello stesso gruppo</summary>
-        public static bool CheckLastItemToCut_OnSameGroup(TData dataIdParam, int iGroupParam, int iArtParam)
+        public static bool CheckLastItemToPrint_OnSameGroup(TData dataIdParam, int iGroupParam, int iArtParam)
         {
             bool bLast;
             int j, iTotaleQuantity = 0;
@@ -753,6 +753,10 @@ namespace StandCommonFiles
             if (iNumOfReceiptsParam == 0)
                 iNumOfReceiptsParam = dataIdParam.iNumOfLastReceipt;
 
+            // utile per le funzioni CheckSomethingToPrint(), CheckLastItemAndGroupToCut(), CheckLastItemToPrint_OnSameGroup()
+            for (i = 0; i < MAX_NUM_ARTICOLI + EXTRA_NUM_ARTICOLI; i++) // azzeramento
+                dataIdParam.Articolo[i].bLocalPrinted = false;
+
             CheckSomethingToPrint(bSomethingInto_GrpToPrint, bSomethingInto_ClrToPrint, dataIdParam);
 
             sNomeFileTicketNpPrt = String.Format(NOME_FILE_RECEIPT_NP, dataIdParam.iNumCassa, iNumOfReceiptsParam);
@@ -1083,7 +1087,7 @@ namespace StandCommonFiles
                                 dataIdParam.Articolo[j].bLocalPrinted = true;
 
                                 // se è l'ultimo del gruppo vediamo ...
-                                if (CheckLastItemToCut_OnSameGroup(dataIdParam, iGrpReorderPtr[i], j))
+                                if (CheckLastItemToPrint_OnSameGroup(dataIdParam, iGrpReorderPtr[i], j))
                                 {
                                     // se c'è il taglio
                                     if (bTicketCopies_CutRequired && !((iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_COUNTER) && bSomethingInto_GrpToPrint[(int)DEST_TYPE.DEST_TIPO1]))
@@ -1155,6 +1159,10 @@ namespace StandCommonFiles
                 Console.WriteLine("WriteNetworkCopy: *** DB_Data ***");
 
             CheckSomethingToPrint(bSomethingInto_GrpToPrint, bSomethingInto_ClrToPrint, dataIdParam);
+
+            // utile per le funzioni CheckSomethingToPrint(), CheckLastItemAndGroupToCut(), CheckLastItemToPrint_OnSameGroup()
+            for (i = 0; i < MAX_NUM_ARTICOLI + EXTRA_NUM_ARTICOLI; i++) // azzeramento
+                dataIdParam.Articolo[i].bLocalPrinted = false;
 
             /*******************************************************
             *                 RICOSTRUZIONE COPIE
@@ -1330,6 +1338,12 @@ namespace StandCommonFiles
                                         {
                                             fPrintParam.WriteLine(sRCP_FMT_CPY, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo);
                                             iEqRowsNumber++;
+
+                                            if (CheckLastItemToPrint_OnSameGroup(dataIdParam, (int)DEST_TYPE.DEST_COUNTER, j))
+                                            {
+                                                fPrintParam.WriteLine();
+                                                iEqRowsNumber++;
+                                            }
 
                                             if (!String.IsNullOrEmpty(dataIdParam.Articolo[j].sNotaArt))
                                             {

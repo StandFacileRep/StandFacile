@@ -706,17 +706,6 @@ namespace StandFacile
                     sInStrCopy = sInStr;
 
                     /*********************************************************
-                     *	controllo coerenza TouchMode e numero di righe
-                     *	perchè c'è il rischio di non vedere gli Articoli
-                     *********************************************************/
-                    if ((SF_Data.iGridRows > MAX_GRID_NROWS_TABM) && IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
-                    {
-                        SF_Data.iGeneralOptions = ClearBit(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED);
-                        SF_Data.iGridCols = DEF_GRID_NCOLS;
-                        SF_Data.iGridRows = DEF_GRID_NROWS;
-                    }
-
-                    /*********************************************************
                      *	imposta numero di possibili Articoli nelle pagine
                      *********************************************************/
                     if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
@@ -853,6 +842,18 @@ namespace StandFacile
 
                     iRiga++; // ********* riga successiva *********
                 } // end for
+
+                /*********************************************************
+                 *	controllo coerenza TouchMode e numero di righe
+                 *	perchè c'è il rischio di non vedere gli Articoli
+                 *********************************************************/
+                LogToFile(String.Format("DataManager : CaricaListino prima di Check iGridRows = {0}, iGridCols = {1}", SF_Data.iGridRows, SF_Data.iGridCols));
+
+                SF_Data.iGridRows = EditGrigliaDlg.CheckGridRows(SF_Data.iGridRows, IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED));
+                SF_Data.iGridCols = EditGrigliaDlg.CheckGridCols(SF_Data.iGridCols, IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED));
+
+                LogToFile(String.Format("DataManager : CaricaListino dopo di Check iGridRows = {0}, iGridCols = {1}", SF_Data.iGridRows, SF_Data.iGridCols));
+
 
                 if (!bChecksumTrovato)
                 {

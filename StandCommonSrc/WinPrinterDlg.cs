@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
 	NomeFile : StandCommonSrc/WinPrinterDlg.cs
-    Data	 : 16.02.2025
+    Data	 : 02.06.2025
 	Autore   : Mauro Artuso
 
 	Descrizione : classe per la gestione della Form per l'impostazione dei
@@ -135,7 +135,7 @@ namespace StandFacile
         {
             int i = 0, j = 0;
 
-            String sDir = "";
+            String sLogStr, sDir = "";
             DialogResult result = DialogResult.None;
             Bitmap tmpImage;
 
@@ -154,18 +154,34 @@ namespace StandFacile
 
             PrintersListCombo.Items.Clear();
 
+            // controllo per verificare che ci sia almeno una stampante presente
+            if (PrinterSettings.InstalledPrinters.Count == 0)
+                WarningManager(WRN_PRTNP);
+
             foreach (string printer in PrinterSettings.InstalledPrinters)
             {
+                if (!bShow)
+                {
+                    sLogStr = String.Format("WinPrinterDlg : InstalledPrinters {0}", printer);
+                    LogToFile(sLogStr);
+                }
+
                 PrintersListCombo.Items.Add(printer);
 
                 if (printer == sGlbWinPrinterParams.sTckPrinterModel)
                 {
                     sGlbWinPrinterParams.iTckPrinterModel = i;
                     j = i;
+
+                    sLogStr = String.Format("WinPrinterDlg : InstalledPrinters j = {0}", j);
+                    LogToFile(sLogStr);
                 }
 
                 i++;
             }
+
+            sLogStr = String.Format("WinPrinterDlg : prima di PrintersListCombo {0}, {1}", PrintersListCombo.Items.Count, j);
+            LogToFile(sLogStr);
 
             // imposta nel combo la stampante Locale
             if ((j >= 0) && (j < PrintersListCombo.Items.Count))

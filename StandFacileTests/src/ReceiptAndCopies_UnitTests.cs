@@ -189,10 +189,10 @@ namespace StandFacileTests
             DB_Data.Articolo[12].iGruppoStampa = 3;
 
             // Act
-            bResult = CheckLastItemToCut_OnSameGroup(DB_Data, 3, 10);
+            bResult = CheckLastItemToPrint_OnSameGroup(DB_Data, 3, 10);
             Assert.IsFalse(bResult);
 
-            bResult = CheckLastItemToCut_OnSameGroup(DB_Data, 3, 12);
+            bResult = CheckLastItemToPrint_OnSameGroup(DB_Data, 3, 12);
             Assert.IsTrue(bResult);
         }
 
