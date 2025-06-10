@@ -1,4 +1,4 @@
-; 25.05.2025 
+; 10.06.2025 
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
@@ -7,7 +7,7 @@ AppVersion= 5.14.3
 AppVerName=StandMonitor {#SetupSetting("AppVersion")}
 AppName=StandMonitor 2025
 AppPublisher=Mauro Artuso
-AppId={{9D5826DB-6ED2-40F3-88F2-0F9416EE34C2}
+AppId={{B22AA5A8-5696-485D-B890-F84B3286C6CC}
 DefaultDirName={sd}\StandFacile\StandMonitor_514x
 DefaultGroupName=StandFacile\StandMonitor_514x\
 SourceDir=..\exe

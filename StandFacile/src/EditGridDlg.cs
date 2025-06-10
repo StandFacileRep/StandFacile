@@ -1,5 +1,5 @@
 ﻿/****************************************************************************
-    NomeFile : StandFacile/ImpostaGrigliaDlg.cs
+    NomeFile : StandFacile/EditGridDlg.cs
 	Data	 : 02.06.2025
     Autore   : Mauro Artuso
 
@@ -29,7 +29,7 @@ namespace StandFacile
     /// <summary>
     /// classe di impostazione griglia
     /// </summary>
-    public partial class EditGrigliaDlg : Form
+    public partial class EditGridDlg : Form
     {
         readonly TextBox[] _pEdit;
 
@@ -39,7 +39,7 @@ namespace StandFacile
         public static bool GetListinoModificato() { return _bListinoModificato; }
 
         /// <summary>costruttore</summary>
-        public EditGrigliaDlg()
+        public EditGridDlg()
         {
             InitializeComponent();
 

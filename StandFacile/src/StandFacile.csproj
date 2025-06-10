@@ -433,8 +433,8 @@
     <EmbeddedResource Include="RenameDlg.resx">
       <DependentUpon>RenameDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EditGrigliaDlg.resx">
-      <DependentUpon>EditGrigliaDlg.cs</DependentUpon>
+    <EmbeddedResource Include="EditGridDlg.resx">
+      <DependentUpon>EditGridDlg.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ScontoDlg.resx">
@@ -483,11 +483,11 @@
     <Compile Include="RenameDlg.Designer.cs">
       <DependentUpon>RenameDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditGrigliaDlg.cs">
+    <Compile Include="EditGridDlg.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EditGrigliaDlg.Designer.cs">
-      <DependentUpon>EditGrigliaDlg.cs</DependentUpon>
+    <Compile Include="EditGridDlg.Designer.cs">
+      <DependentUpon>EditGridDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="ScontoDlg.cs">
       <SubType>Form</SubType>

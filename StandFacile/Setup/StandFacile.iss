@@ -1,4 +1,4 @@
-; 25.05.2025 
+; 10.06.2025 
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 ; tra una versione e l'altra cambiare GUID per facilitare l'installazione distinta
 ; The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -9,7 +9,7 @@ AppVersion= 5.14.3
 AppVerName=StandFacile {#SetupSetting("AppVersion")}
 AppName=StandFacile 2025
 AppPublisher=Mauro Artuso
-AppId={{CB9EF8A9-4FC0-4B97-B8B5-507C70AA713E}
+AppId={{975FC228-593E-4FA3-B112-4C9188E6469E}
 DefaultDirName={sd}\StandFacile\StandFacile_514x
 DefaultGroupName=StandFacile\StandFacile_514x\
 SourceDir=..\exe

@@ -1,6 +1,6 @@
 ﻿namespace StandFacile
 {
-    partial class EditGrigliaDlg
+    partial class EditGridDlg
     {
         /// <summary>
         /// Required designer variable.
@@ -34,6 +34,7 @@
             this.radioRows4 = new System.Windows.Forms.RadioButton();
             this.radioCols2 = new System.Windows.Forms.RadioButton();
             this.RadioRows = new System.Windows.Forms.GroupBox();
+            this.radioRows2 = new System.Windows.Forms.RadioButton();
             this.RadioCols = new System.Windows.Forms.GroupBox();
             this.radioCols3 = new System.Windows.Forms.RadioButton();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@
             this.checkBoxTouchMode = new System.Windows.Forms.CheckBox();
             this.Edit_4 = new System.Windows.Forms.TextBox();
             this.BtnCanc_4 = new System.Windows.Forms.Button();
-            this.radioRows2 = new System.Windows.Forms.RadioButton();
             this.RadioRows.SuspendLayout();
             this.RadioCols.SuspendLayout();
             this.SuspendLayout();
@@ -118,10 +118,21 @@
             this.RadioRows.Controls.Add(this.radioRows1);
             this.RadioRows.Location = new System.Drawing.Point(12, 57);
             this.RadioRows.Name = "RadioRows";
-            this.RadioRows.Size = new System.Drawing.Size(90, 199);
+            this.RadioRows.Size = new System.Drawing.Size(90, 200);
             this.RadioRows.TabIndex = 0;
             this.RadioRows.TabStop = false;
             this.RadioRows.Text = "Righe";
+            // 
+            // radioRows2
+            // 
+            this.radioRows2.AutoSize = true;
+            this.radioRows2.Location = new System.Drawing.Point(19, 72);
+            this.radioRows2.Name = "radioRows2";
+            this.radioRows2.Size = new System.Drawing.Size(37, 17);
+            this.radioRows2.TabIndex = 3;
+            this.radioRows2.TabStop = true;
+            this.radioRows2.Text = "15";
+            this.radioRows2.UseVisualStyleBackColor = true;
             // 
             // RadioCols
             // 
@@ -130,7 +141,7 @@
             this.RadioCols.Controls.Add(this.radioCols1);
             this.RadioCols.Location = new System.Drawing.Point(121, 57);
             this.RadioCols.Name = "RadioCols";
-            this.RadioCols.Size = new System.Drawing.Size(90, 199);
+            this.RadioCols.Size = new System.Drawing.Size(90, 200);
             this.RadioCols.TabIndex = 1;
             this.RadioCols.TabStop = false;
             this.RadioCols.Text = "Colonne";
@@ -286,17 +297,6 @@
             this.BtnCanc_4.TabIndex = 16;
             this.BtnCanc_4.UseVisualStyleBackColor = true;
             this.BtnCanc_4.Click += new System.EventHandler(this.BtnCanc_4_Click);
-            // 
-            // radioRows2
-            // 
-            this.radioRows2.AutoSize = true;
-            this.radioRows2.Location = new System.Drawing.Point(19, 72);
-            this.radioRows2.Name = "radioRows2";
-            this.radioRows2.Size = new System.Drawing.Size(37, 17);
-            this.radioRows2.TabIndex = 3;
-            this.radioRows2.TabStop = true;
-            this.radioRows2.Text = "15";
-            this.radioRows2.UseVisualStyleBackColor = true;
             // 
             // EditGrigliaDlg
             // 

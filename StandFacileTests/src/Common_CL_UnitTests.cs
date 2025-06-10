@@ -355,7 +355,7 @@ namespace StandFacileTests
             // Arrange
 
             // Act
-            int iresult = EditGrigliaDlg.CheckGridRows(iRowsParam, bTouchParam);
+            int iresult = EditGridDlg.CheckGridRows(iRowsParam, bTouchParam);
 
             // Assert
             Assert.AreEqual(iresult, iExpResultParam);
@@ -375,7 +375,7 @@ namespace StandFacileTests
             // Arrange
 
             // Act
-            int iresult = EditGrigliaDlg.CheckGridCols(iColsParam, bTouchParam);
+            int iresult = EditGridDlg.CheckGridCols(iColsParam, bTouchParam);
 
             // Assert
             Assert.AreEqual(iresult, iExpResultParam);

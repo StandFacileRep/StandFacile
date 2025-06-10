@@ -849,8 +849,8 @@ namespace StandFacile
                  *********************************************************/
                 LogToFile(String.Format("DataManager : CaricaListino prima di Check iGridRows = {0}, iGridCols = {1}", SF_Data.iGridRows, SF_Data.iGridCols));
 
-                SF_Data.iGridRows = EditGrigliaDlg.CheckGridRows(SF_Data.iGridRows, IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED));
-                SF_Data.iGridCols = EditGrigliaDlg.CheckGridCols(SF_Data.iGridCols, IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED));
+                SF_Data.iGridRows = EditGridDlg.CheckGridRows(SF_Data.iGridRows, IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED));
+                SF_Data.iGridCols = EditGridDlg.CheckGridCols(SF_Data.iGridCols, IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED));
 
                 LogToFile(String.Format("DataManager : CaricaListino dopo di Check iGridRows = {0}, iGridCols = {1}", SF_Data.iGridRows, SF_Data.iGridCols));
 

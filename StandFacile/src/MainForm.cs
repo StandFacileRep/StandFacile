@@ -1970,9 +1970,9 @@ namespace StandFacile
 
         private void MnuImpDimGrid_Click(object sender, EventArgs e)
         {
-            EditGrigliaDlg rSetGridDlg = new EditGrigliaDlg();
+            EditGridDlg rSetGridDlg = new EditGridDlg();
 
-            if (EditGrigliaDlg.GetListinoModificato())
+            if (EditGridDlg.GetListinoModificato())
             {
                 DataManager.SalvaListino();
 
