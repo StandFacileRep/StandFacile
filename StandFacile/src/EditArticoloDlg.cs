@@ -1,6 +1,6 @@
 ﻿/***************************************************
     NomeFile : StandFacile/EditArticoloDlg.cs
-	Data	 : 18.04.2025
+	Data	 : 20.06.2025
     Autore   : Mauro Artuso
  ***************************************************/
 using System;
@@ -477,7 +477,8 @@ namespace StandFacile
                     WarningManager(_WrnMsg);
                 }
                 // tipoArticolo e prezzo (salvo GetZeroPriceEnabled()) entrambi presenti
-                else if (!String.IsNullOrEmpty(TipoEdit.Text) && (!String.IsNullOrEmpty(PrzEdit.Text) || OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()))
+                else if (!String.IsNullOrEmpty(TipoEdit.Text) && (!String.IsNullOrEmpty(PrzEdit.Text) || (groupsCombo.SelectedIndex == (int)DEST_TYPE.DEST_COUNTER) || 
+                            OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()))
                 {
                     // conversione
                     if (groupsCombo.SelectedIndex == (int)DEST_TYPE.DEST_COUNTER)

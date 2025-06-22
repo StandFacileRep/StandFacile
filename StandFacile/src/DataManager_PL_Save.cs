@@ -2,6 +2,8 @@
     NomeFile : StandFacile/DataManager.cs
 	Data	 : 18.04.2025
     Autore   : Mauro Artuso
+
+     nb: DB_Data compare sempre a destra nelle assegnazioni
  **********************************************************************/
 
 using System;

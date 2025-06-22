@@ -162,6 +162,7 @@ namespace StandFacile
         public void SetEditCoperto(String sCopertoParam)
         {
             EditCoperti.Text = sCopertoParam;
+
             if (EditCoperti.Enabled)
                 TextBox_KeyUp(null, null);
         }
@@ -213,7 +214,7 @@ namespace StandFacile
             TextBox_KeyUp(null, null);
         }
 
-        /// <summary>imposta il testo della nota Articolo, usato da TestManager</summary>
+        /// <summary>imposta il testo della nota Articolo premendo Ctrl, usato da TestManager</summary>
         public void SetEditNotaArticolo(int iCellParam, String sNotaParam)
         {
             int i, j;

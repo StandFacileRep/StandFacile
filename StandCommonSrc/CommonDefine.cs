@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.14.3";
+        public const String RELEASE_SW = "v5.14.3"; 
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5c";
@@ -736,7 +736,7 @@ namespace StandCommonFiles
             BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED
 
             /*****************************************************************************************
-	         i primi 8 bit di iReceiptCopyOptions sono riservati per gestione _bSelectedGroups[i]
+	         i primi 10 bit di iReceiptCopyOptions sono riservati per gestione _bSelectedGroups[i]
 	         *****************************************************************************************/
         }
 
@@ -1289,7 +1289,7 @@ namespace StandCommonFiles
             "##### COPIA GRUPPO6 #####",
             "##### COPIA GRUPPO7 #####",
             "##### COPIA GRUPPO8 #####",
-            "## COPIA GRUPPO9 NOQRC ##",
+            "### COPIA GRP NO WEB ###",
             " ###  COPIE SINGOLE  ### ",
             " ###    CONTATORI    ### "
         };

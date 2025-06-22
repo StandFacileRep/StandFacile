@@ -48,6 +48,7 @@
             this.checkBoxBarcode = new System.Windows.Forms.CheckBox();
             this.checkBox_StampaManuale = new System.Windows.Forms.CheckBox();
             this.panelCopies = new System.Windows.Forms.Panel();
+            this.checkBoxCopia_8 = new System.Windows.Forms.CheckBox();
             this.checkBoxCopia_7 = new System.Windows.Forms.CheckBox();
             this.checkBoxCopia_6 = new System.Windows.Forms.CheckBox();
             this.textBoxColor_3 = new System.Windows.Forms.TextBox();
@@ -56,7 +57,6 @@
             this.textBoxColor_1 = new System.Windows.Forms.TextBox();
             this.textBoxColor_0 = new System.Windows.Forms.TextBox();
             this.textBoxWarn = new System.Windows.Forms.TextBox();
-            this.checkBoxCopia_8 = new System.Windows.Forms.CheckBox();
             this.panelCopies.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -282,6 +282,19 @@
             this.panelCopies.Size = new System.Drawing.Size(496, 154);
             this.panelCopies.TabIndex = 19;
             // 
+            // checkBoxCopia_8
+            // 
+            this.checkBoxCopia_8.AutoCheck = false;
+            this.checkBoxCopia_8.AutoSize = true;
+            this.checkBoxCopia_8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxCopia_8.Location = new System.Drawing.Point(268, 94);
+            this.checkBoxCopia_8.Name = "checkBoxCopia_8";
+            this.checkBoxCopia_8.Size = new System.Drawing.Size(218, 20);
+            this.checkBoxCopia_8.TabIndex = 12;
+            this.checkBoxCopia_8.Text = "##### COPIA GRUPPO9 #####";
+            this.checkBoxCopia_8.UseVisualStyleBackColor = true;
+            this.checkBoxCopia_8.MouseClick += new System.Windows.Forms.MouseEventHandler(this.CheckBoxCopia_MouseClick);
+            // 
             // checkBoxCopia_7
             // 
             this.checkBoxCopia_7.AutoCheck = false;
@@ -376,18 +389,6 @@
             this.textBoxWarn.TabIndex = 69;
             this.textBoxWarn.Text = "il grigio mantiene gli accorpamenti per gruppo di articoli, gli altri colori inve" +
     "ce producono accorpamenti che hanno priorità rispetti ai gruppi.";
-            // 
-            // checkBoxCopia_8
-            // 
-            this.checkBoxCopia_8.AutoCheck = false;
-            this.checkBoxCopia_8.AutoSize = true;
-            this.checkBoxCopia_8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopia_8.Location = new System.Drawing.Point(268, 94);
-            this.checkBoxCopia_8.Name = "checkBoxCopia_8";
-            this.checkBoxCopia_8.Size = new System.Drawing.Size(218, 20);
-            this.checkBoxCopia_8.TabIndex = 12;
-            this.checkBoxCopia_8.Text = "##### COPIA GRUPPO9 #####";
-            this.checkBoxCopia_8.UseVisualStyleBackColor = true;
             // 
             // NetConfigLightDlg
             // 

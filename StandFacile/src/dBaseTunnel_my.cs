@@ -1028,7 +1028,7 @@ namespace StandFacile
                     }
                 }
 
-                fprz.Close();
+                fprz?.Close();
                 return true;
             }
             catch (Exception)
@@ -1041,7 +1041,7 @@ namespace StandFacile
 
             LogToFile("dBaseTunnel: rdbSalvaListino");
 
-            fprz.Close();
+            fprz?.Close();
             return false;
         }
 
@@ -1071,9 +1071,13 @@ namespace StandFacile
                         if (rdbSegnaOrdineStampato(iNumOrdineWeb))
                         {
                             _rdBaseIntf.dbClearOrdineWebServito(iNumOrdineWeb);
-                            sTmp = String.Format("rdb_aggiornaOrdiniWebServiti : ordine {0} aggiornato", iNumOrdineWeb);
 
+                            sTmp = String.Format("rdb_aggiornaOrdiniWebServiti : ordine {0} aggiornato", iNumOrdineWeb);
                             LogToFile(sTmp, true);
+
+                            //sTmp = String.Format("rdb_aggiornaOrdiniWebServiti : RCPs={0}", SF_Data.iNumOfLastReceipt);
+                            //rdbLogWriteVersion(sTmp);
+
                             return true;
                         }
                         else

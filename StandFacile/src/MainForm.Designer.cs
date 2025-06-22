@@ -496,7 +496,7 @@
             // 
             this.MnuImpTabsGrid.Name = "MnuImpTabsGrid";
             this.MnuImpTabsGrid.Size = new System.Drawing.Size(327, 22);
-            this.MnuImpTabsGrid.Text = "Modo Touch, Tabs e dimensioni &Griglia ...";
+            this.MnuImpTabsGrid.Text = "Dimensioni &Griglia, Modo Touch, Tabs ...";
             this.MnuImpTabsGrid.Click += new System.EventHandler(this.MnuImpDimGrid_Click);
             // 
             // I4

@@ -709,13 +709,9 @@ namespace StandCommonFiles
                 LogToFile("DataManager dbSalvaOrdine : dbFuncTime = " + sTmp);
 
                 if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
-                {
                     Printer_Windows.PrintFile(sDirParam + sNomeFileTicketPrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
-                }
                 else
-                {
                     Printer_Legacy.PrintFile(sDirParam + sNomeFileTicketPrt, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
-                }
             }
 #endif
         }
@@ -913,7 +909,6 @@ namespace StandCommonFiles
                             }
                         }
                     }
-
 
                     // stampa #2: quantità UNO
                     for (i = 0; i < NUM_COPIES_GRPS; i++)

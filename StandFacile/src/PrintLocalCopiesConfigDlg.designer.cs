@@ -39,6 +39,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.panelLocalCopies = new System.Windows.Forms.Panel();
+            this.labelWarn1 = new System.Windows.Forms.Label();
             this.checkBox_AvoidPrintGroups = new System.Windows.Forms.CheckBox();
             this.labelWarn2 = new System.Windows.Forms.Label();
             this.checkBox_CUT = new System.Windows.Forms.CheckBox();
@@ -63,7 +64,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.labelWarn1 = new System.Windows.Forms.Label();
             this.RadioGroup_PrinterType.SuspendLayout();
             this.printersGroupBox.SuspendLayout();
             this.panelLocalCopies.SuspendLayout();
@@ -189,6 +189,18 @@
             this.panelLocalCopies.Size = new System.Drawing.Size(517, 350);
             this.panelLocalCopies.TabIndex = 30;
             // 
+            // labelWarn1
+            // 
+            this.labelWarn1.AutoSize = true;
+            this.labelWarn1.BackColor = System.Drawing.SystemColors.Control;
+            this.labelWarn1.Font = new System.Drawing.Font("Tahoma", 8.25F);
+            this.labelWarn1.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.labelWarn1.Location = new System.Drawing.Point(264, 32);
+            this.labelWarn1.Name = "labelWarn1";
+            this.labelWarn1.Size = new System.Drawing.Size(240, 13);
+            this.labelWarn1.TabIndex = 71;
+            this.labelWarn1.Text = "attivabile se sono selezionate le opzioni qui sotto";
+            // 
             // checkBox_AvoidPrintGroups
             // 
             this.checkBox_AvoidPrintGroups.AutoSize = true;
@@ -273,9 +285,9 @@
             this.checkBoxCopia_8.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCopia_8.Location = new System.Drawing.Point(265, 130);
             this.checkBoxCopia_8.Name = "checkBoxCopia_8";
-            this.checkBoxCopia_8.Size = new System.Drawing.Size(186, 17);
+            this.checkBoxCopia_8.Size = new System.Drawing.Size(178, 17);
             this.checkBoxCopia_8.TabIndex = 66;
-            this.checkBoxCopia_8.Text = "## COPIA GRUPPO9 NOQRC ##";
+            this.checkBoxCopia_8.Text = "### COPIA GRP NO WEB ###";
             this.checkBoxCopia_8.UseVisualStyleBackColor = true;
             // 
             // labelNoWebLoad
@@ -464,18 +476,6 @@
             this.label1.Size = new System.Drawing.Size(450, 16);
             this.label1.TabIndex = 35;
             this.label1.Text = "da qui si effettuano le impostazioni di stampa delle sole copie in cassa locale:";
-            // 
-            // labelWarn1
-            // 
-            this.labelWarn1.AutoSize = true;
-            this.labelWarn1.BackColor = System.Drawing.SystemColors.Control;
-            this.labelWarn1.Font = new System.Drawing.Font("Tahoma", 8.25F);
-            this.labelWarn1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.labelWarn1.Location = new System.Drawing.Point(264, 32);
-            this.labelWarn1.Name = "labelWarn1";
-            this.labelWarn1.Size = new System.Drawing.Size(240, 13);
-            this.labelWarn1.TabIndex = 71;
-            this.labelWarn1.Text = "attivabile se sono selezionate le opzioni qui sotto";
             // 
             // PrintLocalCopiesConfigDlg
             // 
