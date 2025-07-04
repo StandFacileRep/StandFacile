@@ -406,14 +406,6 @@ namespace StandFacile
 
             ulong iTotaleTeorico = 0;
 
-            // per maggiore effivenza si rilegge dbCaricaDatidaOrdini solo all'uscita
-            if (Equals(dataIdParam, DB_Data))
-            {
-                // chiamata da FrmMain_FormClosing()
-                // _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true);
-                dataIdParam = DeepCopy(DB_Data);
-            }
-
             sDir = _sDataDir + "\\";
 
             sNomeFileDati = GetNomeFileDati(SF_Data.iNumCassa, GetActualDate());
