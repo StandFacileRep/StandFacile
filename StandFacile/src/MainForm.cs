@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 20.03.2025
+    Data	 : 02.07.2025
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -1729,7 +1729,7 @@ namespace StandFacile
             sTmp = DataManager.GetDataDir() + "\\" + GetNomeFileDati(SF_Data.iNumCassa, GetActualDate());
 
             if (!File.Exists(sTmp))
-                DataManager.SalvaDati();
+                DataManager.SalvaDati(SF_Data);
 
             // usa la data corrente
             rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_DATI, GetActualDate(), SF_Data.iNumCassa, false);
@@ -2512,8 +2512,11 @@ namespace StandFacile
             // Stop del timer
             Timer.Enabled = false;
 
+            // struct DB_Data utilizzata da DataManager.SalvaDati(DB_Data); 
+            iNumTicket = _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true);
+
             if ((SF_Data.iNumOfLastReceipt > 0) || (SF_Data.iNumOfMessages > 0) || DataManager.CheckDispLoaded())
-                DataManager.SalvaDati();
+                DataManager.SalvaDati(DB_Data);
 
             if (_bListinoModificato)
                 DataManager.SalvaListino();
@@ -2567,7 +2570,9 @@ namespace StandFacile
                     // SICUREZZA:
                     // si chiama _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true) invece di GetNumOfOrders()
                     // perchè restituisce -1 in caso di errore, inoltre è comune a SQLite, MySql, PostgreSql
-                    iNumTicket = _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true);
+                    
+                    // chiamato più su
+                    // iNumTicket = _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true);
 
                     if ((iNumTicket <= 0) && (DB_Data.iNumOfMessages <= 0) && !DataManager.CheckDispLoaded() && (iDB_dataTablesCount == 1))
                     {

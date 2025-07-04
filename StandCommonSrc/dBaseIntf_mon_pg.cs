@@ -180,7 +180,9 @@ namespace StandFacile_DB
             {
                 List<String> Tablenames = new List<String>();
 
-                sQuery = "SELECT tablename from pg_tables where schemaname='public';";
+                //sQuery = "SELECT tablename from pg_tables where schemaname='public';";
+                // acquisizione filtrata
+                sQuery = string.Format($"SELECT tablename from pg_tables where schemaname='public' and tablename like '%{_dbDataTablePrefix}%'");
 
                 PgSqlCommand cmd = new PgSqlCommand()
                 {

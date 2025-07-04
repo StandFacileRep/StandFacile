@@ -399,7 +399,7 @@ namespace StandFacile
                 {
                     DataManager.SalvaListino();
 
-                    DataManager.SalvaDati(); // così si visualizzano prezzi e dati aggiornati
+                    DataManager.SalvaDati(SF_Data); // così si visualizzano prezzi e dati aggiornati
                     SetTabsAppearance();
                 }
 

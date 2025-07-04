@@ -91,7 +91,7 @@ namespace StandFacile
             {
                 SF_Data.Articolo[_iPt].iDisponibilita = iDisp;
 
-                DataManager.SalvaDati();
+                DataManager.SalvaDati(SF_Data);
                 Close();
             }
         }

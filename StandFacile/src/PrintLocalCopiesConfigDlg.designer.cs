@@ -58,7 +58,7 @@
             this.checkBoxCopia_0 = new System.Windows.Forms.CheckBox();
             this.checkBoxSingleRowItems = new System.Windows.Forms.CheckBox();
             this.checkBoxSelectedOnly = new System.Windows.Forms.CheckBox();
-            this.checkBoxLocalCopy = new System.Windows.Forms.CheckBox();
+            this.checkBox_LocalCopy = new System.Windows.Forms.CheckBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.LinkLbl_Mnu_CCR = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
@@ -183,7 +183,7 @@
             this.panelLocalCopies.Controls.Add(this.panelCopies);
             this.panelLocalCopies.Controls.Add(this.checkBoxSingleRowItems);
             this.panelLocalCopies.Controls.Add(this.checkBoxSelectedOnly);
-            this.panelLocalCopies.Controls.Add(this.checkBoxLocalCopy);
+            this.panelLocalCopies.Controls.Add(this.checkBox_LocalCopy);
             this.panelLocalCopies.Location = new System.Drawing.Point(16, 193);
             this.panelLocalCopies.Name = "panelLocalCopies";
             this.panelLocalCopies.Size = new System.Drawing.Size(517, 350);
@@ -211,7 +211,6 @@
             this.checkBox_AvoidPrintGroups.TabIndex = 70;
             this.checkBox_AvoidPrintGroups.Text = "evita stampa per gruppi non selezionati";
             this.checkBox_AvoidPrintGroups.UseVisualStyleBackColor = true;
-            this.checkBox_AvoidPrintGroups.Click += new System.EventHandler(this.CheckBox_AvoidPrintGroups_Click);
             // 
             // labelWarn2
             // 
@@ -235,7 +234,6 @@
             this.checkBox_CUT.TabIndex = 38;
             this.checkBox_CUT.Text = "stampa con taglio di separaz. gruppi";
             this.checkBox_CUT.UseVisualStyleBackColor = true;
-            this.checkBox_CUT.Click += new System.EventHandler(this.CheckBox_CUT_Click);
             // 
             // checkBoxUnitItems
             // 
@@ -413,17 +411,17 @@
             this.checkBoxSelectedOnly.UseVisualStyleBackColor = true;
             this.checkBoxSelectedOnly.CheckedChanged += new System.EventHandler(this.CheckBoxNoPrice_CheckedChanged);
             // 
-            // checkBoxLocalCopy
+            // checkBox_LocalCopy
             // 
-            this.checkBoxLocalCopy.AutoSize = true;
-            this.checkBoxLocalCopy.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxLocalCopy.Location = new System.Drawing.Point(17, 15);
-            this.checkBoxLocalCopy.Name = "checkBoxLocalCopy";
-            this.checkBoxLocalCopy.Size = new System.Drawing.Size(165, 18);
-            this.checkBoxLocalCopy.TabIndex = 29;
-            this.checkBoxLocalCopy.Text = "abilita stampa copie Locali";
-            this.checkBoxLocalCopy.UseVisualStyleBackColor = true;
-            this.checkBoxLocalCopy.CheckedChanged += new System.EventHandler(this.CheckBoxNoPrice_CheckedChanged);
+            this.checkBox_LocalCopy.AutoSize = true;
+            this.checkBox_LocalCopy.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox_LocalCopy.Location = new System.Drawing.Point(17, 15);
+            this.checkBox_LocalCopy.Name = "checkBox_LocalCopy";
+            this.checkBox_LocalCopy.Size = new System.Drawing.Size(165, 18);
+            this.checkBox_LocalCopy.TabIndex = 29;
+            this.checkBox_LocalCopy.Text = "abilita stampa copie Locali";
+            this.checkBox_LocalCopy.UseVisualStyleBackColor = true;
+            this.checkBox_LocalCopy.CheckedChanged += new System.EventHandler(this.CheckBoxNoPrice_CheckedChanged);
             // 
             // timer
             // 
@@ -522,7 +520,7 @@
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Panel panelLocalCopies;
         private System.Windows.Forms.CheckBox checkBoxSelectedOnly;
-        private System.Windows.Forms.CheckBox checkBoxLocalCopy;
+        private System.Windows.Forms.CheckBox checkBox_LocalCopy;
         private System.Windows.Forms.CheckBox checkBoxSingleRowItems;
         private System.Windows.Forms.Panel panelCopies;
         private System.Windows.Forms.CheckBox checkBoxCopia_7;

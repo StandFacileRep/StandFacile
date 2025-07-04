@@ -1,6 +1,6 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 18.04.2025
+	Data	 : 04.07.2025
     Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
@@ -397,7 +397,7 @@ namespace StandFacile
 
 
         /// <summary>Funzione di salvataggio dei dati di riepilogo giornaliero</summary>
-        public static void SalvaDati()
+        public static void SalvaDati(TData dataIdParam)
         {
             int i, iIncassoParz;
             String sDir, sNomeFileDati, sNomeFileDatiBak;
@@ -405,6 +405,14 @@ namespace StandFacile
             StreamWriter fData;
 
             ulong iTotaleTeorico = 0;
+
+            // per maggiore effivenza si rilegge dbCaricaDatidaOrdini solo all'uscita
+            if (Equals(dataIdParam, DB_Data))
+            {
+                // chiamata da FrmMain_FormClosing()
+                // _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true);
+                dataIdParam = DeepCopy(DB_Data);
+            }
 
             sDir = _sDataDir + "\\";
 
@@ -441,27 +449,27 @@ namespace StandFacile
                 fData.WriteLine("  Cassa n.{0}", SF_Data.iNumCassa);
                 fData.WriteLine("  {0};", GetDateTimeString());
 
-                if (!String.IsNullOrEmpty(SF_Data.sHeaders[0]))
-                    fData.WriteLine("  {0}", SF_Data.sHeaders[0]);
+                if (!String.IsNullOrEmpty(dataIdParam.sHeaders[0]))
+                    fData.WriteLine("  {0}", dataIdParam.sHeaders[0]);
 
-                if (!String.IsNullOrEmpty(SF_Data.sHeaders[1]))
-                    fData.WriteLine("  {0}", SF_Data.sHeaders[1]);
+                if (!String.IsNullOrEmpty(dataIdParam.sHeaders[1]))
+                    fData.WriteLine("  {0}", dataIdParam.sHeaders[1]);
 
                 fData.WriteLine("");
 
                 /***************************************************************
                  *   Salvataggio del Numero di Scontrini e di Messaggi emessi
                  ***************************************************************/
-                SF_Data.iNumOfLastReceipt = GetNumOfOrders();
+                dataIdParam.iNumOfLastReceipt = GetNumOfOrders();
 
-                fData.WriteLine(sDAT_FMT_HED, "Numero Scontrini emessi = ", SF_Data.iNumOfLastReceipt - SF_Data.iStartingNumOfReceipts);
+                fData.WriteLine(sDAT_FMT_HED, "Numero Scontrini emessi = ", dataIdParam.iNumOfLastReceipt - dataIdParam.iStartingNumOfReceipts);
 
-                fData.WriteLine(sDAT_FMT_HED, "Numero Scontrini QRcode = ", SF_Data.iNumOfWebReceipts);
+                fData.WriteLine(sDAT_FMT_HED, "Numero Scontrini QRcode = ", dataIdParam.iNumOfWebReceipts);
 
-                fData.WriteLine(sDAT_FMT_HED, "Numero    \"   annullati = ", SF_Data.iNumAnnullati);
+                fData.WriteLine(sDAT_FMT_HED, "Numero    \"   annullati = ", dataIdParam.iNumAnnullati);
 
-                if (SF_Data.iNumAnnullati > 0)
-                    fData.WriteLine("{0,28}{1,7}", "valore = ", IntToEuro(SF_Data.iTotaleAnnullato));
+                if (dataIdParam.iNumAnnullati > 0)
+                    fData.WriteLine("{0,28}{1,7}", "valore = ", IntToEuro(dataIdParam.iTotaleAnnullato));
 
                 fData.WriteLine("");
 
@@ -475,28 +483,28 @@ namespace StandFacile
                 for (i = 0; i < MAX_NUM_ARTICOLI + EXTRA_NUM_ARTICOLI; i++)
                 {
                     // separa voci aggiuntive
-                    if ((i == MAX_NUM_ARTICOLI) && ((SF_Data.Articolo[i].iPrezzoUnitario > 0) ||
-                        (!String.IsNullOrEmpty(SF_Data.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled())))
+                    if ((i == MAX_NUM_ARTICOLI) && ((dataIdParam.Articolo[i].iPrezzoUnitario > 0) ||
+                        (!String.IsNullOrEmpty(dataIdParam.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled())))
                         fData.WriteLine();
 
-                    if ((SF_Data.Articolo[i].iPrezzoUnitario > 0) ||
-                        (!String.IsNullOrEmpty(SF_Data.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()) ||
-                        (SF_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
+                    if ((dataIdParam.Articolo[i].iPrezzoUnitario > 0) ||
+                        (!String.IsNullOrEmpty(dataIdParam.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()) ||
+                        (dataIdParam.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
                     {
-                        if (SF_Data.Articolo[i].iDisponibilita == DISP_OK)
+                        if (dataIdParam.Articolo[i].iDisponibilita == DISP_OK)
                             sDisp = "OK";
                         else
-                            sDisp = SF_Data.Articolo[i].iDisponibilita.ToString();
+                            sDisp = dataIdParam.Articolo[i].iDisponibilita.ToString();
 
                         // 123456789012345678 999.00 8888 9876.00 OK
                         // eventuali superamenti del formato non precludono i conti ma solo l'impaginazione
                         // fData.WriteLine("{0,-18}{1,6+2}{2,4+2}{3,7+2}{4,3+2}",
-                        if ((SF_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER) && (SF_Data.Articolo[i].iIndexListino != MAX_NUM_ARTICOLI - 1))
+                        if ((dataIdParam.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER) && (dataIdParam.Articolo[i].iIndexListino != MAX_NUM_ARTICOLI - 1))
                         {
                             sDataRow = String.Format(sDAT_FMT_DAT,
-                                SF_Data.Articolo[i].sTipo,                              // 18
-                                IntToEuro(SF_Data.Articolo[i].iPrezzoUnitario),         //  6
-                                SF_Data.Articolo[i].iQuantitaVenduta,                   //  4
+                                dataIdParam.Articolo[i].sTipo,                              // 18
+                                IntToEuro(dataIdParam.Articolo[i].iPrezzoUnitario),         //  6
+                                dataIdParam.Articolo[i].iQuantitaVenduta,                   //  4
                                 0,                                                      //  7
                                 sDisp);                                                 //  3
 
@@ -505,12 +513,12 @@ namespace StandFacile
                         else
                         {
                             // vendita normale
-                            iIncassoParz = SF_Data.Articolo[i].iQuantitaVenduta * SF_Data.Articolo[i].iPrezzoUnitario;
+                            iIncassoParz = dataIdParam.Articolo[i].iQuantitaVenduta * dataIdParam.Articolo[i].iPrezzoUnitario;
 
                             sDataRow = String.Format(sDAT_FMT_DAT,
-                                SF_Data.Articolo[i].sTipo,                              // 18
-                                IntToEuro(SF_Data.Articolo[i].iPrezzoUnitario),         //  6
-                                SF_Data.Articolo[i].iQuantitaVenduta,                   //  4
+                                dataIdParam.Articolo[i].sTipo,                              // 18
+                                IntToEuro(dataIdParam.Articolo[i].iPrezzoUnitario),         //  6
+                                dataIdParam.Articolo[i].iQuantitaVenduta,                   //  4
                                 IntToEuro(iIncassoParz),                                //  7
                                 sDisp);                                                 //  3
 
@@ -522,37 +530,37 @@ namespace StandFacile
                 }
 
                 fData.WriteLine(sDAT_FMT_DSH, "--------");
-                fData.WriteLine(sDAT_FMT_TOT, "TOTALE", IntToEuro(SF_Data.iTotaleIncasso));
+                fData.WriteLine(sDAT_FMT_TOT, "TOTALE", IntToEuro(dataIdParam.iTotaleIncasso));
 
-                if ((SF_Data.iTotaleScontatoStd > 0) || (SF_Data.iTotaleScontatoFisso > 0) || (SF_Data.iTotaleScontatoGratis > 0))
+                if ((dataIdParam.iTotaleScontatoStd > 0) || (dataIdParam.iTotaleScontatoFisso > 0) || (dataIdParam.iTotaleScontatoGratis > 0))
                 {
                     fData.WriteLine("");
 
-                    if (SF_Data.iTotaleScontatoGratis > 0)
-                        fData.WriteLine(sDAT_FMT_TOT, "valore gratuiti", IntToEuro(SF_Data.iTotaleScontatoGratis));
+                    if (dataIdParam.iTotaleScontatoGratis > 0)
+                        fData.WriteLine(sDAT_FMT_TOT, "valore gratuiti", IntToEuro(dataIdParam.iTotaleScontatoGratis));
 
-                    if (SF_Data.iTotaleScontatoFisso > 0)
-                        fData.WriteLine(sDAT_FMT_TOT, "valore sconto fisso", IntToEuro(SF_Data.iTotaleScontatoFisso));
+                    if (dataIdParam.iTotaleScontatoFisso > 0)
+                        fData.WriteLine(sDAT_FMT_TOT, "valore sconto fisso", IntToEuro(dataIdParam.iTotaleScontatoFisso));
 
-                    if (SF_Data.iTotaleScontatoStd > 0)
-                        fData.WriteLine(sDAT_FMT_TOT, "valore sconto articoli", IntToEuro(SF_Data.iTotaleScontatoStd));
+                    if (dataIdParam.iTotaleScontatoStd > 0)
+                        fData.WriteLine(sDAT_FMT_TOT, "valore sconto articoli", IntToEuro(dataIdParam.iTotaleScontatoStd));
 
                     fData.WriteLine(sDAT_FMT_DSH, "--------");
-                    fData.WriteLine(sDAT_FMT_TOT, "TOTALE NETTO", IntToEuro(SF_Data.iTotaleIncasso - SF_Data.iTotaleScontatoStd -
-                        SF_Data.iTotaleScontatoFisso - SF_Data.iTotaleScontatoGratis));
+                    fData.WriteLine(sDAT_FMT_TOT, "TOTALE NETTO", IntToEuro(dataIdParam.iTotaleIncasso - dataIdParam.iTotaleScontatoStd -
+                        dataIdParam.iTotaleScontatoFisso - dataIdParam.iTotaleScontatoGratis));
 
-                    if ((SF_Data.iTotaleIncassoCard > 0) || (SF_Data.iTotaleIncassoSatispay > 0))
+                    if ((dataIdParam.iTotaleIncassoCard > 0) || (dataIdParam.iTotaleIncassoSatispay > 0))
                     {
                         fData.WriteLine("");
 
-                        sTmp = String.Format(sDAT_FMT_TOT, "PAGAM. CARD    ", IntToEuro(SF_Data.iTotaleIncassoCard));
+                        sTmp = String.Format(sDAT_FMT_TOT, "PAGAM. CARD    ", IntToEuro(dataIdParam.iTotaleIncassoCard));
                         fData.WriteLine(sTmp);
 
-                        sTmp = String.Format(sDAT_FMT_TOT, "PAGAM. SATISPAY", IntToEuro(SF_Data.iTotaleIncassoSatispay));
+                        sTmp = String.Format(sDAT_FMT_TOT, "PAGAM. SATISPAY", IntToEuro(dataIdParam.iTotaleIncassoSatispay));
                         fData.WriteLine(sTmp);
 
-                        sTmp = String.Format(sDAT_FMT_TOT, "PAGAM. CONT.   ", IntToEuro(SF_Data.iTotaleIncasso - SF_Data.iTotaleScontatoStd -
-                                                       SF_Data.iTotaleScontatoFisso - SF_Data.iTotaleScontatoGratis - SF_Data.iTotaleIncassoCard - SF_Data.iTotaleIncassoSatispay));
+                        sTmp = String.Format(sDAT_FMT_TOT, "PAGAM. CONT.   ", IntToEuro(dataIdParam.iTotaleIncasso - dataIdParam.iTotaleScontatoStd -
+                                                       dataIdParam.iTotaleScontatoFisso - dataIdParam.iTotaleScontatoGratis - dataIdParam.iTotaleIncassoCard - dataIdParam.iTotaleIncassoSatispay));
                         fData.WriteLine(sTmp);
                     }
                 }
@@ -563,7 +571,7 @@ namespace StandFacile
             LogToFile("DataManager : SalvaDati");
 
             sTmp = String.Format("DataManager SD: NT={0,3}, TTeor={1,8}, TInc={2,8}, T_SF={3,8}, T_SS={4,8}, T_SG={5,8}",
-                    SF_Data.iNumOfLastReceipt, iTotaleTeorico, SF_Data.iTotaleIncasso, SF_Data.iTotaleScontatoFisso, SF_Data.iTotaleScontatoStd, SF_Data.iTotaleScontatoGratis);
+                    dataIdParam.iNumOfLastReceipt, iTotaleTeorico, dataIdParam.iTotaleIncasso, dataIdParam.iTotaleScontatoFisso, dataIdParam.iTotaleScontatoStd, dataIdParam.iTotaleScontatoGratis);
 
             LogTestToFile(sTmp);
 

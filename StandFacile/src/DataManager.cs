@@ -1,6 +1,6 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 18.04.2025
+	Data	 : 02.07.2025
     Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
@@ -407,7 +407,7 @@ namespace StandFacile
 
         /// <summary>
         /// caricamento da dB dei dati del venduto e disponibilità Articoli coerenti con il Listino<br/>
-        /// funzione invasiva se bLigthModeParam == true: dato che resetta dbResetNumOfOrders, dbResetNumOfClients, dbResetNumOfMessages
+        /// funzione invasiva se bLigthModeParam == false: dato che resetta dbResetNumOfOrders, dbResetNumOfClients, dbResetNumOfMessages
         /// </summary>
         private static void CaricaDatidaOrdini(bool bLigthModeParam = false, bool bSilentParam = false)
         {
@@ -519,6 +519,7 @@ namespace StandFacile
                     }
                 }
 
+                SF_Data.iNumOfWebReceipts = DB_Data.iNumOfWebReceipts;
                 SF_Data.iNumAnnullati = DB_Data.iNumAnnullati;
 
                 SF_Data.iTotaleAnnullato = DB_Data.iTotaleAnnullato;
@@ -648,7 +649,7 @@ namespace StandFacile
             }
 
             // aggiornamento dati
-            SalvaDati();
+            SalvaDati(SF_Data);
         }
 
         /// <summary>
@@ -756,7 +757,7 @@ namespace StandFacile
                 while (iNumScontrinoSec > 0);
 
                 if (bServeSalvare)
-                    SalvaDati();
+                    SalvaDati(SF_Data);
             }
             else
             {
@@ -858,7 +859,7 @@ namespace StandFacile
                 }
             } // end for
 
-            SalvaDati();
+            SalvaDati(SF_Data);
         }
 
         /// <summary>
@@ -885,59 +886,62 @@ namespace StandFacile
 
             iStatusDebug = DB_Data.iStatusReceipt;
 
-            for (j = 0; j < MAX_NUM_ARTICOLI; j++) // COPERTI inclusi
+            if (bResult)
             {
-                sTipo = DB_Data.Articolo[j].sTipo;
-
-                iQuantita_Ordine = DB_Data.Articolo[j].iQuantitaOrdine;
-
-                if (StringBelongsTo_ORDER_CONST(sTipo) || String.IsNullOrEmpty(sTipo))
-                    continue;
-
-                bMatch = false;
-
-                for (i = 0; i < MAX_NUM_ARTICOLI; i++)
+                for (j = 0; j < MAX_NUM_ARTICOLI; j++) // COPERTI inclusi
                 {
-                    if (SF_Data.Articolo[i].sTipo == sTipo)
+                    sTipo = DB_Data.Articolo[j].sTipo;
+
+                    iQuantita_Ordine = DB_Data.Articolo[j].iQuantitaOrdine;
+
+                    if (StringBelongsTo_ORDER_CONST(sTipo) || String.IsNullOrEmpty(sTipo))
+                        continue;
+
+                    bMatch = false;
+
+                    for (i = 0; i < MAX_NUM_ARTICOLI; i++)
                     {
-                        /****************************************************************
-                         *   aggiornamento SF_Data[]
-                         *   per i totali dbCaricaDatidaOrdini() mette a posto tutto
-                         ****************************************************************/
+                        if (SF_Data.Articolo[i].sTipo == sTipo)
+                        {
+                            /****************************************************************
+                             *   aggiornamento SF_Data[]
+                             *   per i totali dbCaricaDatidaOrdini() mette a posto tutto
+                             ****************************************************************/
 
-                        SF_Data.Articolo[i].iQuantitaVenduta -= iQuantita_Ordine;
+                            SF_Data.Articolo[i].iQuantitaVenduta -= iQuantita_Ordine;
 
-                        // questo aggiornamento è importante
-                        if (SF_Data.Articolo[i].iDisponibilita != DISP_OK)
-                            SF_Data.Articolo[i].iDisponibilita += iQuantita_Ordine;
+                            // questo aggiornamento è importante
+                            if (SF_Data.Articolo[i].iDisponibilita != DISP_OK)
+                                SF_Data.Articolo[i].iDisponibilita += iQuantita_Ordine;
 
-                        bMatch = true;
-                        break;
+                            bMatch = true;
+                            break;
+                        }
+                    }
+
+                    // dà un solo avviso alla prima discordanza
+                    if ((!bMatch) && (!bSingleWarn))
+                    {
+                        _WrnMsg.sMsg = iNumAnnulloParam.ToString();
+                        _WrnMsg.iErrID = WRN_RNF;
+                        WarningManager(_WrnMsg);
+
+                        sTmp = String.Format("dbAnnulloOrdine : iOrdine_ID = {0}, {1} non esiste!", iNumAnnulloParam, sTipo);
+                        LogToFile(sTmp);
                     }
                 }
 
-                // dà un solo avviso alla prima discordanza
-                if ((!bMatch) && (!bSingleWarn))
+                if (CheckIf_CassaSec_and_NDB())
                 {
-                    _WrnMsg.sMsg = iNumAnnulloParam.ToString();
-                    _WrnMsg.iErrID = WRN_RNF;
-                    WarningManager(_WrnMsg);
-
-                    sTmp = String.Format("dbAnnulloOrdine : iOrdine_ID = {0}, {1} non esiste!", iNumAnnulloParam, sTipo);
-                    LogToFile(sTmp);
+                    // per aggiornare la Disponibilità, attenzione al - 
+                    // per non collidere in caso di Cassa Principale con StandFacile non in esecuzione
+                    _rdBaseIntf.dbCSecOrderEnqueue(-iNumAnnulloParam);
+                    LogToFile("DataManager : updateDispRequest");
                 }
-            }
 
-            if (CheckIf_CassaSec_and_NDB())
-            {
-                // per aggiornare la Disponibilità, attenzione al - 
-                // per non collidere in caso di Cassa Principale con StandFacile non in esecuzione
-                _rdBaseIntf.dbCSecOrderEnqueue(-iNumAnnulloParam);
-                LogToFile("DataManager : updateDispRequest");
-            }
+                // però qui non si aggiorna SF_Data.iTotaleAnnullato
+                SF_Data.iNumAnnullati++;
 
-            if (bResult)
-            {
                 // in caso di annullo DB_Data è coerente con SF_Data
                 CheckSomethingToPrint(_bSomethingInto_GrpToPrint, _bSomethingInto_ClrToPrint, DB_Data);
 
@@ -969,13 +973,13 @@ namespace StandFacile
                 }
             }
 
-            SalvaDati();    // salva disponibilità
+            SalvaDati(SF_Data);    // salva disponibilità
 
             if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {
                 CaricaDatidaOrdini(true, true); // attenzione che sovrascrive SF_Data.Articolo[i].iDisponibilita !
 
-                SalvaDati();    // salva aggiornamenti annullati
+                SalvaDati(SF_Data);    // salva aggiornamenti annullati
             }
 
             return bResult;

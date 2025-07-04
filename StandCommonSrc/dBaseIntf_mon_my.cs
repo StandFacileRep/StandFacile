@@ -177,7 +177,8 @@ namespace StandFacile_DB
             {
                 List<String> Tablenames = new List<String>();
 
-                sQuery = "SHOW TABLES";
+                // acquisizione filtrata
+                sQuery = string.Format($"SHOW TABLES LIKE '{_dbDataTablePrefix}%'");
 
                 MySqlCommand cmd = new MySqlCommand()
                 {
