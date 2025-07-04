@@ -454,7 +454,7 @@ namespace StandFacile
                  ***************************************************************/
                 dataIdParam.iNumOfLastReceipt = GetNumOfOrders();
 
-                fData.WriteLine(sDAT_FMT_HED, "Numero Scontrini emessi = ", dataIdParam.iNumOfLastReceipt - dataIdParam.iStartingNumOfReceipts);
+                fData.WriteLine(sDAT_FMT_HED, "Numero Scontrini emessi = ", dataIdParam.iActualNumOfReceipts);
 
                 fData.WriteLine(sDAT_FMT_HED, "Numero Scontrini QRcode = ", dataIdParam.iNumOfWebReceipts);
 
