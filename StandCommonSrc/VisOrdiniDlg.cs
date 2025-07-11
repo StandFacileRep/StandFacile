@@ -1,6 +1,6 @@
 ﻿/***************************************************************************
 	NomeFile : StandCommonSrc/VisOrdiniDlg.cs
-	Data	 : 25.04.2025
+	Data	 : 12.07.2025
 	Autore	 : Mauro Artuso
 	 
  ***************************************************************************/
@@ -101,6 +101,7 @@ namespace StandFacile
             bHide = (eViewTypeParam == VIEW_TYPE.NO_VIEW);
 
             Height = 636; // MAINWD_HEIGHT = 660
+            lbl_Info.Top = AnnulloBtn.Top - 24;
 
             // SQLite, impostazione comune
             if (!bUSA_NDB())
@@ -109,7 +110,6 @@ namespace StandFacile
                 CkBoxTutteCasse.Enabled = false;
 
                 AnnulloBtn.Top = BtnPrev.Top;
-                lbl_Info.Top = AnnulloBtn.Top - 10;
             }
             else
             {
@@ -121,8 +121,6 @@ namespace StandFacile
                     "lo sfondo ROSSO indica che lo scontrino è stato Annullato.\r\n";
 
                 tt.SetToolTip(lbl_Info, _tt_InfoLabelText);
-
-                lbl_Info.Top = AnnulloBtn.Top;
             }
 
 #if STANDFACILE
@@ -173,7 +171,8 @@ namespace StandFacile
                 }
 
                 BtnPrt.Enabled = false;
-                lbl_Info.Visible = false;
+                lbl_Info.Visible = true;
+                lbl_Info.Top = AnnulloBtn.Top - 28;
 
                 CkBoxTutteCasse.Enabled = ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bUSA_NDB());
                 OKBtn.Text = "Esci";
@@ -607,13 +606,18 @@ namespace StandFacile
             {
                 textEdit_Ticket.ForeColor = System.Drawing.Color.Black;
                 textEdit_Ticket.BackColor = _clrScaricatoBkgr; // bScaricato
-                AnnulloBtn.Enabled = false; // già consegnato
+
+                AnnulloBtn.Enabled = true;
             }
             else if (DB_Data.bScaricato && (DB_Data.iNumCassa != SF_Data.iNumCassa))
             {
                 textEdit_Ticket.ForeColor = System.Drawing.Color.Black;
                 textEdit_Ticket.BackColor = _clrEAC_ScaricatoBkgr; // bScaricato
-                AnnulloBtn.Enabled = false; // già consegnato
+
+                if (DB_Data.iNumCassa == CASSA_PRINCIPALE)
+                    AnnulloBtn.Enabled = true;
+                else
+                    AnnulloBtn.Enabled = false; // già consegnato da una CASSA_SECONDARIA diversa
             }
             // questi ultimi 2 casi sono esaustivi del 100% delle situazioni restanti
             else if (DB_Data.iNumCassa == SF_Data.iNumCassa)

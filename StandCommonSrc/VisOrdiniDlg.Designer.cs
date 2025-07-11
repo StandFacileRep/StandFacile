@@ -224,15 +224,15 @@
             // 
             // lbl_Info
             // 
-            this.lbl_Info.AutoSize = true;
-            this.lbl_Info.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lbl_Info.BackColor = System.Drawing.Color.MediumAquamarine;
             this.lbl_Info.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_Info.Location = new System.Drawing.Point(50, 575);
+            this.lbl_Info.Location = new System.Drawing.Point(42, 526);
             this.lbl_Info.Name = "lbl_Info";
             this.lbl_Info.Padding = new System.Windows.Forms.Padding(2);
-            this.lbl_Info.Size = new System.Drawing.Size(79, 19);
+            this.lbl_Info.Size = new System.Drawing.Size(88, 20);
             this.lbl_Info.TabIndex = 28;
             this.lbl_Info.Text = "  info colori ?  ";
+            this.lbl_Info.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbl_Info.Click += new System.EventHandler(this.Lbl_Info_Click);
             // 
             // VisOrdiniDlg
