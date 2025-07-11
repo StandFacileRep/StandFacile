@@ -1,6 +1,6 @@
 ﻿/***************************************************
 	NomeFile : StandFacile\InitialDispDlg.cs
-	Data	 : 06.12.2024
+	Data	 : 10.07.2025
 	Autore   : Mauro Artuso
  ***************************************************/
 
@@ -57,8 +57,8 @@ namespace StandFacile
             _pCheckBoxCopia[5] = checkBoxCopia_5;
             _pCheckBoxCopia[6] = checkBoxCopia_6;
             _pCheckBoxCopia[7] = checkBoxCopia_7;
-            _pCheckBoxCopia[8] = checkBoxCopia_9;
-            _pCheckBoxCopia[9] = checkBoxCopia_10;
+            _pCheckBoxCopia[8] = checkBoxCopia_8;
+            _pCheckBoxCopia[9] = checkBoxCopia_9;
             _pCheckBoxCopia[10] = checkBoxCopia_10;
 
             iDispGroups = ReadRegistry(DISP_GROUP_KEY, 0);
@@ -68,6 +68,8 @@ namespace StandFacile
                 if (IsBitSet(iDispGroups, h))
                     _pCheckBoxCopia[h].Checked = true;
             }
+
+            InitFormatStrings(true);
 
             if (bShow)
                 ShowDialog();

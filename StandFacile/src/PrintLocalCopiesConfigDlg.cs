@@ -1,5 +1,5 @@
 ﻿/*****************************************************
- 	NomeFile : StandCommonSrc/PrintTicketConfigDlg.cs
+ 	NomeFile : PrintLocalCopiesConfigDlg.cs
     Data	 : 02.07.2025
  	Autore   : Mauro Artuso
 

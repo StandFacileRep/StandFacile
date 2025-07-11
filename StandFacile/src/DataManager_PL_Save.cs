@@ -479,8 +479,7 @@ namespace StandFacile
                         (!String.IsNullOrEmpty(dataIdParam.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled())))
                         fData.WriteLine();
 
-                    if ((dataIdParam.Articolo[i].iPrezzoUnitario > 0) ||
-                        (!String.IsNullOrEmpty(dataIdParam.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()) ||
+                    if ((dataIdParam.Articolo[i].iPrezzoUnitario > 0) || !String.IsNullOrEmpty(dataIdParam.Articolo[i].sTipo) ||
                         (dataIdParam.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
                     {
                         if (dataIdParam.Articolo[i].iDisponibilita == DISP_OK)

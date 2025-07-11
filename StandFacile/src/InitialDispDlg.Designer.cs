@@ -134,9 +134,9 @@
             this.checkBoxCopia_7.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCopia_7.Location = new System.Drawing.Point(349, 76);
             this.checkBoxCopia_7.Name = "checkBoxCopia_7";
-            this.checkBoxCopia_7.Size = new System.Drawing.Size(158, 20);
+            this.checkBoxCopia_7.Size = new System.Drawing.Size(77, 20);
             this.checkBoxCopia_7.TabIndex = 30;
-            this.checkBoxCopia_7.Text = "gruppo 8  (no-QRcode)";
+            this.checkBoxCopia_7.Text = "gruppo 8";
             this.checkBoxCopia_7.UseVisualStyleBackColor = true;
             // 
             // checkBoxCopia_6
@@ -262,9 +262,9 @@
             this.checkBoxCopia_8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxCopia_8.Location = new System.Drawing.Point(25, 125);
             this.checkBoxCopia_8.Name = "checkBoxCopia_8";
-            this.checkBoxCopia_8.Size = new System.Drawing.Size(77, 20);
+            this.checkBoxCopia_8.Size = new System.Drawing.Size(134, 20);
             this.checkBoxCopia_8.TabIndex = 32;
-            this.checkBoxCopia_8.Text = "gruppo 9";
+            this.checkBoxCopia_8.Text = "gruppo 9 (no-web)";
             this.checkBoxCopia_8.UseVisualStyleBackColor = true;
             // 
             // InitialDispDlg
