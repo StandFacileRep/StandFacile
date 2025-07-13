@@ -3,7 +3,7 @@
 	Data	 : 12.07.2025
     Autore   : Mauro Artuso
 
-    modo Touch:         3 4 - -	righe
+    modo Touch:         3 4 5 6	righe
                         3 4 5 6	colonne
                     
 
@@ -103,8 +103,6 @@ namespace StandFacile
             if (checkBoxTouchMode.Checked)
             {
                 // modo Touch: poca scelta di righe, più colonne e 5 Tabs
-                radioRows3.Enabled = false;
-                radioRows4.Enabled = false;
                 radioCols3.Enabled = true;
                 radioCols4.Enabled = true;
 
@@ -113,8 +111,8 @@ namespace StandFacile
 
                 radioRows1.Text = "3";
                 radioRows2.Text = "4";
-                radioRows3.Text = "---";
-                radioRows4.Text = "---";
+                radioRows3.Text = "5";
+                radioRows4.Text = "6";
 
                 radioCols1.Text = "3";
                 radioCols2.Text = "4";
@@ -128,6 +126,12 @@ namespace StandFacile
                         break;
                     case 4:
                         radioRows2.Checked = true;
+                        break;
+                    case 5:
+                        radioRows3.Checked = true;
+                        break;
+                    case 6:
+                        radioRows4.Checked = true;
                         break;
                     default:
                         radioRows1.Checked = true;
@@ -156,8 +160,6 @@ namespace StandFacile
             else
             {
                 // modo solo testo poca scelta di colonne e di Tabs, molte righe
-                radioRows3.Enabled = true;
-                radioRows4.Enabled = true;
                 radioCols3.Enabled = false;
                 radioCols4.Enabled = false;
 
@@ -219,8 +221,12 @@ namespace StandFacile
             {
                 if (iRowsParam <= 3)  // inf
                     return 3;
-                else if (iRowsParam >= 4)  // sup
+                else if (iRowsParam == 4)
                     return 4;
+                else if (iRowsParam == 5)
+                    return 5;
+                else if (iRowsParam >= 6)  // sup
+                    return 6;
             }
             else
             {
@@ -308,6 +314,10 @@ namespace StandFacile
                     iNumRigheTmp = 3;
                 else if (radioRows2.Checked)
                     iNumRigheTmp = 4;
+                else if (radioRows3.Checked)
+                    iNumRigheTmp = 5;
+                else if (radioRows4.Checked)
+                    iNumRigheTmp = 6;
                 else
                     iNumRigheTmp = 4;
 
