@@ -107,7 +107,7 @@
             // 
             this.CkBoxTutteCasse.AutoSize = true;
             this.CkBoxTutteCasse.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CkBoxTutteCasse.Location = new System.Drawing.Point(29, 486);
+            this.CkBoxTutteCasse.Location = new System.Drawing.Point(29, 483);
             this.CkBoxTutteCasse.Name = "CkBoxTutteCasse";
             this.CkBoxTutteCasse.Size = new System.Drawing.Size(129, 18);
             this.CkBoxTutteCasse.TabIndex = 2;

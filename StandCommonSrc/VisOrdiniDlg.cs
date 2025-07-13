@@ -101,17 +101,9 @@ namespace StandFacile
             bHide = (eViewTypeParam == VIEW_TYPE.NO_VIEW);
 
             Height = 636; // MAINWD_HEIGHT = 660
-            lbl_Info.Top = AnnulloBtn.Top - 24;
 
             // SQLite, impostazione comune
-            if (!bUSA_NDB())
-            {
-                CkBoxTutteCasse.Visible = false;
-                CkBoxTutteCasse.Enabled = false;
-
-                AnnulloBtn.Top = BtnPrev.Top;
-            }
-            else
+            if (bUSA_NDB())
             {
                 _tt_InfoLabelText = "Lo sfondo VERDE-CHIARO indica che lo scontrino è stato scaricato da StandOrdini,\r\n" +
                     "Lo sfondo BLU-CHIARO indica che lo scontrino emesso da altra cassa è stato scaricato da StandOrdini,,\r\n\r\n" +
@@ -119,9 +111,17 @@ namespace StandFacile
                     "lo sfondo BLU indica che lo scontrino emesso da altra cassa non è stato scaricato da StandOrdini,\r\n,\r\n" +
                     "lo sfondo ROSA indica che lo scontrino emesso online non è stato pagato,\r\n" +
                     "lo sfondo ROSSO indica che lo scontrino è stato Annullato.\r\n";
-
-                tt.SetToolTip(lbl_Info, _tt_InfoLabelText);
             }
+            else
+            {
+                CkBoxTutteCasse.Visible = false; _tt_InfoLabelText =
+                    "lo sfondo ROSA indica che lo scontrino emesso online non è stato pagato,\r\n" +
+                    "lo sfondo ROSSO indica che lo scontrino è stato Annullato.\r\n";
+
+                CkBoxTutteCasse.Enabled = false;
+            }
+
+            tt.SetToolTip(lbl_Info, _tt_InfoLabelText);
 
 #if STANDFACILE
 
@@ -172,7 +172,7 @@ namespace StandFacile
 
                 BtnPrt.Enabled = false;
                 lbl_Info.Visible = true;
-                lbl_Info.Top = AnnulloBtn.Top - 28;
+                lbl_Info.Top = BtnPrev.Top + 32;
 
                 CkBoxTutteCasse.Enabled = ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && bUSA_NDB());
                 OKBtn.Text = "Esci";
@@ -217,7 +217,9 @@ namespace StandFacile
                 labelPayMethod.Visible = false;
 
                 BtnPrt.Enabled = true;
+
                 lbl_Info.Visible = bUSA_NDB();
+                lbl_Info.Top = BtnPrev.Top + 46;
 
                 CkBoxTutteCasse.Enabled = true;
                 OKBtn.Text = "OK";
@@ -229,16 +231,16 @@ namespace StandFacile
                     BtnNext.Left = BtnPrev.Left + 90;
                     //OKBtn.Left = BtnPrt.Left + 96;
 
-                    BtnPrev.Top += 8;
+                    BtnPrev.Top += 12;
 
                     BtnNext.Top = BtnPrev.Top;
                     BtnPrt.Top = BtnPrev.Top;
                     OKBtn.Top = BtnPrev.Top;
 
                     labelPrint.Top = BtnPrev.Top - 22;
-                    checkBoxNotPaid.Top = labelPrint.Top;
+                    checkBoxNotPaid.Top = labelPrint.Top - 2;
 
-                    Height -= 54;
+                    Height -= 50;
                     //textEdit_Ticket.Height = Height;   
                 }
             }

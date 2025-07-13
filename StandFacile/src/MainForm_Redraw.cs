@@ -1686,6 +1686,7 @@ namespace StandFacile
                 }
                 else
                 {
+                    // work_mode
                     // solo se disponibilità zero colore rosso
                     if (SF_Data.Articolo[h].iDisponibilita == 0)
                     {
