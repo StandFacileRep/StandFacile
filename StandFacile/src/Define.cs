@@ -47,6 +47,33 @@ namespace StandFacile
         /// <summary>chiave che attiva la barra dei Pulsanti + - X</summary>
         public const String VBUTTONS_KEY = "iVButtons";
 
+        /// <summary>posizione x della finestra principale</summary>
+        public const String MAIN_WIN_POS_X = "iMainFrmPos_x";
+
+        /// <summary>posizione y della finestra principale</summary>
+        public const String MAIN_WIN_POS_Y = "iMainFrmPos_y";
+
+        /// <summary>dimensione x della finestra principale</summary>
+        public const String MAIN_WIN_SIZE_X = "iMainFrmSize_x";
+
+        /// <summary>dimensione y della finestra principale</summary>
+        public const String MAIN_WIN_SIZE_Y = "iMainFrmSize_y";
+
+        /// <summary>posizione x della finestra  di anteprima</summary>
+        public const String PREVIEW_WIN_POS_X = "iPreviewFrmPos_x";
+
+        /// <summary>posizione y della finestra  di anteprima</summary>
+        public const String PREVIEW_WIN_POS_Y = "iPreviewFrmPos_y";
+
+        /// <summary>dimensione x della finestra  di anteprima</summary>
+        public const String PREVIEW_WIN_SIZE_X = "iPreviewFrmSize_x";
+
+        /// <summary>dimensione y della finestra  di anteprima</summary>
+        public const String PREVIEW_WIN_SIZE_Y = "iPreviewFrmSize_y";
+
+        /// <summary>dimensione y della finestra  di anteprima</summary>
+        public const String PREVIEW_WIN_STATUS = "iPreviewFrmStatus";
+
         /// <summary>registro: numero dei temi colore</summary>
         public const int NUM_COLOR_THEMES = 3;
 

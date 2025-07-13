@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 02.07.2025
+    Data	 : 12.07.2025
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -24,7 +24,6 @@ using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
 using StandCommonFiles;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
 
 namespace StandFacile
 {
@@ -95,6 +94,8 @@ namespace StandFacile
         TErrMsg WrnMsg;
 
         static EsploraRemOrdiniDB_Dlg rEsploraRemOrdiniDB_Dlg;
+
+        int _iStorePosX, _iStorePosY, _iStoreSizeX, _iStoreSizeY;
 
         // TextBox ToolTip
         readonly ToolTip _tt = new ToolTip
@@ -329,6 +330,20 @@ namespace StandFacile
             rFrmMain = this;
 
             MinimumSize = new Size(MAINWD_WIDTH, MAINWD_HEIGHT);
+
+            // restore della posizione con controllo di coerenza
+            _iStorePosX = ReadRegistry(MAIN_WIN_POS_X, 0);
+            _iStorePosY = ReadRegistry(MAIN_WIN_POS_Y, 0);
+            _iStoreSizeX = ReadRegistry(MAIN_WIN_SIZE_X, MAINWD_WIDTH);
+            _iStoreSizeY = ReadRegistry(MAIN_WIN_SIZE_Y, MAINWD_HEIGHT);
+
+            if ((_iStorePosX < (MAINWD_WIDTH * 3 / 4)) && (_iStorePosY < (MAINWD_HEIGHT * 3 / 4)))
+            {
+                rFrmMain.Location = new Point(_iStorePosX, _iStorePosY);
+                rFrmMain.Size = new Size(_iStoreSizeX, _iStoreSizeY);
+            }
+            else
+                rFrmMain.StartPosition = FormStartPosition.WindowsDefaultLocation;
 
             // Larghezza barra di stato
             //LblStatus_Status.Width = 320;
@@ -2570,7 +2585,7 @@ namespace StandFacile
                     // SICUREZZA:
                     // si chiama _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true) invece di GetNumOfOrders()
                     // perchè restituisce -1 in caso di errore, inoltre è comune a SQLite, MySql, PostgreSql
-                    
+
                     // chiamato più su
                     // iNumTicket = _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true);
 
@@ -2596,6 +2611,18 @@ namespace StandFacile
             Thread.Sleep(500); // per dare il tempo al LogServer
 
             _tt.Dispose();
+
+            if (_iStorePosX != rFrmMain.Location.X)
+                WriteRegistry(MAIN_WIN_POS_X, rFrmMain.Location.X);
+            if (_iStorePosY != rFrmMain.Location.Y)
+                WriteRegistry(MAIN_WIN_POS_Y, rFrmMain.Location.Y);
+
+            if (_iStoreSizeX != rFrmMain.Size.Width)
+                WriteRegistry(MAIN_WIN_SIZE_X, rFrmMain.Size.Width);
+            if (_iStoreSizeY != rFrmMain.Size.Height)
+                WriteRegistry(MAIN_WIN_SIZE_Y, rFrmMain.Size.Height);
+
+            AnteprimaDlg.rAnteprimaDlg.AnteprimaDlg_FormClosing(this, null);
 
             // arresto dei server
             StopPrintServer();

@@ -1,14 +1,14 @@
 ﻿/****************************************************************************
     NomeFile : StandFacile/EditGridDlg.cs
-	Data	 : 02.06.2025
+	Data	 : 12.07.2025
     Autore   : Mauro Artuso
 
-    modo Touch:         3 4 -	righe
-                        3 4 5 	colonne
+    modo Touch:         3 4 - -	righe
+                        3 4 5 6	colonne
                     
 
     modo solo testo:    10 15 20 25 righe
-                        3  4  - colonne
+                        3   4  -  - colonne
                     
 
   Classe di scelta delle dimensioni di Griglia nella modalità Touch e non,
@@ -106,6 +106,7 @@ namespace StandFacile
                 radioRows3.Enabled = false;
                 radioRows4.Enabled = false;
                 radioCols3.Enabled = true;
+                radioCols4.Enabled = true;
 
                 Edit_4.Enabled = true;
                 BtnCanc_4.Enabled = true;
@@ -118,6 +119,7 @@ namespace StandFacile
                 radioCols1.Text = "3";
                 radioCols2.Text = "4";
                 radioCols3.Text = "5";
+                radioCols4.Text = "6";
 
                 switch (SF_Data.iGridRows)
                 {
@@ -143,6 +145,9 @@ namespace StandFacile
                     case 5:
                         radioCols3.Checked = true;
                         break;
+                    case 6:
+                        radioCols4.Checked = true;
+                        break;
                     default:
                         radioCols1.Checked = true;
                         break;
@@ -154,6 +159,7 @@ namespace StandFacile
                 radioRows3.Enabled = true;
                 radioRows4.Enabled = true;
                 radioCols3.Enabled = false;
+                radioCols4.Enabled = false;
 
                 Edit_4.Enabled = false;
                 BtnCanc_4.Enabled = false;
@@ -166,6 +172,7 @@ namespace StandFacile
                 radioCols1.Text = "3";
                 radioCols2.Text = "4";
                 radioCols3.Text = "---";
+                radioCols4.Text = "---";
 
                 switch (SF_Data.iGridRows)
                 {
@@ -262,12 +269,14 @@ namespace StandFacile
         {
             if (bTouchParam)
             {
-                if (iColsParam <= 3)  // inf
+                if (iColsParam <= 3)    // inf
                     return 3;
                 else if (iColsParam == 4)
                     return 4;
-                else if (iColsParam >= 5)  // sup
+                else if (iColsParam == 5)
                     return 5;
+                else if (iColsParam >= 6)  // sup
+                    return 6;
             }
             else
             {
@@ -277,7 +286,7 @@ namespace StandFacile
                     return 4;
             }
 
-            return 3;
+            return 4;
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
@@ -299,12 +308,8 @@ namespace StandFacile
                     iNumRigheTmp = 3;
                 else if (radioRows2.Checked)
                     iNumRigheTmp = 4;
-                else if (radioRows3.Checked)
-                    iNumRigheTmp = 4;
-                else if (radioRows4.Checked)
-                    iNumRigheTmp = 4;
                 else
-                    iNumRigheTmp = 3;
+                    iNumRigheTmp = 4;
 
                 if (radioCols1.Checked)
                     iNumColonneTmp = 3;
@@ -312,8 +317,10 @@ namespace StandFacile
                     iNumColonneTmp = 4;
                 else if (radioCols3.Checked)
                     iNumColonneTmp = 5;
+                else if (radioCols4.Checked)
+                    iNumColonneTmp = 6;
                 else
-                    iNumColonneTmp = 3;
+                    iNumColonneTmp = 4;
             }
             else
             {
@@ -326,13 +333,11 @@ namespace StandFacile
                 else if (radioRows4.Checked)
                     iNumRigheTmp = 25;
                 else
-                    iNumRigheTmp = 16;
+                    iNumRigheTmp = 15;
 
                 if (radioCols1.Checked)
                     iNumColonneTmp = 3;
                 else if (radioCols2.Checked)
-                    iNumColonneTmp = 4;
-                else if (radioCols3.Checked)
                     iNumColonneTmp = 4;
                 else
                     iNumColonneTmp = 4;

@@ -1,6 +1,6 @@
 ﻿/********************************************************************
   	NomeFile : StandFacile/AnteprimaDlg.cs
-	Data	 : 06.12.2024
+	Data	 : 12.07.2025
   	Autore   : Mauro Artuso
 
   Classe di visualizzazione dell'anteprima dello scontrino.
@@ -16,6 +16,7 @@ using static StandCommonFiles.LogServer;
 using static StandCommonFiles.ReceiptAndCopies;
 
 using static StandFacile.glb;
+using static StandFacile.Define;
 
 namespace StandFacile
 {
@@ -25,7 +26,7 @@ namespace StandFacile
     /// </summary>
     public partial class AnteprimaDlg : Form
     {
-        #pragma warning disable IDE0044
+#pragma warning disable IDE0044
 
         const float _fTM_T88_IV_PAPER_WIDTH = (50 + 521.0f);
 
@@ -40,6 +41,9 @@ namespace StandFacile
         static bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS];
 
         static int _iTotaleTicket, _iTotaleDovutoTicket;
+
+        static int _iStorePosX, _iStorePosY, _iStoreSizeX, _iStoreSizeY;
+        static bool _bStoreStatus;
 
         float _fHZoom, _fVZoom;
         float _fLeftMargin, fLogo_LeftMargin;
@@ -69,6 +73,20 @@ namespace StandFacile
 
             rAnteprimaDlg = this;
 
+            // restore della posizione con controllo di coerenza
+            _iStorePosX = ReadRegistry(PREVIEW_WIN_POS_X, 0);
+            _iStorePosY = ReadRegistry(PREVIEW_WIN_POS_Y, 0);
+            _iStoreSizeX = ReadRegistry(PREVIEW_WIN_SIZE_X, MAINWD_WIDTH);
+            _iStoreSizeY = ReadRegistry(PREVIEW_WIN_SIZE_Y, MAINWD_HEIGHT);
+
+            if ((_iStorePosY != 0) && (_iStorePosX != 0) && (_iStorePosX < (MAINWD_WIDTH - 200)) && (_iStorePosY < (MAINWD_HEIGHT * 3 / 4)))
+            {
+                rAnteprimaDlg.Location = new Point(_iStorePosX, _iStorePosY);
+                rAnteprimaDlg.Size = new Size(_iStoreSizeX, _iStoreSizeY);
+            }
+            else
+                rAnteprimaDlg.StartPosition = FormStartPosition.WindowsDefaultLocation;
+
             _printFont = new Font("Lucida Console", 12);
 
             picBox.Left = 0;
@@ -80,6 +98,11 @@ namespace StandFacile
 
             _bInit = true;
             _fCanvasVertNumPos = 0;
+
+            _bStoreStatus = (ReadRegistry(PREVIEW_WIN_STATUS, 0) == 1);
+            rAnteprimaDlg.Visible = _bStoreStatus;
+
+            RedrawReceipt();
         }
 
         /// <summary>aggiornamento anteprima</summary>
@@ -87,7 +110,7 @@ namespace StandFacile
         {
             int i, j;
             int iIncassoParz, iScontoStdTicket;
-            String sTmp,sIncassoParz;
+            String sTmp, sIncassoParz;
 
             _iTotaleTicket = 0;
             _iTotaleDovutoTicket = 0;
@@ -119,7 +142,7 @@ namespace StandFacile
 
             // i = SF_Data.iNumOfLastReceipt + 1; // prossimo probabile scontrino
 
-            #pragma warning disable IDE0059
+#pragma warning disable IDE0059
             TOrdineStrings sOrdineStrings = new TOrdineStrings();
 
             sOrdineStrings = SetupHeaderStrings(SF_Data, 0, pg);
@@ -593,14 +616,29 @@ namespace StandFacile
             return (iTotaleScontatoCurrTicket > 0);
         }
 
-
-        private void AnteprimaDlg_FormClosing(object sender, FormClosingEventArgs e)
+        /// <summary> funziona di chiusura con memorizzazione della posizione, dimensione e stato</summary>
+        public void AnteprimaDlg_FormClosing(object sender, FormClosingEventArgs e)
         {
             LogToFile("AnteprimaDlg: FormClosing");
 
+            if (_iStorePosX != rAnteprimaDlg.Location.X)
+                WriteRegistry(PREVIEW_WIN_POS_X, rAnteprimaDlg.Location.X);
+            if (_iStorePosY != rAnteprimaDlg.Location.Y)
+                WriteRegistry(PREVIEW_WIN_POS_Y, rAnteprimaDlg.Location.Y);
+
+            if (_iStoreSizeX != rAnteprimaDlg.Size.Width)
+                WriteRegistry(PREVIEW_WIN_SIZE_X, rAnteprimaDlg.Size.Width);
+            if (_iStoreSizeY != rAnteprimaDlg.Size.Height)
+                WriteRegistry(PREVIEW_WIN_SIZE_Y, rAnteprimaDlg.Size.Height);
+
+            if (_bStoreStatus != rAnteprimaDlg.Visible)
+                WriteRegistry(PREVIEW_WIN_STATUS, rAnteprimaDlg.Visible ? 1 : 0);
+
             Hide();
+
             // evita la distruzione della form creando una eccezione alla successiva apertura
-            e.Cancel = true;
+            if (e != null)
+                e.Cancel = true;
         }
 
     }

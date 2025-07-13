@@ -39,6 +39,7 @@ namespace StandFacile
 
         /// <summary>nome del file di filtro</summary>
         public const String FILE_FILTRO = "Filtro.txt";
+
         /// <summary>numero di righe minimo del file filtro</summary>
         public const int FILTRO_MIN_LENGTH = 3;
 

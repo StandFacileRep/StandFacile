@@ -51,6 +51,7 @@
             this.checkBoxTouchMode = new System.Windows.Forms.CheckBox();
             this.Edit_4 = new System.Windows.Forms.TextBox();
             this.BtnCanc_4 = new System.Windows.Forms.Button();
+            this.radioCols4 = new System.Windows.Forms.RadioButton();
             this.RadioRows.SuspendLayout();
             this.RadioCols.SuspendLayout();
             this.SuspendLayout();
@@ -102,7 +103,7 @@
             // radioCols2
             // 
             this.radioCols2.AutoSize = true;
-            this.radioCols2.Location = new System.Drawing.Point(21, 93);
+            this.radioCols2.Location = new System.Drawing.Point(21, 72);
             this.radioCols2.Name = "radioCols2";
             this.radioCols2.Size = new System.Drawing.Size(31, 17);
             this.radioCols2.TabIndex = 1;
@@ -136,6 +137,7 @@
             // 
             // RadioCols
             // 
+            this.RadioCols.Controls.Add(this.radioCols4);
             this.RadioCols.Controls.Add(this.radioCols3);
             this.RadioCols.Controls.Add(this.radioCols2);
             this.RadioCols.Controls.Add(this.radioCols1);
@@ -149,7 +151,7 @@
             // radioCols3
             // 
             this.radioCols3.AutoSize = true;
-            this.radioCols3.Location = new System.Drawing.Point(21, 155);
+            this.radioCols3.Location = new System.Drawing.Point(21, 113);
             this.radioCols3.Name = "radioCols3";
             this.radioCols3.Size = new System.Drawing.Size(31, 17);
             this.radioCols3.TabIndex = 2;
@@ -298,7 +300,18 @@
             this.BtnCanc_4.UseVisualStyleBackColor = true;
             this.BtnCanc_4.Click += new System.EventHandler(this.BtnCanc_4_Click);
             // 
-            // EditGrigliaDlg
+            // radioCols4
+            // 
+            this.radioCols4.AutoSize = true;
+            this.radioCols4.Location = new System.Drawing.Point(21, 154);
+            this.radioCols4.Name = "radioCols4";
+            this.radioCols4.Size = new System.Drawing.Size(31, 17);
+            this.radioCols4.TabIndex = 3;
+            this.radioCols4.TabStop = true;
+            this.radioCols4.Text = "6";
+            this.radioCols4.UseVisualStyleBackColor = true;
+            // 
+            // EditGridDlg
             // 
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -323,7 +336,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "EditGrigliaDlg";
+            this.Name = "EditGridDlg";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -362,5 +375,6 @@
         private System.Windows.Forms.RadioButton radioCols3;
         private System.Windows.Forms.Button BtnCanc_4;
         private System.Windows.Forms.RadioButton radioRows2;
+        private System.Windows.Forms.RadioButton radioCols4;
     }
 }

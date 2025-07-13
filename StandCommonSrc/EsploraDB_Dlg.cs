@@ -94,7 +94,7 @@ namespace StandFacile
             if (_iGridStringsCount > 0)
             {
                 sTabellaTmp = dbGrid.CurrentRow.Cells[0].Value.ToString();
-                DateTime tmpDate = new DateTime(2024, 01, 01);
+                DateTime tmpDate = new DateTime(2025, 01, 01);
 
                 if (sTabellaTmp.Contains(_dbOrdersTablePrefix))
                 {

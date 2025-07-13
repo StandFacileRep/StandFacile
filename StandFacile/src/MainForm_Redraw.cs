@@ -700,7 +700,7 @@ namespace StandFacile
                 !MnuImpListino.Checked &&       // non si è in modo modifica del Listino
                 !BtnVisListino.Checked &&       // non si stanno consultando i prezzi
                 !MnuModDispArticoli.Checked)    // non si sta modificando la disponibilità
-            {              
+            {
                 if (SF_Data.Articolo[_iCellPt].iDisponibilita != 0) //
                 {
                     if (BtnX10.Checked) // Q.tà ordinazioni a 2 cifre
@@ -1420,6 +1420,16 @@ namespace StandFacile
             BtnEsportazione.Size = BtnScontrino.Size;
             BtnSconto.Size = BtnScontrino.Size;
             BtnDB.Size = BtnScontrino.Size;
+
+            // posizionamento controlli in basso a dx
+            //comboCashPos.Left = topPanel.Width - comboCashPos.Width - 6;
+            //EditContante.Left = comboCashPos.Left - EditContante.Width - 5;
+            //lblPagato.Left = EditContante.Left - lblPagato.Width - 3;
+            //EditResto.Left = lblPagato.Left - EditResto.Width - 7;
+            //lblResto.Left = EditResto.Left - lblResto.Width - 3;
+
+            //EditNota.Left = lblResto.Left - EditNota.Width - 42;
+            //StatusBar_Upper.Width = EditNota.Left - 150;
 
             // imposta la larghezza della griglia in base alla larghezza della form principale
             MainGrid.Width = topPanel.Width - toolStripR.Width - MainGrid.Location.X * 2;

@@ -1253,8 +1253,9 @@
             // 
             this.comboCashPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboCashPos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboCashPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboCashPos.FormattingEnabled = true;
-            this.comboCashPos.ItemHeight = 13;
+            this.comboCashPos.ItemHeight = 16;
             this.comboCashPos.Items.AddRange(new object[] {
             "CONTANTI",
             "CARD",
@@ -1262,7 +1263,7 @@
             "   "});
             this.comboCashPos.Location = new System.Drawing.Point(993, 483);
             this.comboCashPos.Name = "comboCashPos";
-            this.comboCashPos.Size = new System.Drawing.Size(78, 21);
+            this.comboCashPos.Size = new System.Drawing.Size(78, 24);
             this.comboCashPos.TabIndex = 24;
             this.comboCashPos.SelectedIndexChanged += new System.EventHandler(this.ComboCashPos_SelectedIndexChanged);
             // 
@@ -1339,7 +1340,7 @@
             this.MinimumSize = new System.Drawing.Size(880, 580);
             this.Name = "FrmMain";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "StandFacile 2025";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Resize += new System.EventHandler(this.FormResize);

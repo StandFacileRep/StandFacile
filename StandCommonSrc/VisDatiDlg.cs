@@ -1,6 +1,6 @@
 ﻿/********************************************************************
     NomeFile : StandCommonSrc/VisDatiDlg.cs
-    Data	 : 18.04.2025
+    Data	 : 12.07.2025
     Autore : Mauro Artuso
 
     Classe di visualizzazione dei files Dati o Prezzi .
@@ -39,7 +39,7 @@ namespace StandFacile
         int _iTipoFile, _iNumCassa;
         int _iLastArticoloIndexP1;
 
-        String _sNomeTabellaParam;
+        static String _sNomeTabella;
         static DateTime _SelDate;
         static SelectionRange _SelRange;
 
@@ -132,12 +132,13 @@ namespace StandFacile
             _InitCompletato = true;
         }
 
-        /// <summary>overload</summary>
+        /// <summary>overload che consente di specificare un intervallo di date</summary>
         public void VisualizzaDati(int iTipoFileParam, SelectionRange datesParam, int iNumCassaParam, bool bVisCambioDataParam, String sNomeTabellaParam = "", int iReportParam = 0)
         {
             // usato per produrre il file Excel
             _SelRange = datesParam;
 
+            // visualizza il primo giorno dell'intervallo
             VisualizzaDati(iTipoFileParam, datesParam.Start, iNumCassaParam, bVisCambioDataParam, sNomeTabellaParam, iReportParam);
         }
 
@@ -198,7 +199,7 @@ namespace StandFacile
             // memorizza data scelta e sNomeFileDati per CheckBoxRidColonneClick()
             _SelDate = dateParam;
 
-            _sNomeTabellaParam = sNomeTabellaParam;
+            _sNomeTabella = sNomeTabellaParam;
 
             /***********************************************
              ***               FILE_DATI                 ***
@@ -208,7 +209,7 @@ namespace StandFacile
                 this.Width = 640;
 
                 //	visualizzazione
-                if (bUSA_NDB() && String.IsNullOrEmpty(_sNomeTabellaParam))
+                if (bUSA_NDB() && String.IsNullOrEmpty(_sNomeTabella))
                 {
                     CkBoxUnioneCasse.Enabled = true;
 
@@ -232,28 +233,29 @@ namespace StandFacile
 
                     Combo_NumCassa.Enabled = false;
                 }
-                if (String.IsNullOrEmpty(_sNomeTabellaParam))
+
+                if (String.IsNullOrEmpty(_sNomeTabella))
                 {
                     sNomeFile = GetNomeDatiDBTable(_iNumCassa, _SelDate);
                 }
                 else
                 {
-                    if (_sNomeTabellaParam.Contains(_dbPreDataTablePrefix))
+                    if (_sNomeTabella.Contains(_dbPreDataTablePrefix))
                         iPos = _dbPreDataTablePrefix.Length + 2;
                     else
                         iPos = _dbDataTablePrefix.Length + 2;
 
-                    sNomeFile = _sNomeTabellaParam;
-                    _iNumCassa = _sNomeTabellaParam[iPos] - '0';
+                    sNomeFile = _sNomeTabella;
+                    _iNumCassa = _sNomeTabella[iPos] - '0';
                 }
 
                 /***************** inizio punto di caricamento dati DB ****************/
 
                 if (CkBoxUnioneCasse.Checked)
                     // iNumCassaParam == 0 legge senza filtro per cassa
-                    _rdBaseIntf.dbCaricaDatidaOrdini(_SelDate, 0, false, _sNomeTabellaParam, iReportParam);
+                    _rdBaseIntf.dbCaricaDatidaOrdini(_SelDate, 0, false, _sNomeTabella, iReportParam);
                 else
-                    _rdBaseIntf.dbCaricaDatidaOrdini(_SelDate, _iNumCassa, false, _sNomeTabellaParam, iReportParam);
+                    _rdBaseIntf.dbCaricaDatidaOrdini(_SelDate, _iNumCassa, false, _sNomeTabella, iReportParam);
 
                 InitFormatStrings(dbGetLengthArticoli());
 
@@ -294,7 +296,7 @@ namespace StandFacile
                     }
 
                     // dati correnti o da VisDati che filtra in base a bPrevendita || dati da Esplora_DB
-                    if (SF_Data.bPrevendita && String.IsNullOrEmpty(_sNomeTabellaParam) || _sNomeTabellaParam.Contains(_dbPreDataTablePrefix))
+                    if (SF_Data.bPrevendita && String.IsNullOrEmpty(_sNomeTabella) || _sNomeTabella.Contains(_dbPreDataTablePrefix))
                     {
                         sTmp = CenterJustify(sConst_Prevendita[0], iMAX_RECEIPT_CHARS);
                         textEditDati.AppendText(String.Format("\r\n{0}\r\n", sTmp));
@@ -783,7 +785,7 @@ namespace StandFacile
 
         private void CheckBoxRidColonne_Click(object sender, EventArgs e)
         {
-            VisualizzaDati(_iTipoFile, _SelDate, _iNumCassa, _bVisCambioData, _sNomeTabellaParam, comboReport.SelectedIndex);
+            VisualizzaDati(_iTipoFile, _SelDate, _iNumCassa, _bVisCambioData, _sNomeTabella, comboReport.SelectedIndex);
         }
 
         /// <summary>
@@ -848,13 +850,19 @@ namespace StandFacile
                 if (_SelRange == null)
                     _SelRange = new SelectionRange(GetActualDate(), GetActualDate());
 
-                if (_SelRange.Start == _SelRange.End)
+                // se _sNomeTabella == "" selezionato un range di date, altrimenti si arriva da EsploraDB_Dlg
+                if (String.IsNullOrEmpty(_sNomeTabella))
                 {
-                    _SelRange = new SelectionRange(_SelDate, _SelDate);
-                    sNomeFile += _SelDate.ToString("yyMMdd'.xlsx'");
+                    if (_SelRange.Start == _SelRange.End)
+                    {
+                        _SelRange = new SelectionRange(_SelDate, _SelDate);
+                        sNomeFile += _SelDate.ToString("yyMMdd'.xlsx'");
+                    }
+                    else
+                        sNomeFile += (_SelRange.Start.ToString("yyMMdd'.xlsx'") + _SelRange.End.ToString("_yyMMdd'.xlsx'"));
                 }
                 else
-                    sNomeFile += (_SelRange.Start.ToString("yyMMdd'.xlsx'") + _SelRange.End.ToString("_yyMMdd'.xlsx'"));
+                    sNomeFile = _sNomeTabella;
 
                 if (File.Exists(sDataDir + sNomeFile))
                     File.Delete(sDataDir + sNomeFile);
@@ -873,8 +881,8 @@ namespace StandFacile
                     {
                         /***************** punto di caricamento dati DB ****************/
 
-                        //  _sNomeTabellaParam è usato solo da EsploraDB_Dlg
-                        if (String.IsNullOrEmpty(_sNomeTabellaParam))
+                        //  _sNomeTabella è usato solo da EsploraDB_Dlg
+                        if (String.IsNullOrEmpty(_sNomeTabella))
                         {
                             if (CkBoxUnioneCasse.Checked)
                                 // iNumCassaParam == 0 legge senza filtro per cassa
