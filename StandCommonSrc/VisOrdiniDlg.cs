@@ -114,10 +114,11 @@ namespace StandFacile
             }
             else
             {
-                CkBoxTutteCasse.Visible = false; _tt_InfoLabelText =
+                _tt_InfoLabelText =
                     "lo sfondo ROSA indica che lo scontrino emesso online non è stato pagato,\r\n" +
                     "lo sfondo ROSSO indica che lo scontrino è stato Annullato.\r\n";
 
+                CkBoxTutteCasse.Visible = false; 
                 CkBoxTutteCasse.Enabled = false;
             }
 
