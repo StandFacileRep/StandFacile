@@ -1,6 +1,6 @@
 ﻿/***************************************************
-	NomeFile : StandFacile\optionsDlg.cs
-    Data	 : 18.04.2025
+	NomeFile : StandFacile\OptionsDlg.cs
+    Data	 : 18.07.2025
 	Autore   : Mauro Artuso
 
      un solo flag viene salvato nel registro
@@ -142,6 +142,12 @@ namespace StandFacile
 
             iGeneralOptionsCopy = 0;
 
+            // BIT_TOUCH_MODE_REQUIRED è l'unico bit definito in un altro dialogo
+            // va impostato qui altrimenti viene azzerato
+
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED);
+
             if (checkBoxTavolo.Checked)
                 iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_TABLE_REQUIRED);
 
@@ -161,7 +167,7 @@ namespace StandFacile
                 iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_ENTER_PRINT_RECEIPT_ENABLED);
 
             // controllo _bListinoModificato a gruppi, salvataggio in : SF_Data[]
-            if (SF_Data.iGeneralOptions != iGeneralOptionsCopy) 
+            if (SF_Data.iGeneralOptions != iGeneralOptionsCopy)
             {
                 _bListinoModificato = true;
 
