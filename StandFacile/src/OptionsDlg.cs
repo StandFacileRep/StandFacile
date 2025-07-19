@@ -119,7 +119,17 @@ namespace StandFacile
 
             checkBoxPresales_loadMode.Checked = (ReadRegistry(PRESALE_LOAD_MODE_KEY, 0) == 1);
 
-            checkBox_VButtons.Checked = (ReadRegistry(VBUTTONS_KEY, 1) == 1);
+            // In modo Touch checkBox_VButtons è sempre Checked
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
+            {
+                checkBox_VButtons.Enabled = false;
+                checkBox_VButtons.Checked = true;
+            }
+            else
+            {
+                checkBox_VButtons.Enabled = true;
+                checkBox_VButtons.Checked = (ReadRegistry(VBUTTONS_KEY, 1) == 1);
+            }
 
             _iColorThemeIndex = ReadRegistry(COLOR_THEME_KEY, 1);
 
