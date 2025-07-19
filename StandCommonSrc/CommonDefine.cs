@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.14.5 RC1";
+        public const String RELEASE_SW = "v5.14.5 RC2";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5c";
@@ -1421,6 +1421,8 @@ namespace StandCommonFiles
         {
             /// <summary>numero di avvio conteggio scontrini, normalmente = 1</summary>
             public int iReceiptStartNumber;
+            /// <summary>numero di secondi del Timer di refresh, normalmente = 30s per StandMonitor</summary>
+            public int iRefreshTimer;
             /// <summary>stringa per gestione Service Mode</summary>
             public String sService;
 

@@ -34,7 +34,7 @@ namespace StandFacile
         bool bPrimaVolta;
 
         int iGridStringsCount, _iDBGridRowIndex;
-        int iTableAutoLoadPeriod = REFRESH_PERIOD;
+        static int iTableAutoLoadPeriod = REFRESH_PERIOD;
 
         ulong ulStart, ulStop, ulPingTime;
 
@@ -115,6 +115,15 @@ namespace StandFacile
 
             Thread.Sleep(200);
         }
+
+        /// <summary>
+        /// funzione che imposta la variabile per il refresh veloce della tabella per l'esplorazione del database remoto
+        /// </summary>
+        public static void RefreshTableRequest()
+        {
+            iTableAutoLoadPeriod = REFRESH_PERIOD_QUICK;
+        }
+
         /// <summary>ricarica il contenuto della tabella per l'esplorazione del database remoto</summary>
         void RefreshTable()
         {

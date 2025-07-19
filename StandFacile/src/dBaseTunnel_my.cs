@@ -1072,6 +1072,9 @@ namespace StandFacile
                         {
                             _rdBaseIntf.dbClearOrdineWebServito(iNumOrdineWeb);
 
+                            if ((EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg != null) && EsploraRemOrdiniDB_Dlg.rEsploraRemOrdiniDB_Dlg.Visible)
+                                EsploraRemOrdiniDB_Dlg.RefreshTableRequest();
+
                             sTmp = String.Format("rdb_aggiornaOrdiniWebServiti : ordine {0} aggiornato", iNumOrdineWeb);
                             LogToFile(sTmp, true);
 

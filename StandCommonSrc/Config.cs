@@ -1,6 +1,6 @@
 ﻿/*****************************************************
   	NomeFile : StandFacile/Config.cs
-	Data	 : 06.05.2025
+	Data	 : 16.07.2025
   	Autore	 : Mauro Artuso
  *****************************************************/
 
@@ -97,6 +97,23 @@ namespace StandFacile
 
                         continue;
                     }
+                    else if (sInStr.Contains("refreshTimer"))
+                    {
+                        iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
+                        sInStr = sInStr.Remove(0, iPos + 1);
+                        try
+                        {
+                            iVal = Convert.ToInt32(sInStr.Trim());
+
+                            if (iVal > 0)
+                                sConfig.iRefreshTimer = iVal;
+                        }
+                        catch (Exception)
+                        {
+                        }
+
+                        continue;
+                    }
 
                     // stringhe per stampa copia Receipt() completa dei prezzi
                     else if (sInStr.Contains("receiptCopyRequired_HeaderIs"))
@@ -110,6 +127,7 @@ namespace StandFacile
                         continue;
                     }
 
+                    // questo if va per ultimo
                     else if (sInStr.Contains("serviceStrings"))
                     {
                         iPos = sInStr.IndexOf('=');    // ricerca prima semicolon

@@ -674,6 +674,12 @@ namespace StandFacile
                     TicketsList_L.Font = new System.Drawing.Font(TicketsList_L.Font.Name, fFontHeight_V);
                 else
                     TicketsList_L.Font = new System.Drawing.Font(TicketsList_L.Font.Name, fFontHeight_H);
+
+                if (fFontHeight_H <= 52)
+                {
+                    LabelTitolo.Font = new System.Drawing.Font(LabelTitolo.Font.Name, fFontHeight_H / 1.8f);
+                    LabelClock.Font = new System.Drawing.Font(LabelClock.Font.Name, fFontHeight_H / 2.4f);
+                }
             }
 
             TicketsList_R.Font = TicketsList_L.Font;

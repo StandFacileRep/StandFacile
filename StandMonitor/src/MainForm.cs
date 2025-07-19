@@ -1,6 +1,6 @@
 ﻿/************************************************************
   	NomeFile : StandMonitor/MainForm.cs
-	Data	 : 06.12.2024
+	Data	 : 18.07.2025
   	Autore   : Mauro Artuso
 
   Programma per monitorare la statistica degli ordini
@@ -11,18 +11,15 @@ using System.Data;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
-
-using static StandFacile.glb;
+using static StandFacile.dBaseIntf;
 using static StandFacile.Define;
-
+using static StandFacile.glb;
 using static StandFacile.NetConfigLightDlg;
 using static StandFacile.VisOrdiniTableFrm;
-using static StandFacile.dBaseIntf;
 
 // altrimenti c'è confusione tra le variabili
 // using static StandFacile.dBaseIntf; 
@@ -41,6 +38,7 @@ namespace StandFacile
         bool _bDatabaseConnected;
 
         static bool _bInitNetReadParams = true;
+        static bool _bFirstTimeSort = true;
 
         int iBlink;
         int iRefresh;
@@ -100,6 +98,9 @@ namespace StandFacile
             pDBGrid = DBGrid;
 
             SF_Data.iNumCassa = CASSA_PRINCIPALE;
+
+            if (sConfig.iRefreshTimer >= 5)
+                REFRESH_TIMER = (sConfig.iRefreshTimer * 4); // timer da 250ms
 
             // impostazione della directory di default per operazioni sui dati
             sRootDir = Directory.GetCurrentDirectory();
@@ -301,7 +302,7 @@ namespace StandFacile
         private void Timer_MainLoop(object sender, EventArgs e)
         {
 
-            bool bFilterFound, bExcludedItem;
+            bool bFilterFoundItem, bExcludedItem;
 
             int iArrayIndex, iGlbNumOfTickets, i, j;
             int iDiffQtaVendutaScaricata;
@@ -411,7 +412,7 @@ namespace StandFacile
 
                         for (iArrayIndex = 0; iArrayIndex < MAX_NUM_ARTICOLI; iArrayIndex++)
                         {
-                            bFilterFound = false;
+                            bFilterFoundItem = false;
 
                             if (j == 0)
                             {
@@ -428,15 +429,15 @@ namespace StandFacile
 
                                         if (bExcludedItem && DB_Data.Articolo[iArrayIndex].sTipo.ToUpper().Contains(sExcludedItem.ToUpper()))
                                         {
-                                            bFilterFound = false;
+                                            bFilterFoundItem = false;
                                             break;
                                         }
                                         else if (DB_Data.Articolo[iArrayIndex].sTipo.ToUpper().Contains(sFiltroMon_0[i].ToUpper()))
-                                            bFilterFound = true;
+                                            bFilterFoundItem = true;
                                     }
 
                                     // *** se l'Articolo non è compreso nel filtro non viene visualizzato ***
-                                    if (!bFilterFound)
+                                    if (!bFilterFoundItem)
                                         continue;
                                 }
                             }
@@ -455,15 +456,15 @@ namespace StandFacile
 
                                         if (bExcludedItem && DB_Data.Articolo[iArrayIndex].sTipo.ToUpper().Contains(sExcludedItem.ToUpper()))
                                         {
-                                            bFilterFound = false;
+                                            bFilterFoundItem = false;
                                             break;
                                         }
                                         else if (DB_Data.Articolo[iArrayIndex].sTipo.ToUpper().Contains(sFiltroMon_1[i].ToUpper()))
-                                            bFilterFound = true;
+                                            bFilterFoundItem = true;
                                     }
 
                                     // *** se l'Articolo non è compreso nel filtro non viene visualizzato ***
-                                    if (!bFilterFound)
+                                    if (!bFilterFoundItem)
                                         continue;
                                 }
                             }
@@ -507,8 +508,17 @@ namespace StandFacile
                         }
                     }
 
+                    // impostazione dell'ordinamento
                     // il sort deve avvenire solo alla fine della fusione delle tabelle
-                    DBGrid.Sort(DBGrid.Columns[1], System.ComponentModel.ListSortDirection.Descending);
+                    if (_bFirstTimeSort)
+                    {
+                        _bFirstTimeSort = false;
+
+                        if (CheckService("sortByDeliver"))
+                            DBGrid.Sort(DBGrid.Columns[2], System.ComponentModel.ListSortDirection.Descending);
+                        else
+                            DBGrid.Sort(DBGrid.Columns[1], System.ComponentModel.ListSortDirection.Descending);
+                    }
 
                     _bDatabaseConnected = true;
 

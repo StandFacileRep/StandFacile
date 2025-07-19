@@ -123,7 +123,6 @@ namespace StandFacile
 
                 fFiltro.Close();
             }
-
         }
 
         private void BtnOK_Click(object sender, EventArgs e)

@@ -41,9 +41,9 @@ namespace StandFacile
         public const int MAX_RETRY = 15 * 4; // timer da 250ms
 
         /// <summary>dimensioni larghezza della Main Window</summary>
-        public const int MAINWD_WIDTH = 640;
+        public const int MAINWD_WIDTH = 520;
         /// <summary>dimensioni altezza della Main Window</summary>
-        public const int MAINWD_HEIGHT = 480;
+        public const int MAINWD_HEIGHT = 400;
 
         // eventi
         /// <summary>evento di scarico ordine dal database</summary>

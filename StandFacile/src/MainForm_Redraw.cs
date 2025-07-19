@@ -1121,9 +1121,11 @@ namespace StandFacile
 
             // EditStatus_BC.UseSystemPasswordChar = true; si perde il carattere successivo
 
+#pragma warning disable IDE0059
+
             /*************************
-                      ENTER
-             *************************/
+                          ENTER
+                 *************************/
             if (e.KeyChar == '\r')
             {
                 // scarta edit vuoti

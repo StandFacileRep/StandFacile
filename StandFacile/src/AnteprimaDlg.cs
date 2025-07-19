@@ -79,7 +79,8 @@ namespace StandFacile
             _iStoreSizeX = ReadRegistry(PREVIEW_WIN_SIZE_X, MAINWD_WIDTH);
             _iStoreSizeY = ReadRegistry(PREVIEW_WIN_SIZE_Y, MAINWD_HEIGHT);
 
-            if ((_iStorePosY != 0) && (_iStorePosX != 0) && (_iStorePosX < (MAINWD_WIDTH - 200)) && (_iStorePosY < (MAINWD_HEIGHT * 3 / 4)))
+            if ((_iStorePosY != 0) && (_iStorePosX != 0) && (_iStorePosX < (MAINWD_WIDTH - 200)) && (_iStorePosY < (MAINWD_HEIGHT * 3 / 4)) 
+                && (_iStorePosX > 0) && (_iStorePosY > 0))
             {
                 rAnteprimaDlg.Location = new Point(_iStorePosX, _iStorePosY);
                 rAnteprimaDlg.Size = new Size(_iStoreSizeX, _iStoreSizeY);

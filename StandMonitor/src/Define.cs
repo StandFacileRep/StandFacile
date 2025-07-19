@@ -26,7 +26,7 @@ namespace StandFacile
         public const string KEY_STAND_MONITOR = "HKEY_CURRENT_USER\\Software\\StandMonitor";
 
         /// <summary>AuxRefresh tabella ogni 30s</summary>
-        public const int REFRESH_TIMER = 30 * 4;  // timer da 250ms
+        public static int REFRESH_TIMER = 30 * 4;  // timer da 250ms
 
         /// <summary>AuxRefresh di sService * 250ms circa in StandFacile, 200 in StandClient</summary>
         public const int REFRESH_SSERVICE = 4 * 20;

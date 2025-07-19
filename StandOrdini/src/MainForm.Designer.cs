@@ -63,26 +63,25 @@
             // 
             // LabelTitolo
             // 
-            this.LabelTitolo.AutoSize = true;
             this.LabelTitolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 28F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelTitolo.ForeColor = System.Drawing.Color.Yellow;
             this.LabelTitolo.Location = new System.Drawing.Point(12, 33);
             this.LabelTitolo.Name = "LabelTitolo";
-            this.LabelTitolo.Size = new System.Drawing.Size(547, 44);
+            this.LabelTitolo.Size = new System.Drawing.Size(587, 44);
             this.LabelTitolo.TabIndex = 1;
             this.LabelTitolo.Text = "Serviamo lo scontrino numero :";
             // 
             // LabelClock
             // 
             this.LabelClock.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.LabelClock.AutoSize = true;
             this.LabelClock.Font = new System.Drawing.Font("Verdana", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LabelClock.ForeColor = System.Drawing.Color.Yellow;
-            this.LabelClock.Location = new System.Drawing.Point(12, 385);
+            this.LabelClock.Location = new System.Drawing.Point(12, 382);
             this.LabelClock.Name = "LabelClock";
             this.LabelClock.Size = new System.Drawing.Size(198, 45);
             this.LabelClock.TabIndex = 2;
             this.LabelClock.Text = "18:30:00";
+            this.LabelClock.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // MainMenu
             // 
