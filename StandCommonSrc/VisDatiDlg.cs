@@ -1,6 +1,6 @@
 ﻿/********************************************************************
     NomeFile : StandCommonSrc/VisDatiDlg.cs
-    Data	 : 12.07.2025
+    Data	 : 20.07.2025
     Autore : Mauro Artuso
 
     Classe di visualizzazione dei files Dati o Prezzi .
@@ -862,7 +862,7 @@ namespace StandFacile
                         sNomeFile += (_SelRange.Start.ToString("yyMMdd'.xlsx'") + _SelRange.End.ToString("_yyMMdd'.xlsx'"));
                 }
                 else
-                    sNomeFile = _sNomeTabella;
+                    sNomeFile = _sNomeTabella + ".xlsx";
 
                 if (File.Exists(sDataDir + sNomeFile))
                     File.Delete(sDataDir + sNomeFile);

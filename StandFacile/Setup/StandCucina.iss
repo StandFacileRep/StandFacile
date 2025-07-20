@@ -1,8 +1,8 @@
-; 04.07.2025
+; 20.07.2025
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
-AppVersion= 5.14.4
+AppVersion= 5.14.5
 
 AppVerName=StandCucina {#SetupSetting("AppVersion")}
 AppName=StandCucina 2025
@@ -13,7 +13,7 @@ DefaultGroupName=StandFacile\StandCucina_514x\
 SourceDir=..\exe
 OutputDir=..\Setup
 OutputBaseFilename=StandCucinaSetup_{#SetupSetting("AppVersion")}
-LicenseFile=..\..\StandLibrary\licenza.txt
+LicenseFile=..\StandAux\licenza.txt
 AppPublisherURL=http://www.standfacile.org/
 SetupIconFile=..\..\StandCucina\src\Resources\Stand_C.ico
 UninstallDisplayIcon={app}\StandCucina.exe
@@ -27,7 +27,8 @@ Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:Ad
 [Files]
 Source: "..\..\StandCucina\exe\Release\StandCucina.exe"; DestDir: "{app}"; Flags: replacesameversion
 Source: "..\..\StandCucina\doc\Manuale_StandCucina.pdf"; DestDir: "{app}"
-Source: "..\..\StandLibrary\Licenza.txt"; DestDir: "{app}"
+Source: "..\..\StandCucina\StandAux\config.ini"; DestDir: "{app}";
+Source: "..\StandAux\Licenza.txt"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.MySql.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.PostgreSql.dll"; DestDir: "{app}"

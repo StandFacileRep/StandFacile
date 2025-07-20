@@ -1,6 +1,6 @@
 ﻿/********************************************************************
   	NomeFile : StandCommonSrc/EsploraDB_Dlg.cs
-    Data	 : 06.12.2024
+    Data	 : 20.07.2025
   	Autore   : Mauro Artuso
 
  Classe di esplorazione del database, ha senso chiamarla solo se

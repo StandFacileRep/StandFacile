@@ -1,4 +1,4 @@
-; 17.07.2025
+; 20.07.2025
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
@@ -13,7 +13,7 @@ DefaultGroupName=StandFacile\StandOrdini_514x\
 SourceDir=..\exe
 OutputDir=..\Setup
 OutputBaseFilename=StandOrdiniSetup_{#SetupSetting("AppVersion")}
-LicenseFile=..\..\StandLibrary\Licenza.txt
+LicenseFile=..\StandAux\Licenza.txt
 AppPublisherURL=http://www.standfacile.org/
 SetupIconFile=..\..\StandOrdini\src\Resources\Stand_O.ico
 UninstallDisplayIcon={app}\StandOrdini.exe
@@ -27,7 +27,7 @@ Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:Ad
 [Files]
 Source: "..\..\StandOrdini\exe\Release\StandOrdini.exe"; DestDir: "{app}"; Flags: replacesameversion
 Source: "..\..\StandOrdini\doc\Manuale_StandOrdini.pdf"; DestDir: "{app}"
-Source: "..\..\StandLibrary\Licenza.txt"; DestDir: "{app}"
+Source: "..\StandAux\Licenza.txt"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.MySql.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.PostgreSql.dll"; DestDir: "{app}"

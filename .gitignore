@@ -274,14 +274,18 @@ StandFacile/exe/StandDati/
 StandFacile/doc/tutorial/
 StandFacile/doc/CattureSchermo/
 StandFacile/Setup/
+StandFacile/StandAux
 StandFacile/doc/Manuale_StandFacile.docx
 
+StandCucina/StandAux
 StandCucina/doc/CattureSchermo/
 StandCucina/doc/Manuale_StandCucina.docx
 
+StandMonitor/StandAux
 StandMonitor/doc/CattureSchermo/
 StandMonitor/doc/Manuale_StandMonitor.docx
 
+StandOrdini/StandAux
 StandOrdini/doc/CattureSchermo/
 StandOrdini/doc/Manuale_StandOrdini.docx
 
