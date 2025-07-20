@@ -355,11 +355,13 @@ namespace StandFacile
                             else
                                 sDisp = DB_Data.Articolo[i].iDisponibilita.ToString();
 
-                            if ((DB_Data.Articolo[i].iPrezzoUnitario > 0) ||
+                            if (((DB_Data.Articolo[i].iPrezzoUnitario > 0) ||
 #if STANDFACILE
                                 (!String.IsNullOrEmpty(DB_Data.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()) ||
 #endif
-                                (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
+                                (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER)) &&
+
+                                (!CkBoxSkipZero.Checked || (DB_Data.Articolo[i].iQuantitaVenduta > 0)))
                             {
                                 sInStr = String.Format(sDAT_FMT_DAT + "\r\n", DB_Data.Articolo[i].sTipo,
                                     IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario),
@@ -406,11 +408,13 @@ namespace StandFacile
                             else
                                 sDisp = DB_Data.Articolo[i].iDisponibilita.ToString();
 
-                            if ((DB_Data.Articolo[i].iPrezzoUnitario > 0) ||
+                            if (((DB_Data.Articolo[i].iPrezzoUnitario > 0) ||
 #if STANDFACILE
                                 (!String.IsNullOrEmpty(DB_Data.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()) ||
 #endif
-                                (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
+                                (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER)) &&
+
+                                (!CkBoxSkipZero.Checked || (DB_Data.Articolo[i].iQuantitaVenduta > 0)))
                             {
                                 sInStr = String.Format(sDAT_FMT_DAT + "\r\n", DB_Data.Articolo[i].sTipo,
                                     IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario),
@@ -455,11 +459,13 @@ namespace StandFacile
                             else
                                 sDisp = DB_Data.Articolo[i].iDisponibilita.ToString();
 
-                            if ((DB_Data.Articolo[i].iPrezzoUnitario > 0) ||
+                            if (((DB_Data.Articolo[i].iPrezzoUnitario > 0) ||
 #if STANDFACILE
                                 (!String.IsNullOrEmpty(DB_Data.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()) ||
 #endif
-                                (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
+                                (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER)) &&
+
+                                (!CkBoxSkipZero.Checked || (DB_Data.Articolo[i].iQuantitaVenduta > 0)))
                             {
                                 sInStr = String.Format(sDAT_FMT_REP_RED + "\r\n", DB_Data.Articolo[i].sTipo,
                                     DB_Data.Articolo[i].iQuantitaVenduta,
@@ -503,11 +509,13 @@ namespace StandFacile
                             else
                                 sDisp = DB_Data.Articolo[i].iDisponibilita.ToString();
 
-                            if ((DB_Data.Articolo[i].iPrezzoUnitario > 0) ||
+                            if (((DB_Data.Articolo[i].iPrezzoUnitario > 0) ||
 #if STANDFACILE
                                 (!String.IsNullOrEmpty(DB_Data.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()) ||
 #endif
-                               (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
+                               (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER)) &&
+
+                                (!CkBoxSkipZero.Checked || (DB_Data.Articolo[i].iQuantitaVenduta > 0)))
                             {
                                 sInStr = String.Format(sDAT_FMT_REP_RED + "\r\n", DB_Data.Articolo[i].sTipo,
                                     DB_Data.Articolo[i].iQuantitaVenduta,

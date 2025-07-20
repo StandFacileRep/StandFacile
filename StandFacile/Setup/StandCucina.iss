@@ -1,4 +1,4 @@
-; 20.07.2025
+; 20.07.2025 
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]

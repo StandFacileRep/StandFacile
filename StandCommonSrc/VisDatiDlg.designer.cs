@@ -40,6 +40,7 @@
             this.BtnPrt = new System.Windows.Forms.Button();
             this.comboReport = new System.Windows.Forms.ComboBox();
             this.LblReport = new System.Windows.Forms.Label();
+            this.CkBoxSkipZero = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // textEditDati
@@ -112,7 +113,7 @@
             this.CkBoxUnioneCasse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.CkBoxUnioneCasse.AutoSize = true;
             this.CkBoxUnioneCasse.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CkBoxUnioneCasse.Location = new System.Drawing.Point(208, 401);
+            this.CkBoxUnioneCasse.Location = new System.Drawing.Point(12, 400);
             this.CkBoxUnioneCasse.Name = "CkBoxUnioneCasse";
             this.CkBoxUnioneCasse.Size = new System.Drawing.Size(121, 18);
             this.CkBoxUnioneCasse.TabIndex = 6;
@@ -201,6 +202,21 @@
             this.LblReport.TabIndex = 11;
             this.LblReport.Text = "modalità report";
             // 
+            // CkBoxSkipZero
+            // 
+            this.CkBoxSkipZero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.CkBoxSkipZero.AutoSize = true;
+            this.CkBoxSkipZero.Checked = true;
+            this.CkBoxSkipZero.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CkBoxSkipZero.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CkBoxSkipZero.Location = new System.Drawing.Point(208, 400);
+            this.CkBoxSkipZero.Name = "CkBoxSkipZero";
+            this.CkBoxSkipZero.Size = new System.Drawing.Size(144, 18);
+            this.CkBoxSkipZero.TabIndex = 12;
+            this.CkBoxSkipZero.Text = "tralascia quantità zero";
+            this.CkBoxSkipZero.UseVisualStyleBackColor = true;
+            this.CkBoxSkipZero.Click += new System.EventHandler(this.CheckBoxRidColonne_Click);
+            // 
             // VisDatiDlg
             // 
             this.AcceptButton = this.OKBtn;
@@ -208,6 +224,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.OKBtn;
             this.ClientSize = new System.Drawing.Size(592, 494);
+            this.Controls.Add(this.CkBoxSkipZero);
             this.Controls.Add(this.LblReport);
             this.Controls.Add(this.comboReport);
             this.Controls.Add(this.BtnXls);
@@ -247,5 +264,6 @@
         private System.Windows.Forms.Button BtnXls;
         private System.Windows.Forms.ComboBox comboReport;
         private System.Windows.Forms.Label LblReport;
+        private System.Windows.Forms.CheckBox CkBoxSkipZero;
     }
 }
