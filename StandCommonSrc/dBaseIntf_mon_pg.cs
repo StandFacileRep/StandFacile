@@ -1,6 +1,6 @@
 ﻿/*************************************************************************************************
 	 NomeFile : StandCommonSrc/dBaseIntf_pg.cs
-    Data	 : 06.12.2024
+     Data	 : 20.07.2025
 	 Autore   : Mauro Artuso
 
     nelle assegnazioni :

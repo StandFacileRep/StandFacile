@@ -456,7 +456,7 @@ namespace StandFacile
 
                 fData.WriteLine(sDAT_FMT_HED, "Numero Scontrini emessi = ", dataIdParam.iActualNumOfReceipts);
 
-                fData.WriteLine(sDAT_FMT_HED, "Numero Scontrini QRcode = ", dataIdParam.iNumOfWebReceipts);
+                fData.WriteLine(sDAT_FMT_HED, "Numero Scontrini Web = ", dataIdParam.iNumOfWebReceipts);
 
                 fData.WriteLine(sDAT_FMT_HED, "Numero    \"   annullati = ", dataIdParam.iNumAnnullati);
 

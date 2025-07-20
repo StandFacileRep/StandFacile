@@ -1,6 +1,6 @@
 ﻿/********************************************************************
 	NomeFile : StandFacile/Define.cs
-	Data	 : 06.12.2024
+	Data	 : 20.07.2025
 	Autore	 : Mauro Artuso
 
   Descrizione : definizioni specifiche per StandFacile

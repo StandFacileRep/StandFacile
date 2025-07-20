@@ -316,7 +316,7 @@ namespace StandFacile
                     sTmp = String.Format(sFormat + "{1,4}\r\n", "Numero Scontrini emessi = ", DB_Data.iActualNumOfReceipts);
                     textEditDati.AppendText(sTmp);
 
-                    sTmp = String.Format(sFormat + "{1,4}\r\n", "Numero Scontrini QRcode = ", DB_Data.iNumOfWebReceipts);
+                    sTmp = String.Format(sFormat + "{1,4}\r\n", "Numero Scontrini Web = ", DB_Data.iNumOfWebReceipts);
                     textEditDati.AppendText(sTmp);
 
                     sTmp = String.Format(sFormat + "{1,4}\r\n", "Numero    \"   annullati = ", DB_Data.iNumAnnullati);
@@ -928,7 +928,7 @@ namespace StandFacile
 
                             xlsWorkSheet.Cells[iRow++, iColumn + 2] = "Num. Scontrini emessi";
 
-                            xlsWorkSheet.Cells[iRow++, iColumn + 2] = "Num. Scontrini QRcode";
+                            xlsWorkSheet.Cells[iRow++, iColumn + 2] = "Num. Scontrini Web";
 
                             //if (DB_Data.iNumAnnullati > 0)
                             xlsWorkSheet.Cells[iRow++, iColumn + 2] = "Num. Scontr. annullati e valore";

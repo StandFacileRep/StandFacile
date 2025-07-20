@@ -34,6 +34,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.rdButtonAll = new System.Windows.Forms.RadioButton();
             this.panel = new System.Windows.Forms.Panel();
+            this.checkBoxCopia_8 = new System.Windows.Forms.CheckBox();
             this.checkBoxCopia_9 = new System.Windows.Forms.CheckBox();
             this.checkBoxCopia_7 = new System.Windows.Forms.CheckBox();
             this.checkBoxCopia_6 = new System.Windows.Forms.CheckBox();
@@ -46,7 +47,6 @@
             this.checkBoxCopia_0 = new System.Windows.Forms.CheckBox();
             this.rdButtonNone = new System.Windows.Forms.RadioButton();
             this.groupBox = new System.Windows.Forms.GroupBox();
-            this.checkBoxCopia_8 = new System.Windows.Forms.CheckBox();
             this.panel.SuspendLayout();
             this.groupBox.SuspendLayout();
             this.SuspendLayout();
@@ -117,6 +117,18 @@
             this.panel.Size = new System.Drawing.Size(518, 172);
             this.panel.TabIndex = 22;
             // 
+            // checkBoxCopia_8
+            // 
+            this.checkBoxCopia_8.AutoSize = true;
+            this.checkBoxCopia_8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxCopia_8.Location = new System.Drawing.Point(25, 125);
+            this.checkBoxCopia_8.Name = "checkBoxCopia_8";
+            this.checkBoxCopia_8.Size = new System.Drawing.Size(134, 20);
+            this.checkBoxCopia_8.TabIndex = 32;
+            this.checkBoxCopia_8.Text = "gruppo 9 (no-web)";
+            this.checkBoxCopia_8.UseVisualStyleBackColor = true;
+            this.checkBoxCopia_8.Click += new System.EventHandler(this.CheckBoxCopia_Click);
+            // 
             // checkBoxCopia_9
             // 
             this.checkBoxCopia_9.AutoSize = true;
@@ -127,6 +139,7 @@
             this.checkBoxCopia_9.TabIndex = 31;
             this.checkBoxCopia_9.Text = "copie singole";
             this.checkBoxCopia_9.UseVisualStyleBackColor = true;
+            this.checkBoxCopia_9.Click += new System.EventHandler(this.CheckBoxCopia_Click);
             // 
             // checkBoxCopia_7
             // 
@@ -138,6 +151,7 @@
             this.checkBoxCopia_7.TabIndex = 30;
             this.checkBoxCopia_7.Text = "gruppo 8";
             this.checkBoxCopia_7.UseVisualStyleBackColor = true;
+            this.checkBoxCopia_7.Click += new System.EventHandler(this.CheckBoxCopia_Click);
             // 
             // checkBoxCopia_6
             // 
@@ -149,6 +163,7 @@
             this.checkBoxCopia_6.TabIndex = 29;
             this.checkBoxCopia_6.Text = "gruppo 7";
             this.checkBoxCopia_6.UseVisualStyleBackColor = true;
+            this.checkBoxCopia_6.Click += new System.EventHandler(this.CheckBoxCopia_Click);
             // 
             // checkBoxCopia_10
             // 
@@ -255,17 +270,6 @@
             this.groupBox.Size = new System.Drawing.Size(253, 56);
             this.groupBox.TabIndex = 24;
             this.groupBox.TabStop = false;
-            // 
-            // checkBoxCopia_8
-            // 
-            this.checkBoxCopia_8.AutoSize = true;
-            this.checkBoxCopia_8.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopia_8.Location = new System.Drawing.Point(25, 125);
-            this.checkBoxCopia_8.Name = "checkBoxCopia_8";
-            this.checkBoxCopia_8.Size = new System.Drawing.Size(134, 20);
-            this.checkBoxCopia_8.TabIndex = 32;
-            this.checkBoxCopia_8.Text = "gruppo 9 (no-web)";
-            this.checkBoxCopia_8.UseVisualStyleBackColor = true;
             // 
             // InitialDispDlg
             // 
