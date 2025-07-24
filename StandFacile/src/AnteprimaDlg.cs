@@ -1,6 +1,6 @@
 ﻿/********************************************************************
   	NomeFile : StandFacile/AnteprimaDlg.cs
-	Data	 : 12.07.2025
+	Data	 : 24.07.2025
   	Autore   : Mauro Artuso
 
   Classe di visualizzazione dell'anteprima dello scontrino.

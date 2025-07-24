@@ -1,6 +1,6 @@
 ﻿/********************************************************************
     NomeFile : StandCommonSrc/VisDatiDlg.cs
-    Data	 : 20.07.2025
+    Data	 : 24.07.2025
     Autore : Mauro Artuso
 
     Classe di visualizzazione dei files Dati o Prezzi .
@@ -39,6 +39,8 @@ namespace StandFacile
         int _iTipoFile, _iNumCassa;
         int _iLastArticoloIndexP1;
 
+        static int _iReportIndex;
+
         static String _sNomeTabella;
         static DateTime _SelDate;
         static SelectionRange _SelRange;
@@ -47,33 +49,69 @@ namespace StandFacile
         public static VisDatiDlg rVisDatiDlg;
 
         /// <summary>ottiene la selezione del tipo di report</summary>
-        public int GetReport()
+        public static int GetReport()
         {
-            if (comboReport != null)
-                return comboReport.SelectedIndex;
-            else
-                return 0;
+            return _iReportIndex;
         }
 
-        /// <summary>ottiene la selezione del tipo di report</summary>
-        public int GetDiscountReport(int iParam)
+        /// <summary>ottiene il bit corrispondente alla selezione del tipo di report in base allo sconto</summary>
+        public static int GetDiscountReportBit()
         {
-            if (comboReport != null)
+            switch (_iReportIndex)
             {
-                switch (comboReport.SelectedIndex)
-                {
-                    case 1:
-                        return BIT_SCONTO_GRATIS;
-                    case 2:
-                        return BIT_SCONTO_FISSO;
-                    case 3:
-                        return BIT_SCONTO_STD;
-                    default:
-                        return 0;
-                }
+                case 1:
+                    return BIT_SCONTO_GRATIS;
+                case 2:
+                    return BIT_SCONTO_FISSO;
+                case 3:
+                    return BIT_SCONTO_STD;
+                default:
+                    return 100; // valore oltre i 32bit
             }
-            else
-                return 0;
+        }
+
+        /// <summary>ottiene la selezione del tipo di report in base al pagamento</summary>
+        public static int GetPaymentReportBit()
+        {
+            switch (_iReportIndex)
+            {
+                case 4:
+                    return (int)STATUS_FLAGS.BIT_PAGAM_CASH;
+                case 5:
+                    return (int)STATUS_FLAGS.BIT_PAGAM_CARD;
+                case 6:
+                    return (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY;
+                default:
+                    return 100; // valore oltre i 32bit
+            }
+        }
+
+        /// <summary>verifica se è richiesto un pagamento</summary>
+        public static bool DicountReportIsRequested()
+        {
+            switch (_iReportIndex)
+            {
+                case 1:
+                case 2:
+                case 3:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>verifica se è richiesto un pagamento</summary>
+        public static bool PaymentReportIsRequested()
+        {
+            switch (_iReportIndex)
+            {
+                case 4:
+                case 5:
+                case 6:
+                    return true;
+                default:
+                    return false;
+            }
         }
 
 #pragma warning disable IDE0044
@@ -90,6 +128,7 @@ namespace StandFacile
             rVisDatiDlg = this;
 
             _InitCompletato = false;
+            _iReportIndex = 0;
 
             // configura il ComboNumCassa
             Combo_NumCassa.Items.Clear();
@@ -105,6 +144,10 @@ namespace StandFacile
             comboReport.Items.Add("Vis. sconto gratuiti");
             comboReport.Items.Add("Vis. sconto fisso");
             comboReport.Items.Add("Vis. sconto precentuale");
+            comboReport.Items.Add("Vis. pagam. contanti");
+            comboReport.Items.Add("Vis. pagam. carta");
+            comboReport.Items.Add("Vis. pagam. Satispay");
+
             comboReport.SelectedIndex = 0;
 
             if (bUSA_NDB())
@@ -542,18 +585,26 @@ namespace StandFacile
 
                     textEditDati.AppendText("\r\n");
 
-                    if ((DB_Data.iTotaleScontatoGratis > 0) && (GetReport() == 0 || GetDiscountReport(comboReport.SelectedIndex) == BIT_SCONTO_GRATIS))
+                    LogToFile(String.Format("VisDatiDlg : iTotaleScontatoGratis = {0}", DB_Data.iTotaleScontatoGratis), true);
+                    LogToFile(String.Format("VisDatiDlg : iTotaleScontatoFisso = {0}", DB_Data.iTotaleScontatoFisso), true);
+                    LogToFile(String.Format("VisDatiDlg : iTotaleScontatoStd = {0}", DB_Data.iTotaleScontatoStd), true);
+
+                    // ***************************************** SCONTI **********************************************
+
+                    // con PaymentReportIsRequested() seve vedere gli sconti per capire meglio
+                    if ((GetReport() == 0) || (GetDiscountReportBit() == BIT_SCONTO_GRATIS) || PaymentReportIsRequested())
                     {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "valore gratuiti", IntToEuro(DB_Data.iTotaleScontatoGratis));
                         textEditDati.AppendText(sTmp);
                     }
-                    if ((DB_Data.iTotaleScontatoFisso > 0) && (GetReport() == 0 || GetDiscountReport(comboReport.SelectedIndex) == BIT_SCONTO_FISSO))
+
+                    if ((GetReport() == 0) || (GetDiscountReportBit() == BIT_SCONTO_FISSO) || PaymentReportIsRequested())
                     {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "valore sconto fisso", IntToEuro(DB_Data.iTotaleScontatoFisso));
                         textEditDati.AppendText(sTmp);
                     }
 
-                    if ((DB_Data.iTotaleScontatoStd > 0) && (GetReport() == 0 || GetDiscountReport(comboReport.SelectedIndex) == BIT_SCONTO_STD))
+                    if ((GetReport() == 0) || (GetDiscountReportBit() == BIT_SCONTO_STD) || PaymentReportIsRequested())
                     {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "valore sconto articoli", IntToEuro(DB_Data.iTotaleScontatoStd));
                         textEditDati.AppendText(sTmp);
@@ -569,16 +620,24 @@ namespace StandFacile
                         textEditDati.AppendText(sTmp);
                     }
 
-                    if (((DB_Data.iTotaleIncassoCard > 0) || (DB_Data.iTotaleIncassoSatispay > 0)) && (GetReport() == 0))
-                    {
-                        textEditDati.AppendText("\r\n");
+                    textEditDati.AppendText("\r\n");
 
+                    // ************************************* PAGAMENTI ***********************************************
+
+                    if ((GetReport() == 0) || (GetPaymentReportBit() == (int)STATUS_FLAGS.BIT_PAGAM_CARD))
+                    {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "PAGAM. CARD    ", IntToEuro(DB_Data.iTotaleIncassoCard));
                         textEditDati.AppendText(sTmp);
+                    }
 
+                    if ((GetReport() == 0) || (GetPaymentReportBit() == (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
+                    {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "PAGAM. SATISPAY", IntToEuro(DB_Data.iTotaleIncassoSatispay));
                         textEditDati.AppendText(sTmp);
+                    }
 
+                    if ((GetReport() == 0) || (GetPaymentReportBit() == (int)STATUS_FLAGS.BIT_PAGAM_CASH))
+                    {
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "PAGAM. CONT.   ", IntToEuro(DB_Data.iTotaleIncasso - DB_Data.iTotaleScontatoStd -
                                                        DB_Data.iTotaleScontatoFisso - DB_Data.iTotaleScontatoGratis - DB_Data.iTotaleIncassoCard - DB_Data.iTotaleIncassoSatispay));
                         textEditDati.AppendText(sTmp);
@@ -1155,7 +1214,7 @@ namespace StandFacile
                     } // end while (columnDay <= _SelRange.End)
                 } // for ... iRepeatForLayout
 
-                LogToFile("Mainform : EsportaDati");
+                LogToFile("VisDatiDlg : EsportaDati");
 
                 xlsWorkBook.SaveAs(sDataDir + sNomeFile);
                 xlsWorkBook.Close(true, misValue, misValue);
@@ -1200,6 +1259,8 @@ namespace StandFacile
 
         private void ComboReport_SelectedIndexChanged(object sender, EventArgs e)
         {
+            _iReportIndex = comboReport.SelectedIndex;
+
             if (_InitCompletato)
                 VisualizzaDati((int)FILE_TO_SHOW.FILE_DATI, _SelDate, Combo_NumCassa.SelectedIndex + 1, _bVisCambioData, "", comboReport.SelectedIndex);
         }
@@ -1223,6 +1284,11 @@ namespace StandFacile
             _iLastArticoloIndexP1 = iUltimoArticolo_NE + 1;
 
             return _iLastArticoloIndexP1;
+        }
+
+        private void VisDatiDlg_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _iReportIndex = 0;
         }
 
     }

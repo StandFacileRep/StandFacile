@@ -1,6 +1,6 @@
 ﻿/**********************************************
   NomeFile : StandMonitor/AuxMonitor.cs
-  Data	   : 23.06.2023
+  Data	   : 21.07.2025
   Autore   : Mauro Artuso
  **********************************************/
 using System;
@@ -19,6 +19,7 @@ namespace StandFacile
         public static AuxForm rAuxForm;
 
         bool bPrimaVolta = true;
+        bool _bFirstTimeSort = true;
 
         /// <summary>costruttore</summary>
         public AuxForm(int iMon)
@@ -79,8 +80,17 @@ namespace StandFacile
 
             DBGrid.DataSource = FrmMain.rFrmMain.DS.Tables[1];
 
+            // impostazione dell'ordinamento
             // il sort deve avvenire solo alla fine della fusione delle tabelle
-            DBGrid.Sort(DBGrid.Columns[1], System.ComponentModel.ListSortDirection.Descending);
+            if (_bFirstTimeSort)
+            {
+                _bFirstTimeSort = false;
+
+                if (CheckService("sortByDeliver"))
+                    DBGrid.Sort(DBGrid.Columns[2], System.ComponentModel.ListSortDirection.Descending);
+                else
+                    DBGrid.Sort(DBGrid.Columns[1], System.ComponentModel.ListSortDirection.Descending);
+            }
 
             AuxForm_Resize(this, null);
         }

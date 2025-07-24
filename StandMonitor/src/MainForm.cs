@@ -1,6 +1,6 @@
 ﻿/************************************************************
   	NomeFile : StandMonitor/MainForm.cs
-	Data	 : 18.07.2025
+	Data	 : 21.07.2025
   	Autore   : Mauro Artuso
 
   Programma per monitorare la statistica degli ordini
@@ -37,8 +37,8 @@ namespace StandFacile
         // variabili membro
         bool _bDatabaseConnected;
 
-        static bool _bInitNetReadParams = true;
-        static bool _bFirstTimeSort = true;
+        bool _bInitNetReadParams = true;
+        bool _bFirstTimeSort = true;
 
         int iBlink;
         int iRefresh;

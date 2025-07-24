@@ -1124,8 +1124,8 @@ namespace StandFacile
 #pragma warning disable IDE0059
 
             /*************************
-                          ENTER
-                 *************************/
+                      ENTER
+             *************************/
             if (e.KeyChar == '\r')
             {
                 // scarta edit vuoti

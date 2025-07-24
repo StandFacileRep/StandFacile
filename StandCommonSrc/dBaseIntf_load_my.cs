@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************************
 	 NomeFile : StandCommonSrc/dBaseIntf_my.cs
-	 Data	  : 06.12.2024
+	 Data	  : 22.07.2025
 	 Autore   : Mauro Artuso
 
     nelle assegnazioni :
@@ -174,8 +174,7 @@ namespace StandFacile_DB
 
             int iLastArticoloDBIndexP1;
 
-            String sTmp, sTipo;
-            String sDebug;
+            String sTmp, sTipo, sDebug;
 
             _WrnMsg.iErrID = 0; // resetta errori in altra data
 
@@ -542,6 +541,14 @@ namespace StandFacile_DB
                                 iGruppoStampa = readerOrdine.GetInt32("iGruppo_Stampa");
                             }
 
+#if STANDFACILE || STAND_MONITOR
+                            // considera iStatus solo un certo tipo di pagamento
+                            if ((VisDatiDlg.PaymentReportIsRequested()) && !IsBitSet(iStatus, VisDatiDlg.GetPaymentReportBit()))
+                            {
+                                break;
+                            }
+#endif
+
                             if (StringBelongsTo_ORDER_CONST(sTipo, ORDER_CONST._SCONTO))
                                 continue;
 
@@ -587,15 +594,15 @@ namespace StandFacile_DB
                                             {
 #if STANDFACILE || STAND_MONITOR
                                                 // considera solo gli sconti
-                                                if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.GetDiscountReport(iReportParam)))
+                                                if (VisDatiDlg.DicountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.GetDiscountReportBit()))
                                                 {
                                                     bMatch = true;
                                                     break;
                                                 }
 
                                                 // considera solo i gruppi cui lo sconto è applicato
-                                                if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, DB_Data.Articolo[i].iGruppoStampa + 4) &&
-                                                    (VisDatiDlg.rVisDatiDlg.GetDiscountReport(iReportParam) == BIT_SCONTO_STD))
+                                                if (VisDatiDlg.DicountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, DB_Data.Articolo[i].iGruppoStampa + 4) &&
+                                                    (VisDatiDlg.GetDiscountReportBit() == BIT_SCONTO_STD))
                                                 {
                                                     bMatch = true;
                                                     break;
@@ -634,7 +641,7 @@ namespace StandFacile_DB
                                     DB_Data.iTotaleAnnullato += iPrezzoUnitario * iQuantitaOrdine;
                                 }
 #if STANDFACILE || STAND_MONITOR
-                                else if ((iReportParam > 0) && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.rVisDatiDlg.GetDiscountReport(iReportParam)))
+                                else if (VisDatiDlg.DicountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.GetDiscountReportBit()))
                                 {
                                     bMatch = true;
                                 }

@@ -1,6 +1,6 @@
 ﻿/***************************************************
   	NomeFile : StandMonitor/VisOrdiniTableFrm.cs
-	Data	 : 06.12.2024
+	Data	 : 22.07.2025
   	Autore   : Mauro Artuso
  ***************************************************/
 
@@ -114,6 +114,7 @@ namespace StandFacile
                     OrdiniGrid.Columns[4].HeaderText = "Evaso";
                     OrdiniGrid.Columns[5].HeaderText = "Cassa";
                     OrdiniGrid.Columns[6].HeaderText = "Stato";
+                    OrdiniGrid.Columns[6].DefaultCellStyle.Format = "X";
 
                     OrdiniGrid.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 

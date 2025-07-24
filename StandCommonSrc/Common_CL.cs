@@ -1,6 +1,6 @@
 ﻿/*****************************************************
  	NomeFile : StandCommonSrc/CommonFunc.cs
-    Data	 : 25.01.2025
+    Data	 : 24.07.2025
  	Autore	 : Mauro Artuso
 
 	Classi statiche di uso comune
@@ -1004,7 +1004,10 @@ namespace StandCommonFiles
         /// </summary>
         public static bool IsBitSet(int intParam, int bitPosParam)
         {
-            return (intParam & (1 << bitPosParam)) != 0;
+            if ((bitPosParam < 0) || (bitPosParam >= 32))
+                return false;
+            else
+                return (intParam & (1 << bitPosParam)) != 0;
         }
 
         // da evitare verifiche di 2 tipi: positive e negative

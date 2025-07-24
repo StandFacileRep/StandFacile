@@ -245,6 +245,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Incasso";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VisDatiDlg_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
