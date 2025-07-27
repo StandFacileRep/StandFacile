@@ -1,6 +1,6 @@
 ﻿/**********************************************
   NomeFile : StandMonitor/AuxMonitor.cs
-  Data	   : 21.07.2025
+  Data	   : 27.07.2025
   Autore   : Mauro Artuso
  **********************************************/
 using System;
@@ -18,8 +18,8 @@ namespace StandFacile
         /// <summary>riferimento a AuxForm</summary>
         public static AuxForm rAuxForm;
 
-        bool bPrimaVolta = true;
-        bool _bFirstTimeSort = true;
+        bool _bPrimaVolta = true;
+        static bool _bFirstTimeSort = true;
 
         /// <summary>costruttore</summary>
         public AuxForm(int iMon)
@@ -58,6 +58,12 @@ namespace StandFacile
             }
         }
 
+        /// <summary>funzione di aggiornamento dell'ordinamento</summary>
+        public static void SortReset()
+        {
+            _bFirstTimeSort = true;
+        }
+
         /// <summary>
         /// funzione di aggiornamento dei dati
         /// </summary>
@@ -86,7 +92,7 @@ namespace StandFacile
             {
                 _bFirstTimeSort = false;
 
-                if (CheckService("sortByDeliver"))
+                if (CheckService("sortByDeliver") || FrmMain.rFrmMain.GetRedColums() || CheckService("reducedColumns"))
                     DBGrid.Sort(DBGrid.Columns[2], System.ComponentModel.ListSortDirection.Descending);
                 else
                     DBGrid.Sort(DBGrid.Columns[1], System.ComponentModel.ListSortDirection.Descending);
@@ -105,9 +111,9 @@ namespace StandFacile
             if (DBGrid.ColumnCount == 0)
                 return;
 
-            if (bPrimaVolta)
+            if (_bPrimaVolta)
             {
-                bPrimaVolta = false;
+                _bPrimaVolta = false;
 
                 DBGrid.Columns[0].HeaderText = "Articolo";
                 DBGrid.Columns[1].HeaderText = "Q.tà Venduta";
@@ -120,6 +126,21 @@ namespace StandFacile
                 DBGrid.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 DBGrid.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 DBGrid.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (FrmMain.rFrmMain.GetVisGruppi())
+            {
+                DBGrid.Columns[1].Visible = true;
+                DBGrid.Columns[4].Visible = true;
+            }
+            else
+            {
+                DBGrid.Columns[4].Visible = false;
+
+                if (FrmMain.rFrmMain.GetRedColums() || CheckService("reducedColumns"))
+                    DBGrid.Columns[1].Visible = false;
+                else
+                    DBGrid.Columns[1].Visible = true;
             }
 
             DBGrid.Width = this.Width - 40;
@@ -136,11 +157,33 @@ namespace StandFacile
 
             fWidth = DBGrid.Width;
 
-            DBGrid.Columns[0].Width = (int)(fWidth * 0.48f);
-            DBGrid.Columns[1].Width = (int)(fWidth * 0.18f);
-            DBGrid.Columns[2].Width = (int)(fWidth * 0.18f);
-            DBGrid.Columns[3].Width = (int)(fWidth * 0.14f);
-            DBGrid.Columns[4].Width = (int)(fWidth * 0.12f);
+            if (FrmMain.rFrmMain.GetVisGruppi())
+            {
+                DBGrid.Columns[0].Width = (int)(fWidth * 0.40f);
+                DBGrid.Columns[1].Width = (int)(fWidth * 0.18f);
+                DBGrid.Columns[2].Width = (int)(fWidth * 0.18f);
+                DBGrid.Columns[3].Width = (int)(fWidth * 0.12f);
+                DBGrid.Columns[4].Width = (int)(fWidth * 0.12f);
+            }
+            else
+            {
+                if (FrmMain.rFrmMain.GetRedColums() || CheckService("reducedColumns"))
+                {
+                    DBGrid.Columns[0].Width = (int)(fWidth * 0.58f);
+                    DBGrid.Columns[1].Width = (int)(fWidth * 0.02f);
+                    DBGrid.Columns[2].Width = (int)(fWidth * 0.26f);
+                    DBGrid.Columns[3].Width = (int)(fWidth * 0.16f);
+                    DBGrid.Columns[4].Width = (int)(fWidth * 0.12f);
+                }
+                else
+                {
+                    DBGrid.Columns[0].Width = (int)(fWidth * 0.50f);
+                    DBGrid.Columns[1].Width = (int)(fWidth * 0.18f);
+                    DBGrid.Columns[2].Width = (int)(fWidth * 0.18f);
+                    DBGrid.Columns[3].Width = (int)(fWidth * 0.14f);
+                    DBGrid.Columns[4].Width = (int)(fWidth * 0.12f);
+                }
+            }
 
             // imposta Font sulla base della larghezza della finestra
             fFontHeight = ((float)DBGrid.Width) / 50;

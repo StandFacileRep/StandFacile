@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.DBGrid = new System.Windows.Forms.DataGridView();
             this.Timer = new System.Windows.Forms.Timer(this.components);
@@ -66,6 +66,7 @@
             this.BtnImgList = new System.Windows.Forms.ImageList(this.components);
             this.lblElapsedTime = new System.Windows.Forms.Label();
             this.btnAnt = new System.Windows.Forms.Button();
+            this.MnuRidColumns = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DBGrid)).BeginInit();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -78,24 +79,24 @@
             this.DBGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.DBGrid.BackgroundColor = System.Drawing.Color.Navy;
             this.DBGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Yellow;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DBGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DBGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.DBGrid.ColumnHeadersHeight = 30;
             this.DBGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DBGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DBGrid.DefaultCellStyle = dataGridViewCellStyle4;
             this.DBGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.DBGrid.EnableHeadersVisualStyles = false;
             this.DBGrid.GridColor = System.Drawing.SystemColors.ControlLight;
@@ -192,6 +193,7 @@
             this.N3,
             this.MnuEsploraDB,
             this.N4,
+            this.MnuRidColumns,
             this.MnuVisGruppi,
             this.MnuVisOrdini});
             this.MnuVisualizza.Font = new System.Drawing.Font("Tahoma", 9F);
@@ -278,7 +280,7 @@
             this.MnuVisGruppi.Font = new System.Drawing.Font("Tahoma", 9F);
             this.MnuVisGruppi.Name = "MnuVisGruppi";
             this.MnuVisGruppi.Size = new System.Drawing.Size(237, 22);
-            this.MnuVisGruppi.Text = "&Colonna ID Gruppi";
+            this.MnuVisGruppi.Text = "Visualizza &Colonna ID Gruppi";
             this.MnuVisGruppi.Click += new System.EventHandler(this.MnuVisGruppi_Click);
             // 
             // MnuVisOrdini
@@ -348,14 +350,14 @@
             // MnuAiutoRapido
             // 
             this.MnuAiutoRapido.Name = "MnuAiutoRapido";
-            this.MnuAiutoRapido.Size = new System.Drawing.Size(180, 22);
+            this.MnuAiutoRapido.Size = new System.Drawing.Size(171, 22);
             this.MnuAiutoRapido.Text = "&Aiuto rapido";
             this.MnuAiutoRapido.Click += new System.EventHandler(this.MnuManuale_Click);
             // 
             // MnuAbout
             // 
             this.MnuAbout.Name = "MnuAbout";
-            this.MnuAbout.Size = new System.Drawing.Size(180, 22);
+            this.MnuAbout.Size = new System.Drawing.Size(171, 22);
             this.MnuAbout.Text = "&Informazioni su ...";
             this.MnuAbout.Click += new System.EventHandler(this.MnuAbout_Click);
             // 
@@ -394,6 +396,13 @@
             this.btnAnt.TabIndex = 4;
             this.btnAnt.UseVisualStyleBackColor = false;
             this.btnAnt.Click += new System.EventHandler(this.BtnAnt_Click);
+            // 
+            // MnuRidColumns
+            // 
+            this.MnuRidColumns.Name = "MnuRidColumns";
+            this.MnuRidColumns.Size = new System.Drawing.Size(237, 22);
+            this.MnuRidColumns.Text = "&Riduci Colonne";
+            this.MnuRidColumns.Click += new System.EventHandler(this.MnuRidColumns_Click);
             // 
             // FrmMain
             // 
@@ -460,6 +469,7 @@
         private System.Windows.Forms.ToolStripMenuItem MnuVisOrdiniOggi;
         private System.Windows.Forms.ToolStripMenuItem MnuAiutoRapido;
         private System.Windows.Forms.ToolStripMenuItem MnuAuxWindow3;
+        private System.Windows.Forms.ToolStripMenuItem MnuRidColumns;
     }
 }
 

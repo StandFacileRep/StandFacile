@@ -34,7 +34,7 @@ using static StandFacile.dBaseIntf;
 
 namespace StandFacile_DB
 {
-    #pragma warning disable IDE1006
+#pragma warning disable IDE1006
 
     /// <summary>classe per la gestione di PostGreSQL</summary>
     public partial class dBaseIntf_pg
@@ -153,7 +153,7 @@ namespace StandFacile_DB
                 return 0;
             }
 
-                readerTest?.Close();
+            readerTest?.Close();
 
             return sStringsParam.Count;
         }
@@ -362,11 +362,11 @@ namespace StandFacile_DB
                 WarningManager(_WrnMsg);
                 LogToFile("dbCaricaDatidaOrdini : dbException");
 
-                    readerDati?.Close();
+                readerDati?.Close();
                 return -1;
             }
 
-                readerDati?.Close();
+            readerDati?.Close();
 
             /*********************************************************************
              *  seconda parte: iNumOfLastReceipt, iNumOfMessages
@@ -486,7 +486,7 @@ namespace StandFacile_DB
                 for (j = 1; j <= DB_Data.iNumOfLastReceipt; j++)
                 {
 
-                        readerOrdine?.Close();
+                    readerOrdine?.Close();
 
                     // filtraggio più o meno specifico
                     if (iNumCassaParam == 0)
@@ -1076,7 +1076,7 @@ namespace StandFacile_DB
                 bNoProblem = false;
             }
 
-                readerOrdine?.Close();
+            readerOrdine?.Close();
 
             return bNoProblem; // tutto OK
         } // end dbCaricaOrdine

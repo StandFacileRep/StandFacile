@@ -1,6 +1,6 @@
 ﻿/************************************************************
   	NomeFile : StandMonitor/MainForm.cs
-	Data	 : 21.07.2025
+	Data	 : 27.07.2025
   	Autore   : Mauro Artuso
 
   Programma per monitorare la statistica degli ordini
@@ -37,6 +37,7 @@ namespace StandFacile
         // variabili membro
         bool _bDatabaseConnected;
 
+        bool _bPrimaVolta = true;
         bool _bInitNetReadParams = true;
         bool _bFirstTimeSort = true;
 
@@ -60,6 +61,12 @@ namespace StandFacile
         /// <summary>ottiene flag modo esperto</summary>
         /// <returns></returns>
         public bool GetEsperto() { return MnuEsperto.Checked; }
+
+        /// <summary>ottiene il flag MnuVisGruppi.Checked</summary>
+        public bool GetVisGruppi() { return MnuVisGruppi.Checked; }
+
+        /// <summary>ottiene il flag MnuRidColumns.Checked</summary>
+        public bool GetRedColums() { return MnuRidColumns.Checked; }
 
         /// <summary>ottiene stringa dell'orologio</summary>
         /// <returns></returns>
@@ -190,18 +197,6 @@ namespace StandFacile
 
             DBGrid.DataSource = DS.Tables[0];
             DBGrid.MultiSelect = false;
-
-            DBGrid.Columns[0].HeaderText = "Articolo";
-            DBGrid.Columns[1].HeaderText = "Quantità Venduta";
-            DBGrid.Columns[2].HeaderText = "da consegnare";
-            DBGrid.Columns[3].HeaderText = "Disponibilità";
-            DBGrid.Columns[4].HeaderText = "Gruppo";
-
-            DBGrid.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            DBGrid.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            DBGrid.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            DBGrid.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DBGrid.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             // gestione visibilità del Super User passato su linea di comando
             // per accedere alla visibilità e stampa degli incassi
@@ -514,7 +509,7 @@ namespace StandFacile
                     {
                         _bFirstTimeSort = false;
 
-                        if (CheckService("sortByDeliver"))
+                        if (CheckService("sortByDeliver") || MnuRidColumns.Checked || CheckService("reducedColumns"))
                             DBGrid.Sort(DBGrid.Columns[2], System.ComponentModel.ListSortDirection.Descending);
                         else
                             DBGrid.Sort(DBGrid.Columns[1], System.ComponentModel.ListSortDirection.Descending);
@@ -673,6 +668,38 @@ namespace StandFacile
 
             fWidth = DBGrid.Width;
 
+            if (_bPrimaVolta)
+            {
+                _bPrimaVolta = false;
+
+                DBGrid.Columns[0].HeaderText = "Articolo";
+                DBGrid.Columns[1].HeaderText = "Q.tà Venduta";
+                DBGrid.Columns[2].HeaderText = "da consegnare";
+                DBGrid.Columns[3].HeaderText = "Disponibilità";
+                DBGrid.Columns[4].HeaderText = "Gruppo";
+
+                DBGrid.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+                DBGrid.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                DBGrid.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                DBGrid.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                DBGrid.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            if (MnuVisGruppi.Checked)
+            {
+                DBGrid.Columns[1].Visible = true;
+                DBGrid.Columns[4].Visible = true;
+            }
+            else
+            {
+                DBGrid.Columns[4].Visible = false;
+
+                if (MnuRidColumns.Checked || CheckService("reducedColumns"))
+                    DBGrid.Columns[1].Visible = false;
+                else
+                    DBGrid.Columns[1].Visible = true;
+            }
+
             if (MnuVisGruppi.Checked)
             {
                 DBGrid.Columns[0].Width = (int)(fWidth * 0.40f);
@@ -683,11 +710,22 @@ namespace StandFacile
             }
             else
             {
-                DBGrid.Columns[0].Width = (int)(fWidth * 0.48f);
-                DBGrid.Columns[1].Width = (int)(fWidth * 0.18f);
-                DBGrid.Columns[2].Width = (int)(fWidth * 0.18f);
-                DBGrid.Columns[3].Width = (int)(fWidth * 0.14f);
-                DBGrid.Columns[4].Width = (int)(fWidth * 0.12f);
+                if (MnuRidColumns.Checked || CheckService("reducedColumns"))
+                {
+                    DBGrid.Columns[0].Width = (int)(fWidth * 0.58f);
+                    DBGrid.Columns[1].Width = (int)(fWidth * 0.02f);
+                    DBGrid.Columns[2].Width = (int)(fWidth * 0.26f);
+                    DBGrid.Columns[3].Width = (int)(fWidth * 0.16f);
+                    DBGrid.Columns[4].Width = (int)(fWidth * 0.12f);
+                }
+                else
+                {
+                    DBGrid.Columns[0].Width = (int)(fWidth * 0.50f);
+                    DBGrid.Columns[1].Width = (int)(fWidth * 0.18f);
+                    DBGrid.Columns[2].Width = (int)(fWidth * 0.18f);
+                    DBGrid.Columns[3].Width = (int)(fWidth * 0.14f);
+                    DBGrid.Columns[4].Width = (int)(fWidth * 0.12f);
+                }
             }
 
             // imposta Font sulla base della larghezza della finestra
@@ -753,6 +791,22 @@ namespace StandFacile
         private void MnuVisGruppi_Click(object sender, EventArgs e)
         {
             MnuVisGruppi.Checked = !MnuVisGruppi.Checked;
+
+            // priorità
+            if (MnuVisGruppi.Checked)
+                MnuRidColumns.Checked = false;
+
+            _bFirstTimeSort = true;
+            AuxForm.SortReset();
+            iRefresh = 0;
+        }
+
+        private void MnuRidColumns_Click(object sender, EventArgs e)
+        {
+            MnuRidColumns.Checked = !MnuRidColumns.Checked;
+
+            _bFirstTimeSort = true;
+            AuxForm.SortReset();
             iRefresh = 0;
         }
 
@@ -879,7 +933,6 @@ namespace StandFacile
 
             rQuickHelpDlg.Dispose();
         }
-
     }
 }
 
