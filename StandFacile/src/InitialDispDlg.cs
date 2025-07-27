@@ -60,6 +60,7 @@ namespace StandFacile
             _pCheckBoxCopia[8] = checkBoxCopia_8;
             _pCheckBoxCopia[9] = checkBoxCopia_9;
             _pCheckBoxCopia[10] = checkBoxCopia_10;
+            _pCheckBoxCopia[11] = checkBoxCopia_11;
 
             iDispGroups = ReadRegistry(DISP_GROUP_KEY, 0);
 

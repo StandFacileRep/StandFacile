@@ -972,6 +972,10 @@ namespace StandFacile_DB
 
                     row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
                     row["sTipo_Articolo"] = ORDER_CONST._START_OF_ORDER;
+                    row["iPrezzo_Unitario"] = SF_Data.iBuoniApplicatiReceipt;
+                    //row["iQuantita_Ordine"] = 0;
+                    //row["iIndex_Listino"] = 0;
+                    //row["iGruppo_Stampa"] = 0;
                     row["sText"] = SF_Data.sDateTime;
                     row["iStatus"] = SF_Data.iStatusReceipt;
                     row["iNumCassa"] = SF_Data.iNumCassa;

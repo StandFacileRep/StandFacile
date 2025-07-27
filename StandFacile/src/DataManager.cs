@@ -181,6 +181,7 @@ namespace StandFacile
             SF_Data.iScontoStdReceipt = 0;
             SF_Data.iScontoFissoReceipt = 0;
             SF_Data.iScontoGratisReceipt = 0;
+            SF_Data.iBuoniApplicatiReceipt = 0;
             SF_Data.iStatusSconto = 0;
             SF_Data.sScontoText = "";
             SF_Data.iBarcodeRichiesto = 0;
@@ -202,6 +203,7 @@ namespace StandFacile
             SF_Data.iTotaleScontatoStd = 0;
             SF_Data.iTotaleScontatoFisso = 0;
             SF_Data.iTotaleScontatoGratis = 0;
+            SF_Data.iTotaleBuoniApplicati = 0;
             SF_Data.iTotaleAnnullato = 0;
             SF_Data.sTavolo = "";
             SF_Data.sNome = "";
@@ -266,6 +268,7 @@ namespace StandFacile
             SF_Data.iScontoStdReceipt = 0;
             SF_Data.iScontoFissoReceipt = 0;
             SF_Data.iScontoGratisReceipt = 0;
+            SF_Data.iBuoniApplicatiReceipt = 0;
             SF_Data.sScontoText = "";
 
             // si riparte con ordini locali
@@ -622,6 +625,7 @@ namespace StandFacile
             SF_Data.iScontoStdReceipt = 0;
             SF_Data.iScontoFissoReceipt = 0;
             SF_Data.iScontoGratisReceipt = 0;
+            SF_Data.iBuoniApplicatiReceipt = 0;
             SF_Data.sScontoText = "";
 
             SF_Data.sWebDateTime = "";

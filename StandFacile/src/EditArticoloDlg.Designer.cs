@@ -38,9 +38,10 @@
             this.btnNavLeft = new System.Windows.Forms.Button();
             this.tabEditArticolo = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelNota = new System.Windows.Forms.Label();
             this.LblMaxChar = new System.Windows.Forms.Label();
             this.LbRimanenti = new System.Windows.Forms.Label();
             this.groupsCombo = new System.Windows.Forms.ComboBox();
@@ -49,6 +50,7 @@
             this.lb1 = new System.Windows.Forms.Label();
             this.PrzEdit = new System.Windows.Forms.TextBox();
             this.TipoEdit = new System.Windows.Forms.TextBox();
+            this.groupsText = new System.Windows.Forms.TextBox();
             this.tabEditArticolo.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -145,6 +147,7 @@
             // 
             this.tabEditArticolo.Controls.Add(this.tabPage1);
             this.tabEditArticolo.Controls.Add(this.tabPage2);
+            this.tabEditArticolo.Controls.Add(this.tabPage3);
             this.tabEditArticolo.Font = new System.Drawing.Font("Tahoma", 11.25F);
             this.tabEditArticolo.Location = new System.Drawing.Point(23, 17);
             this.tabEditArticolo.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
@@ -165,20 +168,31 @@
             this.tabPage1.Text = "Articoli";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 27);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(240, 0);
+            this.tabPage3.TabIndex = 1;
+            this.tabPage3.Text = "Coperti";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(240, 0);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Coperti";
+            this.tabPage2.TabIndex = 2;
+            this.tabPage2.Text = "Buoni sconto";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.groupsText);
+            this.panel1.Controls.Add(this.labelNota);
             this.panel1.Controls.Add(this.LblMaxChar);
             this.panel1.Controls.Add(this.LbRimanenti);
             this.panel1.Controls.Add(this.groupsCombo);
@@ -192,15 +206,15 @@
             this.panel1.Size = new System.Drawing.Size(394, 269);
             this.panel1.TabIndex = 40;
             // 
-            // label3
+            // labelNota
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(17, 150);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(306, 16);
-            this.label3.TabIndex = 24;
-            this.label3.Text = "nota : \"Contatori\" ha il Prezzo = 0 quindi è gratuito !";
+            this.labelNota.AutoSize = true;
+            this.labelNota.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelNota.Location = new System.Drawing.Point(17, 150);
+            this.labelNota.Name = "labelNota";
+            this.labelNota.Size = new System.Drawing.Size(306, 16);
+            this.labelNota.TabIndex = 24;
+            this.labelNota.Text = "nota : \"Contatori\" ha il Prezzo = 0 quindi è gratuito !";
             // 
             // LblMaxChar
             // 
@@ -227,10 +241,6 @@
             this.groupsCombo.DropDownWidth = 250;
             this.groupsCombo.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupsCombo.FormattingEnabled = true;
-            this.groupsCombo.Items.AddRange(new object[] {
-            "bevanda",
-            "pietanza",
-            "contatore"});
             this.groupsCombo.Location = new System.Drawing.Point(150, 209);
             this.groupsCombo.MaxDropDownItems = 20;
             this.groupsCombo.Name = "groupsCombo";
@@ -289,6 +299,17 @@
             this.TipoEdit.TabIndex = 0;
             this.TipoEdit.TextChanged += new System.EventHandler(this.TipoEdit_TextChanged);
             // 
+            // groupsText
+            // 
+            this.groupsText.BackColor = System.Drawing.SystemColors.Window;
+            this.groupsText.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupsText.Location = new System.Drawing.Point(150, 181);
+            this.groupsText.MaxLength = 18;
+            this.groupsText.Name = "groupsText";
+            this.groupsText.ReadOnly = true;
+            this.groupsText.Size = new System.Drawing.Size(226, 22);
+            this.groupsText.TabIndex = 27;
+            // 
             // EditArticoloDlg
             // 
             this.AcceptButton = this.OkBtn;
@@ -330,9 +351,9 @@
         private System.Windows.Forms.Button btnNavLeft;
         private System.Windows.Forms.TabControl tabEditArticolo;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label labelNota;
         private System.Windows.Forms.Label LblMaxChar;
         private System.Windows.Forms.Label LbRimanenti;
         private System.Windows.Forms.ComboBox groupsCombo;
@@ -341,5 +362,7 @@
         private System.Windows.Forms.Label lb1;
         private System.Windows.Forms.TextBox PrzEdit;
         private System.Windows.Forms.TextBox TipoEdit;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TextBox groupsText;
     }
 }

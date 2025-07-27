@@ -1,6 +1,6 @@
 ﻿/********************************************************************
     NomeFile : StandCommonSrc/VisDatiDlg.cs
-    Data	 : 24.07.2025
+    Data	 : 27.07.2025
     Autore : Mauro Artuso
 
     Classe di visualizzazione dei files Dati o Prezzi .
@@ -87,7 +87,7 @@ namespace StandFacile
         }
 
         /// <summary>verifica se è richiesto un pagamento</summary>
-        public static bool DicountReportIsRequested()
+        public static bool DiscountReportIsRequested()
         {
             switch (_iReportIndex)
             {
@@ -196,7 +196,7 @@ namespace StandFacile
         {
             bool bErrors = false;
             int i, iPos;
-            String sTmp, sDisp, sInStr, sNomeFile = "", sDir = "";
+            String sTmp, sDisp, sInStr, sParz, sNomeFile = "", sDir = "";
             String sLineOfText, sCaption, sFormat;
 
             _InitCompletato = false;
@@ -406,10 +406,19 @@ namespace StandFacile
 
                                 (!CkBoxSkipZero.Checked || (DB_Data.Articolo[i].iQuantitaVenduta > 0)))
                             {
-                                sInStr = String.Format(sDAT_FMT_DAT + "\r\n", DB_Data.Articolo[i].sTipo,
-                                    IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario),
-                                    DB_Data.Articolo[i].iQuantitaVenduta,
-                                    IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario * DB_Data.Articolo[i].iQuantitaVenduta), sDisp);
+                                sParz = IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario * DB_Data.Articolo[i].iQuantitaVenduta);
+
+                                if (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI)
+                                {
+                                    sParz = "-" + sParz;
+                                    sInStr = String.Format(sDAT_FMT_DAT + " (*)\r\n", DB_Data.Articolo[i].sTipo,
+                                        IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario), DB_Data.Articolo[i].iQuantitaVenduta, sParz, sDisp);
+                                }
+                                else
+                                {
+                                    sInStr = String.Format(sDAT_FMT_DAT + "\r\n", DB_Data.Articolo[i].sTipo,
+                                        IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario), DB_Data.Articolo[i].iQuantitaVenduta, sParz, sDisp);
+                                }
 
                                 textEditDati.AppendText(sInStr);
                             }
@@ -420,7 +429,7 @@ namespace StandFacile
                             sTmp = String.Format(sDAT_FMT_DSH + "\r\n", "--------");
                             textEditDati.AppendText(sTmp);
 
-                            sTmp = String.Format(sDAT_FMT_TOT + "\r\n", "TOTALE", IntToEuro(DB_Data.iTotaleIncasso));
+                            sTmp = String.Format(sDAT_FMT_TOT + "\r\n", "TOTALE", IntToEuro(DB_Data.iTotaleIncasso - DB_Data.iTotaleBuoniApplicati));
                             textEditDati.AppendText(sTmp);
                         }
                     }
@@ -459,10 +468,19 @@ namespace StandFacile
 
                                 (!CkBoxSkipZero.Checked || (DB_Data.Articolo[i].iQuantitaVenduta > 0)))
                             {
-                                sInStr = String.Format(sDAT_FMT_DAT + "\r\n", DB_Data.Articolo[i].sTipo,
-                                    IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario),
-                                    DB_Data.Articolo[i].iQuantitaVenduta,
-                                    IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario * DB_Data.Articolo[i].iQuantitaVenduta), sDisp);
+                                sParz = IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario * DB_Data.Articolo[i].iQuantitaVenduta);
+
+                                if (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI)
+                                {
+                                    sParz = "-" + sParz;
+                                    sInStr = String.Format(sDAT_FMT_DAT + " (*)\r\n", DB_Data.Articolo[i].sTipo,
+                                        IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario), DB_Data.Articolo[i].iQuantitaVenduta, sParz, sDisp);
+                                }
+                                else
+                                {
+                                    sInStr = String.Format(sDAT_FMT_DAT + "\r\n", DB_Data.Articolo[i].sTipo,
+                                        IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario), DB_Data.Articolo[i].iQuantitaVenduta, sParz, sDisp);
+                                }
 
                                 textEditDati.AppendText(sInStr);
                             }
@@ -473,7 +491,7 @@ namespace StandFacile
                             sTmp = String.Format(sDAT_FMT_DSH + "\r\n", "--------");
                             textEditDati.AppendText(sTmp);
 
-                            sTmp = String.Format(sDAT_FMT_TOT + "\r\n", "TOTALE", IntToEuro(DB_Data.iTotaleIncasso));
+                            sTmp = String.Format(sDAT_FMT_TOT + "\r\n", "TOTALE", IntToEuro(DB_Data.iTotaleIncasso - DB_Data.iTotaleBuoniApplicati));
                             textEditDati.AppendText(sTmp);
                         }
                     }
@@ -510,9 +528,15 @@ namespace StandFacile
 
                                 (!CkBoxSkipZero.Checked || (DB_Data.Articolo[i].iQuantitaVenduta > 0)))
                             {
-                                sInStr = String.Format(sDAT_FMT_REP_RED + "\r\n", DB_Data.Articolo[i].sTipo,
-                                    DB_Data.Articolo[i].iQuantitaVenduta,
-                                    IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario * DB_Data.Articolo[i].iQuantitaVenduta));
+                                sParz = IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario * DB_Data.Articolo[i].iQuantitaVenduta);
+
+                                if (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI)
+                                {
+                                    sParz = "-" + sParz;
+                                    sInStr = String.Format(sDAT_FMT_REP_RED + " (*)\r\n", DB_Data.Articolo[i].sTipo, DB_Data.Articolo[i].iQuantitaVenduta, sParz);
+                                }
+                                else
+                                    sInStr = String.Format(sDAT_FMT_REP_RED + "\r\n", DB_Data.Articolo[i].sTipo, DB_Data.Articolo[i].iQuantitaVenduta, sParz);
 
                                 textEditDati.AppendText(sInStr);
                             }
@@ -523,7 +547,7 @@ namespace StandFacile
                             sTmp = String.Format(sDAT_FMT_DSH_RED + "\r\n", "--------");
                             textEditDati.AppendText(sTmp);
 
-                            sTmp = String.Format(sDAT_FMT_TOT_RED + "\r\n", "TOTALE", IntToEuro(DB_Data.iTotaleIncasso));
+                            sTmp = String.Format(sDAT_FMT_TOT_RED + "\r\n", "TOTALE", IntToEuro(DB_Data.iTotaleIncasso - DB_Data.iTotaleBuoniApplicati));
                             textEditDati.AppendText(sTmp);
                         }
                     }
@@ -556,13 +580,19 @@ namespace StandFacile
 #if STANDFACILE
                                 (!String.IsNullOrEmpty(DB_Data.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()) ||
 #endif
-                               (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER)) &&
+                                (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER)) &&
 
                                 (!CkBoxSkipZero.Checked || (DB_Data.Articolo[i].iQuantitaVenduta > 0)))
                             {
-                                sInStr = String.Format(sDAT_FMT_REP_RED + "\r\n", DB_Data.Articolo[i].sTipo,
-                                    DB_Data.Articolo[i].iQuantitaVenduta,
-                                    IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario * DB_Data.Articolo[i].iQuantitaVenduta));
+                                sParz = IntToEuro(DB_Data.Articolo[i].iPrezzoUnitario * DB_Data.Articolo[i].iQuantitaVenduta);
+
+                                if (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI)
+                                {
+                                    sParz = "-" + sParz;
+                                    sInStr = String.Format(sDAT_FMT_REP_RED + " (*)\r\n", DB_Data.Articolo[i].sTipo, DB_Data.Articolo[i].iQuantitaVenduta, sParz);
+                                }
+                                else
+                                    sInStr = String.Format(sDAT_FMT_REP_RED + "\r\n", DB_Data.Articolo[i].sTipo, DB_Data.Articolo[i].iQuantitaVenduta, sParz);
 
                                 textEditDati.AppendText(sInStr);
                             }
@@ -573,7 +603,7 @@ namespace StandFacile
                             sTmp = String.Format(sDAT_FMT_DSH_RED + "\r\n", "--------");
                             textEditDati.AppendText(sTmp);
 
-                            sTmp = String.Format(sDAT_FMT_TOT_RED + "\r\n", "TOTALE", IntToEuro(DB_Data.iTotaleIncasso));
+                            sTmp = String.Format(sDAT_FMT_TOT_RED + "\r\n", "TOTALE", IntToEuro(DB_Data.iTotaleIncasso - DB_Data.iTotaleBuoniApplicati));
                             textEditDati.AppendText(sTmp);
                         }
                     }
@@ -585,9 +615,19 @@ namespace StandFacile
 
                     textEditDati.AppendText("\r\n");
 
+                    LogToFile(String.Format("VisDatiDlg : iTotaleBuoniApplicati = {0}", DB_Data.iTotaleBuoniApplicati), true);
+
                     LogToFile(String.Format("VisDatiDlg : iTotaleScontatoGratis = {0}", DB_Data.iTotaleScontatoGratis), true);
                     LogToFile(String.Format("VisDatiDlg : iTotaleScontatoFisso = {0}", DB_Data.iTotaleScontatoFisso), true);
                     LogToFile(String.Format("VisDatiDlg : iTotaleScontatoStd = {0}", DB_Data.iTotaleScontatoStd), true);
+
+                    if (((GetReport() == 0) || PaymentReportIsRequested()) && (DB_Data.iTotaleBuoniApplicati > 0))
+                    {
+                        textEditDati.AppendText(String.Format(sFormat, "valore effettivo") + "\r\n");
+
+                        sTmp = String.Format(sFormat + "{1,10} (*)\r\n\r\n", "buoni applicati", IntToEuro(DB_Data.iTotaleBuoniApplicati));
+                        textEditDati.AppendText(sTmp);
+                    }
 
                     // ***************************************** SCONTI **********************************************
 
@@ -615,8 +655,8 @@ namespace StandFacile
                         sTmp = String.Format(sFormat + "{1,10}\r\n", "", "--------");
                         textEditDati.AppendText(sTmp);
 
-                        sTmp = String.Format(sFormat + "{1,10}\r\n", "TOTALE NETTO", IntToEuro(DB_Data.iTotaleIncasso - DB_Data.iTotaleScontatoStd -
-                            DB_Data.iTotaleScontatoFisso - DB_Data.iTotaleScontatoGratis));
+                        sTmp = String.Format(sFormat + "{1,10}\r\n", "TOTALE NETTO", IntToEuro(DB_Data.iTotaleIncasso - DB_Data.iTotaleBuoniApplicati
+                            - DB_Data.iTotaleScontatoStd - DB_Data.iTotaleScontatoFisso - DB_Data.iTotaleScontatoGratis));
                         textEditDati.AppendText(sTmp);
                     }
 
@@ -638,7 +678,7 @@ namespace StandFacile
 
                     if ((GetReport() == 0) || (GetPaymentReportBit() == (int)STATUS_FLAGS.BIT_PAGAM_CASH))
                     {
-                        sTmp = String.Format(sFormat + "{1,10}\r\n", "PAGAM. CONT.   ", IntToEuro(DB_Data.iTotaleIncasso - DB_Data.iTotaleScontatoStd -
+                        sTmp = String.Format(sFormat + "{1,10}\r\n", "PAGAM. CONT.   ", IntToEuro(DB_Data.iTotaleIncasso - DB_Data.iTotaleBuoniApplicati - DB_Data.iTotaleScontatoStd -
                                                        DB_Data.iTotaleScontatoFisso - DB_Data.iTotaleScontatoGratis - DB_Data.iTotaleIncassoCard - DB_Data.iTotaleIncassoSatispay));
                         textEditDati.AppendText(sTmp);
                     }
@@ -1108,7 +1148,11 @@ namespace StandFacile
                                 {
                                     iUpperLimit = _iLastArticoloIndexP1;
 
-                                    xlsWorkSheet.Cells[XLS_VOFFSET + j, 2] = _ArticoliPrimaColonna[j].sTipo;
+                                    if (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI)
+                                        xlsWorkSheet.Cells[XLS_VOFFSET + j, 2] = _ArticoliPrimaColonna[j].sTipo+" (*)";
+                                    else
+                                        xlsWorkSheet.Cells[XLS_VOFFSET + j, 2] = _ArticoliPrimaColonna[j].sTipo;
+
                                     xlsWorkSheet.Cells[XLS_VOFFSET + j, 3] = (_ArticoliPrimaColonna[j].iPrezzoUnitario) / 100.0f;
                                 }
 
@@ -1126,7 +1170,10 @@ namespace StandFacile
                                 }
                                 else
                                 {
-                                    xlsWorkSheet.Cells[XLS_VOFFSET + j, iColumn + 5] = (DB_Data.Articolo[i].iPrezzoUnitario * DB_Data.Articolo[i].iQuantitaVenduta) / 100.0f;
+                                    if (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI)
+                                        xlsWorkSheet.Cells[XLS_VOFFSET + j, iColumn + 5] = (-DB_Data.Articolo[i].iPrezzoUnitario * DB_Data.Articolo[i].iQuantitaVenduta) / 100.0f;
+                                    else
+                                        xlsWorkSheet.Cells[XLS_VOFFSET + j, iColumn + 5] = (DB_Data.Articolo[i].iPrezzoUnitario * DB_Data.Articolo[i].iQuantitaVenduta) / 100.0f;
 
                                     if (_SelRange.Start == _SelRange.End)
                                         xlsWorkSheet.Cells[XLS_VOFFSET + j, iColumn + 6] = sDisp;
@@ -1149,9 +1196,17 @@ namespace StandFacile
                             xlsWorkSheet.Cells[iRow++, iColumn + 5] = "---------";
 
                             xlsWorkSheet.Cells[iRow, 4] = "TOTALE";
-                            xlsWorkSheet.Cells[iRow++, iColumn + 5] = (DB_Data.iTotaleIncasso) / 100.0f;
+                            xlsWorkSheet.Cells[iRow++, iColumn + 5] = (DB_Data.iTotaleIncasso - DB_Data.iTotaleBuoniApplicati) / 100.0f;
 
-                            if ((DB_Data.iTotaleScontatoStd > 0) || (DB_Data.iTotaleScontatoFisso > 0) || (DB_Data.iTotaleScontatoGratis > 0))
+                            //if (DB_Data.iTotaleBuoniApplicati > 0)
+                            {
+                                iRow++;
+
+                                xlsWorkSheet.Cells[iRow, 4] = "valore effettivo buoni applicati (*)";
+                                xlsWorkSheet.Cells[iRow++, iColumn + 5] = (DB_Data.iTotaleBuoniApplicati) / 100.0f;
+                            }
+
+                            //if ((DB_Data.iTotaleScontatoStd > 0) || (DB_Data.iTotaleScontatoFisso > 0) || (DB_Data.iTotaleScontatoGratis > 0))
                             {
                                 iRow++;
 
@@ -1166,11 +1221,11 @@ namespace StandFacile
 
                                 xlsWorkSheet.Cells[iRow++, iColumn + 5] = "---------";
                                 xlsWorkSheet.Cells[iRow, 4] = "TOTALE NETTO";
-                                xlsWorkSheet.Cells[iRow++, iColumn + 5] = (DB_Data.iTotaleIncasso - DB_Data.iTotaleScontatoStd -
+                                xlsWorkSheet.Cells[iRow++, iColumn + 5] = (DB_Data.iTotaleIncasso - DB_Data.iTotaleBuoniApplicati - DB_Data.iTotaleScontatoStd -
                                                                             DB_Data.iTotaleScontatoFisso - DB_Data.iTotaleScontatoGratis) / 100.0f;
                             }
 
-                            if ((DB_Data.iTotaleIncassoCard > 0) || (DB_Data.iTotaleIncassoSatispay > 0))
+                            //if ((DB_Data.iTotaleIncassoCard > 0) || (DB_Data.iTotaleIncassoSatispay > 0))
                             {
                                 iRow++;
 
@@ -1181,7 +1236,7 @@ namespace StandFacile
                                 xlsWorkSheet.Cells[iRow++, iColumn + 5] = (DB_Data.iTotaleIncassoSatispay) / 100.0f;
 
                                 xlsWorkSheet.Cells[iRow, 4] = "PAGAM. CONT.";
-                                xlsWorkSheet.Cells[iRow++, iColumn + 5] = (DB_Data.iTotaleIncasso - DB_Data.iTotaleScontatoStd - DB_Data.iTotaleScontatoFisso -
+                                xlsWorkSheet.Cells[iRow++, iColumn + 5] = (DB_Data.iTotaleIncasso - DB_Data.iTotaleBuoniApplicati - DB_Data.iTotaleScontatoStd - DB_Data.iTotaleScontatoFisso -
                                                                             DB_Data.iTotaleScontatoGratis - DB_Data.iTotaleIncassoCard - DB_Data.iTotaleIncassoSatispay) / 100.0f;
                             }
 

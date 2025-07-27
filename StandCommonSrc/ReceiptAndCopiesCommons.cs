@@ -350,6 +350,7 @@ namespace StandCommonFiles
                     dataIdParam.iTotaleReceipt = 0;         // richiede calcolo
                     dataIdParam.iScontoStdReceipt = 0;      //      "
                     dataIdParam.iScontoGratisReceipt = 0;   //      "
+                    dataIdParam.iBuoniApplicatiReceipt = 0; //      "
 
                     // se non c'è il logo stampa sHeaders[0]
                     if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName)) ||
@@ -497,16 +498,59 @@ namespace StandCommonFiles
                         } // end if
                     }
 
+                    // stampa BUONI
+                    if (bSomethingInto_GrpToPrint[(int)DEST_TYPE.DEST_BUONI])
+                    {
+                        fPrintParam.WriteLine();
+
+                        for (j = 0; j < MAX_NUM_ARTICOLI; j++)
+                        {
+                            if ((dataIdParam.Articolo[j].iQuantitaOrdine > 0) && (dataIdParam.Articolo[j].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI))
+                            {
+                                iIncassoParz = dataIdParam.Articolo[j].iQuantitaOrdine * dataIdParam.Articolo[j].iPrezzoUnitario;
+
+                                dataIdParam.iBuoniApplicatiReceipt += iIncassoParz;
+
+                                dataIdParam.iTotaleReceipt -= iIncassoParz; // ---------------- ****************
+                                sIncassoParz = "-" + IntToEuro(iIncassoParz);
+
+                                // 89 123456789012345678 9876.00  width=28
+                                sTmp = String.Format(sRCP_FMT_RCPT, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo, sIncassoParz);
+                                fPrintParam.WriteLine("{0}", sTmp);
+
+                                if (!String.IsNullOrEmpty(dataIdParam.Articolo[j].sNotaArt))
+                                {
+                                    sTmp = String.Format(sRCP_FMT_NOTE + "\r\n", dataIdParam.Articolo[j].sNotaArt);
+                                    fPrintParam.WriteLine("{0}", sTmp);
+                                }
+                            }
+                        }
+                    }
+
                     fPrintParam.WriteLine(sRCP_FMT_DSH, "------");
 
                     // punto doppio
                     dataIdParam.iScontoStdReceipt = Arrotonda(dataIdParam.iScontoStdReceipt);
 
+                    // causa presenza buoni è sempre possibile !
+                    if (dataIdParam.iTotaleReceipt < 0)
+                    {
+                        // iBuoniApplicatiReceipt dimuisce dato che dataIdParam.iTotaleReceipt < 0
+                        dataIdParam.iBuoniApplicatiReceipt += dataIdParam.iTotaleReceipt;
+                        dataIdParam.iTotaleReceipt = 0;
+                    }
+
                     if (IsBitSet(dataIdParam.iStatusSconto, BIT_SCONTO_STD) && TicketScontatoStdIsGood(dataIdParam, bScontoGruppo))
                     {
-                        fPrintParam.WriteLine(sRCP_FMT_DSC, "SCONTO", IntToEuro(dataIdParam.iScontoStdReceipt), "TOTALE", IntToEuro(dataIdParam.iTotaleReceipt));
-
                         dataIdParam.iTotaleReceiptDovuto = dataIdParam.iTotaleReceipt - dataIdParam.iScontoStdReceipt;
+
+                        if (dataIdParam.iTotaleReceiptDovuto < 0)
+                        {
+                            dataIdParam.iTotaleReceiptDovuto = 0;
+                            dataIdParam.iScontoStdReceipt = dataIdParam.iTotaleReceipt;
+                        }
+
+                        fPrintParam.WriteLine(sRCP_FMT_DSC, "SCONTO", IntToEuro(dataIdParam.iScontoStdReceipt), "TOTALE", IntToEuro(dataIdParam.iTotaleReceipt));
 
                         fPrintParam.WriteLine(sRCP_FMT_DIF + "\r\n", "DIFF. DOVUTA", IntToEuro(dataIdParam.iTotaleReceiptDovuto));
 
@@ -529,13 +573,10 @@ namespace StandCommonFiles
                         {
                             dataIdParam.iTotaleReceiptDovuto = 0;
                             dataIdParam.iScontoFissoReceipt = dataIdParam.iTotaleReceipt;
-
-                            fPrintParam.WriteLine(sRCP_FMT_DSC, "SCONTO", IntToEuro(dataIdParam.iTotaleReceipt),
-                                                    "TOTALE", IntToEuro(dataIdParam.iTotaleReceipt));
                         }
-                        else
-                            fPrintParam.WriteLine(sRCP_FMT_DSC, "SCONTO", IntToEuro(dataIdParam.iScontoFissoReceipt),
-                                                    "TOTALE", IntToEuro(dataIdParam.iTotaleReceipt));
+
+                        fPrintParam.WriteLine(sRCP_FMT_DSC, "SCONTO", IntToEuro(dataIdParam.iScontoFissoReceipt),
+                                                "TOTALE", IntToEuro(dataIdParam.iTotaleReceipt));
 
                         fPrintParam.WriteLine(sRCP_FMT_DIF + "\r\n", "DIFF. DOVUTA", IntToEuro(dataIdParam.iTotaleReceiptDovuto));
 
@@ -1162,7 +1203,7 @@ namespace StandCommonFiles
             /*******************************************************
             *                 RICOSTRUZIONE COPIE
             * i contatori sono inclusi nelle PIETANZE es: COPERTI
-            *******************************************************/
+            ********************************************************/
 
 
             // identificazione dei coperti

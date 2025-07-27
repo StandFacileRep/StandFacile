@@ -1,6 +1,6 @@
 ﻿/*************************************************************************************************
 	 NomeFile : StandCommonSrc/dBaseIntf_pg.cs
-	 Data	  : 22.07.2025
+	 Data	  : 26.07.2025
 	 Autore   : Mauro Artuso
 
     nelle assegnazioni :
@@ -177,7 +177,8 @@ namespace StandFacile_DB
 
             // non si riferiscono a nessun ordine in particolare
             int iPrezzoUnitario, iQuantitaOrdine, iGruppoStampa;
-            int iTotaleReceipt, iStatusScontoReceipt, iScontoStdReceipt, iScontoFissoReceipt, iScontoGratisReceipt;
+            int iTotaleReceipt, iBuoniApplicatiReceipt;
+            int iStatusScontoReceipt, iScontoStdReceipt, iScontoFissoReceipt, iScontoGratisReceipt;
 
             int iLastArticoloDBIndexP1;
 
@@ -514,6 +515,7 @@ namespace StandFacile_DB
                     iScontoStdReceipt = 0;
                     iScontoFissoReceipt = 0;
                     iScontoGratisReceipt = 0;
+                    iBuoniApplicatiReceipt = 0;
 
                     try
                     {
@@ -526,6 +528,19 @@ namespace StandFacile_DB
                             {
                                 iStatus = readerOrdine.GetInt32("iStatus");
                                 bScaricato = readerOrdine.GetBoolean("iScaricato");
+
+                                iBuoniApplicatiReceipt = readerOrdine.GetInt32("iPrezzo_Unitario");
+
+#if STANDFACILE || STAND_MONITOR
+                                // prosegue solo se è stato effettuato un certo tipo di pagamento
+                                // deve stare prima dei vari DB_Data.iTotaleBuoniApplicati +=
+                                if ((VisDatiDlg.PaymentReportIsRequested()) && !IsBitSet(iStatus, VisDatiDlg.GetPaymentReportBit()))
+                                {
+                                    break;
+                                }
+#endif
+                                if (!bRigaAnnullata)
+                                    DB_Data.iTotaleBuoniApplicati += iBuoniApplicatiReceipt;
 
                                 if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                                     DB_Data.iNumOfWebReceipts++;
@@ -547,14 +562,6 @@ namespace StandFacile_DB
                                 iGruppoStampa = readerOrdine.GetInt32("iGruppo_Stampa");
                             }
 
-#if STANDFACILE || STAND_MONITOR
-                            // considera iStatus solo un certo tipo di pagamento
-                            if ((VisDatiDlg.PaymentReportIsRequested()) && !IsBitSet(iStatus, VisDatiDlg.GetPaymentReportBit()))
-                            {
-                                break;
-                            }
-#endif
-
                             if (StringBelongsTo_ORDER_CONST(sTipo, ORDER_CONST._SCONTO))
                                 continue;
 
@@ -571,13 +578,16 @@ namespace StandFacile_DB
                                 {
                                     bMatch = false;
 
-                                    sDebug = DB_Data.Articolo[0].sTipo;
+                                    sDebug = DB_Data.Articolo[i].sTipo;
 
                                     if ((DB_Data.Articolo[i].sTipo == sTipo) || (sTipo == ORDER_CONST._SCONTO))
                                     {
                                         if (bRigaAnnullata)
                                         {
-                                            DB_Data.iTotaleAnnullato += iPrezzoUnitario * iQuantitaOrdine;
+                                            if (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI)
+                                                DB_Data.iTotaleAnnullato -= iPrezzoUnitario * iQuantitaOrdine;
+                                            else
+                                                DB_Data.iTotaleAnnullato += iPrezzoUnitario * iQuantitaOrdine;
                                         }
                                         else
                                         {
@@ -600,14 +610,14 @@ namespace StandFacile_DB
                                             {
 #if STANDFACILE || STAND_MONITOR
                                                 // considera solo gli sconti
-                                                if (VisDatiDlg.DicountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.GetDiscountReportBit()))
+                                                if (VisDatiDlg.DiscountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.GetDiscountReportBit()))
                                                 {
                                                     bMatch = true;
                                                     break;
                                                 }
 
                                                 // considera solo i gruppi cui lo sconto è applicato
-                                                if (VisDatiDlg.DicountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, DB_Data.Articolo[i].iGruppoStampa + 4) &&
+                                                if (VisDatiDlg.DiscountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, DB_Data.Articolo[i].iGruppoStampa + 4) &&
                                                     (VisDatiDlg.GetDiscountReportBit() == BIT_SCONTO_STD))
                                                 {
                                                     bMatch = true;
@@ -616,9 +626,15 @@ namespace StandFacile_DB
 #endif
                                                 DB_Data.Articolo[i].iQuantitaVenduta += iQuantitaOrdine;
 
-                                                iTotaleReceipt += iPrezzoUnitario * iQuantitaOrdine;
-                                                DB_Data.iTotaleIncasso += iPrezzoUnitario * iQuantitaOrdine;
+                                                if (DB_Data.Articolo[i].iGruppoStampa != (int)DEST_TYPE.DEST_BUONI)
+                                                {
+                                                    iTotaleReceipt += iPrezzoUnitario * iQuantitaOrdine;
+                                                    DB_Data.iTotaleIncasso += iPrezzoUnitario * iQuantitaOrdine;
+                                                }
                                             }
+
+                                            iDebug = DB_Data.iTotaleIncasso;
+                                            // Console.WriteLine("dbCaricaDatidaOrdini: DB_Data.iTotaleIncasso = {0}", DB_Data.iTotaleIncasso);
 
                                             if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
                                                 DB_Data.Articolo[i].iQtaEsportata += iQuantitaOrdine;
@@ -644,10 +660,13 @@ namespace StandFacile_DB
 
                                 if (DB_Data.bAnnullato)
                                 {
-                                    DB_Data.iTotaleAnnullato += iPrezzoUnitario * iQuantitaOrdine;
+                                    if (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI)
+                                        DB_Data.iTotaleAnnullato -= iPrezzoUnitario * iQuantitaOrdine;
+                                    else
+                                        DB_Data.iTotaleAnnullato += iPrezzoUnitario * iQuantitaOrdine;
                                 }
 #if STANDFACILE || STAND_MONITOR
-                                else if (VisDatiDlg.DicountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.GetDiscountReportBit()))
+                                else if (VisDatiDlg.DiscountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.GetDiscountReportBit()))
                                 {
                                     bMatch = true;
                                 }

@@ -505,7 +505,8 @@ namespace StandFacile
             _gridStyle[0, 7].ForeColor = Color.MistyRose; _gridStyle[0, 7].BackColor = Color.Teal;  // GRUPPO 8
             _gridStyle[0, 8].ForeColor = Color.White; _gridStyle[0, 8].BackColor = Color.Teal;      // GRUPPO 9 NOWEB
             _gridStyle[0, 9].ForeColor = Color.White; _gridStyle[0, 9].BackColor = Color.Teal;      // COPIE SINGOLE
-            _gridStyle[0, 10].ForeColor = Color.White; _gridStyle[0, 10].BackColor = Color.Teal;    // CONTATORI
+            _gridStyle[0, 10].ForeColor = Color.White; _gridStyle[0, 10].BackColor = Color.Teal;    // BUONI SPESA
+            _gridStyle[0, 11].ForeColor = Color.White; _gridStyle[0, 11].BackColor = Color.Teal;    // CONTATORI
 
             // chiaro
             _gridStyle[1, 0].ForeColor = Color.Black; _gridStyle[1, 0].BackColor = Color.LightYellow;
@@ -519,6 +520,7 @@ namespace StandFacile
             _gridStyle[1, 8].ForeColor = Color.Black; _gridStyle[1, 8].BackColor = Color.SeaShell;
             _gridStyle[1, 9].ForeColor = Color.Black; _gridStyle[1, 9].BackColor = Color.AliceBlue;
             _gridStyle[1, 10].ForeColor = Color.Black; _gridStyle[1, 10].BackColor = Color.WhiteSmoke;
+            _gridStyle[1, 11].ForeColor = Color.Black; _gridStyle[1, 11].BackColor = Color.WhiteSmoke;
 
             // scuro
             _gridStyle[2, 0].ForeColor = Color.White; _gridStyle[2, 0].BackColor = Color.Goldenrod;
@@ -532,6 +534,7 @@ namespace StandFacile
             _gridStyle[2, 8].ForeColor = Color.White; _gridStyle[2, 8].BackColor = Color.Olive;
             _gridStyle[2, 9].ForeColor = Color.White; _gridStyle[2, 9].BackColor = Color.SeaGreen;
             _gridStyle[2, 10].ForeColor = Color.White; _gridStyle[2, 10].BackColor = Color.SeaGreen;
+            _gridStyle[2, 11].ForeColor = Color.White; _gridStyle[2, 11].BackColor = Color.SeaGreen;
         }
 
         /// <summary>imposta grafica TABS</summary>
@@ -1283,7 +1286,7 @@ namespace StandFacile
             DataManager.Receipt(); // salva anche i Dati
 
             // non può essere dentro allo Scontrino altrimenti blocca scrittura files, etc.
-            if (SF_Data.iTotaleReceipt == 0)
+            if ((SF_Data.iTotaleReceipt == 0) && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 WarningManager(WRN_TZT);
 
             if (_bListinoModificato)

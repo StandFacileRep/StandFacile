@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 24.07.2025
+    Data	 : 27.07.2025
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.14.5";
+        public const String RELEASE_SW = "v5.15.0 RC1";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5c";
@@ -600,24 +600,26 @@ namespace StandCommonFiles
             DEST_TIPO9_NOWEB,
             /// <summary>gruppo destinazioni singole</summary>
             DEST_SINGLE,
+            /// <summary>gruppo dei buoni sconto: sono articoli con prezzo negativo</summary>
+            DEST_BUONI,
             /// <summary>gruppo dei contatori: non ha un prezzo significativo</summary>
             DEST_COUNTER
         };
 
-        /// <summary>numero totale =11 dei diversi gruppi di Articoli compresi i contatori</summary>
+        /// <summary>numero totale =12 dei diversi gruppi di Articoli compresi i contatori</summary>
         public static readonly int NUM_COPIES_GRPS = Enum.GetNames(typeof(DEST_TYPE)).Length;
-
-        /// <summary>numero=11 del "gruppo di stampa virtuale" che identifica barcode di prevendita</summary>
-        public static readonly int NUM_PRE_SALE_GRP = 11;
-
-        /// <summary>numero=12 del "gruppo di stampa virtuale" che identifica barcode di vendita WEB</summary>
-        public static readonly int NUM_WEB_SALE_GRP = 12;
 
         /// <summary>
         /// numero=10 dei gruppi di stampa separata, comprese copie sigole ma esclusi i contatori<br/>
         /// corrisponde anche all'indice della stampante Locale
         /// </summary>
-        public static readonly int NUM_SEP_PRINT_GROUPS = NUM_COPIES_GRPS - 1;
+        public static readonly int NUM_SEP_PRINT_GROUPS = NUM_COPIES_GRPS - 2;
+
+        /// <summary>numero=14 del "gruppo di stampa virtuale" che identifica barcode di prevendita</summary>
+        public static readonly int NUM_PRE_SALE_GRP = 14;
+
+        /// <summary>numero=15 del "gruppo di stampa virtuale" che identifica barcode di vendita WEB</summary>
+        public static readonly int NUM_WEB_SALE_GRP = 15;
 
         /// <summary>numero=9 dei gruppi di stampa con label editabile, sono i primi 9</summary>
         public static readonly int NUM_EDIT_GROUPS = (int)DEST_TYPE.DEST_TIPO9_NOWEB + 1;
@@ -1028,8 +1030,10 @@ namespace StandCommonFiles
             public int iScontoStdReceipt;
             /// <summary>valore dello sconto fisso applicato</summary>
             public int iScontoFissoReceipt;
-            /// <summary>testo dello sconto totale applicato</summary>
+            /// <summary>valore dello sconto gratis applicato</summary>
             public int iScontoGratisReceipt;
+            /// <summary>valore dei buoni applicati</summary>
+            public int iBuoniApplicatiReceipt;
             /// <summary>numero hex i cui bit rappresentano lo stato degli sconti</summary>
             public int iStatusSconto;
             /// <summary>testo dello sconto applicato</summary>
@@ -1072,6 +1076,8 @@ namespace StandCommonFiles
             public int iTotaleScontatoFisso;
             /// <summary>somma importo degli scontrini gratuiti</summary>
             public int iTotaleScontatoGratis;
+            /// <summary>somma importo dei buoni applicati</summary>
+            public int iTotaleBuoniApplicati;
             /// <summary>somma importo degli scontrini annullati </summary>
             public int iTotaleAnnullato;
             /// <summary>stringa del tavolo</summary>
@@ -1132,6 +1138,7 @@ namespace StandCommonFiles
                 iScontoStdReceipt = 0;
                 iScontoFissoReceipt = 0;
                 iScontoGratisReceipt = 0;
+                iBuoniApplicatiReceipt = 0;
                 iStatusSconto = 0;
                 sScontoText = "";
                 iBarcodeRichiesto = 0;
@@ -1152,6 +1159,7 @@ namespace StandCommonFiles
                 iTotaleScontatoStd = 0;
                 iTotaleScontatoFisso = 0;
                 iTotaleScontatoGratis = 0;
+                iTotaleBuoniApplicati = 0;
                 iTotaleAnnullato = 0;
                 iNumAnnullati = 0;
 
@@ -1273,10 +1281,10 @@ namespace StandCommonFiles
 
         /// <summary>testo descrittivo dei gruppi di stampa</summary>
         public static readonly String[] sConstGruppi = { "gruppo 1", "gruppo 2", "gruppo 3", "gruppo 4", "gruppo 5", "gruppo 6",
-                                                          "gruppo 7", "gruppo 8", "gruppo 9 (no-web)", "Copie singole", "Contatori" };
+                                                          "gruppo 7", "gruppo 8", "gruppo 9 (no-web)", "Copie singole", "Buoni sconto", "Contatori" };
 
         /// <summary>testo short descrittivo dei gruppi di stampa</summary>
-        public static readonly String[] sConstGruppiShort = { "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "CS", "CN" };
+        public static readonly String[] sConstGruppiShort = { "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "CS", "BS", "CN" };
 
         /// <summary>testo esteso descrittivo dei gruppi di stampa</summary>
         public static readonly String[] sConstCopiesGroupsText =
@@ -1291,6 +1299,7 @@ namespace StandCommonFiles
             "##### COPIA GRUPPO8 #####",
             "### COPIA GRP NO WEB ###",
             " ###  COPIE SINGOLE  ### ",
+            " ###   BUONI SCONTO  ### ",
             " ###    CONTATORI    ### "
         };
 

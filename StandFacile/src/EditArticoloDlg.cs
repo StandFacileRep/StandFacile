@@ -1,6 +1,6 @@
 ﻿/***************************************************
     NomeFile : StandFacile/EditArticoloDlg.cs
-	Data	 : 20.06.2025
+	Data	 : 26.07.2025
     Autore   : Mauro Artuso
  ***************************************************/
 using System;
@@ -33,6 +33,13 @@ namespace StandFacile
 
         TErrMsg _WrnMsg = new TErrMsg();
 
+        enum TAB_ITEM
+        {
+            ARTICOLO = 0,
+            BUONI,
+            COPERTI
+        };
+
         readonly ToolTip _tt = new ToolTip
         {
             InitialDelay = 50,
@@ -59,9 +66,12 @@ namespace StandFacile
 
             TipoEdit.MaxLength = iMAX_ART_CHAR; // 18
 
+            //groupsText.ReadOnly = true;
+            groupsText.Top = groupsCombo.Top;
+
             groupsCombo.Items.Clear();
 
-            for (i = NUM_SEP_PRINT_GROUPS; (i >= 0); i--) // OK
+            for (i = NUM_COPIES_GRPS - 1; (i >= 0); i--) // OK
             {
                 sTmp = string.Format("{0}, {1}", sConstGruppi[i], SF_Data.sCopiesGroupsText[i]);
 
@@ -74,8 +84,11 @@ namespace StandFacile
             _tt.SetToolTip(btnSalva, "salva il contenuto dell'Articolo");
         }
 
-        /// <summary>si passa un indice dell'array fondamentale</summary>
-        public void Init(int iPt, bool bIsMenuItemParam)
+        /// <summary>
+        /// iPt: indice dell'array fondamentale,<br/>
+        /// da invocare quando non si conosce il gruppo
+        /// </summary>
+        public void Init(int iPt)
         {
             String sTmp;
 
@@ -85,31 +98,42 @@ namespace StandFacile
             _Articolo = SF_Data.Articolo[iPt];
             _Coperto = SF_Data.Articolo[MAX_NUM_ARTICOLI - 1];
 
-            if (bIsMenuItemParam)
+            switch (SF_Data.Articolo[iPt].iGruppoStampa)
             {
-                _iPt = iPt;
+                case (int)DEST_TYPE.DEST_BUONI:
+                    _iPt = iPt;
 
-                tabEditArticolo.SelectedIndex = 0;
+                    tabEditArticolo.SelectedIndex = (int)TAB_ITEM.BUONI;
 
-                TipoEdit.Text = _Articolo.sTipo;
-                groupsCombo.SelectedIndex = _Articolo.iGruppoStampa;
+                    TipoEdit.Text = _Articolo.sTipo;
+                    groupsCombo.SelectedIndex = (int)DEST_TYPE.DEST_BUONI;
 
-                if (_Articolo.iPrezzoUnitario > 0)
-                    PrzEdit.Text = IntToEuro(_Articolo.iPrezzoUnitario);
-                else
-                    PrzEdit.Text = "";
-            }
-            else
-            {
-                tabEditArticolo.SelectedIndex = 1;
+                    groupsText.Text = sConstGruppi[(int)DEST_TYPE.DEST_BUONI];
+                    groupsText.Visible = true;
+                    groupsCombo.Visible = false;
 
-                TipoEdit.Text = _COPERTO;
-                groupsCombo.SelectedIndex = (int)DEST_TYPE.DEST_COUNTER;
+                    if (_Articolo.iPrezzoUnitario > 0)
+                        PrzEdit.Text = IntToEuro(_Articolo.iPrezzoUnitario);
+                    else
+                        PrzEdit.Text = "";
+                    break;
 
-                if (_Coperto.iPrezzoUnitario > 0)
-                    PrzEdit.Text = IntToEuro(_Coperto.iPrezzoUnitario);
-                else
-                    PrzEdit.Text = "";
+                default: // Articolo default
+                    _iPt = iPt;
+
+                    tabEditArticolo.SelectedIndex = (int)TAB_ITEM.ARTICOLO;
+
+                    TipoEdit.Text = _Articolo.sTipo;
+                    groupsCombo.SelectedIndex = _Articolo.iGruppoStampa;
+
+                    groupsText.Visible = false;
+                    groupsCombo.Visible = true;
+
+                    if (_Articolo.iPrezzoUnitario > 0)
+                        PrzEdit.Text = IntToEuro(_Articolo.iPrezzoUnitario);
+                    else
+                        PrzEdit.Text = "";
+                    break;
             }
 
             OkBtn.Enabled = true;
@@ -117,7 +141,80 @@ namespace StandFacile
             _bListinoModificato = false;
 
             sTmp = String.Format("EditArticoloDlg Init, articolo {0}", _iPt);
+            LogToFile(sTmp);
 
+            if (!Visible)
+                ShowDialog();
+        }
+
+        /// <summary>
+        /// iPt: indice dell'array fondamentale,<br/>
+        /// da invocare quando si conosce il gruppo
+        /// </summary>
+        public void Init(int iPt, int tabIndexParam)
+        {
+            String sTmp;
+
+            Text = String.Format("Imposta Articolo: {0,3}", iPt);
+
+            // *** copia struct Articolo ***
+            _Articolo = SF_Data.Articolo[iPt];
+            _Coperto = SF_Data.Articolo[MAX_NUM_ARTICOLI - 1];
+
+            switch (tabIndexParam)
+            {
+                case (int)TAB_ITEM.COPERTI:
+
+                    TipoEdit.Text = _COPERTO;
+                    groupsCombo.SelectedIndex = (int)DEST_TYPE.DEST_COUNTER;
+
+                    groupsText.Text = sConstGruppi[(int)DEST_TYPE.DEST_COUNTER];
+                    groupsText.Visible = true;
+                    groupsCombo.Visible = false;
+
+                    if (_Coperto.iPrezzoUnitario > 0)
+                        PrzEdit.Text = IntToEuro(_Coperto.iPrezzoUnitario);
+                    else
+                        PrzEdit.Text = "";
+                    break;
+
+                case (int)TAB_ITEM.BUONI:
+                    _iPt = iPt;
+
+                    TipoEdit.Text = _Articolo.sTipo;
+                    groupsCombo.SelectedIndex = (int)DEST_TYPE.DEST_BUONI;
+
+                    groupsText.Text = sConstGruppi[(int)DEST_TYPE.DEST_BUONI];
+                    groupsText.Visible = true;
+                    groupsCombo.Visible = false;
+
+                    if (_Articolo.iPrezzoUnitario > 0)
+                        PrzEdit.Text = IntToEuro(_Articolo.iPrezzoUnitario);
+                    else
+                        PrzEdit.Text = "";
+                    break;
+
+                default: // Articolo default
+                    _iPt = iPt;
+
+                    TipoEdit.Text = _Articolo.sTipo;
+                    groupsCombo.SelectedIndex = _Articolo.iGruppoStampa;
+
+                    groupsText.Visible = false;
+                    groupsCombo.Visible = true;
+
+                    if (_Articolo.iPrezzoUnitario > 0)
+                        PrzEdit.Text = IntToEuro(_Articolo.iPrezzoUnitario);
+                    else
+                        PrzEdit.Text = "";
+                    break;
+            }
+
+            OkBtn.Enabled = true;
+
+            _bListinoModificato = false;
+
+            sTmp = String.Format("EditArticoloDlg Init, articolo {0}", _iPt);
             LogToFile(sTmp);
 
             if (!Visible)
@@ -153,19 +250,22 @@ namespace StandFacile
                 return;
             else  // azzeramento
             {
-                if (tabEditArticolo.SelectedIndex == 0)
+                if ((tabEditArticolo.SelectedIndex == (int)TAB_ITEM.ARTICOLO) || (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.BUONI))
                 {
                     SF_Data.Articolo[_iPt].sTipo = "";
                     SF_Data.Articolo[_iPt].iPrezzoUnitario = 0;
                     SF_Data.Articolo[_iPt].iGruppoStampa = 0;
-                    _bListinoModificato = true;
 
-                    Init(_iPt, true);
+                    Init(_iPt, tabEditArticolo.SelectedIndex);
                 }
                 else
                 {
                     SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario = 0;
-                    Init(MAX_NUM_ARTICOLI - 1, false);
+
+                    if (_iPt < MAX_NUM_ARTICOLI - 1)
+                        SF_Data.Articolo[_iPt].iGruppoStampa = 0;
+
+                    Init(MAX_NUM_ARTICOLI - 1, tabEditArticolo.SelectedIndex);
                 }
             }
 
@@ -223,9 +323,10 @@ namespace StandFacile
 
             _Articolo.iPrezzoUnitario = EuroToInt(PrzEdit.Text, EURO_CONVERSION.EUROCONV_DONT_CARE, _WrnMsg);
 
-            if ((_Articolo.iPrezzoUnitario == -1) ||  // Errore di formato del Prezzo in Euro !
-                 ((tabEditArticolo.SelectedIndex == 0) && (_Articolo.iPrezzoUnitario == 0) && !OptionsDlg._rOptionsDlg.GetZeroPriceEnabled() &&
-                 (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER) 
+            if ((_Articolo.iPrezzoUnitario == -1) || ( // Errore di formato del Prezzo in Euro !
+                 ((tabEditArticolo.SelectedIndex == (int)TAB_ITEM.ARTICOLO) && (_Articolo.iPrezzoUnitario == 0) && !OptionsDlg._rOptionsDlg.GetZeroPriceEnabled() ||
+                  (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.BUONI)) && (_Articolo.iPrezzoUnitario == 0) &&
+                  (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER)
                )) // TAB Articoli
             {
                 PrzEdit.BackColor = Color.Red;
@@ -253,7 +354,7 @@ namespace StandFacile
                 }
                 while (ckBoxSkipEmpty.Checked && String.IsNullOrEmpty(SF_Data.Articolo[_iPt].sTipo) && (_iPt > 0));
 
-                Init(_iPt, true);
+                Init(_iPt);
             }
         }
 
@@ -268,7 +369,7 @@ namespace StandFacile
                 }
                 while (ckBoxSkipEmpty.Checked && String.IsNullOrEmpty(SF_Data.Articolo[_iPt].sTipo) && (_iPt < MAX_NUM_ARTICOLI - 2));
 
-                Init(_iPt, true);
+                Init(_iPt);
             }
         }
 
@@ -341,7 +442,7 @@ namespace StandFacile
                         break;
                 } // END switch
 
-                Init(_iPt, true);
+                Init(_iPt, tabEditArticolo.SelectedIndex);
                 return true;
             }
             else
@@ -405,7 +506,7 @@ namespace StandFacile
                     break;
             } // END switch
 
-            Init(_iPt, true);
+            Init(_iPt);
         }
 
         private void AnnullaBtn_Click(object sender, EventArgs e)
@@ -429,29 +530,43 @@ namespace StandFacile
 
         private void TabEditArt_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabEditArticolo.SelectedIndex == 0)
-            {
-                btnNavLeft.Enabled = true;
-                btnNavRight.Enabled = true;
-                ckBoxSkipEmpty.Enabled = true;
-                groupsCombo.Enabled = true;
-                label3.Enabled = true;
-                TipoEdit.ReadOnly = false;
-                btnElimina.Text = "Elimina";
-
-                Init(_iPt, true);
-            }
-            else
+            if (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.COPERTI)
             {
                 btnNavLeft.Enabled = false;
                 btnNavRight.Enabled = false;
                 ckBoxSkipEmpty.Enabled = false;
                 groupsCombo.Enabled = false;
-                label3.Enabled = false;
+                labelNota.Enabled = false;
                 TipoEdit.ReadOnly = true;
                 btnElimina.Text = "Azzera";
+                labelNota.Text = "nota : \"Contatori\" ha il Prezzo = 0 quindi è gratuito !";
 
-                Init(MAX_NUM_ARTICOLI - 1, false);
+                Init(MAX_NUM_ARTICOLI - 1, tabEditArticolo.SelectedIndex);
+            }
+            else if (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.BUONI)
+            {
+                btnNavLeft.Enabled = true;
+                btnNavRight.Enabled = true;
+                ckBoxSkipEmpty.Enabled = true;
+                groupsCombo.Enabled = false;
+                labelNota.Enabled = true;
+                TipoEdit.ReadOnly = false;
+                btnElimina.Text = "Elimina";
+                labelNota.Text = "nota : \"Buoni\" verrà applicato sottratto al totale, senza andare peròin negativo !";
+                Init(_iPt, tabEditArticolo.SelectedIndex);
+            }
+            else // Articolo
+            {
+                btnNavLeft.Enabled = true;
+                btnNavRight.Enabled = true;
+                ckBoxSkipEmpty.Enabled = true;
+                groupsCombo.Enabled = true;
+                labelNota.Enabled = true;
+                TipoEdit.ReadOnly = false;
+                btnElimina.Text = "Elimina";
+                labelNota.Text = "nota : \"Contatori\" ha il Prezzo = 0 quindi è gratuito !";
+
+                Init(_iPt, tabEditArticolo.SelectedIndex);
             }
 
             PrzEdit_KeyUp(this, null);
@@ -492,18 +607,19 @@ namespace StandFacile
                     WarningManager(_WrnMsg);
                 }
                 // tipoArticolo e prezzo (salvo GetZeroPriceEnabled()) entrambi presenti
-                else if (!String.IsNullOrEmpty(TipoEdit.Text) && (!String.IsNullOrEmpty(PrzEdit.Text) || (groupsCombo.SelectedIndex == (int)DEST_TYPE.DEST_COUNTER) || 
-                            OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()))
+                else if (!String.IsNullOrEmpty(TipoEdit.Text) &&
+                    ((!String.IsNullOrEmpty(PrzEdit.Text) || OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()) || (groupsCombo.SelectedIndex == (int)DEST_TYPE.DEST_COUNTER))
+                    )
                 {
                     // conversione
                     if (groupsCombo.SelectedIndex == (int)DEST_TYPE.DEST_COUNTER)
                     {
-                        if (tabEditArticolo.SelectedIndex == 0)
+                        if ((tabEditArticolo.SelectedIndex == (int)TAB_ITEM.ARTICOLO) || (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.BUONI))
                         {
                             iPrz = 0;
                             PrzEdit.Text = "";
                         }
-                        else // TAB COPERTI
+                        else // TAB CONTATORI
                             iPrz = EuroToInt(PrzEdit.Text, EURO_CONVERSION.EUROCONV_Z_WARN, _WrnMsg);
                     }
                     else
@@ -520,7 +636,7 @@ namespace StandFacile
 
                     }
 
-                    if (tabEditArticolo.SelectedIndex == 0)
+                    if ((tabEditArticolo.SelectedIndex == (int)TAB_ITEM.ARTICOLO) || (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.BUONI))
                     {
                         // ricerca duplicati
                         for (i = 0; i < MAX_NUM_ARTICOLI; i++)
@@ -532,10 +648,11 @@ namespace StandFacile
                     }
                 }
                 // una sola voce presente o prezzo o tipoArticolo che non sia un contatore
-                else if (!String.IsNullOrEmpty(TipoEdit.Text) || (!String.IsNullOrEmpty(PrzEdit.Text) &&
-                    (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER) && !OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()))
+                else if (!String.IsNullOrEmpty(TipoEdit.Text) ||
+                        (!String.IsNullOrEmpty(PrzEdit.Text) && (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER) && !OptionsDlg._rOptionsDlg.GetZeroPriceEnabled())
+                    )
                 {
-                    if (tabEditArticolo.SelectedIndex == 0)
+                    if ((tabEditArticolo.SelectedIndex == (int)TAB_ITEM.ARTICOLO) || (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.BUONI))
                     {
                         iPrz = -1;
                         WarningManager(WRN_TPV);
@@ -555,7 +672,7 @@ namespace StandFacile
             // se non ci sono errori uscita con chiusura Form
             if (iPrz != -1)
             {
-                if (tabEditArticolo.SelectedIndex == 0)
+                if ((tabEditArticolo.SelectedIndex == (int)TAB_ITEM.ARTICOLO) || (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.BUONI))
                 {
                     SF_Data.Articolo[_iPt].sTipo = TipoEdit.Text;
                     SF_Data.Articolo[_iPt].iPrezzoUnitario = iPrz;

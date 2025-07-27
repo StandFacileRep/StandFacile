@@ -803,7 +803,7 @@ namespace StandFacile
             else if (MnuImpListino.Checked)
             {
                 EditArticoloDlg rModificaArticoloDlg = new EditArticoloDlg();
-                rModificaArticoloDlg.Init(_iCellPt, true);
+                rModificaArticoloDlg.Init(_iCellPt);
 
                 _bListinoModificato |= EditArticoloDlg.GetListinoModificato();
 
@@ -1659,6 +1659,12 @@ namespace StandFacile
                                 sCellText = String.Format(sGRD_FMT_TCH, "CS", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "CS", SF_Data.Articolo[h].sTipo, sPrzTmp);
+                            break;
+                        case (int)DEST_TYPE.DEST_BUONI:
+                            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
+                                sCellText = String.Format(sGRD_FMT_TCH, "BS", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
+                            else
+                                sCellText = String.Format(sGRD_FMT_STD, "BS", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_COUNTER:
                             if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))

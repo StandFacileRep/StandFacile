@@ -345,6 +345,7 @@ namespace StandFacile
             DB_Data.iTotaleScontatoStd = 0;
             DB_Data.iTotaleScontatoFisso = 0;
             DB_Data.iTotaleScontatoGratis = 0;
+            DB_Data.iTotaleBuoniApplicati = 0;
             DB_Data.iTotaleAnnullato = 0;
             DB_Data.sVersione = SF_Data.sVersione;
 
@@ -388,6 +389,7 @@ namespace StandFacile
             dataIdParam.iScontoStdReceipt = 0;
             dataIdParam.iScontoFissoReceipt = 0;
             dataIdParam.iScontoGratisReceipt = 0;
+            dataIdParam.iBuoniApplicatiReceipt = 0;
             dataIdParam.iStatusSconto = 0;
             dataIdParam.sScontoText = "";
             dataIdParam.bAnnullato = false;
