@@ -29,6 +29,9 @@ namespace StandFacile
         /// <summary>riferimento ModificaArticoloDlg</summary>
         public static EditArticoloDlg rModificaArticoloDlg;
 
+        const string NOTA_BUONI = "nota : \"Buoni\" verrà sottratto al totale senza andare in negativo !";
+        const string NOTA_CONTATORI = "nota : \"Contatori\" ha il Prezzo = 0 quindi è gratuito !";
+
         TArticolo _Articolo, _Coperto;
 
         TErrMsg _WrnMsg = new TErrMsg();
@@ -108,6 +111,8 @@ namespace StandFacile
                     TipoEdit.Text = _Articolo.sTipo;
                     groupsCombo.SelectedIndex = (int)DEST_TYPE.DEST_BUONI;
 
+                    labelNota.Text = NOTA_BUONI;
+
                     groupsText.Text = sConstGruppi[(int)DEST_TYPE.DEST_BUONI];
                     groupsText.Visible = true;
                     groupsCombo.Visible = false;
@@ -125,6 +130,8 @@ namespace StandFacile
 
                     TipoEdit.Text = _Articolo.sTipo;
                     groupsCombo.SelectedIndex = _Articolo.iGruppoStampa;
+
+                    labelNota.Text = NOTA_CONTATORI;
 
                     groupsText.Visible = false;
                     groupsCombo.Visible = true;
@@ -552,7 +559,7 @@ namespace StandFacile
                 labelNota.Enabled = true;
                 TipoEdit.ReadOnly = false;
                 btnElimina.Text = "Elimina";
-                labelNota.Text = "nota : \"Buoni\" verrà applicato sottratto al totale, senza andare peròin negativo !";
+                labelNota.Text = NOTA_BUONI;
                 Init(_iPt, tabEditArticolo.SelectedIndex);
             }
             else // Articolo
@@ -564,7 +571,7 @@ namespace StandFacile
                 labelNota.Enabled = true;
                 TipoEdit.ReadOnly = false;
                 btnElimina.Text = "Elimina";
-                labelNota.Text = "nota : \"Contatori\" ha il Prezzo = 0 quindi è gratuito !";
+                labelNota.Text = NOTA_CONTATORI;
 
                 Init(_iPt, tabEditArticolo.SelectedIndex);
             }
