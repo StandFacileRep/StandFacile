@@ -236,6 +236,7 @@
             this.groupsCombo.Name = "groupsCombo";
             this.groupsCombo.Size = new System.Drawing.Size(225, 22);
             this.groupsCombo.TabIndex = 2;
+            this.groupsCombo.SelectedIndexChanged += new System.EventHandler(this.groupsCombo_SelectedIndexChanged);
             // 
             // lbl3
             // 

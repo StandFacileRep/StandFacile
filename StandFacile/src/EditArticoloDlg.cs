@@ -124,6 +124,19 @@ namespace StandFacile
                 ShowDialog();
         }
 
+        private void groupsCombo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if ((tabEditArticolo.SelectedIndex == 0) && (groupsCombo.SelectedIndex == (int)DEST_TYPE.DEST_COUNTER))
+            {
+                PrzEdit.ReadOnly = true;
+                PrzEdit.Text = "0";
+            }
+            else
+            {
+                PrzEdit.ReadOnly = false;
+            }
+        }
+
         private void BtnElimina_Click(object sender, EventArgs e)
         {
             DialogResult dResult;
@@ -442,6 +455,8 @@ namespace StandFacile
             }
 
             PrzEdit_KeyUp(this, null);
+
+            groupsCombo_SelectedIndexChanged(this, null);
         }
 
         /// <summary>
