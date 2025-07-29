@@ -1,6 +1,6 @@
 ﻿/********************************************************************
     NomeFile : StandCommonSrc/VisDatiDlg.cs
-    Data	 : 24.07.2025
+    Data	 : 29.07.2025
     Autore : Mauro Artuso
 
     Classe di visualizzazione dei files Dati o Prezzi .
@@ -698,8 +698,28 @@ namespace StandFacile
                 CkBoxUnioneCasse.Enabled = false;
                 LblCassa.Enabled = false;
                 Combo_NumCassa.Enabled = false;
+                CkBoxSkipZero.Enabled = false;
+                LblReport.Enabled = false;
+                comboReport.Enabled = false;
 
+                // visualizzazione
+                CheckBoxRidColonne.Visible = false;
+                CheckBoxXls.Visible = false;
+                BtnXls.Visible = false;
+                CkBoxUnioneCasse.Visible = false;
+                LblCassa.Visible = false;
+                Combo_NumCassa.Visible = false;
+                CkBoxSkipZero.Visible = false;
+                LblReport.Visible = false;
+                comboReport.Visible = false;
+                BtnDate.Visible = false;
+
+                // setup dimensioni
                 this.Width = 700;
+
+                textEditDati.Height = 416;
+                BtnPrt.Left -= 40;    
+
 
 #if STANDFACILE
                 sNomeFile = NOME_FILE_LISTINO;
