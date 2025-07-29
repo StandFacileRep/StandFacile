@@ -466,14 +466,14 @@ namespace StandFacile_DB
                                             else
                                             {
                                                 // considera solo gli sconti
-                                                if (VisDatiDlg.DicountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.GetDiscountReportBit()))
+                                                if (VisDatiDlg.DiscountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.GetDiscountReportBit()))
                                                 {
                                                     bMatch = true;
                                                     break;
                                                 }
 
                                                 // considera solo i gruppi cui lo sconto è applicato
-                                                if (VisDatiDlg.DicountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, DB_Data.Articolo[i].iGruppoStampa + 4) &&
+                                                if (VisDatiDlg.DiscountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, DB_Data.Articolo[i].iGruppoStampa + 4) &&
                                                     (VisDatiDlg.GetDiscountReportBit() == BIT_SCONTO_STD))
                                                 {
                                                     bMatch = true;
@@ -509,7 +509,7 @@ namespace StandFacile_DB
                                 {
                                     DB_Data.iTotaleAnnullato += iPrezzoUnitario * iQuantitaOrdine;
                                 }
-                                else if (VisDatiDlg.DicountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.GetDiscountReportBit()))
+                                else if (VisDatiDlg.DiscountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.GetDiscountReportBit()))
                                 {
                                     bMatch = true;
                                 }

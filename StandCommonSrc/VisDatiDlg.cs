@@ -87,7 +87,7 @@ namespace StandFacile
         }
 
         /// <summary>verifica se è richiesto un reporto per sconto</summary>
-        public static bool DicountReportIsRequested()
+        public static bool DiscountReportIsRequested()
         {
             switch (_iReportIndex)
             {
