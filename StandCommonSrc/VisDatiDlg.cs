@@ -86,7 +86,7 @@ namespace StandFacile
             }
         }
 
-        /// <summary>verifica se è richiesto un pagamento</summary>
+        /// <summary>verifica se è richiesto un reporto per sconto</summary>
         public static bool DicountReportIsRequested()
         {
             switch (_iReportIndex)
@@ -100,7 +100,7 @@ namespace StandFacile
             }
         }
 
-        /// <summary>verifica se è richiesto un pagamento</summary>
+        /// <summary>verifica se è richiesto un reporto per pagamento</summary>
         public static bool PaymentReportIsRequested()
         {
             switch (_iReportIndex)
