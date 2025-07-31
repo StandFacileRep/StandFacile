@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 24.07.2025
+    Data	 : 31.07.2025
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -671,7 +671,7 @@ namespace StandCommonFiles
             /// <summary>bit di iStatus che indica il pagamento mediante Satispay</summary>
             BIT_PAGAM_SATISPAY
         }
-        
+
         /****************************************************************
          *                Flags generali di StandFacile                 *
          ****************************************************************/
@@ -1307,7 +1307,7 @@ namespace StandCommonFiles
         public static readonly String[] sConst_Esportazione =
         {
             "########################",
-            "####  ESPORTAZIONE  ####",
+            "####   DA ASPORTO   ####",
             "########################"
         };
 
@@ -1430,6 +1430,20 @@ namespace StandCommonFiles
             public bool bRcpCopyRequired;
             /// <summary>stringa per testo descrittivo della copia Receipt</summary>
             public String sRcpCopyHeader;
+
+            /// <summary>stringa per testo intestazione/piè di pagina alternativo per la CASSA_SECONDARIA</summary>
+            public String[] sRcp_CS_Header;
+
+            /// <summary>costruttore per inizializzazione</summary>
+            public TConfig(int iParam)
+            {
+                iReceiptStartNumber = 0;
+                iRefreshTimer = 0;
+                sService = "";
+                bRcpCopyRequired = false;
+                sRcpCopyHeader = "";
+                sRcp_CS_Header = new String[4];
+            }
         }
 
     } // end struct

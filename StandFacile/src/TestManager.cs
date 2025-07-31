@@ -69,9 +69,15 @@ namespace StandFacile
             sDir = DataManager.GetExeDir() + "\\";
 
             if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST + "_C1"))
-                _iNumCassa = 1;
-            else
-                _iNumCassa = 0;
+            {
+                _iNumCassa = CASSA_PRINCIPALE;
+                SF_Data.iNumCassa = _iNumCassa;
+            }
+            else if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST + "_C2"))
+            {
+                _iNumCassa = 2;
+                SF_Data.iNumCassa = _iNumCassa;
+            }
 
             _sInputStrings.Clear();
 
@@ -389,6 +395,8 @@ namespace StandFacile
                 // Sovrascrive per test con sola cassa 1
                 if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST + "_C1"))
                     _iNumCassa = 1;
+                else if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST + "_C2"))
+                    _iNumCassa = 2;
                 else
                     _iNumCassa = ToInt32(sTmp);
 

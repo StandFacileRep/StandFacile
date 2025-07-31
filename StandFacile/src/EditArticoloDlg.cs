@@ -1,6 +1,6 @@
 ﻿/***************************************************
     NomeFile : StandFacile/EditArticoloDlg.cs
-	Data	 : 20.06.2025
+	Data	 : 30.07.2025
     Autore   : Mauro Artuso
  ***************************************************/
 using System;
@@ -22,7 +22,7 @@ namespace StandFacile
     public partial class EditArticoloDlg : Form
     {
         bool _bTipoEdit_OK, _bPrzEdit_OK;
-        int _iPt;
+        int _iPt, _iPrevTab;
 
         static bool _bListinoModificato;    // Flag per la gestione del salvataggio Listino
 
@@ -56,6 +56,7 @@ namespace StandFacile
 
             _bPrzEdit_OK = true;
             _bTipoEdit_OK = true;
+            _iPrevTab = 0;
 
             TipoEdit.MaxLength = iMAX_ART_CHAR; // 18
 
@@ -116,12 +117,45 @@ namespace StandFacile
 
             _bListinoModificato = false;
 
-            sTmp = String.Format("EditArticoloDlg Init, articolo {0}", _iPt);
-
+            sTmp = String.Format("EditArticoloDlg Init, articolo {0}, {1}", _iPt, bIsMenuItemParam);
             LogToFile(sTmp);
 
             if (!Visible)
                 ShowDialog();
+        }
+
+        private void TabEditArt_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabEditArticolo.SelectedIndex == 0)
+            {
+                btnNavLeft.Enabled = true;
+                btnNavRight.Enabled = true;
+                ckBoxSkipEmpty.Enabled = true;
+                groupsCombo.Enabled = true;
+                label3.Enabled = true;
+                TipoEdit.ReadOnly = false;
+                btnElimina.Text = "Elimina";
+
+                Init(_iPt, true);
+            }
+            else
+            {
+                btnNavLeft.Enabled = false;
+                btnNavRight.Enabled = false;
+                ckBoxSkipEmpty.Enabled = false;
+                groupsCombo.Enabled = false;
+                label3.Enabled = false;
+                TipoEdit.ReadOnly = true;
+                btnElimina.Text = "Azzera";
+
+                Init(MAX_NUM_ARTICOLI - 1, false);
+            }
+
+            _iPrevTab = tabEditArticolo.SelectedIndex;
+
+            PrzEdit_KeyUp(this, null);
+
+            groupsCombo_SelectedIndexChanged(this, null);
         }
 
         private void groupsCombo_SelectedIndexChanged(object sender, EventArgs e)
@@ -225,7 +259,7 @@ namespace StandFacile
 
             if ((_Articolo.iPrezzoUnitario == -1) ||  // Errore di formato del Prezzo in Euro !
                  ((tabEditArticolo.SelectedIndex == 0) && (_Articolo.iPrezzoUnitario == 0) && !OptionsDlg._rOptionsDlg.GetZeroPriceEnabled() &&
-                 (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER) 
+                 (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER)
                )) // TAB Articoli
             {
                 PrzEdit.BackColor = Color.Red;
@@ -272,41 +306,65 @@ namespace StandFacile
             }
         }
 
-        /// <summary>verifica se ci sono modifiche pendenti prima del cambio Articolo</summary>
-        private bool CheckModifiche()
+        private void tabEditArticolo_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            // l'esito negativo evita il cambio TAB
+            if (!CheckModifiche(sender))
+                e.Cancel = true;
+        }
+
+        /// <summary>
+        /// verifica se ci sono modifiche pendenti prima del cambio Articolo<br/>
+        /// gestisce anche il cambio di TAB
+        /// </summary>
+        private bool CheckModifiche(object sender = null)
         {
             DialogResult dResult = DialogResult.None;
 
             bool bPricesEqual;
-            int iPrzEdit;
+            int iPrzEdit = 0;
 
             int iDebug1, iGruppoStampa;
             string sArticolo, sEditText;
 
-            sArticolo = SF_Data.Articolo[_iPt].sTipo.ToUpper().Trim();
             sEditText = TipoEdit.Text.ToUpper().Trim();
 
 #pragma warning disable IDE0059
+
             iDebug1 = groupsCombo.SelectedIndex;
             iGruppoStampa = SF_Data.Articolo[_iPt].iGruppoStampa;
 
-            if (iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER)
-                iPrzEdit = 0;
-            else
+            if ((sender != null) && (sender == tabEditArticolo) && (_iPrevTab == 1))
+            {
                 iPrzEdit = EuroToInt(PrzEdit.Text, EURO_CONVERSION.EUROCONV_DONT_CARE, _WrnMsg);
 
-            bPricesEqual = (String.IsNullOrEmpty(PrzEdit.Text) && (SF_Data.Articolo[_iPt].iPrezzoUnitario == 0)) || (iPrzEdit == SF_Data.Articolo[_iPt].iPrezzoUnitario);
+                sArticolo = SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].sTipo.ToUpper().Trim();
+                bPricesEqual = iPrzEdit == SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario;
 
-            if (!bPricesEqual || (sArticolo != sEditText) || (groupsCombo.SelectedIndex != SF_Data.Articolo[_iPt].iGruppoStampa))
-                dResult = MessageBox.Show("Sei sicuro di abbandonare le modifiche fatte ?", "Attenzione !", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (!bPricesEqual || (sArticolo != sEditText))
+                    dResult = MessageBox.Show("Sei sicuro di abbandonare le modifiche fatte ?", "Attenzione !", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
+            else
+            {
+                if (iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER)
+                    iPrzEdit = 0;
+                else
+                    iPrzEdit = EuroToInt(PrzEdit.Text, EURO_CONVERSION.EUROCONV_DONT_CARE, _WrnMsg);
+
+                sArticolo = SF_Data.Articolo[_iPt].sTipo.ToUpper().Trim();
+                bPricesEqual = (String.IsNullOrEmpty(PrzEdit.Text) && (SF_Data.Articolo[_iPt].iPrezzoUnitario == 0)) || (iPrzEdit == SF_Data.Articolo[_iPt].iPrezzoUnitario);
+
+                if (!bPricesEqual || (sArticolo != sEditText) || (groupsCombo.SelectedIndex != SF_Data.Articolo[_iPt].iGruppoStampa))
+                    dResult = MessageBox.Show("Sei sicuro di abbandonare le modifiche fatte ?", "Attenzione !", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
 
             if (dResult == DialogResult.No)
                 return false;
-            else  // azzeramento
+            else
                 return true;
         }
 
-        /// <summary>special processing for KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT</summary>
+        /// <summary>special processing for KEY_UP, KEY_DOWN, KEY_LEFT, KEY_RIGHT con ckBoxSkipEmpty.Checked</summary>
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if ((btnNavRight.Focused || btnNavLeft.Focused) && ((keyData == Keys.Up) || (keyData == Keys.Down) || (keyData == Keys.Left) || (keyData == Keys.Right)))
@@ -427,38 +485,6 @@ namespace StandFacile
             FrmMain.EventEnqueue(sQueue_Object);
         }
 
-        private void TabEditArt_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabEditArticolo.SelectedIndex == 0)
-            {
-                btnNavLeft.Enabled = true;
-                btnNavRight.Enabled = true;
-                ckBoxSkipEmpty.Enabled = true;
-                groupsCombo.Enabled = true;
-                label3.Enabled = true;
-                TipoEdit.ReadOnly = false;
-                btnElimina.Text = "Elimina";
-
-                Init(_iPt, true);
-            }
-            else
-            {
-                btnNavLeft.Enabled = false;
-                btnNavRight.Enabled = false;
-                ckBoxSkipEmpty.Enabled = false;
-                groupsCombo.Enabled = false;
-                label3.Enabled = false;
-                TipoEdit.ReadOnly = true;
-                btnElimina.Text = "Azzera";
-
-                Init(MAX_NUM_ARTICOLI - 1, false);
-            }
-
-            PrzEdit_KeyUp(this, null);
-
-            groupsCombo_SelectedIndexChanged(this, null);
-        }
-
         /// <summary>
         /// funzione di verifica della correttezza dei dati <br/>
         /// immessi, modifica direttamente l'array globale
@@ -492,7 +518,7 @@ namespace StandFacile
                     WarningManager(_WrnMsg);
                 }
                 // tipoArticolo e prezzo (salvo GetZeroPriceEnabled()) entrambi presenti
-                else if (!String.IsNullOrEmpty(TipoEdit.Text) && (!String.IsNullOrEmpty(PrzEdit.Text) || (groupsCombo.SelectedIndex == (int)DEST_TYPE.DEST_COUNTER) || 
+                else if (!String.IsNullOrEmpty(TipoEdit.Text) && (!String.IsNullOrEmpty(PrzEdit.Text) || (groupsCombo.SelectedIndex == (int)DEST_TYPE.DEST_COUNTER) ||
                             OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()))
                 {
                     // conversione

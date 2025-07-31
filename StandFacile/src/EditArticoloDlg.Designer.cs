@@ -154,6 +154,7 @@
             this.tabEditArticolo.Size = new System.Drawing.Size(248, 23);
             this.tabEditArticolo.TabIndex = 4;
             this.tabEditArticolo.SelectedIndexChanged += new System.EventHandler(this.TabEditArt_SelectedIndexChanged);
+            this.tabEditArticolo.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabEditArticolo_Selecting);
             // 
             // tabPage1
             // 

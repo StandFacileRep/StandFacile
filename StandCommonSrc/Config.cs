@@ -6,9 +6,8 @@
 
 using System;
 using System.IO;
-
-using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ComDef;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
 namespace StandFacile
@@ -21,8 +20,12 @@ namespace StandFacile
         /// <summary>nome del file di filtro</summary>
         const String CONFIG_FILE = "config.ini";
 
+        const String sRCP_CS_HEADER = "receipt_CS_AltHeader_AH";
+
         /// <summary>riferimento a Config</summary>
         public static Config rConfig { get; private set; }
+
+        TErrMsg _ErrMsg;
 
         /// <summary>costruttore</summary>
         public Config()
@@ -43,8 +46,8 @@ namespace StandFacile
         /// </summary>
         public void LoadConfig()
         {
-            int iPos, iCount, iVal;
-            String sExeDir, sNomeConfigFile, sInStr;
+            int iPos, iCount, iVal, hIndex;
+            String sTmp, sExeDir, sNomeConfigFile, sInStr;
             StreamReader fFiltro;
 
             iCount = 0;
@@ -123,6 +126,45 @@ namespace StandFacile
 
                         sConfig.bRcpCopyRequired = true;
                         sConfig.sRcpCopyHeader = sInStr;
+
+                        continue;
+                    }
+
+                    // stringhe per stampa Header/Footer Alternativo
+                    else if (sInStr.Contains(sRCP_CS_HEADER))
+                    {
+                        // ha senso solo per la CASSA_SECONDARIA
+                        if (glb.SF_Data.iNumCassa == CASSA_PRINCIPALE)
+                            continue;
+
+                        try
+                        {
+                            sInStr = sInStr.Remove(0, sRCP_CS_HEADER.Length).Trim();
+
+                            // ****	Header/Footer ****
+
+                            sTmp = sInStr.Substring(0, 1); // acquisisce indice
+
+                            hIndex = Convert.ToInt32(sTmp);
+
+                            if ((hIndex >= 0) && (hIndex < MAX_NUM_HEADERS) && (sInStr.Length > 3))
+                            {
+                                sTmp = sInStr.Substring(3).Trim();
+
+                                // iMAX_RECEIPT_CHARS viene caricato successivamente !
+                                if (sTmp.Length > MAX_ABS_RECEIPT_CHARS)
+                                {
+                                    _ErrMsg.iErrID = WRN_CFSTL;
+                                    WarningManager(_ErrMsg);  // stringa troppo lunga
+                                }
+                                else
+                                    sConfig.sRcp_CS_Header[hIndex] = sTmp;
+                            }
+                        }
+                        catch (Exception e)
+                        { 
+                            Console.WriteLine(e.Message);
+                        }
 
                         continue;
                     }
