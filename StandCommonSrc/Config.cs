@@ -1,6 +1,6 @@
 ﻿/*****************************************************
   	NomeFile : StandFacile/Config.cs
-	Data	 : 16.07.2025
+	Data	 : 01.08.2025
   	Autore	 : Mauro Artuso
  *****************************************************/
 
@@ -134,7 +134,11 @@ namespace StandFacile
                     else if (sInStr.Contains(sRCP_CS_HEADER))
                     {
                         // ha senso solo per la CASSA_SECONDARIA
-                        if (glb.SF_Data.iNumCassa == CASSA_PRINCIPALE)
+                        if ((glb.SF_Data.iNumCassa == CASSA_PRINCIPALE)
+#if STANDFACILE
+                        && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST + "_C2")
+#endif
+                        )
                             continue;
 
                         try
@@ -145,7 +149,7 @@ namespace StandFacile
 
                             sTmp = sInStr.Substring(0, 1); // acquisisce indice
 
-                            hIndex = Convert.ToInt32(sTmp);
+                            hIndex = Convert.ToInt32(sTmp) - 1;
 
                             if ((hIndex >= 0) && (hIndex < MAX_NUM_HEADERS) && (sInStr.Length > 3))
                             {
@@ -162,7 +166,7 @@ namespace StandFacile
                             }
                         }
                         catch (Exception e)
-                        { 
+                        {
                             Console.WriteLine(e.Message);
                         }
 

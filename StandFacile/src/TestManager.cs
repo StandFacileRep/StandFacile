@@ -78,6 +78,8 @@ namespace StandFacile
                 _iNumCassa = 2;
                 SF_Data.iNumCassa = _iNumCassa;
             }
+            else
+                _iNumCassa = 0;
 
             _sInputStrings.Clear();
 

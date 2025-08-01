@@ -1191,7 +1191,7 @@ namespace StandCommonFiles
             /*******************************************************
             *                 RICOSTRUZIONE COPIE
             * i contatori sono inclusi nelle PIETANZE es: COPERTI
-            *******************************************************/
+            ********************************************************/
 
 
             // identificazione dei coperti
