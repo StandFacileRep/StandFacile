@@ -1,6 +1,6 @@
 ﻿/********************************************************************
   	NomeFile : StandFacile/AnteprimaDlg.cs
-	Data	 : 24.07.2025
+	Data	 : 01.08.2025
   	Autore   : Mauro Artuso
 
   Classe di visualizzazione dell'anteprima dello scontrino.
@@ -79,7 +79,7 @@ namespace StandFacile
             _iStoreSizeX = ReadRegistry(PREVIEW_WIN_SIZE_X, MAINWD_WIDTH);
             _iStoreSizeY = ReadRegistry(PREVIEW_WIN_SIZE_Y, MAINWD_HEIGHT);
 
-            if ((_iStorePosY != 0) && (_iStorePosX != 0) && (_iStorePosX < (MAINWD_WIDTH - 200)) && (_iStorePosY < (MAINWD_HEIGHT * 3 / 4)) 
+            if ((_iStorePosY != 0) && (_iStorePosX != 0) && (_iStorePosX < (MAINWD_WIDTH - 200)) && (_iStorePosY < (MAINWD_HEIGHT * 3 / 4))
                 && (_iStorePosX > 0) && (_iStorePosY > 0))
             {
                 rAnteprimaDlg.Location = new Point(_iStorePosX, _iStorePosY);
@@ -188,7 +188,13 @@ namespace StandFacile
             if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName)) ||
                 ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp == 0)))
             {
-                if (!String.IsNullOrEmpty(SF_Data.sHeaders[0]))
+                if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[0]))
+                {
+                    sTmp = CenterJustify(sConfig.sRcp_CS_Header[0], iMAX_RECEIPT_CHARS);
+                    PrintCanvas(pg, sTmp);
+                    PrintCanvas(pg, "");
+                }
+                else if (!String.IsNullOrEmpty(SF_Data.sHeaders[0]))
                 {
                     sTmp = CenterJustify(SF_Data.sHeaders[0], iMAX_RECEIPT_CHARS);
                     PrintCanvas(pg, sTmp);
@@ -196,7 +202,13 @@ namespace StandFacile
                 }
             }
 
-            if (!String.IsNullOrEmpty(SF_Data.sHeaders[1]))
+            if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[1]))
+            {
+                sTmp = CenterJustify(sConfig.sRcp_CS_Header[1], iMAX_RECEIPT_CHARS);
+                PrintCanvas(pg, sTmp);
+                PrintCanvas(pg, "");
+            }
+            else if (!String.IsNullOrEmpty(SF_Data.sHeaders[1]))
             {
                 sTmp = CenterJustify(SF_Data.sHeaders[1], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
@@ -490,14 +502,26 @@ namespace StandFacile
                 PrintCanvas(pg, "");
             }
 
-            if (!String.IsNullOrEmpty(SF_Data.sHeaders[2]))
+            if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[2]))
+            {
+                sTmp = CenterJustify(sConfig.sRcp_CS_Header[2], iMAX_RECEIPT_CHARS);
+                PrintCanvas(pg, sTmp);
+                PrintCanvas(pg, "");
+            }
+            else if (!String.IsNullOrEmpty(SF_Data.sHeaders[2]))
             {
                 sTmp = CenterJustify(SF_Data.sHeaders[2], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
                 PrintCanvas(pg, "");
             }
 
-            if (!String.IsNullOrEmpty(SF_Data.sHeaders[3]))
+            if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[3]))
+            {
+                sTmp = CenterJustify(sConfig.sRcp_CS_Header[3], iMAX_RECEIPT_CHARS);
+                PrintCanvas(pg, sTmp);
+                PrintCanvas(pg, "");
+            }
+            else if (!String.IsNullOrEmpty(SF_Data.sHeaders[3]))
             {
                 sTmp = CenterJustify(SF_Data.sHeaders[3], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
