@@ -25,7 +25,6 @@ using static StandCommonFiles.LogServer;
 using StandFacile;
 using static StandFacile.glb;
 using static StandFacile.dBaseIntf;
-using System.Diagnostics.Eventing.Reader;
 
 namespace StandFacile_DB
 {

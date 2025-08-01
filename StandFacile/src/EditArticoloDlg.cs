@@ -22,7 +22,7 @@ namespace StandFacile
     public partial class EditArticoloDlg : Form
     {
         bool _bTipoEdit_OK, _bPrzEdit_OK;
-        int _iPt;
+        int _iPt, _iPrevTab;
 
         static bool _bListinoModificato;    // Flag per la gestione del salvataggio Listino
 
@@ -66,6 +66,7 @@ namespace StandFacile
 
             _bPrzEdit_OK = true;
             _bTipoEdit_OK = true;
+            _iPrevTab = 0;
 
             TipoEdit.MaxLength = iMAX_ART_CHAR; // 18
 
@@ -100,11 +101,11 @@ namespace StandFacile
             // *** copia struct Articolo ***
             _Articolo = SF_Data.Articolo[iPt];
             _Coperto = SF_Data.Articolo[MAX_NUM_ARTICOLI - 1];
+            _iPt = iPt;
 
             switch (SF_Data.Articolo[iPt].iGruppoStampa)
             {
-                case (int)DEST_TYPE.DEST_BUONI:
-                    _iPt = iPt;
+                case (int)DEST_TYPE.DEST_BUONI: // qui non si arriva con DEST_COUNTER
 
                     tabEditArticolo.SelectedIndex = (int)TAB_ITEM.BUONI;
 
@@ -124,7 +125,6 @@ namespace StandFacile
                     break;
 
                 default: // Articolo default
-                    _iPt = iPt;
 
                     tabEditArticolo.SelectedIndex = (int)TAB_ITEM.ARTICOLO;
 
@@ -221,16 +221,64 @@ namespace StandFacile
 
             _bListinoModificato = false;
 
-            sTmp = String.Format("EditArticoloDlg Init, articolo {0}", _iPt);
+            sTmp = String.Format("EditArticoloDlg Init, articolo {0} {1}", _iPt, tabIndexParam);
             LogToFile(sTmp);
 
             if (!Visible)
                 ShowDialog();
         }
 
+        private void TabEditArt_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.COPERTI)
+            {
+                btnNavLeft.Enabled = false;
+                btnNavRight.Enabled = false;
+                ckBoxSkipEmpty.Enabled = false;
+                groupsCombo.Enabled = false;
+                labelNota.Enabled = false;
+                TipoEdit.ReadOnly = true;
+                btnElimina.Text = "Azzera";
+                labelNota.Text = "nota : \"Contatori\" ha il Prezzo = 0 quindi è gratuito !";
+
+                Init(MAX_NUM_ARTICOLI - 1, tabEditArticolo.SelectedIndex);
+            }
+            else if (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.BUONI)
+            {
+                btnNavLeft.Enabled = true;
+                btnNavRight.Enabled = true;
+                ckBoxSkipEmpty.Enabled = true;
+                groupsCombo.Enabled = false;
+                labelNota.Enabled = true;
+                TipoEdit.ReadOnly = false;
+                btnElimina.Text = "Elimina";
+                labelNota.Text = NOTA_BUONI;
+                Init(_iPt, tabEditArticolo.SelectedIndex);
+            }
+            else // Articolo
+            {
+                btnNavLeft.Enabled = true;
+                btnNavRight.Enabled = true;
+                ckBoxSkipEmpty.Enabled = true;
+                groupsCombo.Enabled = true;
+                labelNota.Enabled = true;
+                TipoEdit.ReadOnly = false;
+                btnElimina.Text = "Elimina";
+                labelNota.Text = NOTA_CONTATORI;
+
+                Init(_iPt, tabEditArticolo.SelectedIndex);
+            }
+
+            _iPrevTab = tabEditArticolo.SelectedIndex;
+
+            PrzEdit_KeyUp(this, null);
+
+            groupsCombo_SelectedIndexChanged(this, null);
+        }
+
         private void groupsCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((tabEditArticolo.SelectedIndex == 0) && (groupsCombo.SelectedIndex == (int)DEST_TYPE.DEST_COUNTER))
+            if ((tabEditArticolo.SelectedIndex == (int)TAB_ITEM.ARTICOLO) && (groupsCombo.SelectedIndex == (int)DEST_TYPE.DEST_COUNTER))
             {
                 PrzEdit.ReadOnly = true;
                 PrzEdit.Text = "0";
@@ -269,8 +317,8 @@ namespace StandFacile
                 {
                     SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario = 0;
 
-                    if (_iPt < MAX_NUM_ARTICOLI - 1)
-                        SF_Data.Articolo[_iPt].iGruppoStampa = 0;
+                    //if (_iPt < MAX_NUM_ARTICOLI - 1)
+                    //    SF_Data.Articolo[_iPt].iGruppoStampa = 0;
 
                     Init(MAX_NUM_ARTICOLI - 1, tabEditArticolo.SelectedIndex);
                 }
@@ -332,9 +380,9 @@ namespace StandFacile
 
             if ((_Articolo.iPrezzoUnitario == -1) || ( // Errore di formato del Prezzo in Euro !
                  ((tabEditArticolo.SelectedIndex == (int)TAB_ITEM.ARTICOLO) && (_Articolo.iPrezzoUnitario == 0) && !OptionsDlg._rOptionsDlg.GetZeroPriceEnabled() ||
-                  (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.BUONI)) && (_Articolo.iPrezzoUnitario == 0) &&
+                  (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.BUONI) && (_Articolo.iPrezzoUnitario == 0)) &&
                   (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER)
-               )) // TAB Articoli
+               ))
             {
                 PrzEdit.BackColor = Color.Red;
                 PrzEdit.ForeColor = SystemColors.HighlightText;
@@ -380,8 +428,15 @@ namespace StandFacile
             }
         }
 
+        private void tabEditArticolo_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            // l'esito negativo evita il cambio TAB
+            if (!CheckModifiche(sender))
+                e.Cancel = true;
+        }
+
         /// <summary>verifica se ci sono modifiche pendenti prima del cambio Articolo</summary>
-        private bool CheckModifiche()
+        private bool CheckModifiche(object sender = null)
         {
             DialogResult dResult = DialogResult.None;
 
@@ -391,26 +446,39 @@ namespace StandFacile
             int iDebug1, iGruppoStampa;
             string sArticolo, sEditText;
 
-            sArticolo = SF_Data.Articolo[_iPt].sTipo.ToUpper().Trim();
             sEditText = TipoEdit.Text.ToUpper().Trim();
 
 #pragma warning disable IDE0059
             iDebug1 = groupsCombo.SelectedIndex;
             iGruppoStampa = SF_Data.Articolo[_iPt].iGruppoStampa;
 
-            if (iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER)
-                iPrzEdit = 0;
-            else
+            if ((sender != null) && (sender == tabEditArticolo) && (_iPrevTab == (int)TAB_ITEM.COPERTI))
+            {
                 iPrzEdit = EuroToInt(PrzEdit.Text, EURO_CONVERSION.EUROCONV_DONT_CARE, _WrnMsg);
 
-            bPricesEqual = (String.IsNullOrEmpty(PrzEdit.Text) && (SF_Data.Articolo[_iPt].iPrezzoUnitario == 0)) || (iPrzEdit == SF_Data.Articolo[_iPt].iPrezzoUnitario);
+                sArticolo = SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].sTipo.ToUpper().Trim();
+                bPricesEqual = (iPrzEdit == SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario);
 
-            if (!bPricesEqual || (sArticolo != sEditText) || (groupsCombo.SelectedIndex != SF_Data.Articolo[_iPt].iGruppoStampa))
-                dResult = MessageBox.Show("Sei sicuro di abbandonare le modifiche fatte ?", "Attenzione !", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (!bPricesEqual || (sArticolo != sEditText))
+                    dResult = MessageBox.Show("Sei sicuro di abbandonare le modifiche fatte ?", "Attenzione !", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
+            else
+            {
+                if (iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER)
+                    iPrzEdit = 0;
+                else
+                    iPrzEdit = EuroToInt(PrzEdit.Text, EURO_CONVERSION.EUROCONV_DONT_CARE, _WrnMsg);
+
+                sArticolo = SF_Data.Articolo[_iPt].sTipo.ToUpper().Trim();
+                bPricesEqual = (String.IsNullOrEmpty(PrzEdit.Text) && (SF_Data.Articolo[_iPt].iPrezzoUnitario == 0)) || (iPrzEdit == SF_Data.Articolo[_iPt].iPrezzoUnitario);
+
+                if (!bPricesEqual || (sArticolo != sEditText) || (groupsCombo.SelectedIndex != SF_Data.Articolo[_iPt].iGruppoStampa))
+                    dResult = MessageBox.Show("Sei sicuro di abbandonare le modifiche fatte ?", "Attenzione !", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            }
 
             if (dResult == DialogResult.No)
                 return false;
-            else  // azzeramento
+            else
                 return true;
         }
 
@@ -535,52 +603,6 @@ namespace StandFacile
             FrmMain.EventEnqueue(sQueue_Object);
         }
 
-        private void TabEditArt_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.COPERTI)
-            {
-                btnNavLeft.Enabled = false;
-                btnNavRight.Enabled = false;
-                ckBoxSkipEmpty.Enabled = false;
-                groupsCombo.Enabled = false;
-                labelNota.Enabled = false;
-                TipoEdit.ReadOnly = true;
-                btnElimina.Text = "Azzera";
-                labelNota.Text = "nota : \"Contatori\" ha il Prezzo = 0 quindi è gratuito !";
-
-                Init(MAX_NUM_ARTICOLI - 1, tabEditArticolo.SelectedIndex);
-            }
-            else if (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.BUONI)
-            {
-                btnNavLeft.Enabled = true;
-                btnNavRight.Enabled = true;
-                ckBoxSkipEmpty.Enabled = true;
-                groupsCombo.Enabled = false;
-                labelNota.Enabled = true;
-                TipoEdit.ReadOnly = false;
-                btnElimina.Text = "Elimina";
-                labelNota.Text = NOTA_BUONI;
-                Init(_iPt, tabEditArticolo.SelectedIndex);
-            }
-            else // Articolo
-            {
-                btnNavLeft.Enabled = true;
-                btnNavRight.Enabled = true;
-                ckBoxSkipEmpty.Enabled = true;
-                groupsCombo.Enabled = true;
-                labelNota.Enabled = true;
-                TipoEdit.ReadOnly = false;
-                btnElimina.Text = "Elimina";
-                labelNota.Text = NOTA_CONTATORI;
-
-                Init(_iPt, tabEditArticolo.SelectedIndex);
-            }
-
-            PrzEdit_KeyUp(this, null);
-
-            groupsCombo_SelectedIndexChanged(this, null);
-        }
-
         /// <summary>
         /// funzione di verifica della correttezza dei dati <br/>
         /// immessi, modifica direttamente l'array globale
@@ -656,8 +678,7 @@ namespace StandFacile
                 }
                 // una sola voce presente o prezzo o tipoArticolo che non sia un contatore
                 else if (!String.IsNullOrEmpty(TipoEdit.Text) ||
-                        (!String.IsNullOrEmpty(PrzEdit.Text) && (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER) && !OptionsDlg._rOptionsDlg.GetZeroPriceEnabled())
-                    )
+                        (!String.IsNullOrEmpty(PrzEdit.Text) && (groupsCombo.SelectedIndex != (int)DEST_TYPE.DEST_COUNTER) && !OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()))
                 {
                     if ((tabEditArticolo.SelectedIndex == (int)TAB_ITEM.ARTICOLO) || (tabEditArticolo.SelectedIndex == (int)TAB_ITEM.BUONI))
                     {
@@ -685,8 +706,8 @@ namespace StandFacile
                     SF_Data.Articolo[_iPt].iPrezzoUnitario = iPrz;
                     SF_Data.Articolo[_iPt].iGruppoStampa = groupsCombo.SelectedIndex;
 
-                    sTmp = String.Format("EditArticoloDlg BtnSalva_Click, Articolo {0}, iPrezzoUnitario {1}, iGruppoStampa {2}",
-                        SF_Data.Articolo[_iPt].sTipo, iPrz, groupsCombo.SelectedIndex);
+                    sTmp = String.Format("EditArticoloDlg BtnSalva_Click, Articolo {0}, iPrezzoUnitario {1}, iGruppoStampa {2}, tabEdit.SelIndex {3}",
+                        SF_Data.Articolo[_iPt].sTipo, iPrz, groupsCombo.SelectedIndex, tabEditArticolo.SelectedIndex);
                 }
                 else
                 {

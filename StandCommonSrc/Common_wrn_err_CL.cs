@@ -230,6 +230,9 @@ namespace StandCommonFiles
         /// <summary>Stringa Troppo Lunga</summary>
         public const int WRN_STL = 1040;
 
+        /// <summary>Stringa Troppo Lunga nel file di configurazione</summary>
+        public const int WRN_CFSTL = 1045;
+
         /// <summary>Richiesta aggiunta commento con quantità Zero</summary>
         public const int WRN_NQZ = 1050;
 
@@ -563,6 +566,10 @@ namespace StandCommonFiles
                     }
                     else
                         sWrnStr = "Stringa troppo lunga per l'Articolo:\r\n\r\n   " + WrnMsg.sMsg + "\r\n\r\ncorreggere per visualizzazione e stampa corretta !";
+                    break;
+
+                case WRN_CFSTL:
+                        sWrnStr = " Attenzione !\r\n\r\n Stringa troppo lunga nel File di \"config.ini\", \r\n\r\ncorreggere e riavviare !";
                     break;
 
                 case WRN_NQZ:

@@ -362,7 +362,12 @@ namespace StandCommonFiles
                     }
                     else
                     {
-                        if (!String.IsNullOrEmpty(dataIdParam.sHeaders[0]))
+                        if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[0]))
+                        {
+                            sTmp = CenterJustify(sConfig.sRcp_CS_Header[0], iMAX_RECEIPT_CHARS);
+                            fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+                        }
+                        else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[0]))
                         {
                             sTmp = CenterJustify(dataIdParam.sHeaders[0], iMAX_RECEIPT_CHARS);
                             fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
@@ -379,8 +384,12 @@ namespace StandCommonFiles
                             fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
                         }
                     }
-                    else
-                    if (!String.IsNullOrEmpty(dataIdParam.sHeaders[1]))
+                    else if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[1]))
+                    {
+                        sTmp = CenterJustify(sConfig.sRcp_CS_Header[1], iMAX_RECEIPT_CHARS);
+                        fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+                    }
+                    else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[1]))
                     {
                         sTmp = CenterJustify(dataIdParam.sHeaders[1], iMAX_RECEIPT_CHARS);
                         fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
@@ -711,13 +720,23 @@ namespace StandCommonFiles
                         fPrintParam.WriteLine("{0}\n", sTmp);
                     }
 
-                    if (!String.IsNullOrEmpty(dataIdParam.sHeaders[2]))
+                    if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[2]))
+                    {
+                        sTmp = CenterJustify(sConfig.sRcp_CS_Header[2], iMAX_RECEIPT_CHARS);
+                        fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+                    }
+                    else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[2]))
                     {
                         sTmp = CenterJustify(dataIdParam.sHeaders[2], iMAX_RECEIPT_CHARS);
                         fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
                     }
 
-                    if (!String.IsNullOrEmpty(dataIdParam.sHeaders[3]))
+                    if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[3]))
+                    {
+                        sTmp = CenterJustify(sConfig.sRcp_CS_Header[3], iMAX_RECEIPT_CHARS);
+                        fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+                    }
+                    else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[3]))
                     {
                         sTmp = CenterJustify(dataIdParam.sHeaders[3], iMAX_RECEIPT_CHARS);
                         fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
@@ -848,14 +867,24 @@ namespace StandCommonFiles
                     }
                     else
                     {
-                        if (!String.IsNullOrEmpty(dataIdParam.sHeaders[0]))
+                        if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[0]))
+                        {
+                            sTmp = CenterJustify(sConfig.sRcp_CS_Header[0], iMAX_RECEIPT_CHARS);
+                            sHeader1_ToPrintBeforeCut += String.Format("{0}\r\n\r\n", sTmp);
+                        }
+                        else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[0]))
                         {
                             sTmp = CenterJustify(dataIdParam.sHeaders[0], MAX_RECEIPT_CHARS_CPY);
                             sHeader1_ToPrintBeforeCut += String.Format("{0}\r\n\r\n", sTmp);
                         }
                     }
 
-                    if (!(bUnitQtyItems || bSingleRowItems) && !String.IsNullOrEmpty(dataIdParam.sHeaders[1]))
+                    if (!(bUnitQtyItems || bSingleRowItems) && !String.IsNullOrEmpty(sConfig.sRcp_CS_Header[1]))
+                    {
+                        sTmp = CenterJustify(sConfig.sRcp_CS_Header[1], iMAX_RECEIPT_CHARS);
+                        sHeader1_ToPrintBeforeCut += String.Format("{0}\r\n\r\n", sTmp);
+                    }
+                    else if (!(bUnitQtyItems || bSingleRowItems) && !String.IsNullOrEmpty(dataIdParam.sHeaders[1]))
                     {
                         sTmp = CenterJustify(dataIdParam.sHeaders[1], MAX_RECEIPT_CHARS_CPY);
                         sHeader1_ToPrintBeforeCut += String.Format("{0}\r\n\r\n", sTmp);
@@ -1267,7 +1296,13 @@ namespace StandCommonFiles
                         }
                         else
                         {
-                            if (!String.IsNullOrEmpty(dataIdParam.sHeaders[0]))
+                            if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[0]))
+                            {
+                                sTmp = CenterJustify(sConfig.sRcp_CS_Header[0], iMAX_RECEIPT_CHARS);
+                                fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+                                iEqRowsNumber += 2;
+                            }
+                            else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[0]))
                             {
                                 sTmp = CenterJustify(dataIdParam.sHeaders[0], MAX_RECEIPT_CHARS_CPY);
                                 fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
@@ -1275,7 +1310,13 @@ namespace StandCommonFiles
                             }
                         }
 
-                        //if (!String.IsNullOrEmpty(dataIdParam.sHeaders[1]))
+                        //if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[1]))
+                        //{
+                        //    sTmp = CenterJustify(sConfig.sRcp_CS_Header[1], iMAX_RECEIPT_CHARS);
+                        //    fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+                        //    iEqRowsNumber += 2;
+                        //}
+                        //else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[1]))
                         //{
                         //    sTmp = CenterJustify(dataIdParam.sHeaders[1], MAX_RECEIPT_CHARS_CPY);
                         //    fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
@@ -1541,7 +1582,13 @@ namespace StandCommonFiles
                         }
                         else
                         {
-                            if (!String.IsNullOrEmpty(dataIdParam.sHeaders[0]))
+                            if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[0]))
+                            {
+                                sTmp = CenterJustify(sConfig.sRcp_CS_Header[0], iMAX_RECEIPT_CHARS);
+                                fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+                                iEqRowsNumber += 2;
+                            }
+                            else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[0]))
                             {
                                 sTmp = CenterJustify(dataIdParam.sHeaders[0], MAX_RECEIPT_CHARS_CPY);
                                 fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
@@ -1549,7 +1596,13 @@ namespace StandCommonFiles
                             }
                         }
 
-                        //if (!String.IsNullOrEmpty(dataIdParam.sHeaders[1]))
+                        //if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[1]))
+                        //{
+                        //    sTmp = CenterJustify(sConfig.sRcp_CS_Header[1], iMAX_RECEIPT_CHARS);
+                        //    fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+                        //    iEqRowsNumber += 2;
+                        //}
+                        //else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[1]))
                         //{
                         //    sTmp = CenterJustify(dataIdParam.sHeaders[1], MAX_RECEIPT_CHARS_CPY);
                         //    fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
@@ -1767,13 +1820,23 @@ namespace StandCommonFiles
                 fPrintParam.WriteLine("{0}\r\n", sTmp);
             }
 
-            if (!String.IsNullOrEmpty(dataIdParam.sHeaders[2]))
+            if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[2]))
+            {
+                sTmp = CenterJustify(sConfig.sRcp_CS_Header[2], iMAX_RECEIPT_CHARS);
+                fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+            }
+            else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[2]))
             {
                 sTmp = CenterJustify(dataIdParam.sHeaders[2], MAX_RECEIPT_CHARS_CPY);
                 fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
             }
 
-            if (!String.IsNullOrEmpty(dataIdParam.sHeaders[3]))
+            if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[3]))
+            {
+                sTmp = CenterJustify(sConfig.sRcp_CS_Header[3], iMAX_RECEIPT_CHARS);
+                fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+            }
+            else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[3]))
             {
                 sTmp = CenterJustify(dataIdParam.sHeaders[3], MAX_RECEIPT_CHARS_CPY);
                 fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();

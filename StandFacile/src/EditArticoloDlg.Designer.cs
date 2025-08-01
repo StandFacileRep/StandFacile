@@ -38,9 +38,10 @@
             this.btnNavLeft = new System.Windows.Forms.Button();
             this.tabEditArticolo = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.groupsText = new System.Windows.Forms.TextBox();
             this.labelNota = new System.Windows.Forms.Label();
             this.LblMaxChar = new System.Windows.Forms.Label();
             this.LbRimanenti = new System.Windows.Forms.Label();
@@ -50,7 +51,6 @@
             this.lb1 = new System.Windows.Forms.Label();
             this.PrzEdit = new System.Windows.Forms.TextBox();
             this.TipoEdit = new System.Windows.Forms.TextBox();
-            this.groupsText = new System.Windows.Forms.TextBox();
             this.tabEditArticolo.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -157,6 +157,7 @@
             this.tabEditArticolo.Size = new System.Drawing.Size(248, 23);
             this.tabEditArticolo.TabIndex = 4;
             this.tabEditArticolo.SelectedIndexChanged += new System.EventHandler(this.TabEditArt_SelectedIndexChanged);
+            this.tabEditArticolo.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabEditArticolo_Selecting);
             // 
             // tabPage1
             // 
@@ -168,16 +169,6 @@
             this.tabPage1.Text = "Articoli";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 27);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(240, 0);
-            this.tabPage3.TabIndex = 1;
-            this.tabPage3.Text = "Coperti";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
             // tabPage2
             // 
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
@@ -187,6 +178,16 @@
             this.tabPage2.TabIndex = 2;
             this.tabPage2.Text = "Buoni sconto";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 27);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(240, 0);
+            this.tabPage3.TabIndex = 1;
+            this.tabPage3.Text = "Coperti";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -205,6 +206,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(394, 269);
             this.panel1.TabIndex = 40;
+            // 
+            // groupsText
+            // 
+            this.groupsText.BackColor = System.Drawing.SystemColors.Window;
+            this.groupsText.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupsText.Location = new System.Drawing.Point(150, 181);
+            this.groupsText.MaxLength = 18;
+            this.groupsText.Name = "groupsText";
+            this.groupsText.ReadOnly = true;
+            this.groupsText.Size = new System.Drawing.Size(226, 22);
+            this.groupsText.TabIndex = 27;
             // 
             // labelNota
             // 
@@ -298,17 +310,6 @@
             this.TipoEdit.Size = new System.Drawing.Size(226, 22);
             this.TipoEdit.TabIndex = 0;
             this.TipoEdit.TextChanged += new System.EventHandler(this.TipoEdit_TextChanged);
-            // 
-            // groupsText
-            // 
-            this.groupsText.BackColor = System.Drawing.SystemColors.Window;
-            this.groupsText.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupsText.Location = new System.Drawing.Point(150, 181);
-            this.groupsText.MaxLength = 18;
-            this.groupsText.Name = "groupsText";
-            this.groupsText.ReadOnly = true;
-            this.groupsText.Size = new System.Drawing.Size(226, 22);
-            this.groupsText.TabIndex = 27;
             // 
             // EditArticoloDlg
             // 

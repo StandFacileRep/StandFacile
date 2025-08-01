@@ -1,6 +1,6 @@
 ﻿/********************************************************************
   	NomeFile : StandFacile/AnteprimaDlg.cs
-	Data	 : 26.07.2025
+	Data	 : 01.08.2025
   	Autore   : Mauro Artuso
 
   Classe di visualizzazione dell'anteprima dello scontrino.
@@ -40,7 +40,7 @@ namespace StandFacile
         static bool[] _bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS];
         static bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS];
 
-        static int _iTotaleTicket, _iTotaleDovutoTicket;
+        static int _iTotaleTicket, _iTotaleDovutoReceipt;
 
         static int _iStorePosX, _iStorePosY, _iStoreSizeX, _iStoreSizeY;
         static bool _bStoreStatus;
@@ -59,7 +59,7 @@ namespace StandFacile
         Graphics pg;
 
         /// <summary>ottiene il TC = Totale Corrente</summary>
-        public static int GetTotaleReceipt() { return _iTotaleDovutoTicket; }
+        public static int GetTotaleReceipt() { return _iTotaleDovutoReceipt; }
 
         /// <summary>costruttore</summary>
         public AnteprimaDlg()
@@ -114,7 +114,7 @@ namespace StandFacile
             String sTmp, sIncassoParz;
 
             _iTotaleTicket = 0;
-            _iTotaleDovutoTicket = 0;
+            _iTotaleDovutoReceipt = 0;
 
             iScontoStdTicket = 0;
             iScontoFissoTicket = SF_Data.iScontoFissoReceipt;
@@ -189,7 +189,13 @@ namespace StandFacile
             if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName)) ||
                 ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp == 0)))
             {
-                if (!String.IsNullOrEmpty(SF_Data.sHeaders[0]))
+                if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[0]))
+                {
+                    sTmp = CenterJustify(sConfig.sRcp_CS_Header[0], iMAX_RECEIPT_CHARS);
+                    PrintCanvas(pg, sTmp);
+                    PrintCanvas(pg, "");
+                }
+                else if (!String.IsNullOrEmpty(SF_Data.sHeaders[0]))
                 {
                     sTmp = CenterJustify(SF_Data.sHeaders[0], iMAX_RECEIPT_CHARS);
                     PrintCanvas(pg, sTmp);
@@ -197,7 +203,13 @@ namespace StandFacile
                 }
             }
 
-            if (!String.IsNullOrEmpty(SF_Data.sHeaders[1]))
+            if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[1]))
+            {
+                sTmp = CenterJustify(sConfig.sRcp_CS_Header[1], iMAX_RECEIPT_CHARS);
+                PrintCanvas(pg, sTmp);
+                PrintCanvas(pg, "");
+            }
+            else if (!String.IsNullOrEmpty(SF_Data.sHeaders[1]))
             {
                 sTmp = CenterJustify(SF_Data.sHeaders[1], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
@@ -382,18 +394,18 @@ namespace StandFacile
 
             if (IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_STD) && TicketScontatoStdIsGood())
             {
-                _iTotaleDovutoTicket = _iTotaleTicket - iScontoStdTicket;
+                _iTotaleDovutoReceipt = _iTotaleTicket - iScontoStdTicket;
 
-                if (_iTotaleDovutoTicket < 0)
+                if (_iTotaleDovutoReceipt < 0)
                 {
-                    _iTotaleDovutoTicket = 0;
-                    iScontoStdTicket = _iTotaleDovutoTicket;
+                    _iTotaleDovutoReceipt = 0;
+                    iScontoStdTicket = _iTotaleDovutoReceipt;
                 }
 
                 sTmp = String.Format(sRCP_FMT_DSC, "SCONTO", IntToEuro(iScontoStdTicket), "TOTALE", IntToEuro(_iTotaleTicket));
                 PrintCanvas(pg, sTmp);
 
-                sTmp = String.Format(sRCP_FMT_DIF + "\r\n", "DIFF. DOVUTA", IntToEuro(_iTotaleDovutoTicket));
+                sTmp = String.Format(sRCP_FMT_DIF + "\r\n", "DIFF. DOVUTA", IntToEuro(_iTotaleDovutoReceipt));
                 PrintCanvas(pg, sTmp);
 
                 PrintCanvas(pg, "");
@@ -401,11 +413,11 @@ namespace StandFacile
             }
             else if (IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_FISSO))
             {
-                _iTotaleDovutoTicket = _iTotaleTicket - iScontoFissoTicket;
+                _iTotaleDovutoReceipt = _iTotaleTicket - iScontoFissoTicket;
 
-                if (_iTotaleDovutoTicket < 0)
+                if (_iTotaleDovutoReceipt < 0)
                 {
-                    _iTotaleDovutoTicket = 0;
+                    _iTotaleDovutoReceipt = 0;
                     iScontoFissoTicket = _iTotaleTicket;
                 }
 
@@ -413,7 +425,7 @@ namespace StandFacile
                                          "TOTALE", IntToEuro(_iTotaleTicket));
                 PrintCanvas(pg, sTmp);
 
-                sTmp = String.Format(sRCP_FMT_DIF + "\r\n", "DIFF. DOVUTA", IntToEuro(_iTotaleDovutoTicket));
+                sTmp = String.Format(sRCP_FMT_DIF + "\r\n", "DIFF. DOVUTA", IntToEuro(_iTotaleDovutoReceipt));
                 PrintCanvas(pg, sTmp);
 
                 PrintCanvas(pg, "");
@@ -423,15 +435,15 @@ namespace StandFacile
                 sTmp = String.Format(sRCP_FMT_TOT, "TOTALE", IntToEuro(_iTotaleTicket));
                 PrintCanvas(pg, sTmp);
 
-                _iTotaleDovutoTicket = 0;
-                sTmp = String.Format(sRCP_FMT_TOT, "DOVUTO", IntToEuro(_iTotaleDovutoTicket));
+                _iTotaleDovutoReceipt = 0;
+                sTmp = String.Format(sRCP_FMT_TOT, "DOVUTO", IntToEuro(_iTotaleDovutoReceipt));
                 PrintCanvas(pg, sTmp);
 
                 PrintCanvas(pg, "");
             }
             else
             {
-                _iTotaleDovutoTicket = _iTotaleTicket;
+                _iTotaleDovutoReceipt = _iTotaleTicket;
 
                 sTmp = String.Format(sRCP_FMT_TOT, "TOTALE", IntToEuro(_iTotaleTicket));
                 PrintCanvas(pg, sTmp);
@@ -525,14 +537,26 @@ namespace StandFacile
                 PrintCanvas(pg, "");
             }
 
-            if (!String.IsNullOrEmpty(SF_Data.sHeaders[2]))
+            if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[2]))
+            {
+                sTmp = CenterJustify(sConfig.sRcp_CS_Header[2], iMAX_RECEIPT_CHARS);
+                PrintCanvas(pg, sTmp);
+                PrintCanvas(pg, "");
+            }
+            else if (!String.IsNullOrEmpty(SF_Data.sHeaders[2]))
             {
                 sTmp = CenterJustify(SF_Data.sHeaders[2], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
                 PrintCanvas(pg, "");
             }
 
-            if (!String.IsNullOrEmpty(SF_Data.sHeaders[3]))
+            if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[3]))
+            {
+                sTmp = CenterJustify(sConfig.sRcp_CS_Header[3], iMAX_RECEIPT_CHARS);
+                PrintCanvas(pg, sTmp);
+                PrintCanvas(pg, "");
+            }
+            else if (!String.IsNullOrEmpty(SF_Data.sHeaders[3]))
             {
                 sTmp = CenterJustify(SF_Data.sHeaders[3], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);

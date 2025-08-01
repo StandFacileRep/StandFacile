@@ -360,6 +360,7 @@
             this.ckBox_8.TabIndex = 33;
             this.ckBox_8.Text = "G9";
             this.ckBox_8.UseVisualStyleBackColor = true;
+            this.ckBox_8.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // ScontoDlg
             // 

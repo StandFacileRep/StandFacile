@@ -39,7 +39,7 @@ namespace StandCommonFiles
         public static bool bApplicationRuns;
 
         /// <summary>struct per gestione configurazione da File</summary>
-        public static TConfig sConfig = new TConfig();
+        public static TConfig sConfig = new TConfig(0);
 
         /// <summary>verifica se la stringa passata è contenuta nella chiave "serviceStrings"</summary>
         public static bool CheckService(String sString)

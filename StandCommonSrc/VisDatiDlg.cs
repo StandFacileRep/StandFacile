@@ -86,7 +86,7 @@ namespace StandFacile
             }
         }
 
-        /// <summary>verifica se è richiesto un pagamento</summary>
+        /// <summary>verifica se è richiesto un reporto per sconto</summary>
         public static bool DiscountReportIsRequested()
         {
             switch (_iReportIndex)
@@ -100,7 +100,7 @@ namespace StandFacile
             }
         }
 
-        /// <summary>verifica se è richiesto un pagamento</summary>
+        /// <summary>verifica se è richiesto un reporto per pagamento</summary>
         public static bool PaymentReportIsRequested()
         {
             switch (_iReportIndex)
@@ -738,8 +738,28 @@ namespace StandFacile
                 CkBoxUnioneCasse.Enabled = false;
                 LblCassa.Enabled = false;
                 Combo_NumCassa.Enabled = false;
+                CkBoxSkipZero.Enabled = false;
+                LblReport.Enabled = false;
+                comboReport.Enabled = false;
 
+                // visualizzazione
+                CheckBoxRidColonne.Visible = false;
+                CheckBoxXls.Visible = false;
+                BtnXls.Visible = false;
+                CkBoxUnioneCasse.Visible = false;
+                LblCassa.Visible = false;
+                Combo_NumCassa.Visible = false;
+                CkBoxSkipZero.Visible = false;
+                LblReport.Visible = false;
+                comboReport.Visible = false;
+                BtnDate.Visible = false;
+
+                // setup dimensioni
                 this.Width = 700;
+
+                textEditDati.Height = 416;
+                BtnPrt.Left -= 40;    
+
 
 #if STANDFACILE
                 sNomeFile = NOME_FILE_LISTINO;
