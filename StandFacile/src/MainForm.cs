@@ -494,7 +494,9 @@ namespace StandFacile
             _selectedCellStyle[1].ForeColor = Color.White; _selectedCellStyle[1].BackColor = Color.RoyalBlue;
             _selectedCellStyle[2].ForeColor = Color.MidnightBlue; _selectedCellStyle[2].BackColor = Color.LightSkyBlue;
 
-            // classico
+            // https://htmlcolorcodes.com/color-names/
+
+            // classico 
             _gridStyle[0, 0].ForeColor = Color.White; _gridStyle[0, 0].BackColor = Color.Teal;      // PRIMI
             _gridStyle[0, 1].ForeColor = Color.Cornsilk; _gridStyle[0, 1].BackColor = Color.Teal;   // SECONDI
             _gridStyle[0, 2].ForeColor = Color.Yellow; _gridStyle[0, 2].BackColor = Color.Teal;     // CONTORNI
@@ -519,8 +521,8 @@ namespace StandFacile
             _gridStyle[1, 7].ForeColor = Color.Black; _gridStyle[1, 7].BackColor = Color.Aquamarine;
             _gridStyle[1, 8].ForeColor = Color.Black; _gridStyle[1, 8].BackColor = Color.SeaShell;
             _gridStyle[1, 9].ForeColor = Color.Black; _gridStyle[1, 9].BackColor = Color.AliceBlue;
-            _gridStyle[1, 10].ForeColor = Color.Black; _gridStyle[1, 10].BackColor = Color.WhiteSmoke;
-            _gridStyle[1, 11].ForeColor = Color.Black; _gridStyle[1, 11].BackColor = Color.WhiteSmoke;
+            _gridStyle[1, 10].ForeColor = Color.Black; _gridStyle[1, 10].BackColor = Color.OrangeRed;
+            _gridStyle[1, 11].ForeColor = Color.Black; _gridStyle[1, 11].BackColor = Color.Silver;
 
             // scuro
             _gridStyle[2, 0].ForeColor = Color.White; _gridStyle[2, 0].BackColor = Color.Goldenrod;
@@ -533,8 +535,8 @@ namespace StandFacile
             _gridStyle[2, 7].ForeColor = Color.White; _gridStyle[2, 7].BackColor = Color.SeaGreen;
             _gridStyle[2, 8].ForeColor = Color.White; _gridStyle[2, 8].BackColor = Color.Olive;
             _gridStyle[2, 9].ForeColor = Color.White; _gridStyle[2, 9].BackColor = Color.SeaGreen;
-            _gridStyle[2, 10].ForeColor = Color.White; _gridStyle[2, 10].BackColor = Color.SeaGreen;
-            _gridStyle[2, 11].ForeColor = Color.White; _gridStyle[2, 11].BackColor = Color.SeaGreen;
+            _gridStyle[2, 10].ForeColor = Color.White; _gridStyle[2, 10].BackColor = Color.Red;
+            _gridStyle[2, 11].ForeColor = Color.White; _gridStyle[2, 11].BackColor = Color.Gray;
         }
 
         /// <summary>imposta grafica TABS</summary>

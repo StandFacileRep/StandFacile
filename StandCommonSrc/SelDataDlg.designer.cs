@@ -38,7 +38,7 @@
             this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKBtn.Image = global::StandFacile.Properties.Resources.OK;
             this.OKBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OKBtn.Location = new System.Drawing.Point(206, 268);
+            this.OKBtn.Location = new System.Drawing.Point(197, 282);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(78, 28);
             this.OKBtn.TabIndex = 0;
@@ -51,20 +51,21 @@
             // textBox
             // 
             this.textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox.Location = new System.Drawing.Point(21, 12);
+            this.textBox.Location = new System.Drawing.Point(15, 12);
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
-            this.textBox.Size = new System.Drawing.Size(301, 59);
+            this.textBox.Size = new System.Drawing.Size(312, 75);
             this.textBox.TabIndex = 1;
             this.textBox.Text = "Selezionare la data di interesse per visualizzare i dati, è anche possibile selez" +
-    "ionare un intervallo.";
+    "ionare un intervallo\r\ntenendo premuto il tasto Shift e muovendosi con le frecce\r" +
+    "\n\r\n";
             // 
             // mCalendar
             // 
-            this.mCalendar.Location = new System.Drawing.Point(57, 83);
-            this.mCalendar.MaxSelectionCount = 50;
-            this.mCalendar.MinDate = new System.DateTime(2024, 1, 1, 0, 0, 0, 0);
+            this.mCalendar.Location = new System.Drawing.Point(56, 99);
+            this.mCalendar.MaxSelectionCount = 60;
+            this.mCalendar.MinDate = new System.DateTime(2025, 1, 1, 0, 0, 0, 0);
             this.mCalendar.Name = "mCalendar";
             this.mCalendar.TabIndex = 3;
             this.mCalendar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MCalendar_MouseDown);
@@ -74,7 +75,7 @@
             this.AcceptButton = this.OKBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 308);
+            this.ClientSize = new System.Drawing.Size(340, 326);
             this.Controls.Add(this.mCalendar);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.OKBtn);

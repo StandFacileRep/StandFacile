@@ -39,10 +39,8 @@
             this.tabEditArticolo = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupsText = new System.Windows.Forms.TextBox();
-            this.labelNota = new System.Windows.Forms.Label();
+            this.noteTextBox = new System.Windows.Forms.TextBox();
             this.LblMaxChar = new System.Windows.Forms.Label();
             this.LbRimanenti = new System.Windows.Forms.Label();
             this.groupsCombo = new System.Windows.Forms.ComboBox();
@@ -147,14 +145,13 @@
             // 
             this.tabEditArticolo.Controls.Add(this.tabPage1);
             this.tabEditArticolo.Controls.Add(this.tabPage2);
-            this.tabEditArticolo.Controls.Add(this.tabPage3);
             this.tabEditArticolo.Font = new System.Drawing.Font("Tahoma", 11.25F);
             this.tabEditArticolo.Location = new System.Drawing.Point(23, 17);
             this.tabEditArticolo.Margin = new System.Windows.Forms.Padding(3, 3, 3, 0);
             this.tabEditArticolo.Name = "tabEditArticolo";
             this.tabEditArticolo.Padding = new System.Drawing.Point(12, 3);
             this.tabEditArticolo.SelectedIndex = 0;
-            this.tabEditArticolo.Size = new System.Drawing.Size(248, 23);
+            this.tabEditArticolo.Size = new System.Drawing.Size(235, 23);
             this.tabEditArticolo.TabIndex = 4;
             this.tabEditArticolo.SelectedIndexChanged += new System.EventHandler(this.TabEditArt_SelectedIndexChanged);
             this.tabEditArticolo.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabEditArticolo_Selecting);
@@ -164,7 +161,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(240, 0);
+            this.tabPage1.Size = new System.Drawing.Size(227, 0);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Articoli";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -174,26 +171,15 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 27);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(240, 0);
-            this.tabPage2.TabIndex = 2;
-            this.tabPage2.Text = "Buoni sconto";
+            this.tabPage2.Size = new System.Drawing.Size(227, 0);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Coperti";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 27);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(240, 0);
-            this.tabPage3.TabIndex = 1;
-            this.tabPage3.Text = "Coperti";
-            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.groupsText);
-            this.panel1.Controls.Add(this.labelNota);
+            this.panel1.Controls.Add(this.noteTextBox);
             this.panel1.Controls.Add(this.LblMaxChar);
             this.panel1.Controls.Add(this.LbRimanenti);
             this.panel1.Controls.Add(this.groupsCombo);
@@ -207,26 +193,17 @@
             this.panel1.Size = new System.Drawing.Size(394, 269);
             this.panel1.TabIndex = 40;
             // 
-            // groupsText
+            // noteTextBox
             // 
-            this.groupsText.BackColor = System.Drawing.SystemColors.Window;
-            this.groupsText.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupsText.Location = new System.Drawing.Point(150, 181);
-            this.groupsText.MaxLength = 18;
-            this.groupsText.Name = "groupsText";
-            this.groupsText.ReadOnly = true;
-            this.groupsText.Size = new System.Drawing.Size(226, 22);
-            this.groupsText.TabIndex = 27;
-            // 
-            // labelNota
-            // 
-            this.labelNota.AutoSize = true;
-            this.labelNota.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelNota.Location = new System.Drawing.Point(17, 150);
-            this.labelNota.Name = "labelNota";
-            this.labelNota.Size = new System.Drawing.Size(306, 16);
-            this.labelNota.TabIndex = 24;
-            this.labelNota.Text = "nota : \"Contatori\" ha il Prezzo = 0 quindi è gratuito !";
+            this.noteTextBox.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.noteTextBox.Location = new System.Drawing.Point(20, 133);
+            this.noteTextBox.Multiline = true;
+            this.noteTextBox.Name = "noteTextBox";
+            this.noteTextBox.ReadOnly = true;
+            this.noteTextBox.Size = new System.Drawing.Size(355, 58);
+            this.noteTextBox.TabIndex = 27;
+            this.noteTextBox.Text = "note: \r\n \"Buoni\" verrà sottratto al totale senza andare in negativo,\r\n \"Contatori" +
+    "\" ha il Prezzo = 0 quindi è gratuito ";
             // 
             // LblMaxChar
             // 
@@ -253,10 +230,10 @@
             this.groupsCombo.DropDownWidth = 250;
             this.groupsCombo.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupsCombo.FormattingEnabled = true;
-            this.groupsCombo.Location = new System.Drawing.Point(150, 209);
+            this.groupsCombo.Location = new System.Drawing.Point(135, 214);
             this.groupsCombo.MaxDropDownItems = 20;
             this.groupsCombo.Name = "groupsCombo";
-            this.groupsCombo.Size = new System.Drawing.Size(225, 22);
+            this.groupsCombo.Size = new System.Drawing.Size(240, 22);
             this.groupsCombo.TabIndex = 2;
             this.groupsCombo.SelectedIndexChanged += new System.EventHandler(this.groupsCombo_SelectedIndexChanged);
             // 
@@ -352,9 +329,8 @@
         private System.Windows.Forms.Button btnNavLeft;
         private System.Windows.Forms.TabControl tabEditArticolo;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label labelNota;
         private System.Windows.Forms.Label LblMaxChar;
         private System.Windows.Forms.Label LbRimanenti;
         private System.Windows.Forms.ComboBox groupsCombo;
@@ -363,7 +339,6 @@
         private System.Windows.Forms.Label lb1;
         private System.Windows.Forms.TextBox PrzEdit;
         private System.Windows.Forms.TextBox TipoEdit;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TextBox groupsText;
+        private System.Windows.Forms.TextBox noteTextBox;
     }
 }

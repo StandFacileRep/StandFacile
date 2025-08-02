@@ -803,7 +803,7 @@ namespace StandFacile
             else if (MnuImpListino.Checked)
             {
                 EditArticoloDlg rModificaArticoloDlg = new EditArticoloDlg();
-                rModificaArticoloDlg.Init(_iCellPt);
+                rModificaArticoloDlg.Init(_iCellPt, true);
 
                 _bListinoModificato |= EditArticoloDlg.GetListinoModificato();
 
@@ -1515,7 +1515,9 @@ namespace StandFacile
                         MainGrid.Rows[i].Cells[j].Style.ForeColor = _gridStyle[_iColorTheme, iGruppoStampa].ForeColor;
                         MainGrid.Rows[i].Cells[j].Style.BackColor = _gridStyle[_iColorTheme, iGruppoStampa].BackColor;
 
-                        _prevStyle = new DataGridViewCellStyle(MainGrid.Rows[i].Cells[j].Style);
+                        if ((iGruppoStampa != (int)DEST_TYPE.DEST_BUONI) && (iGruppoStampa != (int)DEST_TYPE.DEST_COUNTER))
+                            _prevStyle = new DataGridViewCellStyle(MainGrid.Rows[i].Cells[j].Style);
+
                         MainGrid.Rows[i].Cells[j].Style.Font = new Font(MainGrid.DefaultCellStyle.Font.Name, _fFontWidth, FontStyle.Regular);
                     }
                 }
@@ -1538,7 +1540,8 @@ namespace StandFacile
                         MainGrid.Rows[i].Cells[j].Style.ForeColor = _gridStyle[_iColorTheme, iGruppoStampa].ForeColor;
                         MainGrid.Rows[i].Cells[j].Style.BackColor = _gridStyle[_iColorTheme, iGruppoStampa].BackColor;
 
-                        _prevStyle = new DataGridViewCellStyle(MainGrid.Rows[i].Cells[j].Style);
+                        if ((iGruppoStampa != (int)DEST_TYPE.DEST_BUONI) && (iGruppoStampa != (int)DEST_TYPE.DEST_COUNTER))
+                            _prevStyle = new DataGridViewCellStyle(MainGrid.Rows[i].Cells[j].Style);
 
                         MainGrid.Rows[i].Cells[j].Style.Font = new Font(MainGrid.DefaultCellStyle.Font.Name, _fFontWidth, FontStyle.Regular);
                     }

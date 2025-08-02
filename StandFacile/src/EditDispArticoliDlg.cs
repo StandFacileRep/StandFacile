@@ -1,6 +1,6 @@
 ﻿/**************************************************
 	NomeFile : StandFacile/EditDispArticoliDlg.cs
-	Data	 : 06.12.2024
+	Data	 : 01.08.2025
 	Autore	 : Mauro Artuso
  **************************************************/
 using System;
