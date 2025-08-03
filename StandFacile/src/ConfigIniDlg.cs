@@ -5,6 +5,7 @@
  *****************************************************/
 using System;
 using System.IO;
+using System.Drawing;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
@@ -20,6 +21,12 @@ namespace StandFacile
         static String _sNomeFileConfig;
         static TErrMsg _WrnMsg;
 
+        readonly ToolTip _tt = new ToolTip
+        {
+            InitialDelay = 50,
+            ShowAlways = true
+        };
+
         /// <summary>riferimento a ConfigIniDlg</summary>
         public static ConfigIniDlg rConfigIniDlg;
 
@@ -28,9 +35,17 @@ namespace StandFacile
         {
             InitializeComponent();
 
-            btnEdit.Enabled = CheckService(CFG_COMMON_STRINGS._ESPERTO);
-            BtnCanc.Enabled = btnEdit.Enabled;
+            _tt.SetToolTip(BtnCanc, "reimposta il contenuto del file config.ini ad un valore standard");
+            _tt.SetToolTip(BtnEdit, "abilita la modifica del contenuto");
+            _tt.SetToolTip(BtnCancel, "esce senza salvare");
+            _tt.SetToolTip(BtnSalva, "salve le modifiche effettuate sul file config.ini");
 
+            BtnEdit.Enabled = CheckService(CFG_COMMON_STRINGS._ESPERTO);
+            BtnCanc.Enabled = BtnEdit.Enabled;
+            
+            BtnSalva.Enabled = false;
+
+            textBox.ForeColor = Color.Silver;
             CaricaFileConfig();
             ShowDialog();
         }
@@ -46,7 +61,7 @@ namespace StandFacile
 
             iCount = 0;
 
-            textBox_FileConfig.Clear();
+            textBox.Clear();
 
             LogToFile("ConfigIniDlg : I CaricaFileConfig");
 
@@ -69,7 +84,7 @@ namespace StandFacile
 
                     iCount++;
 
-                    textBox_FileConfig.AppendText(sInStr + "\r\n");
+                    textBox.AppendText(sInStr + "\r\n");
                     continue;
                 }
 
@@ -79,15 +94,21 @@ namespace StandFacile
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            textBox_FileConfig.ReadOnly = false;
+            textBox.ForeColor = Color.White;
+            textBox.ReadOnly = false;
+            BtnEdit.Enabled = false;    
+            Refresh();
         }
 
         private void textBox_FileConfig_KeyUp(object sender, KeyEventArgs e)
         {
-            if (textBox_FileConfig.ReadOnly)
+            if (textBox.ReadOnly)
                 return;
 
             _bModificato = true;
+            textBox.ForeColor = Color.White;
+            BtnEdit.Enabled = false;
+            BtnSalva.Enabled = true;
         }
 
         private void BtnAnnulla_Click(object sender, EventArgs e)
@@ -97,8 +118,8 @@ namespace StandFacile
 
         private void BtnCanc_Click(object sender, EventArgs e)
         {
-            textBox_FileConfig.Clear();
-            textBox_FileConfig.AppendText(@"
+            textBox.Clear();
+            textBox.AppendText(@"
 ; file di configurazione di StandFacile
 ; le righe che iniziano per ';' sono di commento
 
@@ -116,6 +137,11 @@ namespace StandFacile
 ; receipt_CS_AltHeader_AH2 = CASSA_2");
 
             _bModificato = true;
+            textBox.ForeColor = Color.White;
+            BtnEdit.Enabled = false;
+            BtnSalva.Enabled = true;
+
+            Refresh();
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
@@ -124,7 +150,11 @@ namespace StandFacile
             DialogResult dResult = DialogResult.None;
 
             if (_bModificato)
-                dResult = MessageBox.Show("File di configurazione modificato,\r\n\r\nvuoi salvare le modifiche fatte ?", "Attenzione !", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                dResult = MessageBox.Show(@"File di configurazione modificato,
+
+vuoi salvare le modifiche fatte ?
+
+Poi bisogna riavviare perchè abbia effetto.", "Attenzione !", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
             if (dResult == DialogResult.No)
             {
@@ -142,7 +172,7 @@ namespace StandFacile
                 WarningManager(_WrnMsg);
             else
             {
-                fConfig.WriteLine(textBox_FileConfig.Text);
+                fConfig.WriteLine(textBox.Text);
                 fConfig.Close();
             }
 
