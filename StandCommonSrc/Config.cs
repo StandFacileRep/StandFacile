@@ -12,13 +12,10 @@ using static StandCommonFiles.LogServer;
 
 namespace StandFacile
 {
-    /// <summary>classe per caricamento della configurazione</summary>
+    /// <summary>classe per caricamento del file di configurazione</summary>
     public class Config
     {
 #pragma warning disable IDE1006
-
-        /// <summary>nome del file di filtro</summary>
-        const String CONFIG_FILE = "config.ini";
 
         const String sRCP_CS_HEADER = "receipt_CS_AltHeader_AH";
 
@@ -48,7 +45,7 @@ namespace StandFacile
         {
             int iPos, iCount, iVal, hIndex;
             String sTmp, sExeDir, sNomeConfigFile, sInStr;
-            StreamReader fFiltro;
+            StreamReader fConfig;
 
             iCount = 0;
 
@@ -66,11 +63,11 @@ namespace StandFacile
             if (File.Exists(sNomeConfigFile))
             {
 
-                fFiltro = File.OpenText(sNomeConfigFile);
+                fConfig = File.OpenText(sNomeConfigFile);
                 LogToFile("LoadConfig : caricamento");
 
-                // ***** caricamento stringhe dal file Filtro *****
-                while (((sInStr = fFiltro.ReadLine()) != null) && (iCount < 100))
+                // ***** caricamento stringhe dal file di configurazione *****
+                while (((sInStr = fConfig.ReadLine()) != null) && (iCount < 100))
                 {
                     sInStr = sInStr.Trim();
 
@@ -190,7 +187,8 @@ namespace StandFacile
                     }
                 }
 
-                fFiltro.Close();
+                sConfig.bFileLoaded = true;
+                fConfig.Close();
             }
             else
                 LogToFile("LoadConfig : " + CONFIG_FILE + " non trovato");

@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 31.07.2025
+    Data	 : 03.08.2025
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -381,6 +381,9 @@ namespace StandCommonFiles
         public const String NOME_FILE_LISTINO = "Listino.txt";
         /// <summary>nome del file di backup Listino</summary>
         public const String NOME_FILE_LISTINO_BK = "Listino.bak";
+
+        /// <summary>nome del file di filtro</summary>
+        public const String CONFIG_FILE = "config.ini";
 
         /// <summary>nome del file che contiene la sequenza di test</summary>
         public const string NOME_FILE_TEST = "sequenzaTest.txt";
@@ -1428,6 +1431,8 @@ namespace StandCommonFiles
         /// <summary>struct per gestione configurazione da File</summary>
         public struct TConfig
         {
+            /// <summary>flag per comunicare l'avvenuto caricamento del file config.ini</summary>
+            public bool bFileLoaded;
             /// <summary>numero di avvio conteggio scontrini, normalmente = 1</summary>
             public int iReceiptStartNumber;
             /// <summary>numero di secondi del Timer di refresh, normalmente = 30s per StandMonitor</summary>
@@ -1446,6 +1451,7 @@ namespace StandCommonFiles
             /// <summary>costruttore per inizializzazione</summary>
             public TConfig(int iParam)
             {
+                bFileLoaded = false;
                 iReceiptStartNumber = 0;
                 iRefreshTimer = 0;
                 sService = "";

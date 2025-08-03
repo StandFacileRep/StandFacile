@@ -282,6 +282,12 @@
     <Compile Include="EsploraRemOrdiniDB_Dlg.designer.cs">
       <DependentUpon>EsploraRemOrdiniDB_Dlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConfigIniDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConfigIniDlg.Designer.cs">
+      <DependentUpon>ConfigIniDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm_Redraw.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -386,6 +392,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EsploraRemOrdiniDB_Dlg.resx">
       <DependentUpon>EsploraRemOrdiniDB_Dlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConfigIniDlg.resx">
+      <DependentUpon>ConfigIniDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionsDlg.resx">
       <DependentUpon>OptionsDlg.cs</DependentUpon>
