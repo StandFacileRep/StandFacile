@@ -772,17 +772,9 @@ namespace StandFacile
             if ((_iAnteprimaTotParziale > 0) || IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_GRATIS))
             {
                 toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
-
-                //lblStatus_TC.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
-                //lblStatus_TC.BackColor = Color.LightBlue;
             }
-            else
-            {
+            else if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
                 toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
-
-                //lblStatus_TC.Text = "";
-                //lblStatus_TC.BackColor = SystemColors.Control;
-            }
 
             /*************************************
              *       calcolo del resto
@@ -1362,7 +1354,9 @@ namespace StandFacile
             EditNota.Text = "";
             _sEditNota = "";
 
-            toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
+            if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
+                toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
+
             lblStatus_TC.Text = "";
 
             EditStatus_QRC.Text = "";
