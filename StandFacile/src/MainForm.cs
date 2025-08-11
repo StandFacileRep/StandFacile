@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 12.07.2025
+    Data	 : 10.08.2025
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -769,7 +769,8 @@ namespace StandFacile
                 }
 
             // indicazione Totale provvisorio
-            if ((_iAnteprimaTotParziale > 0) || IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_GRATIS))
+            if ((_iAnteprimaTotParziale > 0) || IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_GRATIS) || 
+                AnteprimaDlg.GetSomethingInto_GrpToPrint((int)DEST_TYPE.DEST_BUONI))
             {
                 toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
             }
@@ -1296,6 +1297,7 @@ namespace StandFacile
                 DataManager.SalvaListino();
 
             _iAnteprimaTotParziale = 0;
+            AnteprimaDlg.ResetSomethingInto_GrpToPrint();
 
             if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
                 ResetBtnScontrino();

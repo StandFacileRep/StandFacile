@@ -1,6 +1,6 @@
 ﻿/********************************************************************
   	NomeFile : StandFacile/AnteprimaDlg.cs
-	Data	 : 01.08.2025
+	Data	 : 10.08.2025
   	Autore   : Mauro Artuso
 
   Classe di visualizzazione dell'anteprima dello scontrino.
@@ -57,6 +57,18 @@ namespace StandFacile
         Font _printFont;
         Bitmap bmpCanvas;
         Graphics pg;
+
+        /// <summary>funzione che ottiene se c'è qualcosa da stampare nel gruppo di stampa iGrpParam</summary>
+        public static bool GetSomethingInto_GrpToPrint(int iGrpParam) { return _bSomethingInto_GrpToPrint[iGrpParam]; }
+
+        /// <summary>
+        /// funzione che resetta i flags se c'è qualcosa da stampare nei gruppi di stampa<br/>
+        /// serve per evitare l'azzeramento non voluto di TC
+        /// </summary>
+        public static void ResetSomethingInto_GrpToPrint()
+        {
+            CheckSomethingToPrint(_bSomethingInto_GrpToPrint, _bSomethingInto_ClrToPrint, SF_Data);
+        }
 
         /// <summary>ottiene il TC = Totale Corrente</summary>
         public static int GetTotaleReceipt() { return _iTotaleDovutoReceipt; }
