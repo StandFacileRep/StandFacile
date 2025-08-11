@@ -779,7 +779,7 @@ namespace StandFacile
 
         private void MainGrid_Resize(object sender, EventArgs e)
         {
-            Console.WriteLine("MainGrid_Resize");
+            Console.WriteLine(String.Format("MainGrid_Resize: {0}, {1}", rFrmMain.Size.Width, rFrmMain.Size.Height));
             FormResize(sender, null);
         }
 
@@ -1310,7 +1310,7 @@ namespace StandFacile
         public void FormResize(object sender, EventArgs e)
         {
             int i, j, k, h;
-            int iRowsHeight, iPrimoGruppoStampa, iGruppoStampa;
+            int iRowsHeight, iPrimoGruppoStampa, iGruppoStampa, iTextRightMargin;
             String sText;
 
             float fColumnsWidth, fTextSize;
@@ -1319,60 +1319,64 @@ namespace StandFacile
             TabSet.Width = lblNome.Location.X - 10;
 
             // tutto dipende dal topPanel
-            topPanel.Width = this.Size.Width - 22;
+            topPanel.Width = this.Size.Width - 20;
+
+            toolStripR.Height = MainGrid.Height;
+
+            btnSep_R1.Height = toolStripR.Height / 10;
+            btnSep_R2.Height = toolStripR.Height / 10;
+            btnSep_R3.Height = btnSep_R2.Height;
 
             if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED)) // priorità
             {
                 TabSet.Height = 34;
-                TabSet.ItemSize = new Size(67, TabSet.Height - 3);
 
                 EditCoperti.Font = new Font("Microsoft Sans Serif", 15);
 
                 BtnScontrino.Size = new Size(80, 60);
 
                 topPanel.Height = 60;
+                toolStripTop.Width = topPanel.Width - toolStripTop.Left - 2;
+                toolStripTop.Left = 2;
+                BtnSep_T6.Visible = false;
 
                 toolStripR.Visible = true;
                 toolStripR.Enabled = true;
                 toolStripR.Width = 82;
 
                 EditCoperti.Left = topPanel.Width - toolStripR.Width / 2 - EditCoperti.Width / 2 - 2;
-
-                btnSep_R1.Height = toolStripR.Height / 10;
-                btnSep_R2.Height = toolStripR.Height / 12;
-                btnSep_R3.Height = btnSep_R2.Height;
             }
             else if (OptionsDlg._rOptionsDlg.Get_VButtons())
             {
                 TabSet.Height = 26;
-                TabSet.ItemSize = new Size(67, TabSet.Height - 3);
 
                 EditCoperti.Font = new Font("Microsoft Sans Serif", 12);
 
                 BtnScontrino.Size = new Size(45, 38);
 
                 topPanel.Height = 42;
+                toolStripTop.Width = topPanel.Width - toolStripTop.Left - 80;
+                toolStripTop.Left = 60;
+                BtnSep_T6.Visible = true;
 
                 toolStripR.Visible = true;
                 toolStripR.Enabled = true;
                 toolStripR.Width = 82;
 
                 EditCoperti.Left = topPanel.Width - toolStripR.Width / 2 - EditCoperti.Width / 2 - 2;
-
-                btnSep_R1.Height = toolStripR.Height / 10;
-                btnSep_R2.Height = toolStripR.Height / 12;
-                btnSep_R3.Height = btnSep_R2.Height;
             }
             else
             {
                 TabSet.Height = 26;
-                TabSet.ItemSize = new Size(67, TabSet.Height - 3);
 
                 EditCoperti.Font = new Font("Microsoft Sans Serif", 12);
 
                 BtnScontrino.Size = new Size(45, 38);
 
                 topPanel.Height = 42;
+                toolStripTop.Width = topPanel.Width - toolStripTop.Left - 80;
+                toolStripTop.Left = 60;
+                BtnSep_T6.Visible = true;
 
                 toolStripR.Visible = false;
                 toolStripR.Enabled = false;
@@ -1381,9 +1385,40 @@ namespace StandFacile
                 EditCoperti.Left = topPanel.Width - 75;
             }
 
+            TabSet.ItemSize = new Size(67, TabSet.Height - 3);
+
+            // funzione che determina BtnSep_T8.Margin per centrare toolStripTop_TC_lbl
+
+            if (_iToolStripTop_MarginTotal == 0)
+            {
+                //Console.WriteLine(String.Format("FormResize tsItem \n"));
+                //Console.WriteLine(String.Format("FormResize tsItem = \"{0}\"", toolStripTop_TC_lbl.Text));
+
+                foreach (ToolStripItem tsItem in toolStripTop.Items)
+                {
+                    if (tsItem.Equals(BtnSep_T8))
+                        _iToolStripTop_MarginTotal += (tsItem.Width + 20); // ignora tsItem.Margin.Left
+                    else
+                        _iToolStripTop_MarginTotal += (tsItem.Width + tsItem.Margin.Left + tsItem.Margin.Right);
+
+                    // Console.WriteLine(String.Format("FormResize tsItem = {0},{1},{2},{3}", tsItem.Name, tsItem.Width, tsItem.Margin.Left, tsItem.Margin.Right));
+                }
+            }
+
+            iTextRightMargin = ((toolStripTop.Width - toolStripTop.Padding.Left - toolStripTop.Padding.Right - _iToolStripTop_MarginTotal) / 2);
+
+            LogToFile(String.Format("FormResize iTextRightMargin = {0}", iTextRightMargin), true);
+
+            if (iTextRightMargin > 0)
+                BtnSep_T8.Margin = new Padding(iTextRightMargin, 0, 20, 0);
+            else
+                BtnSep_T8.Margin = new Padding(20, 0, 20, 0);
+
+
+            toolStripTop.Refresh();
+
             // tutto dipende dal topPanel
-            toolStrip.Width = topPanel.Width - toolStrip.Left - 80; // era 150
-            toolStrip.Height = topPanel.Height - 2;
+            toolStripTop.Height = topPanel.Height - 2;
 
             // posizionamento verticale elementi
             TabSet.Top = MainMenu.Height + topPanel.Height + topPanel.Margin.Top + topPanel.Margin.Bottom;
@@ -1437,7 +1472,7 @@ namespace StandFacile
             MainGrid.Width = topPanel.Width - toolStripR.Width - MainGrid.Location.X * 2;
 
             // imposta l'altezza della griglia in base all'altezza della form principale
-            MainGrid.Height = Height - MainMenu.Size.Height - toolStrip.Size.Height - TabSet.Height -
+            MainGrid.Height = Height - MainMenu.Size.Height - toolStripTop.Size.Height - TabSet.Height -
                                 StatusBar_Upper.Size.Height - StatusBar.Size.Height - 52;
 
             // imposta altezza delle righe sulla base della altezza della finestra

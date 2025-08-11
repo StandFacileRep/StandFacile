@@ -30,12 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.BtnImgList = new System.Windows.Forms.ImageList(this.components);
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuStampaDiProva = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuStampaFile = new System.Windows.Forms.ToolStripMenuItem();
             this.F1 = new System.Windows.Forms.ToolStripSeparator();
@@ -63,6 +62,7 @@
             this.MnuVisMessaggiInviati = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuVisOrdiniAltraData = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuVisOrdiniOggi = new System.Windows.Forms.ToolStripMenuItem();
+            this.MnuFileDiConfigurazione = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostazioni = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuEsperto = new System.Windows.Forms.ToolStripMenuItem();
             this.I1 = new System.Windows.Forms.ToolStripSeparator();
@@ -81,7 +81,7 @@
             this.MnuImpListino = new System.Windows.Forms.ToolStripMenuItem();
             this.aiutoMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuQuickHelp = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
+            this.A1 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.DlgSaveFile = new System.Windows.Forms.SaveFileDialog();
@@ -97,22 +97,23 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.MainGrid = new System.Windows.Forms.DataGridView();
             this.topPanel = new System.Windows.Forms.Panel();
-            this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripTop = new System.Windows.Forms.ToolStrip();
             this.BtnVisListino = new System.Windows.Forms.ToolStripButton();
-            this.BtnSep1 = new System.Windows.Forms.ToolStripSeparator();
+            this.BtnSep_T1 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnSendMsg = new System.Windows.Forms.ToolStripButton();
-            this.BtnSep2 = new System.Windows.Forms.ToolStripSeparator();
+            this.BtnSep_T2 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnX10 = new System.Windows.Forms.ToolStripButton();
-            this.BtnSep3 = new System.Windows.Forms.ToolStripSeparator();
+            this.BtnSep_T3 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnEsportazione = new System.Windows.Forms.ToolStripButton();
-            this.BtnSep4 = new System.Windows.Forms.ToolStripSeparator();
-            this.BtnSep8 = new System.Windows.Forms.ToolStripSeparator();
+            this.BtnSep_T4 = new System.Windows.Forms.ToolStripSeparator();
+            this.BtnSep_T6 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnDB = new System.Windows.Forms.ToolStripButton();
-            this.BtnSep7 = new System.Windows.Forms.ToolStripSeparator();
+            this.BtnSep_T7 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnScontrino = new System.Windows.Forms.ToolStripButton();
-            this.BtnSep6 = new System.Windows.Forms.ToolStripSeparator();
+            this.BtnSep_T8 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnSconto = new System.Windows.Forms.ToolStripButton();
-            this.BtnSep5 = new System.Windows.Forms.ToolStripSeparator();
+            this.BtnSep_T5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripTop_TC_lbl = new System.Windows.Forms.ToolStripLabel();
             this.EditTavolo = new System.Windows.Forms.TextBox();
             this.EditResto = new System.Windows.Forms.TextBox();
             this.EditContante = new System.Windows.Forms.TextBox();
@@ -139,13 +140,12 @@
             this.lblNome = new System.Windows.Forms.Label();
             this.EditNome = new System.Windows.Forms.TextBox();
             this.lblPagato = new System.Windows.Forms.Label();
-            this.MnuFileDiConfigurazione = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.StatusBar_Upper.SuspendLayout();
             this.TabSet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainGrid)).BeginInit();
             this.topPanel.SuspendLayout();
-            this.toolStrip.SuspendLayout();
+            this.toolStripTop.SuspendLayout();
             this.StatusBar.SuspendLayout();
             this.toolStripR.SuspendLayout();
             this.SuspendLayout();
@@ -181,7 +181,6 @@
             // fileMenu
             // 
             this.fileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1,
             this.MnuStampaDiProva,
             this.MnuStampaFile,
             this.F1,
@@ -193,11 +192,6 @@
             this.fileMenu.Name = "fileMenu";
             this.fileMenu.Size = new System.Drawing.Size(92, 20);
             this.fileMenu.Text = "&File e Stampa";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(205, 6);
             // 
             // MnuStampaDiProva
             // 
@@ -393,6 +387,13 @@
             this.MnuVisOrdiniOggi.Text = "&Ordini emessi oggi";
             this.MnuVisOrdiniOggi.Click += new System.EventHandler(this.MnuVisOrdiniEmessi_Click);
             // 
+            // MnuFileDiConfigurazione
+            // 
+            this.MnuFileDiConfigurazione.Name = "MnuFileDiConfigurazione";
+            this.MnuFileDiConfigurazione.Size = new System.Drawing.Size(235, 22);
+            this.MnuFileDiConfigurazione.Text = "&File di configurazione";
+            this.MnuFileDiConfigurazione.Click += new System.EventHandler(this.MnuFileDiConfigurazione_Click);
+            // 
             // MnuImpostazioni
             // 
             this.MnuImpostazioni.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -518,7 +519,7 @@
             // 
             this.aiutoMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuQuickHelp,
-            this.toolStripMenuItem6,
+            this.A1,
             this.MnuInfo});
             this.aiutoMenu.Name = "aiutoMenu";
             this.aiutoMenu.Size = new System.Drawing.Size(48, 20);
@@ -531,10 +532,10 @@
             this.MnuQuickHelp.Text = "Aiuto &Rapido";
             this.MnuQuickHelp.Click += new System.EventHandler(this.MnuQHelp_Click);
             // 
-            // toolStripMenuItem6
+            // A1
             // 
-            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(168, 6);
+            this.A1.Name = "A1";
+            this.A1.Size = new System.Drawing.Size(168, 6);
             // 
             // MnuInfo
             // 
@@ -694,14 +695,14 @@
             this.MainGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.MainGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MainGrid.ColumnHeadersVisible = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MainGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MainGrid.DefaultCellStyle = dataGridViewCellStyle3;
             this.MainGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.MainGrid.EnableHeadersVisualStyles = false;
             this.MainGrid.GridColor = System.Drawing.Color.Gainsboro;
@@ -737,47 +738,48 @@
             this.topPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.topPanel.BackColor = System.Drawing.SystemColors.Menu;
             this.topPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.topPanel.Controls.Add(this.toolStrip);
-            this.topPanel.Location = new System.Drawing.Point(0, 27);
+            this.topPanel.Controls.Add(this.toolStripTop);
+            this.topPanel.Location = new System.Drawing.Point(2, 27);
             this.topPanel.Name = "topPanel";
             this.topPanel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.topPanel.Size = new System.Drawing.Size(1085, 41);
+            this.topPanel.Size = new System.Drawing.Size(1082, 41);
             this.topPanel.TabIndex = 18;
             // 
-            // toolStrip
+            // toolStripTop
             // 
-            this.toolStrip.AllowMerge = false;
-            this.toolStrip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.toolStripTop.AllowMerge = false;
+            this.toolStripTop.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.toolStrip.AutoSize = false;
-            this.toolStrip.BackColor = System.Drawing.SystemColors.Menu;
-            this.toolStrip.CanOverflow = false;
-            this.toolStrip.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripTop.AutoSize = false;
+            this.toolStripTop.BackColor = System.Drawing.SystemColors.Menu;
+            this.toolStripTop.CanOverflow = false;
+            this.toolStripTop.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripTop.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripTop.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BtnVisListino,
-            this.BtnSep1,
+            this.BtnSep_T1,
             this.BtnSendMsg,
-            this.BtnSep2,
+            this.BtnSep_T2,
             this.BtnX10,
-            this.BtnSep3,
+            this.BtnSep_T3,
             this.BtnEsportazione,
-            this.BtnSep4,
-            this.BtnSep8,
+            this.BtnSep_T4,
+            this.BtnSep_T6,
             this.BtnDB,
-            this.BtnSep7,
+            this.BtnSep_T7,
             this.BtnScontrino,
-            this.BtnSep6,
+            this.BtnSep_T8,
             this.BtnSconto,
-            this.BtnSep5});
-            this.toolStrip.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStrip.Location = new System.Drawing.Point(60, 0);
-            this.toolStrip.Margin = new System.Windows.Forms.Padding(0, 0, 60, 0);
-            this.toolStrip.Name = "toolStrip";
-            this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStrip.Size = new System.Drawing.Size(983, 39);
-            this.toolStrip.TabIndex = 0;
+            this.BtnSep_T5,
+            this.toolStripTop_TC_lbl});
+            this.toolStripTop.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.toolStripTop.Location = new System.Drawing.Point(3, 0);
+            this.toolStripTop.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
+            this.toolStripTop.Name = "toolStripTop";
+            this.toolStripTop.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.toolStripTop.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStripTop.Size = new System.Drawing.Size(1072, 39);
+            this.toolStripTop.TabIndex = 0;
             // 
             // BtnVisListino
             // 
@@ -793,11 +795,11 @@
             this.BtnVisListino.Click += new System.EventHandler(this.BtnVisListino_Click);
             this.BtnVisListino.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TabSet_MouseMove);
             // 
-            // BtnSep1
+            // BtnSep_T1
             // 
-            this.BtnSep1.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.BtnSep1.Name = "BtnSep1";
-            this.BtnSep1.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T1.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.BtnSep_T1.Name = "BtnSep_T1";
+            this.BtnSep_T1.Size = new System.Drawing.Size(6, 39);
             // 
             // BtnSendMsg
             // 
@@ -813,11 +815,11 @@
             this.BtnSendMsg.ToolTipText = "(F6) Messaggio Cucina";
             this.BtnSendMsg.Click += new System.EventHandler(this.BtnSendMsg_Click);
             // 
-            // BtnSep2
+            // BtnSep_T2
             // 
-            this.BtnSep2.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.BtnSep2.Name = "BtnSep2";
-            this.BtnSep2.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T2.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.BtnSep_T2.Name = "BtnSep_T2";
+            this.BtnSep_T2.Size = new System.Drawing.Size(6, 39);
             // 
             // BtnX10
             // 
@@ -830,16 +832,15 @@
             this.BtnX10.ImageTransparentColor = System.Drawing.Color.White;
             this.BtnX10.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.BtnX10.Name = "BtnX10";
-            this.BtnX10.Padding = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.BtnX10.Size = new System.Drawing.Size(45, 38);
             this.BtnX10.ToolTipText = "(F7) Quantità x10";
             this.BtnX10.Click += new System.EventHandler(this.BtnX10_Click);
             // 
-            // BtnSep3
+            // BtnSep_T3
             // 
-            this.BtnSep3.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.BtnSep3.Name = "BtnSep3";
-            this.BtnSep3.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T3.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.BtnSep_T3.Name = "BtnSep_T3";
+            this.BtnSep_T3.Size = new System.Drawing.Size(6, 39);
             // 
             // BtnEsportazione
             // 
@@ -852,23 +853,22 @@
             this.BtnEsportazione.ImageTransparentColor = System.Drawing.Color.White;
             this.BtnEsportazione.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.BtnEsportazione.Name = "BtnEsportazione";
-            this.BtnEsportazione.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.BtnEsportazione.Size = new System.Drawing.Size(45, 38);
             this.BtnEsportazione.ToolTipText = "(F8) Esportazione";
             this.BtnEsportazione.Click += new System.EventHandler(this.BtnEsportazione_Click);
             // 
-            // BtnSep4
+            // BtnSep_T4
             // 
-            this.BtnSep4.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.BtnSep4.Name = "BtnSep4";
-            this.BtnSep4.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T4.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.BtnSep_T4.Name = "BtnSep_T4";
+            this.BtnSep_T4.Size = new System.Drawing.Size(6, 39);
             // 
-            // BtnSep8
+            // BtnSep_T6
             // 
-            this.BtnSep8.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.BtnSep8.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.BtnSep8.Name = "BtnSep8";
-            this.BtnSep8.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.BtnSep_T6.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.BtnSep_T6.Name = "BtnSep_T6";
+            this.BtnSep_T6.Size = new System.Drawing.Size(6, 39);
             // 
             // BtnDB
             // 
@@ -885,12 +885,12 @@
             this.BtnDB.ToolTipText = "test connessione DB";
             this.BtnDB.Click += new System.EventHandler(this.BtnDB_Click);
             // 
-            // BtnSep7
+            // BtnSep_T7
             // 
-            this.BtnSep7.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.BtnSep7.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.BtnSep7.Name = "BtnSep7";
-            this.BtnSep7.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T7.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.BtnSep_T7.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.BtnSep_T7.Name = "BtnSep_T7";
+            this.BtnSep_T7.Size = new System.Drawing.Size(6, 39);
             // 
             // BtnScontrino
             // 
@@ -903,17 +903,16 @@
             this.BtnScontrino.ImageTransparentColor = System.Drawing.Color.White;
             this.BtnScontrino.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
             this.BtnScontrino.Name = "BtnScontrino";
-            this.BtnScontrino.Padding = new System.Windows.Forms.Padding(8, 0, 6, 0);
             this.BtnScontrino.Size = new System.Drawing.Size(45, 38);
             this.BtnScontrino.ToolTipText = "(F10) Stampa lo scontrino";
             this.BtnScontrino.Click += new System.EventHandler(this.BtnScontrino_Click);
             // 
-            // BtnSep6
+            // BtnSep_T8
             // 
-            this.BtnSep6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.BtnSep6.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.BtnSep6.Name = "BtnSep6";
-            this.BtnSep6.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T8.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.BtnSep_T8.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.BtnSep_T8.Name = "BtnSep_T8";
+            this.BtnSep_T8.Size = new System.Drawing.Size(6, 39);
             // 
             // BtnSconto
             // 
@@ -927,11 +926,26 @@
             this.BtnSconto.ToolTipText = "(F9) applica sconto";
             this.BtnSconto.Click += new System.EventHandler(this.BtnSconto_Click);
             // 
-            // BtnSep5
+            // BtnSep_T5
             // 
-            this.BtnSep5.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
-            this.BtnSep5.Name = "BtnSep5";
-            this.BtnSep5.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T5.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
+            this.BtnSep_T5.Name = "BtnSep_T5";
+            this.BtnSep_T5.Size = new System.Drawing.Size(6, 39);
+            // 
+            // toolStripTop_TC_lbl
+            // 
+            this.toolStripTop_TC_lbl.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.toolStripTop_TC_lbl.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripTop_TC_lbl.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolStripTop_TC_lbl.ForeColor = System.Drawing.Color.Crimson;
+            this.toolStripTop_TC_lbl.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.toolStripTop_TC_lbl.Margin = new System.Windows.Forms.Padding(0);
+            this.toolStripTop_TC_lbl.Name = "toolStripTop_TC_lbl";
+            this.toolStripTop_TC_lbl.RightToLeftAutoMirrorImage = true;
+            this.toolStripTop_TC_lbl.Size = new System.Drawing.Size(105, 39);
+            this.toolStripTop_TC_lbl.Text = "TC = 0.00";
+            this.toolStripTop_TC_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolStripTop_TC_lbl.ToolTipText = "Totale Corrente";
             // 
             // EditTavolo
             // 
@@ -1061,7 +1075,7 @@
             this.lblStatus_Status.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblStatus_Status.Margin = new System.Windows.Forms.Padding(1);
             this.lblStatus_Status.Name = "lblStatus_Status";
-            this.lblStatus_Status.Size = new System.Drawing.Size(300, 28);
+            this.lblStatus_Status.Size = new System.Drawing.Size(400, 28);
             this.lblStatus_Status.Text = "Pronto";
             this.lblStatus_Status.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1077,8 +1091,7 @@
             this.lblStatus_TC.ForeColor = System.Drawing.Color.Crimson;
             this.lblStatus_TC.Margin = new System.Windows.Forms.Padding(1);
             this.lblStatus_TC.Name = "lblStatus_TC";
-            this.lblStatus_TC.Size = new System.Drawing.Size(160, 28);
-            this.lblStatus_TC.Text = "TC = ...";
+            this.lblStatus_TC.Size = new System.Drawing.Size(40, 28);
             this.lblStatus_TC.ToolTipText = "Totale Corrente";
             // 
             // lblStatus_Date
@@ -1160,7 +1173,8 @@
             // toolStripR
             // 
             this.toolStripR.AllowMerge = false;
-            this.toolStripR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.toolStripR.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.toolStripR.AutoSize = false;
             this.toolStripR.BackColor = System.Drawing.Color.White;
             this.toolStripR.CanOverflow = false;
@@ -1187,6 +1201,7 @@
             this.btnSep_R1.AutoSize = false;
             this.btnSep_R1.BackColor = System.Drawing.Color.White;
             this.btnSep_R1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSep_R1.Enabled = false;
             this.btnSep_R1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnSep_R1.ImageTransparentColor = System.Drawing.Color.White;
             this.btnSep_R1.Name = "btnSep_R1";
@@ -1204,7 +1219,6 @@
             this.btnPlus.Name = "btnPlus";
             this.btnPlus.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.btnPlus.Size = new System.Drawing.Size(80, 80);
-            this.btnPlus.Text = "toolStripButton1";
             this.btnPlus.ToolTipText = "incrementa la quantità";
             this.btnPlus.Click += new System.EventHandler(this.BtnPlus_Click);
             // 
@@ -1212,6 +1226,7 @@
             // 
             this.btnSep_R2.AutoSize = false;
             this.btnSep_R2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSep_R2.Enabled = false;
             this.btnSep_R2.ImageTransparentColor = System.Drawing.Color.White;
             this.btnSep_R2.Name = "btnSep_R2";
             this.btnSep_R2.Size = new System.Drawing.Size(83, 22);
@@ -1226,7 +1241,6 @@
             this.btnMinus.ImageTransparentColor = System.Drawing.Color.White;
             this.btnMinus.Name = "btnMinus";
             this.btnMinus.Size = new System.Drawing.Size(80, 80);
-            this.btnMinus.Text = "toolStripButton1";
             this.btnMinus.ToolTipText = "decrementa la quantità";
             this.btnMinus.Click += new System.EventHandler(this.BtnMinus_Click);
             // 
@@ -1234,6 +1248,7 @@
             // 
             this.btnSep_R3.AutoSize = false;
             this.btnSep_R3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnSep_R3.Enabled = false;
             this.btnSep_R3.ImageTransparentColor = System.Drawing.Color.White;
             this.btnSep_R3.Name = "btnSep_R3";
             this.btnSep_R3.Size = new System.Drawing.Size(83, 22);
@@ -1308,13 +1323,6 @@
             this.lblPagato.TabIndex = 28;
             this.lblPagato.Text = "Pagato:";
             // 
-            // MnuFileDiConfigurazione
-            // 
-            this.MnuFileDiConfigurazione.Name = "MnuFileDiConfigurazione";
-            this.MnuFileDiConfigurazione.Size = new System.Drawing.Size(235, 22);
-            this.MnuFileDiConfigurazione.Text = "&File di configurazione";
-            this.MnuFileDiConfigurazione.Click += new System.EventHandler(this.MnuFileDiConfigurazione_Click);
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1359,8 +1367,8 @@
             this.TabSet.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MainGrid)).EndInit();
             this.topPanel.ResumeLayout(false);
-            this.toolStrip.ResumeLayout(false);
-            this.toolStrip.PerformLayout();
+            this.toolStripTop.ResumeLayout(false);
+            this.toolStripTop.PerformLayout();
             this.StatusBar.ResumeLayout(false);
             this.StatusBar.PerformLayout();
             this.toolStripR.ResumeLayout(false);
@@ -1376,7 +1384,6 @@
         private System.Windows.Forms.ImageList BtnImgList;
         private System.Windows.Forms.MenuStrip MainMenu;
         private System.Windows.Forms.ToolStripMenuItem fileMenu;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem MnuStampaFile;
         private System.Windows.Forms.ToolStripMenuItem MnuExit;
         private System.Windows.Forms.ToolStripMenuItem MnuModifica;
@@ -1395,7 +1402,7 @@
         private System.Windows.Forms.ToolStripSeparator I4;
         private System.Windows.Forms.ToolStripMenuItem aiutoMenu;
         private System.Windows.Forms.ToolStripMenuItem MnuQuickHelp;
-        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripSeparator A1;
         private System.Windows.Forms.ToolStripMenuItem MnuInfo;
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaCopieInRete;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
@@ -1415,7 +1422,7 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Panel topPanel;
-        private System.Windows.Forms.ToolStrip toolStrip;
+        private System.Windows.Forms.ToolStrip toolStripTop;
         private System.Windows.Forms.ToolStripButton BtnVisListino;
         private System.Windows.Forms.ToolStripButton BtnSendMsg;
         private System.Windows.Forms.ToolStripButton BtnX10;
@@ -1429,10 +1436,10 @@
         private System.Windows.Forms.ToolStripMenuItem MnuVisOrdiniOggi;
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaRete;
         private System.Windows.Forms.ToolStripSeparator I2;
-        private System.Windows.Forms.ToolStripSeparator BtnSep1;
-        private System.Windows.Forms.ToolStripSeparator BtnSep2;
-        private System.Windows.Forms.ToolStripSeparator BtnSep3;
-        private System.Windows.Forms.ToolStripSeparator BtnSep7;
+        private System.Windows.Forms.ToolStripSeparator BtnSep_T1;
+        private System.Windows.Forms.ToolStripSeparator BtnSep_T2;
+        private System.Windows.Forms.ToolStripSeparator BtnSep_T3;
+        private System.Windows.Forms.ToolStripSeparator BtnSep_T7;
         private System.Windows.Forms.TextBox EditTavolo;
         private System.Windows.Forms.TextBox EditResto;
         private System.Windows.Forms.TextBox EditContante;
@@ -1440,13 +1447,13 @@
         private System.Windows.Forms.Label lblResto;
         private System.Windows.Forms.TextBox EditNota;
         private System.Windows.Forms.DataGridView MainGrid;
-        private System.Windows.Forms.ToolStripSeparator BtnSep4;
-        private System.Windows.Forms.ToolStripSeparator BtnSep6;
+        private System.Windows.Forms.ToolStripSeparator BtnSep_T4;
+        private System.Windows.Forms.ToolStripSeparator BtnSep_T8;
         private System.Windows.Forms.Label lblCoperti;
         private System.Windows.Forms.TextBox EditCoperti;
-        private System.Windows.Forms.ToolStripSeparator BtnSep8;
+        private System.Windows.Forms.ToolStripSeparator BtnSep_T6;
         private System.Windows.Forms.ToolStripButton BtnSconto;
-        private System.Windows.Forms.ToolStripSeparator BtnSep5;
+        private System.Windows.Forms.ToolStripSeparator BtnSep_T5;
         private System.Windows.Forms.ToolStripButton BtnEsportazione;
         private System.Windows.Forms.ToolStripButton BtnScontrino;
         private System.Windows.Forms.ToolStripButton BtnDB;
@@ -1481,6 +1488,7 @@
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteWin;
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteLegacy;
         private System.Windows.Forms.ToolStripMenuItem MnuFileDiConfigurazione;
+        private System.Windows.Forms.ToolStripLabel toolStripTop_TC_lbl;
     }
 }
 

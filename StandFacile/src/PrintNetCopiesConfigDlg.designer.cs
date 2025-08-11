@@ -893,7 +893,8 @@
             this.MinimizeBox = false;
             this.Name = "PrintNetCopiesConfigDlg";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Configurazione Gruppi e Stampanti per le copie in rete";
+            this.Text = "Configurazione Gruppi di Articoli e configurazione delle Stampanti per le copie i" +
+    "n rete";
             this.GroupBoxStampe.ResumeLayout(false);
             this.GroupBoxStampe.PerformLayout();
             this.groupBoxColors.ResumeLayout(false);

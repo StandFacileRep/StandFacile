@@ -433,12 +433,12 @@
             this.LinkLbl_Mnu_CCR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LinkLbl_Mnu_CCR.AutoSize = true;
             this.LinkLbl_Mnu_CCR.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LinkLbl_Mnu_CCR.Location = new System.Drawing.Point(346, 166);
+            this.LinkLbl_Mnu_CCR.Location = new System.Drawing.Point(339, 166);
             this.LinkLbl_Mnu_CCR.Name = "LinkLbl_Mnu_CCR";
-            this.LinkLbl_Mnu_CCR.Size = new System.Drawing.Size(170, 14);
+            this.LinkLbl_Mnu_CCR.Size = new System.Drawing.Size(188, 14);
             this.LinkLbl_Mnu_CCR.TabIndex = 34;
             this.LinkLbl_Mnu_CCR.TabStop = true;
-            this.LinkLbl_Mnu_CCR.Text = "\"Configurazione Copie in rete\"";
+            this.LinkLbl_Mnu_CCR.Text = "\"Configurazione Gruppi di Articoli\"";
             this.LinkLbl_Mnu_CCR.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLbl_Mnu_CCR_LinkClicked);
             // 
             // label2

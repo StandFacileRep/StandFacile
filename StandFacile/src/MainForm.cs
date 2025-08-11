@@ -56,6 +56,7 @@ namespace StandFacile
         bool bPageSxProximity;
 
         static int _iDBDispTimeout;
+        static int _iToolStripTop_MarginTotal;
 
         int _iCellPt;      // indice lineare di selezione Articolo
 
@@ -299,7 +300,7 @@ namespace StandFacile
             _tt.SetToolTip(comboCashPos, "tipo di pagamento: Contanti/Card/Satispay");
 
             // layout Toolbar e Menu
-            toolStrip.Left = 60;
+            toolStripTop.Left = 60;
 
             comboCashPos.Items.Clear();
 
@@ -367,6 +368,7 @@ namespace StandFacile
 
             _iAnteprimaTotParziale = 0;
             _bPasswordIsGood = false;
+            _iToolStripTop_MarginTotal = 0;
 
             if (CheckService(CFG_COMMON_STRINGS._HIDE_LEGACY_PRINTER))
             {
@@ -769,13 +771,17 @@ namespace StandFacile
             // indicazione Totale provvisorio
             if ((_iAnteprimaTotParziale > 0) || IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_GRATIS))
             {
-                lblStatus_TC.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
-                lblStatus_TC.BackColor = Color.LightBlue;
+                toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
+
+                //lblStatus_TC.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
+                //lblStatus_TC.BackColor = Color.LightBlue;
             }
             else
             {
-                lblStatus_TC.Text = "";
-                lblStatus_TC.BackColor = SystemColors.Control;
+                toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
+
+                //lblStatus_TC.Text = "";
+                //lblStatus_TC.BackColor = SystemColors.Control;
             }
 
             /*************************************
@@ -1356,6 +1362,7 @@ namespace StandFacile
             EditNota.Text = "";
             _sEditNota = "";
 
+            toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
             lblStatus_TC.Text = "";
 
             EditStatus_QRC.Text = "";
@@ -2011,6 +2018,11 @@ namespace StandFacile
 
                 FormResize(this, null);
                 MainGrid_Redraw(this, null);
+
+                _iToolStripTop_MarginTotal = 0; // forza ricalcolo per centraggio TC
+
+                // serve 2 volte
+                FormResize(this, null);
             }
 
             rSetGridDlg.Dispose();

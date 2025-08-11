@@ -129,6 +129,6 @@
     <value>44, 17</value>
   </metadata>
   <data name="textBox_ColorsInfo.Text" xml:space="preserve">
-    <value>Per modificare i colori cliccare sui box "stampa copia" tenendo premuto il tasto Ctrl: il grigio mantiene gli accorpamenti per gruppo di articoli, gli altri colori invece producono accorpamenti che hanno priorità rispetti ai gruppi. Il testo utilizzato nella stampa sarà quello con lo sfondo di colore corrispondente riportato nei riquadri qui a destra.</value>
+    <value>Per modificare i colori cliccare sui box "stampa copia" tenendo premuto il tasto Ctrl: il grigio mantiene gli accorpamenti per gruppo di articoli, gli altri colori invece producono accorpamenti che hanno priorità rispetti ai gruppi grigi. Il testo utilizzato nella stampa sarà quello con lo sfondo di colore corrispondente riportato nei riquadri qui a destra.</value>
   </data>
 </root>
