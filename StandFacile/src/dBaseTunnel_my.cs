@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************************
 	NomeFile : StandFacile/dBaseTunnel_my.cs
-    Data	 : 23.05.2025
+    Data	 : 10.08.2025
 	Autore   : Mauro Artuso
 
     Classe per la lettura degli ordini in remoto, utilizza HTTP tunneling
@@ -965,7 +965,10 @@ namespace StandFacile
                 sResponseFromServer = SendWebRequest(sSQL_Query);
 
                 // table create se non esiste
-                sSQL_Query = String.Format("CREATE TABLE IF NOT EXISTS {0} (row_ID INT NOT NULL, text VARCHAR(100), PRIMARY KEY(row_ID));", NOME_PREZZI_RDBTBL);
+                //sSQL_Query = String.Format("CREATE TABLE IF NOT EXISTS {0} (row_ID INT NOT NULL, text VARCHAR(100), PRIMARY KEY(row_ID));", NOME_PREZZI_RDBTBL);
+
+                sSQL_Query = String.Format("CREATE TABLE IF NOT EXISTS {0} (row_ID INT NOT NULL, text VARCHAR(100), PRIMARY KEY(row_ID)) " +
+                                           "CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;", NOME_PREZZI_RDBTBL);
 
                 sResponseFromServer = SendWebRequest(sSQL_Query);
 

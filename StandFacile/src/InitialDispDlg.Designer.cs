@@ -34,11 +34,12 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.rdButtonAll = new System.Windows.Forms.RadioButton();
             this.panel = new System.Windows.Forms.Panel();
+            this.checkBoxCopia_11 = new System.Windows.Forms.CheckBox();
             this.checkBoxCopia_8 = new System.Windows.Forms.CheckBox();
             this.checkBoxCopia_9 = new System.Windows.Forms.CheckBox();
             this.checkBoxCopia_7 = new System.Windows.Forms.CheckBox();
             this.checkBoxCopia_6 = new System.Windows.Forms.CheckBox();
-            this.checkBoxCopia_11 = new System.Windows.Forms.CheckBox();
+            this.checkBoxCopia_10 = new System.Windows.Forms.CheckBox();
             this.checkBoxCopia_5 = new System.Windows.Forms.CheckBox();
             this.checkBoxCopia_4 = new System.Windows.Forms.CheckBox();
             this.checkBoxCopia_3 = new System.Windows.Forms.CheckBox();
@@ -47,7 +48,6 @@
             this.checkBoxCopia_0 = new System.Windows.Forms.CheckBox();
             this.rdButtonNone = new System.Windows.Forms.RadioButton();
             this.groupBox = new System.Windows.Forms.GroupBox();
-            this.checkBoxCopia_10 = new System.Windows.Forms.CheckBox();
             this.panel.SuspendLayout();
             this.groupBox.SuspendLayout();
             this.SuspendLayout();
@@ -102,12 +102,12 @@
             // 
             // panel
             // 
-            this.panel.Controls.Add(this.checkBoxCopia_10);
+            this.panel.Controls.Add(this.checkBoxCopia_11);
             this.panel.Controls.Add(this.checkBoxCopia_8);
             this.panel.Controls.Add(this.checkBoxCopia_9);
             this.panel.Controls.Add(this.checkBoxCopia_7);
             this.panel.Controls.Add(this.checkBoxCopia_6);
-            this.panel.Controls.Add(this.checkBoxCopia_11);
+            this.panel.Controls.Add(this.checkBoxCopia_10);
             this.panel.Controls.Add(this.checkBoxCopia_5);
             this.panel.Controls.Add(this.checkBoxCopia_4);
             this.panel.Controls.Add(this.checkBoxCopia_3);
@@ -118,6 +118,18 @@
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(518, 172);
             this.panel.TabIndex = 22;
+            // 
+            // checkBoxCopia_11
+            // 
+            this.checkBoxCopia_11.AutoSize = true;
+            this.checkBoxCopia_11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxCopia_11.Location = new System.Drawing.Point(306, 149);
+            this.checkBoxCopia_11.Name = "checkBoxCopia_11";
+            this.checkBoxCopia_11.Size = new System.Drawing.Size(120, 20);
+            this.checkBoxCopia_11.TabIndex = 33;
+            this.checkBoxCopia_11.Text = "buoni non visibili";
+            this.checkBoxCopia_11.UseVisualStyleBackColor = true;
+            this.checkBoxCopia_11.Visible = false;
             // 
             // checkBoxCopia_8
             // 
@@ -167,17 +179,17 @@
             this.checkBoxCopia_6.UseVisualStyleBackColor = true;
             this.checkBoxCopia_6.Click += new System.EventHandler(this.CheckBoxCopia_Click);
             // 
-            // checkBoxCopia_11
+            // checkBoxCopia_10
             // 
-            this.checkBoxCopia_11.AutoSize = true;
-            this.checkBoxCopia_11.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopia_11.Location = new System.Drawing.Point(349, 125);
-            this.checkBoxCopia_11.Name = "checkBoxCopia_11";
-            this.checkBoxCopia_11.Size = new System.Drawing.Size(76, 20);
-            this.checkBoxCopia_11.TabIndex = 28;
-            this.checkBoxCopia_11.Text = "contatori";
-            this.checkBoxCopia_11.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_11.Click += new System.EventHandler(this.CheckBoxCopia_Click);
+            this.checkBoxCopia_10.AutoSize = true;
+            this.checkBoxCopia_10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxCopia_10.Location = new System.Drawing.Point(349, 125);
+            this.checkBoxCopia_10.Name = "checkBoxCopia_10";
+            this.checkBoxCopia_10.Size = new System.Drawing.Size(76, 20);
+            this.checkBoxCopia_10.TabIndex = 28;
+            this.checkBoxCopia_10.Text = "contatori";
+            this.checkBoxCopia_10.UseVisualStyleBackColor = true;
+            this.checkBoxCopia_10.Click += new System.EventHandler(this.CheckBoxCopia_Click);
             // 
             // checkBoxCopia_5
             // 
@@ -273,18 +285,6 @@
             this.groupBox.TabIndex = 24;
             this.groupBox.TabStop = false;
             // 
-            // checkBoxCopia_10
-            // 
-            this.checkBoxCopia_10.AutoSize = true;
-            this.checkBoxCopia_10.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxCopia_10.Location = new System.Drawing.Point(306, 149);
-            this.checkBoxCopia_10.Name = "checkBoxCopia_10";
-            this.checkBoxCopia_10.Size = new System.Drawing.Size(120, 20);
-            this.checkBoxCopia_10.TabIndex = 33;
-            this.checkBoxCopia_10.Text = "buoni non visibili";
-            this.checkBoxCopia_10.UseVisualStyleBackColor = true;
-            this.checkBoxCopia_10.Visible = false;
-            // 
             // InitialDispDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -325,12 +325,12 @@
         private System.Windows.Forms.CheckBox checkBoxCopia_1;
         private System.Windows.Forms.CheckBox checkBoxCopia_0;
         private System.Windows.Forms.RadioButton rdButtonNone;
-        private System.Windows.Forms.CheckBox checkBoxCopia_11;
+        private System.Windows.Forms.CheckBox checkBoxCopia_10;
         private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.CheckBox checkBoxCopia_6;
         private System.Windows.Forms.CheckBox checkBoxCopia_7;
         private System.Windows.Forms.CheckBox checkBoxCopia_9;
         private System.Windows.Forms.CheckBox checkBoxCopia_8;
-        private System.Windows.Forms.CheckBox checkBoxCopia_10;
+        private System.Windows.Forms.CheckBox checkBoxCopia_11;
     }
 }

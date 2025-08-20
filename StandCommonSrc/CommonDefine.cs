@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 03.08.2025
+    Data	 : 18.08.2025
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -603,10 +603,10 @@ namespace StandCommonFiles
             DEST_TIPO9_NOWEB,
             /// <summary>gruppo destinazioni singole</summary>
             DEST_SINGLE,
-            /// <summary>gruppo dei buoni sconto: sono articoli con prezzo negativo</summary>
-            DEST_BUONI,
             /// <summary>gruppo dei contatori: non ha un prezzo significativo</summary>
-            DEST_COUNTER
+            DEST_COUNTER,
+            /// <summary>gruppo dei buoni sconto: sono articoli con prezzo negativo</summary>
+            DEST_BUONI
         };
 
         /// <summary>numero totale =12 dei diversi gruppi di Articoli compresi i contatori</summary>
@@ -1284,10 +1284,10 @@ namespace StandCommonFiles
 
         /// <summary>testo descrittivo dei gruppi di stampa</summary>
         public static readonly String[] sConstGruppi = { "gruppo 1", "gruppo 2", "gruppo 3", "gruppo 4", "gruppo 5", "gruppo 6",
-                                                          "gruppo 7", "gruppo 8", "gruppo 9 (no-web)", "Copie singole", "Buoni sconto", "Contatori" };
+                                                          "gruppo 7", "gruppo 8", "gruppo 9 (no-web)", "Copie singole", "Contatori", "Buoni sconto" };
 
         /// <summary>testo short descrittivo dei gruppi di stampa</summary>
-        public static readonly String[] sConstGruppiShort = { "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "CS", "BS", "CN" };
+        public static readonly String[] sConstGruppiShort = { "G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9", "CS", "CN", "BS" };
 
         /// <summary>testo esteso descrittivo dei gruppi di stampa</summary>
         public static readonly String[] sConstCopiesGroupsText =
@@ -1302,8 +1302,8 @@ namespace StandCommonFiles
             "##### COPIA GRUPPO8 #####",
             "### COPIA GRP NO WEB ###",
             " ###  COPIE SINGOLE  ### ",
-            " ###   BUONI SCONTO  ### ",
-            " ###    CONTATORI    ### "
+            " ###    CONTATORI    ### ",
+            " ###   BUONI SCONTO  ### "
         };
 
         /// <summary>testo esteso descrittivo dei gruppi di stampa raggruppati per colore</summary>

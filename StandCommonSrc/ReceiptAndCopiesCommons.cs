@@ -162,7 +162,8 @@ namespace StandCommonFiles
             bool bLast;
             int i, j, iTotaleQuantity = 0;
 
-            for (i = 0; i < NUM_COPIES_GRPS; i++)
+            // evita DEST_BUONI
+            for (i = 0; i < (NUM_COPIES_GRPS - 1); i++)
             {
                 if (bSomethingToPrintParam[i] && (!_bPrintSelectedOnly || _bPrintSelectedOnly && (!_bAvoidPrintOtherGroups || _bSelectedGroups[i])))
                 {
@@ -836,11 +837,13 @@ namespace StandCommonFiles
             for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
                 _bSelectedGroups[i] = IsBitSet(SF_Data.iReceiptCopyOptions, i);
 
-            // CONTATORI mai selezionati
+            // CONTATORI, BUONI mai selezionati
             _bSelectedGroups[(int)DEST_TYPE.DEST_COUNTER] = true;
+            _bSelectedGroups[(int)DEST_TYPE.DEST_BUONI] = false;
 
             // puntatore di riordino per consentire per primi DEST_TYPE.DEST_COUNTER
             iGrpReorderPtr[0] = (int)DEST_TYPE.DEST_COUNTER;
+            iGrpReorderPtr[(int)DEST_TYPE.DEST_BUONI] = (int)DEST_TYPE.DEST_BUONI;
 
             for (i = 0; i < NUM_SEP_PRINT_GROUPS; i++)
                 iGrpReorderPtr[i + 1] = i;
@@ -933,8 +936,8 @@ namespace StandCommonFiles
                         sHeader2_ToPrintBeforeCut += String.Format("{0}\r\n", sOrdineStringsParam.sOrdNumPrev);
                     }
 
-                    // stampa #1: quantità UNO mediante Crtl+S
-                    for (i = 0; i < NUM_COPIES_GRPS; i++)
+                    // stampa #1: quantità UNO mediante Crtl+S, evita DEST_BUONI
+                    for (i = 0; i < (NUM_COPIES_GRPS - 1); i++)
                     {
                         for (j = 0; (j < MAX_NUM_ARTICOLI) && bSomethingInto_GrpToPrint[iGrpReorderPtr[i]]; j++)
                         {
@@ -980,8 +983,8 @@ namespace StandCommonFiles
                         }
                     }
 
-                    // stampa #2: quantità UNO
-                    for (i = 0; i < NUM_COPIES_GRPS; i++)
+                    // stampa #2: quantità UNO, evita DEST_BUONI
+                    for (i = 0; i < (NUM_COPIES_GRPS - 1); i++)
                     {
                         for (j = 0; (j < MAX_NUM_ARTICOLI) && bSomethingInto_GrpToPrint[iGrpReorderPtr[i]]; j++)
                         {
@@ -1028,8 +1031,8 @@ namespace StandCommonFiles
                         }
                     }
 
-                    // stampa #3: bSingleRowItems
-                    for (i = 0; i < NUM_COPIES_GRPS; i++)
+                    // stampa #3: bSingleRowItems, evita DEST_BUONI
+                    for (i = 0; i < (NUM_COPIES_GRPS - 1); i++)
                     {
                         for (j = 0; (j < MAX_NUM_ARTICOLI) && bSomethingInto_GrpToPrint[iGrpReorderPtr[i]]; j++)
                         {
@@ -1076,8 +1079,8 @@ namespace StandCommonFiles
                     // identificazione dei coperti
                     iNumCoperti = GetNumeroCoperti(dataIdParam);
 
-                    // stampa #4: raggruppamento per iGruppoStampa
-                    for (i = 0; i < NUM_COPIES_GRPS; i++)
+                    // stampa #4: raggruppamento per iGruppoStampa, evita DEST_BUONI
+                    for (i = 0; i < (NUM_COPIES_GRPS - 1); i++)
                     {
                         // per ogni Gruppo
                         bGroupsTextToPrint = true;

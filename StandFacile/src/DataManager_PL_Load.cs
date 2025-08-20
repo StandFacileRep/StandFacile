@@ -1,6 +1,6 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 28.01.2025
+	Data	 : 18.08.2025
     Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
@@ -325,7 +325,7 @@ namespace StandFacile
 
                         if ((i >= 0) && (i < NUM_EDIT_GROUPS) && (sInStr.Length > 5))
                         {
-                            if (i != (int)DEST_TYPE.DEST_TIPO9_NOWEB)
+                            if ((i != (int)DEST_TYPE.DEST_TIPO9_NOWEB) && (i != (int)DEST_TYPE.DEST_BUONI))
                             {
                                 // ritaglia la parte di interesse web
                                 sGroupName = sInStr[3] + sInStr.Substring(5);
@@ -374,7 +374,7 @@ namespace StandFacile
 
                         if ((i >= 0) && (i < NUM_EDIT_GROUPS) && (sInStr.Length > 5))
                         {
-                            if (i != (int)DEST_TYPE.DEST_TIPO9_NOWEB)
+                            if ((i != (int)DEST_TYPE.DEST_TIPO9_NOWEB) && (i != (int)DEST_TYPE.DEST_BUONI))
                             {
                                 // ritaglia la parte di interesse web
                                 sGroupName = sInStr[3] + sInStr.Substring(5);
@@ -820,7 +820,7 @@ namespace StandFacile
                         SF_Data.Articolo[iRiga].iGruppoStampa = iDest;
                         SF_Data.Articolo[iRiga].iPrezzoUnitario = iPrzTmp;
 
-                        if (iDest != (int)DEST_TYPE.DEST_TIPO9_NOWEB)
+                        if ((iDest != (int)DEST_TYPE.DEST_TIPO9_NOWEB) && (iDest != (int)DEST_TYPE.DEST_BUONI))
                             uWebHashCode += Hash(sInStrCopy, iRiga);
                         else
                             sTmp = sInStrCopy;

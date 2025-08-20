@@ -1,6 +1,6 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 04.07.2025
+	Data	 : 18.08.2025
     Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
@@ -151,7 +151,7 @@ namespace StandFacile
                     iRowIndex++;
                     uLocHashCode += Hash(sPrzRow);
 
-                    if (i != (int)DEST_TYPE.DEST_TIPO9_NOWEB)
+                    if ((i != (int)DEST_TYPE.DEST_TIPO9_NOWEB) && (i != (int)DEST_TYPE.DEST_BUONI))
                     {
                         // ritaglia la parte di interesse web
                         sGroupName = sPrzRow[3] + sPrzRow.Substring(5);
@@ -335,7 +335,7 @@ namespace StandFacile
 
                         uLocHashCode += Hash(sPrzRow);
 
-                        if (SF_Data.Articolo[i].iGruppoStampa != (int)DEST_TYPE.DEST_TIPO9_NOWEB)
+                        if ((SF_Data.Articolo[i].iGruppoStampa != (int)DEST_TYPE.DEST_TIPO9_NOWEB) && (SF_Data.Articolo[i].iGruppoStampa != (int)DEST_TYPE.DEST_BUONI))
                             uWebHashCode += Hash(sPrzRow, i); // i per evitare inversioni di righe a parità di uWebHashCode
                         else
                             sDebug = SF_Data.Articolo[i].sTipo;
