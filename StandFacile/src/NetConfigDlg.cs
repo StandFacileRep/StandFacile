@@ -351,6 +351,7 @@ namespace StandFacile
                 if ((Edit_WebServiceDBaseName.Text != _sWebServerParams.sWeb_DBase) && (!String.IsNullOrEmpty(Edit_WebServiceDBaseName.Text)))
                 {
                     _sWebServerParams.sWeb_DBase = Edit_WebServiceDBaseName.Text;
+                    WriteRegistry(WEB_DBASE_NAME_KEY, Edit_WebServiceDBaseName.Text);
 
                     bRiavvio = true;
                 }
@@ -359,6 +360,7 @@ namespace StandFacile
                     (!String.IsNullOrEmpty(Edit_WebServiceDBasePwd.Text)))
                 {
                     _sWebServerParams.sWebEncryptedPwd = Encrypt_WS(Edit_WebServiceDBasePwd.Text);
+                    WriteRegistry(WEB_DBASE_PWD_KEY, Encrypt_WS(Edit_WebServiceDBasePwd.Text));
 
                     bRiavvio = true;
                 }
@@ -366,6 +368,7 @@ namespace StandFacile
                 if ((Edit_WebService_Name.Text != _sWebServerParams.sWebTablePrefix) && (!String.IsNullOrEmpty(Edit_WebService_Name.Text))) // 1, 2
                 {
                     _sWebServerParams.sWebTablePrefix = Edit_WebService_Name.Text;
+                    WriteRegistry(WEB_SERVER_NAME_KEY, Edit_WebService_Name.Text);
 
                     bRiavvio = true;
                 }

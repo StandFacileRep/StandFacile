@@ -56,13 +56,13 @@
             this.MnuEsploraOrdiniWeb = new System.Windows.Forms.ToolStripMenuItem();
             this.V2 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuVisListino = new System.Windows.Forms.ToolStripMenuItem();
+            this.MnuFileDiConfigurazione = new System.Windows.Forms.ToolStripMenuItem();
             this.V3 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuReceiptPreview = new System.Windows.Forms.ToolStripMenuItem();
             this.V4 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuVisMessaggiInviati = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuVisOrdiniAltraData = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuVisOrdiniOggi = new System.Windows.Forms.ToolStripMenuItem();
-            this.MnuFileDiConfigurazione = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostazioni = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuEsperto = new System.Windows.Forms.ToolStripMenuItem();
             this.I1 = new System.Windows.Forms.ToolStripSeparator();
@@ -349,6 +349,13 @@
             this.MnuVisListino.Text = "&Listino Prezzi";
             this.MnuVisListino.Click += new System.EventHandler(this.MnuVisListino_Click);
             // 
+            // MnuFileDiConfigurazione
+            // 
+            this.MnuFileDiConfigurazione.Name = "MnuFileDiConfigurazione";
+            this.MnuFileDiConfigurazione.Size = new System.Drawing.Size(235, 22);
+            this.MnuFileDiConfigurazione.Text = "&File di configurazione";
+            this.MnuFileDiConfigurazione.Click += new System.EventHandler(this.MnuFileDiConfigurazione_Click);
+            // 
             // V3
             // 
             this.V3.Name = "V3";
@@ -387,13 +394,6 @@
             this.MnuVisOrdiniOggi.Text = "&Ordini emessi oggi";
             this.MnuVisOrdiniOggi.Click += new System.EventHandler(this.MnuVisOrdiniEmessi_Click);
             // 
-            // MnuFileDiConfigurazione
-            // 
-            this.MnuFileDiConfigurazione.Name = "MnuFileDiConfigurazione";
-            this.MnuFileDiConfigurazione.Size = new System.Drawing.Size(235, 22);
-            this.MnuFileDiConfigurazione.Text = "&File di configurazione";
-            this.MnuFileDiConfigurazione.Click += new System.EventHandler(this.MnuFileDiConfigurazione_Click);
-            // 
             // MnuImpostazioni
             // 
             this.MnuImpostazioni.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -420,98 +420,98 @@
             // MnuEsperto
             // 
             this.MnuEsperto.Name = "MnuEsperto";
-            this.MnuEsperto.Size = new System.Drawing.Size(327, 22);
+            this.MnuEsperto.Size = new System.Drawing.Size(346, 22);
             this.MnuEsperto.Text = "S&blocco con password (chiesto solo una volta)";
             this.MnuEsperto.Click += new System.EventHandler(this.MnuEsperto_Click);
             // 
             // I1
             // 
             this.I1.Name = "I1";
-            this.I1.Size = new System.Drawing.Size(324, 6);
+            this.I1.Size = new System.Drawing.Size(343, 6);
             // 
             // MnuImpostaRete
             // 
             this.MnuImpostaRete.Name = "MnuImpostaRete";
-            this.MnuImpostaRete.Size = new System.Drawing.Size(327, 22);
+            this.MnuImpostaRete.Size = new System.Drawing.Size(346, 22);
             this.MnuImpostaRete.Text = "Configurazione &Rete ...";
             this.MnuImpostaRete.Click += new System.EventHandler(this.MnuConfigurazioneRete_Click);
             // 
             // MnuImpostaCopieLocali
             // 
             this.MnuImpostaCopieLocali.Name = "MnuImpostaCopieLocali";
-            this.MnuImpostaCopieLocali.Size = new System.Drawing.Size(327, 22);
+            this.MnuImpostaCopieLocali.Size = new System.Drawing.Size(346, 22);
             this.MnuImpostaCopieLocali.Text = "Configurazione &Scontrino e Copie locali...";
             this.MnuImpostaCopieLocali.Click += new System.EventHandler(this.MnuImpostaCopieLocali_Click);
             // 
             // MnuImpostaCopieInRete
             // 
             this.MnuImpostaCopieInRete.Name = "MnuImpostaCopieInRete";
-            this.MnuImpostaCopieInRete.Size = new System.Drawing.Size(327, 22);
-            this.MnuImpostaCopieInRete.Text = "Configurazione &Copie in rete ...";
+            this.MnuImpostaCopieInRete.Size = new System.Drawing.Size(346, 22);
+            this.MnuImpostaCopieInRete.Text = "Configurazione Gruppi di Articoli e &Copie in rete ...";
             this.MnuImpostaCopieInRete.Click += new System.EventHandler(this.MnuImpostaCopieInRete_Click);
             // 
             // MnuImpostaStampanteWin
             // 
             this.MnuImpostaStampanteWin.Name = "MnuImpostaStampanteWin";
-            this.MnuImpostaStampanteWin.Size = new System.Drawing.Size(327, 22);
+            this.MnuImpostaStampanteWin.Size = new System.Drawing.Size(346, 22);
             this.MnuImpostaStampanteWin.Text = "Configurazione S&tampante Windows ...";
             this.MnuImpostaStampanteWin.Click += new System.EventHandler(this.MnuImpostaStampanteWin_Click);
             // 
             // MnuImpostaStampanteLegacy
             // 
             this.MnuImpostaStampanteLegacy.Name = "MnuImpostaStampanteLegacy";
-            this.MnuImpostaStampanteLegacy.Size = new System.Drawing.Size(327, 22);
+            this.MnuImpostaStampanteLegacy.Size = new System.Drawing.Size(346, 22);
             this.MnuImpostaStampanteLegacy.Text = "Configurazione Stam&pante Legacy ...";
             this.MnuImpostaStampanteLegacy.Click += new System.EventHandler(this.MnuImpostaStampanteLegacy_Click);
             // 
             // I2
             // 
             this.I2.Name = "I2";
-            this.I2.Size = new System.Drawing.Size(324, 6);
+            this.I2.Size = new System.Drawing.Size(343, 6);
             // 
             // MnuImpOpzioni
             // 
             this.MnuImpOpzioni.Name = "MnuImpOpzioni";
-            this.MnuImpOpzioni.Size = new System.Drawing.Size(327, 22);
+            this.MnuImpOpzioni.Size = new System.Drawing.Size(346, 22);
             this.MnuImpOpzioni.Text = "&Opzioni varie ...";
             this.MnuImpOpzioni.Click += new System.EventHandler(this.MnuImpOpzioni_Click);
             // 
             // MnuCambiaPassword
             // 
             this.MnuCambiaPassword.Name = "MnuCambiaPassword";
-            this.MnuCambiaPassword.Size = new System.Drawing.Size(327, 22);
+            this.MnuCambiaPassword.Size = new System.Drawing.Size(346, 22);
             this.MnuCambiaPassword.Text = "&Modifica password";
             this.MnuCambiaPassword.Click += new System.EventHandler(this.MnuCambiaPassword_Click);
             // 
             // I3
             // 
             this.I3.Name = "I3";
-            this.I3.Size = new System.Drawing.Size(324, 6);
+            this.I3.Size = new System.Drawing.Size(343, 6);
             // 
             // MnuImpHeader
             // 
             this.MnuImpHeader.Name = "MnuImpHeader";
-            this.MnuImpHeader.Size = new System.Drawing.Size(327, 22);
+            this.MnuImpHeader.Size = new System.Drawing.Size(346, 22);
             this.MnuImpHeader.Text = "Intestazione / &Piè pagina ...";
             this.MnuImpHeader.Click += new System.EventHandler(this.MnuImpHeader_Click);
             // 
             // MnuImpTabsGrid
             // 
             this.MnuImpTabsGrid.Name = "MnuImpTabsGrid";
-            this.MnuImpTabsGrid.Size = new System.Drawing.Size(327, 22);
+            this.MnuImpTabsGrid.Size = new System.Drawing.Size(346, 22);
             this.MnuImpTabsGrid.Text = "Dimensioni &Griglia, Modo Touch, Tabs ...";
             this.MnuImpTabsGrid.Click += new System.EventHandler(this.MnuImpDimGrid_Click);
             // 
             // I4
             // 
             this.I4.Name = "I4";
-            this.I4.Size = new System.Drawing.Size(324, 6);
+            this.I4.Size = new System.Drawing.Size(343, 6);
             // 
             // MnuImpListino
             // 
             this.MnuImpListino.CheckOnClick = true;
             this.MnuImpListino.Name = "MnuImpListino";
-            this.MnuImpListino.Size = new System.Drawing.Size(327, 22);
+            this.MnuImpListino.Size = new System.Drawing.Size(346, 22);
             this.MnuImpListino.Text = "&Listino Prezzi";
             this.MnuImpListino.Click += new System.EventHandler(this.MnuImpListino_Click);
             // 

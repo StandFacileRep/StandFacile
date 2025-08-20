@@ -484,6 +484,7 @@ namespace StandFacile_DB
                     }
                 }
 
+
                 readerStatus?.Close();
 
                 LogToFile("dbGetWebServerParams: parametri letti");
@@ -491,7 +492,19 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                if (readerStatus != null)
+                if (readerStatus == null) // il dbase SQlite non esiste
+                {
+                    // solo per SQlite che viene cancellato più spesso nei miei test
+                    if (String.IsNullOrEmpty(sWebServerParams.sWebTablePrefix))
+                        sWebServerParams.sWebTablePrefix = ReadRegistry(WEB_SERVER_NAME_KEY, "");
+
+                    if (String.IsNullOrEmpty(sWebServerParams.sWeb_DBase))
+                        sWebServerParams.sWeb_DBase = ReadRegistry(WEB_DBASE_NAME_KEY, "");
+
+                    if (String.IsNullOrEmpty(sWebServerParams.sWebEncryptedPwd))
+                        sWebServerParams.sWebEncryptedPwd = ReadRegistry(WEB_DBASE_PWD_KEY, "");
+                }
+                else
                 {
                     readerStatus.Close();
 
