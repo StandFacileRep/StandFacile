@@ -2325,7 +2325,7 @@ namespace StandFacile
 
                 TextBox_KeyUp(EditCoperti, null);
             }
-            else if (!String.IsNullOrEmpty(SF_Data.Articolo[_iCellPt].sTipo))
+            else if (!String.IsNullOrEmpty(SF_Data.Articolo[_iCellPt].sTipo) && (SF_Data.Articolo[_iCellPt].iDisponibilita != 0))
             {
                 iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
 
@@ -2366,6 +2366,10 @@ namespace StandFacile
                 AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
                 _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
+
+                // necessario altrimenti se _iAnteprimaTotParziale == 0 il timer non aggiorna toolStripTop_TC_lbl.Text
+                toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
+
                 MainGrid_Redraw(this, null);
             }
 
