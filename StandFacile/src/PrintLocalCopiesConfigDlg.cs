@@ -1,6 +1,6 @@
 ﻿/*****************************************************
  	NomeFile : PrintLocalCopiesConfigDlg.cs
-    Data	 : 02.07.2025
+    Data	 : 23.08.2025
  	Autore   : Mauro Artuso
 
  *****************************************************/
@@ -135,6 +135,8 @@ namespace StandFacile
                 _pCheckBoxCopia[i].Checked = IsBitSet(SF_Data.iReceiptCopyOptions, i);
             }
 
+            checkBox_LocPrices.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_REQUIRED);
+
             checkBox_AvoidPrintGroups.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
 
             checkBoxSelectedOnly.Enabled = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
@@ -176,6 +178,7 @@ namespace StandFacile
         private void CheckBoxNoPrice_CheckedChanged(object sender, EventArgs e)
         {
             checkBoxSelectedOnly.Enabled    = checkBox_LocalCopy.Checked;
+            checkBox_LocPrices.Enabled      = checkBox_LocalCopy.Checked;
             checkBoxSingleRowItems.Enabled  = checkBox_LocalCopy.Checked;
             checkBoxUnitItems.Enabled       = checkBox_LocalCopy.Checked;
             labelWarn2.Enabled              = checkBox_LocalCopy.Checked;
@@ -233,6 +236,9 @@ namespace StandFacile
                     iReceiptCopyOptions = SetBit(iReceiptCopyOptions, i);
             }
 
+            if (checkBox_LocPrices.Checked)
+                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_REQUIRED);
+
             if (checkBox_AvoidPrintGroups.Checked)
                 iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
 
@@ -286,5 +292,6 @@ namespace StandFacile
             timer.Enabled = false;
             Close();
         }
+
     }
 }

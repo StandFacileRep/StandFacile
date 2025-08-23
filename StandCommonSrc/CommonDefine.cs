@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 18.08.2025
+    Data	 : 23.08.2025
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.15.0";
+        public const String RELEASE_SW = "v5.15.1";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5c";
@@ -738,7 +738,10 @@ namespace StandCommonFiles
             BIT_RECEIPT_LOCAL_COPY_REQUIRED,
 
             /// <summary>bit di iReceiptCopyOptions per stampa gruppi contemporanea</summary>
-            BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED
+            BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED,
+
+            /// <summary>bit di iReceiptCopyOptions per chiedere la stampa dei prezzi anche nelle copie locali</summary>
+            BIT_PRICE_PRINT_REQUIRED
 
             /*****************************************************************************************
 	         i primi 10 bit di iReceiptCopyOptions sono riservati per gestione _bSelectedGroups[i]

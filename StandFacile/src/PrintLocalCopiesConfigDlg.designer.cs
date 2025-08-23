@@ -39,6 +39,7 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.panelLocalCopies = new System.Windows.Forms.Panel();
+            this.checkBox_LocPrices = new System.Windows.Forms.CheckBox();
             this.labelWarn1 = new System.Windows.Forms.Label();
             this.checkBox_AvoidPrintGroups = new System.Windows.Forms.CheckBox();
             this.labelWarn2 = new System.Windows.Forms.Label();
@@ -146,7 +147,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(163, 566);
+            this.btnCancel.Location = new System.Drawing.Point(163, 610);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 28);
@@ -161,7 +162,7 @@
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(299, 566);
+            this.btnOK.Location = new System.Drawing.Point(299, 610);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 28);
@@ -175,6 +176,7 @@
             // 
             this.panelLocalCopies.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.panelLocalCopies.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelLocalCopies.Controls.Add(this.checkBox_LocPrices);
             this.panelLocalCopies.Controls.Add(this.labelWarn1);
             this.panelLocalCopies.Controls.Add(this.checkBox_AvoidPrintGroups);
             this.panelLocalCopies.Controls.Add(this.labelWarn2);
@@ -184,10 +186,21 @@
             this.panelLocalCopies.Controls.Add(this.checkBoxSingleRowItems);
             this.panelLocalCopies.Controls.Add(this.checkBoxSelectedOnly);
             this.panelLocalCopies.Controls.Add(this.checkBox_LocalCopy);
-            this.panelLocalCopies.Location = new System.Drawing.Point(16, 193);
+            this.panelLocalCopies.Location = new System.Drawing.Point(16, 200);
             this.panelLocalCopies.Name = "panelLocalCopies";
-            this.panelLocalCopies.Size = new System.Drawing.Size(517, 350);
+            this.panelLocalCopies.Size = new System.Drawing.Size(517, 390);
             this.panelLocalCopies.TabIndex = 30;
+            // 
+            // checkBox_LocPrices
+            // 
+            this.checkBox_LocPrices.AutoSize = true;
+            this.checkBox_LocPrices.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox_LocPrices.Location = new System.Drawing.Point(17, 52);
+            this.checkBox_LocPrices.Name = "checkBox_LocPrices";
+            this.checkBox_LocPrices.Size = new System.Drawing.Size(215, 18);
+            this.checkBox_LocPrices.TabIndex = 72;
+            this.checkBox_LocPrices.Text = "abilita stampa dei prezzi nelle copie";
+            this.checkBox_LocPrices.UseVisualStyleBackColor = true;
             // 
             // labelWarn1
             // 
@@ -195,7 +208,7 @@
             this.labelWarn1.BackColor = System.Drawing.SystemColors.Control;
             this.labelWarn1.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.labelWarn1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.labelWarn1.Location = new System.Drawing.Point(264, 32);
+            this.labelWarn1.Location = new System.Drawing.Point(264, 41);
             this.labelWarn1.Name = "labelWarn1";
             this.labelWarn1.Size = new System.Drawing.Size(240, 13);
             this.labelWarn1.TabIndex = 71;
@@ -205,7 +218,7 @@
             // 
             this.checkBox_AvoidPrintGroups.AutoSize = true;
             this.checkBox_AvoidPrintGroups.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_AvoidPrintGroups.Location = new System.Drawing.Point(265, 15);
+            this.checkBox_AvoidPrintGroups.Location = new System.Drawing.Point(265, 24);
             this.checkBox_AvoidPrintGroups.Name = "checkBox_AvoidPrintGroups";
             this.checkBox_AvoidPrintGroups.Size = new System.Drawing.Size(239, 18);
             this.checkBox_AvoidPrintGroups.TabIndex = 70;
@@ -218,7 +231,7 @@
             this.labelWarn2.BackColor = System.Drawing.SystemColors.Control;
             this.labelWarn2.Font = new System.Drawing.Font("Tahoma", 8.25F);
             this.labelWarn2.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.labelWarn2.Location = new System.Drawing.Point(291, 73);
+            this.labelWarn2.Location = new System.Drawing.Point(283, 100);
             this.labelWarn2.Name = "labelWarn2";
             this.labelWarn2.Size = new System.Drawing.Size(185, 13);
             this.labelWarn2.TabIndex = 69;
@@ -228,7 +241,7 @@
             // 
             this.checkBox_CUT.AutoSize = true;
             this.checkBox_CUT.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_CUT.Location = new System.Drawing.Point(17, 54);
+            this.checkBox_CUT.Location = new System.Drawing.Point(17, 89);
             this.checkBox_CUT.Name = "checkBox_CUT";
             this.checkBox_CUT.Size = new System.Drawing.Size(221, 18);
             this.checkBox_CUT.TabIndex = 38;
@@ -239,7 +252,7 @@
             // 
             this.checkBoxUnitItems.AutoSize = true;
             this.checkBoxUnitItems.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxUnitItems.Location = new System.Drawing.Point(265, 90);
+            this.checkBoxUnitItems.Location = new System.Drawing.Point(265, 122);
             this.checkBoxUnitItems.Name = "checkBoxUnitItems";
             this.checkBoxUnitItems.Size = new System.Drawing.Size(204, 18);
             this.checkBoxUnitItems.TabIndex = 36;
@@ -261,7 +274,7 @@
             this.panelCopies.Controls.Add(this.checkBoxCopia_2);
             this.panelCopies.Controls.Add(this.checkBoxCopia_1);
             this.panelCopies.Controls.Add(this.checkBoxCopia_0);
-            this.panelCopies.Location = new System.Drawing.Point(10, 127);
+            this.panelCopies.Location = new System.Drawing.Point(10, 164);
             this.panelCopies.Name = "panelCopies";
             this.panelCopies.Size = new System.Drawing.Size(496, 209);
             this.panelCopies.TabIndex = 35;
@@ -391,7 +404,7 @@
             // 
             this.checkBoxSingleRowItems.AutoSize = true;
             this.checkBoxSingleRowItems.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxSingleRowItems.Location = new System.Drawing.Point(265, 52);
+            this.checkBoxSingleRowItems.Location = new System.Drawing.Point(265, 74);
             this.checkBoxSingleRowItems.Name = "checkBoxSingleRowItems";
             this.checkBoxSingleRowItems.Size = new System.Drawing.Size(200, 18);
             this.checkBoxSingleRowItems.TabIndex = 31;
@@ -403,7 +416,7 @@
             // 
             this.checkBoxSelectedOnly.AutoSize = true;
             this.checkBoxSelectedOnly.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxSelectedOnly.Location = new System.Drawing.Point(17, 91);
+            this.checkBoxSelectedOnly.Location = new System.Drawing.Point(17, 126);
             this.checkBoxSelectedOnly.Name = "checkBoxSelectedOnly";
             this.checkBoxSelectedOnly.Size = new System.Drawing.Size(149, 18);
             this.checkBoxSelectedOnly.TabIndex = 30;
@@ -433,7 +446,7 @@
             this.LinkLbl_Mnu_CCR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.LinkLbl_Mnu_CCR.AutoSize = true;
             this.LinkLbl_Mnu_CCR.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LinkLbl_Mnu_CCR.Location = new System.Drawing.Point(339, 166);
+            this.LinkLbl_Mnu_CCR.Location = new System.Drawing.Point(339, 169);
             this.LinkLbl_Mnu_CCR.Name = "LinkLbl_Mnu_CCR";
             this.LinkLbl_Mnu_CCR.Size = new System.Drawing.Size(188, 14);
             this.LinkLbl_Mnu_CCR.TabIndex = 34;
@@ -446,7 +459,7 @@
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(21, 145);
+            this.label2.Location = new System.Drawing.Point(21, 148);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(489, 16);
             this.label2.TabIndex = 37;
@@ -458,7 +471,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(21, 165);
+            this.label3.Location = new System.Drawing.Point(21, 168);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(317, 16);
             this.label3.TabIndex = 36;
@@ -469,7 +482,7 @@
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(21, 125);
+            this.label1.Location = new System.Drawing.Point(21, 128);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(450, 16);
             this.label1.TabIndex = 35;
@@ -480,7 +493,7 @@
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 610);
+            this.ClientSize = new System.Drawing.Size(539, 654);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
@@ -544,5 +557,6 @@
         private System.Windows.Forms.CheckBox checkBoxCopia_8;
         private System.Windows.Forms.CheckBox checkBoxCopia_9;
         private System.Windows.Forms.Label labelWarn1;
+        private System.Windows.Forms.CheckBox checkBox_LocPrices;
     }
 }

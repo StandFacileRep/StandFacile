@@ -34,6 +34,7 @@ namespace StandCommonFiles
         static TErrMsg _ErrMsg;
 
         static bool _bCtrlS_UnitQtyItems = false;
+        static bool _bPlaceSettingsOnCopies = false;
 
 #if STANDFACILE
         static bool[] _bSelectedGroups = new bool[NUM_COPIES_GRPS];
@@ -784,7 +785,7 @@ namespace StandCommonFiles
         /// </summary>
         public static void WriteLocalCopy(TData dataIdParam, int iNumOfReceiptsParam, String sDirParam, TOrdineStrings sOrdineStringsParam)
         {
-            bool bLocalCopyRequested, bSingleRowItems, bUnitQtyItems;
+            bool bLocalCopyRequested, bLocalPricesRequested, bSingleRowItems, bUnitQtyItems;
             bool bHeaderToBePrinted, bGroupsTextToPrint, bTicketCopies_CutRequired;
 
             int i, j, k;
@@ -819,6 +820,8 @@ namespace StandCommonFiles
             sNomeFileTicketNpPrt = String.Format(NOME_FILE_RECEIPT_NP, dataIdParam.iNumCassa, iNumOfReceiptsParam);
             _ErrMsg.sNomeFile = sNomeFileTicketNpPrt;
 
+            bLocalPricesRequested = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_REQUIRED);
+
             _bAvoidPrintOtherGroups = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
 
             bLocalCopyRequested = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
@@ -830,6 +833,8 @@ namespace StandCommonFiles
             bUnitQtyItems = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_QUANTITYONE_PRINT_REQUIRED);
 
             bTicketCopies_CutRequired = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
+
+            _bPlaceSettingsOnCopies = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
 
             // conferma dalle altre dipendenze
             _bAvoidPrintOtherGroups |= !(_bPrintSelectedOnly && (bSingleRowItems || bUnitQtyItems));
@@ -959,7 +964,11 @@ namespace StandCommonFiles
                                         fPrintParam.WriteLine("{0}", sHeader2_ToPrintBeforeCut);
 
                                     // larghezza 28 "{0,2} {1,-18}{2,7}" :89 123456789012345678 9876.00
-                                    sTmp = String.Format(sRCP_FMT_CPY, 1, dataIdParam.Articolo[j].sTipo);
+                                    if (bLocalPricesRequested)
+                                        sTmp = String.Format(sRCP_FMT_RCPT, 1, dataIdParam.Articolo[j].sTipo, IntToEuro(dataIdParam.Articolo[j].iPrezzoUnitario));
+                                    else
+                                        sTmp = String.Format(sRCP_FMT_CPY, 1, dataIdParam.Articolo[j].sTipo);
+                                    
                                     fPrintParam.WriteLine("{0}\r\n", sTmp);
 
                                     if (!String.IsNullOrEmpty(dataIdParam.Articolo[j].sNotaArt))
@@ -1007,7 +1016,11 @@ namespace StandCommonFiles
                                         fPrintParam.WriteLine("{0}", sHeader2_ToPrintBeforeCut);
 
                                     // larghezza 28 "{0,2} {1,-18}{2,7}" :89 123456789012345678 9876.00
-                                    sTmp = String.Format(sRCP_FMT_CPY, 1, dataIdParam.Articolo[j].sTipo);
+                                    if (bLocalPricesRequested)
+                                        sTmp = String.Format(sRCP_FMT_RCPT, 1, dataIdParam.Articolo[j].sTipo, IntToEuro(dataIdParam.Articolo[j].iPrezzoUnitario));
+                                    else
+                                        sTmp = String.Format(sRCP_FMT_CPY, 1, dataIdParam.Articolo[j].sTipo);
+                                 
                                     fPrintParam.WriteLine("{0}\r\n", sTmp);
 
                                     if (!String.IsNullOrEmpty(dataIdParam.Articolo[j].sNotaArt))
@@ -1054,7 +1067,12 @@ namespace StandCommonFiles
                                 fPrintParam.WriteLine("    {0}\r\n", dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]]);
 
                                 // larghezza 28 "{0,2} {1,-18}{2,7}" :89 123456789012345678 9876.00
-                                sTmp = String.Format(sRCP_FMT_CPY, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo);
+                                if (bLocalPricesRequested)
+                                    sTmp = String.Format(sRCP_FMT_RCPT, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo,
+                                        IntToEuro(dataIdParam.Articolo[j].iQuantitaOrdine * dataIdParam.Articolo[j].iPrezzoUnitario));
+                                else
+                                    sTmp = String.Format(sRCP_FMT_CPY, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo);
+                       
                                 fPrintParam.WriteLine("{0}\r\n", sTmp);
 
                                 if (!String.IsNullOrEmpty(dataIdParam.Articolo[j].sNotaArt))
@@ -1127,10 +1145,13 @@ namespace StandCommonFiles
                                 {
                                     bHeaderToBePrinted = false;
 
-                                    if ((iNumCoperti > 0) && bTicketCopies_CutRequired && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED) ||
-                                        (iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_COUNTER)))
+                                    if ((iNumCoperti > 0) && bTicketCopies_CutRequired && (_bPlaceSettingsOnCopies || (iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_COUNTER)))
                                     {
-                                        sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
+                                        if (bLocalPricesRequested)
+                                            sTmp = String.Format(sRCP_FMT_RCPT, iNumCoperti, _COPERTO,IntToEuro(iNumCoperti * dataIdParam.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario));
+                                        else
+                                            sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
+                                        
                                         fPrintParam.WriteLine("{0}", sTmp);
 
                                         // spazio aggiuntivo
@@ -1141,7 +1162,12 @@ namespace StandCommonFiles
 
                                 if ((dataIdParam.Articolo[j].iIndexListino != MAX_NUM_ARTICOLI - 1) || (dataIdParam.Articolo[j].iGruppoStampa != (int)DEST_TYPE.DEST_COUNTER))
                                 {
-                                    sTmp = String.Format(sRCP_FMT_CPY, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo);
+                                    if (bLocalPricesRequested)
+                                        sTmp = String.Format(sRCP_FMT_RCPT, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo,
+                                            IntToEuro(dataIdParam.Articolo[j].iQuantitaOrdine * dataIdParam.Articolo[j].iPrezzoUnitario));
+                                    else
+                                        sTmp = String.Format(sRCP_FMT_CPY, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo);
+                        
                                     fPrintParam.WriteLine("{0}", sTmp);
                                 }
 
@@ -1439,8 +1465,7 @@ namespace StandCommonFiles
                                 if ((bSomethingInto_GrpToPrint[k]) || (iNumCoperti >= 0))
                                 {
                                     // stampa COPERTI
-                                    if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED) ||
-                                        (k == (int)DEST_TYPE.DEST_TIPO1))) // COPERTI si stampano assieme a DEST_TYPE.DEST_TIPO1
+                                    if ((iNumCoperti > 0) && (_bPlaceSettingsOnCopies || (k == (int)DEST_TYPE.DEST_TIPO1))) // COPERTI si stampano assieme a DEST_TYPE.DEST_TIPO1
                                     {
                                         sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
                                         fPrintParam.WriteLine("{0}", sTmp);
@@ -1679,7 +1704,7 @@ namespace StandCommonFiles
                         }
 
                         // stampa COPERTI
-                        if ((iNumCoperti > 0) && (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED)))
+                        if ((iNumCoperti > 0) && _bPlaceSettingsOnCopies)
                         {
                             sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
                             fPrintParam.WriteLine("{0}", sTmp);
