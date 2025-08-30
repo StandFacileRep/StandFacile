@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************
 	NomeFile : StandCommonSrc/Printer_Windows.cs
-    Data	 : 01.02.2025
+    Data	 : 24.08.2025
 	Autore   : Mauro Artuso
 
 	Descrizione :
@@ -169,12 +169,15 @@ namespace StandCommonFiles
 
                     _fReceiptVsCopyZoom = sWinPrinterParams.bChars33 ? (28.0f / 33.0f) : 1.0f;
                 }
-                else
+                else // copia locale
                 {
+                    if (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_REQUIRED))
+                        _fReceiptVsCopyZoom = sWinPrinterParams.bChars33 ? (28.0f / 33.0f) : 1.0f;
+
                     _bTicketNumFound = true; // necessario nella copia Receipt NoPrices
                 }
             }
-            else if (sTmp.Contains("_CT") || sTmp.Contains("CT_")) // copia
+            else if (sTmp.Contains("_CT") || sTmp.Contains("CT_")) // copia in rete
             {
                 _bTicketNumFound = false;
 
@@ -258,13 +261,13 @@ namespace StandCommonFiles
                     PrintDocument pd = new PrintDocument();
 
                     // controlli sul Logo
-                    if (String.IsNullOrEmpty(_sWinPrinterParams.sLogoName))
+                    if (String.IsNullOrEmpty(_sWinPrinterParams.sLogoName_T))
                         _bLogo = false;
                     else
                     {
                         // verifica che esista anche il nome del file Logo
-                        if ((_sWinPrinterParams.iLogoWidth < 50) || (_sWinPrinterParams.iLogoWidth > (LOGO_WIDTH + 100)) ||
-                           (_sWinPrinterParams.iLogoHeight < 50) || (_sWinPrinterParams.iLogoHeight > (LOGO_HEIGHT + 100)))
+                        if ((_sWinPrinterParams.iLogoWidth_T < 50) || (_sWinPrinterParams.iLogoWidth_T > (LOGO_WIDTH + 100)) ||
+                           (_sWinPrinterParams.iLogoHeight_T < 50) || (_sWinPrinterParams.iLogoHeight_T > (LOGO_HEIGHT + 100)))
                             _bLogo = false;
                     }
 
@@ -436,7 +439,7 @@ namespace StandCommonFiles
         // The PrintPage event is raised for each page to be printed.
         private static void pd_PrintPage(object sender, PrintPageEventArgs ev)
         {
-            bool bLogoRequested;
+            bool bLogoRequested_T, bLogoRequested_B;
             int i, iPos;
 
             Graphics pg = ev.Graphics;
@@ -474,22 +477,31 @@ namespace StandCommonFiles
 
             while ((_iPageRows < linesPerPage) && ((sInStr = _fileToPrint.ReadLine()) != null))
             {
-                if (sInStr.IndexOf(_LOGO) != -1)
+                if (!String.IsNullOrEmpty(sInStr) && (sInStr.IndexOf(_LOGO_T) != -1) || (sInStr.IndexOf(_LOGO) != -1))
                 {
-                    bLogoRequested = true;
+                    bLogoRequested_T = true;
 
                     sInStr = _fileToPrint.ReadLine();
                     sInStr = _fileToPrint.ReadLine();
                 }
                 else
-                    bLogoRequested = false;
+                    bLogoRequested_T = false;
+
+                if (!String.IsNullOrEmpty(sInStr) && (sInStr.IndexOf(_LOGO_B) != -1))
+                {
+                    bLogoRequested_B = true;
+
+                    sInStr = _fileToPrint.ReadLine();
+                }
+                else
+                    bLogoRequested_B = false;
 
                 /*************************************
-                 * 		   Stampa del Logo
+                 *        Stampa del Logo Top
                  *************************************/
-                if (_bLogo && bLogoRequested)
+                if (_bLogo && bLogoRequested_T)
                 {
-                    Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo();
+                    Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo(true);
 
                     if (img != null)
                     {
@@ -525,8 +537,10 @@ namespace StandCommonFiles
                 //PrintCanvas(ev, "#########_#########_########");
 
                 //Console.WriteLine(String.Format("Printer Win: current position = {0}", _lFileCursor));
-
-                iPos = sInStr.IndexOf(_TICK_NUM); // strLenght = 5 attenzione alla corrispondenza stringa !
+                if (!String.IsNullOrEmpty(sInStr))
+                    iPos = sInStr.IndexOf(_TICK_NUM); // strLenght = 5 attenzione alla corrispondenza stringa !
+                else
+                    iPos = -1;
 
                 // costruzione Num. scontrino per Barcode
                 if (iPos != -1)
@@ -559,7 +573,7 @@ namespace StandCommonFiles
                             sInStr = _fileToPrint.ReadLine();
                     }
 
-                    if (sInStr.Contains(_CUT))
+                    if (!String.IsNullOrEmpty(sInStr) && sInStr.Contains(_CUT))
                     {
                         sInStr = _fileToPrint.ReadLine();
                         sInStr = _fileToPrint.ReadLine();
@@ -568,6 +582,41 @@ namespace StandCommonFiles
                     }
 
                     PrintCanvas(pg, sInStr);
+                }
+
+                /*************************************
+                 * 		Stampa del Logo Bottom
+                 *************************************/
+                if (_bLogo && bLogoRequested_B)
+                {
+                    Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo(false);
+
+                    if (img != null)
+                    {
+                        fLogo_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * fLogoFont_HSize - img.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
+
+                        if (fLogo_LeftMargin < 0)
+                            fLogo_LeftMargin = _fLogoCenter;
+
+                        RectangleF imageRect = new RectangleF(fLogo_LeftMargin, _fCanvasVertPos, img.Size.Width * _fHZoom * _fH_px_to_gu,
+                                                                img.Size.Height * _fVZoom * _fV_px_to_gu);
+
+                        pg.DrawImage(img, imageRect);
+
+                        _fCanvasVertPos += img.Size.Height * _fVZoom * _fV_px_to_gu;
+                        _iPageRows = Convert.ToInt32(img.Size.Height * _fVZoom * _fV_px_to_gu / _printFont.GetHeight(ev.Graphics));
+
+                        PrintCanvas(pg, "");
+
+                        if (!_bLogoPrinted)
+                        {
+                            _bLogoPrinted = true;
+
+                            sTmp = String.Format("Printer_Windows Logo: {0:0.00}, {1:0.00}, {2:0.00}, {3:0.00}", fLogo_LeftMargin, _fCanvasVertPos,
+                                                    img.Size.Width * _fHZoom * _fH_px_to_gu, img.Size.Height * _fVZoom * _fV_px_to_gu);
+                            LogToFile(sTmp);
+                        }
+                    }
                 }
             }
 

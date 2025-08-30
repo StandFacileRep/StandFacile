@@ -38,7 +38,7 @@
             this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKBtn.Image = global::StandFacile.Properties.Resources.OK;
             this.OKBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OKBtn.Location = new System.Drawing.Point(197, 282);
+            this.OKBtn.Location = new System.Drawing.Point(173, 285);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(78, 28);
             this.OKBtn.TabIndex = 0;
@@ -55,15 +55,15 @@
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
-            this.textBox.Size = new System.Drawing.Size(312, 75);
+            this.textBox.Size = new System.Drawing.Size(385, 65);
             this.textBox.TabIndex = 1;
-            this.textBox.Text = "Selezionare la data di interesse per visualizzare i dati, è anche possibile selez" +
-    "ionare un intervallo\r\ntenendo premuto il tasto Shift e muovendosi con le frecce\r" +
-    "\n\r\n";
+            this.textBox.Text = "Selezionare la data di interesse: è anche possibile selezionare un intervallo di " +
+    "giorni cliccando sull\'inizio desiderato, e muovendosi con le frecce tenendo prem" +
+    "uto il tasto Shift\r\n\r\n\r\n";
             // 
             // mCalendar
             // 
-            this.mCalendar.Location = new System.Drawing.Point(56, 99);
+            this.mCalendar.Location = new System.Drawing.Point(98, 102);
             this.mCalendar.MaxSelectionCount = 60;
             this.mCalendar.MinDate = new System.DateTime(2025, 1, 1, 0, 0, 0, 0);
             this.mCalendar.Name = "mCalendar";
@@ -75,7 +75,7 @@
             this.AcceptButton = this.OKBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(340, 326);
+            this.ClientSize = new System.Drawing.Size(423, 332);
             this.Controls.Add(this.mCalendar);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.OKBtn);

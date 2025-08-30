@@ -1,4 +1,4 @@
-; 20.08.2025 
+; 30.08.2025 
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 ; tra una versione e l'altra cambiare GUID per facilitare l'installazione distinta
 ; The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -35,6 +35,7 @@ Source: "..\exe\Debug\Devart.Data.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.SQLite.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.MySql.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.PostgreSql.dll"; DestDir: "{app}"
+Source: "..\exe\Debug\FreeDataExports.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\QRCoder.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\x86\sqlite3.dll"; DestDir: "{app}\x86"
 Source: "..\exe\Debug\x64\sqlite3.dll"; DestDir: "{app}\x64"

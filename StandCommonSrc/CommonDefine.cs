@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 23.08.2025
+    Data	 : 30.08.2025
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -792,12 +792,19 @@ namespace StandCommonFiles
             /// <summary>numero associato alla stampante windows</summary>
             public int[] iPrinterModel;
 
-            /// <summary>nome del file del logo</summary>
-            public String sLogoName;
-            /// <summary>larghezza logo</summary>
-            public int iLogoWidth;
-            /// <summary>altezza logo</summary>
-            public int iLogoHeight;
+            /// <summary>nome del file del logo Top</summary>
+            public String sLogoName_T;
+            /// <summary>larghezza logo Top</summary>
+            public int iLogoWidth_T;
+            /// <summary>altezza logo Top</summary>
+            public int iLogoHeight_T;
+
+            /// <summary>nome del file del logo Bottom</summary>
+            public String sLogoName_B;
+            /// <summary>larghezza logo Bottom</summary>
+            public int iLogoWidth_B;
+            /// <summary>altezza logo Bottom</summary>
+            public int iLogoHeight_B;
 
             /// <summary>tipo di font per lo scontrino</summary>
             public String sTckFontType;
@@ -839,9 +846,14 @@ namespace StandCommonFiles
 
                 sPrinterModel = new String[NUM_SEP_PRINT_GROUPS];
                 iPrinterModel = new int[NUM_SEP_PRINT_GROUPS];
-                sLogoName = "";
-                iLogoWidth = 0;
-                iLogoHeight = 0;
+
+                sLogoName_T = "";
+                iLogoWidth_T = 0;
+                iLogoHeight_T = 0;
+
+                sLogoName_B = "";
+                iLogoWidth_B = 0;
+                iLogoHeight_B = 0;
 
                 sTckFontType = "";
                 iTckLeftMargin = 0;
@@ -1272,8 +1284,14 @@ namespace StandCommonFiles
         /// <summary>testo descrittivo del punto di taglio</summary>
         public static readonly String _CUT = "#####   CUT   #####";
 
-        /// <summary>testo descrittivo del punto di inserimento Logo</summary>
+        /// <summary>testo descrittivo del punto di inserimento Logo per compatibilità</summary>
         public static readonly String _LOGO = "#####   LOGO   #####";
+
+        /// <summary>testo descrittivo del punto di inserimento Logo Top</summary>
+        public static readonly String _LOGO_T = "#####  LOGO_T  #####";
+
+        /// <summary>testo descrittivo del punto di inserimento Logo Bottom</summary>
+        public static readonly String _LOGO_B = "#####  LOGO_B  #####";
 
         /// <summary>testo descrittivo del formato per punto di taglio</summary>
         public static readonly String _CUT_FMT = "{0}\r\n\r\n";

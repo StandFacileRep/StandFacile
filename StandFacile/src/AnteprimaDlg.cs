@@ -169,11 +169,11 @@ namespace StandFacile
             PrintCanvas(pg, "");
 
             /*************************************
-             * 		   Stampa del Logo
+             * 		 Stampa del Logo Top
              *************************************/
-            if (Visible && checkBoxLogo.Checked && !String.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName) && PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
+            if (Visible && checkBoxLogo.Checked && !String.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T) && PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
             {
-                Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo();
+                Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo(true);
 
                 if (img != null)
                 {
@@ -198,7 +198,7 @@ namespace StandFacile
             //PrintCanvas( pg, "#########_#########_########");
 
             // se non c'è il logo stampa sHeaders[0]
-            if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName)) ||
+            if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
                 ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp == 0)))
             {
                 if (!String.IsNullOrEmpty(sConfig.sRcp_CS_Header[0]))
@@ -575,6 +575,30 @@ namespace StandFacile
                 PrintCanvas(pg, "");
             }
 
+            /*************************************
+             * 		 Stampa del Logo Bottom
+             *************************************/
+            if (Visible && checkBoxLogo.Checked && !String.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B) && PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
+            {
+                Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo(false);
+
+                if (img != null)
+                {
+                    fLogo_LeftMargin = ((sGlbWinPrinterParams.iRepLeftMargin + _fTM_T88_IV_PAPER_WIDTH - img.Size.Width) / 2.0f) * _fHZoom;
+
+                    if (fLogo_LeftMargin < 0)
+                        fLogo_LeftMargin = _fLeftMargin;
+
+                    RectangleF imageRect = new RectangleF(fLogo_LeftMargin, _fCanvasVertPos, img.Size.Width * _fHZoom, img.Size.Height * _fVZoom);
+
+                    pg.DrawImage(img, imageRect);
+
+                    _fCanvasVertPos += img.Size.Height * _fVZoom;
+
+                    PrintCanvas(pg, "");
+                }
+            }
+            
             // quando picBox.Height > panel.Height appaiono scrollbar
             if (panel.Height < (int)_fCanvasVertPos)
                 picBox.Height = (int)_fCanvasVertPos;

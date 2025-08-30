@@ -201,7 +201,11 @@ namespace StandFacile
         public bool GetAnteprima_TP_IsZero() { return _iAnteprimaTotParziale == 0; }
 
         /// <summary>azzera _iAnteprimaTotParziale</summary>
-        public void ClearAnteprima_TP() { _iAnteprimaTotParziale = 0; }
+        public void ClearAnteprima_TP()
+        {
+            _iAnteprimaTotParziale = 0;
+            toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
+        }
 
         /// <summary>ottiene il testo della nota</summary>
         public String GetEditNota() { return EditNota.Text; }
@@ -769,7 +773,7 @@ namespace StandFacile
                 }
 
             // indicazione Totale provvisorio
-            if ((_iAnteprimaTotParziale > 0) || IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_GRATIS) || 
+            if ((_iAnteprimaTotParziale > 0) || IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_GRATIS) ||
                 AnteprimaDlg.GetSomethingInto_GrpToPrint((int)DEST_TYPE.DEST_BUONI))
             {
                 toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));

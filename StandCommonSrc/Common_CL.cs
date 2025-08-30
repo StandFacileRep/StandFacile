@@ -1,6 +1,6 @@
 ﻿/*****************************************************
  	NomeFile : StandCommonSrc/CommonFunc.cs
-    Data	 : 24.07.2025
+    Data	 : 30.08.2025
  	Autore	 : Mauro Artuso
 
 	Classi statiche di uso comune
@@ -370,11 +370,15 @@ namespace StandCommonFiles
 
 #if STANDFACILE || STAND_MONITOR
 
-                sTmp = CenterJustify(_LOGO, iMaxChars);
+                if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
+                    ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0)))
+                {
+                    sTmp = CenterJustify(_LOGO_T, iMaxChars);
 
-                for (j = 0; j < iLMargin; j++)
-                    sTmp = sTmp.Insert(0, " ");
-                fData.WriteLine(sTmp + "\n");
+                    for (j = 0; j < iLMargin; j++)
+                        sTmp = sTmp.Insert(0, " ");
+                    fData.WriteLine(sTmp + "\n");
+                }
 
                 sTmp = CenterJustify(SF_Data.sHeaders[0], iMaxChars);
 
@@ -458,6 +462,17 @@ namespace StandCommonFiles
 
                 if (!String.IsNullOrEmpty(SF_Data.sHeaders[MAX_NUM_HEADERS - 1]))
                     fData.WriteLine(sTmp + "\n");
+
+                if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) ||
+                    ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0)))
+                {
+                    sTmp = CenterJustify(_LOGO_B, iMaxChars);
+
+                    for (j = 0; j < iLMargin; j++)
+                        sTmp = sTmp.Insert(0, " ");
+                    fData.WriteLine(sTmp + "\n");
+                }
+
 #elif STAND_CUCINA
                 sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[2], iMaxChars);
                 for (j = 0; j < iLMargin; j++)

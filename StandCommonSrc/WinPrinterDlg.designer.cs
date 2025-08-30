@@ -39,7 +39,6 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
             this.lblRecap = new System.Windows.Forms.Label();
-            this.lblLogoPreview = new System.Windows.Forms.Label();
             this.labelMarginRcp = new System.Windows.Forms.Label();
             this.labelMarginRep = new System.Windows.Forms.Label();
             this.logoImage = new System.Windows.Forms.PictureBox();
@@ -60,6 +59,10 @@
             this.numUpDown_LogoCenter = new System.Windows.Forms.NumericUpDown();
             this.BtnDefaults = new System.Windows.Forms.Button();
             this.labelDefault = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblLogoPreview = new System.Windows.Forms.Label();
+            this.RadioBtnLogo_B = new System.Windows.Forms.RadioButton();
+            this.RadioBtnLogo_T = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.logoImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownRcpZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownRepZoom)).BeginInit();
@@ -67,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RcpMargin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RepMargin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_LogoCenter)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // PrintersListCombo
@@ -104,7 +108,7 @@
             // BtnLogoFileSelect
             // 
             this.BtnLogoFileSelect.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnLogoFileSelect.Location = new System.Drawing.Point(26, 402);
+            this.BtnLogoFileSelect.Location = new System.Drawing.Point(26, 428);
             this.BtnLogoFileSelect.Name = "BtnLogoFileSelect";
             this.BtnLogoFileSelect.Size = new System.Drawing.Size(141, 23);
             this.BtnLogoFileSelect.TabIndex = 10;
@@ -129,7 +133,7 @@
             this.BtnDeleteLogo.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDeleteLogo.Image = global::StandFacile.Properties.Resources.Cancel;
             this.BtnDeleteLogo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnDeleteLogo.Location = new System.Drawing.Point(26, 445);
+            this.BtnDeleteLogo.Location = new System.Drawing.Point(26, 471);
             this.BtnDeleteLogo.Name = "BtnDeleteLogo";
             this.BtnDeleteLogo.Size = new System.Drawing.Size(141, 23);
             this.BtnDeleteLogo.TabIndex = 11;
@@ -141,7 +145,7 @@
             // 
             this.SampleTextBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SampleTextBtn.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SampleTextBtn.Location = new System.Drawing.Point(26, 485);
+            this.SampleTextBtn.Location = new System.Drawing.Point(26, 516);
             this.SampleTextBtn.Name = "SampleTextBtn";
             this.SampleTextBtn.Size = new System.Drawing.Size(141, 23);
             this.SampleTextBtn.TabIndex = 13;
@@ -168,7 +172,7 @@
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = global::StandFacile.Properties.Resources.Cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(159, 626);
+            this.btnCancel.Location = new System.Drawing.Point(159, 657);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(81, 28);
@@ -185,7 +189,7 @@
             this.btnOK.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(302, 626);
+            this.btnOK.Location = new System.Drawing.Point(302, 657);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(72, 28);
@@ -204,16 +208,6 @@
             this.lblRecap.Size = new System.Drawing.Size(144, 16);
             this.lblRecap.TabIndex = 2;
             this.lblRecap.Text = "Riepilogo Impostazioni :";
-            // 
-            // lblLogoPreview
-            // 
-            this.lblLogoPreview.AutoSize = true;
-            this.lblLogoPreview.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLogoPreview.Location = new System.Drawing.Point(273, 284);
-            this.lblLogoPreview.Name = "lblLogoPreview";
-            this.lblLogoPreview.Size = new System.Drawing.Size(106, 16);
-            this.lblLogoPreview.TabIndex = 12;
-            this.lblLogoPreview.Text = "Anteprima Logo :";
             // 
             // labelMarginRcp
             // 
@@ -238,7 +232,7 @@
             // logoImage
             // 
             this.logoImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.logoImage.Location = new System.Drawing.Point(276, 309);
+            this.logoImage.Location = new System.Drawing.Point(276, 346);
             this.logoImage.Name = "logoImage";
             this.logoImage.Size = new System.Drawing.Size(250, 150);
             this.logoImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -250,7 +244,7 @@
             this.checkBox_A5_paper.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_A5_paper.AutoSize = true;
             this.checkBox_A5_paper.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_A5_paper.Location = new System.Drawing.Point(26, 573);
+            this.checkBox_A5_paper.Location = new System.Drawing.Point(26, 604);
             this.checkBox_A5_paper.Name = "checkBox_A5_paper";
             this.checkBox_A5_paper.Size = new System.Drawing.Size(108, 18);
             this.checkBox_A5_paper.TabIndex = 24;
@@ -323,7 +317,7 @@
             0,
             0,
             0});
-            this.numUpDownLogoZoom.Location = new System.Drawing.Point(181, 316);
+            this.numUpDownLogoZoom.Location = new System.Drawing.Point(181, 347);
             this.numUpDownLogoZoom.Maximum = new decimal(new int[] {
             140,
             0,
@@ -370,7 +364,7 @@
             this.labelZoomLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelZoomLogo.AutoSize = true;
             this.labelZoomLogo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelZoomLogo.Location = new System.Drawing.Point(90, 297);
+            this.labelZoomLogo.Location = new System.Drawing.Point(90, 328);
             this.labelZoomLogo.Name = "labelZoomLogo";
             this.labelZoomLogo.Size = new System.Drawing.Size(140, 16);
             this.labelZoomLogo.TabIndex = 30;
@@ -381,7 +375,7 @@
             this.checkBox_Chars33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_Chars33.AutoSize = true;
             this.checkBox_Chars33.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_Chars33.Location = new System.Drawing.Point(26, 536);
+            this.checkBox_Chars33.Location = new System.Drawing.Point(26, 567);
             this.checkBox_Chars33.Name = "checkBox_Chars33";
             this.checkBox_Chars33.Size = new System.Drawing.Size(223, 18);
             this.checkBox_Chars33.TabIndex = 31;
@@ -393,7 +387,7 @@
             this.checkBox_LogoNelleCopie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_LogoNelleCopie.AutoSize = true;
             this.checkBox_LogoNelleCopie.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_LogoNelleCopie.Location = new System.Drawing.Point(276, 573);
+            this.checkBox_LogoNelleCopie.Location = new System.Drawing.Point(276, 604);
             this.checkBox_LogoNelleCopie.Name = "checkBox_LogoNelleCopie";
             this.checkBox_LogoNelleCopie.Size = new System.Drawing.Size(196, 18);
             this.checkBox_LogoNelleCopie.TabIndex = 72;
@@ -405,7 +399,7 @@
             this.checkBox_CopertiNelleCopie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBox_CopertiNelleCopie.AutoSize = true;
             this.checkBox_CopertiNelleCopie.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_CopertiNelleCopie.Location = new System.Drawing.Point(276, 536);
+            this.checkBox_CopertiNelleCopie.Location = new System.Drawing.Point(276, 567);
             this.checkBox_CopertiNelleCopie.Name = "checkBox_CopertiNelleCopie";
             this.checkBox_CopertiNelleCopie.Size = new System.Drawing.Size(205, 18);
             this.checkBox_CopertiNelleCopie.TabIndex = 73;
@@ -418,7 +412,7 @@
             this.labelA5.AutoSize = true;
             this.labelA5.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelA5.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.labelA5.Location = new System.Drawing.Point(43, 594);
+            this.labelA5.Location = new System.Drawing.Point(43, 625);
             this.labelA5.Name = "labelA5";
             this.labelA5.Size = new System.Drawing.Size(187, 13);
             this.labelA5.TabIndex = 74;
@@ -429,7 +423,7 @@
             this.labelCenterLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelCenterLogo.AutoSize = true;
             this.labelCenterLogo.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCenterLogo.Location = new System.Drawing.Point(19, 358);
+            this.labelCenterLogo.Location = new System.Drawing.Point(19, 389);
             this.labelCenterLogo.Name = "labelCenterLogo";
             this.labelCenterLogo.Size = new System.Drawing.Size(152, 14);
             this.labelCenterLogo.TabIndex = 8;
@@ -491,7 +485,7 @@
             0,
             0,
             0});
-            this.numUpDown_LogoCenter.Location = new System.Drawing.Point(181, 356);
+            this.numUpDown_LogoCenter.Location = new System.Drawing.Point(181, 387);
             this.numUpDown_LogoCenter.Minimum = new decimal(new int[] {
             100,
             0,
@@ -507,7 +501,7 @@
             // 
             this.BtnDefaults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.BtnDefaults.Image = global::StandFacile.Properties.Resources.Cancel1;
-            this.BtnDefaults.Location = new System.Drawing.Point(470, 483);
+            this.BtnDefaults.Location = new System.Drawing.Point(470, 514);
             this.BtnDefaults.Name = "BtnDefaults";
             this.BtnDefaults.Size = new System.Drawing.Size(35, 26);
             this.BtnDefaults.TabIndex = 78;
@@ -520,18 +514,65 @@
             this.labelDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelDefault.AutoSize = true;
             this.labelDefault.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDefault.Location = new System.Drawing.Point(273, 489);
+            this.labelDefault.Location = new System.Drawing.Point(273, 520);
             this.labelDefault.Name = "labelDefault";
             this.labelDefault.Size = new System.Drawing.Size(181, 14);
             this.labelDefault.TabIndex = 79;
             this.labelDefault.Text = "ripristina default Zoom e margini";
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.lblLogoPreview);
+            this.panel1.Controls.Add(this.RadioBtnLogo_B);
+            this.panel1.Controls.Add(this.RadioBtnLogo_T);
+            this.panel1.Location = new System.Drawing.Point(276, 285);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(250, 55);
+            this.panel1.TabIndex = 80;
+            // 
+            // lblLogoPreview
+            // 
+            this.lblLogoPreview.AutoSize = true;
+            this.lblLogoPreview.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLogoPreview.Location = new System.Drawing.Point(11, 31);
+            this.lblLogoPreview.Name = "lblLogoPreview";
+            this.lblLogoPreview.Size = new System.Drawing.Size(106, 16);
+            this.lblLogoPreview.TabIndex = 13;
+            this.lblLogoPreview.Text = "Anteprima Logo :";
+            // 
+            // RadioBtnLogo_B
+            // 
+            this.RadioBtnLogo_B.AutoSize = true;
+            this.RadioBtnLogo_B.Location = new System.Drawing.Point(141, 6);
+            this.RadioBtnLogo_B.Name = "RadioBtnLogo_B";
+            this.RadioBtnLogo_B.Size = new System.Drawing.Size(89, 17);
+            this.RadioBtnLogo_B.TabIndex = 0;
+            this.RadioBtnLogo_B.TabStop = true;
+            this.RadioBtnLogo_B.Text = "Logo inferiore";
+            this.RadioBtnLogo_B.UseVisualStyleBackColor = true;
+            this.RadioBtnLogo_B.Click += new System.EventHandler(this.RadioBtnLogo_Click);
+            // 
+            // RadioBtnLogo_T
+            // 
+            this.RadioBtnLogo_T.AutoSize = true;
+            this.RadioBtnLogo_T.Checked = true;
+            this.RadioBtnLogo_T.Location = new System.Drawing.Point(15, 6);
+            this.RadioBtnLogo_T.Name = "RadioBtnLogo_T";
+            this.RadioBtnLogo_T.Size = new System.Drawing.Size(95, 17);
+            this.RadioBtnLogo_T.TabIndex = 0;
+            this.RadioBtnLogo_T.TabStop = true;
+            this.RadioBtnLogo_T.Text = "Logo superiore";
+            this.RadioBtnLogo_T.UseVisualStyleBackColor = true;
+            this.RadioBtnLogo_T.Click += new System.EventHandler(this.RadioBtnLogo_Click);
             // 
             // WinPrinterDlg
             // 
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(543, 670);
+            this.ClientSize = new System.Drawing.Size(543, 701);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelDefault);
             this.Controls.Add(this.BtnDefaults);
             this.Controls.Add(this.numUpDown_LogoCenter);
@@ -552,7 +593,6 @@
             this.Controls.Add(this.labelCenterLogo);
             this.Controls.Add(this.labelMarginRep);
             this.Controls.Add(this.labelMarginRcp);
-            this.Controls.Add(this.lblLogoPreview);
             this.Controls.Add(this.lblRecap);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -564,7 +604,7 @@
             this.Controls.Add(this.BtnRcpFontSelect);
             this.Controls.Add(this.lblPrintersList);
             this.Controls.Add(this.PrintersListCombo);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WinPrinterDlg";
@@ -581,6 +621,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RcpMargin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RepMargin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_LogoCenter)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -599,7 +641,6 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Label lblRecap;
-        private System.Windows.Forms.Label lblLogoPreview;
         private System.Windows.Forms.Label labelMarginRcp;
         private System.Windows.Forms.Label labelMarginRep;
         private System.Windows.Forms.PictureBox logoImage;
@@ -620,5 +661,9 @@
         private System.Windows.Forms.NumericUpDown numUpDown_LogoCenter;
         private System.Windows.Forms.Button BtnDefaults;
         private System.Windows.Forms.Label labelDefault;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblLogoPreview;
+        private System.Windows.Forms.RadioButton RadioBtnLogo_B;
+        private System.Windows.Forms.RadioButton RadioBtnLogo_T;
     }
 }

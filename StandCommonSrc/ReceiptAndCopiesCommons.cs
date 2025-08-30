@@ -1,24 +1,21 @@
 ﻿/*********************************************************************************
  	NomeFile : StandCommonSrc/ReceiptAndCopies.cs
-    Data	 : 25.05.2025
+    Data	 : 24.08.2025
  	Autore	 : Mauro Artuso
 
 	Classi di uso comune a DataManager.Receipt(), VisOrdiniDlg.ReceiptRebuild()<br/>
     consente una più agevole manutenzione evitando duplicazioni
  *********************************************************************************/
 
+using StandFacile;
 using System;
-using System.IO;
 using System.Drawing;
-
-
+using System.IO;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
-
-using StandFacile;
-using static StandFacile.glb;
 using static StandFacile.Define;
+using static StandFacile.glb;
 
 namespace StandCommonFiles
 {
@@ -355,11 +352,11 @@ namespace StandCommonFiles
                     dataIdParam.iBuoniApplicatiReceipt = 0; //      "
 
                     // se non c'è il logo stampa sHeaders[0]
-                    if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName)) ||
+                    if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
                         ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) &&
                         (WinPrinterDlg.GetCopies_LogoToBePrinted() || (k == 0)))
                     {
-                        sTmp = CenterJustify(_LOGO, iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(_LOGO_T, iMAX_RECEIPT_CHARS);
                         fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
                     }
                     else
@@ -747,7 +744,15 @@ namespace StandCommonFiles
                     // richiesta copia Receipt e primo ciclo for(;;)
                     if (sConfig.bRcpCopyRequired && (k == 0))
                         fPrintParam.WriteLine(_CUT_FMT, CenterJustify(_CUT, MAX_RECEIPT_CHARS_CPY));
-                }
+
+                    if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) ||
+                        ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) &&
+                        (WinPrinterDlg.GetCopies_LogoToBePrinted() || (k == 0)))
+                    {
+                        sTmp = CenterJustify(_LOGO_B, iMAX_RECEIPT_CHARS);
+                        fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+                    }
+                }   //  for (k
 
                 fPrintParam.Close();
             }
@@ -866,11 +871,11 @@ namespace StandCommonFiles
                 else
                 {
                     // se non c'è il logo stampa sHeaders[0]
-                    if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName)) ||
+                    if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
                         ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) &&
                         WinPrinterDlg.GetCopies_LogoToBePrinted())
                     {
-                        sTmp = CenterJustify(_LOGO, MAX_RECEIPT_CHARS_CPY);
+                        sTmp = CenterJustify(_LOGO_T, MAX_RECEIPT_CHARS_CPY);
                         sHeader1_ToPrintBeforeCut += String.Format("{0}\r\n\r\n", sTmp);
                     }
                     else
@@ -968,7 +973,7 @@ namespace StandCommonFiles
                                         sTmp = String.Format(sRCP_FMT_RCPT, 1, dataIdParam.Articolo[j].sTipo, IntToEuro(dataIdParam.Articolo[j].iPrezzoUnitario));
                                     else
                                         sTmp = String.Format(sRCP_FMT_CPY, 1, dataIdParam.Articolo[j].sTipo);
-                                    
+
                                     fPrintParam.WriteLine("{0}\r\n", sTmp);
 
                                     if (!String.IsNullOrEmpty(dataIdParam.Articolo[j].sNotaArt))
@@ -1020,7 +1025,7 @@ namespace StandCommonFiles
                                         sTmp = String.Format(sRCP_FMT_RCPT, 1, dataIdParam.Articolo[j].sTipo, IntToEuro(dataIdParam.Articolo[j].iPrezzoUnitario));
                                     else
                                         sTmp = String.Format(sRCP_FMT_CPY, 1, dataIdParam.Articolo[j].sTipo);
-                                 
+
                                     fPrintParam.WriteLine("{0}\r\n", sTmp);
 
                                     if (!String.IsNullOrEmpty(dataIdParam.Articolo[j].sNotaArt))
@@ -1072,7 +1077,7 @@ namespace StandCommonFiles
                                         IntToEuro(dataIdParam.Articolo[j].iQuantitaOrdine * dataIdParam.Articolo[j].iPrezzoUnitario));
                                 else
                                     sTmp = String.Format(sRCP_FMT_CPY, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo);
-                       
+
                                 fPrintParam.WriteLine("{0}\r\n", sTmp);
 
                                 if (!String.IsNullOrEmpty(dataIdParam.Articolo[j].sNotaArt))
@@ -1148,10 +1153,10 @@ namespace StandCommonFiles
                                     if ((iNumCoperti > 0) && bTicketCopies_CutRequired && (_bPlaceSettingsOnCopies || (iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_COUNTER)))
                                     {
                                         if (bLocalPricesRequested)
-                                            sTmp = String.Format(sRCP_FMT_RCPT, iNumCoperti, _COPERTO,IntToEuro(iNumCoperti * dataIdParam.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario));
+                                            sTmp = String.Format(sRCP_FMT_RCPT, iNumCoperti, _COPERTO, IntToEuro(iNumCoperti * dataIdParam.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario));
                                         else
                                             sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
-                                        
+
                                         fPrintParam.WriteLine("{0}", sTmp);
 
                                         // spazio aggiuntivo
@@ -1167,7 +1172,7 @@ namespace StandCommonFiles
                                             IntToEuro(dataIdParam.Articolo[j].iQuantitaOrdine * dataIdParam.Articolo[j].iPrezzoUnitario));
                                     else
                                         sTmp = String.Format(sRCP_FMT_CPY, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo);
-                        
+
                                     fPrintParam.WriteLine("{0}", sTmp);
                                 }
 
@@ -1204,6 +1209,7 @@ namespace StandCommonFiles
                             }
 
                         } // end _bSomethingInto_GrpToPrint
+
                     }   //  for (i
 
                     fPrintParam.Close();
@@ -1312,14 +1318,14 @@ namespace StandCommonFiles
                     else
                     {
                         // se non c'è il logo stampa sHeaders[0]
-                        if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName)) ||
+                        if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
                             ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0)))
 #if STANDFACILE
                             && WinPrinterDlg.GetCopies_LogoToBePrinted()
 #endif
                             )
                         {
-                            sTmp = CenterJustify(_LOGO, MAX_RECEIPT_CHARS_CPY);
+                            sTmp = CenterJustify(_LOGO_T, MAX_RECEIPT_CHARS_CPY);
                             fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
                             iEqRowsNumber += 2;
                         }
@@ -1534,6 +1540,18 @@ namespace StandCommonFiles
                             iEqRowsNumber++;
                         }
 
+                        if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) ||
+                            ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0)))
+#if STANDFACILE
+                            && WinPrinterDlg.GetCopies_LogoToBePrinted()
+#endif
+                            )
+                        {
+                            sTmp = CenterJustify(_LOGO_B, MAX_RECEIPT_CHARS_CPY);
+                            fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+                            iEqRowsNumber += 2;
+                        }
+
                         // inserimento numero minimo di righe per garantire lunghezza minima
                         do
                         {
@@ -1600,11 +1618,10 @@ namespace StandCommonFiles
                     else
                     {
                         // se non c'è il logo stampa sHeaders[0]
-                        if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName)) ||
-                            ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) && WinPrinterDlg.GetCopies_LogoToBePrinted()
-                            )
+                        if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
+                            ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) && WinPrinterDlg.GetCopies_LogoToBePrinted())
                         {
-                            sTmp = CenterJustify(_LOGO, MAX_RECEIPT_CHARS_CPY);
+                            sTmp = CenterJustify(_LOGO_T, MAX_RECEIPT_CHARS_CPY);
                             fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
                             iEqRowsNumber += 2;
                         }
@@ -1759,6 +1776,14 @@ namespace StandCommonFiles
                             iEqRowsNumber++;
                         }
 
+                        if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) ||
+                            ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) && WinPrinterDlg.GetCopies_LogoToBePrinted())
+                        {
+                            sTmp = CenterJustify(_LOGO_B, MAX_RECEIPT_CHARS_CPY);
+                            fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+                            iEqRowsNumber += 2;
+                        }
+
                         // inserimento numero minimo di righe per garantire lunghezza minima
                         do
                         {
@@ -1806,9 +1831,13 @@ namespace StandCommonFiles
             return iNumCoperti;
         }
 
+#if STANDFACILE
+
         /// <summary>
         /// funzione che scrive il Footer nel file fPrintParam,<br/>
-        /// prelevando i dati dalla struct dataIdParam
+        /// prelevando i dati dalla struct dataIdParam,<br/>
+        /// inoltre, se si verificano le condizioni necessarie,<br/>
+        /// scrive il Logo Bottom nella variabile _sLogo_B_ToPrintBeforeCut  
         /// </summary>
         static void WriteFooter(TData dataIdParam, StreamWriter fPrintParam)
         {
@@ -1870,8 +1899,18 @@ namespace StandCommonFiles
                 fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
             }
 
+            if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) ||
+              ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) &&
+              WinPrinterDlg.GetCopies_LogoToBePrinted())
+            {
+                sTmp = CenterJustify(_LOGO_B, MAX_RECEIPT_CHARS_CPY);
+                fPrintParam.WriteLine("{0}\r\n\r\n", sTmp);
+            }
+
             return;
         }
+
+#endif
 
     } // end class
 } // end namespace
