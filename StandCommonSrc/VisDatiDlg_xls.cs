@@ -97,7 +97,7 @@ namespace StandFacile
                         sNomeFile += _SelDate.ToString("yyMMdd'.xlsx'");
                     }
                     else
-                        sNomeFile += (_SelRange.Start.ToString("yyMMdd'.xlsx'") + _SelRange.End.ToString("_yyMMdd'.xlsx'"));
+                        sNomeFile += (_SelRange.Start.ToString("yyMMdd") + _SelRange.End.ToString("_yyMMdd'.xlsx'"));
                 }
                 else
                     sNomeFile = _sNomeTabella + ".xlsx";

@@ -1,8 +1,8 @@
-; 02.08.2025 
+; 30.08.2025 
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
-AppVersion= 5.15.0
+AppVersion= 5.15.1
 
 AppVerName=StandCucina {#SetupSetting("AppVersion")}
 AppName=StandCucina 2025

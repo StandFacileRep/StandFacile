@@ -33,7 +33,7 @@ namespace StandFacile
         /// <summary>
         /// Esportazione dei dati di riepilogo giornaliero
         /// </summary>
-        private void ods_Export()
+        private void freeExport(bool bIsXlsParam)
         {
             bool bMatch;
             int i, j, iRow, iLastItemRow, iColumn, iUpperLimit;
@@ -44,9 +44,9 @@ namespace StandFacile
 
             BtnExport.Enabled = false;
             IDataWorkbook ods_WorkBook = new DataExport().CreateODSv1_3();
-            // IDataWorkbook ods_WorkBook = new DataExport().CreateXLSX2019();
+            IDataWorkbook xls_WorkBook = new DataExport().CreateXLSX2019();
 
-            IDataWorksheet odsWorkSheet;
+            IDataWorksheet odsWorkSheet, xlsWorkSheet;
 
             String[,] sDataArray = new string[420, 100];
 
@@ -74,16 +74,19 @@ namespace StandFacile
 #else
                 sDataDir = sRootDir + "\\";
 #endif
+                xls_WorkBook.CreatedBy = "StandFacile.org";
                 ods_WorkBook.CreatedBy = "StandFacile.org";
 
                 if (CkBoxUnioneCasse.Checked)
                 {
                     sNomeFile = "Dati_";
+                    xlsWorkSheet = xls_WorkBook.AddWorksheet("Dati_");
                     odsWorkSheet = ods_WorkBook.AddWorksheet("Dati_");
                 }
                 else
                 {
-                    sNomeFile = String.Format("Dati_ods_C{0}_", _iNumCassa);
+                    sNomeFile = String.Format("Dati_FreeExp_C{0}_", _iNumCassa);
+                    xlsWorkSheet = xls_WorkBook.AddWorksheet(String.Format("Dati_C{0}", _iNumCassa));
                     odsWorkSheet = ods_WorkBook.AddWorksheet(String.Format("Dati_C{0}", _iNumCassa));
                 }
 
@@ -96,13 +99,27 @@ namespace StandFacile
                     if (_SelRange.Start == _SelRange.End)
                     {
                         _SelRange = new SelectionRange(_SelDate, _SelDate);
-                        sNomeFile += _SelDate.ToString("yyMMdd'.ods'");
+
+                        if (bIsXlsParam)
+                            sNomeFile += _SelDate.ToString("yyMMdd'.xlsx'");
+                        else
+                            sNomeFile += _SelDate.ToString("yyMMdd'.ods'");
                     }
                     else
-                        sNomeFile += (_SelRange.Start.ToString("yyMMdd'.ods'") + _SelRange.End.ToString("_yyMMdd'.ods'"));
+                    {
+                        if (bIsXlsParam)
+                            sNomeFile += (_SelRange.Start.ToString("yyMMdd") + _SelRange.End.ToString("_yyMMdd'.xlsx'"));
+                        else
+                            sNomeFile += (_SelRange.Start.ToString("yyMMdd") + _SelRange.End.ToString("_yyMMdd'.ods'"));
+                    }
                 }
                 else
-                    sNomeFile = _sNomeTabella + ".ods";
+                {
+                    if (bIsXlsParam)
+                        sNomeFile = _sNomeTabella + ".xlsx";
+                    else
+                        sNomeFile = _sNomeTabella + ".ods";
+                }
 
                 if (File.Exists(sDataDir + sNomeFile))
                     File.Delete(sDataDir + sNomeFile);
@@ -318,7 +335,7 @@ namespace StandFacile
                         {
                             sDataArray[iRow++, iColumn + 4] = "---------";
 
-                            sDataArray[iRow, 4] = "TOTALE";
+                            sDataArray[iRow, 3] = "TOTALE";
                             sDataArray[iRow++, iColumn + 4] = IntToEuro(DB_Data.iTotaleIncasso - DB_Data.iTotaleBuoniApplicati);
 
                             //if (DB_Data.iTotaleBuoniApplicati > 0)
@@ -373,11 +390,23 @@ namespace StandFacile
 
 
                 // predisposizione tabella esportazione e formattazione
-                
+
                 const int iPRE_COL_TEXT = 12; // posizione di inizio dati fascia centrale
                 const int iPOST_COL_TEXT = 20;
 
                 String sCellContent = "";
+
+                // Array per formattazione larghezza delle colonne ma solo per xls
+                String[] sXlsColumnWidth = new String[100];
+
+                for (i = 0; i < 100; i += 2)
+                {
+                    sXlsColumnWidth[i] = "10";
+                    sXlsColumnWidth[i + 1] = "20";
+                }
+
+                sXlsColumnWidth[1] = "36"; // Articoli
+                sXlsColumnWidth[2] = "14"; // prz. unitario
 
                 // Array per formattazione larghezza delle colonne ma solo per ODS
                 String[] sOdsColumnWidth = new String[100];
@@ -402,28 +431,49 @@ namespace StandFacile
 
                             // dati prima di iPRE_COL_TEXT
                             if ((i < iPRE_COL_TEXT - 2) && (j > 2))
+                            {
+                                xlsWorkSheet.AddCell(sCellContent, DataType.Number);
                                 odsWorkSheet.AddCell(sCellContent, DataType.Number);
+                            }
 
                             // dati fascia centrale esportazione
                             else if ((i > iPRE_COL_TEXT) && (i <= _iLastArticoloIndexP1 + iPRE_COL_TEXT))
                             {
                                 if ((j == 0) || (j == 1) || ((j == 5) && sCellContent == "OK"))
+                                {
+                                    xlsWorkSheet.AddCell(sCellContent + "", DataType.String);
                                     odsWorkSheet.AddCell(sCellContent + "", DataType.String);
+                                }
                                 else
+                                {
+                                    xlsWorkSheet.AddCell(sCellContent, DataType.Number);
                                     odsWorkSheet.AddCell(sCellContent, DataType.Number);
+                                }
                             }
-                            
+
                             // dati finali esportazione
                             else if ((i > _iLastArticoloIndexP1 + iPRE_COL_TEXT) && (j >= 4))
                             {
                                 if ((sCellContent == null) || sCellContent.Contains("---"))
+                                {
+                                    xlsWorkSheet.AddCell(sCellContent + "", DataType.String);
                                     odsWorkSheet.AddCell(sCellContent + "", DataType.String);
+                                }
                                 else
+                                {
+                                    xlsWorkSheet.AddCell(sCellContent, DataType.Number);
                                     odsWorkSheet.AddCell(sCellContent, DataType.Number);
+                                }
                             }
                             else
+                            {
+                                xlsWorkSheet.AddCell(sCellContent + "", DataType.String);
                                 odsWorkSheet.AddCell(sCellContent + "", DataType.String);
+                            }
                         }
+
+                        xlsWorkSheet.ColumnWidths(sXlsColumnWidth);
+                        xlsWorkSheet.AddRow();
 
                         odsWorkSheet.ColumnWidths(sOdsColumnWidth);
                         odsWorkSheet.AddRow();
@@ -438,7 +488,10 @@ namespace StandFacile
 
                 LogToFile("VisDatiDlg : EsportaDati");
 
-                ods_WorkBook.Save(sDataDir + sNomeFile);
+                if (bIsXlsParam)
+                    xls_WorkBook.Save(sDataDir + sNomeFile);
+                else
+                    ods_WorkBook.Save(sDataDir + sNomeFile);
 
                 if (CheckBoxExport.Checked)
                     System.Diagnostics.Process.Start(sDataDir + sNomeFile);

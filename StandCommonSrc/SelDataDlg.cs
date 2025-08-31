@@ -40,6 +40,26 @@ namespace StandFacile
             SetTodayDate();
         }
 
+        /// <summary>imposta il warning di avvio calendario e l'aspetto</summary>
+        public void SetWarningAndLook(bool bLongWarn)
+        {
+            if (bLongWarn)
+            {
+                textBox.Text = "Selezionare la data di interesse: è anche possibile selezionare un intervallo di giorni cliccando sull'inizio desiderato, e poi muovendosi con le frecce tenendo premuto il tasto Shift\r\n";
+                textBox.Height = 66;
+                textBox.BorderStyle = BorderStyle.Fixed3D;
+            }
+            else
+            {
+                textBox.Text = "                         " + "Selezionare la data di interesse:";
+                textBox.Height = 14;
+                textBox.BorderStyle = BorderStyle.None;
+            }
+
+            this.Height = mCalendar.Height + textBox.Height + 152;
+        }
+
+
         /// <summary>inizializza il calendario evidenziando le date che contengono dati</summary>
         public void SetTodayDate()
         {
@@ -147,7 +167,7 @@ namespace StandFacile
         // aggiunge la gestione dell'evento DoubleClick
         private void MCalendar_MouseDown(object sender, MouseEventArgs e)
         {
-            #pragma warning disable IDE1005
+#pragma warning disable IDE1005
 
             int tick = Environment.TickCount;
 

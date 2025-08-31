@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VisDatiDlg));
             this.textEditDati = new System.Windows.Forms.TextBox();
             this.CheckBoxRidColonne = new System.Windows.Forms.CheckBox();
             this.CheckBoxExport = new System.Windows.Forms.CheckBox();
@@ -39,12 +37,11 @@
             this.comboReport = new System.Windows.Forms.ComboBox();
             this.LblReport = new System.Windows.Forms.Label();
             this.CkBoxSkipZero = new System.Windows.Forms.CheckBox();
-            this.ComboFormat = new System.Windows.Forms.ComboBox();
+            this.ComboExpFormat = new System.Windows.Forms.ComboBox();
             this.OKBtn = new System.Windows.Forms.Button();
             this.BtnExport = new System.Windows.Forms.Button();
             this.BtnDate = new System.Windows.Forms.Button();
             this.BtnPrt = new System.Windows.Forms.Button();
-            this.ImageList = new System.Windows.Forms.ImageList(this.components);
             this.SuspendLayout();
             // 
             // textEditDati
@@ -162,19 +159,18 @@
             this.CkBoxSkipZero.UseVisualStyleBackColor = true;
             this.CkBoxSkipZero.Click += new System.EventHandler(this.CheckBoxRidColonne_Click);
             // 
-            // ComboFormat
+            // ComboExpFormat
             // 
-            this.ComboFormat.FormattingEnabled = true;
-            this.ComboFormat.Items.AddRange(new object[] {
-            "XLS",
-            "ODS"});
-            this.ComboFormat.Location = new System.Drawing.Point(299, 380);
-            this.ComboFormat.Name = "ComboFormat";
-            this.ComboFormat.Size = new System.Drawing.Size(65, 21);
-            this.ComboFormat.TabIndex = 13;
-            this.ComboFormat.Text = "XLS";
-            this.ComboFormat.SelectedIndexChanged += new System.EventHandler(this.ComboFormat_SelectedIndexChanged);
-            this.ComboFormat.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ComboFormat_MouseDoubleClick);
+            this.ComboExpFormat.FormattingEnabled = true;
+            this.ComboExpFormat.Items.AddRange(new object[] {
+            "XLS MS Office",
+            "XLS Free Export",
+            "ODS Free Export"});
+            this.ComboExpFormat.Location = new System.Drawing.Point(259, 380);
+            this.ComboExpFormat.Name = "ComboExpFormat";
+            this.ComboExpFormat.Size = new System.Drawing.Size(105, 21);
+            this.ComboExpFormat.TabIndex = 13;
+            this.ComboExpFormat.Text = "XLS MS Office";
             // 
             // OKBtn
             // 
@@ -235,13 +231,6 @@
             this.BtnPrt.UseVisualStyleBackColor = true;
             this.BtnPrt.Click += new System.EventHandler(this.BtnPrt_Click);
             // 
-            // ImageList
-            // 
-            this.ImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ImageList.ImageStream")));
-            this.ImageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.ImageList.Images.SetKeyName(0, "xls.png");
-            this.ImageList.Images.SetKeyName(1, "ods.png");
-            // 
             // VisDatiDlg
             // 
             this.AcceptButton = this.OKBtn;
@@ -249,7 +238,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.OKBtn;
             this.ClientSize = new System.Drawing.Size(592, 538);
-            this.Controls.Add(this.ComboFormat);
+            this.Controls.Add(this.ComboExpFormat);
             this.Controls.Add(this.CkBoxSkipZero);
             this.Controls.Add(this.LblReport);
             this.Controls.Add(this.comboReport);
@@ -292,7 +281,6 @@
         private System.Windows.Forms.ComboBox comboReport;
         private System.Windows.Forms.Label LblReport;
         private System.Windows.Forms.CheckBox CkBoxSkipZero;
-        private System.Windows.Forms.ComboBox ComboFormat;
-        private System.Windows.Forms.ImageList ImageList;
+        private System.Windows.Forms.ComboBox ComboExpFormat;
     }
 }

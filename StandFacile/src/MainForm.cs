@@ -1771,6 +1771,7 @@ namespace StandFacile
             SelectionRange selDates;
             VisDatiDlg rVisDatiDlg = new VisDatiDlg();
 
+            SelDataDlg.rSelDataDlg.SetWarningAndLook(true);
             SelDataDlg.rSelDataDlg.ShowDialog();
             selDates = SelDataDlg.rSelDataDlg.GetDateFromPicker();
 
@@ -1855,6 +1856,7 @@ namespace StandFacile
         {
             SelectionRange selDates;
 
+            SelDataDlg.rSelDataDlg.SetWarningAndLook(false);
             SelDataDlg.rSelDataDlg.ShowDialog();
             selDates = SelDataDlg.rSelDataDlg.GetDateFromPicker();
 

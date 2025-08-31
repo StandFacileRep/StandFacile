@@ -2,7 +2,7 @@
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
-AppVersion= 5.15.0
+AppVersion= 5.15.1
 
 AppVerName=StandMonitor {#SetupSetting("AppVersion")}
 AppName=StandMonitor 2025
@@ -32,6 +32,7 @@ Source: "..\StandAux\Licenza.txt"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.MySql.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.PostgreSql.dll"; DestDir: "{app}"
+Source: "..\exe\Debug\FreeDataExports.dll"; DestDir: "{app}"
 //Source: "..\exe\Debug\Newtonsoft.Json.dll"; DestDir: "{app}"
 
 [Icons]

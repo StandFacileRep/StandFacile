@@ -4,7 +4,7 @@
 ; The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 
 [Setup]
-AppVersion= 5.15.0
+AppVersion= 5.15.1
 
 AppVerName=StandFacile {#SetupSetting("AppVersion")}
 AppName=StandFacile 2025

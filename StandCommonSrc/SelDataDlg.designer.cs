@@ -35,10 +35,11 @@
             // 
             // OKBtn
             // 
+            this.OKBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKBtn.Image = global::StandFacile.Properties.Resources.OK;
             this.OKBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OKBtn.Location = new System.Drawing.Point(173, 285);
+            this.OKBtn.Location = new System.Drawing.Point(173, 286);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(78, 28);
             this.OKBtn.TabIndex = 0;
@@ -50,6 +51,7 @@
             // 
             // textBox
             // 
+            this.textBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.textBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox.Location = new System.Drawing.Point(15, 12);
             this.textBox.Multiline = true;
@@ -59,11 +61,12 @@
             this.textBox.TabIndex = 1;
             this.textBox.Text = "Selezionare la data di interesse: è anche possibile selezionare un intervallo di " +
     "giorni cliccando sull\'inizio desiderato, e muovendosi con le frecce tenendo prem" +
-    "uto il tasto Shift\r\n\r\n\r\n";
+    "uto il tasto Shift";
             // 
             // mCalendar
             // 
-            this.mCalendar.Location = new System.Drawing.Point(98, 102);
+            this.mCalendar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.mCalendar.Location = new System.Drawing.Point(98, 103);
             this.mCalendar.MaxSelectionCount = 60;
             this.mCalendar.MinDate = new System.DateTime(2025, 1, 1, 0, 0, 0, 0);
             this.mCalendar.Name = "mCalendar";
@@ -75,7 +78,7 @@
             this.AcceptButton = this.OKBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(423, 332);
+            this.ClientSize = new System.Drawing.Size(423, 333);
             this.Controls.Add(this.mCalendar);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.OKBtn);
@@ -84,6 +87,7 @@
             this.MinimizeBox = false;
             this.Name = "SelDataDlg";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Selezione Data";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SelDataDlg_KeyPress);
             this.ResumeLayout(false);

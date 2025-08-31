@@ -177,7 +177,8 @@ namespace StandFacile
             CkBoxUnioneCasse.Checked = true;
 #endif
 
-            _tt.SetToolTip(BtnExport, "avvia esportazione in formato Excel oppure ODS");
+            _tt.SetToolTip(BtnExport, "avvia esportazione in formato Excel MS (richiede Office installato nel PC)\r\n"+
+                                        "oppure FreeExport XLS, oppure FreeExport ODS");
             _tt.SetToolTip(BtnDate, "seleziona una data, o con Shift + le frecce in intervallo di date");
 
             _InitCompletato = true;
@@ -218,7 +219,7 @@ namespace StandFacile
             BtnPrt.Enabled = true;
             BtnDate.Enabled = true;
             BtnExport.Enabled = true;
-            ComboFormat.Enabled = true;
+            ComboExpFormat.Enabled = true;
             CheckBoxRidColonne.Enabled = true;
             CheckBoxExport.Enabled = true;
             LblCassa.Enabled = true;
@@ -716,7 +717,7 @@ namespace StandFacile
                 if (fData == null)
                 {
                     BtnExport.Enabled = false;
-                    ComboFormat.Enabled = false;
+                    ComboExpFormat.Enabled = false;
                     BtnPrt.Enabled = false;
 
                     _WrnMsg.sNomeFile = sNomeFile;
@@ -745,7 +746,7 @@ namespace StandFacile
                 CheckBoxRidColonne.Enabled = false;
                 CheckBoxExport.Enabled = false;
                 BtnExport.Enabled = false;
-                ComboFormat.Enabled = false;
+                ComboExpFormat.Enabled = false;
                 CkBoxUnioneCasse.Enabled = false;
                 LblCassa.Enabled = false;
                 Combo_NumCassa.Enabled = false;
@@ -757,7 +758,7 @@ namespace StandFacile
                 CheckBoxRidColonne.Visible = false;
                 CheckBoxExport.Visible = false;
                 BtnExport.Visible = false;
-                ComboFormat.Visible = false;
+                ComboExpFormat.Visible = false;
                 CkBoxUnioneCasse.Visible = false;
                 LblCassa.Visible = false;
                 Combo_NumCassa.Visible = false;
@@ -932,16 +933,25 @@ namespace StandFacile
         /// </summary>
         private void ComboFormat_Click(object sender, EventArgs e)
         {
-            if (ComboFormat.SelectedIndex == 0)
-                xls_Export();
-            else
-                ods_Export();
+            switch (ComboExpFormat.SelectedIndex)
+            {
+                case 0:
+                    xls_Export();
+                    break;
+                case 1:
+                    freeExport(true);
+                    break;
+                case 2:
+                    freeExport(false);
+                    break;
+            }
         }
 
         private void BtnDate_Click(object sender, EventArgs e)
         {
             SelectionRange selDates;
 
+            SelDataDlg.rSelDataDlg.SetWarningAndLook(true);
             SelDataDlg.rSelDataDlg.ShowDialog();
             selDates = SelDataDlg.rSelDataDlg.GetDateFromPicker();
 
@@ -964,23 +974,6 @@ namespace StandFacile
 
             if (_InitCompletato)
                 VisualizzaDati((int)FILE_TO_SHOW.FILE_DATI, _SelDate, Combo_NumCassa.SelectedIndex + 1, _bVisCambioData, "", comboReport.SelectedIndex);
-        }
-
-        private void ComboFormat_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ComboFormat.SelectedIndex == 0)
-                BtnExport.Image = ImageList.Images[0];
-            else
-                BtnExport.Image = ImageList.Images[1];
-        }
-
-        // toggle, ma non funziona
-        private void ComboFormat_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            if (ComboFormat.SelectedIndex == 0)
-                ComboFormat.SelectedIndex = 1;
-            else
-                ComboFormat.SelectedIndex = 0;
         }
 
         /// <summary>
