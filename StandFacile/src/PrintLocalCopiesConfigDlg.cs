@@ -135,7 +135,7 @@ namespace StandFacile
                 _pCheckBoxCopia[i].Checked = IsBitSet(SF_Data.iReceiptCopyOptions, i);
             }
 
-            checkBox_LocPrices.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_REQUIRED);
+            checkBox_LocPrices.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_ON_COPIES_REQUIRED);
 
             checkBox_AvoidPrintGroups.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
 
@@ -237,7 +237,7 @@ namespace StandFacile
             }
 
             if (checkBox_LocPrices.Checked)
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_REQUIRED);
+                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_ON_COPIES_REQUIRED);
 
             if (checkBox_AvoidPrintGroups.Checked)
                 iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);

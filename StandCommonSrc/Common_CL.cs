@@ -1,6 +1,6 @@
 ﻿/*****************************************************
  	NomeFile : StandCommonSrc/CommonFunc.cs
-    Data	 : 30.08.2025
+    Data	 : 10.09.2025
  	Autore	 : Mauro Artuso
 
 	Classi statiche di uso comune
@@ -335,8 +335,9 @@ namespace StandCommonFiles
         /// <summary>costruzione file di test stampa</summary>
         public static String BuildSampleText()
         {
+            const String _LEFT_MARGIN_FMT = "  {0}";
+
             int i, j, ich;
-            int iLMargin = 2;
             int iMaxChars = 24;
 
             String sTmp;
@@ -374,48 +375,39 @@ namespace StandCommonFiles
                     ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0)))
                 {
                     sTmp = CenterJustify(_LOGO_T, iMaxChars);
+                    sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
 
-                    for (j = 0; j < iLMargin; j++)
-                        sTmp = sTmp.Insert(0, " ");
                     fData.WriteLine(sTmp + "\n");
                 }
 
                 sTmp = CenterJustify(SF_Data.sHeaders[0], iMaxChars);
-
-                for (j = 0; j < iLMargin; j++)
-                    sTmp = sTmp.Insert(0, " ");
+                sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
 
                 if (!String.IsNullOrEmpty(SF_Data.sHeaders[0]))
                     fData.WriteLine(sTmp + "\n");
 
                 sTmp = CenterJustify(SF_Data.sHeaders[1], iMaxChars);
-
-                for (j = 0; j < iLMargin; j++)
-                    sTmp = sTmp.Insert(0, " ");
+                sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
 
                 if (!String.IsNullOrEmpty(SF_Data.sHeaders[1]))
                     fData.WriteLine(sTmp + "\n");
 #elif STAND_CUCINA
                 sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[0], iMaxChars);
-
-                for (j = 0; j < iLMargin; j++)
-                    sTmp = sTmp.Insert(0, " ");
+                sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
 
                 if (!String.IsNullOrEmpty(dBaseIntf.DB_Data.sHeaders[0]))
                     fData.WriteLine(sTmp + "\n");
 
                 sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[1], iMaxChars);
-
-                for (j = 0; j < iLMargin; j++)
-                    sTmp = sTmp.Insert(0, " ");
+                sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
 
                 if (!String.IsNullOrEmpty(dBaseIntf.DB_Data.sHeaders[1]))
                     fData.WriteLine(sTmp + "\n");
 #endif
 
                 sTmp = CenterJustify(GetDateTimeString(), iMaxChars);
-                for (j = 0; j < iLMargin; j++)
-                    sTmp = sTmp.Insert(0, " ");
+                sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
+
                 fData.WriteLine(sTmp + "\n");
 
                 for (i = 0; i < iMaxChars / 2; i++)       // avanzamanto riga
@@ -433,15 +425,13 @@ namespace StandCommonFiles
                         else sTmp += '.';
                     }
 
-                    for (j = 0; j < iLMargin; j++) // centratura
-                        sTmp = sTmp.Insert(0, " ");
+                    sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
 
                     fData.WriteLine(sTmp);
                 }
 
                 sTmp = CenterJustify("########################", iMaxChars);
-                for (j = 0; j < iLMargin; j++)
-                    sTmp = sTmp.Insert(0, " ");
+                sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
 
                 fData.WriteLine("{0}", sTmp);
                 fData.WriteLine("{0}", sTmp);
@@ -450,40 +440,42 @@ namespace StandCommonFiles
 
 #if STANDFACILE
                 sTmp = CenterJustify(SF_Data.sHeaders[2], iMaxChars);
-                for (j = 0; j < iLMargin; j++)
-                    sTmp = sTmp.Insert(0, " ");
+                sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
 
                 if (!String.IsNullOrEmpty(SF_Data.sHeaders[2]))
                     fData.WriteLine(sTmp + "\n");
 
                 sTmp = CenterJustify(SF_Data.sHeaders[MAX_NUM_HEADERS - 1], iMaxChars);
-                for (j = 0; j < iLMargin; j++)
-                    sTmp = sTmp.Insert(0, " ");
+                sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
 
                 if (!String.IsNullOrEmpty(SF_Data.sHeaders[MAX_NUM_HEADERS - 1]))
                     fData.WriteLine(sTmp + "\n");
 
-                if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) ||
-                    ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0)))
+                if ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B))
                 {
                     sTmp = CenterJustify(_LOGO_B, iMaxChars);
 
-                    for (j = 0; j < iLMargin; j++)
-                        sTmp = sTmp.Insert(0, " ");
+                    sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
+                    fData.WriteLine(sTmp + "\n");
+                }
+
+                if (iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS)
+                {
+                    sTmp = CenterJustify(_BARCODE, iMaxChars);
+
+                    sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
                     fData.WriteLine(sTmp + "\n");
                 }
 
 #elif STAND_CUCINA
                 sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[2], iMaxChars);
-                for (j = 0; j < iLMargin; j++)
-                    sTmp = sTmp.Insert(0, " ");
+                sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
 
                 if (!String.IsNullOrEmpty(dBaseIntf.DB_Data.sHeaders[2]))
                     fData.WriteLine(sTmp + "\n");
 
                 sTmp = CenterJustify(dBaseIntf.DB_Data.sHeaders[MAX_NUM_HEADERS - 1], iMaxChars);
-                for (j = 0; j < iLMargin; j++)
-                    sTmp = sTmp.Insert(0, " ");
+                sTmp = String.Format(_LEFT_MARGIN_FMT, sTmp);
 
                 if (!String.IsNullOrEmpty(dBaseIntf.DB_Data.sHeaders[MAX_NUM_HEADERS - 1]))
                     fData.WriteLine(sTmp + "\n");

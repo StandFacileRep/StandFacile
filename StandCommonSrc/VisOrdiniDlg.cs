@@ -1,6 +1,6 @@
 ﻿/***************************************************************************
 	NomeFile : StandCommonSrc/VisOrdiniDlg.cs
-	Data	 : 24.07.2025
+	Data	 : 10.09.2025
 	Autore	 : Mauro Artuso
 	 
  ***************************************************************************/
@@ -574,8 +574,6 @@ namespace StandFacile
 
             String sDir;
 
-            StreamWriter fPrint = null;
-
             /**********************************************************
              *   carica l'ordine, serve anche per sapere iNumCassa
              **********************************************************/
@@ -659,7 +657,7 @@ namespace StandFacile
 
                 sDir = GetVisTicketsDir() + "\\";
 
-                WriteReceipt(ref DB_Data, iParam, fPrint, sDir, sOrdineStrings);
+                WriteReceipt(ref DB_Data, iParam, sDir, sOrdineStrings);
 
 #if STANDFACILE
                 /************************************************
@@ -673,13 +671,16 @@ namespace StandFacile
 
 #if STANDFACILE || STAND_CUCINA
                 /***********************************************************
-                 *                 RICOSTRUZIONE COPIE
+                 *             RICOSTRUZIONE COPIE IN RETE
                  * i contatori sono inclusi nelle PIETANZE es: COPERTI
                  ***********************************************************/
 
-                sDir = GetVisCopiesDir() + "\\";
+                if (sGlbWinPrinterParams.bA4Paper)
+                    sDir = GetVisTicketsDir() + "\\";
+                else
+                    sDir = GetVisCopiesDir() + "\\";
 
-                WriteNetworkCopy(DB_Data, iParam, fPrint, sDir, sOrdineStrings, false);
+                WriteNetworkCopy(DB_Data, iParam, sDir, sOrdineStrings, false);
 #endif
 
                 // terzo return

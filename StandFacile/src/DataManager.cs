@@ -1,6 +1,6 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 02.07.2025
+	Data	 : 06.09.2025
     Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
@@ -555,8 +555,6 @@ namespace StandFacile
 
             String sTmp, sDir;
 
-            StreamWriter fPrint = null;
-
             SF_Data.iNumOfLastReceipt = GetNumOfLocalOrders(); // punto unico
 
             SF_Data.sDateTime = GetTicketTime();
@@ -572,7 +570,7 @@ namespace StandFacile
 
             sDir = _sTicketsDir + "\\";
 
-            WriteReceipt(ref SF_Data, 0, fPrint, sDir, sOrdineStrings);
+            WriteReceipt(ref SF_Data, 0, sDir, sOrdineStrings);
 
             /*******************************************
              ***  STAMPA COPIE LOCALI SENZA PREZZI	 ***
@@ -587,9 +585,16 @@ namespace StandFacile
              * i contatori sono inclusi nelle PIETANZE es: COPERTI
              *******************************************************/
 
-            sDir = _sCopiesDir + "\\";
+            if (sGlbWinPrinterParams.bA4Paper)
+                sDir = _sTicketsDir + "\\";
+            else
+                sDir = _sCopiesDir + "\\";
 
-            WriteNetworkCopy(SF_Data, 0, fPrint, sDir, sOrdineStrings, false);
+            WriteNetworkCopy(SF_Data, 0, sDir, sOrdineStrings, false);
+
+            // dopo la preparazione del file Receipt per A4, avvia la stampa
+            if (sGlbWinPrinterParams.bA4Paper)
+                Print_A4_Receipt(sDir);
 
             // AVVIO STAMPE LEGACY DOPO IL SALVATAGGIO SU DATABASE PER EVITARE PROBLEMI EVENTUALI
             if (!PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())

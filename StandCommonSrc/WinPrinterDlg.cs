@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
 	NomeFile : StandCommonSrc/WinPrinterDlg.cs
-    Data	 : 23.08.2025
+    Data	 : 10.09.2025
 	Autore   : Mauro Artuso
 
 	Descrizione : classe per la gestione della Form per l'impostazione dei
@@ -17,7 +17,7 @@ using StandCommonFiles;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
-
+using static StandFacile.Define;
 using static StandFacile.glb;
 
 namespace StandFacile
@@ -73,6 +73,7 @@ namespace StandFacile
         static bool _bListinoModificato;
 
         bool _bInitComplete = false;
+        int _yDisp = 0;
 
         static Font tckFont, repFont;
         FontDialog fontTckDlg, fontRepDlg;
@@ -121,9 +122,6 @@ namespace StandFacile
             };
 
             _sWinPrinterParamsCopy = new TWinPrinterParams(0);
-
-            sGlbWinPrinterParams.iLogoWidth_T = 500;
-            sGlbWinPrinterParams.iLogoHeight_T = 500;
 
             _tt.SetToolTip(checkBox_Chars33, "con 33 caratteri le descrizioni Articoli sono migliori ma le stampe più piccole\r\n" +
                                              "sconsigliato per formato carta da 57mm");
@@ -195,6 +193,9 @@ namespace StandFacile
             // 7+1, sPrinterModel è sopra
             sGlbWinPrinterParams.sLogoName_T = ReadRegistry(WIN_LOGO_NAME_KEY_T, "");
             sGlbWinPrinterParams.sLogoName_B = ReadRegistry(WIN_LOGO_NAME_KEY_B, "");
+
+            sGlbWinPrinterParams.bA4Paper = CheckService(CFG_SERVICE_STRINGS.PRINT_ON_A4_PAPER);
+            sGlbWinPrinterParams.bA5Paper = CheckService(CFG_SERVICE_STRINGS.PRINT_ON_A5_PAPER);
 #endif
 
             sGlbWinPrinterParams.sTckFontType = ReadRegistry(TCK_WIN_FONT_TYPE_KEY, "Lucida Console");
@@ -230,9 +231,6 @@ namespace StandFacile
                 sGlbWinPrinterParams.iRepLeftMargin = (int)numUpDown_RepMargin.Maximum;
 
             repFont = new Font(sGlbWinPrinterParams.sRepFontType, sGlbWinPrinterParams.fRepFontSize, sGlbWinPrinterParams.sRepFontStyle);
-
-            checkBox_A5_paper.Checked = (ReadRegistry(PRINT_ON_A5_PAPER_KEY, 0) == 1);
-            sGlbWinPrinterParams.bA5Paper = checkBox_A5_paper.Checked;
 
             sGlbWinPrinterParams.iTckZoomValue = ReadRegistry(TCK_WIN_ZOOM_KEY, 100);
             sGlbWinPrinterParams.iRepZoomValue = ReadRegistry(REP_WIN_ZOOM_KEY, 100);
@@ -290,8 +288,6 @@ namespace StandFacile
             lblLogoPreview.Enabled = true;
 #else
 
-            int _yDisp = 0;
-
             labelMarginRep.Visible = false;
             labelZoomRep.Visible = false;
             BtnRepFontSelect.Enabled = false;
@@ -303,6 +299,9 @@ namespace StandFacile
 
             logoImage.Enabled = false;
             logoImage.Visible = false;
+            groupBoxLogoChoice.Enabled = false;
+            groupBoxLogoChoice.Visible = false;
+
             lblLogoPreview.Enabled = false;
             lblLogoPreview.Visible = false;
             BtnLogoFileSelect.Enabled = false;
@@ -326,10 +325,11 @@ namespace StandFacile
             // esegue solo una volta
             if (_yDisp == 0)
             {
-                _yDisp = SampleTextBtn.Top - lblLogoPreview.Top;
+                _yDisp = SampleTextBtn.Top - logoImage.Top + groupBoxLogoChoice.Height;
 
                 Height -= _yDisp;
 
+                SampleTextBtn.Top = BtnDefaults.Top + 4;
                 labelCenterLogo.Top = labelMarginRep.Top;
                 labelZoomLogo.Top = labelZoomRep.Top;
                 numUpDownLogoZoom.Top = numUpDownRepZoom.Top;
@@ -338,6 +338,12 @@ namespace StandFacile
 #endif
 
             RadioBtnLogo_Click(this, null);
+
+            sGlbWinPrinterParams.iLogoWidth_T = _sWinPrinterParamsCopy.iLogoWidth_T;
+            sGlbWinPrinterParams.iLogoHeight_T = _sWinPrinterParamsCopy.iLogoHeight_T;
+
+            sGlbWinPrinterParams.iLogoWidth_B = _sWinPrinterParamsCopy.iLogoWidth_B;
+            sGlbWinPrinterParams.iLogoHeight_B = _sWinPrinterParamsCopy.iLogoHeight_B;
 
             _bInitComplete = true;
 
@@ -379,7 +385,6 @@ namespace StandFacile
             _sWinPrinterParamsCopy.iLogoZoomValue = (int)numUpDownLogoZoom.Value;
 
             _sWinPrinterParamsCopy.bChars33 = checkBox_Chars33.Checked;
-            _sWinPrinterParamsCopy.bA5Paper = checkBox_A5_paper.Checked;
 
             _sWinPrinterParamsCopy.iLogoWidth_T = sGlbWinPrinterParams.iLogoWidth_T;
             _sWinPrinterParamsCopy.iLogoHeight_T = sGlbWinPrinterParams.iLogoHeight_T;
@@ -543,6 +548,38 @@ namespace StandFacile
 
         }
 
+        void LogoDelete()
+        {
+            String sDir = "";
+
+#if STANDFACILE
+            sDir = DataManager.GetExeDir() + "\\";
+#endif
+
+            if (RadioBtnLogo_T.Checked)
+            {
+                if (File.Exists(sDir + "Logo_T.jpg"))
+                    File.Delete(sDir + "Logo_T.jpg");
+
+                if (File.Exists(sDir + "Logo_T.bmp"))
+                    File.Delete(sDir + "Logo_T.bmp");
+
+                if (File.Exists(sDir + "Logo_T.png"))
+                    File.Delete(sDir + "Logo_T.png");
+            }
+            else
+            {
+                if (File.Exists(sDir + "Logo_B.jpg"))
+                    File.Delete(sDir + "Logo_B.jpg");
+
+                if (File.Exists(sDir + "Logo_B.bmp"))
+                    File.Delete(sDir + "Logo_B.bmp");
+
+                if (File.Exists(sDir + "Logo_B.png"))
+                    File.Delete(sDir + "Logo_B.png");
+            }
+        }
+
         private void BtnLogoFileSelect_Click(object sender, EventArgs e)
         {
             String sDir = "", sTmpDot;
@@ -584,28 +621,7 @@ namespace StandFacile
                         GC.Collect();
                         GC.WaitForPendingFinalizers();
 
-                        if (RadioBtnLogo_T.Checked)
-                        {
-                            if (File.Exists(sDir + "Logo_T.jpg"))
-                                File.Delete(sDir + "Logo_T.jpg");
-
-                            if (File.Exists(sDir + "Logo_T.bmp"))
-                                File.Delete(sDir + "Logo.bmp");
-
-                            if (File.Exists(sDir + "Logo_T.png"))
-                                File.Delete(sDir + "Logo_T.png");
-                        }
-                        else
-                        {
-                            if (File.Exists(sDir + "Logo_B.jpg"))
-                                File.Delete(sDir + "Logo_B.jpg");
-
-                            if (File.Exists(sDir + "Logo_B.bmp"))
-                                File.Delete(sDir + "Logo_B.bmp");
-
-                            if (File.Exists(sDir + "Logo_B.png"))
-                                File.Delete(sDir + "Logo_B.png");
-                        }
+                        LogoDelete();
 
                         File.Copy(sSourceFile, sDir + sDestinationFile, true);
 
@@ -672,6 +688,8 @@ namespace StandFacile
 
             AggiornaAspettoControlli();
 
+            LogoDelete();
+
             LogToFile("WinPrinterDlg : LogoDelete");
         }
 
@@ -695,18 +713,18 @@ namespace StandFacile
             sDir = DataManager.GetExeDir() + "\\";
 #endif
 
-            if (File.Exists(sDir + sGlbWinPrinterParams.sLogoName_T))
+            if (File.Exists(sDir + _sWinPrinterParamsCopy.sLogoName_T))
             {
-                tmpImage = new Bitmap(sDir + sGlbWinPrinterParams.sLogoName_T);
+                tmpImage = new Bitmap(sDir + _sWinPrinterParamsCopy.sLogoName_T);
                 LogoImage_T = new Bitmap(tmpImage);
 
                 if (RadioBtnLogo_T.Checked)
                     logoImage.Image = new Bitmap(tmpImage);
 
-                sGlbWinPrinterParams.iLogoWidth_T = tmpImage.Size.Width;
-                sGlbWinPrinterParams.iLogoHeight_T = tmpImage.Size.Height;
+                _sWinPrinterParamsCopy.iLogoWidth_T = tmpImage.Size.Width;
+                _sWinPrinterParamsCopy.iLogoHeight_T = tmpImage.Size.Height;
 
-                LogToFile("WinPrinterDlg : Load Logo_T" + sGlbWinPrinterParams.sLogoName_T);
+                LogToFile("WinPrinterDlg : Load Logo_T" + _sWinPrinterParamsCopy.sLogoName_T);
 
                 // libera la risorsa file
                 tmpImage.Dispose();
@@ -720,18 +738,18 @@ namespace StandFacile
             }
 
 
-            if (File.Exists(sDir + sGlbWinPrinterParams.sLogoName_B))
+            if (File.Exists(sDir + _sWinPrinterParamsCopy.sLogoName_B))
             {
-                tmpImage = new Bitmap(sDir + sGlbWinPrinterParams.sLogoName_B);
+                tmpImage = new Bitmap(sDir + _sWinPrinterParamsCopy.sLogoName_B);
                 LogoImage_B = new Bitmap(tmpImage);
 
                 if (RadioBtnLogo_B.Checked)
                     logoImage.Image = new Bitmap(tmpImage);
 
-                sGlbWinPrinterParams.iLogoWidth_B = tmpImage.Size.Width;
-                sGlbWinPrinterParams.iLogoHeight_B = tmpImage.Size.Height;
+                _sWinPrinterParamsCopy.iLogoWidth_B = tmpImage.Size.Width;
+                _sWinPrinterParamsCopy.iLogoHeight_B = tmpImage.Size.Height;
 
-                LogToFile("WinPrinterDlg : Load Logo_B" + sGlbWinPrinterParams.sLogoName_B);
+                LogToFile("WinPrinterDlg : Load Logo_B" + _sWinPrinterParamsCopy.sLogoName_B);
 
                 // libera la risorsa file
                 tmpImage.Dispose();
@@ -749,15 +767,7 @@ namespace StandFacile
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            _sWinPrinterParamsCopy = DeepCopy(sGlbWinPrinterParams);
             AggiornaAspettoControlli();
-        }
-
-        private void WinPrinterDlg_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            Hide();
-            // evita la distruzione della form creando una eccezione alla successiva apertura
-            e.Cancel = true;
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
@@ -865,12 +875,14 @@ namespace StandFacile
                 }
             }
 
-            if (_sWinPrinterParamsCopy.bA5Paper)
-                WriteRegistry(PRINT_ON_A5_PAPER_KEY, 1);
-            else
-                WriteRegistry(PRINT_ON_A5_PAPER_KEY, 0);
-
             LogToFile("WinPrinterDlg : OKBtnClick");
+        }
+
+        private void WinPrinterDlg_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Hide();
+            // evita la distruzione della form creando una eccezione alla successiva apertura
+            e.Cancel = true;
         }
 
     }

@@ -1,6 +1,6 @@
 ﻿/********************************************************************
     NomeFile : StandCommonSrc/VisDatiDlg.cs
-    Data	 : 30.08.2025
+    Data	 : 06.09.2025
     Autore : Mauro Artuso
 
     Classe di visualizzazione dei files Dati o Prezzi
@@ -939,10 +939,10 @@ namespace StandFacile
                     xls_Export();
                     break;
                 case 1:
-                    freeExport(true);
+                    FreeExport(true);
                     break;
                 case 2:
-                    freeExport(false);
+                    FreeExport(false);
                     break;
             }
         }

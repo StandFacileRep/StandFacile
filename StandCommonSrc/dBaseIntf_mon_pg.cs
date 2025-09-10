@@ -1,6 +1,6 @@
 ﻿/*************************************************************************************************
-	 NomeFile : StandCommonSrc/dBaseIntf_pg.cs
-     Data	 : 20.07.2025
+	 NomeFile : StandCommonSrc/dBaseIntf_mon_pg.cs
+     Data	 : 07.09.2025
 	 Autore   : Mauro Artuso
 
     nelle assegnazioni :
@@ -92,7 +92,7 @@ namespace StandFacile_DB
                         }
                     }
 
-                    sQuery = "SELECT * FROM " + _sDBTNameDati + " WHERE (\"iRiga_ID\" >= 0) AND (\"iPrezzo_Unitario\" > 0) ";
+                    sQuery = "SELECT * FROM " + _sDBTNameDati + " WHERE (\"iRiga_ID\" >= 0) AND (\"sTipo_Articolo\" NOT LIKE \'" + SHMAGIC + "%\') ";
 
                     if (!String.IsNullOrEmpty(sFilter))
                         sQuery += "AND (" + sFilter + ")";
@@ -207,7 +207,7 @@ namespace StandFacile_DB
 
                         if (Tablenames.Contains(_sDBTNameDati))// la tabella esiste
                         {
-                            sQuery = "SELECT * FROM " + _sDBTNameDati + " WHERE (\"iRiga_ID\" >= 0) AND (\"iPrezzo_Unitario\" > 0) ";
+                            sQuery = "SELECT * FROM " + _sDBTNameDati + " WHERE (\"iRiga_ID\" >= 0) AND (\"sTipo_Articolo\" NOT LIKE \'" + SHMAGIC + "%\') ";
 
                             if (!String.IsNullOrEmpty(sFilter))
                                 sQuery += "AND (" + sFilter + ")";

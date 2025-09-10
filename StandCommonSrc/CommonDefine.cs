@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 30.08.2025
+    Data	 : 09.09.2025
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.15.1";
+        public const String RELEASE_SW = "v5.15.1 beta";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5c";
@@ -308,9 +308,6 @@ namespace StandCommonFiles
 
         /// <summary>chiave che descrive se è richiesta la stampa del barcode</summary>
         public const String STAMPA_BARCODE_KEY = "iStampaBarcode";
-
-        /// <summary>chiave che descrive se si stampano 4righe prima del taglio carta</summary>
-        public const String PRINT_ON_A5_PAPER_KEY = "iPrintOnA5Paper";
 
         /// <summary>chiave che descrive se si utilizzano 33 caratteri per riga, oppure 28</summary>
         public const String PRINT_ON_33CHARS_RECEIPT_KEY = "iPrint33CharsReceipt";
@@ -741,7 +738,7 @@ namespace StandCommonFiles
             BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED,
 
             /// <summary>bit di iReceiptCopyOptions per chiedere la stampa dei prezzi anche nelle copie locali</summary>
-            BIT_PRICE_PRINT_REQUIRED
+            BIT_PRICE_PRINT_ON_COPIES_REQUIRED
 
             /*****************************************************************************************
 	         i primi 10 bit di iReceiptCopyOptions sono riservati per gestione _bSelectedGroups[i]
@@ -774,6 +771,8 @@ namespace StandCommonFiles
             /// <summary>flag per stampa Receipt a 33 caratteri per riga</summary>
             public bool bChars33;
 
+            /// <summary>flag per stampa su carta A4</summary>
+            public bool bA4Paper;
             /// <summary>flag per stampa su carta A5</summary>
             public bool bA5Paper;
 
@@ -837,6 +836,7 @@ namespace StandCommonFiles
             public TWinPrinterParams(int i)
             {
                 bChars33 = true;
+                bA4Paper = false;
                 bA5Paper = false;
 
                 sTckPrinterModel = "";
@@ -1292,6 +1292,9 @@ namespace StandCommonFiles
 
         /// <summary>testo descrittivo del punto di inserimento Logo Bottom</summary>
         public static readonly String _LOGO_B = "#####  LOGO_B  #####";
+
+        /// <summary>testo descrittivo del punto di inserimento Barcode</summary>
+        public static readonly String _BARCODE = "#####  BARCODE  #####";
 
         /// <summary>testo descrittivo del formato per punto di taglio</summary>
         public static readonly String _CUT_FMT = "{0}\r\n\r\n";

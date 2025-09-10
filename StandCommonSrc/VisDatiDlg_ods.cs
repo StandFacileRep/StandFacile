@@ -33,7 +33,7 @@ namespace StandFacile
         /// <summary>
         /// Esportazione dei dati di riepilogo giornaliero
         /// </summary>
-        private void freeExport(bool bIsXlsParam)
+        private void FreeExport(bool bIsXlsParam)
         {
             bool bMatch;
             int i, j, iRow, iLastItemRow, iColumn, iUpperLimit;

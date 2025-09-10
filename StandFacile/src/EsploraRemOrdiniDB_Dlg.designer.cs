@@ -41,7 +41,7 @@
             this.dbConnStatusBox = new System.Windows.Forms.PictureBox();
             this.ckBoxAutoLoad = new System.Windows.Forms.CheckBox();
             this.labelQueryTime = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox = new System.Windows.Forms.GroupBox();
             this.radioBtn2 = new System.Windows.Forms.RadioButton();
             this.radioBtn1 = new System.Windows.Forms.RadioButton();
             this.radioBtn0 = new System.Windows.Forms.RadioButton();
@@ -50,7 +50,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dbGrid)).BeginInit();
             this.topPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dbConnStatusBox)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.groupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // dbGrid
@@ -187,20 +187,20 @@
             this.labelQueryTime.TabIndex = 28;
             this.labelQueryTime.Text = "risposta server: xxx ms";
             // 
-            // groupBox1
+            // groupBox
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.groupBox1.Controls.Add(this.radioBtn2);
-            this.groupBox1.Controls.Add(this.radioBtn1);
-            this.groupBox1.Controls.Add(this.radioBtn0);
-            this.groupBox1.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.groupBox1.Location = new System.Drawing.Point(18, 505);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(1);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(248, 44);
-            this.groupBox1.TabIndex = 29;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "filtro";
+            this.groupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupBox.Controls.Add(this.radioBtn2);
+            this.groupBox.Controls.Add(this.radioBtn1);
+            this.groupBox.Controls.Add(this.radioBtn0);
+            this.groupBox.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.groupBox.Location = new System.Drawing.Point(18, 505);
+            this.groupBox.Margin = new System.Windows.Forms.Padding(1);
+            this.groupBox.Name = "groupBox";
+            this.groupBox.Size = new System.Drawing.Size(248, 44);
+            this.groupBox.TabIndex = 29;
+            this.groupBox.TabStop = false;
+            this.groupBox.Text = "filtro";
             // 
             // radioBtn2
             // 
@@ -276,7 +276,7 @@
             this.ClientSize = new System.Drawing.Size(624, 562);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.BtnRem_Canc);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox);
             this.Controls.Add(this.labelQueryTime);
             this.Controls.Add(this.ckBoxAutoLoad);
             this.Controls.Add(this.dbConnStatusBox);
@@ -296,8 +296,8 @@
             this.topPanel.ResumeLayout(false);
             this.topPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dbConnStatusBox)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBox.ResumeLayout(false);
+            this.groupBox.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -313,7 +313,7 @@
         private System.Windows.Forms.PictureBox dbConnStatusBox;
         private System.Windows.Forms.CheckBox ckBoxAutoLoad;
         private System.Windows.Forms.Label labelQueryTime;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox;
         private System.Windows.Forms.RadioButton radioBtn0;
         private System.Windows.Forms.RadioButton radioBtn2;
         private System.Windows.Forms.RadioButton radioBtn1;

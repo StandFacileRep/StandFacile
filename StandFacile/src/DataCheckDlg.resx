@@ -117,7 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="textBox.Text" xml:space="preserve">
-    <value>Selezionare la data di interesse: ai fini dell'esportazione Excel/ODS è anche possibile selezionare un intervallo di giorni cliccando sull'inizio desiderato, e poi muovendosi con le frecce tenendo premuto il tasto Shift</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnOK.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACgAAAAeCAYAAABe3VzdAAAABGdBTUEAALGPC/xhBQAAAN5JREFUWEft
+        08sLAVEUx3F/laRm8khXjYXHGHnksTGS8khZjBT5B5Qp5C+wkYUVymPlr/rpqLGw15xyvnUX93QXn7qd
+        QECSJEn6ee17CWo8wvecRYSr7VpI9Of8gIRLrU2oyQDlRYUXkHD1cwZar4TC0uSFs28WrGMSQdvgiate
+        UggPI/7i6Au9480IR3d9qsFys/7hKOuQhfPoYnqbfaC9RwNqyQBHpTcKytVhn4pwnh00r3kYW43XthLS
+        WMWQ20eh3NAbR7Pvd75GIH0WRHwe4YfzIhhbnCRJkvTnvQCq3n8OdCQIxwAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="btnCancel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACgAAAAeCAYAAABe3VzdAAAABGdBTUEAALGPC/xhBQAAAIdJREFUWEft
+        1dEJgDAMRdEM00G7ptNEKhT0kVR/TCK+CyI2Fg+CKMIYY99NRXQT0XHGWUja2gHA9dHEzQPnr3cG9N4v
+        AMThPCQP4a2nZGHwGveEh8hSuJmFLAVEXCmg9fbKIFe4dKSFw684Denh7mZhIQIBq79MSE8A4x5vFtJ4
+        eCqAMcZ+0g4g1uT80cLl/wAAAABJRU5ErkJggg==
+</value>
   </data>
 </root>

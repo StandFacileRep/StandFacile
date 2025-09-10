@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************
 	NomeFile : StandCommonSrc/LegacyPrinterDlg.cs
-    Data	 : 06.12.2024
+    Data	 : 10.09.2025
 	Autore   : Mauro Artuso
  ****************************************************************************/
 
@@ -367,69 +367,6 @@ namespace StandFacile
 
                     break;
 
-                case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_SER:
-                case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_LPT:
-
-                    PaperSizeGroupBox.Enabled = true;
-                    LogoBmpCombo.Enabled = true;
-
-                    if (!FontTypeCombo.SelectedItem.ToString().Contains("LP2844"))
-                    {
-                        FontTypeCombo.Items.Clear();
-
-                        if (width80.Checked)
-                        {
-                            FontTypeCombo.Items.Add("LP2844 : Font originali");
-                            FontTypeCombo.Items.Add("LP2844 : Soft Font \"a\"");
-                            FontTypeCombo.Items.Add("LP2844 : Soft Font \"b\"");
-                            FontTypeCombo.Items.Add("LP2844 : Soft Font \"c\"");
-                            FontTypeCombo.Items.Add("LP2844 : Soft Font \"d\"");
-                            FontTypeCombo.Enabled = true;
-                        }
-                        else
-                        {
-                            FontTypeCombo.Items.Add("LP2844 : Font standard");
-                            FontTypeCombo.Enabled = false;
-                        }
-
-                        FontTypeCombo.SelectedIndex = 0;
-                    }
-
-                    if (PrinterTypeCombo.SelectedIndex == (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_SER)
-                    {
-                        Lbl_ImpSer.Enabled = true;
-                        SettingsGroupBox.Enabled = true;
-
-                        FlowRadio.Enabled = true;
-                        flow_NONE.Enabled = true;
-                        flow_RTS_CTS.Enabled = true;
-                        flow_XON_XOFF.Enabled = false;
-
-                        if (flow_RTS_CTS.Checked)
-                            _sLegacyPrinterParamsCopy.iFlowCtrl = (int)FLOW_CONTROL.RTS_CTS;
-                        else
-                            _sLegacyPrinterParamsCopy.iFlowCtrl = (int)FLOW_CONTROL.FLOW_NONE;
-                    }
-                    else
-                    {
-                        Lbl_ImpSer.Enabled = false;
-                        SettingsGroupBox.Enabled = false;
-
-                        FlowRadio.Enabled = false;
-                        flow_NONE.Enabled = false;
-                        flow_RTS_CTS.Enabled = false;
-                        flow_XON_XOFF.Enabled = false;
-
-                        flow_NONE.Checked = true;
-                    }
-
-                    speedGroupBox.Enabled = true;
-                    densityGroupBox.Enabled = true;
-
-                    btnInfo.Enabled = true;
-                    btnAutotest.Enabled = true;
-
-                    break;
                 default:
                     flow_NONE.Enabled = false;
                     flow_RTS_CTS.Enabled = false;

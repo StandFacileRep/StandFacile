@@ -36,10 +36,6 @@ namespace StandCommonFiles
             STAMPANTE_TM_T88_SER = 0,
             /// <summary>modello TM-T88 parallela</summary>
             STAMPANTE_TM_L90_LPT,
-            /// <summary>modello LP2844 seriale</summary>
-            STAMPANTE_LP2844_PAGEMODE_SER,
-            /// <summary>modello LP2844 parallela</summary>
-            STAMPANTE_LP2844_PAGEMODE_LPT
         };
 
         /// <summary>num,ero max dei modelli</summary>
@@ -247,11 +243,6 @@ namespace StandCommonFiles
                                 case (int)LEGACY_PRINTER_MODELS.STAMPANTE_TM_T88_SER:
                                 case (int)LEGACY_PRINTER_MODELS.STAMPANTE_TM_L90_LPT:
                                     TPrinter_TM_POS.PrintFile(sFileToPrint);
-                                    break;
-
-                                case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_SER:
-                                case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_LPT:
-                                    TPrinter_LP2844.PrintFile(sFileToPrint);
                                     break;
                             }
 
@@ -638,10 +629,6 @@ namespace StandCommonFiles
                 case (int)LEGACY_PRINTER_MODELS.STAMPANTE_TM_L90_LPT:
                     TPrinter_TM_POS.PrintAutoTest();
                     break;
-                case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_SER:
-                case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_LPT:
-                    TPrinter_LP2844.PrintAutoTest();
-                    break;
             }
 
             PortClose();
@@ -660,11 +647,6 @@ namespace StandCommonFiles
             {
                 case (int)LEGACY_PRINTER_MODELS.STAMPANTE_TM_T88_SER:
                 case (int)LEGACY_PRINTER_MODELS.STAMPANTE_TM_L90_LPT:
-                    break;
-
-                case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_SER:
-                case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_LPT:
-                    TPrinter_LP2844.PrintInfo();
                     break;
             }
 

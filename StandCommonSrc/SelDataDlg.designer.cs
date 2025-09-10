@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SelDataDlg));
             this.OKBtn = new System.Windows.Forms.Button();
             this.textBox = new System.Windows.Forms.TextBox();
             this.mCalendar = new System.Windows.Forms.MonthCalendar();
@@ -39,7 +40,7 @@
             this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKBtn.Image = global::StandFacile.Properties.Resources.OK;
             this.OKBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OKBtn.Location = new System.Drawing.Point(173, 286);
+            this.OKBtn.Location = new System.Drawing.Point(195, 293);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(78, 28);
             this.OKBtn.TabIndex = 0;
@@ -57,16 +58,14 @@
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
-            this.textBox.Size = new System.Drawing.Size(385, 65);
+            this.textBox.Size = new System.Drawing.Size(433, 79);
             this.textBox.TabIndex = 1;
-            this.textBox.Text = "Selezionare la data di interesse: è anche possibile selezionare un intervallo di " +
-    "giorni cliccando sull\'inizio desiderato, e muovendosi con le frecce tenendo prem" +
-    "uto il tasto Shift";
+            this.textBox.Text = resources.GetString("textBox.Text");
             // 
             // mCalendar
             // 
             this.mCalendar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.mCalendar.Location = new System.Drawing.Point(98, 103);
+            this.mCalendar.Location = new System.Drawing.Point(114, 114);
             this.mCalendar.MaxSelectionCount = 60;
             this.mCalendar.MinDate = new System.DateTime(2025, 1, 1, 0, 0, 0, 0);
             this.mCalendar.Name = "mCalendar";
@@ -78,7 +77,7 @@
             this.AcceptButton = this.OKBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(423, 333);
+            this.ClientSize = new System.Drawing.Size(460, 333);
             this.Controls.Add(this.mCalendar);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.OKBtn);

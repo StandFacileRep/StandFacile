@@ -189,9 +189,6 @@
     <Compile Include="..\..\StandCommonSrc\Printer_Legacy.cs">
       <Link>Printer_Legacy.cs</Link>
     </Compile>
-    <Compile Include="..\..\StandCommonSrc\Printer_LP2844.cs">
-      <Link>Printer_LP2844.cs</Link>
-    </Compile>
     <Compile Include="..\..\StandCommonSrc\Printer_Windows.cs">
       <Link>Printer_Windows.cs</Link>
     </Compile>

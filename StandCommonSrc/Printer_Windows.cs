@@ -1,11 +1,13 @@
 ﻿/*****************************************************************************
 	NomeFile : StandCommonSrc/Printer_Windows.cs
-    Data	 : 24.08.2025
+    Data	 : 06.09.2025
 	Autore   : Mauro Artuso
 
 	Descrizione :
 	Questo file contiene la classe per la gestione della stampante
 	Windows generica mediante Canvas ed installata con il suo driver
+
+    con carta A4 tutte le stampe sono incluse nella Receipt
 
   	consigliato Soft Font Lucida Console, size 12
 
@@ -50,29 +52,36 @@ namespace StandCommonFiles
         const int BARCODE_HEIGHT = 100;
         //const String WIDE_CONST_STRING = "*********_*********_********";
 
+        const float PAGE_VERT_SIZE_PERC = 0.60f;
         static bool _bIsDati, _bIsTicket;
-        static bool _bLogo;
+        static bool _bLogoCheck_T, _bLogoCheck_B;
         static bool _bCopiaCucina;
-        static bool _bStampaBarcode, _bStampaBarcodePrev;
         static bool _bTicketNumFound;
-        static bool _bSkipNumeroScontrino, _bLogoPrinted;
+        static bool _bSkipNumeroScontrino, _bLogoPrinted_T, _bLogoPrinted_B;
 
         /// <summary>se true evita la stampa dello scontrino</summary>
         static bool _bSkipTicketPrint = false;
+        static bool _bPaperIsA4 = false;
 
         /// <summary>imposta l'intervallo tra le stampe</summary>
         public static int iPrint_WaitInterval = 200;
 
-        static float _fLeftMargin, _fLogoCenter;
-        static float _fCanvasVertPos;
+        static float _fLeftMargin, _fLogoCenter, _fLeftMarginBk;
+        static float _fCanvasVertPos, _fCanvasVertPosBk, _fCanvasVertPosBk2;
 
-        static int _iPageRows, _iGruppoStampa;
+        static int _iGruppoStampa;
 
         static Char[] _cGruppoStampa = { '9', '9' };
         static String _sDataStr = "";
         static String _sOrdineNum = "";
 
         static TErrMsg _WrnMsg;
+
+        static float _fLogo_T_LeftMargin, _fLogo_T_LeftMarginBk;
+        static float _fLogo_B_LeftMargin, _fLogo_B_LeftMarginBk;
+        static float _fFont_HSize, _fFont_VSize, _fLogoFont_HSize;
+
+        static Image _img_T, _img_B;
 
         static Font _printFont = new Font("Lucida Console", 10.25f, FontStyle.Regular);
         static Font _LogoFont = new Font("Lucida Console", 10.25f, FontStyle.Regular);
@@ -132,10 +141,17 @@ namespace StandCommonFiles
             _bIsDati = false;
             _bCopiaCucina = false;
             _bIsTicket = false;
-            _bStampaBarcodePrev = false;
-            _bLogo = true;
+            _bLogoCheck_T = true;
+            _bLogoCheck_B = true;
 
             _fReceiptVsCopyZoom = 1.0f;
+
+            _fLeftMarginBk = 0;
+            _fCanvasVertPosBk = 0;
+            _fCanvasVertPosBk2 = 0;
+
+            _fLogo_T_LeftMargin = 0;
+            _fLogo_B_LeftMargin = 0;
 
             // init
             _sOrdineNum = "0123"; // per sampleText
@@ -145,6 +161,9 @@ namespace StandCommonFiles
             _sFileToPrintParam = sFileToPrintParam;
 
             sTmp = Path.GetFileName(_sFileToPrintParam);
+
+            _img_T = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo(true);
+            _img_B = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo(false);
 
             _iGruppoStampa = 0;
 
@@ -171,7 +190,7 @@ namespace StandCommonFiles
                 }
                 else // copia locale
                 {
-                    if (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_REQUIRED))
+                    if (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_ON_COPIES_REQUIRED))
                         _fReceiptVsCopyZoom = sWinPrinterParams.bChars33 ? (28.0f / 33.0f) : 1.0f;
 
                     _bTicketNumFound = true; // necessario nella copia Receipt NoPrices
@@ -191,7 +210,8 @@ namespace StandCommonFiles
             }
             else
             {
-                _bLogo = false;
+                _bLogoCheck_T = false;
+                _bLogoCheck_B = false;
             }
 
             _bTicketNumFound = true;
@@ -201,12 +221,6 @@ namespace StandCommonFiles
 
             iDebug1 = DB_Data.iStatusReceipt; // 4 BIT_CARICATO_DA_PREVENDITA
             iDebug2 = SF_Data.iStatusReceipt; // 2 BIT_EMESSO_IN_PREVENDITA
-
-            // aggiunto bUSA_NDB() per ignorare il flag del listino con SQLite
-            _bStampaBarcode = IsBitSet(SF_Data.iBarcodeRichiesto, _iGruppoStampa) && bUSA_NDB();
-
-            // OK verificato
-            _bStampaBarcodePrev = SF_Data.bPrevendita || IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_EMESSO_IN_PREVENDITA) && !IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA);
 
             //numero di colonne ridotto -> font più grande
             if (_sFileToPrintParam.Contains(NOME_FILE_STAMPA_LOC_TMP) || _sFileToPrintParam.Contains(NOME_FILE_STAMPA_LOC_RID_TMP) ||
@@ -220,8 +234,6 @@ namespace StandCommonFiles
                 else
                     _fReceiptVsCopyZoom = sWinPrinterParams.bChars33 ? (26.0f / 33.0f) : 0.86f;
             }
-#else
-            _bStampaBarcode = (ReadRegistry(STAMPA_BARCODE_KEY, 0) == 1);
 #endif
 
             // String sTmpFormat = String.Format("{0,2:D2}", _iGruppoStampa);
@@ -253,23 +265,48 @@ namespace StandCommonFiles
                 else
                     return;
 
+                // controlli sul Logo Top
+                if (String.IsNullOrEmpty(_sWinPrinterParams.sLogoName_T))
+                    _bLogoCheck_T = false;
+                else
+                {
+                    // verifica che esista anche il nome del file Logo
+                    if ((_sWinPrinterParams.iLogoWidth_T < 50) || (_sWinPrinterParams.iLogoWidth_T > (LOGO_WIDTH + 100)) ||
+                       (_sWinPrinterParams.iLogoHeight_T < 50) || (_sWinPrinterParams.iLogoHeight_T > (LOGO_HEIGHT + 100)))
+                        _bLogoCheck_T = false;
+                    else
+                    {
+                        _fLogo_T_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * _fLogoFont_HSize - _img_T.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
+
+                        if (_fLogo_T_LeftMargin < 0)
+                            _fLogo_T_LeftMargin = _fLogoCenter;
+                    }
+                }
+
+                // controlli sul Logo Bottom
+                if (String.IsNullOrEmpty(_sWinPrinterParams.sLogoName_B))
+                    _bLogoCheck_B = false;
+                else
+                {
+                    // verifica che esista anche il nome del file Logo
+                    if ((_sWinPrinterParams.iLogoWidth_B < 50) || (_sWinPrinterParams.iLogoWidth_B > (LOGO_WIDTH + 100)) ||
+                       (_sWinPrinterParams.iLogoHeight_B < 50) || (_sWinPrinterParams.iLogoHeight_B > (LOGO_HEIGHT + 100)))
+                        _bLogoCheck_B = false;
+                    else
+                    {
+                        _fLogo_B_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * _fLogoFont_HSize - _img_B.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
+
+                        if (_fLogo_B_LeftMargin < 0)
+                            _fLogo_B_LeftMargin = _fLogoCenter;
+                    }
+                }
+
                 LogToFile("Printer_Windows : inizio stampa di " + _sFileToPrintParam);
 
-                // ciclo per consentire i tagli intermedi
+                // ciclo esterno per consentire i tagli intermedi
                 while (!_fileToPrint.EndOfStream)
                 {
                     PrintDocument pd = new PrintDocument();
-
-                    // controlli sul Logo
-                    if (String.IsNullOrEmpty(_sWinPrinterParams.sLogoName_T))
-                        _bLogo = false;
-                    else
-                    {
-                        // verifica che esista anche il nome del file Logo
-                        if ((_sWinPrinterParams.iLogoWidth_T < 50) || (_sWinPrinterParams.iLogoWidth_T > (LOGO_WIDTH + 100)) ||
-                           (_sWinPrinterParams.iLogoHeight_T < 50) || (_sWinPrinterParams.iLogoHeight_T > (LOGO_HEIGHT + 100)))
-                            _bLogo = false;
-                    }
 
                     pd.DocumentName = Path.GetFileName(_sFileToPrintParam);
                     pd.DefaultPageSettings.Margins = margins;
@@ -349,6 +386,9 @@ namespace StandCommonFiles
 
                     }
 
+                    // controlla se la carta è di tipo A4
+                    _bPaperIsA4 = (pd.PrinterSettings.DefaultPageSettings.PaperSize.Kind == PaperKind.A4);
+
                     // controllo sullo zoom
                     if (_fHZoom < 0.5f) _fHZoom = 0.5f;
                     if (_fVZoom < 0.5f) _fVZoom = 0.5f;
@@ -380,17 +420,17 @@ namespace StandCommonFiles
                     if (sPrevPrinter != pd.PrinterSettings.PrinterName)
                     {
                         sTmp = String.Format("Printer_Windows : PrinterResolution.Kind = {0}", (int)pd.PrinterSettings.DefaultPageSettings.PrinterResolution.Kind);
-                        LogToFile(sTmp);
+                        LogToFile(sTmp, true);
 
                         sTmp = String.Format("Printer_Windows : _fH_px_to_gu = {0}, _fV_px_to_gu = {1}", _fH_px_to_gu, _fV_px_to_gu);
-                        LogToFile(sTmp);
+                        LogToFile(sTmp, true);
                         sTmp = String.Format("Printer_Windows : iTckFontSize = {0}, _fLeftMargin = {1}, _fLogoCenter = {2}", _sWinPrinterParams.fTckFontSize, _fLeftMargin, _fLogoCenter);
-                        LogToFile(sTmp);
+                        LogToFile(sTmp, true);
                         sTmp = String.Format("Printer_Windows : _fHZoom = {0}, _fVZoom = {1}", _fHZoom, _fVZoom);
-                        LogToFile(sTmp);
+                        LogToFile(sTmp, true);
 
                         sTmp = String.Format("Printer_Windows nome stampante: {0}", pd.PrinterSettings.PrinterName);
-                        LogToFile(sTmp);
+                        LogToFile(sTmp, true);
 
                         sPrevPrinter = pd.PrinterSettings.PrinterName;
                     }
@@ -402,7 +442,6 @@ namespace StandCommonFiles
                     }
                     else
                     {
-
                         pd.PrintPage += new PrintPageEventHandler(pd_PrintPage);
 
                         LogToFile("Printer_Windows : PrintPage");
@@ -410,7 +449,7 @@ namespace StandCommonFiles
                         // stampa
                         pd.Print();
                     }
-                }
+                } // end while()
 
                 _fileToPrint.Close();
 
@@ -439,16 +478,13 @@ namespace StandCommonFiles
         // The PrintPage event is raised for each page to be printed.
         private static void pd_PrintPage(object sender, PrintPageEventArgs ev)
         {
-            bool bLogoRequested_T, bLogoRequested_B;
-            int i, iPos;
+            bool bLogoRequested_T, bLogoRequested_B, bBarcodeRequested;
+            int i, iPos, iA4_PrintStatus;
 
             Graphics pg = ev.Graphics;
 
-            float linesPerPage;
-            float fLogo_LeftMargin;
             float fBC_LeftMargin, fBC_Height, fBC_Zoom;
             float topMargin = ev.MarginBounds.Top;
-            float fFont_HSize, fFont_VSize, fLogoFont_HSize;
 
             string sTmp, sInStr;
             String sBarcode;
@@ -457,31 +493,33 @@ namespace StandCommonFiles
             Pen blackPen = new Pen(Brushes.Black, 2.0f);
             fBC_Zoom = 1.6f; // per rendere uguale strip nere e bianche
 
-            _iPageRows = 0; // reset all'inizio della pagina
-
-            // Calculate the number of lines per page.
-            linesPerPage = ev.MarginBounds.Height / _printFont.GetHeight(ev.Graphics);
-
-            // fFont_VSize = pg.MeasureString(WIDE_CONST_STRING, _printFont).Width;
+            // _fFont_VSize = pg.MeasureString(WIDE_CONST_STRING, _printFont).Width;
             // char width in pixels
-            fFont_HSize = pg.MeasureString("W", _printFont).Width * 1.22f;
-            fFont_VSize = pg.MeasureString("W", _printFont).Height * 1.22f;
+            _fFont_HSize = pg.MeasureString("W", _printFont).Width * 1.22f;
+            _fFont_VSize = pg.MeasureString("W", _printFont).Height * 1.22f;
 
-            fLogoFont_HSize = pg.MeasureString("W", _LogoFont).Width * 1.22f;
+            _fLogoFont_HSize = pg.MeasureString("W", _LogoFont).Width * 1.22f;
 
             i = (int)pg.PageUnit;
 
+            // inizializzazione posizionamento e init Bk
             _fCanvasVertPos = topMargin;
 
+            _fCanvasVertPosBk = _fCanvasVertPos;
+            _fLeftMarginBk = _fLeftMargin;
+
+            _fLogo_T_LeftMarginBk = _fLogo_T_LeftMargin;
+            _fLogo_B_LeftMarginBk = _fLogo_B_LeftMargin;
+
+            iA4_PrintStatus = 0;
             PrintCanvas(pg, "");
 
-            while ((_iPageRows < linesPerPage) && ((sInStr = _fileToPrint.ReadLine()) != null))
+            while ((_fCanvasVertPos < ev.PageSettings.PaperSize.Height) && ((sInStr = _fileToPrint.ReadLine()) != null))
             {
                 if (!String.IsNullOrEmpty(sInStr) && (sInStr.IndexOf(_LOGO_T) != -1) || (sInStr.IndexOf(_LOGO) != -1))
                 {
                     bLogoRequested_T = true;
 
-                    sInStr = _fileToPrint.ReadLine();
                     sInStr = _fileToPrint.ReadLine();
                 }
                 else
@@ -496,40 +534,40 @@ namespace StandCommonFiles
                 else
                     bLogoRequested_B = false;
 
+                if (!String.IsNullOrEmpty(sInStr) && (sInStr.IndexOf(_BARCODE) != -1))
+                {
+                    bBarcodeRequested = true;
+
+                    sInStr = _fileToPrint.ReadLine();
+                }
+                else
+                    bBarcodeRequested = false;
+
                 /*************************************
                  *        Stampa del Logo Top
                  *************************************/
-                if (_bLogo && bLogoRequested_T)
+                if (_bLogoCheck_T && bLogoRequested_T)
                 {
-                    Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo(true);
 
-                    if (img != null)
+                    RectangleF imageRect = new RectangleF(_fLogo_T_LeftMargin, _fCanvasVertPos, _img_T.Size.Width * _fHZoom * _fH_px_to_gu,
+                                                            _img_T.Size.Height * _fVZoom * _fV_px_to_gu);
+
+                    pg.DrawImage(_img_T, imageRect);
+
+                    _fCanvasVertPos += _img_T.Size.Height * _fVZoom * _fV_px_to_gu;
+
+                    PrintCanvas(pg, "");
+
+                    if (!_bLogoPrinted_T)
                     {
-                        fLogo_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * fLogoFont_HSize - img.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
+                        _bLogoPrinted_T = true;
 
-                        if (fLogo_LeftMargin < 0)
-                            fLogo_LeftMargin = _fLogoCenter;
-
-                        RectangleF imageRect = new RectangleF(fLogo_LeftMargin, _fCanvasVertPos, img.Size.Width * _fHZoom * _fH_px_to_gu,
-                                                                img.Size.Height * _fVZoom * _fV_px_to_gu);
-
-                        pg.DrawImage(img, imageRect);
-
-                        _fCanvasVertPos += img.Size.Height * _fVZoom * _fV_px_to_gu;
-                        _iPageRows = Convert.ToInt32(img.Size.Height * _fVZoom * _fV_px_to_gu / _printFont.GetHeight(ev.Graphics));
-
-                        PrintCanvas(pg, "");
-
-                        if (!_bLogoPrinted)
-                        {
-                            _bLogoPrinted = true;
-
-                            sTmp = String.Format("Printer_Windows Logo: {0:0.00}, {1:0.00}, {2:0.00}, {3:0.00}", fLogo_LeftMargin, _fCanvasVertPos,
-                                                    img.Size.Width * _fHZoom * _fH_px_to_gu, img.Size.Height * _fVZoom * _fV_px_to_gu);
-                            LogToFile(sTmp);
-                        }
+                        sTmp = String.Format("Printer_Windows Logo: {0:0.00}, {1:0.00}, {2:0.00}, {3:0.00}", _fLogo_T_LeftMargin, _fCanvasVertPos,
+                                                _img_T.Size.Width * _fHZoom * _fH_px_to_gu, _img_T.Size.Height * _fVZoom * _fV_px_to_gu);
+                        LogToFile(sTmp);
                     }
                 }
+
 
                 /*************************************
                  * 		   Stampa del testo
@@ -573,52 +611,163 @@ namespace StandCommonFiles
                             sInStr = _fileToPrint.ReadLine();
                     }
 
-                    if (!String.IsNullOrEmpty(sInStr) && sInStr.Contains(_CUT))
+                    if (!String.IsNullOrEmpty(sInStr) && sInStr.Contains(_CUT) && sGlbWinPrinterParams.bA4Paper && _bPaperIsA4)
+                    {
+                        switch (iA4_PrintStatus)
+                        {
+                            // prepara 2Q
+                            case 0:
+                                // si pone a metà vert. pagina solo se c'è spazio che avanza rispetto al case 0
+                                if (_fCanvasVertPos < (_fCanvasVertPosBk + ev.PageSettings.PaperSize.Height / 2))
+                                    _fCanvasVertPosBk2 = _fCanvasVertPosBk + ev.PageSettings.PaperSize.Height / 2;
+                                else
+                                    _fCanvasVertPosBk2 += _fCanvasVertPos + _printFont.GetHeight(pg);
+
+                                _fLeftMargin = _fLeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
+                                _fCanvasVertPos = _fCanvasVertPosBk;
+
+                                _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
+                                _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
+
+                                PrintCanvas(pg, "");
+
+                                iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
+                                break;
+                            // prepara 3Q
+                            case 1:
+                                _fLeftMargin = _fLeftMarginBk; // ripristino Hor
+                                _fCanvasVertPos = _fCanvasVertPosBk2;
+
+                                _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk;
+                                _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk;
+
+                                iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
+                                PrintCanvas(pg, "");
+
+                                // forza interruzione di pagina
+                                if (_fCanvasVertPos > ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC)
+                                    _fCanvasVertPos = ev.PageSettings.PaperSize.Height;
+                                break;
+                            // prepara 4Q
+                            case 2:
+                                _fLeftMargin = _fLeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
+                                _fCanvasVertPos = _fCanvasVertPosBk2;
+
+                                _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
+                                _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
+
+                                iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
+                                PrintCanvas(pg, "");
+                                break;
+
+                            // prepara 1Q e cambio pagina
+                            default:
+                                _fLeftMargin = _fLeftMarginBk;
+                                // forza interruzione di pagina
+                                _fCanvasVertPos = ev.PageSettings.PaperSize.Height;
+
+                                _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk;
+                                _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk;
+
+                                iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
+                                PrintCanvas(pg, "");
+                                break;
+                        }
+
+                        sInStr = _fileToPrint.ReadLine();
+                        sInStr = _fileToPrint.ReadLine();
+
+                        Console.WriteLine("Prt_Win: iA4_PrintStatus = {0}", iA4_PrintStatus);
+                    }
+                    else if (!String.IsNullOrEmpty(sInStr) && sInStr.Contains(_CUT))
                     {
                         sInStr = _fileToPrint.ReadLine();
                         sInStr = _fileToPrint.ReadLine();
 
                         break;
                     }
-
-                    PrintCanvas(pg, sInStr);
+                    // testo normale
+                    else
+                    {
+                        PrintCanvas(pg, sInStr);
+                        Console.WriteLine("Prt_Win: {0}", sInStr);
+                    }
                 }
 
                 /*************************************
                  * 		Stampa del Logo Bottom
                  *************************************/
-                if (_bLogo && bLogoRequested_B)
+                if (_bLogoCheck_B && bLogoRequested_B)
                 {
-                    Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo(false);
+                    RectangleF imageRect = new RectangleF(_fLogo_B_LeftMargin, _fCanvasVertPos, _img_B.Size.Width * _fHZoom * _fH_px_to_gu,
+                                                            _img_B.Size.Height * _fVZoom * _fV_px_to_gu);
 
-                    if (img != null)
+                    pg.DrawImage(_img_B, imageRect);
+
+                    _fCanvasVertPos += _img_B.Size.Height * _fVZoom * _fV_px_to_gu;
+
+                    PrintCanvas(pg, "");
+
+                    if (!_bLogoPrinted_B)
                     {
-                        fLogo_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * fLogoFont_HSize - img.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
+                        _bLogoPrinted_B = true;
 
-                        if (fLogo_LeftMargin < 0)
-                            fLogo_LeftMargin = _fLogoCenter;
-
-                        RectangleF imageRect = new RectangleF(fLogo_LeftMargin, _fCanvasVertPos, img.Size.Width * _fHZoom * _fH_px_to_gu,
-                                                                img.Size.Height * _fVZoom * _fV_px_to_gu);
-
-                        pg.DrawImage(img, imageRect);
-
-                        _fCanvasVertPos += img.Size.Height * _fVZoom * _fV_px_to_gu;
-                        _iPageRows = Convert.ToInt32(img.Size.Height * _fVZoom * _fV_px_to_gu / _printFont.GetHeight(ev.Graphics));
-
-                        PrintCanvas(pg, "");
-
-                        if (!_bLogoPrinted)
-                        {
-                            _bLogoPrinted = true;
-
-                            sTmp = String.Format("Printer_Windows Logo: {0:0.00}, {1:0.00}, {2:0.00}, {3:0.00}", fLogo_LeftMargin, _fCanvasVertPos,
-                                                    img.Size.Width * _fHZoom * _fH_px_to_gu, img.Size.Height * _fVZoom * _fV_px_to_gu);
-                            LogToFile(sTmp);
-                        }
+                        sTmp = String.Format("Printer_Windows Logo: {0:0.00}, {1:0.00}, {2:0.00}, {3:0.00}", _fLogo_B_LeftMargin, _fCanvasVertPos,
+                                                _img_B.Size.Width * _fHZoom * _fH_px_to_gu, _img_B.Size.Height * _fVZoom * _fV_px_to_gu);
+                        LogToFile(sTmp);
                     }
                 }
-            }
+
+                /******************************************************
+                                   BAR CODE EAN13
+                  effettua la stampa solo se il flag bStampaBarcode
+                  è abilitato dal dialogo FrmImpostaTipoCassa
+                 ******************************************************/
+                if (bBarcodeRequested)
+                {
+                    fBC_LeftMargin = _fLeftMargin + _fLogoCenter + ((_sWinPrinterParams.bChars33 ? 33 : 28) * _fFont_HSize * _fHZoom * _fH_px_to_gu - 95 * blackPen.Width) / 2;
+
+                    if (fBC_LeftMargin < 0)
+                        fBC_LeftMargin = 0;
+
+                    fBC_Height = BARCODE_HEIGHT * _fVZoom * _fV_px_to_gu;
+
+                    sBarcode = String.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}",
+                        _cGruppoStampa[0], _cGruppoStampa[1],                                                   // 2 gruppo di stampa
+                        _sDataStr[0], _sDataStr[1], _sDataStr[2], _sDataStr[3], _sDataStr[4], _sDataStr[5],     // date
+                        _sOrdineNum[0], _sOrdineNum[1], _sOrdineNum[2], _sOrdineNum[3]);                        // Scontrino num
+
+                    if (_sFileToPrintParam.Contains(NOME_FILE_SAMPLE_TEXT))
+                    {
+                        Barcode_EAN13.BuildBarcodeID("010406220123");
+                    }
+                    else
+                        Barcode_EAN13.BuildBarcodeID(sBarcode);
+
+                    for (i = 0; i <= 94; i++)
+                    {
+                        if (Barcode_EAN13._sBuilString[i] == '1')
+                            pg.DrawLine(blackPen, fBC_LeftMargin + i * blackPen.Width * _fHZoom * _fH_px_to_gu * fBC_Zoom, _fCanvasVertPos,
+                                fBC_LeftMargin + i * blackPen.Width * _fHZoom * _fH_px_to_gu * fBC_Zoom, _fCanvasVertPos + fBC_Height);
+                    }
+
+                    _fCanvasVertPos += fBC_Height;
+
+                    // _sBarcodeID comprende il checksum
+                    sTmp = String.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}",
+                            Barcode_EAN13._sBarcodeID[0], Barcode_EAN13._sBarcodeID[1], Barcode_EAN13._sBarcodeID[2], Barcode_EAN13._sBarcodeID[3],
+                            Barcode_EAN13._sBarcodeID[4], Barcode_EAN13._sBarcodeID[5], Barcode_EAN13._sBarcodeID[6], Barcode_EAN13._sBarcodeID[7],
+                            Barcode_EAN13._sBarcodeID[8], Barcode_EAN13._sBarcodeID[9], Barcode_EAN13._sBarcodeID[10], Barcode_EAN13._sBarcodeID[11],
+                            Barcode_EAN13._sBarcodeID[12]);
+
+                    Font BC_Font = new Font("Arial", 11.0f);
+
+                    pg.DrawString(sTmp, BC_Font, Brushes.Black, fBC_LeftMargin, _fCanvasVertPos, new StringFormat());
+
+                    LogToFile(String.Format("Printer Win: _sBarcodeID = {0}", sTmp));
+                }
+            } // end while()
+
 
             if (!_bTicketNumFound)
             {
@@ -627,63 +776,8 @@ namespace StandCommonFiles
                 WarningManager(_WrnMsg);
             }
 
-            /******************************************************
-                               BAR CODE EAN13
-              effettua la stampa solo se il flag bStampaBarcode
-              è abilitato dal dialogo FrmImpostaTipoCassa
-             ******************************************************/
-            if ((_iPageRows < linesPerPage) && (_bCopiaCucina && _bStampaBarcode) || (_bIsTicket && _bStampaBarcodePrev) ||
-                _sFileToPrintParam.Contains(NOME_FILE_SAMPLE_TEXT))
-            {
-                fBC_LeftMargin = _fLogoCenter + ((_sWinPrinterParams.bChars33 ? 33 : 28) * fFont_HSize * _fHZoom * _fH_px_to_gu - 95 * blackPen.Width) / 2;
-
-                if (fBC_LeftMargin < 0)
-                    fBC_LeftMargin = 0;
-
-                fBC_Height = BARCODE_HEIGHT * _fVZoom * _fV_px_to_gu;
-
-                sBarcode = String.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}",
-                    _cGruppoStampa[0], _cGruppoStampa[1],                                                   // 2 gruppo di stampa
-                    _sDataStr[0], _sDataStr[1], _sDataStr[2], _sDataStr[3], _sDataStr[4], _sDataStr[5],     // date
-                    _sOrdineNum[0], _sOrdineNum[1], _sOrdineNum[2], _sOrdineNum[3]);                        // Scontrino num
-
-                if (_sFileToPrintParam.Contains(NOME_FILE_SAMPLE_TEXT))
-                {
-                    Barcode_EAN13.BuildBarcodeID("010406220123");
-                }
-                else
-                    Barcode_EAN13.BuildBarcodeID(sBarcode);
-
-                for (i = 0; i <= 94; i++)
-                {
-                    if (Barcode_EAN13._sBuilString[i] == '1')
-                        pg.DrawLine(blackPen, fBC_LeftMargin + i * blackPen.Width * _fHZoom * _fH_px_to_gu * fBC_Zoom, _fCanvasVertPos,
-                            fBC_LeftMargin + i * blackPen.Width * _fHZoom * _fH_px_to_gu * fBC_Zoom, _fCanvasVertPos + fBC_Height);
-                }
-
-                _fCanvasVertPos += fBC_Height;
-                _iPageRows += Convert.ToInt32(fBC_Height / fFont_VSize);
-
-                // _sBarcodeID comprende il checksum
-                sTmp = String.Format("{0} {1} {2} {3} {4} {5} {6} {7} {8} {9} {10} {11} {12}",
-                        Barcode_EAN13._sBarcodeID[0], Barcode_EAN13._sBarcodeID[1], Barcode_EAN13._sBarcodeID[2], Barcode_EAN13._sBarcodeID[3],
-                        Barcode_EAN13._sBarcodeID[4], Barcode_EAN13._sBarcodeID[5], Barcode_EAN13._sBarcodeID[6], Barcode_EAN13._sBarcodeID[7],
-                        Barcode_EAN13._sBarcodeID[8], Barcode_EAN13._sBarcodeID[9], Barcode_EAN13._sBarcodeID[10], Barcode_EAN13._sBarcodeID[11],
-                        Barcode_EAN13._sBarcodeID[12]);
-
-                Font BC_Font = new Font("Arial", 11.0f);
-
-                pg.DrawString(sTmp, BC_Font, Brushes.Black, fBC_LeftMargin, _fCanvasVertPos, new StringFormat());
-
-                LogToFile(String.Format("Printer Win: _sBarcodeID = {0}", sTmp));
-
-                _iPageRows++;
-
-                _bStampaBarcode = false;
-            }
-
-            // nel caso di carta A5 meglio evitare righe aggiuntive pre-taglio
-            if (!sGlbWinPrinterParams.bA5Paper)
+            // nel caso di carta A4, A5 meglio evitare righe aggiuntive pre-taglio
+            if (!(sGlbWinPrinterParams.bA4Paper || sGlbWinPrinterParams.bA5Paper))
             {
                 PrintCanvas(pg, " "); // 4 righe di fine stampa
                 PrintCanvas(pg, " ");
@@ -691,8 +785,15 @@ namespace StandCommonFiles
                 PrintCanvas(pg, "_");
             }
 
-            // valuta se servono altre pagine
-            ev.HasMorePages = (_iPageRows > linesPerPage);
+            // valuta se servono altre pagine, 25.4*32/100 = 8mm
+            if (_fCanvasVertPos > (ev.PageSettings.PaperSize.Height - 32))
+            {
+                // reset _fCanvasVertPos
+                _fCanvasVertPos = _printFont.GetHeight(pg);
+                ev.HasMorePages = true;
+            }
+            else
+                ev.HasMorePages = false;  // uscita loop
         }
 
         static void PrintCanvas(Graphics pgParam, float fSize, float fVertSep, String sStrParam)
@@ -702,7 +803,6 @@ namespace StandCommonFiles
             pgParam.DrawString(sStrParam, printFont, Brushes.Black, _fLeftMargin, _fCanvasVertPos);
 
             _fCanvasVertPos += printFont.GetHeight(pgParam) * fVertSep;
-            _iPageRows++;
         }
 
         static void PrintCanvas(Graphics pgParam, String sStrParam)
@@ -710,7 +810,6 @@ namespace StandCommonFiles
             pgParam.DrawString(sStrParam, _printFont, Brushes.Black, _fLeftMargin, _fCanvasVertPos);
 
             _fCanvasVertPos += _printFont.GetHeight(pgParam);
-            _iPageRows++;
         }
 
         /***************************************

@@ -231,9 +231,6 @@
     <Compile Include="..\..\StandCommonSrc\Printer_Legacy.cs">
       <Link>Printer_Legacy.cs</Link>
     </Compile>
-    <Compile Include="..\..\StandCommonSrc\Printer_LP2844.cs">
-      <Link>Printer_LP2844.cs</Link>
-    </Compile>
     <Compile Include="..\..\StandCommonSrc\Printer_Windows.cs">
       <Link>Printer_Windows.cs</Link>
     </Compile>
@@ -298,6 +295,12 @@
     </Compile>
     <Compile Include="ConfigIniDlg.Designer.cs">
       <DependentUpon>ConfigIniDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataCheckDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataCheckDlg.Designer.cs">
+      <DependentUpon>DataCheckDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm_Redraw.cs">
       <SubType>Form</SubType>
@@ -406,6 +409,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConfigIniDlg.resx">
       <DependentUpon>ConfigIniDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataCheckDlg.resx">
+      <DependentUpon>DataCheckDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionsDlg.resx">
       <DependentUpon>OptionsDlg.cs</DependentUpon>

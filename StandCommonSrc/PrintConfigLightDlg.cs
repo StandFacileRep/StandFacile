@@ -103,7 +103,6 @@ namespace StandFacile
                 switch (sGlbLegacyPrinterParams.iPrinterModel)
                 {
                     case (int)LEGACY_PRINTER_MODELS.STAMPANTE_TM_T88_SER:
-                    case (int)LEGACY_PRINTER_MODELS.STAMPANTE_LP2844_PAGEMODE_SER:
 
                         if (!PortVerify(sGlbLegacyPrinterParams))
                         {

@@ -45,7 +45,7 @@ namespace StandFacile
         {
             if (bLongWarn)
             {
-                textBox.Text = "Selezionare la data di interesse: è anche possibile selezionare un intervallo di giorni cliccando sull'inizio desiderato, e poi muovendosi con le frecce tenendo premuto il tasto Shift\r\n";
+                textBox.Text = "Selezionare la data di interesse: ai fini dell'esportazione Excel/ODS è anche possibile selezionare un intervallo di giorni cliccando sull'inizio desiderato, e poi muovendosi con le frecce tenendo premuto il tasto Shift";
                 textBox.Height = 66;
                 textBox.BorderStyle = BorderStyle.Fixed3D;
             }

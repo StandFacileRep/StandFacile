@@ -1,6 +1,6 @@
 ﻿/********************************************************************
 	NomeFile : StandFacile/Define.cs
-	Data	 : 20.07.2025
+	Data	 : 10.09.2025
 	Autore	 : Mauro Artuso
 
   Descrizione : definizioni specifiche per StandFacile
@@ -35,7 +35,7 @@ namespace StandFacile
         /// <summary>registro: stringa del modello della stampante per le copie</summary>
         public const string WIN_CPY_PRINTER_MODEL_MKEY = "sWinPrinterModel_{0}";
 
-        /// <summary>registro: stringa del modello della stampante per le copie</summary>
+        /// <summary>registro: chiave per gestione disponibilità iniziale dei gruppi di Articoli</summary>
         public const string DISP_GROUP_KEY = "iDispGroups";
 
         /// <summary>registro: numero della cassa</summary>
@@ -101,6 +101,9 @@ namespace StandFacile
         /// <summary>evento inizio stampa ordine web</summary>
         public const string WEB_ORDER_PRINT_START = "avviaStampa_EsploraWebOrdiniDB_Dlg_Event";
 
+        /// <summary>evento inizio stampa ordine dal dialogo DataCheckDlg</summary>
+        public const string ORDER_PRINT_START = "avviaStampa_DataCheckDlg_Event";
+
         /// <summary>evento fine stampa ordine web, usato in 2 code eventi diverse: dBaseTunnel_my, EsploraRemOrdiniDB_Dlg</summary>
         public const string WEB_ORDER_PRINT_DONE = "fattaStampa_EsploraWebOrdiniDB_Dlg_Event";
 
@@ -127,31 +130,37 @@ namespace StandFacile
         /// </summary>
         public struct CFG_SERVICE_STRINGS
         {
-            /// <summary>registro: generazione random di scontrini per test</summary>
+            /// <summary>serviceStrings: generazione random di scontrini per test</summary>
             public const string _AUTO_RECEIPT_GEN = "randTest";
 
             /// <summary>
-            /// registro: generazione automatica di scontrini da file di sequenza per test <br/>
+            /// serviceStrings: generazione automatica di scontrini da file di sequenza per test <br/>
             /// aggiungendo "_C1" esegue test con sola cassa 1
             /// </summary>
             public const string _AUTO_SEQ_TEST = "seqTest"; // _C1
 
-            /// <summary>registro: generazione automatica scontrini mediante qrcode per test</summary>
+            /// <summary>serviceStrings: generazione automatica scontrini mediante qrcode per test</summary>
             public const string _AUTO_QRCODE_TEST = "qrcodeTest";
 
-            /// <summary>registro: acquisizione di scontrini per test</summary>
+            /// <summary>serviceStrings: acquisizione di scontrini per test</summary>
             public const string _REC_TEST = "recTest";
 
-            /// <summary>registro:  evita le presentazione del dialogo relativo alla Data</summary>
+            /// <summary>serviceStrings: evita le presentazione del dialogo relativo alla Data</summary>
             public const string _SKIP_DATA = "noData";
+
+            /// <summary>serviceStrings: attivazione stampa su carta A4</summary>
+            public const string PRINT_ON_A4_PAPER = "printOnA4Paper";
+
+            /// <summary>serviceStrings: descrive se si stampano 4 righe prima del taglio carta, utile per carta A5</summary>
+            public const string PRINT_ON_A5_PAPER = "printOnA5Paper";
         }
 
-        /// <summary>registro: refresh di sService * 250ms circa in StandFacile, 200 in StandClient</summary>
+        /// <summary>refresh di sService * 250ms circa in StandFacile, 200 in StandClient</summary>
         public const int REFRESH_SSERVICE = 4 * 60;
 
-        /// <summary>registro: timer di refresh della disponibilità</summary>
+        /// <summary>timer di refresh della disponibilità</summary>
         public const int _REFRESH_DISP = 4 * 40;
-        /// <summary>registro: timer breve di refresh della disponibilità</summary>
+        /// <summary>timer breve di refresh della disponibilità</summary>
         public const int _REFRESH_DISP_SHORT = 8;
 
         // nomi delle directories in uso

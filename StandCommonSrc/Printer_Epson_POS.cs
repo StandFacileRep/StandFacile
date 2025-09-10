@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************
     NomeFile : StandCommonSrc/Printer_Epson_POS.cs
-    Data	 : 06.12.2024
+    Data	 : 09.09.2025
     Autore   : Mauro Artuso
 
      Caratteristiche stampante :
@@ -59,7 +59,6 @@ namespace StandCommonFiles
 
         static bool _bIsDati = false;
         static bool _bIsDatiRid = false;
-        static bool _bStampaBarcode = false;
 
         static String _sFileToPrint = "";
 
@@ -91,8 +90,6 @@ namespace StandCommonFiles
                 else if (_sFileToPrint.Contains(NOME_FILE_STAMPA_LOC_TMP) || _sFileToPrint.Contains("_Dati"))
                     _bIsDati = true;
             }
-#else
-	        _bStampaBarcode = (ReadRegistry(STAMPA_BARCODE_KEY, 0) == 1);
 #endif
 
             if (_bIsDatiRid)
@@ -222,7 +219,7 @@ namespace StandCommonFiles
             {
                 bLogo = true;
             }
-            else if (sTmp.Contains("_CT")) // copia
+            else if (sTmp.Contains("_CT") || sTmp.Contains("CT_")) // copia in rete
             {
                 bLogo = false;
                 SetFont(0); //Font grande con stampa copie
@@ -231,10 +228,6 @@ namespace StandCommonFiles
                 sGruppoStampa = sTmp.Substring(iPos + 2, 1); // ??? controllare
 
                 iGruppoStampa = ToInt32(sGruppoStampa);
-
-#if STANDFACILE
-                _bStampaBarcode = IsBitSet(SF_Data.iBarcodeRichiesto, iGruppoStampa);
-#endif
             }
             else
                 bLogo = false;
@@ -264,35 +257,86 @@ namespace StandCommonFiles
             }
             else if (File.Exists(_sFileToPrint))
             {
-
                 try
                 {
                     fTxtFile = File.OpenText(_sFileToPrint);
 
                     LogToFile(String.Format("Printer_TM_T88 : inizio stampa di : {0}", _sFileToPrint));
 
-                    // Stampa del Logo
-                    if ((_LegacyPrinterParams.iLogoBmp != 0) && bLogo)
-                    {
-                        // Stampa del Logo
-                        iCharCnt = 0;
-                        cBuffer.SetValue((char)0x1C, iCharCnt++); cBuffer.SetValue((char)0x70, iCharCnt++);
-                        cBuffer.SetValue((char)_LegacyPrinterParams.iLogoBmp, iCharCnt++); cBuffer.SetValue((char)0x00, iCharCnt++);
-                        PrintBuffer(cBuffer, iCharCnt, 800);
-                        PrintLine("");
-                    }
-
                     while ((sInStr = fTxtFile.ReadLine()) != null)
                     {
+                        // Stampa del Logo Top
+                        if (sInStr.Contains(_LOGO_T) && (_LegacyPrinterParams.iLogoBmp != 0) && bLogo)
+                        {
+                            // Stampa del Logo
+                            iCharCnt = 0;
+                            cBuffer.SetValue((char)0x1C, iCharCnt++); cBuffer.SetValue((char)0x70, iCharCnt++);
+                            cBuffer.SetValue((char)_LegacyPrinterParams.iLogoBmp, iCharCnt++); cBuffer.SetValue((char)0x00, iCharCnt++);
+                            PrintBuffer(cBuffer, iCharCnt, 800);
+                            PrintLine("");
+
+                            continue;
+                        }
+
+                        if (sInStr.Contains(_LOGO_B))
+                        {
+                            continue;
+                        }
+
                         // paper CUT
                         if (sInStr.Contains(_CUT))
                         {
                             PrintLine("\n\n\n\n\n");
                             PrintLine(TM_T88_CUT);
-                            
+
                             fTxtFile.ReadLine();
                             fTxtFile.ReadLine();
-                            
+
+                            continue;
+                        }
+
+                        /******************************************************
+                                           BAR CODE EAN13
+                          effettua la stampa solo se il flag bStampaBarcode
+                          è abilitato dal dialogo FrmImpostaTipoCassa
+                         ******************************************************/
+                        if (sInStr.Contains(_BARCODE))
+                        {
+                            fTxtFile.ReadLine();
+
+                            iCharCnt = 0;
+
+                            //Hor left margin
+                            cBuffer.SetValue((char)0x1B, iCharCnt++); cBuffer[iCharCnt++] = '$'; cBuffer.SetValue((char)120, iCharCnt++); cBuffer.SetValue((char)0, iCharCnt++);
+                            //barcode height
+                            cBuffer.SetValue((char)0x1D, iCharCnt++); cBuffer[iCharCnt++] = 'h'; cBuffer.SetValue((char)80, iCharCnt++);
+                            //barcode width
+                            cBuffer.SetValue((char)0x1D, iCharCnt++); cBuffer[iCharCnt++] = 'w'; cBuffer.SetValue((char)3, iCharCnt++); // 1..6
+                                                                                                                                        //HRI position
+                            cBuffer.SetValue((char)0x1D, iCharCnt++); cBuffer[iCharCnt++] = 'H'; cBuffer.SetValue((char)2, iCharCnt++);
+                            //HRI font
+                            cBuffer.SetValue((char)0x1D, iCharCnt++); cBuffer[iCharCnt++] = 'f'; cBuffer.SetValue((char)1, iCharCnt++);
+                            //barcode type = EAN 13 (12 + checksum)
+                            cBuffer.SetValue((char)0x1D, iCharCnt++); cBuffer[iCharCnt++] = 'k'; cBuffer.SetValue((char)67, iCharCnt++); cBuffer.SetValue((char)12, iCharCnt++);
+
+                            cBuffer[iCharCnt++] = '0';
+                            cBuffer[iCharCnt++] = sGruppoStampa[0]; // gruppo
+
+                            cBuffer[iCharCnt++] = sDataStr[0]; // dd
+                            cBuffer[iCharCnt++] = sDataStr[1]; // dd
+                            cBuffer[iCharCnt++] = sDataStr[2]; // dd
+                            cBuffer[iCharCnt++] = sDataStr[3]; // dd
+                            cBuffer[iCharCnt++] = sDataStr[4]; // dd
+                            cBuffer[iCharCnt++] = sDataStr[5]; // dd
+
+                            cBuffer[iCharCnt++] = sReceiptNum[0]; // num
+                            cBuffer[iCharCnt++] = sReceiptNum[1]; // num
+                            cBuffer[iCharCnt++] = sReceiptNum[2]; // num
+                            cBuffer[iCharCnt++] = sReceiptNum[3]; // num
+
+                            PrintBuffer(cBuffer, iCharCnt);
+                            PrintLine("");
+
                             continue;
                         }
 
@@ -311,47 +355,6 @@ namespace StandCommonFiles
                             sInStr = sInStr.Insert(0, " ");
 
                         PrintLine(sInStr);
-                    }
-
-                    /******************************************************
-                                       BAR CODE EAN13
-                      effettua la stampa solo se il flag bStampaBarcode
-                      è abilitato dal dialogo FrmImpostaTipoCassa
-                     ******************************************************/
-                    if ((bCopiaCucina && _bStampaBarcode) || sFileToPrintParam.Contains(NOME_FILE_SAMPLE_TEXT))
-                    {
-                        iCharCnt = 0;
-
-                        //Hor left margin
-                        cBuffer.SetValue((char)0x1B, iCharCnt++); cBuffer[iCharCnt++] = '$'; cBuffer.SetValue((char)120, iCharCnt++); cBuffer.SetValue((char)0, iCharCnt++);
-                        //barcode height
-                        cBuffer.SetValue((char)0x1D, iCharCnt++); cBuffer[iCharCnt++] = 'h'; cBuffer.SetValue((char)80, iCharCnt++);
-                        //barcode width
-                        cBuffer.SetValue((char)0x1D, iCharCnt++); cBuffer[iCharCnt++] = 'w'; cBuffer.SetValue((char)3, iCharCnt++); // 1..6
-                        //HRI position
-                        cBuffer.SetValue((char)0x1D, iCharCnt++); cBuffer[iCharCnt++] = 'H'; cBuffer.SetValue((char)2, iCharCnt++);
-                        //HRI font
-                        cBuffer.SetValue((char)0x1D, iCharCnt++); cBuffer[iCharCnt++] = 'f'; cBuffer.SetValue((char)1, iCharCnt++);
-                        //barcode type = EAN 13 (12 + checksum)
-                        cBuffer.SetValue((char)0x1D, iCharCnt++); cBuffer[iCharCnt++] = 'k'; cBuffer.SetValue((char)67, iCharCnt++); cBuffer.SetValue((char)12, iCharCnt++);
-
-                        cBuffer[iCharCnt++] = '0';
-                        cBuffer[iCharCnt++] = sGruppoStampa[0]; // gruppo
-
-                        cBuffer[iCharCnt++] = sDataStr[0]; // dd
-                        cBuffer[iCharCnt++] = sDataStr[1]; // dd
-                        cBuffer[iCharCnt++] = sDataStr[2]; // dd
-                        cBuffer[iCharCnt++] = sDataStr[3]; // dd
-                        cBuffer[iCharCnt++] = sDataStr[4]; // dd
-                        cBuffer[iCharCnt++] = sDataStr[5]; // dd
-
-                        cBuffer[iCharCnt++] = sReceiptNum[0]; // num
-                        cBuffer[iCharCnt++] = sReceiptNum[1]; // num
-                        cBuffer[iCharCnt++] = sReceiptNum[2]; // num
-                        cBuffer[iCharCnt++] = sReceiptNum[3]; // num
-
-                        PrintBuffer(cBuffer, iCharCnt);
-                        PrintLine("");
                     }
 
                     // fine della stampa

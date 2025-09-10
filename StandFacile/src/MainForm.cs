@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 18.08.2025
+    Data	 : 10.09.2025
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -365,6 +365,9 @@ namespace StandFacile
             EditStatus_QRC.Text = "";
             EditStatus_QRC.MaxLength = 0; // nessun limite
 
+            _sEditTavolo = "";
+            _sEditNome = "";
+            _sEditCoperti = "";
 
             SetColorsTheme();
 
@@ -910,6 +913,12 @@ namespace StandFacile
                     }
                 }
 
+                else if (sEvQueueObj[0] == ORDER_PRINT_START)
+                {
+                    // emissione scontrino
+                    BtnScontrino_Click(sender, null);
+                }
+
                 else if (sEvQueueObj[0] == MAIN_GRID_UPDATE_EVENT)
                 {
                     MainGrid_Redraw(this, null);
@@ -1380,34 +1389,44 @@ namespace StandFacile
             LogToFile("ResetBtnScontrino");
         }
 
-        // toggle del Focus tra griglia ed EditStatusTavolo
-        // verifica inserimento del Tavolo se non è esportazione e c'è almeno una Pietanza
-        bool VerificaTavoloRichiesto()
+        /// <summary>
+        /// toggle del Focus tra griglia ed EditStatusTavolo<br/>
+        /// verifica inserimento del Tavolo se non è esportazione e c'è almeno una Pietanza
+        /// </summary>
+        public bool VerificaTavoloRichiesto()
         {
             if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED) && !BtnEsportazione.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
+            {
                 if (String.IsNullOrEmpty(_sEditTavolo))
                 {
-                    MessageBox.Show("Inserisci il numero del Tavolo,\n\ncon (F1) passi dalla griglia alla casella del Tavolo.",
-                        "Attenzione !", MessageBoxButtons.OK);
+                    DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditTavolo, _sEditCoperti, comboCashPos.SelectedIndex);
+
+                    //MessageBox.Show("Inserisci il numero del Tavolo,\n\ncon (F1) passi dalla griglia alla casella del Tavolo.",
+                    //    "Attenzione !", MessageBoxButtons.OK);
 
                     EditTavolo.Focus();
                     return false;
                 }
                 else
                     return true;
+            }
             else
                 return true; // si omette la verifica
         }
 
-        // verifica inserimento dei coperti se non è esportazione e c'è almeno una Pietanza
-        // lo zero è consentito
-        bool VerificaCopertoRichiesto()
+        /// <summary>
+        /// verifica inserimento dei coperti se non è esportazione e c'è almeno una Pietanza<br/>
+        /// lo zero è consentito
+        /// </summary>
+        public bool VerificaCopertoRichiesto()
         {
             if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED) && !BtnEsportazione.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(_sEditCoperti) || (Convert.ToInt32(_sEditCoperti) < 0))
                 {
-                    MessageBox.Show("Inserisci il numero dei Coperti,\n\ncon (F2) passi dalla griglia alla casella dei Coperti.",
-                        "Attenzione !", MessageBoxButtons.OK);
+                    DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditTavolo, _sEditCoperti, comboCashPos.SelectedIndex);
+
+                    //MessageBox.Show("Inserisci il numero dei Coperti,\n\ncon (F2) passi dalla griglia alla casella dei Coperti.",
+                    //    "Attenzione !", MessageBoxButtons.OK);
 
                     EditCoperti.Focus();
                     return false;
@@ -1418,14 +1437,18 @@ namespace StandFacile
                 return true; // si omette la verifica
         }
 
-        // verifica inserimento del pagamento in Contanti/Card/Satispay
-        bool VerificaPOS_Richiesto()
+        /// <summary>
+        /// verifica inserimento del pagamento in Contanti/Card/Satispay
+        /// </summary>
+        public bool VerificaPOS_Richiesto()
         {
             if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED) && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(comboCashPos.Text.Trim()))
                 {
-                    MessageBox.Show("Inserisci il tipo di pagamento Contanti/Card/Satispay",
-                        "Attenzione !", MessageBoxButtons.OK);
+                    DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditTavolo, _sEditCoperti, comboCashPos.SelectedIndex);
+
+                    //MessageBox.Show("Inserisci il tipo di pagamento Contanti/Card/Satispay",
+                    //    "Attenzione !", MessageBoxButtons.OK);
 
                     return false;
                 }
@@ -2398,6 +2421,9 @@ namespace StandFacile
 
             AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
             _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
+
+            // necessario altrimenti se _iAnteprimaTotParziale == 0 il timer non aggiorna toolStripTop_TC_lbl.Text
+            toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
 
             scannerInputQueue.Clear();
             MainGrid_Redraw(this, null);
