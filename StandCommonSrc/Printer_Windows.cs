@@ -265,42 +265,6 @@ namespace StandCommonFiles
                 else
                     return;
 
-                // controlli sul Logo Top
-                if (String.IsNullOrEmpty(_sWinPrinterParams.sLogoName_T))
-                    _bLogoCheck_T = false;
-                else
-                {
-                    // verifica che esista anche il nome del file Logo
-                    if ((_sWinPrinterParams.iLogoWidth_T < 50) || (_sWinPrinterParams.iLogoWidth_T > (LOGO_WIDTH + 100)) ||
-                       (_sWinPrinterParams.iLogoHeight_T < 50) || (_sWinPrinterParams.iLogoHeight_T > (LOGO_HEIGHT + 100)))
-                        _bLogoCheck_T = false;
-                    else
-                    {
-                        _fLogo_T_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * _fLogoFont_HSize - _img_T.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
-
-                        if (_fLogo_T_LeftMargin < 0)
-                            _fLogo_T_LeftMargin = _fLogoCenter;
-                    }
-                }
-
-                // controlli sul Logo Bottom
-                if (String.IsNullOrEmpty(_sWinPrinterParams.sLogoName_B))
-                    _bLogoCheck_B = false;
-                else
-                {
-                    // verifica che esista anche il nome del file Logo
-                    if ((_sWinPrinterParams.iLogoWidth_B < 50) || (_sWinPrinterParams.iLogoWidth_B > (LOGO_WIDTH + 100)) ||
-                       (_sWinPrinterParams.iLogoHeight_B < 50) || (_sWinPrinterParams.iLogoHeight_B > (LOGO_HEIGHT + 100)))
-                        _bLogoCheck_B = false;
-                    else
-                    {
-                        _fLogo_B_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * _fLogoFont_HSize - _img_B.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
-
-                        if (_fLogo_B_LeftMargin < 0)
-                            _fLogo_B_LeftMargin = _fLogoCenter;
-                    }
-                }
-
                 LogToFile("Printer_Windows : inizio stampa di " + _sFileToPrintParam);
 
                 // ciclo esterno per consentire i tagli intermedi
@@ -416,6 +380,42 @@ namespace StandCommonFiles
                     }
 
                     _fLogoCenter = _sWinPrinterParams.iLogoCenter * _fH_px_to_gu;
+
+                    // controlli sul Logo Top
+                    if (String.IsNullOrEmpty(_sWinPrinterParams.sLogoName_T))
+                        _bLogoCheck_T = false;
+                    else
+                    {
+                        // verifica che esista anche il nome del file Logo
+                        if ((_sWinPrinterParams.iLogoWidth_T < 50) || (_sWinPrinterParams.iLogoWidth_T > (LOGO_WIDTH + 100)) ||
+                           (_sWinPrinterParams.iLogoHeight_T < 50) || (_sWinPrinterParams.iLogoHeight_T > (LOGO_HEIGHT + 100)))
+                            _bLogoCheck_T = false;
+                        else
+                        {
+                            _fLogo_T_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * _fLogoFont_HSize - _img_T.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
+
+                            if (_fLogo_T_LeftMargin < 0)
+                                _fLogo_T_LeftMargin = _fLogoCenter;
+                        }
+                    }
+
+                    // controlli sul Logo Bottom
+                    if (String.IsNullOrEmpty(_sWinPrinterParams.sLogoName_B))
+                        _bLogoCheck_B = false;
+                    else
+                    {
+                        // verifica che esista anche il nome del file Logo
+                        if ((_sWinPrinterParams.iLogoWidth_B < 50) || (_sWinPrinterParams.iLogoWidth_B > (LOGO_WIDTH + 100)) ||
+                           (_sWinPrinterParams.iLogoHeight_B < 50) || (_sWinPrinterParams.iLogoHeight_B > (LOGO_HEIGHT + 100)))
+                            _bLogoCheck_B = false;
+                        else
+                        {
+                            _fLogo_B_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * _fLogoFont_HSize - _img_B.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
+
+                            if (_fLogo_B_LeftMargin < 0)
+                                _fLogo_B_LeftMargin = _fLogoCenter;
+                        }
+                    }
 
                     if (sPrevPrinter != pd.PrinterSettings.PrinterName)
                     {

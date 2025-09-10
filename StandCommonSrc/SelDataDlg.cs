@@ -46,17 +46,17 @@ namespace StandFacile
             if (bLongWarn)
             {
                 textBox.Text = "Selezionare la data di interesse: ai fini dell'esportazione Excel/ODS è anche possibile selezionare un intervallo di giorni cliccando sull'inizio desiderato, e poi muovendosi con le frecce tenendo premuto il tasto Shift";
-                textBox.Height = 66;
+                textBox.Height = 74;
                 textBox.BorderStyle = BorderStyle.Fixed3D;
             }
             else
             {
                 textBox.Text = "                         " + "Selezionare la data di interesse:";
-                textBox.Height = 14;
+                textBox.Height = 16;
                 textBox.BorderStyle = BorderStyle.None;
             }
 
-            this.Height = mCalendar.Height + textBox.Height + 152;
+            this.Height = mCalendar.Height + textBox.Height + 146;
         }
 
 

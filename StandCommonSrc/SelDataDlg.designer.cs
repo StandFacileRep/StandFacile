@@ -40,7 +40,7 @@
             this.OKBtn.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.OKBtn.Image = global::StandFacile.Properties.Resources.OK;
             this.OKBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.OKBtn.Location = new System.Drawing.Point(195, 293);
+            this.OKBtn.Location = new System.Drawing.Point(195, 306);
             this.OKBtn.Name = "OKBtn";
             this.OKBtn.Size = new System.Drawing.Size(78, 28);
             this.OKBtn.TabIndex = 0;
@@ -58,14 +58,14 @@
             this.textBox.Multiline = true;
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
-            this.textBox.Size = new System.Drawing.Size(433, 79);
+            this.textBox.Size = new System.Drawing.Size(433, 70);
             this.textBox.TabIndex = 1;
             this.textBox.Text = resources.GetString("textBox.Text");
             // 
             // mCalendar
             // 
             this.mCalendar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.mCalendar.Location = new System.Drawing.Point(114, 114);
+            this.mCalendar.Location = new System.Drawing.Point(114, 127);
             this.mCalendar.MaxSelectionCount = 60;
             this.mCalendar.MinDate = new System.DateTime(2025, 1, 1, 0, 0, 0, 0);
             this.mCalendar.Name = "mCalendar";
@@ -77,7 +77,7 @@
             this.AcceptButton = this.OKBtn;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(460, 333);
+            this.ClientSize = new System.Drawing.Size(460, 346);
             this.Controls.Add(this.mCalendar);
             this.Controls.Add(this.textBox);
             this.Controls.Add(this.OKBtn);
