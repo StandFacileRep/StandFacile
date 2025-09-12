@@ -104,7 +104,7 @@
             this.BtnSep_T2 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnX10 = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T3 = new System.Windows.Forms.ToolStripSeparator();
-            this.BtnEsportazione = new System.Windows.Forms.ToolStripButton();
+            this.BtnAsporto = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T4 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnSep_T6 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnDB = new System.Windows.Forms.ToolStripButton();
@@ -762,7 +762,7 @@
             this.BtnSep_T2,
             this.BtnX10,
             this.BtnSep_T3,
-            this.BtnEsportazione,
+            this.BtnAsporto,
             this.BtnSep_T4,
             this.BtnSep_T6,
             this.BtnDB,
@@ -842,20 +842,20 @@
             this.BtnSep_T3.Name = "BtnSep_T3";
             this.BtnSep_T3.Size = new System.Drawing.Size(6, 39);
             // 
-            // BtnEsportazione
+            // BtnAsporto
             // 
-            this.BtnEsportazione.AccessibleDescription = "";
-            this.BtnEsportazione.AutoSize = false;
-            this.BtnEsportazione.CheckOnClick = true;
-            this.BtnEsportazione.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.BtnEsportazione.Image = global::StandFacile.Properties.Resources.basket;
-            this.BtnEsportazione.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.BtnEsportazione.ImageTransparentColor = System.Drawing.Color.White;
-            this.BtnEsportazione.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.BtnEsportazione.Name = "BtnEsportazione";
-            this.BtnEsportazione.Size = new System.Drawing.Size(45, 38);
-            this.BtnEsportazione.ToolTipText = "(F8) Esportazione";
-            this.BtnEsportazione.Click += new System.EventHandler(this.BtnEsportazione_Click);
+            this.BtnAsporto.AccessibleDescription = "";
+            this.BtnAsporto.AutoSize = false;
+            this.BtnAsporto.CheckOnClick = true;
+            this.BtnAsporto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BtnAsporto.Image = global::StandFacile.Properties.Resources.basket;
+            this.BtnAsporto.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.BtnAsporto.ImageTransparentColor = System.Drawing.Color.White;
+            this.BtnAsporto.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.BtnAsporto.Name = "BtnAsporto";
+            this.BtnAsporto.Size = new System.Drawing.Size(45, 38);
+            this.BtnAsporto.ToolTipText = "(F8) Asporto";
+            this.BtnAsporto.Click += new System.EventHandler(this.BtnAsporto_Click);
             // 
             // BtnSep_T4
             // 
@@ -1454,7 +1454,7 @@
         private System.Windows.Forms.ToolStripSeparator BtnSep_T6;
         private System.Windows.Forms.ToolStripButton BtnSconto;
         private System.Windows.Forms.ToolStripSeparator BtnSep_T5;
-        private System.Windows.Forms.ToolStripButton BtnEsportazione;
+        private System.Windows.Forms.ToolStripButton BtnAsporto;
         private System.Windows.Forms.ToolStripButton BtnScontrino;
         private System.Windows.Forms.ToolStripButton BtnDB;
         private System.Windows.Forms.ToolStripMenuItem MnuVisOrdiniAltraData;

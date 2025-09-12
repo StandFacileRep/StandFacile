@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.15.1 beta";
+        public const String RELEASE_SW = "v5.15.1 RC1";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5c";
@@ -635,7 +635,7 @@ namespace StandCommonFiles
         public enum STATUS_FLAGS
         {
             /// <summary>bit di iStatus che indica l'esportazione</summary>
-            BIT_ESPORTAZIONE = 0,
+            BIT_ASPORTO = 0,
 
             /// <summary>bit di iStatus che indica Scontrino emesso durante la prevendita</summary>
             BIT_EMESSO_IN_PREVENDITA,
@@ -1340,7 +1340,7 @@ namespace StandCommonFiles
         };
 
         /// <summary>testo descrittivo della Esportazione</summary>
-        public static readonly String[] sConst_Esportazione =
+        public static readonly String[] sConst_Asporto =
         {
             "########################",
             "####   DA ASPORTO   ####",

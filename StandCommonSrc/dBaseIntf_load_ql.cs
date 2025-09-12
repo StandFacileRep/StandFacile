@@ -501,7 +501,7 @@ namespace StandFacile_DB
                                                 }
                                             }
 
-                                            if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
+                                            if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_ASPORTO))
                                                 DB_Data.Articolo[i].iQtaEsportata += iQuantitaOrdine;
                                         }
 
@@ -537,7 +537,7 @@ namespace StandFacile_DB
                                     DB_Data.iTotaleIncasso += iPrezzoUnitario * iQuantitaOrdine;
                                     iTotaleReceipt += iPrezzoUnitario * iQuantitaOrdine;
 
-                                    if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
+                                    if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_ASPORTO))
                                         DB_Data.Articolo[iLastArticoloDBIndexP1].iQtaEsportata += iQuantitaOrdine;
 
                                     if (bScaricato)

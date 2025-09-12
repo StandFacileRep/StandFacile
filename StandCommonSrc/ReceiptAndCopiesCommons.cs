@@ -701,13 +701,13 @@ namespace StandCommonFiles
                         _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
                     }
 
-                    if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
+                    if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO))
                     {
-                        sTmp = CenterJustify(sConst_Esportazione[0], iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(sConst_Asporto[0], iMAX_RECEIPT_CHARS);
                         _fPrint.WriteLine("{0}", sTmp);
-                        sTmp = CenterJustify(sConst_Esportazione[1], iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(sConst_Asporto[1], iMAX_RECEIPT_CHARS);
                         _fPrint.WriteLine("{0}", sTmp);
-                        sTmp = CenterJustify(sConst_Esportazione[2], iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(sConst_Asporto[2], iMAX_RECEIPT_CHARS);
                         _fPrint.WriteLine("{0}\n", sTmp);
                     }
 
@@ -1568,15 +1568,15 @@ namespace StandCommonFiles
                             iEqRowsNumber += 4;
                         }
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
+                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO))
                         {
-                            sTmp = CenterJustify(sConst_Esportazione[0], MAX_RECEIPT_CHARS_CPY);
+                            sTmp = CenterJustify(sConst_Asporto[0], MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp);
 
-                            sTmp = CenterJustify(sConst_Esportazione[1], MAX_RECEIPT_CHARS_CPY);
+                            sTmp = CenterJustify(sConst_Asporto[1], MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp);
 
-                            sTmp = CenterJustify(sConst_Esportazione[2], MAX_RECEIPT_CHARS_CPY);
+                            sTmp = CenterJustify(sConst_Asporto[2], MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
                             iEqRowsNumber += 4;
                         }
@@ -1831,15 +1831,15 @@ namespace StandCommonFiles
                             iEqRowsNumber += 4;
                         }
 
-                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
+                        if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO))
                         {
-                            sTmp = CenterJustify(sConst_Esportazione[0], MAX_RECEIPT_CHARS_CPY);
+                            sTmp = CenterJustify(sConst_Asporto[0], MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp);
 
-                            sTmp = CenterJustify(sConst_Esportazione[1], MAX_RECEIPT_CHARS_CPY);
+                            sTmp = CenterJustify(sConst_Asporto[1], MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp);
 
-                            sTmp = CenterJustify(sConst_Esportazione[2], MAX_RECEIPT_CHARS_CPY);
+                            sTmp = CenterJustify(sConst_Asporto[2], MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
                             iEqRowsNumber += 4;
                         }
@@ -1934,13 +1934,13 @@ namespace StandCommonFiles
                 fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
             }
 
-            if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
+            if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO))
             {
-                sTmp = CenterJustify(sConst_Esportazione[0], MAX_RECEIPT_CHARS_CPY);
+                sTmp = CenterJustify(sConst_Asporto[0], MAX_RECEIPT_CHARS_CPY);
                 fPrintParam.WriteLine("{0}", sTmp);
-                sTmp = CenterJustify(sConst_Esportazione[1], MAX_RECEIPT_CHARS_CPY);
+                sTmp = CenterJustify(sConst_Asporto[1], MAX_RECEIPT_CHARS_CPY);
                 fPrintParam.WriteLine("{0}", sTmp);
-                sTmp = CenterJustify(sConst_Esportazione[2], MAX_RECEIPT_CHARS_CPY);
+                sTmp = CenterJustify(sConst_Asporto[2], MAX_RECEIPT_CHARS_CPY);
                 fPrintParam.WriteLine("{0}\r\n", sTmp);
             }
 

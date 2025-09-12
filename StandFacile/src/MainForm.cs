@@ -984,8 +984,8 @@ namespace StandFacile
                 bPressTicketBtn = true;
                 iTicketBtnPressedDelay = 4 * 5; // 5s
 
-                // *** ESPORTAZIONE ***
-                BtnEsportazione.Checked = (iRandNum.Next(4) == 0);
+                // *** ASPORTO ***
+                BtnAsporto.Checked = (iRandNum.Next(4) == 0);
 
                 // *** NOTE ***
                 if (iRandNum.Next(5) == 0) // 1 su 5
@@ -1278,10 +1278,10 @@ namespace StandFacile
             LogToFile("Mainform : EmissioneScontrino 1");
 
             // ripetuto per sicurezza
-            if (BtnEsportazione.Checked)
-                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE);
+            if (BtnAsporto.Checked)
+                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO);
             else
-                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE);
+                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO);
 
             if (SF_Data.bPrevendita)
                 SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_EMESSO_IN_PREVENDITA);
@@ -1348,7 +1348,7 @@ namespace StandFacile
             _bPrintTimeoutEnabled = false;
             // stop forzato
 
-            BtnEsportazione.Checked = false;
+            BtnAsporto.Checked = false;
 
             BtnSconto.Checked = false;
             ScontoDlg.ResetSconto();
@@ -1391,11 +1391,11 @@ namespace StandFacile
 
         /// <summary>
         /// toggle del Focus tra griglia ed EditStatusTavolo<br/>
-        /// verifica inserimento del Tavolo se non è esportazione e c'è almeno una Pietanza
+        /// verifica inserimento del Tavolo se non è Asporto e c'è almeno una Pietanza
         /// </summary>
         public bool VerificaTavoloRichiesto()
         {
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED) && !BtnEsportazione.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED) && !BtnAsporto.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {
                 if (String.IsNullOrEmpty(_sEditTavolo))
                 {
@@ -1415,12 +1415,12 @@ namespace StandFacile
         }
 
         /// <summary>
-        /// verifica inserimento dei coperti se non è esportazione e c'è almeno una Pietanza<br/>
+        /// verifica inserimento dei coperti se non è Asporto e c'è almeno una Pietanza<br/>
         /// lo zero è consentito
         /// </summary>
         public bool VerificaCopertoRichiesto()
         {
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED) && !BtnEsportazione.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
+            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED) && !BtnAsporto.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(_sEditCoperti) || (Convert.ToInt32(_sEditCoperti) < 0))
                 {
                     DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditTavolo, _sEditCoperti, comboCashPos.SelectedIndex);
@@ -2538,17 +2538,17 @@ namespace StandFacile
         }
 
         /// <summary></summary>
-        public void BtnEsportazione_Click(object sender, EventArgs e)
+        public void BtnAsporto_Click(object sender, EventArgs e)
         {
             // se si arriva solo dal test con sender == null
-            if (!BtnEsportazione.Checked && (sender == null))
-                BtnEsportazione.Checked = true;
+            if (!BtnAsporto.Checked && (sender == null))
+                BtnAsporto.Checked = true;
 
             // ripetuto per sicurezza
-            if (BtnEsportazione.Checked)
-                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE);
+            if (BtnAsporto.Checked)
+                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO);
             else
-                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE);
+                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO);
 
             AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
         }

@@ -1208,8 +1208,8 @@ namespace StandFacile
             SF_Data.iStatusReceipt = SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_PREVENDITA);
             SF_Data.sPrevDateTime = DB_Data.sDateTime;
 
-            if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
-                rFrmMain.BtnEsportazione_Click(null, null);
+            if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO))
+                rFrmMain.BtnAsporto_Click(null, null);
 
             rFrmMain.SetEditCoperto(DB_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
             rFrmMain.SetEditNota(DB_Data.sNota);
@@ -1319,8 +1319,8 @@ namespace StandFacile
                 // sicurezza
                 SF_Data.iStatusReceipt = SetBit(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB);
 
-                if (IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
-                    rFrmMain.BtnEsportazione_Click(null, null);
+                if (IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO))
+                    rFrmMain.BtnAsporto_Click(null, null);
 
                 // giusto SF_Data.Articolo[MAX_NUM_ARTICOLI - 1]
                 rFrmMain.SetEditCoperto(SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
@@ -1460,8 +1460,8 @@ namespace StandFacile
 
             rFrmMain.EnableTextBox(false);
 
-            if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
-                rFrmMain.BtnEsportazione_Click(null, null);
+            if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO))
+                rFrmMain.BtnAsporto_Click(null, null);
 
             rFrmMain.SetEditCoperto(DB_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
 

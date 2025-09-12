@@ -377,9 +377,9 @@
             this.checkBox_LogoNelleCopie.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox_LogoNelleCopie.Location = new System.Drawing.Point(276, 609);
             this.checkBox_LogoNelleCopie.Name = "checkBox_LogoNelleCopie";
-            this.checkBox_LogoNelleCopie.Size = new System.Drawing.Size(196, 18);
+            this.checkBox_LogoNelleCopie.Size = new System.Drawing.Size(203, 18);
             this.checkBox_LogoNelleCopie.TabIndex = 72;
-            this.checkBox_LogoNelleCopie.Text = "stampa il Logo in tutte le copie";
+            this.checkBox_LogoNelleCopie.Text = "stampa il Logo anche nelle copie";
             this.checkBox_LogoNelleCopie.UseVisualStyleBackColor = true;
             // 
             // checkBox_CopertiNelleCopie

@@ -52,7 +52,7 @@ namespace StandCommonFiles
         const int BARCODE_HEIGHT = 100;
         //const String WIDE_CONST_STRING = "*********_*********_********";
 
-        const float PAGE_VERT_SIZE_PERC = 0.60f;
+        const float PAGE_VERT_SIZE_PERC = 0.55f;
         static bool _bIsDati, _bIsTicket;
         static bool _bLogoCheck_T, _bLogoCheck_B;
         static bool _bCopiaCucina;
@@ -67,7 +67,7 @@ namespace StandCommonFiles
         public static int iPrint_WaitInterval = 200;
 
         static float _fLeftMargin, _fLogoCenter, _fLeftMarginBk;
-        static float _fCanvasVertPos, _fCanvasVertPosBk, _fCanvasVertPosBk2;
+        static float _fCanvasVertPos, _fCanvasVertPosBk;
 
         static int _iGruppoStampa;
 
@@ -148,7 +148,6 @@ namespace StandCommonFiles
 
             _fLeftMarginBk = 0;
             _fCanvasVertPosBk = 0;
-            _fCanvasVertPosBk2 = 0;
 
             _fLogo_T_LeftMargin = 0;
             _fLogo_B_LeftMargin = 0;
@@ -615,14 +614,8 @@ namespace StandCommonFiles
                     {
                         switch (iA4_PrintStatus)
                         {
-                            // prepara 2Q
+                            // prepara 2Q Top
                             case 0:
-                                // si pone a metà vert. pagina solo se c'è spazio che avanza rispetto al case 0
-                                if (_fCanvasVertPos < (_fCanvasVertPosBk + ev.PageSettings.PaperSize.Height / 2))
-                                    _fCanvasVertPosBk2 = _fCanvasVertPosBk + ev.PageSettings.PaperSize.Height / 2;
-                                else
-                                    _fCanvasVertPosBk2 += _fCanvasVertPos + _printFont.GetHeight(pg);
-
                                 _fLeftMargin = _fLeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
                                 _fCanvasVertPos = _fCanvasVertPosBk;
 
@@ -633,28 +626,13 @@ namespace StandCommonFiles
 
                                 iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
                                 break;
-                            // prepara 3Q
+
+                            // prepara 2Q Bottom
                             case 1:
-                                _fLeftMargin = _fLeftMarginBk; // ripristino Hor
-                                _fCanvasVertPos = _fCanvasVertPosBk2;
-
-                                _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk;
-                                _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk;
-
-                                iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
-                                PrintCanvas(pg, "");
-
-                                // forza interruzione di pagina
-                                if (_fCanvasVertPos > ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC)
-                                    _fCanvasVertPos = ev.PageSettings.PaperSize.Height;
-                                break;
-                            // prepara 4Q
-                            case 2:
-                                _fLeftMargin = _fLeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
-                                _fCanvasVertPos = _fCanvasVertPosBk2;
-
-                                _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
-                                _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
+                                if (_fCanvasVertPos < ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC)
+                                    _fCanvasVertPos = ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC;
+                                else
+                                    _fCanvasVertPos += _printFont.GetHeight(pg);
 
                                 iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
                                 PrintCanvas(pg, "");
@@ -662,14 +640,6 @@ namespace StandCommonFiles
 
                             // prepara 1Q e cambio pagina
                             default:
-                                _fLeftMargin = _fLeftMarginBk;
-                                // forza interruzione di pagina
-                                _fCanvasVertPos = ev.PageSettings.PaperSize.Height;
-
-                                _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk;
-                                _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk;
-
-                                iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
                                 PrintCanvas(pg, "");
                                 break;
                         }

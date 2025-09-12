@@ -378,7 +378,7 @@ namespace StandFacile
             {
                 // Esportazione
                 if (_iNumCassa == SF_Data.iNumCassa)
-                    rFrmMain.BtnEsportazione_Click(null, null);
+                    rFrmMain.BtnAsporto_Click(null, null);
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -601,7 +601,7 @@ namespace StandFacile
             }
 
             // esportazione
-            if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
+            if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO))
                 _fRecording.WriteLine("<ES><bv>1</bv></ES>");
 
             // ordine

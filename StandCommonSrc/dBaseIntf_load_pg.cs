@@ -636,7 +636,7 @@ namespace StandFacile_DB
                                             iDebug = DB_Data.iTotaleIncasso;
                                             // Console.WriteLine("dbCaricaDatidaOrdini: DB_Data.iTotaleIncasso = {0}", DB_Data.iTotaleIncasso);
 
-                                            if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
+                                            if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_ASPORTO))
                                                 DB_Data.Articolo[i].iQtaEsportata += iQuantitaOrdine;
 
                                             if (bScaricato)
@@ -677,7 +677,7 @@ namespace StandFacile_DB
                                     DB_Data.iTotaleIncasso += iPrezzoUnitario * iQuantitaOrdine;
                                     iTotaleReceipt += iPrezzoUnitario * iQuantitaOrdine;
 
-                                    if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
+                                    if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_ASPORTO))
                                         DB_Data.Articolo[iLastArticoloDBIndexP1].iQtaEsportata += iQuantitaOrdine;
 
                                     if (bScaricato)

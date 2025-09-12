@@ -59,7 +59,7 @@ namespace StandFacile
                 BtnVisListino.Enabled = false;
                 BtnSendMsg.Enabled = false;
                 BtnX10.Enabled = false;
-                BtnEsportazione.Enabled = false;
+                BtnAsporto.Enabled = false;
                 BtnSconto.Enabled = false;
                 BtnScontrino.Enabled = false;
                 BtnDB.Enabled = false;
@@ -122,7 +122,7 @@ namespace StandFacile
 
                 BtnSendMsg.Enabled = false;
                 BtnX10.Enabled = false;
-                BtnEsportazione.Enabled = false;
+                BtnAsporto.Enabled = false;
                 BtnSconto.Enabled = false;
                 BtnScontrino.Enabled = false;
                 BtnDB.Enabled = false;
@@ -174,7 +174,7 @@ namespace StandFacile
                 // BtnVisListino.Enabled = false;
                 BtnSendMsg.Enabled = false;
                 BtnX10.Enabled = false;
-                BtnEsportazione.Enabled = false;
+                BtnAsporto.Enabled = false;
                 BtnSconto.Enabled = false;
                 BtnScontrino.Enabled = false;
                 BtnDB.Enabled = false;
@@ -370,9 +370,9 @@ namespace StandFacile
                 BtnX10.Enabled = true;
                 BtnX10.Checked = false;
 
-                BtnEsportazione.Enabled = true;
+                BtnAsporto.Enabled = true;
 
-                //BtnEsportazione.Checked = false;
+                //BtnAsporto.Checked = false;
                 if (SF_Data.bPrevendita)
                     BtnSconto.Enabled = false;
                 else
@@ -609,8 +609,8 @@ namespace StandFacile
                     BtnX10.Checked = !BtnX10.Checked;
                     break;
                 case KEY_F8:
-                    BtnEsportazione.Checked = !BtnEsportazione.Checked;
-                    BtnEsportazione_Click(this, null);
+                    BtnAsporto.Checked = !BtnAsporto.Checked;
+                    BtnAsporto_Click(this, null);
                     break;
                 case KEY_F9:
                     BtnSconto_Click(this, null);
@@ -1454,7 +1454,7 @@ namespace StandFacile
             BtnVisListino.Size = BtnScontrino.Size;
             BtnSendMsg.Size = BtnScontrino.Size;
             BtnX10.Size = BtnScontrino.Size;
-            BtnEsportazione.Size = BtnScontrino.Size;
+            BtnAsporto.Size = BtnScontrino.Size;
             BtnSconto.Size = BtnScontrino.Size;
             BtnDB.Size = BtnScontrino.Size;
 

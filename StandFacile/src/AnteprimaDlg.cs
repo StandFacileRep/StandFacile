@@ -536,15 +536,15 @@ namespace StandFacile
                 PrintCanvas(pg, "");
             }
 
-            if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ESPORTAZIONE))
+            if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO))
             {
-                sTmp = CenterJustify(sConst_Esportazione[0], iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(sConst_Asporto[0], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
 
-                sTmp = CenterJustify(sConst_Esportazione[1], iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(sConst_Asporto[1], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
 
-                sTmp = CenterJustify(sConst_Esportazione[2], iMAX_RECEIPT_CHARS);
+                sTmp = CenterJustify(sConst_Asporto[2], iMAX_RECEIPT_CHARS);
                 PrintCanvas(pg, sTmp);
                 PrintCanvas(pg, "");
             }
