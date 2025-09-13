@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************
 	NomeFile : StandCommonSrc/Printer_Windows.cs
-    Data	 : 06.09.2025
+    Data	 : 13.09.2025
 	Autore   : Mauro Artuso
 
 	Descrizione :
@@ -52,7 +52,9 @@ namespace StandCommonFiles
         const int BARCODE_HEIGHT = 100;
         //const String WIDE_CONST_STRING = "*********_*********_********";
 
-        const float PAGE_VERT_SIZE_PERC = 0.55f;
+        const float PAGE_VERT_SIZE_PERC1 = 0.55f;
+        const float PAGE_VERT_SIZE_PERC2 = 0.65f;
+
         static bool _bIsDati, _bIsTicket;
         static bool _bLogoCheck_T, _bLogoCheck_B;
         static bool _bCopiaCucina;
@@ -629,13 +631,32 @@ namespace StandCommonFiles
 
                             // prepara 2Q Bottom
                             case 1:
-                                if (_fCanvasVertPos < ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC)
-                                    _fCanvasVertPos = ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC;
+                                if (_fCanvasVertPos < ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC1)
+                                    _fCanvasVertPos = ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC1;
                                 else
                                     _fCanvasVertPos += _printFont.GetHeight(pg);
 
                                 iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
                                 PrintCanvas(pg, "");
+                                break;
+
+                            // prepara 2Q Bottom / 4Q
+                            case 2:
+                                if (_fCanvasVertPos < ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC2)
+                                {
+                                    _fCanvasVertPos += _printFont.GetHeight(pg);
+
+                                    iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
+                                    PrintCanvas(pg, "");
+                                }
+                                else
+                                {
+                                    // cambio pagina ed a capo
+                                    _fLeftMargin = _fLeftMarginBk;
+                                    _fCanvasVertPos = ev.PageSettings.PaperSize.Height;
+                                    iA4_PrintStatus = 0;
+                                }
+
                                 break;
 
                             // prepara 1Q e cambio pagina

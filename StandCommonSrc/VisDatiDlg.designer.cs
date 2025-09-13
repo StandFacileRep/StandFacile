@@ -161,6 +161,7 @@
             // 
             // ComboExpFormat
             // 
+            this.ComboExpFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.ComboExpFormat.FormattingEnabled = true;
             this.ComboExpFormat.Items.AddRange(new object[] {
             "XLS MS Office",
