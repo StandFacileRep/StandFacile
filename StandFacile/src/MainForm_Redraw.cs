@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 18.08.2025
+    Data	 : 12.09.2025
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -647,6 +647,7 @@ namespace StandFacile
                         SF_Data.Articolo[_iCellPt].iOptionsFlags = ClearBit(SF_Data.Articolo[_iCellPt].iOptionsFlags, BIT_STAMPA_SINGOLA_NELLA_COPIA_RECEIPT);
                     break;
 
+                    // Elimina tutti dati del giorno
                 case 'E':
                     if (MnuEsperto.Checked && (e.Modifiers == (Keys.Alt | Keys.Control)))
                     {
@@ -655,6 +656,25 @@ namespace StandFacile
 
                         // Ctrl + Alt + E
                         EraseAllaData();
+                        return; //  altrimenti il successivo FormResize() genera eccezioni
+                    }
+                    break;
+
+                    // modifica Listino
+                case 'L':
+                    if (MnuEsperto.Checked && !BtnVisListino.Checked && (e.Modifiers == (Keys.Alt | Keys.Control)))
+                    {
+                        sTmp = String.Format("FrmMain : premuto E + {0}", e.Modifiers);
+                        LogToFile(sTmp);
+
+                        // Ctrl + Alt + L
+                        BtnVisListino.Checked = true;
+                        MnuImpListino.Checked = true;
+
+                        _sCopertiPrev = EditCoperti.Text;
+                        EditCoperti.Text = String.Format("{0,4:0.00}", SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario / 100.0f);
+
+                        CheckMenuItems();
                         return; //  altrimenti il successivo FormResize() genera eccezioni
                     }
                     break;

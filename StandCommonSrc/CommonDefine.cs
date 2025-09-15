@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.15.1 RC1";
+        public const String RELEASE_SW = "v5.15.1 RC2";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_TBL = "v5c";
@@ -379,7 +379,7 @@ namespace StandCommonFiles
         /// <summary>nome del file di backup Listino</summary>
         public const String NOME_FILE_LISTINO_BK = "Listino.bak";
 
-        /// <summary>nome del file di filtro</summary>
+        /// <summary>nome del file di configurazione</summary>
         public const String CONFIG_FILE = "config.ini";
 
         /// <summary>nome del file che contiene la sequenza di test</summary>
@@ -634,7 +634,7 @@ namespace StandCommonFiles
         /// <summary>Flags  di Stato</summary>
         public enum STATUS_FLAGS
         {
-            /// <summary>bit di iStatus che indica l'esportazione</summary>
+            /// <summary>bit di iStatus che indica l'asporto</summary>
             BIT_ASPORTO = 0,
 
             /// <summary>bit di iStatus che indica Scontrino emesso durante la prevendita</summary>

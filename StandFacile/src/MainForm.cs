@@ -41,6 +41,7 @@ namespace StandFacile
 
         static bool _bListinoModificato;  // true se ci sono state modifiche al Listino
         static bool _bPasswordIsGood;
+        static bool _bPricelistWarningOnce;
         static bool _bShowTotaleScontrinoPrec;
 
         /// <summary>variabile per tracking tasto Crtl pressed per gestione Note</summary>
@@ -375,6 +376,7 @@ namespace StandFacile
 
             _iAnteprimaTotParziale = 0;
             _bPasswordIsGood = false;
+            _bPricelistWarningOnce = false;
             _iToolStripTop_MarginTotal = 0;
 
             if (CheckService(CFG_COMMON_STRINGS._HIDE_LEGACY_PRINTER))
@@ -2066,8 +2068,13 @@ namespace StandFacile
                     "  Ctrl+Up, Ctrl+Down: fa scorrere la cella corrente verso l'alto/basso.\n\n\n" +
                     "  Si possono anche trascinare le celle della griglia con il mouse: si veda il manuale";
 
-                QuickHelpDlg rQuickHelpDlg = new QuickHelpDlg(sTmp.Replace("\n", "\r\n"), 500, 340);
-                rQuickHelpDlg.Dispose();
+                if (!_bPricelistWarningOnce)
+                {
+                    QuickHelpDlg rQuickHelpDlg = new QuickHelpDlg(sTmp.Replace("\n", "\r\n"), 500, 340);
+                    rQuickHelpDlg.Dispose();
+
+                    _bPricelistWarningOnce = true;
+                }
 
                 _sCopertiPrev = EditCoperti.Text;
                 EditCoperti.Text = String.Format("{0,4:0.00}", SF_Data.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario / 100.0f);

@@ -11,8 +11,8 @@
 
   	consigliato Soft Font Lucida Console, size 12
 
-    stampante pdf 210mm = 8,27"  * 600 dpi = 4958pz di larghezza
-                  297mm = 11,69" * 600 dpi = 7016pz di lunghezza
+    stampante pdf 210mm = 8,27"  * 600 dpi = 4958px di larghezza
+                  297mm = 11,69" * 600 dpi = 7016px di lunghezza
 
     STAMPANTE_TM_T88            : 180dpi, carta 80mm 521 dot
     STAMPANTE_TM_L90            : 203dpi, carta 80mm 640 dot
@@ -20,6 +20,10 @@
     
     dpi = dotNum*25.4/paperWidth
 
+    in*dpi = px;
+    mm*dpi = px*25.4
+
+    25.4mm = 100gu  1mm = 100/25.4gu = 3.937gu
 ****************************************************************************/
 
 using System;
@@ -103,6 +107,8 @@ namespace StandCommonFiles
         static float _fReceiptVsCopyZoom;
         static float _fHZoom, _fVZoom;
         static float _fH_px_to_gu, _fV_px_to_gu; // conversion between pixels and graph units
+        
+        const float _mm_to_gu = 0.3937f; // corrisponde a 0.1mm
 
         static string sPrevPrinter;
 
@@ -361,7 +367,7 @@ namespace StandCommonFiles
                     if (_bIsDati)
                     {
                         _printFont = new Font(_sWinPrinterParams.sRepFontType, _sWinPrinterParams.fRepFontSize * (_sWinPrinterParams.iRepZoomValue / 100.0f) * _fReceiptVsCopyZoom, _sWinPrinterParams.sRepFontStyle);
-                        _fLeftMargin = _sWinPrinterParams.iRepLeftMargin * _fH_px_to_gu;
+                        _fLeftMargin = _sWinPrinterParams.iRepLeftMargin * _mm_to_gu;
 
                         _LogoFont = _printFont;
                     }
@@ -369,7 +375,7 @@ namespace StandCommonFiles
                     {
                         _printFont = new Font(_sWinPrinterParams.sTckFontType, _sWinPrinterParams.fTckFontSize * (_sWinPrinterParams.iTckZoomValue / 100.0f) * _fReceiptVsCopyZoom, _sWinPrinterParams.sTckFontStyle);
 
-                        _fLeftMargin = _sWinPrinterParams.iTckLeftMargin * _fH_px_to_gu;
+                        _fLeftMargin = _sWinPrinterParams.iTckLeftMargin * _mm_to_gu;
 
 #if STANDFACILE
                         // considera solo il Font per la Receipt in modo da non avere poi differenze con le copie
@@ -380,7 +386,7 @@ namespace StandCommonFiles
 #endif
                     }
 
-                    _fLogoCenter = _sWinPrinterParams.iLogoCenter * _fH_px_to_gu;
+                    _fLogoCenter = _sWinPrinterParams.iLogoCenter * _mm_to_gu;
 
                     // controlli sul Logo Top
                     if (String.IsNullOrEmpty(_sWinPrinterParams.sLogoName_T))
@@ -654,6 +660,10 @@ namespace StandCommonFiles
                                     // cambio pagina ed a capo
                                     _fLeftMargin = _fLeftMarginBk;
                                     _fCanvasVertPos = ev.PageSettings.PaperSize.Height;
+
+                                    _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk;
+                                    _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk;
+
                                     iA4_PrintStatus = 0;
                                 }
 
