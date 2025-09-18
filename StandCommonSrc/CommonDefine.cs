@@ -46,11 +46,6 @@ namespace StandCommonFiles
         /// <summary>database: nome tabella di stato</summary>
         public const string NOME_STATO_DBTBL = RELEASE_TBL + "_stato";
 
-        /// <summary>database: nome utente</summary>
-        public const String _uid = "standfacile";
-        /// <summary>database: il nome</summary>
-        public const String _database = "standfacile_db";
-
         /// <summary>prefisso tabella degli ordini</summary>
         public const string _dbOrdersTablePrefix = RELEASE_TBL + "_ordini";
 
@@ -332,6 +327,12 @@ namespace StandCommonFiles
 
         /// <summary>chiave per memorizzare il DB server corrente</summary>
         public const String DBASE_SERVER_NAME_KEY = "sDB_ServerName";
+
+        /// <summary>chiave che memorizza la password</summary>
+        public const String DBASE_DATABASE_KEY = "sDB_database";
+
+        /// <summary>chiave che memorizza la password</summary>
+        public const String DBASE_USERNAME_KEY = "sDB_username";
 
         /// <summary>chiave che memorizza la password</summary>
         public const String DBASE_PASSWORD_KEY = "sDB_password";

@@ -56,8 +56,12 @@ namespace StandFacile
 
         /// <summary>accesso al database: nome del server</summary>
         public static String _sDB_ServerName;
+        /// <summary>accesso al database: nome del database</summary>
+        public static String _sDB_Database;
+        /// <summary>accesso al database: nome utente</summary>
+        public static String _sDB_Username;
         /// <summary>accesso al database: password</summary>
-        public static String _password;
+        public static String _sDB_Password;
 
         /// <summary>variabile che indica se è usato il network DB (MySQL, PostGreSQL) o no (SQLite)</summary>
         private static bool _bUsa_NDB;
@@ -115,10 +119,10 @@ namespace StandFacile
         public static void Reset_StatusDate_Changed() { _bStatusDate_IsChanged = false; }
 
         /// <summary>esegue check della connessione al DB</summary>
-        public bool dbFeedbackCheck() { return dbCheck(_sDB_ServerName, _password, _iNDbMode, false); }
+        public bool dbFeedbackCheck() { return dbCheck(_sDB_ServerName, _sDB_Database, _sDB_Username, _sDB_Password, _iNDbMode, false); }
 
         /// <summary>esegue check silente della connessione al DB</summary>
-        public void dbSilentCheck() { dbCheck(_sDB_ServerName, _password, _iNDbMode, true); }
+        public void dbSilentCheck() { dbCheck(_sDB_ServerName, _sDB_Database, _sDB_Username, _sDB_Password, _iNDbMode, true); }
 
 #endif
 
@@ -181,7 +185,7 @@ namespace StandFacile
         public static int iUSA_NDB() { return _iNDbMode; } //
 
         /// <summary>funzione di verifica della connessione al DB di rete</summary>
-        public bool dbCheck() { return dbCheck(_sDB_ServerName, _password, _iNDbMode); }
+        public bool dbCheck() { return dbCheck(_sDB_ServerName, _sDB_Database, _sDB_Username, _sDB_Password, _iNDbMode); }
 
         /// <summary>controllo stato della connessione</summary>
         public bool GetDB_Connected()
@@ -232,7 +236,9 @@ namespace StandFacile
             dbAzzeraDatiOrdine(ref DB_Data);
 
             _sDB_ServerName = ReadRegistry(DBASE_SERVER_NAME_KEY, Dns.GetHostName());
-            _password = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
+            _sDB_Database = ReadRegistry(DBASE_DATABASE_KEY, DBASE_LAN_DATABASE);
+            _sDB_Username = ReadRegistry(DBASE_USERNAME_KEY, DBASE_LAN_USERNAME);
+            _sDB_Password = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
 #if STANDFACILE
             _iNDbMode = ReadRegistry(DB_MODE_KEY, (int)DB_MODE.SQLITE); // punto unico
 #else
@@ -282,11 +288,13 @@ namespace StandFacile
         }
 
         /// <summary> imposta i parametri della connessione letta dallo Stato NOME_STATO_DBTBL </summary>
-        public static void SetDbMode(String sServerParam, String sPwdParam, int iDbModePrm)
+        public static void SetDbMode(String sServerParam, String sDatabaseParam, String sUsernameParam, String sPwdParam, int iDbModePrm)
         {
             _sDB_ServerName = sServerParam;
             _iNDbMode = iDbModePrm;
-            _password = sPwdParam;
+            _sDB_Database = sDatabaseParam;
+            _sDB_Username = sUsernameParam;
+            _sDB_Password = sPwdParam;
 
 #if STAND_CUCINA
             if (_iNDbMode != iDbModePrm)
@@ -1097,7 +1105,7 @@ namespace StandFacile
         /// <summary>
         /// Test di connessione al db server, in caso di successo salva copia dei parametri
         /// </summary>
-        public bool dbCheck(String sDB_ServerNamePrm, String sDB_pwdPrm, int iDbModePrm, bool bSilentParam = false)
+        public bool dbCheck(String sDB_ServerNamePrm, String sDB_dbPrm, String sDB_userParam, String sDB_pwdPrm, int iDbModePrm, bool bSilentParam = false)
         {
             bool bDBCheck;
 
@@ -1106,7 +1114,7 @@ namespace StandFacile
                 if (Program._rBdBaseIntf_my == null)
                     Program._rBdBaseIntf_my = new dBaseIntf_my();
 
-                bDBCheck = _rdBaseIntf_my.dbCheck(sDB_ServerNamePrm, sDB_pwdPrm, bSilentParam);
+                bDBCheck = _rdBaseIntf_my.dbCheck(sDB_ServerNamePrm, sDB_dbPrm, sDB_userParam, sDB_pwdPrm, bSilentParam);
 
                 if (bDBCheck)
                 {

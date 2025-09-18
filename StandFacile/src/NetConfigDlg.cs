@@ -112,6 +112,8 @@ namespace StandFacile
             combo_TipoDBase.SelectedIndex = iTipoDBItem;
 
             Combo_DBServerName.Text = ReadRegistry(DBASE_SERVER_NAME_KEY, _sHostName);
+            dbDatabaseEdit.Text = ReadRegistry(DBASE_DATABASE_KEY, DBASE_LAN_DATABASE);
+            dbUsernameEdit.Text = ReadRegistry(DBASE_USERNAME_KEY, DBASE_LAN_USERNAME);
             dbPasswordEdit.Text = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
 
             // impostate da dBaseTunnel_my in base a SF_Data.iNumCassa
@@ -155,6 +157,8 @@ namespace StandFacile
             Combo_DBServerName.Enabled = true;
             Btn_DBServerTest.Enabled = true;
 
+            dbDatabaseEdit.Enabled = true;
+            dbUsernameEdit.Enabled = true;
             dbPasswordEdit.Enabled = true;
 
             if ((Combo_NumCassa.SelectedIndex + 1) == CASSA_PRINCIPALE)
@@ -171,6 +175,8 @@ namespace StandFacile
                 Combo_DBServerName.Enabled = true;
                 Btn_DBServerTest.Enabled = true;
 
+                dbDatabaseEdit.Enabled = true;
+                dbUsernameEdit.Enabled = true;
                 dbPasswordEdit.Enabled = true;
 
                 Panel_Tipo_Cassa.Enabled = true;
@@ -183,6 +189,8 @@ namespace StandFacile
                 Combo_DBServerName.Enabled = false;
                 Btn_DBServerTest.Enabled = false;
 
+                dbDatabaseEdit.Enabled = false;
+                dbUsernameEdit.Enabled = false;
                 dbPasswordEdit.Enabled = false;
 
                 Panel_Tipo_Cassa.Enabled = false;
@@ -260,7 +268,7 @@ namespace StandFacile
 
         private void Btn_DBServerTest_Click(object sender, EventArgs e)
         {
-            if (_rdBaseIntf.dbCheck(Combo_DBServerName.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex))
+            if (_rdBaseIntf.dbCheck(Combo_DBServerName.Text, dbDatabaseEdit.Text, dbUsernameEdit.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex))
             {
                 _bOK_EnableLoc = true;
                 AddTo_ComboList(Combo_DBServerName, SEL_DB_SERVER_KEY);
@@ -322,6 +330,20 @@ namespace StandFacile
             {
                 WriteRegistry(DBASE_SERVER_NAME_KEY, Combo_DBServerName.Text);
 
+                bRiavvio = true;
+            }
+
+            if ((dbDatabaseEdit.Text != ReadRegistry(ReadRegistry(DBASE_DATABASE_KEY, DBASE_LAN_DATABASE), DBASE_LAN_DATABASE)) &&
+                (!String.IsNullOrEmpty(dbDatabaseEdit.Text)))
+            {
+                WriteRegistry(DBASE_DATABASE_KEY, dbDatabaseEdit.Text);
+                bRiavvio = true;
+            }
+
+            if ((dbUsernameEdit.Text != ReadRegistry(DBASE_USERNAME_KEY, DBASE_LAN_USERNAME)) &&
+                (!String.IsNullOrEmpty(dbUsernameEdit.Text)))
+            {
+                WriteRegistry(DBASE_USERNAME_KEY, dbUsernameEdit.Text);
                 bRiavvio = true;
             }
 

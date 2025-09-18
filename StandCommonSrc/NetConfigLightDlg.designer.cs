@@ -57,6 +57,10 @@
             this.textBoxColor_1 = new System.Windows.Forms.TextBox();
             this.textBoxColor_0 = new System.Windows.Forms.TextBox();
             this.textBoxWarn = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.dbUsernameEdit = new System.Windows.Forms.TextBox();
+            this.dbDatabaseEdit = new System.Windows.Forms.TextBox();
             this.panelCopies.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,7 +74,7 @@
             // 
             // BtnDB_ServerTest
             // 
-            this.BtnDB_ServerTest.Location = new System.Drawing.Point(288, 118);
+            this.BtnDB_ServerTest.Location = new System.Drawing.Point(288, 162);
             this.BtnDB_ServerTest.Name = "BtnDB_ServerTest";
             this.BtnDB_ServerTest.Size = new System.Drawing.Size(86, 30);
             this.BtnDB_ServerTest.TabIndex = 1;
@@ -83,7 +87,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(146, 566);
+            this.btnCancel.Location = new System.Drawing.Point(146, 610);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 32);
             this.btnCancel.TabIndex = 2;
@@ -95,7 +99,7 @@
             // 
             this.btnOK.Image = ((System.Drawing.Image)(resources.GetObject("btnOK.Image")));
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(287, 566);
+            this.btnOK.Location = new System.Drawing.Point(287, 610);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 32);
             this.btnOK.TabIndex = 3;
@@ -118,7 +122,7 @@
             // 
             this.labelGroups.AutoSize = true;
             this.labelGroups.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelGroups.Location = new System.Drawing.Point(22, 204);
+            this.labelGroups.Location = new System.Drawing.Point(22, 248);
             this.labelGroups.Name = "labelGroups";
             this.labelGroups.Size = new System.Drawing.Size(464, 16);
             this.labelGroups.TabIndex = 5;
@@ -206,7 +210,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(16, 104);
+            this.label3.Location = new System.Drawing.Point(16, 148);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(171, 14);
             this.label3.TabIndex = 13;
@@ -215,7 +219,7 @@
             // dbPasswordEdit
             // 
             this.dbPasswordEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dbPasswordEdit.Location = new System.Drawing.Point(19, 126);
+            this.dbPasswordEdit.Location = new System.Drawing.Point(19, 170);
             this.dbPasswordEdit.MaxLength = 24;
             this.dbPasswordEdit.Name = "dbPasswordEdit";
             this.dbPasswordEdit.PasswordChar = '*';
@@ -247,7 +251,7 @@
             // 
             this.checkBoxBarcode.AutoSize = true;
             this.checkBoxBarcode.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.checkBoxBarcode.Location = new System.Drawing.Point(41, 167);
+            this.checkBoxBarcode.Location = new System.Drawing.Point(41, 211);
             this.checkBoxBarcode.Name = "checkBoxBarcode";
             this.checkBoxBarcode.Size = new System.Drawing.Size(183, 20);
             this.checkBoxBarcode.TabIndex = 17;
@@ -258,7 +262,7 @@
             // 
             this.checkBox_StampaManuale.AutoSize = true;
             this.checkBox_StampaManuale.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.checkBox_StampaManuale.Location = new System.Drawing.Point(288, 167);
+            this.checkBox_StampaManuale.Location = new System.Drawing.Point(288, 211);
             this.checkBox_StampaManuale.Name = "checkBox_StampaManuale";
             this.checkBox_StampaManuale.Size = new System.Drawing.Size(148, 20);
             this.checkBox_StampaManuale.TabIndex = 18;
@@ -277,7 +281,7 @@
             this.panelCopies.Controls.Add(this.checkBoxCopia_2);
             this.panelCopies.Controls.Add(this.checkBoxCopia_1);
             this.panelCopies.Controls.Add(this.checkBoxCopia_0);
-            this.panelCopies.Location = new System.Drawing.Point(19, 223);
+            this.panelCopies.Location = new System.Drawing.Point(19, 267);
             this.panelCopies.Name = "panelCopies";
             this.panelCopies.Size = new System.Drawing.Size(496, 154);
             this.panelCopies.TabIndex = 19;
@@ -325,7 +329,7 @@
             // 
             this.textBoxColor_3.BackColor = System.Drawing.Color.Red;
             this.textBoxColor_3.ForeColor = System.Drawing.Color.White;
-            this.textBoxColor_3.Location = new System.Drawing.Point(287, 524);
+            this.textBoxColor_3.Location = new System.Drawing.Point(287, 568);
             this.textBoxColor_3.Name = "textBoxColor_3";
             this.textBoxColor_3.ReadOnly = true;
             this.textBoxColor_3.Size = new System.Drawing.Size(194, 20);
@@ -337,7 +341,7 @@
             // 
             this.labelColors.AutoSize = true;
             this.labelColors.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelColors.Location = new System.Drawing.Point(32, 464);
+            this.labelColors.Location = new System.Drawing.Point(32, 508);
             this.labelColors.Name = "labelColors";
             this.labelColors.Size = new System.Drawing.Size(268, 14);
             this.labelColors.TabIndex = 67;
@@ -347,7 +351,7 @@
             // 
             this.textBoxColor_2.BackColor = System.Drawing.Color.Yellow;
             this.textBoxColor_2.ForeColor = System.Drawing.Color.Black;
-            this.textBoxColor_2.Location = new System.Drawing.Point(34, 524);
+            this.textBoxColor_2.Location = new System.Drawing.Point(34, 568);
             this.textBoxColor_2.Name = "textBoxColor_2";
             this.textBoxColor_2.ReadOnly = true;
             this.textBoxColor_2.Size = new System.Drawing.Size(194, 20);
@@ -359,7 +363,7 @@
             // 
             this.textBoxColor_1.BackColor = System.Drawing.Color.Blue;
             this.textBoxColor_1.ForeColor = System.Drawing.Color.White;
-            this.textBoxColor_1.Location = new System.Drawing.Point(288, 488);
+            this.textBoxColor_1.Location = new System.Drawing.Point(288, 532);
             this.textBoxColor_1.Name = "textBoxColor_1";
             this.textBoxColor_1.ReadOnly = true;
             this.textBoxColor_1.Size = new System.Drawing.Size(194, 20);
@@ -371,7 +375,7 @@
             // 
             this.textBoxColor_0.BackColor = System.Drawing.Color.LimeGreen;
             this.textBoxColor_0.ForeColor = System.Drawing.Color.Black;
-            this.textBoxColor_0.Location = new System.Drawing.Point(34, 488);
+            this.textBoxColor_0.Location = new System.Drawing.Point(34, 532);
             this.textBoxColor_0.Name = "textBoxColor_0";
             this.textBoxColor_0.ReadOnly = true;
             this.textBoxColor_0.Size = new System.Drawing.Size(194, 20);
@@ -382,7 +386,7 @@
             // textBoxWarn
             // 
             this.textBoxWarn.Font = new System.Drawing.Font("Tahoma", 9.75F);
-            this.textBoxWarn.Location = new System.Drawing.Point(19, 390);
+            this.textBoxWarn.Location = new System.Drawing.Point(19, 434);
             this.textBoxWarn.Multiline = true;
             this.textBoxWarn.Name = "textBoxWarn";
             this.textBoxWarn.Size = new System.Drawing.Size(496, 58);
@@ -390,13 +394,57 @@
             this.textBoxWarn.Text = "il grigio mantiene gli accorpamenti per gruppo di articoli, gli altri colori inve" +
     "ce producono accorpamenti che hanno priorità rispetti ai gruppi.";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(16, 90);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(157, 14);
+            this.label4.TabIndex = 70;
+            this.label4.Text = "Username utente Database";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(285, 90);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(92, 14);
+            this.label5.TabIndex = 71;
+            this.label5.Text = "Nome database";
+            // 
+            // dbUsernameEdit
+            // 
+            this.dbUsernameEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dbUsernameEdit.Location = new System.Drawing.Point(19, 107);
+            this.dbUsernameEdit.MaxLength = 24;
+            this.dbUsernameEdit.Name = "dbUsernameEdit";
+            this.dbUsernameEdit.PasswordChar = '*';
+            this.dbUsernameEdit.Size = new System.Drawing.Size(170, 22);
+            this.dbUsernameEdit.TabIndex = 72;
+            // 
+            // dbDatabaseEdit
+            // 
+            this.dbDatabaseEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dbDatabaseEdit.Location = new System.Drawing.Point(288, 107);
+            this.dbDatabaseEdit.MaxLength = 24;
+            this.dbDatabaseEdit.Name = "dbDatabaseEdit";
+            this.dbDatabaseEdit.PasswordChar = '*';
+            this.dbDatabaseEdit.Size = new System.Drawing.Size(170, 22);
+            this.dbDatabaseEdit.TabIndex = 73;
+            // 
             // NetConfigLightDlg
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(532, 620);
+            this.ClientSize = new System.Drawing.Size(532, 663);
+            this.Controls.Add(this.dbDatabaseEdit);
+            this.Controls.Add(this.dbUsernameEdit);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxWarn);
             this.Controls.Add(this.textBoxColor_3);
             this.Controls.Add(this.labelColors);
@@ -462,5 +510,9 @@
         private System.Windows.Forms.TextBox textBoxColor_0;
         private System.Windows.Forms.TextBox textBoxWarn;
         private System.Windows.Forms.CheckBox checkBoxCopia_8;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox dbUsernameEdit;
+        private System.Windows.Forms.TextBox dbDatabaseEdit;
     }
 }
