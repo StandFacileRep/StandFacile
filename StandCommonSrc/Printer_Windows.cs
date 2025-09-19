@@ -778,11 +778,8 @@ namespace StandCommonFiles
             }
 
             // nel caso di carta A4, A5 meglio evitare righe aggiuntive pre-taglio
-            if (!(sGlbWinPrinterParams.bA4Paper || sGlbWinPrinterParams.bA5Paper))
+            if (!(sGlbWinPrinterParams.bA4Paper || sGlbWinPrinterParams.bA5Paper)) // TODO: AGGIUSTABILE CON CONFIGURAZIONE
             {
-                PrintCanvas(pg, " "); // 4 righe di fine stampa
-                PrintCanvas(pg, " ");
-                PrintCanvas(pg, " ");
                 PrintCanvas(pg, "_");
             }
 
