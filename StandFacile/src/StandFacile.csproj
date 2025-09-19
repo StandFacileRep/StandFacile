@@ -216,6 +216,10 @@
       <Link>EsploraDB_Dlg.designer.cs</Link>
       <DependentUpon>EsploraDB_Dlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\StandCommonSrc\FrmUpdateProgress.cs">
+      <Link>FrmUpdateProgress.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="..\..\StandCommonSrc\LegacyPrinterDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,6 +306,9 @@
     <Compile Include="DataCheckDlg.Designer.cs">
       <DependentUpon>DataCheckDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\..\StandCommonSrc\FrmUpdateProgress.cs">
+		<SubType>Form</SubType>
+	</Compile>
     <Compile Include="MainForm_Redraw.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -412,6 +419,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataCheckDlg.resx">
       <DependentUpon>DataCheckDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\StandCommonSrc\FrmUpdateProgress.resx">
+      <DependentUpon>FrmUpdateProgress.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionsDlg.resx">
       <DependentUpon>OptionsDlg.cs</DependentUpon>

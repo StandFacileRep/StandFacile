@@ -397,9 +397,13 @@ namespace StandFacile
 
                 if (_bListinoModificato)
                 {
-                    DataManager.SalvaListino();
+                    FrmUpdateProgress progressForm = new FrmUpdateProgress("Salvataggio listino", "Salvando definizioni listino nel Database e in Listino.txt", () => {
+                        DataManager.SalvaListino();
 
-                    DataManager.SalvaDati(SF_Data); // così si visualizzano prezzi e dati aggiornati
+                        DataManager.SalvaDati(SF_Data); // così si visualizzano prezzi e dati aggiornati 
+                    });
+                    progressForm.ShowDialog();
+                        
                     SetTabsAppearance();
                 }
 
