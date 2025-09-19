@@ -19,6 +19,12 @@ namespace StandCommonFiles
         * quindi la stessa stringa viene crittografata in modo diverso
         ****************************************************************/
 
+        /// <summary>nome del db locale</summary>
+        public const String DBASE_LAN_DATABASE = "standfacile_db";
+
+        /// <summary>utente di default per accesso al db locale</summary>
+        public const String DBASE_LAN_USERNAME = "standfacile";
+
         /// <summary>password di default</summary>
         public const String DBASE_LAN_PASSWORD = "yTb02JWPxJzKvD5691qi4g=u";
 
