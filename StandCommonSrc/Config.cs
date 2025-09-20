@@ -175,9 +175,10 @@ namespace StandFacile
                     {
                         iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
                         sInStr = sInStr.Remove(0, iPos + 1);
+                        sInStr = sInStr.Replace("\"", "");
                         try
                         {
-                            sConfig.sService = sInStr.Trim();
+                            sConfig.sService += (" " + sInStr.Trim());
                         }
                         catch (Exception)
                         {

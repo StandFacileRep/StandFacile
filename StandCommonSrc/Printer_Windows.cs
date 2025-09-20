@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************
 	NomeFile : StandCommonSrc/Printer_Windows.cs
-    Data	 : 13.09.2025
+    Data	 : 18.09.2025
 	Autore   : Mauro Artuso
 
 	Descrizione :
@@ -57,7 +57,7 @@ namespace StandCommonFiles
         //const String WIDE_CONST_STRING = "*********_*********_********";
 
         const float PAGE_VERT_SIZE_PERC1 = 0.55f;
-        const float PAGE_VERT_SIZE_PERC2 = 0.65f;
+        const float PAGE_VERT_SIZE_PERC2 = 0.75f;
 
         static bool _bIsDati, _bIsTicket;
         static bool _bLogoCheck_T, _bLogoCheck_B;
@@ -68,12 +68,13 @@ namespace StandCommonFiles
         /// <summary>se true evita la stampa dello scontrino</summary>
         static bool _bSkipTicketPrint = false;
         static bool _bPaperIsA4 = false;
+        static bool _bPageContinueSameHorPos;
 
         /// <summary>imposta l'intervallo tra le stampe</summary>
         public static int iPrint_WaitInterval = 200;
 
         static float _fLeftMargin, _fLogoCenter, _fLeftMarginBk;
-        static float _fCanvasVertPos, _fCanvasVertPosBk;
+        static float _fCanvasVertPos, _fCanvasVertPos_Q4;
 
         static int _iGruppoStampa;
 
@@ -85,7 +86,7 @@ namespace StandCommonFiles
 
         static float _fLogo_T_LeftMargin, _fLogo_T_LeftMarginBk;
         static float _fLogo_B_LeftMargin, _fLogo_B_LeftMarginBk;
-        static float _fFont_HSize, _fFont_VSize, _fLogoFont_HSize;
+        static float _fFont_HSize, _fLogoFont_HSize;
 
         static Image _img_T, _img_B;
 
@@ -107,7 +108,7 @@ namespace StandCommonFiles
         static float _fReceiptVsCopyZoom;
         static float _fHZoom, _fVZoom;
         static float _fH_px_to_gu, _fV_px_to_gu; // conversion between pixels and graph units
-        
+
         const float _mm_to_gu = 0.3937f; // corrisponde a 0.1mm
 
         static string sPrevPrinter;
@@ -155,7 +156,7 @@ namespace StandCommonFiles
             _fReceiptVsCopyZoom = 1.0f;
 
             _fLeftMarginBk = 0;
-            _fCanvasVertPosBk = 0;
+            _fCanvasVertPos_Q4 = 0;
 
             _fLogo_T_LeftMargin = 0;
             _fLogo_B_LeftMargin = 0;
@@ -387,6 +388,7 @@ namespace StandCommonFiles
                     }
 
                     _fLogoCenter = _sWinPrinterParams.iLogoCenter * _mm_to_gu;
+                    _bPageContinueSameHorPos = false;
 
                     // controlli sul Logo Top
                     if (String.IsNullOrEmpty(_sWinPrinterParams.sLogoName_T))
@@ -491,7 +493,6 @@ namespace StandCommonFiles
             Graphics pg = ev.Graphics;
 
             float fBC_LeftMargin, fBC_Height, fBC_Zoom;
-            float topMargin = ev.MarginBounds.Top;
 
             string sTmp, sInStr;
             String sBarcode;
@@ -500,19 +501,15 @@ namespace StandCommonFiles
             Pen blackPen = new Pen(Brushes.Black, 2.0f);
             fBC_Zoom = 1.6f; // per rendere uguale strip nere e bianche
 
-            // _fFont_VSize = pg.MeasureString(WIDE_CONST_STRING, _printFont).Width;
             // char width in pixels
             _fFont_HSize = pg.MeasureString("W", _printFont).Width * 1.22f;
-            _fFont_VSize = pg.MeasureString("W", _printFont).Height * 1.22f;
 
             _fLogoFont_HSize = pg.MeasureString("W", _LogoFont).Width * 1.22f;
 
             i = (int)pg.PageUnit;
 
             // inizializzazione posizionamento e init Bk
-            _fCanvasVertPos = topMargin;
-
-            _fCanvasVertPosBk = _fCanvasVertPos;
+            _fCanvasVertPos = ev.PageSettings.Margins.Top;
             _fLeftMarginBk = _fLeftMargin;
 
             _fLogo_T_LeftMarginBk = _fLogo_T_LeftMargin;
@@ -520,6 +517,12 @@ namespace StandCommonFiles
 
             iA4_PrintStatus = 0;
             PrintCanvas(pg, "");
+
+            if (_bPaperIsA4)
+            {
+                PrintCanvas(pg, "");
+                PrintCanvas(pg, "");
+            }
 
             while ((_fCanvasVertPos < ev.PageSettings.PaperSize.Height) && ((sInStr = _fileToPrint.ReadLine()) != null))
             {
@@ -618,60 +621,80 @@ namespace StandCommonFiles
                             sInStr = _fileToPrint.ReadLine();
                     }
 
-                    if (!String.IsNullOrEmpty(sInStr) && sInStr.Contains(_CUT) && sGlbWinPrinterParams.bA4Paper && _bPaperIsA4)
+                    if (!String.IsNullOrEmpty(sInStr) && sInStr.Contains(_CUT) && sGlbWinPrinterParams.bA4Paper && _bPaperIsA4 && _bIsTicket)
                     {
                         switch (iA4_PrintStatus)
                         {
-                            // prepara 2Q Top
+                            // prepara 2Q
                             case 0:
-                                _fLeftMargin = _fLeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
-                                _fCanvasVertPos = _fCanvasVertPosBk;
-
-                                _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
-                                _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
-
-                                PrintCanvas(pg, "");
-
-                                iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
-                                break;
-
-                            // prepara 2Q Bottom
-                            case 1:
-                                if (_fCanvasVertPos < ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC1)
-                                    _fCanvasVertPos = ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC1;
-                                else
-                                    _fCanvasVertPos += _printFont.GetHeight(pg);
-
-                                iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
-                                PrintCanvas(pg, "");
-                                break;
-
-                            // prepara 2Q Bottom / 4Q
-                            case 2:
-                                if (_fCanvasVertPos < ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC2)
+                                // verifica per rimanere nella pagina
+                                if (_fLeftMargin < ev.PageSettings.PaperSize.Width / 2)
                                 {
-                                    _fCanvasVertPos += _printFont.GetHeight(pg);
+                                    _fLeftMargin = _fLeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
 
-                                    iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
-                                    PrintCanvas(pg, "");
+                                    _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
+                                    _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk + ev.PageSettings.PaperSize.Width / 2;
                                 }
-                                else
+
+                                _fCanvasVertPos_Q4 = _fCanvasVertPos; // VerticalPosition relativa alla fine stampa Q1
+
+                                if (!_bPageContinueSameHorPos)
+                                    _fCanvasVertPos = ev.PageSettings.Margins.Top;
+
+                                PrintCanvas(pg, "");
+                                PrintCanvas(pg, "");
+                                PrintCanvas(pg, "");
+
+                                iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
+                                break;
+
+                            // prepara 4Q, solo _fCanvasVertPos
+                            case 1:
+                                if (_fCanvasVertPos_Q4 > ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC2)
                                 {
-                                    // cambio pagina ed a capo
-                                    _fLeftMargin = _fLeftMarginBk;
+                                    // reset generale ed avanzamento pagina successiva
+                                    _fLeftMargin = _sWinPrinterParams.iTckLeftMargin * _mm_to_gu;
                                     _fCanvasVertPos = ev.PageSettings.PaperSize.Height;
 
                                     _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk;
                                     _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk;
 
                                     iA4_PrintStatus = 0;
-                                }
 
+                                    _bPageContinueSameHorPos = false;
+                                    ev.HasMorePages = true;
+                                    break;
+                                }
+                                else if (_fCanvasVertPos_Q4 < ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC1) // se TT finisce presto
+                                {
+                                    _fCanvasVertPos = ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC1; // posiziona circa metà pagina
+                                }
+                                else if (_fCanvasVertPos < _fCanvasVertPos_Q4)
+                                {
+                                    _fCanvasVertPos = _fCanvasVertPos_Q4; // riprende VerticalPosition relativa alla fine stampa Q1
+                                    PrintCanvas(pg, "");
+                                }
+                                else
+                                    _fCanvasVertPos += _printFont.GetHeight(pg);
+
+                                iA4_PrintStatus = (iA4_PrintStatus + 1) % 4;
+                                PrintCanvas(pg, "");
                                 break;
 
-                            // prepara 1Q e cambio pagina
+                            // prepara 4Q/1Q
+                            case 2:
                             default:
-                                PrintCanvas(pg, "");
+                                // cambio pagina ed a capo
+                                _fLeftMargin = _fLeftMarginBk;
+                                _fCanvasVertPos = ev.PageSettings.PaperSize.Height;
+
+                                _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk;
+                                _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk;
+
+                                iA4_PrintStatus = 0;
+
+                                _bPageContinueSameHorPos = false;
+                                ev.HasMorePages = true;
                                 break;
                         }
 
@@ -767,6 +790,11 @@ namespace StandCommonFiles
 
                     LogToFile(String.Format("Printer Win: _sBarcodeID = {0}", sTmp));
                 }
+
+                // forza uscita
+                if (ev.HasMorePages == true)
+                    break;
+
             } // end while()
 
 
@@ -789,12 +817,20 @@ namespace StandCommonFiles
             // valuta se servono altre pagine, 25.4*32/100 = 8mm
             if (_fCanvasVertPos > (ev.PageSettings.PaperSize.Height - 32))
             {
-                // reset _fCanvasVertPos
-                _fCanvasVertPos = _printFont.GetHeight(pg);
+                Console.WriteLine("*****************************");
+                Console.WriteLine("** Prt_Win: cambio pagina ***");
+                Console.WriteLine("*****************************");
+
+                // proseguimento a pagina successiva senza andare a capo
+                if (ev.HasMorePages == false)
+                    _bPageContinueSameHorPos = true;
+
                 ev.HasMorePages = true;
             }
             else
+            {
                 ev.HasMorePages = false;  // uscita loop
+            }
         }
 
         static void PrintCanvas(Graphics pgParam, float fSize, float fVertSep, String sStrParam)
