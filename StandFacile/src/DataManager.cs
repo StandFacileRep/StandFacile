@@ -1239,6 +1239,7 @@ namespace StandFacile
             String sDebug;
             String[] sQueue_Object = new String[2];
 
+            rFrmMain.EnableButtons(false);
             rFrmMain.EnableTextBox(false);
 
             DataManager.ClearGrid();
@@ -1360,6 +1361,7 @@ namespace StandFacile
                 if (!(IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB) && bEsploraAuto))
                     AnteprimaDlg.rAnteprimaDlg.Show();
 
+                rFrmMain.EnableButtons(true);
                 rFrmMain.EnableTextBox(true);
 
                 AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
@@ -1383,6 +1385,7 @@ namespace StandFacile
                     WarningManager(_WrnMsg);
                 }
 
+                rFrmMain.EnableButtons(true);
                 rFrmMain.EnableTextBox(true);
                 return false;
             }
@@ -1458,6 +1461,7 @@ namespace StandFacile
                 SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
             }
 
+            rFrmMain.EnableButtons(false);
             rFrmMain.EnableTextBox(false);
 
             if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO))
@@ -1469,6 +1473,7 @@ namespace StandFacile
             rFrmMain.SetEditTavolo(DB_Data.sTavolo);
             rFrmMain.SetEditNota(DB_Data.sNota);
 
+            rFrmMain.EnableButtons(true);
             rFrmMain.EnableTextBox(true);
 
             AnteprimaDlg.rAnteprimaDlg.Show();

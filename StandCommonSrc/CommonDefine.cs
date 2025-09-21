@@ -701,7 +701,31 @@ namespace StandCommonFiles
             BIT_PRIVACY,
 
             /// <summary>bit di iGeneralOptions per consentire la stampa con ENTER</summary>
-            BIT_ENTER_PRINT_RECEIPT_ENABLED
+            BIT_ENTER_PRINT_RECEIPT_ENABLED,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'invio di Messaggi in cucina</summary>
+            BIT_DISABLE_SEND_MESSAGE,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'aggiunta x10 degli Articoli</summary>
+            BIT_DISABLE_X10,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'asporto</summary>
+            BIT_DISABLE_ASPORTO,
+
+            /// <summary>bit di iGeneralOptions per disabilitare i Buoni Sconto</summary>
+            BIT_DISABLE_SCONTO,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'inserimento del Nome Ordine</summary>
+            BIT_DISABLE_NOME,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'inserimento del Nome Tavolo</summary>
+            BIT_DISABLE_TAVOLO,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'inserimento dei Coperti</summary>
+            BIT_DISABLE_COPERTI,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'inserimento del Metodo di Pagamento</summary>
+            BIT_DISABLE_CASH_POS,
         }
 
         /****************************************************************

@@ -46,6 +46,14 @@
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.checkBoxShowPrevReceipt = new System.Windows.Forms.CheckBox();
             this.checkBox_ZeroPriceItems = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisMesCuc = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisX10 = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisAsporto = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisSconto = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisNome = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisTavolo = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisCoperti = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisPagamento = new System.Windows.Forms.CheckBox();
             this.panelPresale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
@@ -88,7 +96,7 @@
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOK.Image = ((System.Drawing.Image)(resources.GetObject("btnOK.Image")));
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(390, 299);
+            this.btnOK.Location = new System.Drawing.Point(547, 303);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 32);
             this.btnOK.TabIndex = 11;
@@ -103,7 +111,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(223, 299);
+            this.btnCancel.Location = new System.Drawing.Point(380, 303);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 32);
             this.btnCancel.TabIndex = 0;
@@ -249,11 +257,107 @@
             this.checkBox_ZeroPriceItems.Text = "consenti Articoli con prezzo zero";
             this.checkBox_ZeroPriceItems.UseVisualStyleBackColor = true;
             // 
+            // checkBoxDisMesCuc
+            // 
+            this.checkBoxDisMesCuc.AutoSize = true;
+            this.checkBoxDisMesCuc.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDisMesCuc.Location = new System.Drawing.Point(706, 65);
+            this.checkBoxDisMesCuc.Name = "checkBoxDisMesCuc";
+            this.checkBoxDisMesCuc.Size = new System.Drawing.Size(161, 18);
+            this.checkBoxDisMesCuc.TabIndex = 27;
+            this.checkBoxDisMesCuc.Text = "disabilita messaggi cucina";
+            this.checkBoxDisMesCuc.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDisX10
+            // 
+            this.checkBoxDisX10.AutoSize = true;
+            this.checkBoxDisX10.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDisX10.Location = new System.Drawing.Point(706, 89);
+            this.checkBoxDisX10.Name = "checkBoxDisX10";
+            this.checkBoxDisX10.Size = new System.Drawing.Size(122, 18);
+            this.checkBoxDisX10.TabIndex = 28;
+            this.checkBoxDisX10.Text = "disabita tasto x10";
+            this.checkBoxDisX10.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDisAsporto
+            // 
+            this.checkBoxDisAsporto.AutoSize = true;
+            this.checkBoxDisAsporto.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDisAsporto.Location = new System.Drawing.Point(706, 113);
+            this.checkBoxDisAsporto.Name = "checkBoxDisAsporto";
+            this.checkBoxDisAsporto.Size = new System.Drawing.Size(147, 18);
+            this.checkBoxDisAsporto.TabIndex = 29;
+            this.checkBoxDisAsporto.Text = "disabilita tasto asporto";
+            this.checkBoxDisAsporto.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDisSconto
+            // 
+            this.checkBoxDisSconto.AutoSize = true;
+            this.checkBoxDisSconto.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDisSconto.Location = new System.Drawing.Point(706, 137);
+            this.checkBoxDisSconto.Name = "checkBoxDisSconto";
+            this.checkBoxDisSconto.Size = new System.Drawing.Size(182, 18);
+            this.checkBoxDisSconto.TabIndex = 30;
+            this.checkBoxDisSconto.Text = "disabilita tasto buono sconto";
+            this.checkBoxDisSconto.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDisNome
+            // 
+            this.checkBoxDisNome.AutoSize = true;
+            this.checkBoxDisNome.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDisNome.Location = new System.Drawing.Point(706, 161);
+            this.checkBoxDisNome.Name = "checkBoxDisNome";
+            this.checkBoxDisNome.Size = new System.Drawing.Size(172, 18);
+            this.checkBoxDisNome.TabIndex = 31;
+            this.checkBoxDisNome.Text = "disabilita inserimento nome";
+            this.checkBoxDisNome.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDisTavolo
+            // 
+            this.checkBoxDisTavolo.AutoSize = true;
+            this.checkBoxDisTavolo.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDisTavolo.Location = new System.Drawing.Point(706, 186);
+            this.checkBoxDisTavolo.Name = "checkBoxDisTavolo";
+            this.checkBoxDisTavolo.Size = new System.Drawing.Size(174, 18);
+            this.checkBoxDisTavolo.TabIndex = 32;
+            this.checkBoxDisTavolo.Text = "disabilita inserimento tavolo";
+            this.checkBoxDisTavolo.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDisCoperti
+            // 
+            this.checkBoxDisCoperti.AutoSize = true;
+            this.checkBoxDisCoperti.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDisCoperti.Location = new System.Drawing.Point(706, 210);
+            this.checkBoxDisCoperti.Name = "checkBoxDisCoperti";
+            this.checkBoxDisCoperti.Size = new System.Drawing.Size(177, 18);
+            this.checkBoxDisCoperti.TabIndex = 33;
+            this.checkBoxDisCoperti.Text = "disabilta inserimento coperti";
+            this.checkBoxDisCoperti.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxDisPagamento
+            // 
+            this.checkBoxDisPagamento.AutoSize = true;
+            this.checkBoxDisPagamento.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDisPagamento.Location = new System.Drawing.Point(706, 234);
+            this.checkBoxDisPagamento.Name = "checkBoxDisPagamento";
+            this.checkBoxDisPagamento.Size = new System.Drawing.Size(249, 18);
+            this.checkBoxDisPagamento.TabIndex = 34;
+            this.checkBoxDisPagamento.Text = "disabilita selezione metodo di pagamento";
+            this.checkBoxDisPagamento.UseVisualStyleBackColor = true;
+            // 
             // OptionsDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(696, 347);
+            this.ClientSize = new System.Drawing.Size(954, 347);
+            this.Controls.Add(this.checkBoxDisPagamento);
+            this.Controls.Add(this.checkBoxDisCoperti);
+            this.Controls.Add(this.checkBoxDisTavolo);
+            this.Controls.Add(this.checkBoxDisNome);
+            this.Controls.Add(this.checkBoxDisSconto);
+            this.Controls.Add(this.checkBoxDisAsporto);
+            this.Controls.Add(this.checkBoxDisX10);
+            this.Controls.Add(this.checkBoxDisMesCuc);
             this.Controls.Add(this.checkBox_ZeroPriceItems);
             this.Controls.Add(this.checkBoxShowPrevReceipt);
             this.Controls.Add(this.pictureBox);
@@ -303,5 +407,13 @@
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.CheckBox checkBoxShowPrevReceipt;
         private System.Windows.Forms.CheckBox checkBox_ZeroPriceItems;
+        private System.Windows.Forms.CheckBox checkBoxDisMesCuc;
+        private System.Windows.Forms.CheckBox checkBoxDisX10;
+        private System.Windows.Forms.CheckBox checkBoxDisAsporto;
+        private System.Windows.Forms.CheckBox checkBoxDisSconto;
+        private System.Windows.Forms.CheckBox checkBoxDisNome;
+        private System.Windows.Forms.CheckBox checkBoxDisTavolo;
+        private System.Windows.Forms.CheckBox checkBoxDisCoperti;
+        private System.Windows.Forms.CheckBox checkBoxDisPagamento;
     }
 }

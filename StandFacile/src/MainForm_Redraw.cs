@@ -217,12 +217,12 @@ namespace StandFacile
 
                 MainGrid.Enabled = true; // sicurezza
 
-                lblNome.Enabled = true;
-                EditNome.Enabled = true;
-                lblTavolo.Enabled = true;
-                EditTavolo.Enabled = true;
-                lblCoperti.Enabled = true;
-                EditCoperti.Enabled = true;
+                lblNome.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOME);
+                EditNome.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOME);
+                lblTavolo.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_TAVOLO);
+                EditTavolo.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_TAVOLO);
+                lblCoperti.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
+                EditCoperti.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
                 lblNota.Enabled = true;
                 EditNota.Enabled = true;
                 lblResto.Enabled = true;
@@ -230,7 +230,7 @@ namespace StandFacile
                 lblPagato.Enabled = true;
                 EditContante.Enabled = true;
 
-                comboCashPos.Enabled = true;
+                comboCashPos.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_CASH_POS);
 
                 // per sicurezza accettazione BarCode non con la prevendita in corso
                 if (SF_Data.bPrevendita)
@@ -364,19 +364,19 @@ namespace StandFacile
                 //    altrimenti non si visualizza il listino
                 //    BtnVisListino.Checked = false;
 
-                BtnSendMsg.Enabled = true;
+                BtnSendMsg.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_SEND_MESSAGE);
                 BtnSendMsg.Checked = false;
 
-                BtnX10.Enabled = true;
+                BtnX10.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_X10);
                 BtnX10.Checked = false;
 
-                BtnAsporto.Enabled = true;
+                BtnAsporto.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_ASPORTO);
 
                 //BtnAsporto.Checked = false;
                 if (SF_Data.bPrevendita)
                     BtnSconto.Enabled = false;
                 else
-                    BtnSconto.Enabled = true;
+                    BtnSconto.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_SCONTO);
 
                 // ripristina lo stato dopo che si sono consultati i prezzi
                 if ((SF_Data.iStatusSconto & 0x0000000F) != 0)

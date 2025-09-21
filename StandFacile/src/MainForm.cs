@@ -275,14 +275,27 @@ namespace StandFacile
 
         }
 
+        /// <summary>abilita/disabilita Button di MainForm</summary>
+        public void EnableButtons(bool bEnable)
+        {
+            BtnVisListino.Enabled = bEnable;
+            BtnSendMsg.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_SEND_MESSAGE);
+            BtnX10.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_X10);
+            BtnAsporto.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_ASPORTO);
+            BtnSconto.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_SCONTO);
+            BtnScontrino.Enabled = bEnable;
+            BtnDB.Enabled = bEnable;
+        }
+
         /// <summary>abilita/disabilita TextBox di MainForm</summary>
         public void EnableTextBox(bool bEnable)
         {
             MainGrid.Enabled = bEnable;
-            EditNome.Enabled = bEnable;
-            EditTavolo.Enabled = bEnable;
-            EditCoperti.Enabled = bEnable;
+            EditNome.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOME);
+            EditTavolo.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_TAVOLO);
+            EditCoperti.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
             EditNota.Enabled = bEnable;
+            comboCashPos.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_CASH_POS);
         }
 
         /// <summary>costruttore</summary>
@@ -2178,6 +2191,7 @@ namespace StandFacile
                 EditResto.Enabled = true;
 
                 // sicurezza
+                rFrmMain.EnableButtons(true);
                 rFrmMain.EnableTextBox(true);
 
                 if (bUSA_NDB())

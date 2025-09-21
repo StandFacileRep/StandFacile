@@ -49,6 +49,23 @@ namespace StandFacile
         /// <summary>ottiene flag di attivazione Pulsanti + - X</summary>
         public bool Get_VButtons() { return checkBox_VButtons.Checked; }
 
+        /// <summary>ottiene flag di disattivazione pulsante Messaggio Cucina</summary>
+        public bool GetDisableMessaggioCucina() { return checkBoxDisMesCuc.Checked; }
+        /// <summary>ottiene flag di disattivazione pulsante X10</summary>
+        public bool GetDisableX10() { return checkBoxDisX10.Checked; }
+        /// <summary>ottiene flag di disattivazione Asporto</summary>
+        public bool GetDisableAsporto() { return checkBoxDisAsporto.Checked; }
+        /// <summary>ottiene flag di disattivazione Buono Sconto</summary>
+        public bool GetDisableBuonoSconto() { return checkBoxDisSconto.Checked; }
+        /// <summary>ottiene flag di disattivazione Nome Ordine</summary>
+        public bool GetDisableNomeOrdine() { return checkBoxDisNome.Checked; }
+        /// <summary>ottiene flag di disattivazione Nome Tavolo</summary>
+        public bool GetDisableNomeTavolo() { return checkBoxDisTavolo.Checked; }
+        /// <summary>ottiene flag di disattivazione Coperti</summary>
+        public bool GetDisableCoperti() { return checkBoxDisCoperti.Checked; }
+        /// <summary>ottiene flag di disattivazione Metodo di Pagamento</summary>
+        public bool GetDisableMetodoPagamento() { return checkBoxDisPagamento.Checked; }
+
         readonly ToolTip _tt = new ToolTip
         {
             InitialDelay = 50,
@@ -79,6 +96,15 @@ namespace StandFacile
             checkBox_ZeroPriceItems.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_ZERO_PRICE_ITEMS_ALLOWED);
             checkBoxPrivacy.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PRIVACY);
             checkBox_Enter.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_ENTER_PRINT_RECEIPT_ENABLED);
+            
+            checkBoxDisMesCuc.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_SEND_MESSAGE);
+            checkBoxDisX10.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_X10);
+            checkBoxDisAsporto.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_ASPORTO);
+            checkBoxDisSconto.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_SCONTO);
+            checkBoxDisNome.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOME);
+            checkBoxDisTavolo.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_TAVOLO);  
+            checkBoxDisCoperti.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
+            checkBoxDisPagamento.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_CASH_POS);
 
             checkBoxPresale_workMode.Checked = SF_Data.bPrevendita; //  passato dal Listino
 
@@ -94,6 +120,15 @@ namespace StandFacile
                 checkBox_Enter.Enabled = false;
                 checkBox_ZeroPriceItems.Enabled = false;
                 checkBoxPresale_workMode.Enabled = false;
+
+                checkBoxDisMesCuc.Enabled = false;
+                checkBoxDisX10.Enabled = false;
+                checkBoxDisAsporto.Enabled = false;
+                checkBoxDisSconto.Enabled = false;
+                checkBoxDisNome.Enabled = false;
+                checkBoxDisSconto.Enabled = false;
+                checkBoxDisCoperti.Enabled = false;
+                checkBoxDisPagamento.Enabled = false;
 
                 // il modo prevendita impedisce il caricamento ordini nelle casse secondarie
                 if (SF_Data.bPrevendita)
@@ -112,6 +147,15 @@ namespace StandFacile
                 checkBox_Enter.Enabled = true;
                 checkBox_ZeroPriceItems.Enabled = true;
                 checkBoxPresale_workMode.Enabled = true;
+
+                checkBoxDisMesCuc.Enabled = true;
+                checkBoxDisX10.Enabled = true;
+                checkBoxDisAsporto.Enabled = true;
+                checkBoxDisSconto.Enabled = true;
+                checkBoxDisNome.Enabled = true;
+                checkBoxDisSconto.Enabled = true;
+                checkBoxDisCoperti.Enabled = true;
+                checkBoxDisPagamento.Enabled = true;
             }
 
             // letto dal Registry 
@@ -175,6 +219,31 @@ namespace StandFacile
 
             if (checkBox_Enter.Checked)
                 iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_ENTER_PRINT_RECEIPT_ENABLED);
+
+
+            if (checkBoxDisMesCuc.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_DISABLE_SEND_MESSAGE);
+
+            if (checkBoxDisX10.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_DISABLE_X10);
+
+            if (checkBoxDisAsporto.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_DISABLE_ASPORTO);
+
+            if (checkBoxDisSconto.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_DISABLE_SCONTO);
+
+            if (checkBoxDisNome.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_DISABLE_NOME);
+
+            if (checkBoxDisTavolo.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_DISABLE_TAVOLO);
+
+            if (checkBoxDisCoperti.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
+
+            if (checkBoxDisPagamento.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_DISABLE_CASH_POS);
 
             // controllo _bListinoModificato a gruppi, salvataggio in : SF_Data[]
             if (SF_Data.iGeneralOptions != iGeneralOptionsCopy)
