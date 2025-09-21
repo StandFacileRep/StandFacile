@@ -420,7 +420,6 @@
             this.dbUsernameEdit.Location = new System.Drawing.Point(19, 107);
             this.dbUsernameEdit.MaxLength = 24;
             this.dbUsernameEdit.Name = "dbUsernameEdit";
-            this.dbUsernameEdit.PasswordChar = '*';
             this.dbUsernameEdit.Size = new System.Drawing.Size(170, 22);
             this.dbUsernameEdit.TabIndex = 72;
             // 
@@ -430,7 +429,6 @@
             this.dbDatabaseEdit.Location = new System.Drawing.Point(288, 107);
             this.dbDatabaseEdit.MaxLength = 24;
             this.dbDatabaseEdit.Name = "dbDatabaseEdit";
-            this.dbDatabaseEdit.PasswordChar = '*';
             this.dbDatabaseEdit.Size = new System.Drawing.Size(170, 22);
             this.dbDatabaseEdit.TabIndex = 73;
             // 
