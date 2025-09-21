@@ -54,6 +54,7 @@
             this.checkBoxDisTavolo = new System.Windows.Forms.CheckBox();
             this.checkBoxDisCoperti = new System.Windows.Forms.CheckBox();
             this.checkBoxDisPagamento = new System.Windows.Forms.CheckBox();
+            this.checkBoxDisNota = new System.Windows.Forms.CheckBox();
             this.panelPresale.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
@@ -338,18 +339,30 @@
             // 
             this.checkBoxDisPagamento.AutoSize = true;
             this.checkBoxDisPagamento.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxDisPagamento.Location = new System.Drawing.Point(706, 234);
+            this.checkBoxDisPagamento.Location = new System.Drawing.Point(706, 258);
             this.checkBoxDisPagamento.Name = "checkBoxDisPagamento";
             this.checkBoxDisPagamento.Size = new System.Drawing.Size(249, 18);
             this.checkBoxDisPagamento.TabIndex = 34;
             this.checkBoxDisPagamento.Text = "disabilita selezione metodo di pagamento";
             this.checkBoxDisPagamento.UseVisualStyleBackColor = true;
             // 
+            // checkBoxDisNota
+            // 
+            this.checkBoxDisNota.AutoSize = true;
+            this.checkBoxDisNota.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxDisNota.Location = new System.Drawing.Point(706, 234);
+            this.checkBoxDisNota.Name = "checkBoxDisNota";
+            this.checkBoxDisNota.Size = new System.Drawing.Size(166, 18);
+            this.checkBoxDisNota.TabIndex = 35;
+            this.checkBoxDisNota.Text = "disabilita inserimento nota";
+            this.checkBoxDisNota.UseVisualStyleBackColor = true;
+            // 
             // OptionsDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(954, 347);
+            this.Controls.Add(this.checkBoxDisNota);
             this.Controls.Add(this.checkBoxDisPagamento);
             this.Controls.Add(this.checkBoxDisCoperti);
             this.Controls.Add(this.checkBoxDisTavolo);
@@ -415,5 +428,6 @@
         private System.Windows.Forms.CheckBox checkBoxDisTavolo;
         private System.Windows.Forms.CheckBox checkBoxDisCoperti;
         private System.Windows.Forms.CheckBox checkBoxDisPagamento;
+        private System.Windows.Forms.CheckBox checkBoxDisNota;
     }
 }

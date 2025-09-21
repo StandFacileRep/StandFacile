@@ -10,14 +10,12 @@ using System.Windows.Forms;
 
 namespace StandFacile
 {
-    /// <summary>  
-    /// Represents a form that displays a progress message during an update operation.  
-    /// </summary>  
+    /// <summary>Rappresenta una finestra che mostra un messaggio di avanzamento durante un'operazione di aggiornamento.</summary>  
     public partial class FrmUpdateProgress : Form
     {
-        private Action action;
+        private readonly Action action;
 
-        /// </summary>  
+        /// <summary>Inizializza una nuova istanza della classe con il titolo, il messaggio e l'azione da eseguire.</summary>
         public FrmUpdateProgress(string title, string message, Action action)
         {
             InitializeComponent();
@@ -26,9 +24,7 @@ namespace StandFacile
             this.action = action;
         }
 
-        /// <summary>  
-        /// Configures the components of the form.  
-        /// </summary>  
+        /// <summary>Configura i componenti della finestra.</summary>  
         private void InitializeComponent()
         {
             this.labelMessage = new System.Windows.Forms.Label();
@@ -74,9 +70,7 @@ namespace StandFacile
 
         }
 
-        /// <summary>  
-        /// Handles the OnShown event to start the action when the form is displayed.  
-        /// </summary>  
+        /// <summary>Gestisce l'evento OnShown per avviare l'azione quando la finestra viene visualizzata.</summary>  
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
@@ -91,4 +85,3 @@ namespace StandFacile
         private System.Windows.Forms.Label labelMessage;
     }
 } 
-

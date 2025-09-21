@@ -63,6 +63,8 @@ namespace StandFacile
         public bool GetDisableNomeTavolo() { return checkBoxDisTavolo.Checked; }
         /// <summary>ottiene flag di disattivazione Coperti</summary>
         public bool GetDisableCoperti() { return checkBoxDisCoperti.Checked; }
+        /// <summary>ottiene flag di disattivazione Nota</summary>
+        public bool GetDisableNota() { return checkBoxDisNota.Checked; }
         /// <summary>ottiene flag di disattivazione Metodo di Pagamento</summary>
         public bool GetDisableMetodoPagamento() { return checkBoxDisPagamento.Checked; }
 
@@ -104,6 +106,7 @@ namespace StandFacile
             checkBoxDisNome.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOME);
             checkBoxDisTavolo.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_TAVOLO);  
             checkBoxDisCoperti.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
+            checkBoxDisNota.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOTA);
             checkBoxDisPagamento.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_CASH_POS);
 
             checkBoxPresale_workMode.Checked = SF_Data.bPrevendita; //  passato dal Listino
@@ -128,6 +131,7 @@ namespace StandFacile
                 checkBoxDisNome.Enabled = false;
                 checkBoxDisTavolo.Enabled = false;
                 checkBoxDisCoperti.Enabled = false;
+                checkBoxDisNota.Enabled = false;
                 checkBoxDisPagamento.Enabled = false;
 
                 // il modo prevendita impedisce il caricamento ordini nelle casse secondarie
@@ -155,6 +159,7 @@ namespace StandFacile
                 checkBoxDisNome.Enabled = true;
                 checkBoxDisTavolo.Enabled = true;
                 checkBoxDisCoperti.Enabled = true;
+                checkBoxDisNota.Enabled = true;
                 checkBoxDisPagamento.Enabled = true;
             }
 
@@ -241,6 +246,9 @@ namespace StandFacile
 
             if (checkBoxDisCoperti.Checked)
                 iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
+
+            if (checkBoxDisNota.Checked)
+                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_DISABLE_NOTA);
 
             if (checkBoxDisPagamento.Checked)
                 iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_DISABLE_CASH_POS);

@@ -223,8 +223,8 @@ namespace StandFacile
                 EditTavolo.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_TAVOLO);
                 lblCoperti.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
                 EditCoperti.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
-                lblNota.Enabled = true;
-                EditNota.Enabled = true;
+                lblNota.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOTA);
+                EditNota.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOTA);
                 lblResto.Enabled = true;
                 EditResto.Enabled = true;
                 lblPagato.Enabled = true;

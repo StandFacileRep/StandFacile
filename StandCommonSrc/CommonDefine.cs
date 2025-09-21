@@ -724,6 +724,9 @@ namespace StandCommonFiles
             /// <summary>bit di iGeneralOptions per disabilitare l'inserimento dei Coperti</summary>
             BIT_DISABLE_COPERTI,
 
+            /// <summary>bit di iGeneralOptions per disabilitare l'inserimento della Nota</summary>
+            BIT_DISABLE_NOTA,
+
             /// <summary>bit di iGeneralOptions per disabilitare l'inserimento del Metodo di Pagamento</summary>
             BIT_DISABLE_CASH_POS,
         }

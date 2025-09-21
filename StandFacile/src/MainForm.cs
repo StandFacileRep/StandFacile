@@ -294,7 +294,7 @@ namespace StandFacile
             EditNome.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOME);
             EditTavolo.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_TAVOLO);
             EditCoperti.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
-            EditNota.Enabled = bEnable;
+            EditNota.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOTA);
             comboCashPos.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_CASH_POS);
         }
 
