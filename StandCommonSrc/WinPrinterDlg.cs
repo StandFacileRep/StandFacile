@@ -70,6 +70,11 @@ namespace StandFacile
         /// <summary>stringa per il salvataggio nel registro del centro per il Logo con stampa windows</summary>
         const String LOGO_WIN_CENTER_KEY = "iWinLogoCenter";
 
+        /// <summary>stringa per il salvataggio nel registro del numero di righe iniziali vuote</summary>
+        const String EMPTY_ROWS_INITIAL_KEY = "iWinEmptyRowsInitial";
+        /// <summary>stringa per il salvataggio nel registro del numero di righe finali vuote</summary>
+        const String EMPTY_ROWS_FINAL_KEY = "iWinEmptyRowsFinal";
+
         static bool _bListinoModificato;
 
         bool _bInitComplete = false;
@@ -238,6 +243,9 @@ namespace StandFacile
 
             sGlbWinPrinterParams.iLogoCenter = ReadRegistry(LOGO_WIN_CENTER_KEY, 0);
 
+            sGlbWinPrinterParams.iRowsInitial = ReadRegistry(EMPTY_ROWS_INITIAL_KEY, 1);
+            sGlbWinPrinterParams.iRowsFinal = ReadRegistry(EMPTY_ROWS_FINAL_KEY, 4);
+
             if (sGlbWinPrinterParams.iTckZoomValue < numUpDownRcpZoom.Minimum)
                 sGlbWinPrinterParams.iTckZoomValue = 100;
 
@@ -265,6 +273,9 @@ namespace StandFacile
             numUpDownRcpZoom.Value = sGlbWinPrinterParams.iTckZoomValue;
             numUpDownLogoZoom.Value = sGlbWinPrinterParams.iLogoZoomValue;
             numUpDownRepZoom.Value = sGlbWinPrinterParams.iRepZoomValue;
+
+            numUpDown_RigheIniziali.Value = sGlbWinPrinterParams.iRowsInitial;
+            numUpDown_RigheFinali.Value = sGlbWinPrinterParams.iRowsFinal;
 
             _sWinPrinterParamsCopy = DeepCopy(sGlbWinPrinterParams);
 
@@ -391,6 +402,9 @@ namespace StandFacile
 
             _sWinPrinterParamsCopy.iLogoWidth_B = sGlbWinPrinterParams.iLogoWidth_B;
             _sWinPrinterParamsCopy.iLogoHeight_B = sGlbWinPrinterParams.iLogoHeight_B;
+
+            _sWinPrinterParamsCopy.iRowsInitial = (int)numUpDown_RigheIniziali.Value;
+            _sWinPrinterParamsCopy.iRowsFinal = (int)numUpDown_RigheFinali.Value;
         }
 
         private void SampleTextBtn_Click(object sender, EventArgs e)
@@ -803,6 +817,9 @@ namespace StandFacile
             WriteRegistry(LOGO_WIN_ZOOM_KEY, sGlbWinPrinterParams.iLogoZoomValue);
 
             WriteRegistry(LOGO_WIN_CENTER_KEY, sGlbWinPrinterParams.iLogoCenter);
+
+            WriteRegistry(EMPTY_ROWS_INITIAL_KEY, sGlbWinPrinterParams.iRowsInitial);
+            WriteRegistry(EMPTY_ROWS_FINAL_KEY, sGlbWinPrinterParams.iRowsFinal);
 
             _bListinoModificato = false;
 

@@ -833,6 +833,11 @@ namespace StandCommonFiles
             /// <summary>valore per centraggio Logo</summary>
             public int iLogoCenter;
 
+            /// <summary>valore per numero righe vuote iniziali</summary>
+            public int iRowsInitial;
+            /// <summary>valore per numero righe vuote finali</summary>
+            public int iRowsFinal;
+
             /// <summary>costruttore</summary>
             public TWinPrinterParams(int i)
             {
@@ -871,6 +876,9 @@ namespace StandCommonFiles
                 iLogoZoomValue = 100;
 
                 iLogoCenter = 0;
+
+                iRowsInitial = 1;
+                iRowsFinal = 4;
 
                 Console.WriteLine("TWinPrinterParams : costruttore {0}", i);
             }

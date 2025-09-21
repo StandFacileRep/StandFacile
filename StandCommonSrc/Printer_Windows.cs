@@ -519,7 +519,8 @@ namespace StandCommonFiles
             _fLogo_B_LeftMarginBk = _fLogo_B_LeftMargin;
 
             iA4_PrintStatus = 0;
-            PrintCanvas(pg, "");
+            for (i = 0; i < _sWinPrinterParams.iRowsInitial; i++) // N righe di inizio stampa
+                PrintCanvas(pg, "");
 
             while ((_fCanvasVertPos < ev.PageSettings.PaperSize.Height) && ((sInStr = _fileToPrint.ReadLine()) != null))
             {
@@ -778,8 +779,10 @@ namespace StandCommonFiles
             }
 
             // nel caso di carta A4, A5 meglio evitare righe aggiuntive pre-taglio
-            if (!(sGlbWinPrinterParams.bA4Paper || sGlbWinPrinterParams.bA5Paper)) // TODO: AGGIUSTABILE CON CONFIGURAZIONE
+            if (!(sGlbWinPrinterParams.bA4Paper || sGlbWinPrinterParams.bA5Paper) && _sWinPrinterParams.iRowsFinal > 0)
             {
+                for(i=0; i<_sWinPrinterParams.iRowsFinal-1; i++) // N righe di fine stampa
+                    PrintCanvas(pg, " ");
                 PrintCanvas(pg, "_");
             }
 

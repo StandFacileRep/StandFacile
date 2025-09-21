@@ -166,7 +166,8 @@ namespace StandFacile
             _fCanvasVertPos = 0;
 
             // inizio scrittura
-            PrintCanvas(pg, "");
+            for (i = 0; i < sGlbWinPrinterParams.iRowsInitial; i++) // N righe di inizio stampa
+                PrintCanvas(pg, "");
 
             /*************************************
              * 		 Stampa del Logo Top
@@ -598,7 +599,14 @@ namespace StandFacile
                     PrintCanvas(pg, "");
                 }
             }
-            
+
+            if (sGlbWinPrinterParams.iRowsFinal > 0)
+            {
+                for (i = 0; i < sGlbWinPrinterParams.iRowsFinal - 1; i++) // N righe di inizio stampa
+                    PrintCanvas(pg, " ");
+                PrintCanvas(pg, "_");
+            }
+
             // quando picBox.Height > panel.Height appaiono scrollbar
             if (panel.Height < (int)_fCanvasVertPos)
                 picBox.Height = (int)_fCanvasVertPos;

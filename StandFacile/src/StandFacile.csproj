@@ -306,9 +306,6 @@
     <Compile Include="DataCheckDlg.Designer.cs">
       <DependentUpon>DataCheckDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\..\StandCommonSrc\FrmUpdateProgress.cs">
-		<SubType>Form</SubType>
-	</Compile>
     <Compile Include="MainForm_Redraw.cs">
       <SubType>Form</SubType>
     </Compile>
