@@ -126,7 +126,7 @@ namespace StandFacile
                 checkBoxDisAsporto.Enabled = false;
                 checkBoxDisSconto.Enabled = false;
                 checkBoxDisNome.Enabled = false;
-                checkBoxDisSconto.Enabled = false;
+                checkBoxDisTavolo.Enabled = false;
                 checkBoxDisCoperti.Enabled = false;
                 checkBoxDisPagamento.Enabled = false;
 
@@ -153,7 +153,7 @@ namespace StandFacile
                 checkBoxDisAsporto.Enabled = true;
                 checkBoxDisSconto.Enabled = true;
                 checkBoxDisNome.Enabled = true;
-                checkBoxDisSconto.Enabled = true;
+                checkBoxDisTavolo.Enabled = true;
                 checkBoxDisCoperti.Enabled = true;
                 checkBoxDisPagamento.Enabled = true;
             }
