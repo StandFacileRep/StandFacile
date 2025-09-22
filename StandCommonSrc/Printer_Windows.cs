@@ -598,6 +598,8 @@ namespace StandCommonFiles
                     _bTicketNumFound = true;
 
                     // accorcia stringa
+                    if (sInStr.StartsWith("  ") && _sWinPrinterParams.iCassaInline)
+                        sInStr = sInStr.Substring(2);
                     if (sInStr.StartsWith("   "))
                         sInStr = sInStr.Substring(3);
 

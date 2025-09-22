@@ -75,6 +75,8 @@ namespace StandFacile
         /// <summary>stringa per il salvataggio nel registro del numero di righe finali vuote</summary>
         const String EMPTY_ROWS_FINAL_KEY = "iWinEmptyRowsFinal";
 
+        const String CASSA_INLINE_WITH_ORDER_NUMBER_KEY = "iWinCassaInlineWithOrderNumber";
+
         static bool _bListinoModificato;
 
         bool _bInitComplete = false;
@@ -246,6 +248,8 @@ namespace StandFacile
             sGlbWinPrinterParams.iRowsInitial = ReadRegistry(EMPTY_ROWS_INITIAL_KEY, 1);
             sGlbWinPrinterParams.iRowsFinal = ReadRegistry(EMPTY_ROWS_FINAL_KEY, 4);
 
+            sGlbWinPrinterParams.iCassaInline = ReadRegistry(CASSA_INLINE_WITH_ORDER_NUMBER_KEY, 0) != 0;
+
             if (sGlbWinPrinterParams.iTckZoomValue < numUpDownRcpZoom.Minimum)
                 sGlbWinPrinterParams.iTckZoomValue = 100;
 
@@ -276,6 +280,8 @@ namespace StandFacile
 
             numUpDown_RigheIniziali.Value = sGlbWinPrinterParams.iRowsInitial;
             numUpDown_RigheFinali.Value = sGlbWinPrinterParams.iRowsFinal;
+
+            checkBox_CassaInlineNumero.Checked = sGlbWinPrinterParams.iCassaInline;
 
             _sWinPrinterParamsCopy = DeepCopy(sGlbWinPrinterParams);
 
@@ -405,6 +411,8 @@ namespace StandFacile
 
             _sWinPrinterParamsCopy.iRowsInitial = (int)numUpDown_RigheIniziali.Value;
             _sWinPrinterParamsCopy.iRowsFinal = (int)numUpDown_RigheFinali.Value;
+
+            _sWinPrinterParamsCopy.iCassaInline = checkBox_CassaInlineNumero.Checked;
         }
 
         private void SampleTextBtn_Click(object sender, EventArgs e)
@@ -820,6 +828,8 @@ namespace StandFacile
 
             WriteRegistry(EMPTY_ROWS_INITIAL_KEY, sGlbWinPrinterParams.iRowsInitial);
             WriteRegistry(EMPTY_ROWS_FINAL_KEY, sGlbWinPrinterParams.iRowsFinal);
+
+            WriteRegistry(CASSA_INLINE_WITH_ORDER_NUMBER_KEY, sGlbWinPrinterParams.iCassaInline ? 1 : 0);
 
             _bListinoModificato = false;
 

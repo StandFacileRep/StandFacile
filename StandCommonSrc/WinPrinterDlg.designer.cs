@@ -65,6 +65,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.numUpDown_RigheIniziali = new System.Windows.Forms.NumericUpDown();
             this.numUpDown_RigheFinali = new System.Windows.Forms.NumericUpDown();
+            this.checkBox_CassaInlineNumero = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.logoImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownRcpZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownRepZoom)).BeginInit();
@@ -596,12 +597,25 @@
             0});
             this.numUpDown_RigheFinali.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
+            // checkBox_CassaInlineNumero
+            // 
+            this.checkBox_CassaInlineNumero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBox_CassaInlineNumero.AutoSize = true;
+            this.checkBox_CassaInlineNumero.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox_CassaInlineNumero.Location = new System.Drawing.Point(26, 609);
+            this.checkBox_CassaInlineNumero.Name = "checkBox_CassaInlineNumero";
+            this.checkBox_CassaInlineNumero.Size = new System.Drawing.Size(194, 18);
+            this.checkBox_CassaInlineNumero.TabIndex = 86;
+            this.checkBox_CassaInlineNumero.Text = "Cassa inline con numero ordine";
+            this.checkBox_CassaInlineNumero.UseVisualStyleBackColor = true;
+            // 
             // WinPrinterDlg
             // 
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(543, 691);
+            this.Controls.Add(this.checkBox_CassaInlineNumero);
             this.Controls.Add(this.numUpDown_RigheFinali);
             this.Controls.Add(this.numUpDown_RigheIniziali);
             this.Controls.Add(this.label2);
@@ -701,5 +715,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numUpDown_RigheIniziali;
         private System.Windows.Forms.NumericUpDown numUpDown_RigheFinali;
+        private System.Windows.Forms.CheckBox checkBox_CassaInlineNumero;
     }
 }

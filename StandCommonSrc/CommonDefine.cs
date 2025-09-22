@@ -864,6 +864,8 @@ namespace StandCommonFiles
             public int iRowsInitial;
             /// <summary>valore per numero righe vuote finali</summary>
             public int iRowsFinal;
+            /// <summary>flag per stampa numero di cassa inline con numero ordine</summary>
+            public bool iCassaInline;
 
             /// <summary>costruttore</summary>
             public TWinPrinterParams(int i)
@@ -906,6 +908,8 @@ namespace StandCommonFiles
 
                 iRowsInitial = 1;
                 iRowsFinal = 4;
+
+                iCassaInline = false;
 
                 Console.WriteLine("TWinPrinterParams : costruttore {0}", i);
             }

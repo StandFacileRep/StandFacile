@@ -270,10 +270,14 @@ namespace StandCommonFiles
                     sFmt_QM = "{0} {1}";
             }
 
+
+            if (sGlbWinPrinterParams.iCassaInline)
+                sOrdineStringsTmp.sOrdineNum = "Cassa " + dataIdParam.iNumCassa + " - ";
+
             if ((pgParam != null) && dBaseIntf.bUSA_NDB())
-                sOrdineStringsTmp.sOrdineNum = String.Format("{0} ?{1}", _TICK_NUM, i); // Anteprima con ndb
+                sOrdineStringsTmp.sOrdineNum += String.Format("{0} ?{1}", _TICK_NUM, i); // Anteprima con ndb
             else
-                sOrdineStringsTmp.sOrdineNum = String.Format(sFmt_QM, _TICK_NUM, i);
+                sOrdineStringsTmp.sOrdineNum += String.Format(sFmt_QM, _TICK_NUM, i);
 
             if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                 sOrdineStringsTmp.sOrdNumWeb = String.Format("* {0} {1}, {2} *", _WEB_NUM, dataIdParam.iNumOrdineWeb, dataIdParam.sWebDateTime.Substring(4, 8));
