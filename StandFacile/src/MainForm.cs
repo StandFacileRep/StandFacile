@@ -1499,6 +1499,71 @@ namespace StandFacile
             }
         }
 
+         private void SaricaListinoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String sDestinationFile;
+            String sTmp;
+            DialogResult dResult;
+            bool bResult = true;
+
+            List<string> sInputStrings = new List<string>();
+
+            if (_rdBaseIntf.dbCaricaListino(sInputStrings) > 0)
+            {
+                DlgSaveFile.Filter = "Files di testo (*.txt)|*.TXT";
+                DlgSaveFile.InitialDirectory = DataManager.GetRootDir();
+                DlgSaveFile.DefaultExt = "txt";
+                DlgSaveFile.CheckFileExists = false;
+                DlgSaveFile.FileName = NOME_FILE_LISTINO;
+
+                if (DlgSaveFile.ShowDialog() == DialogResult.OK)
+                {
+                    sDestinationFile = DlgSaveFile.FileName;
+
+                    if (File.Exists(sDestinationFile))
+                    {
+                        sTmp = "Sei sicuro di voler sovrascrivere il file : \n\n" + Path.GetFileName(sDestinationFile) + " ?";
+                        dResult = MessageBox.Show(sTmp, "Attenzione !", MessageBoxButtons.YesNo);
+
+                        if (dResult == DialogResult.Yes)
+                            try
+                            {
+                                File.WriteAllLines(sDestinationFile, sInputStrings);
+                            }
+                            catch (IOException)
+                            {
+                                MessageBox.Show("Scaricamento non riuscito,\n\nscegliere un nome del file diverso !", "Attenzione !", MessageBoxButtons.OK);
+                                bResult = false;
+                            }
+                        else
+                            bResult = false;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            File.WriteAllLines(sDestinationFile, sInputStrings);
+                        }
+                        catch (IOException)
+                        {
+                            MessageBox.Show("Scaricamento non riuscito !", "Attenzione !", MessageBoxButtons.OK);
+                            bResult = false;
+                        }
+                    }
+                } else {
+                    return;
+                }
+            } else
+            {
+                bResult = false;
+            }
+
+            if (bResult)
+                MessageBox.Show("Scaricamento riuscito !", "Attenzione !", MessageBoxButtons.OK);
+            else
+                MessageBox.Show("Scaricamento non riuscito !", "Attenzione !", MessageBoxButtons.OK);
+        }
+
         private void MnuEsportaListino_Click(object sender, EventArgs e)
         {
             bool bResult = true;

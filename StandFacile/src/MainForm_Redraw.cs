@@ -39,6 +39,7 @@ namespace StandFacile
                 // Menù File e Stampa
                 MnuStampaDiProva.Enabled = false;
                 MnuStampaFile.Enabled = false;
+                MnuScaricaListino.Enabled = false;
                 MnuEsportaListino.Enabled = false;
                 MnuImportaListino.Enabled = false;
                 MnuChiudiIncasso.Enabled = false;
@@ -91,6 +92,7 @@ namespace StandFacile
                 // Menù File e Stampa
                 MnuStampaDiProva.Enabled = false;
                 MnuStampaFile.Enabled = false;
+                MnuScaricaListino.Enabled = false;
                 MnuEsportaListino.Enabled = false;
                 MnuImportaListino.Enabled = false;
                 MnuChiudiIncasso.Enabled = false;
@@ -157,6 +159,7 @@ namespace StandFacile
                 // Menù File e Stampa
                 MnuStampaDiProva.Enabled = false;
                 MnuStampaFile.Enabled = false;
+                MnuScaricaListino.Enabled = false;
                 MnuEsportaListino.Enabled = false;
                 MnuImportaListino.Enabled = false;
                 MnuChiudiIncasso.Enabled = false;
@@ -250,6 +253,7 @@ namespace StandFacile
 
                     if (DataManager.CheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
                     {
+                        MnuScaricaListino.Enabled = true;
                         MnuEsportaListino.Enabled = false;
                         MnuImportaListino.Enabled = false;
                         MnuChiudiIncasso.Enabled = false;
@@ -266,6 +270,7 @@ namespace StandFacile
                     }
                     else
                     {
+                        MnuScaricaListino.Enabled = DataManager.CheckIf_CassaPri_and_NDB(); // cassa primaria e DB
                         MnuEsportaListino.Enabled = true;
                         MnuImportaListino.Enabled = true;
                         // altrimenti con la Prevendita è troppo complessa la gestione dei nomi delle tabelle
@@ -294,6 +299,7 @@ namespace StandFacile
                 else // non Esperto
                 {
                     // Menù File e Stampa
+                    MnuScaricaListino.Enabled = false;
                     MnuEsportaListino.Enabled = false;
                     MnuImportaListino.Enabled = false;
                     MnuChiudiIncasso.Enabled = false;
