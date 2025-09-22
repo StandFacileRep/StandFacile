@@ -469,8 +469,13 @@
             0,
             0});
             this.numUpDown_LogoCenter.Location = new System.Drawing.Point(181, 377);
+            this.numUpDown_LogoCenter.Maximum = new decimal(new int[] {
+            200,
+            0,
+            0,
+            0});
             this.numUpDown_LogoCenter.Minimum = new decimal(new int[] {
-            100,
+            200,
             0,
             0,
             -2147483648});

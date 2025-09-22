@@ -1,4 +1,4 @@
-; 14.09.2025 
+; 20.09.2025 
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 ; tra una versione e l'altra cambiare GUID per facilitare l'installazione distinta
 ; The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -40,7 +40,7 @@ Source: "..\exe\Debug\QRCoder.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\x86\sqlite3.dll"; DestDir: "{app}\x86"
 Source: "..\exe\Debug\x64\sqlite3.dll"; DestDir: "{app}\x64"
 Source: "..\StandAux\Listino.txt"; DestDir: "{app}"; Flags: uninsneveruninstall confirmoverwrite; Languages: it
-Source: "..\StandAux\config.ini"; DestDir: "{app}";
+Source: "..\StandAux\config.ini"; DestDir: "{app}";  Flags: uninsneveruninstall confirmoverwrite; Languages: it
 Source: "..\StandAux\Licenza.txt"; DestDir: "{app}"; Languages: it
 
 

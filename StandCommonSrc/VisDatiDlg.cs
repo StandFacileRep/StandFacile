@@ -166,6 +166,17 @@ namespace StandFacile
                 Combo_NumCassa.Visible = false;
                 Combo_NumCassa.Enabled = false;
                 LblCassa.Visible = false;
+
+                // compattazione
+                int iDisp = CkBoxSkipZero.Top - CheckBoxRidColonne.Top - 5;
+
+                CheckBoxRidColonne.Top += (iDisp + 5);
+                CheckBoxExport.Top += iDisp;
+                ComboExpFormat.Top += iDisp;
+                BtnExport.Top += iDisp;
+                BtnDate.Top += iDisp;
+
+                textEditDati.Size = new System.Drawing.Size(textEditDati.Size.Width, textEditDati.Size.Height + iDisp);
             }
 
 #if STANDFACILE
@@ -177,7 +188,7 @@ namespace StandFacile
             CkBoxUnioneCasse.Checked = true;
 #endif
 
-            _tt.SetToolTip(BtnExport, "avvia esportazione in formato Excel MS (richiede Office installato nel PC)\r\n"+
+            _tt.SetToolTip(BtnExport, "avvia esportazione in formato Excel MS (richiede Office installato nel PC)\r\n" +
                                         "oppure FreeExport XLS, oppure FreeExport ODS");
             _tt.SetToolTip(BtnDate, "seleziona una data, o con Shift + le frecce in intervallo di date");
 

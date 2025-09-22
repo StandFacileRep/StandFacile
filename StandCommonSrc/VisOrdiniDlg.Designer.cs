@@ -179,7 +179,7 @@
             // 
             this.labelPrint.AutoSize = true;
             this.labelPrint.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPrint.Location = new System.Drawing.Point(209, 526);
+            this.labelPrint.Location = new System.Drawing.Point(198, 524);
             this.labelPrint.Name = "labelPrint";
             this.labelPrint.Size = new System.Drawing.Size(110, 13);
             this.labelPrint.TabIndex = 9;
