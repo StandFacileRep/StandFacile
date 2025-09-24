@@ -79,11 +79,13 @@ namespace StandFacile
             sGlbGenericPrinterParams.iRowsFinal = ReadRegistry(EMPTY_ROWS_FINAL_KEY, 4);
             sGlbGenericPrinterParams.iCassaInline = ReadRegistry(CASSA_INLINE_WITH_ORDER_NUMBER_KEY, 0) != 0;
             sGlbGenericPrinterParams.iStarOnUnderGroup = ReadRegistry(STAR_ON_UNDER_GROUP_KEY, 0) != 0;
+            sGlbGenericPrinterParams.iCenterTableAndName = ReadRegistry(CENTER_TABLE_AND_NAME, 0) != 0;
 
             numUpDown_RigheIniziali.Value = sGlbGenericPrinterParams.iRowsInitial;
             numUpDown_RigheFinali.Value = sGlbGenericPrinterParams.iRowsFinal;
             checkBox_CassaInlineNumero.Checked = sGlbGenericPrinterParams.iCassaInline;
             checkBox_StarOnUnderGroup.Checked = sGlbGenericPrinterParams.iStarOnUnderGroup;
+            checkBox_CenterTableAndName.Checked = sGlbGenericPrinterParams.iCenterTableAndName;
 
             _sGenericPrinterParamsCopy = DeepCopy(sGlbGenericPrinterParams);
 
@@ -111,6 +113,7 @@ namespace StandFacile
             _sGenericPrinterParamsCopy.iRowsFinal = (int)numUpDown_RigheFinali.Value;
             _sGenericPrinterParamsCopy.iCassaInline = checkBox_CassaInlineNumero.Checked;
             _sGenericPrinterParamsCopy.iStarOnUnderGroup = checkBox_StarOnUnderGroup.Checked;
+            _sGenericPrinterParamsCopy.iCenterTableAndName = checkBox_CenterTableAndName.Checked;
         }
 
         void AggiornaAspettoControlli()
@@ -160,6 +163,7 @@ namespace StandFacile
             WriteRegistry(EMPTY_ROWS_FINAL_KEY, sGlbGenericPrinterParams.iRowsFinal);
             WriteRegistry(CASSA_INLINE_WITH_ORDER_NUMBER_KEY, sGlbGenericPrinterParams.iCassaInline ? 1 : 0);
             WriteRegistry(STAR_ON_UNDER_GROUP_KEY, sGlbGenericPrinterParams.iStarOnUnderGroup ? 1 : 0);
+            WriteRegistry(CENTER_TABLE_AND_NAME, sGlbGenericPrinterParams.iCenterTableAndName ? 1 : 0);
 
             _bListinoModificato = false;
 
