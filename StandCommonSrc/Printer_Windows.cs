@@ -94,6 +94,7 @@ namespace StandCommonFiles
 
         static StreamReader _fileToPrint;
 
+        static TGenericPrinterParams _sGenericPrinterParams;
         static TWinPrinterParams _sWinPrinterParams;
         static String _sFileToPrintParam;
 
@@ -164,6 +165,7 @@ namespace StandCommonFiles
             _sOrdineNum = "0123"; // per sampleText
             _sDataStr = GetActualDate().ToString("ddMMyy");
 
+            _sGenericPrinterParams = sGlbGenericPrinterParams;
             _sWinPrinterParams = sWinPrinterParams;
             _sFileToPrintParam = sFileToPrintParam;
 
@@ -519,7 +521,7 @@ namespace StandCommonFiles
             _fLogo_B_LeftMarginBk = _fLogo_B_LeftMargin;
 
             iA4_PrintStatus = 0;
-            for (i = 0; i < _sWinPrinterParams.iRowsInitial; i++) // N righe di inizio stampa
+            for (i = 0; i < _sGenericPrinterParams.iRowsInitial; i++) // N righe di inizio stampa
                 PrintCanvas(pg, "");
 
             while ((_fCanvasVertPos < ev.PageSettings.PaperSize.Height) && ((sInStr = _fileToPrint.ReadLine()) != null))
@@ -598,7 +600,7 @@ namespace StandCommonFiles
                     _bTicketNumFound = true;
 
                     // accorcia stringa
-                    if (sInStr.StartsWith("  ") && _sWinPrinterParams.iCassaInline)
+                    if (sInStr.StartsWith("  ") && _sGenericPrinterParams.iCassaInline)
                         sInStr = sInStr.Substring(2);
                     if (sInStr.StartsWith("   "))
                         sInStr = sInStr.Substring(3);
@@ -781,9 +783,9 @@ namespace StandCommonFiles
             }
 
             // nel caso di carta A4, A5 meglio evitare righe aggiuntive pre-taglio
-            if (!(sGlbWinPrinterParams.bA4Paper || sGlbWinPrinterParams.bA5Paper) && _sWinPrinterParams.iRowsFinal > 0)
+            if (!(sGlbWinPrinterParams.bA4Paper || sGlbWinPrinterParams.bA5Paper) && _sGenericPrinterParams.iRowsFinal > 0)
             {
-                for(i=0; i<_sWinPrinterParams.iRowsFinal-1; i++) // N righe di fine stampa
+                for(i=0; i< _sGenericPrinterParams.iRowsFinal-1; i++) // N righe di fine stampa
                     PrintCanvas(pg, " ");
                 PrintCanvas(pg, "_");
             }

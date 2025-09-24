@@ -166,7 +166,7 @@ namespace StandFacile
             _fCanvasVertPos = 0;
 
             // inizio scrittura
-            for (i = 0; i < sGlbWinPrinterParams.iRowsInitial; i++) // N righe di inizio stampa
+            for (i = 0; i < sGlbGenericPrinterParams.iRowsInitial; i++) // N righe di inizio stampa
                 PrintCanvas(pg, "");
 
             /*************************************
@@ -600,9 +600,9 @@ namespace StandFacile
                 }
             }
 
-            if (sGlbWinPrinterParams.iRowsFinal > 0)
+            if (sGlbGenericPrinterParams.iRowsFinal > 0)
             {
-                for (i = 0; i < sGlbWinPrinterParams.iRowsFinal - 1; i++) // N righe di inizio stampa
+                for (i = 0; i < sGlbGenericPrinterParams.iRowsFinal - 1; i++) // N righe di inizio stampa
                     PrintCanvas(pg, " ");
                 PrintCanvas(pg, "_");
             }

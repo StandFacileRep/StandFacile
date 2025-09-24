@@ -220,6 +220,14 @@
       <Link>FrmUpdateProgress.cs</Link>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="..\..\StandCommonSrc\GenericPrinterDlg.cs">
+      <Link>GenericPrinterDlg.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\GenericPrinterDlg.designer.cs">
+      <Link>GenericPrinterDlg.designer.cs</Link>
+      <DependentUpon>GenericPrinterDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\StandCommonSrc\LegacyPrinterDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -384,6 +392,10 @@
     <EmbeddedResource Include="..\..\StandCommonSrc\EsploraDB_Dlg.resx">
       <Link>EsploraDB_Dlg.resx</Link>
       <DependentUpon>EsploraDB_Dlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\StandCommonSrc\GenericPrinterDlg.resx">
+      <Link>GenericPrinterDlg.resx</Link>
+      <DependentUpon>GenericPrinterDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="..\..\StandCommonSrc\LegacyPrinterDlg.resx">
       <DependentUpon>LegacyPrinterDlg.cs</DependentUpon>
@@ -641,6 +653,7 @@
     <None Include="Resources\barcode.png" />
     <None Include="Resources\gplv3-84x42.png" />
     <None Include="Resources\ods.png" />
+    <None Include="Resources\globe.png" />
     <Content Include="Resources\plus.png" />
     <None Include="Resources\paypal-dona.png" />
     <None Include="Resources\sconto_no.bmp" />

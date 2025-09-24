@@ -1499,7 +1499,7 @@ namespace StandFacile
             }
         }
 
-         private void SaricaListinoToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MnuSaricaListino_Click(object sender, EventArgs e)
         {
             String sDestinationFile;
             String sTmp;
@@ -2049,6 +2049,14 @@ namespace StandFacile
         private void MnuConfigurazioneRete_Click(object sender, EventArgs e)
         {
             NetConfigDlg.rNetConfigDlg.Init(true);
+        }
+
+        private void MnuImpostaStampanteGenerica_Click(object sender, EventArgs e)
+        {
+            GenericPrinterDlg._rGenericPrinterDlg.Init(true);
+
+            if (GenericPrinterDlg.GetListinoModificato())
+                DataManager.SalvaListino();
         }
 
         private void MnuImpostaStampanteWin_Click(object sender, EventArgs e)

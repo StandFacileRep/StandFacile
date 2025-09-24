@@ -556,6 +556,22 @@ namespace StandCommonFiles
         /// <summary>
         /// struct per la gestione dei parametri della stampante seriale
         /// </summary>
+        [Serializable()]
+        public struct TGenericPrinterParams
+        {
+            /// <summary>valore per numero righe vuote iniziali</summary>
+            public int iRowsInitial;
+            /// <summary>valore per numero righe vuote finali</summary>
+            public int iRowsFinal;
+            /// <summary>flag per stampa numero di cassa inline con numero ordine</summary>
+            public bool iCassaInline;
+            /// <summary>flag per aggiungere cancelletti sopra e sotto al gruppo</summary>
+            public bool iHashAroundGroup;
+        };
+
+        /// <summary>
+        /// struct per la gestione dei parametri della stampante seriale
+        /// </summary>
         public struct TLegacyPrinterParams
         {
             /// <summary>modello di stampante</summary>
@@ -860,13 +876,6 @@ namespace StandCommonFiles
             /// <summary>valore per centraggio Logo</summary>
             public int iLogoCenter;
 
-            /// <summary>valore per numero righe vuote iniziali</summary>
-            public int iRowsInitial;
-            /// <summary>valore per numero righe vuote finali</summary>
-            public int iRowsFinal;
-            /// <summary>flag per stampa numero di cassa inline con numero ordine</summary>
-            public bool iCassaInline;
-
             /// <summary>costruttore</summary>
             public TWinPrinterParams(int i)
             {
@@ -905,11 +914,6 @@ namespace StandCommonFiles
                 iLogoZoomValue = 100;
 
                 iLogoCenter = 0;
-
-                iRowsInitial = 1;
-                iRowsFinal = 4;
-
-                iCassaInline = false;
 
                 Console.WriteLine("TWinPrinterParams : costruttore {0}", i);
             }

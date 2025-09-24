@@ -63,6 +63,7 @@ namespace StandFacile
             _rPrintTckConfigDlg = this;
 
             _tt.SetToolTip(BtnWin, "imposta stampante Windows: USB, LAN, WiFi");
+            _tt.SetToolTip(BtnGeneric, "impostazioni Generiche stampa");
             _tt.SetToolTip(BtnLegacy, "imposta stampante Legacy: COM, LPT");
 
             _pCheckBoxCopia[0] = checkBoxCopia_0;
@@ -160,6 +161,11 @@ namespace StandFacile
             }
             else
                 timer.Enabled = false;
+        }
+
+        private void BtnGeneric_Click(object sender, EventArgs e)
+        {
+            GenericPrinterDlg._rGenericPrinterDlg.Init(true);
         }
 
         private void BtnLegacy_Click(object sender, EventArgs e)
@@ -292,6 +298,5 @@ namespace StandFacile
             timer.Enabled = false;
             Close();
         }
-
     }
 }

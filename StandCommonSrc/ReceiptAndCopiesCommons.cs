@@ -271,7 +271,7 @@ namespace StandCommonFiles
             }
 
 
-            if (sGlbWinPrinterParams.iCassaInline)
+            if (sGlbGenericPrinterParams.iCassaInline)
                 sOrdineStringsTmp.sOrdineNum = "Cassa " + dataIdParam.iNumCassa + " - ";
 
             if ((pgParam != null) && dBaseIntf.bUSA_NDB())

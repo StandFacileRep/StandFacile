@@ -1,0 +1,186 @@
+﻿namespace StandFacile
+{
+    partial class GenericPrinterDlg
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOK = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numUpDown_RigheIniziali = new System.Windows.Forms.NumericUpDown();
+            this.numUpDown_RigheFinali = new System.Windows.Forms.NumericUpDown();
+            this.checkBox_CassaInlineNumero = new System.Windows.Forms.CheckBox();
+            this.checkBox_HashAroundGroup = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheIniziali)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheFinali)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Image = global::StandFacile.Properties.Resources.Cancel;
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(79, 118);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(81, 28);
+            this.btnCancel.TabIndex = 14;
+            this.btnCancel.Text = "Annulla";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
+            // 
+            // btnOK
+            // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.btnOK.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
+            this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOK.Location = new System.Drawing.Point(168, 118);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(4);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(72, 28);
+            this.btnOK.TabIndex = 15;
+            this.btnOK.Text = "OK";
+            this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.label1.Location = new System.Drawing.Point(51, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(109, 14);
+            this.label1.TabIndex = 82;
+            this.label1.Text = "Righe vuote iniziali:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 9F);
+            this.label2.Location = new System.Drawing.Point(51, 35);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(104, 14);
+            this.label2.TabIndex = 83;
+            this.label2.Text = "Righe vuote finali:";
+            // 
+            // numUpDown_RigheIniziali
+            // 
+            this.numUpDown_RigheIniziali.Location = new System.Drawing.Point(198, 8);
+            this.numUpDown_RigheIniziali.Name = "numUpDown_RigheIniziali";
+            this.numUpDown_RigheIniziali.Size = new System.Drawing.Size(45, 20);
+            this.numUpDown_RigheIniziali.TabIndex = 84;
+            this.numUpDown_RigheIniziali.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDown_RigheIniziali.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numUpDown_RigheIniziali.Click += new System.EventHandler(this.NumUpDown_Click);
+            // 
+            // numUpDown_RigheFinali
+            // 
+            this.numUpDown_RigheFinali.Location = new System.Drawing.Point(198, 34);
+            this.numUpDown_RigheFinali.Name = "numUpDown_RigheFinali";
+            this.numUpDown_RigheFinali.Size = new System.Drawing.Size(45, 20);
+            this.numUpDown_RigheFinali.TabIndex = 85;
+            this.numUpDown_RigheFinali.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numUpDown_RigheFinali.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            this.numUpDown_RigheFinali.Click += new System.EventHandler(this.NumUpDown_Click);
+            // 
+            // checkBox_CassaInlineNumero
+            // 
+            this.checkBox_CassaInlineNumero.AutoSize = true;
+            this.checkBox_CassaInlineNumero.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox_CassaInlineNumero.Location = new System.Drawing.Point(59, 60);
+            this.checkBox_CassaInlineNumero.Name = "checkBox_CassaInlineNumero";
+            this.checkBox_CassaInlineNumero.Size = new System.Drawing.Size(194, 18);
+            this.checkBox_CassaInlineNumero.TabIndex = 87;
+            this.checkBox_CassaInlineNumero.Text = "Cassa inline con numero ordine";
+            // 
+            // checkBox_HashAroundGroup
+            // 
+            this.checkBox_HashAroundGroup.AutoSize = true;
+            this.checkBox_HashAroundGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox_HashAroundGroup.Location = new System.Drawing.Point(26, 85);
+            this.checkBox_HashAroundGroup.Name = "checkBox_HashAroundGroup";
+            this.checkBox_HashAroundGroup.Size = new System.Drawing.Size(275, 18);
+            this.checkBox_HashAroundGroup.TabIndex = 88;
+            this.checkBox_HashAroundGroup.Text = "Aggiungi riga cancelletti sopra e sotto gruppo";
+            // 
+            // GenericPrinterDlg
+            // 
+            this.AcceptButton = this.btnCancel;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(314, 159);
+            this.Controls.Add(this.checkBox_HashAroundGroup);
+            this.Controls.Add(this.numUpDown_RigheFinali);
+            this.Controls.Add(this.numUpDown_RigheIniziali);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnOK);
+            this.Controls.Add(this.checkBox_CassaInlineNumero);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "GenericPrinterDlg";
+            this.ShowIcon = false;
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Impostazioni Generiche stampante Scontrino ";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GenericPrinterDlg_FormClosing);
+            this.Click += new System.EventHandler(this.NumUpDown_Click);
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheIniziali)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheFinali)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numUpDown_RigheIniziali;
+        private System.Windows.Forms.NumericUpDown numUpDown_RigheFinali;
+        private System.Windows.Forms.CheckBox checkBox_CassaInlineNumero;
+        private System.Windows.Forms.CheckBox checkBox_HashAroundGroup;
+    }
+}

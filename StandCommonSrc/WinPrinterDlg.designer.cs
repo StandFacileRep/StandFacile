@@ -61,11 +61,6 @@
             this.lblLogoPreview = new System.Windows.Forms.Label();
             this.RadioBtnLogo_B = new System.Windows.Forms.RadioButton();
             this.RadioBtnLogo_T = new System.Windows.Forms.RadioButton();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numUpDown_RigheIniziali = new System.Windows.Forms.NumericUpDown();
-            this.numUpDown_RigheFinali = new System.Windows.Forms.NumericUpDown();
-            this.checkBox_CassaInlineNumero = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.logoImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownRcpZoom)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownRepZoom)).BeginInit();
@@ -74,8 +69,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RepMargin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_LogoCenter)).BeginInit();
             this.groupBoxLogoChoice.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheIniziali)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheFinali)).BeginInit();
             this.SuspendLayout();
             // 
             // PrintersListCombo
@@ -549,77 +542,12 @@
             this.RadioBtnLogo_T.UseVisualStyleBackColor = true;
             this.RadioBtnLogo_T.Click += new System.EventHandler(this.RadioBtnLogo_Click);
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.label1.Location = new System.Drawing.Point(34, 261);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(109, 14);
-            this.label1.TabIndex = 82;
-            this.label1.Text = "Righe vuote iniziali:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.label2.Location = new System.Drawing.Point(34, 287);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 14);
-            this.label2.TabIndex = 83;
-            this.label2.Text = "Righe vuote finali:";
-            // 
-            // numUpDown_RigheIniziali
-            // 
-            this.numUpDown_RigheIniziali.Location = new System.Drawing.Point(181, 260);
-            this.numUpDown_RigheIniziali.Name = "numUpDown_RigheIniziali";
-            this.numUpDown_RigheIniziali.Size = new System.Drawing.Size(45, 20);
-            this.numUpDown_RigheIniziali.TabIndex = 84;
-            this.numUpDown_RigheIniziali.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numUpDown_RigheIniziali.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numUpDown_RigheIniziali.Click += new System.EventHandler(this.NumUpDown_Click);
-            // 
-            // numUpDown_RigheFinali
-            // 
-            this.numUpDown_RigheFinali.Location = new System.Drawing.Point(181, 286);
-            this.numUpDown_RigheFinali.Name = "numUpDown_RigheFinali";
-            this.numUpDown_RigheFinali.Size = new System.Drawing.Size(45, 20);
-            this.numUpDown_RigheFinali.TabIndex = 85;
-            this.numUpDown_RigheFinali.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.numUpDown_RigheFinali.Value = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.numUpDown_RigheFinali.Click += new System.EventHandler(this.NumUpDown_Click);
-            // 
-            // checkBox_CassaInlineNumero
-            // 
-            this.checkBox_CassaInlineNumero.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBox_CassaInlineNumero.AutoSize = true;
-            this.checkBox_CassaInlineNumero.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_CassaInlineNumero.Location = new System.Drawing.Point(26, 609);
-            this.checkBox_CassaInlineNumero.Name = "checkBox_CassaInlineNumero";
-            this.checkBox_CassaInlineNumero.Size = new System.Drawing.Size(194, 18);
-            this.checkBox_CassaInlineNumero.TabIndex = 86;
-            this.checkBox_CassaInlineNumero.Text = "Cassa inline con numero ordine";
-            this.checkBox_CassaInlineNumero.UseVisualStyleBackColor = true;
-            // 
             // WinPrinterDlg
             // 
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(543, 691);
-            this.Controls.Add(this.checkBox_CassaInlineNumero);
-            this.Controls.Add(this.numUpDown_RigheFinali);
-            this.Controls.Add(this.numUpDown_RigheIniziali);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxLogoChoice);
             this.Controls.Add(this.labelDefault);
             this.Controls.Add(this.BtnDefaults);
@@ -669,8 +597,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_LogoCenter)).EndInit();
             this.groupBoxLogoChoice.ResumeLayout(false);
             this.groupBoxLogoChoice.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheIniziali)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheFinali)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -711,10 +637,5 @@
         private System.Windows.Forms.RadioButton RadioBtnLogo_T;
         private System.Windows.Forms.Label lblLogoPreview;
         private System.Windows.Forms.RadioButton RadioBtnLogo_B;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numUpDown_RigheIniziali;
-        private System.Windows.Forms.NumericUpDown numUpDown_RigheFinali;
-        private System.Windows.Forms.CheckBox checkBox_CassaInlineNumero;
     }
 }

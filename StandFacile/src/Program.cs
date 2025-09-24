@@ -148,6 +148,9 @@ namespace StandFacile
             // inizializza la form di selezione data dei reports
             SelDataDlg rSelDataDlg = new SelDataDlg();
 
+            // inizializza la form di selezione data e ora per l'eliminazione
+            GenericPrinterDlg rGenericPrinterDlg = new GenericPrinterDlg();
+
             // inizializza i parametri di stampa, va messo dopo rDataManager.Init()
             WinPrinterDlg rWinPrinterDlg = new WinPrinterDlg();
 

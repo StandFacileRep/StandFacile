@@ -241,6 +241,15 @@ namespace StandCommonFiles
             return sDateTime;
         }
 
+        /// <summary>Funzione per ottenere una riga di caratteri star</summary>
+        public static String GetStarLine(int length, char star = '#')
+        {
+            String sLine = "";
+            for (int i = 0; i < length; i++)
+                sLine += star;
+            return sLine;
+        }
+
         /// <summary>
         /// Funzione per centrare le stringhe sulla larghezza della carta termica
         /// </summary>

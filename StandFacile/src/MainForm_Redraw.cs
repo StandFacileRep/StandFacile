@@ -108,6 +108,7 @@ namespace StandFacile
                 MnuImpostazioni.Enabled = true;
                 MnuEsperto.Enabled = false;
                 MnuImpostaRete.Enabled = false;
+                MnuImpostaStampanteGenerica.Enabled = false;
                 MnuImpostaStampanteWin.Enabled = false;
                 MnuImpostaStampanteLegacy.Enabled = false;
                 MnuImpostaCopieLocali.Enabled = false;
@@ -270,7 +271,7 @@ namespace StandFacile
                     }
                     else
                     {
-                        MnuScaricaListino.Enabled = DataManager.CheckIf_CassaPri_and_NDB(); // cassa primaria e DB
+                        MnuScaricaListino.Enabled = false;
                         MnuEsportaListino.Enabled = true;
                         MnuImportaListino.Enabled = true;
                         // altrimenti con la Prevendita è troppo complessa la gestione dei nomi delle tabelle
@@ -290,6 +291,7 @@ namespace StandFacile
                     // Menù Impostazioni
                     MnuCambiaPassword.Enabled = true;
                     MnuImpostaRete.Enabled = true;
+                    MnuImpostaStampanteGenerica.Enabled = true;
                     MnuImpostaStampanteWin.Enabled = true;
                     MnuImpostaStampanteLegacy.Enabled = true;
                     MnuImpostaCopieLocali.Enabled = true;
@@ -323,6 +325,7 @@ namespace StandFacile
 
                     // Menù Impostazioni
                     MnuImpostaRete.Enabled = false;
+                    MnuImpostaStampanteGenerica.Enabled = false;
                     MnuImpostaStampanteWin.Enabled = false;
                     MnuImpostaStampanteLegacy.Enabled = false;
                     MnuImpostaCopieLocali.Enabled = false;
