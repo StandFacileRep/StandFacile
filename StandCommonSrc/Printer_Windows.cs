@@ -604,9 +604,20 @@ namespace StandCommonFiles
 
                     // accorcia stringa // TODO: trovare un metodo piu generico e senza spazi e numeri hard coded
                     if (sInStr.StartsWith("     ")) // Solo Numero Ordine
-                        sInStr = sInStr.Substring(4);
-                    else
-                        sInStr = sInStr.Substring(3); // Numero Cassa + Numero Ordine
+                    {
+                        for (i = 0; i < 3 && sInStr[0] == ' '; i++)
+                        {
+                            sInStr = sInStr.Substring(1);
+                        }
+                    }
+                    else // Numero Cassa + Numero Ordine
+                    {
+                        for (i = 0; i < 3 && sInStr[0] == ' '; i++)
+                        {
+                            sInStr = sInStr.Substring(1);
+                        }
+                    }
+                        
 
                     if (!_bSkipNumeroScontrino)
                         PrintCanvas(pg, 1.32f, 1.32f, sInStr); // era 1.24f
