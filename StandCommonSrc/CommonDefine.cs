@@ -114,6 +114,8 @@ namespace StandCommonFiles
                                                                         _NUM_ORD_WEB, _NUM_ORD_PREV };
         }
 
+        /// <summary>mnemonico per il numedo della cassa nelle stampe con Zoom numero scontrino</summary>
+        public const String _TICK_CASSA = "Cassa =";
         /// <summary>mnemonico per il numero dello scontrino nelle stampe con Zoom numero scontrino</summary>
         public const String _TICK_NUM = "Num. =";
 
@@ -567,6 +569,20 @@ namespace StandCommonFiles
             public bool iCassaInline;
             /// <summary>flag per aggiungere cancelletti sopra e sotto al gruppo</summary>
             public bool iHashAroundGroup;
+            /// <summary>flag per centrare il tavolo e il nome</summary>
+            public bool iCenterTableAndName;
+
+            /// <summary>costruttore</summary>
+            public TGenericPrinterParams(int i)
+            {
+                iRowsInitial = 1;
+                iRowsFinal = 4;
+                iCassaInline = false;
+                iHashAroundGroup = false;
+                iCenterTableAndName = false;
+
+                Console.WriteLine("TGenericPrinterParams : costruttore {0}", i);
+            }
         };
 
         /// <summary>

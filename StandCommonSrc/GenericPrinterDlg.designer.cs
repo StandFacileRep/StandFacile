@@ -36,6 +36,7 @@
             this.numUpDown_RigheFinali = new System.Windows.Forms.NumericUpDown();
             this.checkBox_CassaInlineNumero = new System.Windows.Forms.CheckBox();
             this.checkBox_HashAroundGroup = new System.Windows.Forms.CheckBox();
+            this.checkBox_CenterTableAndName = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheIniziali)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheFinali)).BeginInit();
             this.SuspendLayout();
@@ -47,7 +48,7 @@
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = global::StandFacile.Properties.Resources.Cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(79, 118);
+            this.btnCancel.Location = new System.Drawing.Point(74, 134);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(81, 28);
@@ -64,7 +65,7 @@
             this.btnOK.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(168, 118);
+            this.btnOK.Location = new System.Drawing.Point(163, 134);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(72, 28);
@@ -131,6 +132,7 @@
             this.checkBox_CassaInlineNumero.Size = new System.Drawing.Size(194, 18);
             this.checkBox_CassaInlineNumero.TabIndex = 87;
             this.checkBox_CassaInlineNumero.Text = "Cassa inline con numero ordine";
+            this.checkBox_CassaInlineNumero.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // checkBox_HashAroundGroup
             // 
@@ -141,13 +143,26 @@
             this.checkBox_HashAroundGroup.Size = new System.Drawing.Size(275, 18);
             this.checkBox_HashAroundGroup.TabIndex = 88;
             this.checkBox_HashAroundGroup.Text = "Aggiungi riga cancelletti sopra e sotto gruppo";
+            this.checkBox_HashAroundGroup.Click += new System.EventHandler(this.CheckBox_Click);
+            // 
+            // checkBox_CenterTableAndName
+            // 
+            this.checkBox_CenterTableAndName.AutoSize = true;
+            this.checkBox_CenterTableAndName.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox_CenterTableAndName.Location = new System.Drawing.Point(79, 109);
+            this.checkBox_CenterTableAndName.Name = "checkBox_CenterTableAndName";
+            this.checkBox_CenterTableAndName.Size = new System.Drawing.Size(149, 18);
+            this.checkBox_CenterTableAndName.TabIndex = 89;
+            this.checkBox_CenterTableAndName.Text = "Centra Tavolo e Nome";
+            this.checkBox_CenterTableAndName.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // GenericPrinterDlg
             // 
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(314, 159);
+            this.ClientSize = new System.Drawing.Size(314, 175);
+            this.Controls.Add(this.checkBox_CenterTableAndName);
             this.Controls.Add(this.checkBox_HashAroundGroup);
             this.Controls.Add(this.numUpDown_RigheFinali);
             this.Controls.Add(this.numUpDown_RigheIniziali);
@@ -182,5 +197,6 @@
         private System.Windows.Forms.NumericUpDown numUpDown_RigheFinali;
         private System.Windows.Forms.CheckBox checkBox_CassaInlineNumero;
         private System.Windows.Forms.CheckBox checkBox_HashAroundGroup;
+        private System.Windows.Forms.CheckBox checkBox_CenterTableAndName;
     }
 }

@@ -256,28 +256,17 @@ namespace StandFacile
 
             _fCanvasVertNumPos = _fCanvasVertPos;
 
-            if (!String.IsNullOrEmpty(sOrdineStrings.sTavolo) && !String.IsNullOrEmpty(sOrdineStrings.sNome))
-            {
-                PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum); PrintCanvas(pg, "");
-                PrintCanvas(pg, sOrdineStrings.sTavolo);
-                PrintCanvas(pg, sOrdineStrings.sNome);
-            }
-            else if (!String.IsNullOrEmpty(sOrdineStrings.sTavolo))
-            {
-                PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum); PrintCanvas(pg, "");
-                PrintCanvas(pg, sOrdineStrings.sTavolo);
-            }
-            else if (!String.IsNullOrEmpty(sOrdineStrings.sNome))
-            {
-                PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum); PrintCanvas(pg, "");
-                PrintCanvas(pg, sOrdineStrings.sNome);
-            }
-            else
-            {
-                PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum);
-            }
-
+            // Stampa sempre il numero dell'ordine
+            PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum);
             PrintCanvas(pg, "");
+
+            // Stampa il tavolo e il nome se presenti
+            if (!String.IsNullOrEmpty(sOrdineStrings.sTavolo))
+                PrintCanvas(pg, sOrdineStrings.sTavolo);
+            if (!String.IsNullOrEmpty(sOrdineStrings.sNome))
+                PrintCanvas(pg, sOrdineStrings.sNome);
+            if (!String.IsNullOrEmpty(sOrdineStrings.sTavolo) || !String.IsNullOrEmpty(sOrdineStrings.sNome))
+                PrintCanvas(pg, "");
 
             if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
             {

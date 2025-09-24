@@ -37,6 +37,8 @@ namespace StandFacile
         const String CASSA_INLINE_WITH_ORDER_NUMBER_KEY = "iGenericCassaInlineWithOrderNumber";
         /// <summary>stringa per il salvataggio nel registro del flag hash sotto e sopra il gruppo</summary>
         const String HASH_ON_UNDER_GROUP_KEY = "iGenericHashOnUnderGroup";
+        /// <summary>stringa per il salvataggio nel registro del flag centra tabella e nome</summary>
+        const String CENTER_TABLE_AND_NAME = "iGenericCenterTableAndName";
 
         static bool _bListinoModificato;
 
@@ -58,7 +60,7 @@ namespace StandFacile
 
             _rGenericPrinterDlg = this;
 
-            _sGenericPrinterParamsCopy = new TGenericPrinterParams();
+            _sGenericPrinterParamsCopy = new TGenericPrinterParams(0);
 
             Init(false); // imposta sGlobGenericPrinterParams, VIP
         }
@@ -116,7 +118,7 @@ namespace StandFacile
             
         }
 
-        private void SampleTextBtn_Click(object sender, EventArgs e)
+        private void CheckBox_Click(object sender, EventArgs e)
         {
             UpdateGenericPrinterParam();
             AggiornaAspettoControlli();
@@ -150,6 +152,8 @@ namespace StandFacile
 
 #if STANDFACILE
             AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+#elif STAND_CUCINA
+            FrmMain.rFrmMain.VisualizzaTicket();
 #endif
 
             WriteRegistry(EMPTY_ROWS_INITIAL_KEY, sGlbGenericPrinterParams.iRowsInitial);

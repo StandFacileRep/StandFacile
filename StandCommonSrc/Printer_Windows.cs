@@ -599,11 +599,11 @@ namespace StandCommonFiles
                     _sOrdineNum = String.Format("{0:d4}", Convert.ToInt32(sTmp));
                     _bTicketNumFound = true;
 
-                    // accorcia stringa
-                    if (sInStr.StartsWith("  ") && _sGenericPrinterParams.iCassaInline)
-                        sInStr = sInStr.Substring(2);
-                    if (sInStr.StartsWith("   "))
-                        sInStr = sInStr.Substring(3);
+                    // accorcia stringa // TODO: trovare un metodo piu generico e senza spazi e numeri hard coded
+                    if (sInStr.StartsWith("     ")) // Solo Numero Ordine
+                        sInStr = sInStr.Substring(4);
+                    else
+                        sInStr = sInStr.Substring(3); // Numero Cassa + Numero Ordine
 
                     if (!_bSkipNumeroScontrino)
                         PrintCanvas(pg, 1.32f, 1.32f, sInStr); // era 1.24f
@@ -785,7 +785,7 @@ namespace StandCommonFiles
             // nel caso di carta A4, A5 meglio evitare righe aggiuntive pre-taglio
             if (!(sGlbWinPrinterParams.bA4Paper || sGlbWinPrinterParams.bA5Paper) && _sGenericPrinterParams.iRowsFinal > 0)
             {
-                for(i=0; i< _sGenericPrinterParams.iRowsFinal-1; i++) // N righe di fine stampa
+                for(i=0; i<_sGenericPrinterParams.iRowsFinal-1; i++) // N righe di fine stampa
                     PrintCanvas(pg, " ");
                 PrintCanvas(pg, "_");
             }

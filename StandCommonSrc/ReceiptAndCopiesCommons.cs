@@ -272,7 +272,9 @@ namespace StandCommonFiles
 
 
             if (sGlbGenericPrinterParams.iCassaInline)
-                sOrdineStringsTmp.sOrdineNum = "Cassa " + dataIdParam.iNumCassa + " - ";
+                sOrdineStringsTmp.sOrdineNum = _TICK_CASSA + " " + dataIdParam.iNumCassa + " | ";
+            else
+                sOrdineStringsTmp.sOrdineNum = "";
 
             if ((pgParam != null) && dBaseIntf.bUSA_NDB())
                 sOrdineStringsTmp.sOrdineNum += String.Format("{0} ?{1}", _TICK_NUM, i); // Anteprima con ndb
@@ -299,11 +301,14 @@ namespace StandCommonFiles
             else
                 sOrdineStringsTmp.sNome = String.Format("Nome = {0}", dataIdParam.sNome);
 
-            //sNome = CenterJustify(sNome, iMAX_RECEIPT_CHARS);
-            //sTavolo = CenterJustify(sTavolo, iMAX_RECEIPT_CHARS);
             sOrdineStringsTmp.sOrdineNum = CenterJustify(sOrdineStringsTmp.sOrdineNum, iCenterOrderNum);
             sOrdineStringsTmp.sOrdNumWeb = CenterJustify(sOrdineStringsTmp.sOrdNumWeb, iMAX_RECEIPT_CHARS);
             sOrdineStringsTmp.sOrdNumPrev = CenterJustify(sOrdineStringsTmp.sOrdNumPrev, iMAX_RECEIPT_CHARS);
+            if (sGlbGenericPrinterParams.iCenterTableAndName)
+            {
+                sOrdineStringsTmp.sNome = CenterJustify(sOrdineStringsTmp.sNome, iMAX_RECEIPT_CHARS);
+                sOrdineStringsTmp.sTavolo = CenterJustify(sOrdineStringsTmp.sTavolo, iMAX_RECEIPT_CHARS);
+            }
 
             return sOrdineStringsTmp;
         }
@@ -416,29 +421,19 @@ namespace StandCommonFiles
                         _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
                     }
 
-                    if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) && !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
-                    {
-                        _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                        _fPrint.WriteLine(" {0}", sOrdineStringsParam.sTavolo);
-                        _fPrint.WriteLine(" {0}", sOrdineStringsParam.sNome);
-                    }
-                    else if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
-                    {
-                        _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                        _fPrint.WriteLine(" {0}", sOrdineStringsParam.sTavolo);
-                    }
-                    else if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
-                    {
-                        _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                        _fPrint.WriteLine(" {0}", sOrdineStringsParam.sNome);
-                    }
-                    else
-                    {
-                        _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum);
-                    }
-
+                    // Stampa sempre il numero dell'ordine
+                    _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum);
                     _fPrint.WriteLine();
 
+                    // Stampa il tavolo e il nome se presenti
+                    if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
+                        _fPrint.WriteLine(" {0}", sOrdineStringsParam.sTavolo);
+                    if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
+                        _fPrint.WriteLine(" {0}", sOrdineStringsParam.sNome);
+                    if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) || !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
+                        _fPrint.WriteLine();
+
+                    // Stampa il numero web e prevendita se presenti
                     if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                     {
                         _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdNumWeb); _fPrint.WriteLine();
@@ -825,7 +820,7 @@ namespace StandCommonFiles
             int iNumCoperti = 0;
             int iDebug = 0;
 
-            String sTmp, sDebug, sNomeFileTicketNpPrt;
+            String sTmp, sNomeFileTicketNpPrt;
             String sHeader1_ToPrintBeforeCut, sHeader2_ToPrintBeforeCut;
 
             bool[] bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS];
@@ -1107,7 +1102,12 @@ namespace StandCommonFiles
                                 if (!String.IsNullOrEmpty(sHeader2_ToPrintBeforeCut))
                                     _fPrint.WriteLine("{0}", sHeader2_ToPrintBeforeCut);
 
-                                _fPrint.WriteLine("    {0}\r\n", dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]]);
+                                string group = dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]];
+                                string hashLine = GetStarLine(group.Length);
+                                if (sGlbGenericPrinterParams.iHashAroundGroup) _fPrint.WriteLine("{0}", hashLine);
+                                _fPrint.WriteLine("{0}", group);
+                                if (sGlbGenericPrinterParams.iHashAroundGroup) _fPrint.WriteLine("{0}", hashLine);
+                                _fPrint.WriteLine("");
 
                                 // larghezza 28 "{0,2} {1,-18}{2,7}" :89 123456789012345678 9876.00
                                 if (bLocalPricesRequested)
@@ -1168,7 +1168,7 @@ namespace StandCommonFiles
                                         _fPrint.WriteLine("{0}", sHeader1_ToPrintBeforeCut);
 
                                     sTmp = String.Format("{0}", sOrdineStringsParam.sOrdineNum); // consente Zoom numero scontrino
-                                    _fPrint.WriteLine("{0}\r\n", sTmp);
+                                    _fPrint.WriteLine(CenterJustify(sOrdineStringsParam.sOrdineNum, MAX_RECEIPT_CHARS_CPY));
 
                                     if (!String.IsNullOrEmpty(sHeader2_ToPrintBeforeCut))
                                         _fPrint.WriteLine("{0}", sHeader2_ToPrintBeforeCut);
@@ -1179,9 +1179,12 @@ namespace StandCommonFiles
                                 {
                                     bGroupsTextToPrint = false;
 
-#pragma warning disable IDE0059
-                                    sDebug = dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]];
-                                    _fPrint.WriteLine("    {0}\r\n", dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]]);
+                                    string group = dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]];
+                                    string hashLine = GetStarLine(group.Length);
+                                    if (sGlbGenericPrinterParams.iHashAroundGroup) _fPrint.WriteLine(CenterJustify(hashLine, MAX_RECEIPT_CHARS_CPY));
+                                    _fPrint.WriteLine(CenterJustify(group, MAX_RECEIPT_CHARS_CPY));
+                                    if (sGlbGenericPrinterParams.iHashAroundGroup) _fPrint.WriteLine(CenterJustify(hashLine, MAX_RECEIPT_CHARS_CPY));
+                                    _fPrint.WriteLine("");
                                 }
 
                                 if (bHeaderToBePrinted)
@@ -1435,42 +1438,42 @@ namespace StandCommonFiles
                         if (bColorLoop)
                             sTmp = CenterJustify(dataIdParam.sColorGroupsText[iColorLoop - 1], MAX_RECEIPT_CHARS_CPY);
                         else
-                            sTmp = CenterJustifyStars(dataIdParam.sCopiesGroupsText[i], MAX_RECEIPT_CHARS_CPY, '#');
+                            sTmp = CenterJustify(dataIdParam.sCopiesGroupsText[i], MAX_RECEIPT_CHARS_CPY);
 
                         if (!String.IsNullOrEmpty(sTmp))
                         {
-                            _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
+                            string hashLine = CenterJustify(GetStarLine(dataIdParam.sCopiesGroupsText[i].Length), MAX_RECEIPT_CHARS_CPY);
+                            if (sGlbGenericPrinterParams.iHashAroundGroup) _fPrint.WriteLine("{0}", hashLine);
+                            _fPrint.WriteLine("{0}", sTmp);
+                            if (sGlbGenericPrinterParams.iHashAroundGroup) _fPrint.WriteLine("{0}", hashLine);
+                            _fPrint.WriteLine("");
                             iEqRowsNumber += 2;
                         }
 
-                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) && !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sNome);
-                            iEqRowsNumber += 4;
-                        }
-                        else if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
-                            iEqRowsNumber += 3;
-                        }
-                        else if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sNome);
-                            iEqRowsNumber += 3;
-                        }
-                        else
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum);
-                            iEqRowsNumber += 1;
-                        }
-
+                        // Stampa sempre il numero dell'ordine
+                        _fPrint.WriteLine("{0}", CenterJustify(sOrdineStringsParam.sOrdineNum, MAX_RECEIPT_CHARS_CPY)); 
                         _fPrint.WriteLine();
-                        iEqRowsNumber += 1;
+                        iEqRowsNumber += 2;
 
+                        // Stampa il tavolo e il nome se presenti
+                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
+                        {
+                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
+                            iEqRowsNumber++;
+                        }
+                            
+                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
+                        {
+                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sNome);
+                            iEqRowsNumber++;
+                        }
+                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) || !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
+                        {
+                            _fPrint.WriteLine();
+                            iEqRowsNumber++;
+                        }
+
+                        // Stampa i numeri di ordine WEB e PREVENDITA se presenti
                         if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                         {
                             _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdNumWeb); _fPrint.WriteLine();
@@ -1754,38 +1757,45 @@ namespace StandCommonFiles
 
                         if (!String.IsNullOrEmpty(sTmp))
                         {
-                            _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
+                            string hashLine = CenterJustify(GetStarLine(dataIdParam.sCopiesGroupsText[NUM_EDIT_GROUPS].Length), MAX_RECEIPT_CHARS_CPY);
+                            if (sGlbGenericPrinterParams.iHashAroundGroup)
+                            {
+                                _fPrint.WriteLine("{0}", hashLine);
+                                iEqRowsNumber++;
+                            }
+                            _fPrint.WriteLine("{0}", sTmp);
+                            if (sGlbGenericPrinterParams.iHashAroundGroup)
+                            {
+                                _fPrint.WriteLine("{0}", hashLine);
+                                iEqRowsNumber++;
+                            }
+                            _fPrint.WriteLine("");
                             iEqRowsNumber += 2;
                         }
 
-                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) && !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sNome);
-                            iEqRowsNumber += 4;
-                        }
-                        else if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
-                            iEqRowsNumber += 3;
-                        }
-                        else if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sNome);
-                            iEqRowsNumber += 3;
-                        }
-                        else
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum);
-                            iEqRowsNumber += 1;
-                        }
-
+                        // Stampa sempre il numero dell'ordine
+                        _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum);
                         _fPrint.WriteLine();
-                        iEqRowsNumber += 1;
+                        iEqRowsNumber += 2;
 
+                        // Stampa il tavolo e il nome se presenti
+                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
+                        {
+                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
+                            iEqRowsNumber++;
+                        }
+                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
+                        {
+                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sNome);
+                            iEqRowsNumber++;
+                        }                            
+                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) || !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
+                        {
+                            _fPrint.WriteLine();
+                            iEqRowsNumber++;
+                        }
+
+                        // Stampa i numeri di ordine WEB e PREVENDITA se presenti
                         if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                         {
                             _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdNumWeb); _fPrint.WriteLine();

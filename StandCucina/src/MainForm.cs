@@ -901,6 +901,12 @@ namespace StandFacile
         }
 
         /// <summary>Visualizza lo Scontrino appoggiandosi a VisOrdiniDlg.ReceiptRebuild()</summary>
+        public void VisualizzaTicket()
+        {
+            VisualizzaTicket(iGlbCurrentOffline_TicketNum);
+        }
+
+        /// <summary>Visualizza lo Scontrino appoggiandosi a VisOrdiniDlg.ReceiptRebuild()</summary>
         public void VisualizzaTicket(int iTicketNumParam, int iPrevParam = -1, int iNextParam = -1)
         {
             int i;
