@@ -1,6 +1,6 @@
 /************************************************************
     NomeFile : StandCommonSrc/FrmUpdateProgress.cs, versione utente
-    Data	 : 03.04.2024
+    Data	 : 22.09.2025
     Autore	 : Nicola Bizzotto
  ************************************************************/
 
