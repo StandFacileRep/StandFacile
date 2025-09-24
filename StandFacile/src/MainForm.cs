@@ -2344,6 +2344,7 @@ namespace StandFacile
             {
                 iArrayOffset = 4 * iLastGridIndex;
             }
+            _iCellPt = MainGrid.CurrentCell.ColumnIndex * MainGrid.RowCount + MainGrid.CurrentCell.RowIndex + iArrayOffset;
 
             FormResize(this, null);
             MainGrid_Redraw(this, null);
