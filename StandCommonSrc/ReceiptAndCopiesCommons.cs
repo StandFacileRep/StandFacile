@@ -1104,9 +1104,9 @@ namespace StandCommonFiles
 
                                 string group = dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]];
                                 string hashLine = GetStarLine(group.Length);
-                                if (sGlbGenericPrinterParams.iHashAroundGroup) _fPrint.WriteLine("{0}", hashLine);
+                                if (sGlbGenericPrinterParams.iStarOnUnderGroup) _fPrint.WriteLine("{0}", hashLine);
                                 _fPrint.WriteLine("{0}", group);
-                                if (sGlbGenericPrinterParams.iHashAroundGroup) _fPrint.WriteLine("{0}", hashLine);
+                                if (sGlbGenericPrinterParams.iStarOnUnderGroup) _fPrint.WriteLine("{0}", hashLine);
                                 _fPrint.WriteLine("");
 
                                 // larghezza 28 "{0,2} {1,-18}{2,7}" :89 123456789012345678 9876.00
@@ -1181,9 +1181,9 @@ namespace StandCommonFiles
 
                                     string group = dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]];
                                     string hashLine = GetStarLine(group.Length);
-                                    if (sGlbGenericPrinterParams.iHashAroundGroup) _fPrint.WriteLine(CenterJustify(hashLine, MAX_RECEIPT_CHARS_CPY));
+                                    if (sGlbGenericPrinterParams.iStarOnUnderGroup) _fPrint.WriteLine(CenterJustify(hashLine, MAX_RECEIPT_CHARS_CPY));
                                     _fPrint.WriteLine(CenterJustify(group, MAX_RECEIPT_CHARS_CPY));
-                                    if (sGlbGenericPrinterParams.iHashAroundGroup) _fPrint.WriteLine(CenterJustify(hashLine, MAX_RECEIPT_CHARS_CPY));
+                                    if (sGlbGenericPrinterParams.iStarOnUnderGroup) _fPrint.WriteLine(CenterJustify(hashLine, MAX_RECEIPT_CHARS_CPY));
                                     _fPrint.WriteLine("");
                                 }
 
@@ -1442,10 +1442,10 @@ namespace StandCommonFiles
 
                         if (!String.IsNullOrEmpty(sTmp))
                         {
-                            string hashLine = CenterJustify(GetStarLine(dataIdParam.sCopiesGroupsText[i].Length), MAX_RECEIPT_CHARS_CPY);
-                            if (sGlbGenericPrinterParams.iHashAroundGroup) _fPrint.WriteLine("{0}", hashLine);
+                            string starLine = CenterJustify(GetStarLine(dataIdParam.sCopiesGroupsText[i].Length), MAX_RECEIPT_CHARS_CPY);
+                            if (sGlbGenericPrinterParams.iStarOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
                             _fPrint.WriteLine("{0}", sTmp);
-                            if (sGlbGenericPrinterParams.iHashAroundGroup) _fPrint.WriteLine("{0}", hashLine);
+                            if (sGlbGenericPrinterParams.iStarOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
                             _fPrint.WriteLine("");
                             iEqRowsNumber += 2;
                         }
@@ -1758,13 +1758,13 @@ namespace StandCommonFiles
                         if (!String.IsNullOrEmpty(sTmp))
                         {
                             string hashLine = CenterJustify(GetStarLine(dataIdParam.sCopiesGroupsText[NUM_EDIT_GROUPS].Length), MAX_RECEIPT_CHARS_CPY);
-                            if (sGlbGenericPrinterParams.iHashAroundGroup)
+                            if (sGlbGenericPrinterParams.iStarOnUnderGroup)
                             {
                                 _fPrint.WriteLine("{0}", hashLine);
                                 iEqRowsNumber++;
                             }
                             _fPrint.WriteLine("{0}", sTmp);
-                            if (sGlbGenericPrinterParams.iHashAroundGroup)
+                            if (sGlbGenericPrinterParams.iStarOnUnderGroup)
                             {
                                 _fPrint.WriteLine("{0}", hashLine);
                                 iEqRowsNumber++;

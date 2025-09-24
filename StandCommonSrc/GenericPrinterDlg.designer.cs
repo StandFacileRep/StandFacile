@@ -35,7 +35,7 @@
             this.numUpDown_RigheIniziali = new System.Windows.Forms.NumericUpDown();
             this.numUpDown_RigheFinali = new System.Windows.Forms.NumericUpDown();
             this.checkBox_CassaInlineNumero = new System.Windows.Forms.CheckBox();
-            this.checkBox_HashAroundGroup = new System.Windows.Forms.CheckBox();
+            this.checkBox_StarOnUnderGroup = new System.Windows.Forms.CheckBox();
             this.checkBox_CenterTableAndName = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheIniziali)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheFinali)).BeginInit();
@@ -134,16 +134,16 @@
             this.checkBox_CassaInlineNumero.Text = "Cassa inline con numero ordine";
             this.checkBox_CassaInlineNumero.Click += new System.EventHandler(this.CheckBox_Click);
             // 
-            // checkBox_HashAroundGroup
+            // checkBox_StarOnUnderGroup
             // 
-            this.checkBox_HashAroundGroup.AutoSize = true;
-            this.checkBox_HashAroundGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_HashAroundGroup.Location = new System.Drawing.Point(26, 85);
-            this.checkBox_HashAroundGroup.Name = "checkBox_HashAroundGroup";
-            this.checkBox_HashAroundGroup.Size = new System.Drawing.Size(275, 18);
-            this.checkBox_HashAroundGroup.TabIndex = 88;
-            this.checkBox_HashAroundGroup.Text = "Aggiungi riga cancelletti sopra e sotto gruppo";
-            this.checkBox_HashAroundGroup.Click += new System.EventHandler(this.CheckBox_Click);
+            this.checkBox_StarOnUnderGroup.AutoSize = true;
+            this.checkBox_StarOnUnderGroup.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox_StarOnUnderGroup.Location = new System.Drawing.Point(26, 85);
+            this.checkBox_StarOnUnderGroup.Name = "checkBox_StarOnUnderGroup";
+            this.checkBox_StarOnUnderGroup.Size = new System.Drawing.Size(275, 18);
+            this.checkBox_StarOnUnderGroup.TabIndex = 88;
+            this.checkBox_StarOnUnderGroup.Text = "Aggiungi riga cancelletti sopra e sotto gruppo";
+            this.checkBox_StarOnUnderGroup.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // checkBox_CenterTableAndName
             // 
@@ -163,7 +163,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(314, 175);
             this.Controls.Add(this.checkBox_CenterTableAndName);
-            this.Controls.Add(this.checkBox_HashAroundGroup);
+            this.Controls.Add(this.checkBox_StarOnUnderGroup);
             this.Controls.Add(this.numUpDown_RigheFinali);
             this.Controls.Add(this.numUpDown_RigheIniziali);
             this.Controls.Add(this.label2);
@@ -196,7 +196,7 @@
         private System.Windows.Forms.NumericUpDown numUpDown_RigheIniziali;
         private System.Windows.Forms.NumericUpDown numUpDown_RigheFinali;
         private System.Windows.Forms.CheckBox checkBox_CassaInlineNumero;
-        private System.Windows.Forms.CheckBox checkBox_HashAroundGroup;
+        private System.Windows.Forms.CheckBox checkBox_StarOnUnderGroup;
         private System.Windows.Forms.CheckBox checkBox_CenterTableAndName;
     }
 }

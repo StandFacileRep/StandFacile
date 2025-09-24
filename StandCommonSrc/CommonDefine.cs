@@ -568,7 +568,7 @@ namespace StandCommonFiles
             /// <summary>flag per stampa numero di cassa inline con numero ordine</summary>
             public bool iCassaInline;
             /// <summary>flag per aggiungere cancelletti sopra e sotto al gruppo</summary>
-            public bool iHashAroundGroup;
+            public bool iStarOnUnderGroup;
             /// <summary>flag per centrare il tavolo e il nome</summary>
             public bool iCenterTableAndName;
 
@@ -578,7 +578,7 @@ namespace StandCommonFiles
                 iRowsInitial = 1;
                 iRowsFinal = 4;
                 iCassaInline = false;
-                iHashAroundGroup = false;
+                iStarOnUnderGroup = false;
                 iCenterTableAndName = false;
 
                 Console.WriteLine("TGenericPrinterParams : costruttore {0}", i);

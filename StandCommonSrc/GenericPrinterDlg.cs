@@ -36,7 +36,7 @@ namespace StandFacile
         /// <summary>stringa per il salvataggio nel registro del flag cassa inline con numero ordine</summary>
         const String CASSA_INLINE_WITH_ORDER_NUMBER_KEY = "iGenericCassaInlineWithOrderNumber";
         /// <summary>stringa per il salvataggio nel registro del flag hash sotto e sopra il gruppo</summary>
-        const String HASH_ON_UNDER_GROUP_KEY = "iGenericHashOnUnderGroup";
+        const String STAR_ON_UNDER_GROUP_KEY = "iGenericStarOnUnderGroup";
         /// <summary>stringa per il salvataggio nel registro del flag centra tabella e nome</summary>
         const String CENTER_TABLE_AND_NAME = "iGenericCenterTableAndName";
 
@@ -78,12 +78,12 @@ namespace StandFacile
             sGlbGenericPrinterParams.iRowsInitial = ReadRegistry(EMPTY_ROWS_INITIAL_KEY, 1);
             sGlbGenericPrinterParams.iRowsFinal = ReadRegistry(EMPTY_ROWS_FINAL_KEY, 4);
             sGlbGenericPrinterParams.iCassaInline = ReadRegistry(CASSA_INLINE_WITH_ORDER_NUMBER_KEY, 0) != 0;
-            sGlbGenericPrinterParams.iHashAroundGroup = ReadRegistry(HASH_ON_UNDER_GROUP_KEY, 0) != 0;
+            sGlbGenericPrinterParams.iStarOnUnderGroup = ReadRegistry(STAR_ON_UNDER_GROUP_KEY, 0) != 0;
 
             numUpDown_RigheIniziali.Value = sGlbGenericPrinterParams.iRowsInitial;
             numUpDown_RigheFinali.Value = sGlbGenericPrinterParams.iRowsFinal;
             checkBox_CassaInlineNumero.Checked = sGlbGenericPrinterParams.iCassaInline;
-            checkBox_HashAroundGroup.Checked = sGlbGenericPrinterParams.iHashAroundGroup;
+            checkBox_StarOnUnderGroup.Checked = sGlbGenericPrinterParams.iStarOnUnderGroup;
 
             _sGenericPrinterParamsCopy = DeepCopy(sGlbGenericPrinterParams);
 
@@ -110,7 +110,7 @@ namespace StandFacile
             _sGenericPrinterParamsCopy.iRowsInitial = (int)numUpDown_RigheIniziali.Value;
             _sGenericPrinterParamsCopy.iRowsFinal = (int)numUpDown_RigheFinali.Value;
             _sGenericPrinterParamsCopy.iCassaInline = checkBox_CassaInlineNumero.Checked;
-            _sGenericPrinterParamsCopy.iHashAroundGroup = checkBox_HashAroundGroup.Checked;
+            _sGenericPrinterParamsCopy.iStarOnUnderGroup = checkBox_StarOnUnderGroup.Checked;
         }
 
         void AggiornaAspettoControlli()
@@ -159,7 +159,7 @@ namespace StandFacile
             WriteRegistry(EMPTY_ROWS_INITIAL_KEY, sGlbGenericPrinterParams.iRowsInitial);
             WriteRegistry(EMPTY_ROWS_FINAL_KEY, sGlbGenericPrinterParams.iRowsFinal);
             WriteRegistry(CASSA_INLINE_WITH_ORDER_NUMBER_KEY, sGlbGenericPrinterParams.iCassaInline ? 1 : 0);
-            WriteRegistry(HASH_ON_UNDER_GROUP_KEY, sGlbGenericPrinterParams.iHashAroundGroup ? 1 : 0);
+            WriteRegistry(STAR_ON_UNDER_GROUP_KEY, sGlbGenericPrinterParams.iStarOnUnderGroup ? 1 : 0);
 
             _bListinoModificato = false;
 
