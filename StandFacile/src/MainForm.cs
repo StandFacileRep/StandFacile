@@ -2118,7 +2118,7 @@ namespace StandFacile
             rHeaderFooterDlg.Dispose();
         }
 
-        private void MnuImpDimGrid_Click(object sender, EventArgs e)
+        private void MnuSetupDimGrid_Click(object sender, EventArgs e)
         {
             EditGridDlg rSetGridDlg = new EditGridDlg();
 

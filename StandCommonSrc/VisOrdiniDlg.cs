@@ -206,6 +206,8 @@ namespace StandFacile
 
                 labelPayMethod.Top = labelPrint.Top;
                 comboPaymentType.Top = labelPayMethod.Top + 20;
+                
+                checkBoxNotPaid.Top = BtnPrev.Top + 6;
             }
             else  // vis Ordini
             {
@@ -238,8 +240,11 @@ namespace StandFacile
                     BtnPrt.Top = BtnPrev.Top;
                     OKBtn.Top = BtnPrev.Top;
 
-                    labelPrint.Top = BtnPrev.Top - 22;
+                    labelPrint.Top = BtnPrev.Top - 25;
+                    labelPrint.Font = new System.Drawing.Font("Tahoma", 9);
+
                     checkBoxNotPaid.Top = labelPrint.Top - 2;
+                    checkBoxNotPaid.Left = BtnPrev.Left + 4;
 
                     Height -= 50;
                     //textEdit_Ticket.Height = Height;   
