@@ -519,10 +519,7 @@ namespace StandCommonFiles
             PrintCanvas(pg, "");
 
             if (_bPaperIsA4)
-            {
                 PrintCanvas(pg, "");
-                PrintCanvas(pg, "");
-            }
 
             while ((_fCanvasVertPos < ev.PageSettings.PaperSize.Height) && ((sInStr = _fileToPrint.ReadLine()) != null))
             {
@@ -641,7 +638,6 @@ namespace StandCommonFiles
                                 if (!_bPageContinueSameHorPos)
                                     _fCanvasVertPos = ev.PageSettings.Margins.Top;
 
-                                PrintCanvas(pg, "");
                                 PrintCanvas(pg, "");
                                 PrintCanvas(pg, "");
 
