@@ -637,6 +637,19 @@ namespace StandFacile
 
                         continue;
                     }
+                    else if (sInStr.StartsWith("#GP")) // GP == General Print
+                    {
+                        /***********************************************************
+                         *	caricamento hex per gestione opzioni stampa generica
+                         ***********************************************************/
+                        sTmp = sInStr.Substring(3);
+
+                        i = ToInt32(sTmp, 16);
+
+                        SF_Data.iGenericPrinterOptions = i;
+
+                        continue;
+                    }
                     else if (sInStr.StartsWith("#TN") || sInStr.StartsWith("#LC")) // compatibilità
                     {
                         /******************************************************************

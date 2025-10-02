@@ -29,21 +29,7 @@ namespace StandFacile
     {
 #pragma warning disable IDE0044
 
-        /// <summary>stringa per il salvataggio nel registro del numero di righe iniziali vuote</summary>
-        const String EMPTY_ROWS_INITIAL_KEY = "iGenericEmptyRowsInitial";
-        /// <summary>stringa per il salvataggio nel registro del numero di righe finali vuote</summary>
-        const String EMPTY_ROWS_FINAL_KEY = "iGenericEmptyRowsFinal";
-        /// <summary>stringa per il salvataggio nel registro del flag cassa inline con numero ordine</summary>
-        const String CASSA_INLINE_WITH_ORDER_NUMBER_KEY = "iGenericCassaInlineWithOrderNumber";
-        /// <summary>stringa per il salvataggio nel registro del flag hash sotto e sopra il gruppo</summary>
-        const String STAR_ON_UNDER_GROUP_KEY = "iGenericStarOnUnderGroup";
-        /// <summary>stringa per il salvataggio nel registro del flag centra tabella e nome</summary>
-        const String CENTER_TABLE_AND_NAME = "iGenericCenterTableAndName";
-
         static bool _bListinoModificato;
-
-        bool _bInitComplete = false;
-        TGenericPrinterParams _sGenericPrinterParamsCopy;
 
         /// <summary>riferimento a GenericPrinterDlg</summary>
         public static GenericPrinterDlg _rGenericPrinterDlg;
@@ -51,7 +37,11 @@ namespace StandFacile
         /// <summary>ottiene flag di modifica listino necessaria</summary>
         public static bool GetListinoModificato() { return _bListinoModificato; }
 
-        static TErrMsg _ErrMsg;
+        readonly ToolTip _tt = new ToolTip
+        {
+            InitialDelay = 50,
+            ShowAlways = true
+        };
 
         /// <summary>costruttore</summary>
         public GenericPrinterDlg()
@@ -60,7 +50,11 @@ namespace StandFacile
 
             _rGenericPrinterDlg = this;
 
-            _sGenericPrinterParamsCopy = new TGenericPrinterParams(0);
+            _tt.SetToolTip(numUpDown_RigheIniziali, "Numero di righe vuote iniziali");
+            _tt.SetToolTip(numUpDown_RigheFinali, "Numero di righe vuote finali");
+            _tt.SetToolTip(checkBox_CassaInlineNumero, "Visualizza il numero della cassa inline con numero scontrino");
+            _tt.SetToolTip(checkBox_StarOnUnderGroup, "Visualizza l'asterisco sopra e sotto il gruppo");
+            _tt.SetToolTip(checkBox_CenterTableAndName, "Centra il tavolo e il nome cliente");
 
             Init(false); // imposta sGlobGenericPrinterParams, VIP
         }
@@ -74,100 +68,59 @@ namespace StandFacile
 
             LogToFile("GenericPrinterDlg : Init in");
 
+            numUpDown_RigheIniziali.Value = GetNumberOfSetBits(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_INITIAL, 4);
+            numUpDown_RigheFinali.Value = GetNumberOfSetBits(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_FINAL, 4);
+            checkBox_CassaInlineNumero.Checked = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE);
+            checkBox_StarOnUnderGroup.Checked = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_STAR_ON_UNDER_GROUP);
+            checkBox_CenterTableAndName.Checked = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CENTER_TABLE_AND_NAME);
 
-            sGlbGenericPrinterParams.iRowsInitial = ReadRegistry(EMPTY_ROWS_INITIAL_KEY, 1);
-            sGlbGenericPrinterParams.iRowsFinal = ReadRegistry(EMPTY_ROWS_FINAL_KEY, 4);
-            sGlbGenericPrinterParams.iCassaInline = ReadRegistry(CASSA_INLINE_WITH_ORDER_NUMBER_KEY, 0) != 0;
-            sGlbGenericPrinterParams.iStarOnUnderGroup = ReadRegistry(STAR_ON_UNDER_GROUP_KEY, 0) != 0;
-            sGlbGenericPrinterParams.iCenterTableAndName = ReadRegistry(CENTER_TABLE_AND_NAME, 0) != 0;
-
-            numUpDown_RigheIniziali.Value = sGlbGenericPrinterParams.iRowsInitial;
-            numUpDown_RigheFinali.Value = sGlbGenericPrinterParams.iRowsFinal;
-            checkBox_CassaInlineNumero.Checked = sGlbGenericPrinterParams.iCassaInline;
-            checkBox_StarOnUnderGroup.Checked = sGlbGenericPrinterParams.iStarOnUnderGroup;
-            checkBox_CenterTableAndName.Checked = sGlbGenericPrinterParams.iCenterTableAndName;
-
-            _sGenericPrinterParamsCopy = DeepCopy(sGlbGenericPrinterParams);
-
-            _bInitComplete = true;
-
-            // non chiamare qui UpdateGenericPrinterParam()
-            AggiornaAspettoControlli();
+            _bListinoModificato = false;
 
             if (bShow)
                 result = ShowDialog();
 
-            LogToFile("GenericPrinterDlg : Init out");
-
             return (result == DialogResult.OK); // true se è cliccato OK
-        }
-
-
-        /// <summary>
-        ///  funzione che imposta tutti i parametri necessari a GenericPrinterDlg<br/>
-        ///  prelevandoli dai controlli e non dal Registro
-        /// </summary>       
-        void UpdateGenericPrinterParam()
-        {
-            _sGenericPrinterParamsCopy.iRowsInitial = (int)numUpDown_RigheIniziali.Value;
-            _sGenericPrinterParamsCopy.iRowsFinal = (int)numUpDown_RigheFinali.Value;
-            _sGenericPrinterParamsCopy.iCassaInline = checkBox_CassaInlineNumero.Checked;
-            _sGenericPrinterParamsCopy.iStarOnUnderGroup = checkBox_StarOnUnderGroup.Checked;
-            _sGenericPrinterParamsCopy.iCenterTableAndName = checkBox_CenterTableAndName.Checked;
-        }
-
-        void AggiornaAspettoControlli()
-        {
-            
-        }
-
-        private void CheckBox_Click(object sender, EventArgs e)
-        {
-            UpdateGenericPrinterParam();
-            AggiornaAspettoControlli();
-
-            LogToFile("GenericPrinterDlg : SampleTextBtnClick");
-        }
-
-        /******************************************************************
-            come regola i controlli non vengono	letti dal Registry
-         ******************************************************************/
-               
-
-        private void NumUpDown_Click(object sender, EventArgs e)
-        {
-            UpdateGenericPrinterParam();
-            AggiornaAspettoControlli();
-        }
-
-        private void BtnCancel_Click(object sender, EventArgs e)
-        {
-            AggiornaAspettoControlli();
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
         {
-            UpdateGenericPrinterParam();
-            AggiornaAspettoControlli();
+            int iGenericPrinterOptionsCopy;
+            String sTmp;
+
+            iGenericPrinterOptionsCopy = 0;
 
             // acquisizione impostazioni
-            sGlbGenericPrinterParams = DeepCopy(_sGenericPrinterParamsCopy);
 
+            iGenericPrinterOptionsCopy = SetNumberOfSetBits(iGenericPrinterOptionsCopy, (int)numUpDown_RigheIniziali.Value, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_INITIAL, 4);
+            iGenericPrinterOptionsCopy = SetNumberOfSetBits(iGenericPrinterOptionsCopy, (int)numUpDown_RigheFinali.Value, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_FINAL, 4);
+            iGenericPrinterOptionsCopy = UpdateBit(iGenericPrinterOptionsCopy, checkBox_CassaInlineNumero.Checked,(int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE);
+            iGenericPrinterOptionsCopy = UpdateBit(iGenericPrinterOptionsCopy, checkBox_StarOnUnderGroup.Checked, (int)GEN_PRINTER_OPTS.BIT_STAR_ON_UNDER_GROUP);
+            iGenericPrinterOptionsCopy = UpdateBit(iGenericPrinterOptionsCopy, checkBox_CenterTableAndName.Checked, (int)GEN_PRINTER_OPTS.BIT_CENTER_TABLE_AND_NAME);
+
+            if (iGenericPrinterOptionsCopy != SF_Data.iGenericPrinterOptions)
+            {
+                SF_Data.iGenericPrinterOptions = iGenericPrinterOptionsCopy;
+                _bListinoModificato = true;
+            }
+            else
+                _bListinoModificato = false;
+
+            if (_bListinoModificato)
+            {
 #if STANDFACILE
-            AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 #elif STAND_CUCINA
-            FrmMain.rFrmMain.VisualizzaTicket();
+                FrmMain.rFrmMain.VisualizzaTicket();
 #endif
+            }
 
-            WriteRegistry(EMPTY_ROWS_INITIAL_KEY, sGlbGenericPrinterParams.iRowsInitial);
-            WriteRegistry(EMPTY_ROWS_FINAL_KEY, sGlbGenericPrinterParams.iRowsFinal);
-            WriteRegistry(CASSA_INLINE_WITH_ORDER_NUMBER_KEY, sGlbGenericPrinterParams.iCassaInline ? 1 : 0);
-            WriteRegistry(STAR_ON_UNDER_GROUP_KEY, sGlbGenericPrinterParams.iStarOnUnderGroup ? 1 : 0);
-            WriteRegistry(CENTER_TABLE_AND_NAME, sGlbGenericPrinterParams.iCenterTableAndName ? 1 : 0);
-
-            _bListinoModificato = false;
+            sTmp = String.Format("optionsDlg OK: {0}, {1}, {2}, {3}, {4}", numUpDown_RigheIniziali.Value, numUpDown_RigheFinali.Value,
+                checkBox_CassaInlineNumero.Checked, checkBox_StarOnUnderGroup.Checked, checkBox_CenterTableAndName.Checked);
+            LogToFile(sTmp);
 
             LogToFile("GenericPrinterDlg : OKBtnClick");
+
+            Close();
         }
 
         private void GenericPrinterDlg_FormClosing(object sender, FormClosingEventArgs e)

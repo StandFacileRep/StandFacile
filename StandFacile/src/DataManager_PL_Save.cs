@@ -267,6 +267,13 @@ namespace StandFacile
                 iRowIndex++;
                 uLocHashCode += Hash(sPrzRow);
 
+                //numero hex per gestione della opzioni generiche di stampa
+                sPrzRow = String.Format("{0}{1:X5}", "#GP", SF_Data.iGenericPrinterOptions);
+
+                fPrz.WriteLine(sPrzRow);
+                iRowIndex++;
+                uLocHashCode += Hash(sPrzRow);
+
                 //numero hex per gestione delle opzioni di stampa
                 sPrzRow = String.Format("{0}{1:X5}", "#LC", SF_Data.iReceiptCopyOptions);
 

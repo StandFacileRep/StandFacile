@@ -95,7 +95,6 @@ namespace StandCommonFiles
 
         static StreamReader _fileToPrint;
 
-        static TGenericPrinterParams _sGenericPrinterParams;
         static TWinPrinterParams _sWinPrinterParams;
         static String _sFileToPrintParam;
 
@@ -166,7 +165,6 @@ namespace StandCommonFiles
             _sOrdineNum = "0123"; // per sampleText
             _sDataStr = GetActualDate().ToString("ddMMyy");
 
-            _sGenericPrinterParams = sGlbGenericPrinterParams;
             _sWinPrinterParams = sWinPrinterParams;
             _sFileToPrintParam = sFileToPrintParam;
 
@@ -518,7 +516,8 @@ namespace StandCommonFiles
             _fLogo_B_LeftMarginBk = _fLogo_B_LeftMargin;
 
             iA4_PrintStatus = 0;
-            for (i = 0; i < _sGenericPrinterParams.iRowsInitial; i++) // N righe di inizio stampa
+            int initialRowsToAdd = GetNumberOfSetBits(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_INITIAL, 4);
+            for (i = 0; i < initialRowsToAdd; i++) // N righe di inizio stampa
                 PrintCanvas(pg, "");
 
             if (_bPaperIsA4)
@@ -812,10 +811,11 @@ namespace StandCommonFiles
                 WarningManager(_WrnMsg);
             }
 
+            int finalRowsToAdd = GetNumberOfSetBits(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_FINAL, 4);
             // nel caso di carta A4, A5 meglio evitare righe aggiuntive pre-taglio
-            if (!(sGlbWinPrinterParams.bA4Paper || sGlbWinPrinterParams.bA5Paper) && _sGenericPrinterParams.iRowsFinal > 0)
+            if (!(sGlbWinPrinterParams.bA4Paper || sGlbWinPrinterParams.bA5Paper) && finalRowsToAdd > 0)
             {
-                for(i=0; i<_sGenericPrinterParams.iRowsFinal-1; i++) // N righe di fine stampa
+                for(i=0; i< finalRowsToAdd - 1; i++) // N righe di fine stampa
                     PrintCanvas(pg, " ");
                 PrintCanvas(pg, "_");
             }

@@ -56,7 +56,6 @@
             this.btnCancel.Text = "Annulla";
             this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
             // 
             // btnOK
             // 
@@ -98,6 +97,11 @@
             // numUpDown_RigheIniziali
             // 
             this.numUpDown_RigheIniziali.Location = new System.Drawing.Point(198, 8);
+            this.numUpDown_RigheIniziali.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
             this.numUpDown_RigheIniziali.Name = "numUpDown_RigheIniziali";
             this.numUpDown_RigheIniziali.Size = new System.Drawing.Size(45, 20);
             this.numUpDown_RigheIniziali.TabIndex = 84;
@@ -107,11 +111,15 @@
             0,
             0,
             0});
-            this.numUpDown_RigheIniziali.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
             // numUpDown_RigheFinali
             // 
             this.numUpDown_RigheFinali.Location = new System.Drawing.Point(198, 34);
+            this.numUpDown_RigheFinali.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
             this.numUpDown_RigheFinali.Name = "numUpDown_RigheFinali";
             this.numUpDown_RigheFinali.Size = new System.Drawing.Size(45, 20);
             this.numUpDown_RigheFinali.TabIndex = 85;
@@ -121,7 +129,6 @@
             0,
             0,
             0});
-            this.numUpDown_RigheFinali.Click += new System.EventHandler(this.NumUpDown_Click);
             // 
             // checkBox_CassaInlineNumero
             // 
@@ -132,7 +139,6 @@
             this.checkBox_CassaInlineNumero.Size = new System.Drawing.Size(194, 18);
             this.checkBox_CassaInlineNumero.TabIndex = 87;
             this.checkBox_CassaInlineNumero.Text = "Cassa inline con numero ordine";
-            this.checkBox_CassaInlineNumero.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // checkBox_StarOnUnderGroup
             // 
@@ -143,7 +149,6 @@
             this.checkBox_StarOnUnderGroup.Size = new System.Drawing.Size(275, 18);
             this.checkBox_StarOnUnderGroup.TabIndex = 88;
             this.checkBox_StarOnUnderGroup.Text = "Aggiungi riga cancelletti sopra e sotto gruppo";
-            this.checkBox_StarOnUnderGroup.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // checkBox_CenterTableAndName
             // 
@@ -154,7 +159,6 @@
             this.checkBox_CenterTableAndName.Size = new System.Drawing.Size(149, 18);
             this.checkBox_CenterTableAndName.TabIndex = 89;
             this.checkBox_CenterTableAndName.Text = "Centra Tavolo e Nome";
-            this.checkBox_CenterTableAndName.Click += new System.EventHandler(this.CheckBox_Click);
             // 
             // GenericPrinterDlg
             // 
@@ -180,7 +184,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Impostazioni Generiche stampante Scontrino ";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GenericPrinterDlg_FormClosing);
-            this.Click += new System.EventHandler(this.NumUpDown_Click);
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheIniziali)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheFinali)).EndInit();
             this.ResumeLayout(false);

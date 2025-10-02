@@ -271,7 +271,7 @@ namespace StandCommonFiles
             }
 
 
-            if (sGlbGenericPrinterParams.iCassaInline)
+            if (IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE))
                 sOrdineStringsTmp.sOrdineNum = _TICK_CASSA + " " + dataIdParam.iNumCassa + " | ";
             else
                 sOrdineStringsTmp.sOrdineNum = "";
@@ -304,7 +304,7 @@ namespace StandCommonFiles
             sOrdineStringsTmp.sOrdineNum = CenterJustify(sOrdineStringsTmp.sOrdineNum, iCenterOrderNum);
             sOrdineStringsTmp.sOrdNumWeb = CenterJustify(sOrdineStringsTmp.sOrdNumWeb, iMAX_RECEIPT_CHARS);
             sOrdineStringsTmp.sOrdNumPrev = CenterJustify(sOrdineStringsTmp.sOrdNumPrev, iMAX_RECEIPT_CHARS);
-            if (sGlbGenericPrinterParams.iCenterTableAndName)
+            if (IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CENTER_TABLE_AND_NAME))
             {
                 sOrdineStringsTmp.sNome = CenterJustify(sOrdineStringsTmp.sNome, iMAX_RECEIPT_CHARS);
                 sOrdineStringsTmp.sTavolo = CenterJustify(sOrdineStringsTmp.sTavolo, iMAX_RECEIPT_CHARS);
@@ -826,6 +826,8 @@ namespace StandCommonFiles
             bool[] bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS];
             bool[] bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
 
+            bool starOnUnderGroup = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_STAR_ON_UNDER_GROUP);
+
             int[] iGrpReorderPtr = new int[NUM_COPIES_GRPS];
 
             bHeaderToBePrinted = true;
@@ -1104,9 +1106,9 @@ namespace StandCommonFiles
 
                                 string group = dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]];
                                 string starLine = GetStarLine(group.Length);
-                                if (sGlbGenericPrinterParams.iStarOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
+                                if (starOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
                                 _fPrint.WriteLine("{0}", group);
-                                if (sGlbGenericPrinterParams.iStarOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
+                                if (starOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
                                 _fPrint.WriteLine("");
 
                                 // larghezza 28 "{0,2} {1,-18}{2,7}" :89 123456789012345678 9876.00
@@ -1181,9 +1183,9 @@ namespace StandCommonFiles
 
                                     string group = dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]];
                                     string starLine = GetStarLine(group.Length);
-                                    if (sGlbGenericPrinterParams.iStarOnUnderGroup) _fPrint.WriteLine(CenterJustify(starLine, MAX_RECEIPT_CHARS_CPY));
+                                    if (starOnUnderGroup) _fPrint.WriteLine(CenterJustify(starLine, MAX_RECEIPT_CHARS_CPY));
                                     _fPrint.WriteLine(CenterJustify(group, MAX_RECEIPT_CHARS_CPY));
-                                    if (sGlbGenericPrinterParams.iStarOnUnderGroup) _fPrint.WriteLine(CenterJustify(starLine, MAX_RECEIPT_CHARS_CPY));
+                                    if (starOnUnderGroup) _fPrint.WriteLine(CenterJustify(starLine, MAX_RECEIPT_CHARS_CPY));
                                     _fPrint.WriteLine("");
                                 }
 
@@ -1293,6 +1295,8 @@ namespace StandCommonFiles
             bool[] bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS]; // OK
             bool[] bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
             bool[] bGroupsColorPrinted = new bool[NUM_EDIT_GROUPS];
+
+            bool starOnUnderGroup = IsBitSet(SF_Data.iReceiptCopyOptions, (int)GEN_PRINTER_OPTS.BIT_STAR_ON_UNDER_GROUP);
 
             if (iNumOfReceiptsParam == 0)
                 iNumOfReceiptsParam = dataIdParam.iNumOfLastReceipt;
@@ -1443,9 +1447,9 @@ namespace StandCommonFiles
                         if (!String.IsNullOrEmpty(sTmp))
                         {
                             string starLine = CenterJustify(GetStarLine(sTmp.Trim().Length), MAX_RECEIPT_CHARS_CPY);
-                            if (sGlbGenericPrinterParams.iStarOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
+                            if (starOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
                             _fPrint.WriteLine("{0}", sTmp);
-                            if (sGlbGenericPrinterParams.iStarOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
+                            if (starOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
                             _fPrint.WriteLine("");
                             iEqRowsNumber += 2;
                         }
@@ -1758,13 +1762,13 @@ namespace StandCommonFiles
                         if (!String.IsNullOrEmpty(sTmp))
                         {
                             string starLine = CenterJustify(GetStarLine(dataIdParam.sCopiesGroupsText[NUM_EDIT_GROUPS].Length), MAX_RECEIPT_CHARS_CPY);
-                            if (sGlbGenericPrinterParams.iStarOnUnderGroup)
+                            if (starOnUnderGroup)
                             {
                                 _fPrint.WriteLine("{0}", starLine);
                                 iEqRowsNumber++;
                             }
                             _fPrint.WriteLine("{0}", sTmp);
-                            if (sGlbGenericPrinterParams.iStarOnUnderGroup)
+                            if (starOnUnderGroup)
                             {
                                 _fPrint.WriteLine("{0}", starLine);
                                 iEqRowsNumber++;

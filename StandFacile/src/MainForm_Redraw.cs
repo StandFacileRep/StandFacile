@@ -267,6 +267,7 @@ namespace StandFacile
                             // per poter eliminare il Flag
                             MnuImpOpzioni.Enabled = true;
 
+                        MnuImpostaStampanteGenerica.Enabled = false;
                         MnuImpListino.Enabled = false;
                     }
                     else
@@ -279,6 +280,7 @@ namespace StandFacile
                         MnuImpHeader.Enabled = true;
                         MnuImpTabsGrid.Enabled = true;
                         MnuImpOpzioni.Enabled = true;
+                        MnuImpostaStampanteGenerica.Enabled = true;
                         MnuImpListino.Enabled = true;
                     }
 
@@ -291,7 +293,6 @@ namespace StandFacile
                     // Menù Impostazioni
                     MnuCambiaPassword.Enabled = true;
                     MnuImpostaRete.Enabled = true;
-                    MnuImpostaStampanteGenerica.Enabled = true;
                     MnuImpostaStampanteWin.Enabled = true;
                     MnuImpostaStampanteLegacy.Enabled = true;
                     MnuImpostaCopieLocali.Enabled = true;

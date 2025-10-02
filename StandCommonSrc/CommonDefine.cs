@@ -558,36 +558,6 @@ namespace StandCommonFiles
         /// <summary>
         /// struct per la gestione dei parametri della stampante seriale
         /// </summary>
-        [Serializable()]
-        public struct TGenericPrinterParams
-        {
-            /// <summary>valore per numero righe vuote iniziali</summary>
-            public int iRowsInitial;
-            /// <summary>valore per numero righe vuote finali</summary>
-            public int iRowsFinal;
-            /// <summary>flag per stampa numero di cassa inline con numero ordine</summary>
-            public bool iCassaInline;
-            /// <summary>flag per aggiungere cancelletti sopra e sotto al gruppo</summary>
-            public bool iStarOnUnderGroup;
-            /// <summary>flag per centrare il tavolo e il nome</summary>
-            public bool iCenterTableAndName;
-
-            /// <summary>costruttore</summary>
-            public TGenericPrinterParams(int i)
-            {
-                iRowsInitial = 1;
-                iRowsFinal = 4;
-                iCassaInline = false;
-                iStarOnUnderGroup = false;
-                iCenterTableAndName = false;
-
-                Console.WriteLine("TGenericPrinterParams : costruttore {0}", i);
-            }
-        };
-
-        /// <summary>
-        /// struct per la gestione dei parametri della stampante seriale
-        /// </summary>
         public struct TLegacyPrinterParams
         {
             /// <summary>modello di stampante</summary>
@@ -761,6 +731,24 @@ namespace StandCommonFiles
 
             /// <summary>bit di iGeneralOptions per disabilitare l'inserimento del Metodo di Pagamento</summary>
             BIT_DISABLE_CASH_POS,
+        }
+
+        /****************************************************************
+         *     Flags generali di gestione della Stampante Generica      *
+         ****************************************************************/
+        /// <summary>Flags generali di gestione della Stampante Generica</summary>
+        public enum GEN_PRINTER_OPTS
+        {
+            /// <summary>bit di iGeneralPrinterOptions per gestione righe vuote iniziali</summary>
+            BIT_EMPTY_ROWS_INITIAL = 0, // 0-3 sono occupati da iRowsInitial
+            /// <summary>bit di iGeneralPrinterOptions per gestione righe vuote finali</summary>
+            BIT_EMPTY_ROWS_FINAL = 4, // 4-7 sono occupati da iRowsFinal
+            /// <summary>bit di iGeneralPrinterOptions per gestione stampa numero cassa inline</summary>
+            BIT_CASSA_INLINE = 8,
+            /// <summary>bit di iGeneralPrinterOptions per gestione stampa con asterischi sopra e sotto il gruppo</summary>
+            BIT_STAR_ON_UNDER_GROUP,
+            /// <summary>bit di iGeneralPrinterOptions per gestione stampa con tavolo e nome centrati</summary>
+            BIT_CENTER_TABLE_AND_NAME
         }
 
         /****************************************************************
@@ -1120,6 +1108,8 @@ namespace StandCommonFiles
             public int iBarcodeRichiesto;
             /// <summary>numero hex per gestione delle opzioni generali</summary>
             public int iGeneralOptions;
+            /// <summary>numero hex per gestione delle opzioni generiche della stampante</summary>
+            public int iGenericPrinterOptions;
             /// <summary>numero hex per gestione della stampa copie locali e copie con quantità Uno</summary>
             public int iReceiptCopyOptions;
             /// <summary>numero di colonne della griglia</summary>
@@ -1221,6 +1211,7 @@ namespace StandCommonFiles
                 sScontoText = "";
                 iBarcodeRichiesto = 0;
                 iGeneralOptions = 0;
+                iGenericPrinterOptions = 0;
                 iReceiptCopyOptions = 0;
                 iGridCols = 0;
                 iGridRows = 0;

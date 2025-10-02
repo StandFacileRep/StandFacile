@@ -254,12 +254,7 @@ namespace StandFacile
                 iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_DISABLE_CASH_POS);
 
             // controllo _bListinoModificato a gruppi, salvataggio in : SF_Data[]
-            if (SF_Data.iGeneralOptions != iGeneralOptionsCopy)
-            {
-                _bListinoModificato = true;
-
-                SF_Data.iGeneralOptions = iGeneralOptionsCopy;
-            }
+             
 
             if (SF_Data.bPrevendita != checkBoxPresale_workMode.Checked)
             {
