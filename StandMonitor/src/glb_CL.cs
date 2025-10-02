@@ -32,8 +32,6 @@ namespace StandFacile
         /// <summary>descrive se Windows o Legacy</summary>
         public static int iSysPrinterType; // 
 
-        /// <summary>Struct per la gestione dei parametr generici di stampa</summary>
-        public static TGenericPrinterParams sGlbGenericPrinterParams = new TGenericPrinterParams(0);
         /// <summary>Struct per la gestione della stampa Windows</summary>
         public static TWinPrinterParams sGlbWinPrinterParams = new TWinPrinterParams(0);
         /// <summary>Struct per la gestione della stampa Legacy</summary>
