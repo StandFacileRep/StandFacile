@@ -187,7 +187,7 @@ namespace StandFacile_DB
             _WrnMsg.iErrID = 0; // resetta errori in altra data
 
 #if !STAND_ORDINI
-            _iDBArticoliLength_Is33 = sGlbWinPrinterParams.bChars33;
+            _iDBArticoliLength_Is33 = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
 #endif
             // *** sicurezza ***
             if (!bUSA_NDB()) return -1;
@@ -871,7 +871,7 @@ namespace StandFacile_DB
             dbAzzeraDatiOrdine(ref DB_Data);
 
 #if !STAND_ORDINI
-            _iDBArticoliLength_Is33 = sGlbWinPrinterParams.bChars33;
+            _iDBArticoliLength_Is33 = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
 #endif
             try
             {
@@ -958,6 +958,13 @@ namespace StandFacile_DB
 
                         if (bTrovato)
                             continue;
+
+                        // *** Generic Printer Options ****
+                        if (sInStr == "_GenericPrinterOptions")
+                        {
+                            SF_Data.iGenericPrinterOptions = readerOrdine.GetInt32("iStatus");
+                            continue;
+                        }
 
                         // se il codice arriva qui vuole dire che i loop precedenti non hanno trovato un item
                         bNoProblem = false;

@@ -363,7 +363,7 @@ namespace StandCommonFiles
 #endif
 
 #if !STAND_ORDINI
-            iMaxChars = (sGlbWinPrinterParams.bChars33 ? 33 : 28) - 4;
+            iMaxChars = (IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? 33 : 28) - 4;
 #endif
 
             File.Delete(sDir + NOME_FILE_SAMPLE_TEXT);

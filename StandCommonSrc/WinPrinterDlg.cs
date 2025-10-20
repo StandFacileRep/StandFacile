@@ -70,8 +70,6 @@ namespace StandFacile
         /// <summary>stringa per il salvataggio nel registro del centro per il Logo con stampa windows</summary>
         const String LOGO_WIN_CENTER_KEY = "iWinLogoCenter";
 
-        static bool _bListinoModificato;
-
         bool _bInitComplete = false;
         int _yDisp = 0;
 
@@ -90,17 +88,8 @@ namespace StandFacile
         static PrinterSettings settings = new PrinterSettings();
         static String sDefaultPrinter;
 
-        /// <summary>ottiene flag di modifica listino necessaria</summary>
-        public static bool GetListinoModificato() { return _bListinoModificato; }
-
         /// <summary>ottiene l'immagine bitmap del Logo Top o Bottom</summary>
         public Image GetWinPrinterLogo(bool bTopParam) { return bTopParam ? LogoImage_T : LogoImage_B; }
-
-        /// <summary>ottiene flag di richiesta stampa coperti nelle copie</summary>
-        public static bool GetCopies_PlaceSettingsToBePrinted() { return _rWinPrinterDlg.checkBox_CopertiNelleCopie.Checked; }
-
-        /// <summary>ottiene flag di richiesta stampa del Logo</summary>
-        public static bool GetCopies_LogoToBePrinted() { return _rWinPrinterDlg.checkBox_LogoNelleCopie.Checked; }
 
         static TErrMsg _ErrMsg;
 
@@ -123,8 +112,6 @@ namespace StandFacile
 
             _sWinPrinterParamsCopy = new TWinPrinterParams(0);
 
-            _tt.SetToolTip(checkBox_Chars33, "con 33 caratteri le descrizioni Articoli sono migliori ma le stampe più piccole\r\n" +
-                                             "sconsigliato per formato carta da 57mm");
 
             Init(false); // imposta sGlbWinPrinterParams, VIP
         }
@@ -276,12 +263,6 @@ namespace StandFacile
 #if STANDFACILE
 
             // caricato dal Listino
-            checkBox_Chars33.Checked = sGlbWinPrinterParams.bChars33;
-
-            checkBox_LogoNelleCopie.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_LOGO_PRINT_REQUIRED);
-
-            checkBox_CopertiNelleCopie.Checked = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
-
             BtnLogoFileSelect.Enabled = true;
             BtnDeleteLogo.Enabled = true;
             logoImage.Enabled = true;
@@ -308,19 +289,6 @@ namespace StandFacile
             BtnLogoFileSelect.Visible = false;
             BtnDeleteLogo.Enabled = false;
             BtnDeleteLogo.Visible = false;
-
-            checkBox_Chars33.Checked = (ReadRegistry(PRINT_ON_33CHARS_RECEIPT_KEY, 0) == 1);
-            sGlbWinPrinterParams.bChars33 = checkBox_Chars33.Checked;
-
-            checkBox_CopertiNelleCopie.Checked = (ReadRegistry(PRINT_PLACESETTINGS_ON_COPIES_KEY, 0) == 1);
-
-            if (checkBox_CopertiNelleCopie.Checked)
-                SF_Data.iReceiptCopyOptions = SetBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
-            else
-                SF_Data.iReceiptCopyOptions = ClearBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
-
-            checkBox_LogoNelleCopie.Checked = false;
-            checkBox_LogoNelleCopie.Visible = false;
 
             // esegue solo una volta
             if (_yDisp == 0)
@@ -355,10 +323,6 @@ namespace StandFacile
 
             LogToFile("WinPrinterDlg : Init out");
 
-            // caricato da CaricaListino(...)
-#if !STANDFACILE
-            InitFormatStrings(sGlbWinPrinterParams.bChars33);
-#endif
             return (result == DialogResult.OK); // true se è cliccato OK
         }
 
@@ -383,8 +347,6 @@ namespace StandFacile
             _sWinPrinterParamsCopy.iTckZoomValue = (int)numUpDownRcpZoom.Value;
             _sWinPrinterParamsCopy.iRepZoomValue = (int)numUpDownRepZoom.Value;
             _sWinPrinterParamsCopy.iLogoZoomValue = (int)numUpDownLogoZoom.Value;
-
-            _sWinPrinterParamsCopy.bChars33 = checkBox_Chars33.Checked;
 
             _sWinPrinterParamsCopy.iLogoWidth_T = sGlbWinPrinterParams.iLogoWidth_T;
             _sWinPrinterParamsCopy.iLogoHeight_T = sGlbWinPrinterParams.iLogoHeight_T;
@@ -803,77 +765,6 @@ namespace StandFacile
             WriteRegistry(LOGO_WIN_ZOOM_KEY, sGlbWinPrinterParams.iLogoZoomValue);
 
             WriteRegistry(LOGO_WIN_CENTER_KEY, sGlbWinPrinterParams.iLogoCenter);
-
-            _bListinoModificato = false;
-
-            if (_sWinPrinterParamsCopy.bChars33)
-            {
-                if (!IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_CHARS33_PRINT_REQUIRED))
-                {
-                    SF_Data.iReceiptCopyOptions = SetBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_CHARS33_PRINT_REQUIRED);
-                    sGlbWinPrinterParams.bChars33 = true;
-
-                    WriteRegistry(PRINT_ON_33CHARS_RECEIPT_KEY, 1);
-                    _bListinoModificato = true;
-                }
-            }
-            else
-            {
-                if (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_CHARS33_PRINT_REQUIRED))
-                {
-                    SF_Data.iReceiptCopyOptions = ClearBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_CHARS33_PRINT_REQUIRED);
-                    sGlbWinPrinterParams.bChars33 = false;
-
-                    WriteRegistry(PRINT_ON_33CHARS_RECEIPT_KEY, 0);
-                    _bListinoModificato = true;
-                }
-            }
-
-            InitFormatStrings(sGlbWinPrinterParams.bChars33);
-
-#if STANDFACILE
-
-            if (checkBox_LogoNelleCopie.Checked)
-            {
-                if (!IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_LOGO_PRINT_REQUIRED))
-                {
-                    SF_Data.iReceiptCopyOptions = SetBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_LOGO_PRINT_REQUIRED);
-
-                    _bListinoModificato = true;
-                }
-            }
-            else
-            {
-                if (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_LOGO_PRINT_REQUIRED))
-                {
-                    SF_Data.iReceiptCopyOptions = ClearBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_LOGO_PRINT_REQUIRED);
-
-                    _bListinoModificato = true;
-                }
-            }
-#endif
-
-
-            if (checkBox_CopertiNelleCopie.Checked)
-            {
-                if (!IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED))
-                {
-                    SF_Data.iReceiptCopyOptions = SetBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
-
-                    WriteRegistry(PRINT_PLACESETTINGS_ON_COPIES_KEY, 1);
-                    _bListinoModificato = true;
-                }
-            }
-            else
-            {
-                if (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED))
-                {
-                    SF_Data.iReceiptCopyOptions = ClearBit(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
-
-                    WriteRegistry(PRINT_PLACESETTINGS_ON_COPIES_KEY, 0);
-                    _bListinoModificato = true;
-                }
-            }
 
             LogToFile("WinPrinterDlg : OKBtnClick");
         }

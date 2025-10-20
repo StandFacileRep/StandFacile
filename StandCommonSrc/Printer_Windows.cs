@@ -194,12 +194,12 @@ namespace StandCommonFiles
 
                     _bTicketNumFound = false; // forza ricerca stringa
 
-                    _fReceiptVsCopyZoom = sWinPrinterParams.bChars33 ? (28.0f / 33.0f) : 1.0f;
+                    _fReceiptVsCopyZoom = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? (28.0f / 33.0f) : 1.0f;
                 }
                 else // copia locale
                 {
                     if (IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_ON_COPIES_REQUIRED))
-                        _fReceiptVsCopyZoom = sWinPrinterParams.bChars33 ? (28.0f / 33.0f) : 1.0f;
+                        _fReceiptVsCopyZoom = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? (28.0f / 33.0f) : 1.0f;
 
                     _bTicketNumFound = true; // necessario nella copia Receipt NoPrices
                 }
@@ -214,7 +214,7 @@ namespace StandCommonFiles
             }
             else if (_sFileToPrintParam.Contains(NOME_FILE_SAMPLE_TEXT))
             {
-                _fReceiptVsCopyZoom = sWinPrinterParams.bChars33 ? (28.0f / 33.0f) : 1.0f;
+                _fReceiptVsCopyZoom = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? (28.0f / 33.0f) : 1.0f;
             }
             else
             {
@@ -238,9 +238,9 @@ namespace StandCommonFiles
 
                 //numero di colonne ridotto -> font più grande
                 if (_sFileToPrintParam.Contains(NOME_FILE_STAMPA_LOC_RID_TMP))
-                    _fReceiptVsCopyZoom = sWinPrinterParams.bChars33 ? (30.0f / 33.0f) : 1.06f;
+                    _fReceiptVsCopyZoom = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? (30.0f / 33.0f) : 1.06f;
                 else
-                    _fReceiptVsCopyZoom = sWinPrinterParams.bChars33 ? (26.0f / 33.0f) : 0.86f;
+                    _fReceiptVsCopyZoom = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? (26.0f / 33.0f) : 0.86f;
             }
 #endif
 
@@ -755,7 +755,7 @@ namespace StandCommonFiles
                  ******************************************************/
                 if (bBarcodeRequested)
                 {
-                    fBC_LeftMargin = _fLeftMargin + _fLogoCenter + ((_sWinPrinterParams.bChars33 ? 33 : 28) * _fFont_HSize * _fHZoom * _fH_px_to_gu - 95 * blackPen.Width) / 2;
+                    fBC_LeftMargin = _fLeftMargin + _fLogoCenter + ((IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? 33 : 28) * _fFont_HSize * _fHZoom * _fH_px_to_gu - 95 * blackPen.Width) / 2;
 
                     if (fBC_LeftMargin < 0)
                         fBC_LeftMargin = 0;

@@ -405,7 +405,7 @@ namespace StandFacile
             sTmp = String.Format("Datamanager Init: iMAX_RECEIPT_CHARS = {0}", iMAX_RECEIPT_CHARS);
             LogToFile(sTmp, true);
 
-            InitFormatStrings(sGlbWinPrinterParams.bChars33);
+            InitFormatStrings(IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED));
         }
 
         /// <summary>
@@ -562,7 +562,7 @@ namespace StandFacile
             TOrdineStrings sOrdineStrings = new TOrdineStrings();
 
             sOrdineStrings = SetupHeaderStrings(SF_Data, 0);
-            InitFormatStrings(sGlbWinPrinterParams.bChars33);
+            InitFormatStrings(IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED));
 
             /*******************************
              ***     STAMPA SCONTRINO    ***

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PrintLocalCopiesConfigDlg));
             this.RadioGroup_PrinterType = new System.Windows.Forms.GroupBox();
             this.prt_Legacy = new System.Windows.Forms.RadioButton();
@@ -58,7 +59,7 @@
             this.checkBoxSingleRowItems = new System.Windows.Forms.CheckBox();
             this.checkBoxSelectedOnly = new System.Windows.Forms.CheckBox();
             this.checkBox_LocalCopy = new System.Windows.Forms.CheckBox();
-            this.timer = new System.Windows.Forms.Timer();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.LinkLbl_Mnu_CCR = new System.Windows.Forms.LinkLabel();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -156,7 +157,7 @@
             // 
             // panelLocalCopies
             // 
-            this.panelLocalCopies.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelLocalCopies.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelLocalCopies.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelLocalCopies.Controls.Add(this.checkBox_LocPrices);
             this.panelLocalCopies.Controls.Add(this.labelWarn1);
@@ -170,7 +171,7 @@
             this.panelLocalCopies.Controls.Add(this.checkBox_LocalCopy);
             this.panelLocalCopies.Location = new System.Drawing.Point(16, 200);
             this.panelLocalCopies.Name = "panelLocalCopies";
-            this.panelLocalCopies.Size = new System.Drawing.Size(517, 390);
+            this.panelLocalCopies.Size = new System.Drawing.Size(517, 385);
             this.panelLocalCopies.TabIndex = 30;
             // 
             // checkBox_LocPrices
@@ -425,7 +426,7 @@
             // 
             // LinkLbl_Mnu_CCR
             // 
-            this.LinkLbl_Mnu_CCR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.LinkLbl_Mnu_CCR.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LinkLbl_Mnu_CCR.AutoSize = true;
             this.LinkLbl_Mnu_CCR.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LinkLbl_Mnu_CCR.Location = new System.Drawing.Point(339, 169);
@@ -438,7 +439,7 @@
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(21, 148);
@@ -450,7 +451,7 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(21, 168);
@@ -461,7 +462,7 @@
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(21, 128);
@@ -476,7 +477,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(163, 610);
+            this.btnCancel.Location = new System.Drawing.Point(163, 598);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 28);
@@ -491,7 +492,7 @@
             this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(299, 610);
+            this.btnOK.Location = new System.Drawing.Point(299, 598);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 28);
@@ -506,7 +507,7 @@
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 654);
+            this.ClientSize = new System.Drawing.Size(539, 642);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);

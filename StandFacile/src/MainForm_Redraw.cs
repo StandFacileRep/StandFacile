@@ -267,7 +267,6 @@ namespace StandFacile
                             // per poter eliminare il Flag
                             MnuImpOpzioni.Enabled = true;
 
-                        MnuImpostaStampanteGenerica.Enabled = false;
                         MnuImpListino.Enabled = false;
                     }
                     else
@@ -280,7 +279,6 @@ namespace StandFacile
                         MnuImpHeader.Enabled = true;
                         MnuImpTabsGrid.Enabled = true;
                         MnuImpOpzioni.Enabled = true;
-                        MnuImpostaStampanteGenerica.Enabled = true;
                         MnuImpListino.Enabled = true;
                     }
 
@@ -293,6 +291,7 @@ namespace StandFacile
                     // Menù Impostazioni
                     MnuCambiaPassword.Enabled = true;
                     MnuImpostaRete.Enabled = true;
+                    MnuImpostaStampanteGenerica.Enabled = true;
                     MnuImpostaStampanteWin.Enabled = true;
                     MnuImpostaStampanteLegacy.Enabled = true;
                     MnuImpostaCopieLocali.Enabled = true;
@@ -1519,18 +1518,18 @@ namespace StandFacile
                 if (MnuImpListino.Checked || BtnVisListino.Checked)
                 {
                     if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
-                        sText = sGlbWinPrinterParams.bChars33 ? "12345678901234567890123" : "123456789012345678";
+                        sText = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? "12345678901234567890123" : "123456789012345678";
                     else
                         // String.Format(" {0,2} {1,-18} {2,5:0.00}", // width=28
-                        sText = sGlbWinPrinterParams.bChars33 ? "123456789012345678901234567809123" : "1234567890123456789012345678";
+                        sText = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? "123456789012345678901234567809123" : "1234567890123456789012345678";
                 }
                 else
                 {
                     if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
-                        sText = sGlbWinPrinterParams.bChars33 ? "12345678901234567809123" : "123456789012345678";
+                        sText = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? "12345678901234567809123" : "123456789012345678";
                     else
                         // String.Format("{0,3} {1,-18} {2,2}" : // width=25
-                        sText = sGlbWinPrinterParams.bChars33 ? "123456789012345678901234567890" : "1234567890123456789012345";
+                        sText = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? "123456789012345678901234567890" : "1234567890123456789012345";
                 }
 
                 if ((MainGrid.Height % MainGrid.RowCount) < 3)

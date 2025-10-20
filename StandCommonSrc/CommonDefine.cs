@@ -309,9 +309,6 @@ namespace StandCommonFiles
         /// <summary>chiave che descrive se si utilizzano 33 caratteri per riga, oppure 28</summary>
         public const String PRINT_ON_33CHARS_RECEIPT_KEY = "iPrint33CharsReceipt";
 
-        /// <summary>chiave che descrive se si stampano i coperti nelle copie</summary>
-        public const String PRINT_PLACESETTINGS_ON_COPIES_KEY = "iPrintPlaceSettingOnCopies";
-
         /// <summary>chiave per la gestione del dialogo disponibilità</summary>
         public const string DISP_DLG_MNG_KEY = "bDispMngDlg";
 
@@ -748,7 +745,13 @@ namespace StandCommonFiles
             /// <summary>bit di iGeneralPrinterOptions per gestione stampa con asterischi sopra e sotto il gruppo</summary>
             BIT_STAR_ON_UNDER_GROUP,
             /// <summary>bit di iGeneralPrinterOptions per gestione stampa con tavolo e nome centrati</summary>
-            BIT_CENTER_TABLE_AND_NAME
+            BIT_CENTER_TABLE_AND_NAME,
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa del Logo nelle copie</summary>
+            BIT_LOGO_PRINT_REQUIRED,
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa dei coperti nelle copie</summary>
+            BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED,
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa a 33 caratteri deli Articoli</summary>
+            BIT_CHARS33_PRINT_REQUIRED
         }
 
         /****************************************************************
@@ -759,13 +762,13 @@ namespace StandCommonFiles
         public enum LOCAL_COPIES_OPTS
         {
             /// <summary>bit di iReceiptCopyOptions per gestione stampa a 33 caratteri deli Articoli</summary>
-            BIT_CHARS33_PRINT_REQUIRED = 10, // 0-9 è occupato da _pCheckBoxCopia[i]
+            BIT_UNUSED1 = 10, // 0-9 è occupato da _pCheckBoxCopia[i]
 
-            /// <summary>bit di iReceiptCopyOptions per gestione stampa del Logo nelle copie</summary>
-            BIT_LOGO_PRINT_REQUIRED,
+            /// <summary>bit di iReceiptCopyOptions inutilizzato</summary>
+            BIT_UNUSED2,
 
-            /// <summary>bit di iReceiptCopyOptions per gestione stampa dei coperti nelle copie</summary>
-            BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED,
+            /// <summary>bit di iReceiptCopyOptions inutilizzato</summary>
+            BIT_UNUSED3,
 
             /// <summary>bit di iReceiptCopyOptions per gestione stampa con taglio nella copia locale Receipt</summary>
             BIT_PRINT_GROUPS_CUT_REQUIRED,
@@ -816,9 +819,6 @@ namespace StandCommonFiles
         [Serializable()]
         public struct TWinPrinterParams
         {
-            /// <summary>flag per stampa Receipt a 33 caratteri per riga</summary>
-            public bool bChars33;
-
             /// <summary>flag per stampa su carta A4</summary>
             public bool bA4Paper;
             /// <summary>flag per stampa su carta A5</summary>
@@ -883,7 +883,6 @@ namespace StandCommonFiles
             /// <summary>costruttore</summary>
             public TWinPrinterParams(int i)
             {
-                bChars33 = true;
                 bA4Paper = false;
                 bA5Paper = false;
 

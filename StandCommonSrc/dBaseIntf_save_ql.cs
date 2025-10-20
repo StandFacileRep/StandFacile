@@ -738,6 +738,15 @@ namespace StandFacile_DB
                             bNoProblem = false;
                     }
 
+                    sTmpSearch = String.Format("sTipo_Articolo = \'_GenericPrinterOptions\'");
+                    ordiniRows = ordiniTable.Select(sTmpSearch);
+                    if (ordiniRows != null)
+                    {
+                        ordiniRows[0]["iStatus"] = SF_Data.iGenericPrinterOptions;
+                    }
+                    else
+                        bNoProblem = false;
+
                     // aggiorna il database su disco
                     //dbDataAdapter.UpdateBatchSize = 100;
                     iUpdatedRows = dbDataAdapter.Update(ordiniTable);
@@ -928,6 +937,15 @@ namespace StandFacile_DB
 
                         ordiniTable.Rows.Add(row);
                     }
+
+                    row = ordiniTable.NewRow();
+
+                    row["iOrdine_ID"] = 0;
+                    row["sTipo_Articolo"] = "_GenericPrinterOptions";
+                    row["iStatus"] = SF_Data.iGenericPrinterOptions;
+                    row["iNumCassa"] = 0;
+
+                    ordiniTable.Rows.Add(row);
                 }
 
                 if (bDBConnection_Ok && !bCreateHead) // se la connessione non è OK evita solo messagggi di errore

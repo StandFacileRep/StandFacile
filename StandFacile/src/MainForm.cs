@@ -2062,9 +2062,6 @@ namespace StandFacile
         private void MnuImpostaStampanteWin_Click(object sender, EventArgs e)
         {
             WinPrinterDlg._rWinPrinterDlg.Init(true);
-
-            if (WinPrinterDlg.GetListinoModificato())
-                DataManager.SalvaListino();
         }
 
         private void MnuImpostaStampanteLegacy_Click(object sender, EventArgs e)

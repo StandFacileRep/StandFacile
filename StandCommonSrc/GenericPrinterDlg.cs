@@ -55,6 +55,9 @@ namespace StandFacile
             _tt.SetToolTip(checkBox_CassaInlineNumero, "Visualizza il numero della cassa inline con numero scontrino");
             _tt.SetToolTip(checkBox_StarOnUnderGroup, "Visualizza l'asterisco sopra e sotto il gruppo");
             _tt.SetToolTip(checkBox_CenterTableAndName, "Centra il tavolo e il nome cliente");
+            _tt.SetToolTip(checkBox_LogoNelleCopie, "Stampa il logo anche nelle copie");
+            _tt.SetToolTip(checkBox_CopertiNelleCopie, "Stampa il numero dei coperti anche nelle copie");
+            _tt.SetToolTip(checkBox_Chars33, "Abilita la stampa su 23 caratteri per linea (33 caratteri)");
 
             Init(false); // imposta sGlobGenericPrinterParams, VIP
         }
@@ -73,6 +76,25 @@ namespace StandFacile
             checkBox_CassaInlineNumero.Checked = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE);
             checkBox_StarOnUnderGroup.Checked = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_STAR_ON_UNDER_GROUP);
             checkBox_CenterTableAndName.Checked = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CENTER_TABLE_AND_NAME);
+            checkBox_LogoNelleCopie.Checked = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED);
+            checkBox_CopertiNelleCopie.Checked = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
+            checkBox_Chars33.Checked = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
+
+#if STANDFACILE
+            if (DataManager.CheckIf_CassaSec_and_NDB())
+#else
+            if (true)
+#endif
+            {
+                numUpDown_RigheIniziali.Enabled = false;
+                numUpDown_RigheFinali.Enabled = false;
+                checkBox_CassaInlineNumero.Enabled = false;
+                checkBox_StarOnUnderGroup.Enabled = false;
+                checkBox_CenterTableAndName.Enabled = false;
+                checkBox_LogoNelleCopie.Enabled = false;
+                checkBox_CopertiNelleCopie.Enabled = false;
+                checkBox_Chars33.Enabled = false;
+            }
 
             _bListinoModificato = false;
 
@@ -96,6 +118,9 @@ namespace StandFacile
             iGenericPrinterOptionsCopy = UpdateBit(iGenericPrinterOptionsCopy, checkBox_CassaInlineNumero.Checked,(int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE);
             iGenericPrinterOptionsCopy = UpdateBit(iGenericPrinterOptionsCopy, checkBox_StarOnUnderGroup.Checked, (int)GEN_PRINTER_OPTS.BIT_STAR_ON_UNDER_GROUP);
             iGenericPrinterOptionsCopy = UpdateBit(iGenericPrinterOptionsCopy, checkBox_CenterTableAndName.Checked, (int)GEN_PRINTER_OPTS.BIT_CENTER_TABLE_AND_NAME);
+            iGenericPrinterOptionsCopy = UpdateBit(iGenericPrinterOptionsCopy, checkBox_LogoNelleCopie.Checked, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED);
+            iGenericPrinterOptionsCopy = UpdateBit(iGenericPrinterOptionsCopy, checkBox_CopertiNelleCopie.Checked, (int)GEN_PRINTER_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
+            iGenericPrinterOptionsCopy = UpdateBit(iGenericPrinterOptionsCopy, checkBox_Chars33.Checked, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
 
             if (iGenericPrinterOptionsCopy != SF_Data.iGenericPrinterOptions)
             {

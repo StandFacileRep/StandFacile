@@ -661,10 +661,8 @@ namespace StandFacile
 
                         SF_Data.iReceiptCopyOptions = i;
 
-                        sGlbWinPrinterParams.bChars33 = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_CHARS33_PRINT_REQUIRED);
-
-                        iMAX_RECEIPT_CHARS = sGlbWinPrinterParams.bChars33 ? MAX_ABS_RECEIPT_CHARS : MAX_LEG_RECEIPT_CHARS;
-                        iMAX_ART_CHAR = sGlbWinPrinterParams.bChars33 ? MAX_ABS_ART_CHAR : MAX_LEG_ART_CHAR;
+                        iMAX_RECEIPT_CHARS = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? MAX_ABS_RECEIPT_CHARS : MAX_LEG_RECEIPT_CHARS;
+                        iMAX_ART_CHAR = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? MAX_ABS_ART_CHAR : MAX_LEG_ART_CHAR;
 
                         continue;
                     }

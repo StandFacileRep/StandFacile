@@ -37,6 +37,9 @@
             this.checkBox_CassaInlineNumero = new System.Windows.Forms.CheckBox();
             this.checkBox_StarOnUnderGroup = new System.Windows.Forms.CheckBox();
             this.checkBox_CenterTableAndName = new System.Windows.Forms.CheckBox();
+            this.checkBox_Chars33 = new System.Windows.Forms.CheckBox();
+            this.checkBox_CopertiNelleCopie = new System.Windows.Forms.CheckBox();
+            this.checkBox_LogoNelleCopie = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheIniziali)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheFinali)).BeginInit();
             this.SuspendLayout();
@@ -48,7 +51,7 @@
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = global::StandFacile.Properties.Resources.Cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(74, 134);
+            this.btnCancel.Location = new System.Drawing.Point(74, 212);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(81, 28);
@@ -64,7 +67,7 @@
             this.btnOK.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(163, 134);
+            this.btnOK.Location = new System.Drawing.Point(163, 212);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(72, 28);
@@ -160,12 +163,48 @@
             this.checkBox_CenterTableAndName.TabIndex = 89;
             this.checkBox_CenterTableAndName.Text = "Centra Tavolo e Nome";
             // 
+            // checkBox_Chars33
+            // 
+            this.checkBox_Chars33.AutoSize = true;
+            this.checkBox_Chars33.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox_Chars33.Location = new System.Drawing.Point(39, 181);
+            this.checkBox_Chars33.Name = "checkBox_Chars33";
+            this.checkBox_Chars33.Size = new System.Drawing.Size(223, 18);
+            this.checkBox_Chars33.TabIndex = 98;
+            this.checkBox_Chars33.Text = "articoli su 23 caratteri (invece di 18)";
+            this.checkBox_Chars33.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_CopertiNelleCopie
+            // 
+            this.checkBox_CopertiNelleCopie.AutoSize = true;
+            this.checkBox_CopertiNelleCopie.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox_CopertiNelleCopie.Location = new System.Drawing.Point(48, 157);
+            this.checkBox_CopertiNelleCopie.Name = "checkBox_CopertiNelleCopie";
+            this.checkBox_CopertiNelleCopie.Size = new System.Drawing.Size(205, 18);
+            this.checkBox_CopertiNelleCopie.TabIndex = 97;
+            this.checkBox_CopertiNelleCopie.Text = "stampa i coperti in tutte le copie";
+            this.checkBox_CopertiNelleCopie.UseVisualStyleBackColor = true;
+            // 
+            // checkBox_LogoNelleCopie
+            // 
+            this.checkBox_LogoNelleCopie.AutoSize = true;
+            this.checkBox_LogoNelleCopie.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox_LogoNelleCopie.Location = new System.Drawing.Point(50, 133);
+            this.checkBox_LogoNelleCopie.Name = "checkBox_LogoNelleCopie";
+            this.checkBox_LogoNelleCopie.Size = new System.Drawing.Size(203, 18);
+            this.checkBox_LogoNelleCopie.TabIndex = 96;
+            this.checkBox_LogoNelleCopie.Text = "stampa il Logo anche nelle copie";
+            this.checkBox_LogoNelleCopie.UseVisualStyleBackColor = true;
+            // 
             // GenericPrinterDlg
             // 
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(314, 175);
+            this.ClientSize = new System.Drawing.Size(298, 253);
+            this.Controls.Add(this.checkBox_Chars33);
+            this.Controls.Add(this.checkBox_CopertiNelleCopie);
+            this.Controls.Add(this.checkBox_LogoNelleCopie);
             this.Controls.Add(this.checkBox_CenterTableAndName);
             this.Controls.Add(this.checkBox_StarOnUnderGroup);
             this.Controls.Add(this.numUpDown_RigheFinali);
@@ -201,5 +240,8 @@
         private System.Windows.Forms.CheckBox checkBox_CassaInlineNumero;
         private System.Windows.Forms.CheckBox checkBox_StarOnUnderGroup;
         private System.Windows.Forms.CheckBox checkBox_CenterTableAndName;
+        private System.Windows.Forms.CheckBox checkBox_Chars33;
+        private System.Windows.Forms.CheckBox checkBox_CopertiNelleCopie;
+        private System.Windows.Forms.CheckBox checkBox_LogoNelleCopie;
     }
 }

@@ -365,7 +365,7 @@ namespace StandCommonFiles
                     // se non c'è il logo stampa sHeaders[0]
                     if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
                         ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) &&
-                        (WinPrinterDlg.GetCopies_LogoToBePrinted() || (k == 0)))
+                        (IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED) || (k == 0)))
                     {
                         sTmp = CenterJustify(_LOGO_T, iMAX_RECEIPT_CHARS);
                         _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
@@ -747,7 +747,7 @@ namespace StandCommonFiles
                         _fPrint.WriteLine(_CUT_FMT, CenterJustify(_CUT, MAX_RECEIPT_CHARS_CPY));
 
                     if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) &&
-                        (WinPrinterDlg.GetCopies_LogoToBePrinted() || (k == 0)))
+                        (IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED) || (k == 0)))
                     {
                         sTmp = CenterJustify(_LOGO_B, iMAX_RECEIPT_CHARS);
                         _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
@@ -867,7 +867,7 @@ namespace StandCommonFiles
 
             bTicketCopies_CutRequired = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
 
-            _bPlaceSettingsOnCopies = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
+            _bPlaceSettingsOnCopies = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
 
             // conferma dalle altre dipendenze
             _bAvoidPrintOtherGroups |= !(_bPrintSelectedOnly && (bSingleRowItems || bUnitQtyItems));
@@ -908,7 +908,7 @@ namespace StandCommonFiles
                     // se non c'è il logo stampa sHeaders[0]
                     if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
                         ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) &&
-                        WinPrinterDlg.GetCopies_LogoToBePrinted())
+                        IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED))
                     {
                         sTmp = CenterJustify(_LOGO_T, MAX_RECEIPT_CHARS_CPY);
                         sHeader1_ToPrintBeforeCut += String.Format("{0}\r\n\r\n", sTmp);
@@ -1381,7 +1381,7 @@ namespace StandCommonFiles
                     {
                         // se non c'è il logo stampa sHeaders[0]
                         if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
-                            ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) && WinPrinterDlg.GetCopies_LogoToBePrinted())
+                            ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) && IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED))
                         {
                             sTmp = CenterJustify(_LOGO_T, MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
@@ -1599,7 +1599,7 @@ namespace StandCommonFiles
                         }
 
                         if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B))
-                            && WinPrinterDlg.GetCopies_LogoToBePrinted()
+                            && IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED)
                             )
                         {
                             sTmp = CenterJustify(_LOGO_B, MAX_RECEIPT_CHARS_CPY);
@@ -1704,7 +1704,7 @@ namespace StandCommonFiles
                     {
                         // se non c'è il logo stampa sHeaders[0]
                         if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
-                            ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) && WinPrinterDlg.GetCopies_LogoToBePrinted())
+                            ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) && IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED))
                         {
                             sTmp = CenterJustify(_LOGO_T, MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
@@ -1869,7 +1869,7 @@ namespace StandCommonFiles
                         }
 
                         if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) &&
-                            WinPrinterDlg.GetCopies_LogoToBePrinted())
+                            IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED))
                         {
                             sTmp = CenterJustify(_LOGO_B, MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
@@ -1995,7 +1995,7 @@ namespace StandCommonFiles
             }
 
             if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) &&
-              WinPrinterDlg.GetCopies_LogoToBePrinted())
+              IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED))
             {
                 sTmp = CenterJustify(_LOGO_B, MAX_RECEIPT_CHARS_CPY);
                 fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
