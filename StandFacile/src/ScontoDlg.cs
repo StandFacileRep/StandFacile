@@ -437,7 +437,7 @@ namespace StandFacile
 
             //if (dResult == DialogResult.Yes)
             {
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoForm();
 
                 MessageBox.Show("Impostazione Salvate !", "Attenzione !", MessageBoxButtons.OK);
             }

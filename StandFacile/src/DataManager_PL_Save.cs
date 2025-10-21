@@ -403,6 +403,19 @@ namespace StandFacile
         } // end SalvaListino
 
 
+        /// <summary>
+        /// Mostra una finestra di progresso/caricamento durante il salvataggio del listino `DataManager.SalvaListino()`.
+        /// </summary>
+        public static void SalvaListinoForm()
+        {
+            FrmUpdateProgress progressForm = new FrmUpdateProgress("Salvataggio listino", "Salvando definizioni listino nel Database e in Listino.txt", () =>
+            {
+                SalvaListino();
+            });
+            progressForm.ShowDialog();
+        }
+
+
         /// <summary>Funzione di salvataggio dei dati di riepilogo giornaliero</summary>
         public static void SalvaDati(TData dataIdParam)
         {
@@ -577,6 +590,17 @@ namespace StandFacile
              *  salvataggio nel database Dati Riepilogo
              *********************************************/
             _rdBaseIntf.dbSalvaDati();
+        }
+
+        /// <summary>
+        /// Mostra una finestra di progresso/caricamento durante il salvataggio dei dati di riepilogo giornaliero `DataManager.SalvaDati()`.
+        public static void SalvaDatiForm(TData dataIdParam)
+        {
+            FrmUpdateProgress progressForm = new FrmUpdateProgress("Salvataggio dati", "Salvando dati di riepilogo giornaliero nel Database e in Cx_Dati'mmdd'.txt", () =>
+            {
+                SalvaDati(dataIdParam);
+            });
+            progressForm.ShowDialog();
         }
 
     } // end class

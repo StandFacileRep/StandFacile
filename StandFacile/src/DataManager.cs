@@ -658,7 +658,7 @@ namespace StandFacile
             }
 
             // aggiornamento dati
-            SalvaDati(SF_Data);
+            SalvaDatiForm(SF_Data);
         }
 
         /// <summary>
@@ -766,7 +766,7 @@ namespace StandFacile
                 while (iNumScontrinoSec > 0);
 
                 if (bServeSalvare)
-                    SalvaDati(SF_Data);
+                    SalvaDatiForm(SF_Data);
             }
             else
             {
@@ -868,7 +868,7 @@ namespace StandFacile
                 }
             } // end for
 
-            SalvaDati(SF_Data);
+            SalvaDatiForm(SF_Data);
         }
 
         /// <summary>
@@ -982,13 +982,13 @@ namespace StandFacile
                 }
             }
 
-            SalvaDati(SF_Data);    // salva disponibilità
+            SalvaDatiForm(SF_Data);    // salva disponibilità
 
             if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {
                 CaricaDatidaOrdini(true, true); // attenzione che sovrascrive SF_Data.Articolo[i].iDisponibilita !
 
-                SalvaDati(SF_Data);    // salva aggiornamenti annullati
+                SalvaDatiForm(SF_Data);    // salva aggiornamenti annullati
             }
 
             return bResult;

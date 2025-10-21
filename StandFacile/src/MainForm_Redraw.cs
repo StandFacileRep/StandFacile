@@ -406,12 +406,8 @@ namespace StandFacile
 
                 if (_bListinoModificato)
                 {
-                    FrmUpdateProgress progressForm = new FrmUpdateProgress("Salvataggio listino", "Salvando definizioni listino nel Database e in Listino.txt", () => {
-                        DataManager.SalvaListino();
-
-                        DataManager.SalvaDati(SF_Data); // così si visualizzano prezzi e dati aggiornati 
-                    });
-                    progressForm.ShowDialog();
+                    DataManager.SalvaListinoForm();
+                    DataManager.SalvaDatiForm(SF_Data);
                         
                     SetTabsAppearance();
                 }
@@ -523,7 +519,7 @@ namespace StandFacile
                     // ci passa se si modifica l'header altrimenti
                     // ci pensa CheckMenuItems();
                     if (_bListinoModificato)
-                        DataManager.SalvaListino();
+                        DataManager.SalvaListinoForm();
 
                     // default TAB
                     TabSet.SelectedIndex = 0;
