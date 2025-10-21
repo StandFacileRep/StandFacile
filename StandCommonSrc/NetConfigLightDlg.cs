@@ -107,6 +107,8 @@ namespace StandFacile
 
             Combo_DBServerName.Text = ReadRegistry(DBASE_SERVER_NAME_KEY, Dns.GetHostName());
 
+            dbDatabaseEdit.Text = ReadRegistry(DBASE_DATABASE_KEY, DBASE_LAN_DATABASE);
+            dbUsernameEdit.Text = ReadRegistry(DBASE_USERNAME_KEY, DBASE_LAN_USERNAME);
             dbPasswordEdit.Text = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
 
             if (String.IsNullOrEmpty(Combo_DBServerName.Text))
@@ -173,17 +175,19 @@ namespace StandFacile
         // verifica il collegamento con il DB Server e ne salva il nome
         private void BtnDB_ServerTest_Click(object sender, EventArgs e)
         {
-            if (_rdBaseIntf.dbCheck(Combo_DBServerName.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1, false))
+            if (_rdBaseIntf.dbCheck(Combo_DBServerName.Text, dbDatabaseEdit.Text, dbUsernameEdit.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1, false))
             {
                 AddTo_ComboList(Combo_DBServerName, SEL_DB_SERVER_KEY);
 
-                SetDbMode(Combo_DBServerName.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1); // imposta il tipo di DB per dBaseIntf
+                SetDbMode(Combo_DBServerName.Text, dbDatabaseEdit.Text, dbUsernameEdit.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1); // imposta il tipo di DB per dBaseIntf
                 _rdBaseIntf.dbCheckStatus();
 
                 // solo se è la prima esecuzione
                 if (String.IsNullOrEmpty(ReadRegistry(DBASE_SERVER_NAME_KEY, "")))
                 {
                     WriteRegistry(DBASE_SERVER_NAME_KEY, Combo_DBServerName.Text);
+                    WriteRegistry(DBASE_DATABASE_KEY, dbDatabaseEdit.Text);
+                    WriteRegistry(DBASE_USERNAME_KEY, dbUsernameEdit.Text);
                     WriteRegistry(DBASE_PASSWORD_KEY, Encrypt(dbPasswordEdit.Text));
                     WriteRegistry(DB_MODE_KEY, combo_TipoDBase.SelectedIndex + 1);
                 }
@@ -292,12 +296,18 @@ namespace StandFacile
         private void OKBtn_Click(object sender, EventArgs e)
         {
             // verifica il collegamento con il DB Server e ne salva il nome
-            if (_rdBaseIntf.dbCheck(Combo_DBServerName.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1, true))
+            if (_rdBaseIntf.dbCheck(Combo_DBServerName.Text, dbDatabaseEdit.Text, dbUsernameEdit.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1, true))
             {
-                dBaseIntf.SetDbMode(Combo_DBServerName.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1); // imposta il tipo di DB per dBaseIntf
+                dBaseIntf.SetDbMode(Combo_DBServerName.Text, dbDatabaseEdit.Text, dbUsernameEdit.Text, dbPasswordEdit.Text, combo_TipoDBase.SelectedIndex + 1); // imposta il tipo di DB per dBaseIntf
 
                 if (Combo_DBServerName.Text != ReadRegistry(DBASE_SERVER_NAME_KEY, "") && !String.IsNullOrEmpty(Combo_DBServerName.Text))
                     WriteRegistry(DBASE_SERVER_NAME_KEY, Combo_DBServerName.Text);
+
+                if (dbDatabaseEdit.Text != ReadRegistry(DBASE_DATABASE_KEY, DBASE_LAN_DATABASE) && !String.IsNullOrEmpty(dbDatabaseEdit.Text))
+                    WriteRegistry(DBASE_DATABASE_KEY, dbDatabaseEdit.Text);
+
+                if (dbUsernameEdit.Text != ReadRegistry(DBASE_USERNAME_KEY, DBASE_LAN_USERNAME) && !String.IsNullOrEmpty(dbUsernameEdit.Text))
+                    WriteRegistry(DBASE_USERNAME_KEY, dbUsernameEdit.Text);
 
                 if ((dbPasswordEdit.Text != Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD))) && !String.IsNullOrEmpty(dbPasswordEdit.Text))
                     WriteRegistry(DBASE_PASSWORD_KEY, Encrypt(dbPasswordEdit.Text));

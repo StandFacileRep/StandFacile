@@ -49,6 +49,7 @@ namespace StandFacile
             rPrintConfigLightDlg = this;
 
             _tt.SetToolTip(BtnWin, "imposta stampante Windows: USB, LAN, WiFi");
+            _tt.SetToolTip(BtnGeneric, "impostazioni Generiche stampa");
             _tt.SetToolTip(BtnLegacy, "imposta stampante Legacy: COM, LPT");
 
             Init(false);
@@ -115,6 +116,12 @@ namespace StandFacile
             }
 
             LogToFile("PrintConfigLightDlg OK");
+        }
+
+
+        private void BtnGeneric_Click(object sender, EventArgs e)
+        {
+            GenericPrinterDlg._rGenericPrinterDlg.Init(true);
         }
 
         private void BtnLegacy_Click(object sender, EventArgs e)

@@ -275,14 +275,27 @@ namespace StandFacile
 
         }
 
+        /// <summary>abilita/disabilita Button di MainForm</summary>
+        public void EnableButtons(bool bEnable)
+        {
+            BtnVisListino.Enabled = bEnable;
+            BtnSendMsg.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_SEND_MESSAGE);
+            BtnX10.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_X10);
+            BtnAsporto.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_ASPORTO);
+            BtnSconto.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_SCONTO);
+            BtnScontrino.Enabled = bEnable;
+            BtnDB.Enabled = bEnable;
+        }
+
         /// <summary>abilita/disabilita TextBox di MainForm</summary>
         public void EnableTextBox(bool bEnable)
         {
             MainGrid.Enabled = bEnable;
-            EditNome.Enabled = bEnable;
-            EditTavolo.Enabled = bEnable;
-            EditCoperti.Enabled = bEnable;
-            EditNota.Enabled = bEnable;
+            EditNome.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOME);
+            EditTavolo.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_TAVOLO);
+            EditCoperti.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
+            EditNota.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOTA);
+            comboCashPos.Enabled = bEnable && !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_CASH_POS);
         }
 
         /// <summary>costruttore</summary>
@@ -1309,7 +1322,7 @@ namespace StandFacile
                 WarningManager(WRN_TZT);
 
             if (_bListinoModificato)
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoForm();
 
             _iAnteprimaTotParziale = 0;
             AnteprimaDlg.ResetSomethingInto_GrpToPrint();
@@ -1484,6 +1497,71 @@ namespace StandFacile
 
                 GenPrintFile(sFileToPrint);
             }
+        }
+
+        private void MnuSaricaListino_Click(object sender, EventArgs e)
+        {
+            String sDestinationFile;
+            String sTmp;
+            DialogResult dResult;
+            bool bResult = true;
+
+            List<string> sInputStrings = new List<string>();
+
+            if (_rdBaseIntf.dbCaricaListino(sInputStrings) > 0)
+            {
+                DlgSaveFile.Filter = "Files di testo (*.txt)|*.TXT";
+                DlgSaveFile.InitialDirectory = DataManager.GetRootDir();
+                DlgSaveFile.DefaultExt = "txt";
+                DlgSaveFile.CheckFileExists = false;
+                DlgSaveFile.FileName = NOME_FILE_LISTINO;
+
+                if (DlgSaveFile.ShowDialog() == DialogResult.OK)
+                {
+                    sDestinationFile = DlgSaveFile.FileName;
+
+                    if (File.Exists(sDestinationFile))
+                    {
+                        sTmp = "Sei sicuro di voler sovrascrivere il file : \n\n" + Path.GetFileName(sDestinationFile) + " ?";
+                        dResult = MessageBox.Show(sTmp, "Attenzione !", MessageBoxButtons.YesNo);
+
+                        if (dResult == DialogResult.Yes)
+                            try
+                            {
+                                File.WriteAllLines(sDestinationFile, sInputStrings);
+                            }
+                            catch (IOException)
+                            {
+                                MessageBox.Show("Scaricamento non riuscito,\n\nscegliere un nome del file diverso !", "Attenzione !", MessageBoxButtons.OK);
+                                bResult = false;
+                            }
+                        else
+                            bResult = false;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            File.WriteAllLines(sDestinationFile, sInputStrings);
+                        }
+                        catch (IOException)
+                        {
+                            MessageBox.Show("Scaricamento non riuscito !", "Attenzione !", MessageBoxButtons.OK);
+                            bResult = false;
+                        }
+                    }
+                } else {
+                    return;
+                }
+            } else
+            {
+                bResult = false;
+            }
+
+            if (bResult)
+                MessageBox.Show("Scaricamento riuscito !", "Attenzione !", MessageBoxButtons.OK);
+            else
+                MessageBox.Show("Scaricamento non riuscito !", "Attenzione !", MessageBoxButtons.OK);
         }
 
         private void MnuEsportaListino_Click(object sender, EventArgs e)
@@ -1784,7 +1862,7 @@ namespace StandFacile
             sTmp = DataManager.GetDataDir() + "\\" + GetNomeFileDati(SF_Data.iNumCassa, GetActualDate());
 
             if (!File.Exists(sTmp))
-                DataManager.SalvaDati(SF_Data);
+                DataManager.SalvaDatiForm(SF_Data);
 
             // usa la data corrente
             rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_DATI, GetActualDate(), SF_Data.iNumCassa, false);
@@ -1811,7 +1889,7 @@ namespace StandFacile
             VisDatiDlg rVisDatiDlg = new VisDatiDlg();
 
             if (_bListinoModificato)
-                DataManager.SalvaListino(); // aggiorna il file prima di visualizzarlo
+                DataManager.SalvaListinoForm(); // aggiorna il file prima di visualizzarlo
 
             rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_PREZZI, GetActualDate(), SF_Data.iNumCassa, false);
 
@@ -1973,12 +2051,17 @@ namespace StandFacile
             NetConfigDlg.rNetConfigDlg.Init(true);
         }
 
+        private void MnuImpostaStampanteGenerica_Click(object sender, EventArgs e)
+        {
+            GenericPrinterDlg._rGenericPrinterDlg.Init(true);
+
+            if (GenericPrinterDlg.GetListinoModificato())
+                DataManager.SalvaListinoForm();
+        }
+
         private void MnuImpostaStampanteWin_Click(object sender, EventArgs e)
         {
             WinPrinterDlg._rWinPrinterDlg.Init(true);
-
-            if (WinPrinterDlg.GetListinoModificato())
-                DataManager.SalvaListino();
         }
 
         private void MnuImpostaStampanteLegacy_Click(object sender, EventArgs e)
@@ -1991,7 +2074,7 @@ namespace StandFacile
             PrintLocalCopiesConfigDlg._rPrintTckConfigDlg.Init(true);
 
             if (PrintLocalCopiesConfigDlg.GetListinoModificato())
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoForm();
         }
 
         private void MnuImpostaCopieInRete_Click(object sender, EventArgs e)
@@ -1999,7 +2082,7 @@ namespace StandFacile
             PrintNetCopiesConfigDlg._rPrintConfigDlg.Init(true);
 
             if (PrintNetCopiesConfigDlg.GetListinoModificato())
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoForm();
         }
 
         private void MnuImpOpzioni_Click(object sender, EventArgs e)
@@ -2007,7 +2090,7 @@ namespace StandFacile
             OptionsDlg._rOptionsDlg.Init(true);
 
             if (OptionsDlg.GetListinoModificato())
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoForm();
 
             if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
                 SetShowTotaleScontrinoPrec(true);
@@ -2027,7 +2110,7 @@ namespace StandFacile
             EditHeaderFooterDlg rHeaderFooterDlg = new EditHeaderFooterDlg();
 
             if (EditHeaderFooterDlg.GetListinoModificato())
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoForm();
 
             rHeaderFooterDlg.Dispose();
         }
@@ -2038,7 +2121,7 @@ namespace StandFacile
 
             if (EditGridDlg.GetListinoModificato())
             {
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoForm();
 
                 SetTabsAppearance();
                 UpdateStatusBar("Pronto");
@@ -2178,6 +2261,7 @@ namespace StandFacile
                 EditResto.Enabled = true;
 
                 // sicurezza
+                rFrmMain.EnableButtons(true);
                 rFrmMain.EnableTextBox(true);
 
                 if (bUSA_NDB())
@@ -2257,6 +2341,7 @@ namespace StandFacile
             {
                 iArrayOffset = 4 * iLastGridIndex;
             }
+            _iCellPt = MainGrid.CurrentCell.ColumnIndex * MainGrid.RowCount + MainGrid.CurrentCell.RowIndex + iArrayOffset;
 
             FormResize(this, null);
             MainGrid_Redraw(this, null);
@@ -2596,10 +2681,10 @@ namespace StandFacile
             iNumTicket = _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true);
 
             if ((SF_Data.iNumOfLastReceipt > 0) || (SF_Data.iNumOfMessages > 0) || DataManager.CheckDispLoaded())
-                DataManager.SalvaDati(DB_Data);
+                DataManager.SalvaDatiForm(DB_Data);
 
             if (_bListinoModificato)
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoForm();
 
             if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_RECEIPT_GEN) && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {

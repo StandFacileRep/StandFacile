@@ -185,9 +185,9 @@ namespace StandFacile_DB
                         _sDBTNameDati = sNomeTabellaParam;
 
                     _dbCSB.Host = _sDB_ServerName;
-                    _dbCSB.Database = _database;
-                    _dbCSB.UserId = _uid;
-                    _dbCSB.Password = _password;
+                    _dbCSB.Database = _sDB_Database;
+                    _dbCSB.UserId = _sDB_Username;
+                    _dbCSB.Password = _sDB_Password;
                     _dbCSB.FoundRows = true;
                     _dbCSB.Pooling = false;
                     _dbCSB.Unicode = true;
@@ -237,9 +237,9 @@ namespace StandFacile_DB
                 try
                 {
                     _dbCSB_Web.Host = _sDB_ServerName;
-                    _dbCSB_Web.Database = _database;
-                    _dbCSB_Web.UserId = _uid;
-                    _dbCSB_Web.Password = _password;
+                    _dbCSB_Web.Database = _sDB_Database;
+                    _dbCSB_Web.UserId = _sDB_Username;
+                    _dbCSB_Web.Password = _sDB_Password;
                     _dbCSB_Web.Pooling = false;
                     _dbCSB_Web.Unicode = true;
                     _dbCSB_Web.ConnectionTimeout = TIMEOUT_DB_OPEN;
@@ -903,8 +903,8 @@ namespace StandFacile_DB
             else
             {
                 _dbCSB.Host = sWebServerCheckParams.sDB_ServerName;
-                _dbCSB.Database = _database;
-                _dbCSB.UserId = _uid;
+                _dbCSB.Database = _sDB_Database;
+                _dbCSB.UserId = _sDB_Username;
                 _dbCSB.Password = sWebServerCheckParams.sDB_pwd;
                 _dbCSB.FoundRows = true;
                 _dbCSB.Pooling = false;
@@ -1657,7 +1657,7 @@ namespace StandFacile_DB
             cmd.Connection = _Connection;
 
             cmd.CommandText = "SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = \'" +
-                                _database + "\' ORDER BY TABLE_NAME ASC;";
+                                _sDB_Database + "\' ORDER BY TABLE_NAME ASC;";
 
             try
             {
@@ -2189,7 +2189,7 @@ namespace StandFacile_DB
         }
 
         /// <summary>Test di connessione al db server</summary>
-        public bool dbCheck(String sDB_ServerNamePrm, String sDB_pwdPrm, bool bSilentParam)
+        public bool dbCheck(String sDB_ServerNamePrm, String sDB_dbPrm, String sDB_userParam, String sDB_pwdPrm, bool bSilentParam)
         {
 
             if (String.IsNullOrEmpty(sDB_ServerNamePrm))
@@ -2199,8 +2199,8 @@ namespace StandFacile_DB
 
             _dbCSB.Host = sDB_ServerNamePrm;
             _dbCSB.Password = sDB_pwdPrm;
-            _dbCSB.Database = _database;
-            _dbCSB.UserId = _uid;
+            _dbCSB.Database = sDB_dbPrm;
+            _dbCSB.UserId = sDB_userParam;
             _dbCSB.FoundRows = true;
             _dbCSB.Pooling = false;
             _dbCSB.Unicode = true;

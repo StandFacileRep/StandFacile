@@ -166,7 +166,9 @@ namespace StandFacile
             _fCanvasVertPos = 0;
 
             // inizio scrittura
-            PrintCanvas(pg, "");
+            int initialRowsToAdd = GetNumberOfSetBits(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_INITIAL, 4);
+            for (i = 0; i < initialRowsToAdd; i++) // N righe di inizio stampa
+                PrintCanvas(pg, "");
 
             /*************************************
              * 		 Stampa del Logo Top
@@ -255,28 +257,17 @@ namespace StandFacile
 
             _fCanvasVertNumPos = _fCanvasVertPos;
 
-            if (!String.IsNullOrEmpty(sOrdineStrings.sTavolo) && !String.IsNullOrEmpty(sOrdineStrings.sNome))
-            {
-                PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum); PrintCanvas(pg, "");
-                PrintCanvas(pg, sOrdineStrings.sTavolo);
-                PrintCanvas(pg, sOrdineStrings.sNome);
-            }
-            else if (!String.IsNullOrEmpty(sOrdineStrings.sTavolo))
-            {
-                PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum); PrintCanvas(pg, "");
-                PrintCanvas(pg, sOrdineStrings.sTavolo);
-            }
-            else if (!String.IsNullOrEmpty(sOrdineStrings.sNome))
-            {
-                PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum); PrintCanvas(pg, "");
-                PrintCanvas(pg, sOrdineStrings.sNome);
-            }
-            else
-            {
-                PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum);
-            }
-
+            // Stampa sempre il numero dell'ordine
+            PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum);
             PrintCanvas(pg, "");
+
+            // Stampa il tavolo e il nome se presenti
+            if (!String.IsNullOrEmpty(sOrdineStrings.sTavolo))
+                PrintCanvas(pg, sOrdineStrings.sTavolo);
+            if (!String.IsNullOrEmpty(sOrdineStrings.sNome))
+                PrintCanvas(pg, sOrdineStrings.sNome);
+            if (!String.IsNullOrEmpty(sOrdineStrings.sTavolo) || !String.IsNullOrEmpty(sOrdineStrings.sNome))
+                PrintCanvas(pg, "");
 
             if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
             {
@@ -598,7 +589,15 @@ namespace StandFacile
                     PrintCanvas(pg, "");
                 }
             }
-            
+
+            int finalRowsToAdd = GetNumberOfSetBits(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_FINAL, 4);
+            if (finalRowsToAdd > 0)
+            {
+                for (i = 0; i < finalRowsToAdd - 1; i++) // N righe di inizio stampa
+                    PrintCanvas(pg, " ");
+                PrintCanvas(pg, "_");
+            }
+
             // quando picBox.Height > panel.Height appaiono scrollbar
             if (panel.Height < (int)_fCanvasVertPos)
                 picBox.Height = (int)_fCanvasVertPos;
@@ -668,7 +667,7 @@ namespace StandFacile
                 return;
 
             // dimensione ricalibrata
-            float fFontSize = sGlbWinPrinterParams.bChars33 ? 1.06f * picBox.Width / 32.0f : 1.04f * picBox.Width / 28.0f;
+            float fFontSize = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? 1.06f * picBox.Width / 32.0f : 1.04f * picBox.Width / 28.0f;
 
             _printFont = new Font(sGlbWinPrinterParams.sTckFontType, fFontSize);
 

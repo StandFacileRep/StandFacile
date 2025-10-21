@@ -63,6 +63,7 @@ namespace StandFacile
             _rPrintTckConfigDlg = this;
 
             _tt.SetToolTip(BtnWin, "imposta stampante Windows: USB, LAN, WiFi");
+            _tt.SetToolTip(BtnGeneric, "impostazioni Generiche stampa");
             _tt.SetToolTip(BtnLegacy, "imposta stampante Legacy: COM, LPT");
 
             _pCheckBoxCopia[0] = checkBoxCopia_0;
@@ -162,6 +163,11 @@ namespace StandFacile
                 timer.Enabled = false;
         }
 
+        private void BtnGeneric_Click(object sender, EventArgs e)
+        {
+            GenericPrinterDlg._rGenericPrinterDlg.Init(true);
+        }
+
         private void BtnLegacy_Click(object sender, EventArgs e)
         {
             LegacyPrinterDlg.rThermPrinterDlg.Init(true);
@@ -170,9 +176,6 @@ namespace StandFacile
         private void BtnWin_Click(object sender, EventArgs e)
         {
             WinPrinterDlg._rWinPrinterDlg.Init(true);
-
-            if (WinPrinterDlg.GetListinoModificato())
-                DataManager.SalvaListino();
         }
 
         private void CheckBoxNoPrice_CheckedChanged(object sender, EventArgs e)
@@ -212,7 +215,7 @@ namespace StandFacile
             PrintNetCopiesConfigDlg._rPrintConfigDlg.Init(true);
 
             if (PrintNetCopiesConfigDlg.GetListinoModificato())
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoForm();
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)
@@ -257,15 +260,6 @@ namespace StandFacile
             if (checkBox_CUT.Checked)
                 iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
 
-            if (WinPrinterDlg.GetCopies_PlaceSettingsToBePrinted())
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
-
-            if (WinPrinterDlg.GetCopies_LogoToBePrinted())
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_LOGO_PRINT_REQUIRED);
-
-            if (sGlbWinPrinterParams.bChars33)
-                iReceiptCopyOptions = SetBit(iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_CHARS33_PRINT_REQUIRED);
-
             // controllo _bListinoModificato per gestione della stampa QuantitàUno, salvataggio in : SF_Data[]
             if (SF_Data.iReceiptCopyOptions != iReceiptCopyOptions)
             {
@@ -292,6 +286,5 @@ namespace StandFacile
             timer.Enabled = false;
             Close();
         }
-
     }
 }

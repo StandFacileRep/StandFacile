@@ -46,11 +46,6 @@ namespace StandCommonFiles
         /// <summary>database: nome tabella di stato</summary>
         public const string NOME_STATO_DBTBL = RELEASE_TBL + "_stato";
 
-        /// <summary>database: nome utente</summary>
-        public const String _uid = "standfacile";
-        /// <summary>database: il nome</summary>
-        public const String _database = "standfacile_db";
-
         /// <summary>prefisso tabella degli ordini</summary>
         public const string _dbOrdersTablePrefix = RELEASE_TBL + "_ordini";
 
@@ -119,6 +114,8 @@ namespace StandCommonFiles
                                                                         _NUM_ORD_WEB, _NUM_ORD_PREV };
         }
 
+        /// <summary>mnemonico per il numedo della cassa nelle stampe con Zoom numero scontrino</summary>
+        public const String _TICK_CASSA = "Cassa =";
         /// <summary>mnemonico per il numero dello scontrino nelle stampe con Zoom numero scontrino</summary>
         public const String _TICK_NUM = "Num. =";
 
@@ -312,9 +309,6 @@ namespace StandCommonFiles
         /// <summary>chiave che descrive se si utilizzano 33 caratteri per riga, oppure 28</summary>
         public const String PRINT_ON_33CHARS_RECEIPT_KEY = "iPrint33CharsReceipt";
 
-        /// <summary>chiave che descrive se si stampano i coperti nelle copie</summary>
-        public const String PRINT_PLACESETTINGS_ON_COPIES_KEY = "iPrintPlaceSettingOnCopies";
-
         /// <summary>chiave per la gestione del dialogo disponibilità</summary>
         public const string DISP_DLG_MNG_KEY = "bDispMngDlg";
 
@@ -332,6 +326,12 @@ namespace StandCommonFiles
 
         /// <summary>chiave per memorizzare il DB server corrente</summary>
         public const String DBASE_SERVER_NAME_KEY = "sDB_ServerName";
+
+        /// <summary>chiave che memorizza la password</summary>
+        public const String DBASE_DATABASE_KEY = "sDB_database";
+
+        /// <summary>chiave che memorizza la password</summary>
+        public const String DBASE_USERNAME_KEY = "sDB_username";
 
         /// <summary>chiave che memorizza la password</summary>
         public const String DBASE_PASSWORD_KEY = "sDB_password";
@@ -700,7 +700,58 @@ namespace StandCommonFiles
             BIT_PRIVACY,
 
             /// <summary>bit di iGeneralOptions per consentire la stampa con ENTER</summary>
-            BIT_ENTER_PRINT_RECEIPT_ENABLED
+            BIT_ENTER_PRINT_RECEIPT_ENABLED,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'invio di Messaggi in cucina</summary>
+            BIT_DISABLE_SEND_MESSAGE,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'aggiunta x10 degli Articoli</summary>
+            BIT_DISABLE_X10,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'asporto</summary>
+            BIT_DISABLE_ASPORTO,
+
+            /// <summary>bit di iGeneralOptions per disabilitare i Buoni Sconto</summary>
+            BIT_DISABLE_SCONTO,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'inserimento del Nome Ordine</summary>
+            BIT_DISABLE_NOME,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'inserimento del Nome Tavolo</summary>
+            BIT_DISABLE_TAVOLO,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'inserimento dei Coperti</summary>
+            BIT_DISABLE_COPERTI,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'inserimento della Nota</summary>
+            BIT_DISABLE_NOTA,
+
+            /// <summary>bit di iGeneralOptions per disabilitare l'inserimento del Metodo di Pagamento</summary>
+            BIT_DISABLE_CASH_POS,
+        }
+
+        /****************************************************************
+         *     Flags generali di gestione della Stampante Generica      *
+         ****************************************************************/
+        /// <summary>Flags generali di gestione della Stampante Generica</summary>
+        public enum GEN_PRINTER_OPTS
+        {
+            /// <summary>bit di iGeneralPrinterOptions per gestione righe vuote iniziali</summary>
+            BIT_EMPTY_ROWS_INITIAL = 0, // 0-3 sono occupati da iRowsInitial
+            /// <summary>bit di iGeneralPrinterOptions per gestione righe vuote finali</summary>
+            BIT_EMPTY_ROWS_FINAL = 4, // 4-7 sono occupati da iRowsFinal
+            /// <summary>bit di iGeneralPrinterOptions per gestione stampa numero cassa inline</summary>
+            BIT_CASSA_INLINE = 8,
+            /// <summary>bit di iGeneralPrinterOptions per gestione stampa con asterischi sopra e sotto il gruppo</summary>
+            BIT_STAR_ON_UNDER_GROUP,
+            /// <summary>bit di iGeneralPrinterOptions per gestione stampa con tavolo e nome centrati</summary>
+            BIT_CENTER_TABLE_AND_NAME,
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa del Logo nelle copie</summary>
+            BIT_LOGO_PRINT_REQUIRED,
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa dei coperti nelle copie</summary>
+            BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED,
+            /// <summary>bit di iReceiptCopyOptions per gestione stampa a 33 caratteri deli Articoli</summary>
+            BIT_CHARS33_PRINT_REQUIRED
         }
 
         /****************************************************************
@@ -711,13 +762,13 @@ namespace StandCommonFiles
         public enum LOCAL_COPIES_OPTS
         {
             /// <summary>bit di iReceiptCopyOptions per gestione stampa a 33 caratteri deli Articoli</summary>
-            BIT_CHARS33_PRINT_REQUIRED = 10, // 0-9 è occupato da _pCheckBoxCopia[i]
+            BIT_UNUSED1 = 10, // 0-9 è occupato da _pCheckBoxCopia[i]
 
-            /// <summary>bit di iReceiptCopyOptions per gestione stampa del Logo nelle copie</summary>
-            BIT_LOGO_PRINT_REQUIRED,
+            /// <summary>bit di iReceiptCopyOptions inutilizzato</summary>
+            BIT_UNUSED2,
 
-            /// <summary>bit di iReceiptCopyOptions per gestione stampa dei coperti nelle copie</summary>
-            BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED,
+            /// <summary>bit di iReceiptCopyOptions inutilizzato</summary>
+            BIT_UNUSED3,
 
             /// <summary>bit di iReceiptCopyOptions per gestione stampa con taglio nella copia locale Receipt</summary>
             BIT_PRINT_GROUPS_CUT_REQUIRED,
@@ -768,9 +819,6 @@ namespace StandCommonFiles
         [Serializable()]
         public struct TWinPrinterParams
         {
-            /// <summary>flag per stampa Receipt a 33 caratteri per riga</summary>
-            public bool bChars33;
-
             /// <summary>flag per stampa su carta A4</summary>
             public bool bA4Paper;
             /// <summary>flag per stampa su carta A5</summary>
@@ -835,7 +883,6 @@ namespace StandCommonFiles
             /// <summary>costruttore</summary>
             public TWinPrinterParams(int i)
             {
-                bChars33 = true;
                 bA4Paper = false;
                 bA5Paper = false;
 
@@ -1060,6 +1107,8 @@ namespace StandCommonFiles
             public int iBarcodeRichiesto;
             /// <summary>numero hex per gestione delle opzioni generali</summary>
             public int iGeneralOptions;
+            /// <summary>numero hex per gestione delle opzioni generiche della stampante</summary>
+            public int iGenericPrinterOptions;
             /// <summary>numero hex per gestione della stampa copie locali e copie con quantità Uno</summary>
             public int iReceiptCopyOptions;
             /// <summary>numero di colonne della griglia</summary>
@@ -1161,6 +1210,7 @@ namespace StandCommonFiles
                 sScontoText = "";
                 iBarcodeRichiesto = 0;
                 iGeneralOptions = 0;
+                iGenericPrinterOptions = 0;
                 iReceiptCopyOptions = 0;
                 iGridCols = 0;
                 iGridRows = 0;

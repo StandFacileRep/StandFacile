@@ -39,6 +39,7 @@ namespace StandFacile
                 // Menù File e Stampa
                 MnuStampaDiProva.Enabled = false;
                 MnuStampaFile.Enabled = false;
+                MnuScaricaListino.Enabled = false;
                 MnuEsportaListino.Enabled = false;
                 MnuImportaListino.Enabled = false;
                 MnuChiudiIncasso.Enabled = false;
@@ -91,6 +92,7 @@ namespace StandFacile
                 // Menù File e Stampa
                 MnuStampaDiProva.Enabled = false;
                 MnuStampaFile.Enabled = false;
+                MnuScaricaListino.Enabled = false;
                 MnuEsportaListino.Enabled = false;
                 MnuImportaListino.Enabled = false;
                 MnuChiudiIncasso.Enabled = false;
@@ -106,6 +108,7 @@ namespace StandFacile
                 MnuImpostazioni.Enabled = true;
                 MnuEsperto.Enabled = false;
                 MnuImpostaRete.Enabled = false;
+                MnuImpostaStampanteGenerica.Enabled = false;
                 MnuImpostaStampanteWin.Enabled = false;
                 MnuImpostaStampanteLegacy.Enabled = false;
                 MnuImpostaCopieLocali.Enabled = false;
@@ -157,6 +160,7 @@ namespace StandFacile
                 // Menù File e Stampa
                 MnuStampaDiProva.Enabled = false;
                 MnuStampaFile.Enabled = false;
+                MnuScaricaListino.Enabled = false;
                 MnuEsportaListino.Enabled = false;
                 MnuImportaListino.Enabled = false;
                 MnuChiudiIncasso.Enabled = false;
@@ -217,20 +221,20 @@ namespace StandFacile
 
                 MainGrid.Enabled = true; // sicurezza
 
-                lblNome.Enabled = true;
-                EditNome.Enabled = true;
-                lblTavolo.Enabled = true;
-                EditTavolo.Enabled = true;
-                lblCoperti.Enabled = true;
-                EditCoperti.Enabled = true;
-                lblNota.Enabled = true;
-                EditNota.Enabled = true;
+                lblNome.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOME);
+                EditNome.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOME);
+                lblTavolo.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_TAVOLO);
+                EditTavolo.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_TAVOLO);
+                lblCoperti.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
+                EditCoperti.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_COPERTI);
+                lblNota.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOTA);
+                EditNota.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_NOTA);
                 lblResto.Enabled = true;
                 EditResto.Enabled = true;
                 lblPagato.Enabled = true;
                 EditContante.Enabled = true;
 
-                comboCashPos.Enabled = true;
+                comboCashPos.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_CASH_POS);
 
                 // per sicurezza accettazione BarCode non con la prevendita in corso
                 if (SF_Data.bPrevendita)
@@ -250,6 +254,7 @@ namespace StandFacile
 
                     if (DataManager.CheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
                     {
+                        MnuScaricaListino.Enabled = true;
                         MnuEsportaListino.Enabled = false;
                         MnuImportaListino.Enabled = false;
                         MnuChiudiIncasso.Enabled = false;
@@ -266,6 +271,7 @@ namespace StandFacile
                     }
                     else
                     {
+                        MnuScaricaListino.Enabled = false;
                         MnuEsportaListino.Enabled = true;
                         MnuImportaListino.Enabled = true;
                         // altrimenti con la Prevendita è troppo complessa la gestione dei nomi delle tabelle
@@ -285,6 +291,7 @@ namespace StandFacile
                     // Menù Impostazioni
                     MnuCambiaPassword.Enabled = true;
                     MnuImpostaRete.Enabled = true;
+                    MnuImpostaStampanteGenerica.Enabled = true;
                     MnuImpostaStampanteWin.Enabled = true;
                     MnuImpostaStampanteLegacy.Enabled = true;
                     MnuImpostaCopieLocali.Enabled = true;
@@ -294,6 +301,7 @@ namespace StandFacile
                 else // non Esperto
                 {
                     // Menù File e Stampa
+                    MnuScaricaListino.Enabled = false;
                     MnuEsportaListino.Enabled = false;
                     MnuImportaListino.Enabled = false;
                     MnuChiudiIncasso.Enabled = false;
@@ -317,6 +325,7 @@ namespace StandFacile
 
                     // Menù Impostazioni
                     MnuImpostaRete.Enabled = false;
+                    MnuImpostaStampanteGenerica.Enabled = false;
                     MnuImpostaStampanteWin.Enabled = false;
                     MnuImpostaStampanteLegacy.Enabled = false;
                     MnuImpostaCopieLocali.Enabled = false;
@@ -364,19 +373,19 @@ namespace StandFacile
                 //    altrimenti non si visualizza il listino
                 //    BtnVisListino.Checked = false;
 
-                BtnSendMsg.Enabled = true;
+                BtnSendMsg.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_SEND_MESSAGE);
                 BtnSendMsg.Checked = false;
 
-                BtnX10.Enabled = true;
+                BtnX10.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_X10);
                 BtnX10.Checked = false;
 
-                BtnAsporto.Enabled = true;
+                BtnAsporto.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_ASPORTO);
 
                 //BtnAsporto.Checked = false;
                 if (SF_Data.bPrevendita)
                     BtnSconto.Enabled = false;
                 else
-                    BtnSconto.Enabled = true;
+                    BtnSconto.Enabled = !IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_DISABLE_SCONTO);
 
                 // ripristina lo stato dopo che si sono consultati i prezzi
                 if ((SF_Data.iStatusSconto & 0x0000000F) != 0)
@@ -397,9 +406,9 @@ namespace StandFacile
 
                 if (_bListinoModificato)
                 {
-                    DataManager.SalvaListino();
-
-                    DataManager.SalvaDati(SF_Data); // così si visualizzano prezzi e dati aggiornati
+                    DataManager.SalvaListinoForm();
+                    DataManager.SalvaDatiForm(SF_Data);
+                        
                     SetTabsAppearance();
                 }
 
@@ -510,7 +519,7 @@ namespace StandFacile
                     // ci passa se si modifica l'header altrimenti
                     // ci pensa CheckMenuItems();
                     if (_bListinoModificato)
-                        DataManager.SalvaListino();
+                        DataManager.SalvaListinoForm();
 
                     // default TAB
                     TabSet.SelectedIndex = 0;
@@ -1505,18 +1514,18 @@ namespace StandFacile
                 if (MnuImpListino.Checked || BtnVisListino.Checked)
                 {
                     if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
-                        sText = sGlbWinPrinterParams.bChars33 ? "12345678901234567890123" : "123456789012345678";
+                        sText = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? "12345678901234567890123" : "123456789012345678";
                     else
                         // String.Format(" {0,2} {1,-18} {2,5:0.00}", // width=28
-                        sText = sGlbWinPrinterParams.bChars33 ? "123456789012345678901234567809123" : "1234567890123456789012345678";
+                        sText = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? "123456789012345678901234567809123" : "1234567890123456789012345678";
                 }
                 else
                 {
                     if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
-                        sText = sGlbWinPrinterParams.bChars33 ? "12345678901234567809123" : "123456789012345678";
+                        sText = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? "12345678901234567809123" : "123456789012345678";
                     else
                         // String.Format("{0,3} {1,-18} {2,2}" : // width=25
-                        sText = sGlbWinPrinterParams.bChars33 ? "123456789012345678901234567890" : "1234567890123456789012345";
+                        sText = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? "123456789012345678901234567890" : "1234567890123456789012345";
                 }
 
                 if ((MainGrid.Height % MainGrid.RowCount) < 3)

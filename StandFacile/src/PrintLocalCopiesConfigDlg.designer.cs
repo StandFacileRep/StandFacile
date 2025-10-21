@@ -34,10 +34,9 @@
             this.prt_Legacy = new System.Windows.Forms.RadioButton();
             this.prt_Windows = new System.Windows.Forms.RadioButton();
             this.printersGroupBox = new System.Windows.Forms.GroupBox();
+            this.BtnGeneric = new System.Windows.Forms.Button();
             this.BtnLegacy = new System.Windows.Forms.Button();
             this.BtnWin = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.btnOK = new System.Windows.Forms.Button();
             this.panelLocalCopies = new System.Windows.Forms.Panel();
             this.checkBox_LocPrices = new System.Windows.Forms.CheckBox();
             this.labelWarn1 = new System.Windows.Forms.Label();
@@ -65,6 +64,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnOK = new System.Windows.Forms.Button();
             this.RadioGroup_PrinterType.SuspendLayout();
             this.printersGroupBox.SuspendLayout();
             this.panelLocalCopies.SuspendLayout();
@@ -107,6 +108,7 @@
             // 
             // printersGroupBox
             // 
+            this.printersGroupBox.Controls.Add(this.BtnGeneric);
             this.printersGroupBox.Controls.Add(this.BtnLegacy);
             this.printersGroupBox.Controls.Add(this.BtnWin);
             this.printersGroupBox.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -116,6 +118,18 @@
             this.printersGroupBox.TabIndex = 1;
             this.printersGroupBox.TabStop = false;
             this.printersGroupBox.Text = "Impostazione stampanti Windows e Legacy";
+            // 
+            // BtnGeneric
+            // 
+            this.BtnGeneric.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.BtnGeneric.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.BtnGeneric.Image = global::StandFacile.Properties.Resources.globe;
+            this.BtnGeneric.Location = new System.Drawing.Point(111, 34);
+            this.BtnGeneric.Name = "BtnGeneric";
+            this.BtnGeneric.Size = new System.Drawing.Size(42, 40);
+            this.BtnGeneric.TabIndex = 3;
+            this.BtnGeneric.UseVisualStyleBackColor = false;
+            this.BtnGeneric.Click += new System.EventHandler(this.BtnGeneric_Click);
             // 
             // BtnLegacy
             // 
@@ -141,40 +155,9 @@
             this.BtnWin.UseVisualStyleBackColor = false;
             this.BtnWin.Click += new System.EventHandler(this.BtnWin_Click);
             // 
-            // btnCancel
-            // 
-            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
-            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(163, 610);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(80, 28);
-            this.btnCancel.TabIndex = 6;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
-            // 
-            // btnOK
-            // 
-            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
-            this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(299, 610);
-            this.btnOK.Margin = new System.Windows.Forms.Padding(4);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(80, 28);
-            this.btnOK.TabIndex = 5;
-            this.btnOK.Text = "OK  ";
-            this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
-            // 
             // panelLocalCopies
             // 
-            this.panelLocalCopies.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.panelLocalCopies.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panelLocalCopies.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelLocalCopies.Controls.Add(this.checkBox_LocPrices);
             this.panelLocalCopies.Controls.Add(this.labelWarn1);
@@ -188,7 +171,7 @@
             this.panelLocalCopies.Controls.Add(this.checkBox_LocalCopy);
             this.panelLocalCopies.Location = new System.Drawing.Point(16, 200);
             this.panelLocalCopies.Name = "panelLocalCopies";
-            this.panelLocalCopies.Size = new System.Drawing.Size(517, 390);
+            this.panelLocalCopies.Size = new System.Drawing.Size(517, 385);
             this.panelLocalCopies.TabIndex = 30;
             // 
             // checkBox_LocPrices
@@ -443,7 +426,7 @@
             // 
             // LinkLbl_Mnu_CCR
             // 
-            this.LinkLbl_Mnu_CCR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.LinkLbl_Mnu_CCR.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.LinkLbl_Mnu_CCR.AutoSize = true;
             this.LinkLbl_Mnu_CCR.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LinkLbl_Mnu_CCR.Location = new System.Drawing.Point(339, 169);
@@ -456,7 +439,7 @@
             // 
             // label2
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(21, 148);
@@ -468,7 +451,7 @@
             // 
             // label3
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(21, 168);
@@ -479,7 +462,7 @@
             // 
             // label1
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(21, 128);
@@ -488,12 +471,43 @@
             this.label1.TabIndex = 35;
             this.label1.Text = "da qui si effettuano le impostazioni di stampa delle sole copie in cassa locale:";
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(163, 598);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(80, 28);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.BtnCancel_Click);
+            // 
+            // btnOK
+            // 
+            this.btnOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
+            this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOK.Location = new System.Drawing.Point(299, 598);
+            this.btnOK.Margin = new System.Windows.Forms.Padding(4);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(80, 28);
+            this.btnOK.TabIndex = 5;
+            this.btnOK.Text = "OK  ";
+            this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
+            // 
             // PrintLocalCopiesConfigDlg
             // 
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(539, 654);
+            this.ClientSize = new System.Drawing.Size(539, 642);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
@@ -558,5 +572,6 @@
         private System.Windows.Forms.CheckBox checkBoxCopia_9;
         private System.Windows.Forms.Label labelWarn1;
         private System.Windows.Forms.CheckBox checkBox_LocPrices;
+        private System.Windows.Forms.Button BtnGeneric;
     }
 }

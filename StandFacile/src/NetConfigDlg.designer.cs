@@ -54,6 +54,10 @@
             this.Edit_WebServiceDBasePwd = new System.Windows.Forms.TextBox();
             this.NC_btn_webSiteTest = new System.Windows.Forms.Button();
             this.NC_lbl7 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dbUsernameEdit = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dbDatabaseEdit = new System.Windows.Forms.TextBox();
             this.Panel_Tipo_Cassa.SuspendLayout();
             this.Panel_DB.SuspendLayout();
             this.panelWeb.SuspendLayout();
@@ -65,7 +69,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = global::StandFacile.Properties.Resources.Cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(132, 584);
+            this.btnCancel.Location = new System.Drawing.Point(132, 642);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(80, 28);
             this.btnCancel.TabIndex = 2;
@@ -78,7 +82,7 @@
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(292, 584);
+            this.btnOK.Location = new System.Drawing.Point(292, 642);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(80, 28);
             this.btnOK.TabIndex = 3;
@@ -114,7 +118,7 @@
             this.Panel_Tipo_Cassa.Controls.Add(this.Combo_NumCassa);
             this.Panel_Tipo_Cassa.Controls.Add(this.NC_lbl3);
             this.Panel_Tipo_Cassa.Controls.Add(this.textBoxCassa);
-            this.Panel_Tipo_Cassa.Location = new System.Drawing.Point(12, 178);
+            this.Panel_Tipo_Cassa.Location = new System.Drawing.Point(12, 236);
             this.Panel_Tipo_Cassa.Name = "Panel_Tipo_Cassa";
             this.Panel_Tipo_Cassa.Size = new System.Drawing.Size(499, 124);
             this.Panel_Tipo_Cassa.TabIndex = 1;
@@ -134,6 +138,10 @@
             // Panel_DB
             // 
             this.Panel_DB.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.Panel_DB.Controls.Add(this.label2);
+            this.Panel_DB.Controls.Add(this.dbDatabaseEdit);
+            this.Panel_DB.Controls.Add(this.label1);
+            this.Panel_DB.Controls.Add(this.dbUsernameEdit);
             this.Panel_DB.Controls.Add(this.NC_lbl4);
             this.Panel_DB.Controls.Add(this.combo_TipoDBase);
             this.Panel_DB.Controls.Add(this.NC_lbl2);
@@ -143,7 +151,7 @@
             this.Panel_DB.Controls.Add(this.NC_lbl1);
             this.Panel_DB.Location = new System.Drawing.Point(12, 9);
             this.Panel_DB.Name = "Panel_DB";
-            this.Panel_DB.Size = new System.Drawing.Size(499, 154);
+            this.Panel_DB.Size = new System.Drawing.Size(499, 221);
             this.Panel_DB.TabIndex = 0;
             // 
             // NC_lbl4
@@ -171,16 +179,16 @@
             // 
             this.NC_lbl2.AutoSize = true;
             this.NC_lbl2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.NC_lbl2.Location = new System.Drawing.Point(14, 92);
+            this.NC_lbl2.Location = new System.Drawing.Point(14, 141);
             this.NC_lbl2.Name = "NC_lbl2";
-            this.NC_lbl2.Size = new System.Drawing.Size(171, 14);
+            this.NC_lbl2.Size = new System.Drawing.Size(153, 14);
             this.NC_lbl2.TabIndex = 4;
-            this.NC_lbl2.Text = "Password utente \"standfacile\"";
+            this.NC_lbl2.Text = "Password utente database";
             // 
             // dbPasswordEdit
             // 
             this.dbPasswordEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dbPasswordEdit.Location = new System.Drawing.Point(15, 112);
+            this.dbPasswordEdit.Location = new System.Drawing.Point(15, 161);
             this.dbPasswordEdit.MaxLength = 24;
             this.dbPasswordEdit.Name = "dbPasswordEdit";
             this.dbPasswordEdit.PasswordChar = '*';
@@ -191,7 +199,7 @@
             // 
             this.Btn_DBServerTest.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Btn_DBServerTest.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Btn_DBServerTest.Location = new System.Drawing.Point(293, 111);
+            this.Btn_DBServerTest.Location = new System.Drawing.Point(293, 160);
             this.Btn_DBServerTest.Name = "Btn_DBServerTest";
             this.Btn_DBServerTest.Size = new System.Drawing.Size(171, 23);
             this.Btn_DBServerTest.TabIndex = 3;
@@ -232,7 +240,7 @@
             this.panelWeb.Controls.Add(this.Edit_WebServiceDBasePwd);
             this.panelWeb.Controls.Add(this.NC_btn_webSiteTest);
             this.panelWeb.Controls.Add(this.NC_lbl7);
-            this.panelWeb.Location = new System.Drawing.Point(12, 317);
+            this.panelWeb.Location = new System.Drawing.Point(12, 375);
             this.panelWeb.Name = "panelWeb";
             this.panelWeb.Size = new System.Drawing.Size(499, 250);
             this.panelWeb.TabIndex = 5;
@@ -356,13 +364,51 @@
             this.NC_lbl7.TabIndex = 1;
             this.NC_lbl7.Text = "Pagina webservice assegnata su:";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(14, 80);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(114, 14);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Username database";
+            // 
+            // dbUsernameEdit
+            // 
+            this.dbUsernameEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dbUsernameEdit.Location = new System.Drawing.Point(15, 100);
+            this.dbUsernameEdit.MaxLength = 24;
+            this.dbUsernameEdit.Name = "dbUsernameEdit";
+            this.dbUsernameEdit.Size = new System.Drawing.Size(170, 22);
+            this.dbUsernameEdit.TabIndex = 9;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(292, 80);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(92, 14);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "Nome database";
+            // 
+            // dbDatabaseEdit
+            // 
+            this.dbDatabaseEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dbDatabaseEdit.Location = new System.Drawing.Point(293, 100);
+            this.dbDatabaseEdit.MaxLength = 24;
+            this.dbDatabaseEdit.Name = "dbDatabaseEdit";
+            this.dbDatabaseEdit.Size = new System.Drawing.Size(170, 22);
+            this.dbDatabaseEdit.TabIndex = 11;
+            // 
             // NetConfigDlg
             // 
             this.AcceptButton = this.btnOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(526, 627);
+            this.ClientSize = new System.Drawing.Size(526, 682);
             this.Controls.Add(this.panelWeb);
             this.Controls.Add(this.Panel_DB);
             this.Controls.Add(this.Panel_Tipo_Cassa);
@@ -415,5 +461,9 @@
         private System.Windows.Forms.TextBox Edit_WebService_Name;
         private System.Windows.Forms.ComboBox Combo_DBServerName;
         private System.Windows.Forms.Panel Panel_DB;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox dbDatabaseEdit;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox dbUsernameEdit;
     }
 }

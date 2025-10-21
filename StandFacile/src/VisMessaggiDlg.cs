@@ -289,7 +289,7 @@ namespace StandFacile
                     sNomeFileMsg = String.Format(NOME_FILE_MESSAGGIO, SF_Data.iNumCassa, _iNum);
 
                     _rdBaseIntf.dbSalvaMessaggio(textEdit_Messaggi.Lines, sNomeFileMsg);
-                    DataManager.SalvaDati(SF_Data);
+                    DataManager.SalvaDatiForm(SF_Data);
 
                     LogToFile("VisMessaggiDlg : nuovo Messaggio da MainForm");
                 }

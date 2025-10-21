@@ -38,6 +38,7 @@
             this.MnuStampaDiProva = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuStampaFile = new System.Windows.Forms.ToolStripMenuItem();
             this.F1 = new System.Windows.Forms.ToolStripSeparator();
+            this.MnuScaricaListino = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuEsportaListino = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImportaListino = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuChiudiIncasso = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +70,7 @@
             this.MnuImpostaRete = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostaCopieLocali = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostaCopieInRete = new System.Windows.Forms.ToolStripMenuItem();
+            this.MnuImpostaStampanteGenerica = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostaStampanteWin = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostaStampanteLegacy = new System.Windows.Forms.ToolStripMenuItem();
             this.I2 = new System.Windows.Forms.ToolStripSeparator();
@@ -184,6 +186,7 @@
             this.MnuStampaDiProva,
             this.MnuStampaFile,
             this.F1,
+            this.MnuScaricaListino,
             this.MnuEsportaListino,
             this.MnuImportaListino,
             this.MnuChiudiIncasso,
@@ -211,6 +214,13 @@
             // 
             this.F1.Name = "F1";
             this.F1.Size = new System.Drawing.Size(205, 6);
+            // 
+            // MnuScaricaListino
+            // 
+            this.MnuScaricaListino.Name = "MnuScaricaListino";
+            this.MnuScaricaListino.Size = new System.Drawing.Size(208, 22);
+            this.MnuScaricaListino.Text = "Scarica Listino ...";
+            this.MnuScaricaListino.Click += new System.EventHandler(this.MnuSaricaListino_Click);
             // 
             // MnuEsportaListino
             // 
@@ -402,6 +412,7 @@
             this.MnuImpostaRete,
             this.MnuImpostaCopieLocali,
             this.MnuImpostaCopieInRete,
+            this.MnuImpostaStampanteGenerica,
             this.MnuImpostaStampanteWin,
             this.MnuImpostaStampanteLegacy,
             this.I2,
@@ -449,6 +460,13 @@
             this.MnuImpostaCopieInRete.Size = new System.Drawing.Size(346, 22);
             this.MnuImpostaCopieInRete.Text = "Configurazione Gruppi di Articoli e &Copie in rete ...";
             this.MnuImpostaCopieInRete.Click += new System.EventHandler(this.MnuImpostaCopieInRete_Click);
+            // 
+            // MnuImpostaStampanteGenerica
+            // 
+            this.MnuImpostaStampanteGenerica.Name = "MnuImpostaStampanteGenerica";
+            this.MnuImpostaStampanteGenerica.Size = new System.Drawing.Size(346, 22);
+            this.MnuImpostaStampanteGenerica.Text = "Configurazione Generica Stampante ...";
+            this.MnuImpostaStampanteGenerica.Click += new System.EventHandler(this.MnuImpostaStampanteGenerica_Click);
             // 
             // MnuImpostaStampanteWin
             // 
@@ -1489,6 +1507,8 @@
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteLegacy;
         private System.Windows.Forms.ToolStripMenuItem MnuFileDiConfigurazione;
         private System.Windows.Forms.ToolStripLabel toolStripTop_TC_lbl;
+        private System.Windows.Forms.ToolStripMenuItem MnuScaricaListino;
+        private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteGenerica;
     }
 }
 

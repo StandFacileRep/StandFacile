@@ -241,6 +241,15 @@ namespace StandCommonFiles
             return sDateTime;
         }
 
+        /// <summary>Funzione per ottenere una riga di caratteri star</summary>
+        public static String GetStarLine(int length, char star = '#')
+        {
+            String sLine = "";
+            for (int i = 0; i < length; i++)
+                sLine += star;
+            return sLine;
+        }
+
         /// <summary>
         /// Funzione per centrare le stringhe sulla larghezza della carta termica
         /// </summary>
@@ -354,7 +363,7 @@ namespace StandCommonFiles
 #endif
 
 #if !STAND_ORDINI
-            iMaxChars = (sGlbWinPrinterParams.bChars33 ? 33 : 28) - 4;
+            iMaxChars = (IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? 33 : 28) - 4;
 #endif
 
             File.Delete(sDir + NOME_FILE_SAMPLE_TEXT);
@@ -1006,6 +1015,15 @@ namespace StandCommonFiles
             return intParam & ~(1 << bitPosParam);
         }
 
+        /// <summary>ottiene un intero con il bit in posizione bitPosParam aggiornato al valore di valuem</summary>     
+        public static int UpdateBit(int intParam, bool valuem, int bitPosParam)
+        {
+            if(valuem)
+                return SetBit(intParam, bitPosParam);
+            else
+                return ClearBit(intParam, bitPosParam);
+        }
+
         /// <summary>verifica se il bit in posizione bitPosParam vale 1<br/>
         /// bitPosParam is 0 based
         /// </summary>
@@ -1023,6 +1041,28 @@ namespace StandCommonFiles
         // {
         //    return !IsBitSet(intParam, bitPosParam);
         // }
+
+        /// <summary>restituisce il valore intero rappresentato dai bit in posizione intParamStart per intParamLength</summary>
+        public static int GetNumberOfSetBits(int intParam, int intParamStart, int intParamLength)
+        {
+            int value = 0;
+            for (int i = 0; i < intParamLength; i++)
+                if (IsBitSet(intParam, intParamStart + i))
+                    value += (int)Math.Pow(2, i);
+            return value;
+        }
+
+        /// <summary>imposta il valore intero rappresentato dai bit in posizione intParamStart per intParamLength</summary>
+        public static int SetNumberOfSetBits(int intParam, int value, int intParamStart, int intParamLength)
+        {
+            for (int i = 0; i < intParamLength; i++)
+                if (IsBitSet(value, i))
+                    intParam = SetBit(intParam, intParamStart + i);
+                else
+                    intParam = ClearBit(intParam, intParamStart + i);
+
+            return intParam;
+        }
 
     } // end class
 } // end namespace

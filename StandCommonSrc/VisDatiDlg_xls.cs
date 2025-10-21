@@ -199,7 +199,7 @@ namespace StandFacile
                             xlsWorkSheet.Cells[iRow - 2, iColumn + 4] = DB_Data.iNumAnnullati;
                             xlsWorkSheet.Cells[iRow - 2, iColumn + 5] = (DB_Data.iTotaleAnnullato) / 100.0f;
 
-                            xlsRangeCell = xlsWorkSheet.Cells[iRow - 2, iColumn + 5];
+                            xlsRangeCell = (Excel.Range)xlsWorkSheet.Cells[iRow - 2, iColumn + 5];
                             xlsRangeCell.NumberFormat = NUMERIC_CELL_FORMAT;
                         }
                         else

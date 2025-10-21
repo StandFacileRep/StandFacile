@@ -270,10 +270,16 @@ namespace StandCommonFiles
                     sFmt_QM = "{0} {1}";
             }
 
-            if ((pgParam != null) && dBaseIntf.bUSA_NDB())
-                sOrdineStringsTmp.sOrdineNum = String.Format("{0} ?{1}", _TICK_NUM, i); // Anteprima con ndb
+
+            if (IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE))
+                sOrdineStringsTmp.sOrdineNum = _TICK_CASSA + " " + dataIdParam.iNumCassa + " | ";
             else
-                sOrdineStringsTmp.sOrdineNum = String.Format(sFmt_QM, _TICK_NUM, i);
+                sOrdineStringsTmp.sOrdineNum = "";
+
+            if ((pgParam != null) && dBaseIntf.bUSA_NDB())
+                sOrdineStringsTmp.sOrdineNum += String.Format("{0} ?{1}", _TICK_NUM, i); // Anteprima con ndb
+            else
+                sOrdineStringsTmp.sOrdineNum += String.Format(sFmt_QM, _TICK_NUM, i);
 
             if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                 sOrdineStringsTmp.sOrdNumWeb = String.Format("* {0} {1}, {2} *", _WEB_NUM, dataIdParam.iNumOrdineWeb, dataIdParam.sWebDateTime.Substring(4, 8));
@@ -295,11 +301,14 @@ namespace StandCommonFiles
             else
                 sOrdineStringsTmp.sNome = String.Format("Nome = {0}", dataIdParam.sNome);
 
-            //sNome = CenterJustify(sNome, iMAX_RECEIPT_CHARS);
-            //sTavolo = CenterJustify(sTavolo, iMAX_RECEIPT_CHARS);
             sOrdineStringsTmp.sOrdineNum = CenterJustify(sOrdineStringsTmp.sOrdineNum, iCenterOrderNum);
             sOrdineStringsTmp.sOrdNumWeb = CenterJustify(sOrdineStringsTmp.sOrdNumWeb, iMAX_RECEIPT_CHARS);
             sOrdineStringsTmp.sOrdNumPrev = CenterJustify(sOrdineStringsTmp.sOrdNumPrev, iMAX_RECEIPT_CHARS);
+            if (IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CENTER_TABLE_AND_NAME))
+            {
+                sOrdineStringsTmp.sNome = CenterJustify(sOrdineStringsTmp.sNome, iMAX_RECEIPT_CHARS);
+                sOrdineStringsTmp.sTavolo = CenterJustify(sOrdineStringsTmp.sTavolo, iMAX_RECEIPT_CHARS);
+            }
 
             return sOrdineStringsTmp;
         }
@@ -356,7 +365,7 @@ namespace StandCommonFiles
                     // se non c'è il logo stampa sHeaders[0]
                     if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
                         ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) &&
-                        (WinPrinterDlg.GetCopies_LogoToBePrinted() || (k == 0)))
+                        (IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED) || (k == 0)))
                     {
                         sTmp = CenterJustify(_LOGO_T, iMAX_RECEIPT_CHARS);
                         _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
@@ -412,29 +421,19 @@ namespace StandCommonFiles
                         _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
                     }
 
-                    if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) && !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
-                    {
-                        _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                        _fPrint.WriteLine(" {0}", sOrdineStringsParam.sTavolo);
-                        _fPrint.WriteLine(" {0}", sOrdineStringsParam.sNome);
-                    }
-                    else if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
-                    {
-                        _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                        _fPrint.WriteLine(" {0}", sOrdineStringsParam.sTavolo);
-                    }
-                    else if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
-                    {
-                        _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                        _fPrint.WriteLine(" {0}", sOrdineStringsParam.sNome);
-                    }
-                    else
-                    {
-                        _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum);
-                    }
-
+                    // Stampa sempre il numero dell'ordine
+                    _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum);
                     _fPrint.WriteLine();
 
+                    // Stampa il tavolo e il nome se presenti
+                    if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
+                        _fPrint.WriteLine(" {0}", sOrdineStringsParam.sTavolo);
+                    if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
+                        _fPrint.WriteLine(" {0}", sOrdineStringsParam.sNome);
+                    if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) || !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
+                        _fPrint.WriteLine();
+
+                    // Stampa il numero web e prevendita se presenti
                     if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                     {
                         _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdNumWeb); _fPrint.WriteLine();
@@ -748,7 +747,7 @@ namespace StandCommonFiles
                         _fPrint.WriteLine(_CUT_FMT, CenterJustify(_CUT, MAX_RECEIPT_CHARS_CPY));
 
                     if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) &&
-                        (WinPrinterDlg.GetCopies_LogoToBePrinted() || (k == 0)))
+                        (IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED) || (k == 0)))
                     {
                         sTmp = CenterJustify(_LOGO_B, iMAX_RECEIPT_CHARS);
                         _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
@@ -821,11 +820,13 @@ namespace StandCommonFiles
             int iNumCoperti = 0;
             int iDebug = 0;
 
-            String sTmp, sDebug, sNomeFileTicketNpPrt;
+            String sTmp, sNomeFileTicketNpPrt;
             String sHeader1_ToPrintBeforeCut, sHeader2_ToPrintBeforeCut;
 
             bool[] bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS];
             bool[] bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
+
+            bool starOnUnderGroup = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_STAR_ON_UNDER_GROUP);
 
             int[] iGrpReorderPtr = new int[NUM_COPIES_GRPS];
 
@@ -866,7 +867,7 @@ namespace StandCommonFiles
 
             bTicketCopies_CutRequired = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
 
-            _bPlaceSettingsOnCopies = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
+            _bPlaceSettingsOnCopies = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
 
             // conferma dalle altre dipendenze
             _bAvoidPrintOtherGroups |= !(_bPrintSelectedOnly && (bSingleRowItems || bUnitQtyItems));
@@ -907,7 +908,7 @@ namespace StandCommonFiles
                     // se non c'è il logo stampa sHeaders[0]
                     if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
                         ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) &&
-                        WinPrinterDlg.GetCopies_LogoToBePrinted())
+                        IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED))
                     {
                         sTmp = CenterJustify(_LOGO_T, MAX_RECEIPT_CHARS_CPY);
                         sHeader1_ToPrintBeforeCut += String.Format("{0}\r\n\r\n", sTmp);
@@ -1103,7 +1104,12 @@ namespace StandCommonFiles
                                 if (!String.IsNullOrEmpty(sHeader2_ToPrintBeforeCut))
                                     _fPrint.WriteLine("{0}", sHeader2_ToPrintBeforeCut);
 
-                                _fPrint.WriteLine("    {0}\r\n", dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]]);
+                                string group = dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]];
+                                string starLine = GetStarLine(group.Length);
+                                if (starOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
+                                _fPrint.WriteLine("{0}", group);
+                                if (starOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
+                                _fPrint.WriteLine("");
 
                                 // larghezza 28 "{0,2} {1,-18}{2,7}" :89 123456789012345678 9876.00
                                 if (bLocalPricesRequested)
@@ -1164,7 +1170,7 @@ namespace StandCommonFiles
                                         _fPrint.WriteLine("{0}", sHeader1_ToPrintBeforeCut);
 
                                     sTmp = String.Format("{0}", sOrdineStringsParam.sOrdineNum); // consente Zoom numero scontrino
-                                    _fPrint.WriteLine("{0}\r\n", sTmp);
+                                    _fPrint.WriteLine(CenterJustify(sOrdineStringsParam.sOrdineNum, MAX_RECEIPT_CHARS_CPY));
 
                                     if (!String.IsNullOrEmpty(sHeader2_ToPrintBeforeCut))
                                         _fPrint.WriteLine("{0}", sHeader2_ToPrintBeforeCut);
@@ -1175,9 +1181,12 @@ namespace StandCommonFiles
                                 {
                                     bGroupsTextToPrint = false;
 
-#pragma warning disable IDE0059
-                                    sDebug = dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]];
-                                    _fPrint.WriteLine("    {0}\r\n", dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]]);
+                                    string group = dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]];
+                                    string starLine = GetStarLine(group.Length);
+                                    if (starOnUnderGroup) _fPrint.WriteLine(CenterJustify(starLine, MAX_RECEIPT_CHARS_CPY));
+                                    _fPrint.WriteLine(CenterJustify(group, MAX_RECEIPT_CHARS_CPY));
+                                    if (starOnUnderGroup) _fPrint.WriteLine(CenterJustify(starLine, MAX_RECEIPT_CHARS_CPY));
+                                    _fPrint.WriteLine("");
                                 }
 
                                 if (bHeaderToBePrinted)
@@ -1287,6 +1296,8 @@ namespace StandCommonFiles
             bool[] bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
             bool[] bGroupsColorPrinted = new bool[NUM_EDIT_GROUPS];
 
+            bool starOnUnderGroup = IsBitSet(SF_Data.iReceiptCopyOptions, (int)GEN_PRINTER_OPTS.BIT_STAR_ON_UNDER_GROUP);
+
             if (iNumOfReceiptsParam == 0)
                 iNumOfReceiptsParam = dataIdParam.iNumOfLastReceipt;
 
@@ -1370,7 +1381,7 @@ namespace StandCommonFiles
                     {
                         // se non c'è il logo stampa sHeaders[0]
                         if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
-                            ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) && WinPrinterDlg.GetCopies_LogoToBePrinted())
+                            ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) && IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED))
                         {
                             sTmp = CenterJustify(_LOGO_T, MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
@@ -1431,42 +1442,42 @@ namespace StandCommonFiles
                         if (bColorLoop)
                             sTmp = CenterJustify(dataIdParam.sColorGroupsText[iColorLoop - 1], MAX_RECEIPT_CHARS_CPY);
                         else
-                            sTmp = CenterJustifyStars(dataIdParam.sCopiesGroupsText[i], MAX_RECEIPT_CHARS_CPY, '#');
+                            sTmp = CenterJustify(dataIdParam.sCopiesGroupsText[i], MAX_RECEIPT_CHARS_CPY);
 
                         if (!String.IsNullOrEmpty(sTmp))
                         {
-                            _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
+                            string starLine = CenterJustify(GetStarLine(sTmp.Trim().Length), MAX_RECEIPT_CHARS_CPY);
+                            if (starOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
+                            _fPrint.WriteLine("{0}", sTmp);
+                            if (starOnUnderGroup) _fPrint.WriteLine("{0}", starLine);
+                            _fPrint.WriteLine("");
                             iEqRowsNumber += 2;
                         }
 
-                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) && !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sNome);
-                            iEqRowsNumber += 4;
-                        }
-                        else if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
-                            iEqRowsNumber += 3;
-                        }
-                        else if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sNome);
-                            iEqRowsNumber += 3;
-                        }
-                        else
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum);
-                            iEqRowsNumber += 1;
-                        }
-
+                        // Stampa sempre il numero dell'ordine
+                        _fPrint.WriteLine("{0}", CenterJustify(sOrdineStringsParam.sOrdineNum, MAX_RECEIPT_CHARS_CPY)); 
                         _fPrint.WriteLine();
-                        iEqRowsNumber += 1;
+                        iEqRowsNumber += 2;
 
+                        // Stampa il tavolo e il nome se presenti
+                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
+                        {
+                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
+                            iEqRowsNumber++;
+                        }
+                            
+                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
+                        {
+                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sNome);
+                            iEqRowsNumber++;
+                        }
+                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) || !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
+                        {
+                            _fPrint.WriteLine();
+                            iEqRowsNumber++;
+                        }
+
+                        // Stampa i numeri di ordine WEB e PREVENDITA se presenti
                         if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                         {
                             _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdNumWeb); _fPrint.WriteLine();
@@ -1588,7 +1599,7 @@ namespace StandCommonFiles
                         }
 
                         if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B))
-                            && WinPrinterDlg.GetCopies_LogoToBePrinted()
+                            && IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED)
                             )
                         {
                             sTmp = CenterJustify(_LOGO_B, MAX_RECEIPT_CHARS_CPY);
@@ -1693,7 +1704,7 @@ namespace StandCommonFiles
                     {
                         // se non c'è il logo stampa sHeaders[0]
                         if ((((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_T)) ||
-                            ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) && WinPrinterDlg.GetCopies_LogoToBePrinted())
+                            ((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_LEGACY) && (sGlbLegacyPrinterParams.iLogoBmp != 0))) && IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED))
                         {
                             sTmp = CenterJustify(_LOGO_T, MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
@@ -1750,38 +1761,45 @@ namespace StandCommonFiles
 
                         if (!String.IsNullOrEmpty(sTmp))
                         {
-                            _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
+                            string starLine = CenterJustify(GetStarLine(dataIdParam.sCopiesGroupsText[NUM_EDIT_GROUPS].Length), MAX_RECEIPT_CHARS_CPY);
+                            if (starOnUnderGroup)
+                            {
+                                _fPrint.WriteLine("{0}", starLine);
+                                iEqRowsNumber++;
+                            }
+                            _fPrint.WriteLine("{0}", sTmp);
+                            if (starOnUnderGroup)
+                            {
+                                _fPrint.WriteLine("{0}", starLine);
+                                iEqRowsNumber++;
+                            }
+                            _fPrint.WriteLine("");
                             iEqRowsNumber += 2;
                         }
 
-                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) && !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sNome);
-                            iEqRowsNumber += 4;
-                        }
-                        else if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
-                            iEqRowsNumber += 3;
-                        }
-                        else if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum); _fPrint.WriteLine();
-                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sNome);
-                            iEqRowsNumber += 3;
-                        }
-                        else
-                        {
-                            _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum);
-                            iEqRowsNumber += 1;
-                        }
-
+                        // Stampa sempre il numero dell'ordine
+                        _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdineNum);
                         _fPrint.WriteLine();
-                        iEqRowsNumber += 1;
+                        iEqRowsNumber += 2;
 
+                        // Stampa il tavolo e il nome se presenti
+                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo))
+                        {
+                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sTavolo);
+                            iEqRowsNumber++;
+                        }
+                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sNome))
+                        {
+                            _fPrint.WriteLine("  {0}", sOrdineStringsParam.sNome);
+                            iEqRowsNumber++;
+                        }                            
+                        if (!String.IsNullOrEmpty(sOrdineStringsParam.sTavolo) || !String.IsNullOrEmpty(sOrdineStringsParam.sNome))
+                        {
+                            _fPrint.WriteLine();
+                            iEqRowsNumber++;
+                        }
+
+                        // Stampa i numeri di ordine WEB e PREVENDITA se presenti
                         if (IsBitSet(dataIdParam.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                         {
                             _fPrint.WriteLine("{0}", sOrdineStringsParam.sOrdNumWeb); _fPrint.WriteLine();
@@ -1851,7 +1869,7 @@ namespace StandCommonFiles
                         }
 
                         if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) &&
-                            WinPrinterDlg.GetCopies_LogoToBePrinted())
+                            IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED))
                         {
                             sTmp = CenterJustify(_LOGO_B, MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
@@ -1977,7 +1995,7 @@ namespace StandCommonFiles
             }
 
             if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) &&
-              WinPrinterDlg.GetCopies_LogoToBePrinted())
+              IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_REQUIRED))
             {
                 sTmp = CenterJustify(_LOGO_B, MAX_RECEIPT_CHARS_CPY);
                 fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();

@@ -405,7 +405,7 @@ namespace StandFacile
             sTmp = String.Format("Datamanager Init: iMAX_RECEIPT_CHARS = {0}", iMAX_RECEIPT_CHARS);
             LogToFile(sTmp, true);
 
-            InitFormatStrings(sGlbWinPrinterParams.bChars33);
+            InitFormatStrings(IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED));
         }
 
         /// <summary>
@@ -562,7 +562,7 @@ namespace StandFacile
             TOrdineStrings sOrdineStrings = new TOrdineStrings();
 
             sOrdineStrings = SetupHeaderStrings(SF_Data, 0);
-            InitFormatStrings(sGlbWinPrinterParams.bChars33);
+            InitFormatStrings(IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED));
 
             /*******************************
              ***     STAMPA SCONTRINO    ***
@@ -658,7 +658,7 @@ namespace StandFacile
             }
 
             // aggiornamento dati
-            SalvaDati(SF_Data);
+            SalvaDatiForm(SF_Data);
         }
 
         /// <summary>
@@ -766,7 +766,7 @@ namespace StandFacile
                 while (iNumScontrinoSec > 0);
 
                 if (bServeSalvare)
-                    SalvaDati(SF_Data);
+                    SalvaDatiForm(SF_Data);
             }
             else
             {
@@ -868,7 +868,7 @@ namespace StandFacile
                 }
             } // end for
 
-            SalvaDati(SF_Data);
+            SalvaDatiForm(SF_Data);
         }
 
         /// <summary>
@@ -982,13 +982,13 @@ namespace StandFacile
                 }
             }
 
-            SalvaDati(SF_Data);    // salva disponibilità
+            SalvaDatiForm(SF_Data);    // salva disponibilità
 
             if (CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {
                 CaricaDatidaOrdini(true, true); // attenzione che sovrascrive SF_Data.Articolo[i].iDisponibilita !
 
-                SalvaDati(SF_Data);    // salva aggiornamenti annullati
+                SalvaDatiForm(SF_Data);    // salva aggiornamenti annullati
             }
 
             return bResult;
@@ -1239,6 +1239,7 @@ namespace StandFacile
             String sDebug;
             String[] sQueue_Object = new String[2];
 
+            rFrmMain.EnableButtons(false);
             rFrmMain.EnableTextBox(false);
 
             DataManager.ClearGrid();
@@ -1360,6 +1361,7 @@ namespace StandFacile
                 if (!(IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB) && bEsploraAuto))
                     AnteprimaDlg.rAnteprimaDlg.Show();
 
+                rFrmMain.EnableButtons(true);
                 rFrmMain.EnableTextBox(true);
 
                 AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
@@ -1383,6 +1385,7 @@ namespace StandFacile
                     WarningManager(_WrnMsg);
                 }
 
+                rFrmMain.EnableButtons(true);
                 rFrmMain.EnableTextBox(true);
                 return false;
             }
@@ -1458,6 +1461,7 @@ namespace StandFacile
                 SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
             }
 
+            rFrmMain.EnableButtons(false);
             rFrmMain.EnableTextBox(false);
 
             if (IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO))
@@ -1469,6 +1473,7 @@ namespace StandFacile
             rFrmMain.SetEditTavolo(DB_Data.sTavolo);
             rFrmMain.SetEditNota(DB_Data.sNota);
 
+            rFrmMain.EnableButtons(true);
             rFrmMain.EnableTextBox(true);
 
             AnteprimaDlg.rAnteprimaDlg.Show();

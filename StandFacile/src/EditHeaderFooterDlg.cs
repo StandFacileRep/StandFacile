@@ -42,7 +42,7 @@ namespace StandFacile
             PiePaginaEdit1.MaxLength = iMAX_RECEIPT_CHARS;
             PiePaginaEdit2.MaxLength = iMAX_RECEIPT_CHARS;
 
-            fFontSize = sGlbWinPrinterParams.bChars33 ? 11.0f : 12.0f;
+            fFontSize = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? 11.0f : 12.0f;
 
             IntestazioneEdit1.Font = new Font("Tahoma", fFontSize);
             IntestazioneEdit2.Font = new Font("Tahoma", fFontSize);

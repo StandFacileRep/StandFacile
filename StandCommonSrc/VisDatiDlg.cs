@@ -373,9 +373,9 @@ namespace StandFacile
                     textEditDati.AppendText("\r\n");
 
                     if (CheckBoxRidColonne.Checked)
-                        sFormat = sGlbWinPrinterParams.bChars33 ? "{0,31}" : "{0,26}";
+                        sFormat = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? "{0,31}" : "{0,26}";
                     else
-                        sFormat = sGlbWinPrinterParams.bChars33 ? "{0,33}" : "{0,28}";
+                        sFormat = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? "{0,33}" : "{0,28}";
 
                     sTmp = String.Format(sFormat + "{1,4}\r\n", "Numero Scontrini emessi = ", DB_Data.iActualNumOfReceipts);
                     textEditDati.AppendText(sTmp);
@@ -630,9 +630,9 @@ namespace StandFacile
                     }
 
                     if (CheckBoxRidColonne.Checked)
-                        sFormat = sGlbWinPrinterParams.bChars33 ? "{0,28}" : "{0,23}";
+                        sFormat = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? "{0,28}" : "{0,23}";
                     else
-                        sFormat = sGlbWinPrinterParams.bChars33 ? "{0,36}" : "{0,31}";
+                        sFormat = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED) ? "{0,36}" : "{0,31}";
 
                     textEditDati.AppendText("\r\n");
 
