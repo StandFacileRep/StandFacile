@@ -601,13 +601,27 @@ namespace StandCommonFiles
                     _sOrdineNum = String.Format("{0:d4}", Convert.ToInt32(sTmp));
                     _bTicketNumFound = true;
 
-                    int toRemove = 3;
-                    if (!sInStr.StartsWith("     ")) toRemove--;
-                    for (i = 0; i < 3 - sTmp.Length && sInStr[0] == ' '; i++)
-                    {
-                        sInStr = sInStr.Substring(1);
+                    if (IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE)) 
+                    { 
+                        while (sInStr.StartsWith(" "))
+                        {
+                            sInStr = sInStr.Substring(1);
+                        }
+                        bool is33Chars = IsBitSet(SF_Data.iGenericPrinterOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
+                        if (!is33Chars && sTmp.Length <= 2)
+                            sInStr = " " + sInStr;
+                        if (is33Chars && sTmp.Length <= 1)
+                            sInStr = " " + sInStr;
                     }
-                        
+                    else
+                    {
+                        int toRemove = 3;
+                        if (!sInStr.StartsWith("     ")) toRemove--;
+                        for (i = 0; i < 3 - sTmp.Length && sInStr[0] == ' '; i++)
+                        {
+                            sInStr = sInStr.Substring(1);
+                        }
+                    }                        
 
                     if (!_bSkipNumeroScontrino)
                         PrintCanvas(pg, 1.32f, 1.32f, sInStr); // era 1.24f
