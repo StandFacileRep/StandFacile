@@ -195,7 +195,7 @@ namespace StandFacile
         /// <summary>QRCode di prova, solo ckecksum</summary>
         public const string QRC_TEST_CKS = "2C_#@$_EF2E";
 
-        /// <summary>QRCode di prova, solo ckecksum</summary>
+        /// <summary>QRCode di prova presente nel manuale, solo ckecksum</summary>
         public const string QRC_TEST = "{\"-10\":\"js_order_v5c\",\"-9\":\"1042\",\"-6\":\"11\",\"-5\":0,\"-4\":\"mauro\",\"-3\":\"123\",\"-2\":\"prova\",\"-1\":\"2C_#@$_EF2E\",\"400\":4,\"0\":1,\"1\":2,\"2\":3}";
 
         /// <summary>valori massimi numero di messaggi</summary>

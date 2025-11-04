@@ -341,10 +341,10 @@ namespace StandFacile_DB
                 } // if (bDBConnection_Ok)
             }
 
-            catch (Exception)
+            catch (Exception e)
             {
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbSalvaDati : {0}", bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("dbSalvaDati : {0}", e.Message);
                 WarningManager(_WrnMsg);
 
                 LogToFile("dbSalvaDati : dbException");

@@ -1,6 +1,6 @@
 ﻿/*************************************************************************************************
 	 NomeFile : StandCommonSrc/dBaseIntf_ql.cs
-	 Data	  : 26.07.2025
+	 Data	  : 02.11.2025
 	 Autore   : Mauro Artuso
 
     nelle assegnazioni :
@@ -408,7 +408,10 @@ namespace StandFacile_DB
                                     break;
                                 }
 #endif
-                                if (!bRigaAnnullata)
+                                if (bRigaAnnullata)
+                                    // come per gli sconti i Buoni Applicati potrebbero essere parziali
+                                    DB_Data.iTotaleAnnullato -= iBuoniApplicatiReceipt;
+                                else
                                     DB_Data.iTotaleBuoniApplicati += iBuoniApplicatiReceipt;
 
                                 if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
@@ -453,9 +456,7 @@ namespace StandFacile_DB
                                     {
                                         if (bRigaAnnullata)
                                         {
-                                            if (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI)
-                                                DB_Data.iTotaleAnnullato -= iPrezzoUnitario * iQuantitaOrdine;
-                                            else
+                                            if (DB_Data.Articolo[i].iGruppoStampa != (int)DEST_TYPE.DEST_BUONI)
                                                 DB_Data.iTotaleAnnullato += iPrezzoUnitario * iQuantitaOrdine;
                                         }
                                         else
@@ -522,9 +523,7 @@ namespace StandFacile_DB
 
                                 if (DB_Data.bAnnullato)
                                 {
-                                    if (DB_Data.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI)
-                                        DB_Data.iTotaleAnnullato -= iPrezzoUnitario * iQuantitaOrdine;
-                                    else
+                                    if (DB_Data.Articolo[i].iGruppoStampa != (int)DEST_TYPE.DEST_BUONI)
                                         DB_Data.iTotaleAnnullato += iPrezzoUnitario * iQuantitaOrdine;
                                 }
                                 else if (VisDatiDlg.DiscountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.GetDiscountReportBit()))

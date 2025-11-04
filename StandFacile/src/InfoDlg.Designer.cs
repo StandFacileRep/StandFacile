@@ -82,7 +82,7 @@
             // 
             this.lblSW_Rel.AutoSize = true;
             this.lblSW_Rel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSW_Rel.Location = new System.Drawing.Point(226, 12);
+            this.lblSW_Rel.Location = new System.Drawing.Point(216, 12);
             this.lblSW_Rel.Name = "lblSW_Rel";
             this.lblSW_Rel.Size = new System.Drawing.Size(68, 16);
             this.lblSW_Rel.TabIndex = 3;
@@ -189,7 +189,7 @@
             // 
             this.lblDB_Rel.AutoSize = true;
             this.lblDB_Rel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDB_Rel.Location = new System.Drawing.Point(343, 12);
+            this.lblDB_Rel.Location = new System.Drawing.Point(333, 12);
             this.lblDB_Rel.Name = "lblDB_Rel";
             this.lblDB_Rel.Size = new System.Drawing.Size(72, 16);
             this.lblDB_Rel.TabIndex = 12;

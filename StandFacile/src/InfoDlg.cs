@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Windows.Forms;
 
 using static StandCommonFiles.ComDef;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.Printer_Legacy;
 
 using static StandFacile.glb;
@@ -33,7 +34,7 @@ namespace StandFacile
 
             lblTitolo.Text = Define.TITLE;
             lblSW_Rel.Text = String.Format("versione = {0}", RELEASE_SW);
-            lblDB_Rel.Text = String.Format("db tables = {0}", RELEASE_TBL);
+            lblDB_Rel.Text = String.Format("tables db = {0}, web = {1}", RELEASE_DB_TBLS, sConfig.sWebUrlVersion);
             LinkLbl_Web.Text = URL_SITO;
             LinkLbl_mail.Text = MAIL;
 

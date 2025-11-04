@@ -38,19 +38,19 @@ namespace StandFacile
         // *** evitare maiuscole ***
 
         /// <summary>nome della tabella del Listino</summary>
-        public const String NOME_LISTINO_DBTBL = RELEASE_TBL + "_listino";
+        public const String NOME_LISTINO_DBTBL = RELEASE_DB_TBLS + "_listino";
         /// <summary>nome della tabella del test</summary>
-        public const String NOME_TEST_DBTBL = RELEASE_TBL + "_test_sequence";
+        public const String NOME_TEST_DBTBL = RELEASE_DB_TBLS + "_test_sequence";
 
         /// <summary>nome tabella per la gestione del numero progressivo degli ordini</summary>
-        public const string NOME_NSC_DBTBL = RELEASE_TBL + "_num_ordini";
+        public const string NOME_NSC_DBTBL = RELEASE_DB_TBLS + "_num_ordini";
         /// <summary>nome tabella per la gestione del numero progressivo dei messaggi</summary>
-        public const string NOME_NMSG_DBTBL = RELEASE_TBL + "_num_messaggi";
+        public const string NOME_NMSG_DBTBL = RELEASE_DB_TBLS + "_num_messaggi";
         /// <summary>nome tabella per la gestione disponibilità degli ordini emessi <br/>
         /// dalle casse secondarie</summary>
-        public const string NOME_DISP_DBTBL = RELEASE_TBL + "_ordini_csec";
+        public const string NOME_DISP_DBTBL = RELEASE_DB_TBLS + "_ordini_csec";
         /// <summary>nome tabella per lo scarico degli ordini web emessi </summary>
-        public const string NOME_WEBORD_DBTBL = RELEASE_TBL + "_ordini_web";
+        public const string NOME_WEBORD_DBTBL = RELEASE_DB_TBLS + "_ordini_web";
 
         // variabili membro DB
 

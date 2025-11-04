@@ -10,26 +10,25 @@
 // se è commentato accede al database remoto
 // se non è commentato accede a localhost
 
+using Newtonsoft.Json;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.NetworkInformation;
+using System.Security.Cryptography;
 using System.Text;
 using System.Timers;
-using System.Collections;
-using System.Windows.Forms;
 using System.Web.Script.Serialization;
-using System.Security.Cryptography;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-
+using System.Windows.Forms;
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.ComSafe;
 using static StandCommonFiles.CommonCl;
+using static StandCommonFiles.ComSafe;
 using static StandCommonFiles.LogServer;
-
+using static StandFacile.dBaseIntf;
 using static StandFacile.Define;
 using static StandFacile.glb;
-using static StandFacile.dBaseIntf;
 
 namespace StandFacile
 {
@@ -44,11 +43,9 @@ namespace StandFacile
 
         private const string _NO_DB_ERRORS = "\"errornumber\":\"0\",\"errordescr\":\"";
 
-        private const string _MYSQL_TUNNEL = "mysqlTunnel_v5c.php";
+        private const string _MYSQL_TUNNEL = "mysqlTunnel.php";
 
         static bool _bStartReadRemTable, _bWebServiceRequested, _bPrimaVolta_o_ForzaCaricamentoListino, _bPrimaVoltaLog;
-
-        static String _sTunnelVerTablePrefix;
 
         /// <summary>prefisso per la gestione delle tabelle remote</summary>
         static String _sRemoteTablePrefix;
@@ -131,25 +128,20 @@ namespace StandFacile
             else
                 _sRemoteTablePrefix = Path.GetFileName(_sWebServerParams.sWebTablePrefix).ToLower();
 
-            if (String.IsNullOrEmpty(sConfig.sWebUrlVersion))
-                _sTunnelVerTablePrefix = RELEASE_TBL;
-            else
-                _sTunnelVerTablePrefix = sConfig.sWebUrlVersion;
-
-            NOME_NSC_RDBTBL = _sTunnelVerTablePrefix + "_" + _sRemoteTablePrefix + "_num_of_orders";
-            NOME_PREZZI_RDBTBL = _sTunnelVerTablePrefix + "_" + _sRemoteTablePrefix + "_price_list";
-            NOME_STATUS_RDBTBL = _sTunnelVerTablePrefix + "_" + _sRemoteTablePrefix + "_status";
-            NOME_ORDERS_RDBTBL = _sTunnelVerTablePrefix + "_" + _sRemoteTablePrefix + "_orders";
-            NOME_LOG_RDBTBL = _sTunnelVerTablePrefix + "_" + _sRemoteTablePrefix + "_log";
+            NOME_NSC_RDBTBL = sConfig.sWebUrlVersion + "_" + _sRemoteTablePrefix + "_num_of_orders";
+            NOME_PREZZI_RDBTBL = sConfig.sWebUrlVersion + "_" + _sRemoteTablePrefix + "_price_list";
+            NOME_STATUS_RDBTBL = sConfig.sWebUrlVersion + "_" + _sRemoteTablePrefix + "_status";
+            NOME_ORDERS_RDBTBL = sConfig.sWebUrlVersion + "_" + _sRemoteTablePrefix + "_orders";
+            NOME_LOG_RDBTBL = sConfig.sWebUrlVersion + "_" + _sRemoteTablePrefix + "_log";
 
             if (_sWebServerParams.sWeb_DBase == "standfacile_rdb")
             {
-                _sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", _sTunnelVerTablePrefix, _MYSQL_TUNNEL);
+                _sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
                 _sHost = "localhost";
             }
             else
             {
-                _sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/{1}?", _sTunnelVerTablePrefix, _MYSQL_TUNNEL);
+                _sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/{1}?", sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
                 _sHost = DB_WEB_SERVER;
             }
 
@@ -304,12 +296,12 @@ namespace StandFacile
 
             if (sWeb_DBaseParam == "standfacile_rdb")
             {
-                sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", _sTunnelVerTablePrefix, _MYSQL_TUNNEL);
+                sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
                 sEncryptedHost = Encrypt_WS("localhost");
             }
             else
             {
-                sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/{1}?", _sTunnelVerTablePrefix, _MYSQL_TUNNEL);
+                sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/{1}?", sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
                 sEncryptedHost = Encrypt_WS(DB_WEB_SERVER);
             }
 
@@ -321,7 +313,7 @@ namespace StandFacile
 
             try
             {
-                sSQL_Query = String.Format("SELECT * FROM {0};", _sTunnelVerTablePrefix + "_" + Path.GetFileName(sWebPageParam) + "_status");
+                sSQL_Query = String.Format("SELECT * FROM {0};", sConfig.sWebUrlVersion + "_" + Path.GetFileName(sWebPageParam) + "_status");
                 sSQL_Query = Encrypt_WS(sSQL_Query);
 
                 sGQuery = String.Format(@"{0}host={1}&dbname={2}&password={3}&query={4}&encrypted=1",
@@ -620,7 +612,18 @@ namespace StandFacile
 
                     // Name
                     else if (sTipo == ORDER_CONST._NOME)
-                        RDB_Data.sNome = sTable[iIndex][5]["6"];
+
+                        // RDB_Data.sNome = sTable[iIndex][5]["6"];
+
+                        try
+                        {
+                            var jsonObj = jss.Deserialize<dynamic>(sTable[iIndex][5]["6"]);
+                            RDB_Data.sNome = String.Format("{0} {1}", (string)jsonObj[0], (string)jsonObj[1]);
+                        }
+                        catch (JsonException)
+                        {
+                            RDB_Data.sNome = sTable[iIndex][5]["6"];
+                        }
 
                     // Nota
                     else if (sTipo == ORDER_CONST._NOTA)

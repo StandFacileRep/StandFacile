@@ -89,7 +89,7 @@ namespace StandFacile
                     sCell.Contains("status") || sCell.Contains("num_orders") ||
                     sCell.Contains("orders_csec") || sCell.Contains("num_messages") ||
                     sCell.Contains("price_list") || sCell.Contains("testsequence") ||
-                    !sCell.Contains(RELEASE_TBL) ||
+                    !sCell.Contains(RELEASE_DB_TBLS) ||
                     String.IsNullOrEmpty(sCell))
                     continue;
 

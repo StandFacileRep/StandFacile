@@ -1163,6 +1163,9 @@ namespace StandFacile
 
                     try
                     {
+                        // consente utilizzo altro url da file di configurazione
+                        JSON_CONFIG_TYPE = String.Format("js_order_{0}", sConfig.sWebUrlVersion);
+
                         Dictionary<String, object> dict = null;
 
                         try
@@ -1172,7 +1175,7 @@ namespace StandFacile
                             string sTmpJson = "";
 
                             // correzione tastiera Italiana 142, QRcode non produce le parentesi !
-                            if ((sStrBarcode[0] != '{') && sStrBarcode.Contains(_JS_ORDER_V5))
+                            if ((sStrBarcode[0] != '{') && (sStrBarcode.Contains(_JS_ORDER_V5) || sStrBarcode.Contains(JSON_CONFIG_TYPE)))
                                 sTmpJson = '{' + sStrBarcode + '}';
                             else
                                 sTmpJson = sStrBarcode;
@@ -1185,9 +1188,7 @@ namespace StandFacile
                         {
                         }
 
-                        // consente utilizzo altro url da file di configurazione
-                        JSON_CONFIG_TYPE = String.Format("js_order_{0}", sConfig.sWebUrlVersion);
-
+                        // compatibilità con versioni precedenti
                         if ((JSON_Type == _JS_ORDER_V5) || (JSON_Type == JSON_CONFIG_TYPE))
                         {
                             // ottiene la tabella dell'output JSON
@@ -1220,7 +1221,7 @@ namespace StandFacile
                                 try
                                 {
                                     var jsonObj = jss.Deserialize<dynamic>(dict["-4"].ToString());
-                                    DB_Data.sNome = String.Format("{0} {1}", (string) jsonObj[0], (string) jsonObj[1]);
+                                    DB_Data.sNome = String.Format("{0} {1}", (string)jsonObj[0], (string)jsonObj[1]);
                                 }
                                 catch (JsonException)
                                 {

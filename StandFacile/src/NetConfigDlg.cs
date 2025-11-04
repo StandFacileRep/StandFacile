@@ -131,11 +131,11 @@ namespace StandFacile
             WO_ckBox.Checked = (ReadRegistry(WEB_SERVICE_MODE_KEY, 0) == 1);
 
             if (Edit_WebServiceDBaseName.Text == "standfacile_rdb")
-                link_QRcode.Text = String.Format("https://localhost/standfacile_{0}_php/{1}/index.php", RELEASE_TBL, Edit_WebService_Name.Text);
+                link_QRcode.Text = String.Format("https://localhost/standfacile_{0}_php/{1}/index.php", sConfig.sWebUrlVersion, Edit_WebService_Name.Text);
             else
             {
                 if (!String.IsNullOrEmpty(Edit_WebService_Name.Text))
-                    link_QRcode.Text = String.Format("https://{0}/standfacile_{1}_php/{2}/index.php", URL_SITO, RELEASE_TBL, Edit_WebService_Name.Text);
+                    link_QRcode.Text = String.Format("https://{0}/standfacile_{1}_php/{2}/index.php", URL_SITO, sConfig.sWebUrlVersion, Edit_WebService_Name.Text);
                 else
                     link_QRcode.Text = String.Format("https://{0}/{1}", URL_SITO, "controlla");
             }

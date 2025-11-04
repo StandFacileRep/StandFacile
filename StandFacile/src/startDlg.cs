@@ -42,7 +42,7 @@ namespace StandFacile
             DateLbl.Text = "Data : " + sDataStr;
             OraLbl.Text = "Ora : " + DateTime.Now.ToString("HH.mm.ss");
 
-            LblTitle.Text = String.Format("{0}, {1} {2}", TITLE, RELEASE_SW, RELEASE_TBL);
+            LblTitle.Text = String.Format("{0}, {1} {2}", TITLE, RELEASE_SW, sConfig.sWebUrlVersion);
 
             LinkLbl_Web.Text = URL_SITO;
             sCassa = sConstCassaType[SF_Data.iNumCassa - 1];

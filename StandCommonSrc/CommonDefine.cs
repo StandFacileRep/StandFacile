@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 25.09.2025
+    Data	 : 03.11.2025
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -20,7 +20,7 @@ namespace StandCommonFiles
         public const String RELEASE_SW = "v5.15.1";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
-        public const String RELEASE_TBL = "v5c";
+        public const String RELEASE_DB_TBLS = "v5c";
 
         /// <summary>mail per informazioni</summary>
         public const String MAIL = "info@standfacile.org";
@@ -44,7 +44,7 @@ namespace StandCommonFiles
 
         // *** evitare maiuscole ***
         /// <summary>database: nome tabella di stato</summary>
-        public const string NOME_STATO_DBTBL = RELEASE_TBL + "_stato";
+        public const string NOME_STATO_DBTBL = RELEASE_DB_TBLS + "_stato";
 
         /// <summary>database: nome utente</summary>
         public const String _uid = "standfacile";
@@ -52,16 +52,16 @@ namespace StandCommonFiles
         public const String _database = "standfacile_db";
 
         /// <summary>prefisso tabella degli ordini</summary>
-        public const string _dbOrdersTablePrefix = RELEASE_TBL + "_ordini";
+        public const string _dbOrdersTablePrefix = RELEASE_DB_TBLS + "_ordini";
 
         /// <summary>prefisso tabella degli ordini in prevendita</summary>
-        public const string _dbPreOrdersTablePrefix = RELEASE_TBL + "_ordini_prev";
+        public const string _dbPreOrdersTablePrefix = RELEASE_DB_TBLS + "_ordini_prev";
 
         /// <summary>prefisso tabella dei dati</summary>
-        public const string _dbDataTablePrefix = RELEASE_TBL + "_dati";
+        public const string _dbDataTablePrefix = RELEASE_DB_TBLS + "_dati";
 
         /// <summary>prefisso tabella dei dati di prevendita</summary>
-        public const string _dbPreDataTablePrefix = RELEASE_TBL + "_dati_prev";
+        public const string _dbPreDataTablePrefix = RELEASE_DB_TBLS + "_dati_prev";
 
         /// <summary>
         ///  mnemonici chiavi del file config.ini:<br/>
@@ -1469,7 +1469,11 @@ namespace StandCommonFiles
             /// <summary>stringa per testo descrittivo della copia Receipt</summary>
             public String sRcpCopyHeader;
 
-            /// <summary>stringa per nuova versione StandOrdiniWeb</summary>
+            /// <summary>
+            /// stringa di versione della pagina web per StandOrdiniWeb,
+            /// non è detto che sia la stessa delle RELEASE_DB_TBLS,
+            /// infatti può essere sovrascritta
+            /// </summary>
             public String sWebUrlVersion;
 
             /// <summary>stringa per testo intestazione/piè di pagina alternativo per la CASSA_SECONDARIA</summary>
@@ -1484,7 +1488,7 @@ namespace StandCommonFiles
                 sService = "";
                 bRcpCopyRequired = false;
                 sRcpCopyHeader = "";
-                sWebUrlVersion = "";
+                sWebUrlVersion = "v5c";
                 sRcp_CS_Header = new String[4];
             }
         }

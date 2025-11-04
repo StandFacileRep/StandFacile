@@ -1,6 +1,6 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 06.09.2025
+	Data	 : 02.11.2025
     Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
@@ -395,7 +395,7 @@ namespace StandFacile
 
             if (NetConfigDlg.rNetConfigDlg.GetWebOrderEnabled())
             {
-                sTmp = String.Format("Avvio StandFacile: {0} {1}, C={2}", RELEASE_SW, RELEASE_TBL, SF_Data.iNumCassa);
+                sTmp = String.Format("Avvio StandFacile: {0} {1}, C={2}", RELEASE_SW, sConfig.sWebUrlVersion, SF_Data.iNumCassa);
                 dBaseTunnel_my.rdbLogWriteVersion(sTmp);
                 LogToFile("Datamanager Init WebOrderEnabled");
             }
@@ -416,7 +416,7 @@ namespace StandFacile
         {
             bool bMatch, bSingleWarn, bDbRead_Ok;
             int i, j, iLastArticoloDBIndexP1;
-            String sDebug;
+            String sTmp, sDebug;
 
             try // eventuali errori bloccano l'esecuzione del programma
             {
@@ -526,6 +526,12 @@ namespace StandFacile
                 SF_Data.iNumAnnullati = DB_Data.iNumAnnullati;
 
                 SF_Data.iTotaleAnnullato = DB_Data.iTotaleAnnullato;
+
+                if (DB_Data.iTotaleAnnullato < 0)
+                {
+                    sTmp = String.Format("DataManager : DB_Data.iTotaleAnnullato = {0}, deve essere sempre >= 0 !", DB_Data.iTotaleAnnullato);
+                    LogToFile(sTmp, true);
+                }
 
                 SF_Data.iTotaleScontatoStd = DB_Data.iTotaleScontatoStd;
                 SF_Data.iTotaleScontatoFisso = DB_Data.iTotaleScontatoFisso;
