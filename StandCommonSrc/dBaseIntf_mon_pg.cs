@@ -301,7 +301,7 @@ namespace StandFacile_DB
             {
                 // try recovery
                 if (!NetConfigLightDlg.rNetConfigLightDlg.Visible)
-                    _rdBaseIntf.dbCheck(_sDB_ServerName, _password, _iNDbMode, true);
+                    _rdBaseIntf.dbCheck(_sDB_ServerName, _sDB_Password, _iNDbMode, true);
             }
 
             _Connection?.Close();

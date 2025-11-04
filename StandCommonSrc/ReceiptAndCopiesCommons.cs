@@ -1,10 +1,12 @@
 ﻿/*********************************************************************************
- 	NomeFile : StandCommonSrc/ReceiptAndCopies.cs
-    Data	 : 10.09.2025
+ 	NomeFile : StandCommonSrc/ReceiptAndCopiesCommons.cs
+    Data	 : 01.11.2025
  	Autore	 : Mauro Artuso
 
 	Classi di uso comune a DataManager.Receipt(), VisOrdiniDlg.ReceiptRebuild()<br/>
     consente una più agevole manutenzione evitando duplicazioni
+
+    SF_Data si può utilizzare di sicuro all'interno di WriteLocalCopy
  *********************************************************************************/
 
 using StandFacile;
@@ -1324,8 +1326,8 @@ namespace StandCommonFiles
                 if (!dataIdParam.bCopiesGroupsFlag[i])
                     continue;
 #elif STAND_CUCINA
-                    if (!NetConfigLightDlg.GetCopiaGroup(i))
-                        continue;
+                if (!NetConfigLightDlg.GetCopiaGroup(i))
+                    continue;
 #endif
 
                 iEqRowsNumber = 1; // riga di partenza
@@ -1338,7 +1340,7 @@ namespace StandCommonFiles
                         sNomeFileCopiePrt = _sNomeFileReceiptPrt;
                     else
                     {
-                        sNomeFileCopiePrt = String.Format(NOME_FILE_COPIE, dataIdParam.iNumCassa, iNumOfReceiptsParam, i);
+                        sNomeFileCopiePrt = String.Format(NOME_FILE_COPIE_NET, dataIdParam.iNumCassa, iNumOfReceiptsParam, i);
 
                         // verifica se serve ricostruire, commentare per debug
                         if (!bOrdineAnnullatoParam && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && File.Exists(sDirParam + sNomeFileCopiePrt))

@@ -94,7 +94,7 @@ namespace StandFacile
         public static bool GetListinoModificato() { return _bListinoModificato; }
 
         /// <summary>ottiene l'immagine bitmap del Logo Top o Bottom</summary>
-        public Image GetWinPrinterLogo(bool bTopParam) { return bTopParam ? LogoImage_T : LogoImage_B; }
+        public Image GetWinPrinterLogo(bool bLogoTopParam) { return bLogoTopParam ? LogoImage_T : LogoImage_B; }
 
         /// <summary>ottiene flag di richiesta stampa coperti nelle copie</summary>
         public static bool GetCopies_PlaceSettingsToBePrinted() { return _rWinPrinterDlg.checkBox_CopertiNelleCopie.Checked; }

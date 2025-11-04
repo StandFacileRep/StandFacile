@@ -1469,6 +1469,9 @@ namespace StandCommonFiles
             /// <summary>stringa per testo descrittivo della copia Receipt</summary>
             public String sRcpCopyHeader;
 
+            /// <summary>stringa per nuova versione StandOrdiniWeb</summary>
+            public String sWebUrlVersion;
+
             /// <summary>stringa per testo intestazione/piè di pagina alternativo per la CASSA_SECONDARIA</summary>
             public String[] sRcp_CS_Header;
 
@@ -1481,6 +1484,7 @@ namespace StandCommonFiles
                 sService = "";
                 bRcpCopyRequired = false;
                 sRcpCopyHeader = "";
+                sWebUrlVersion = "";
                 sRcp_CS_Header = new String[4];
             }
         }

@@ -1122,7 +1122,7 @@ namespace StandFacile_DB
                 return 0;
 
             cmd.Connection = _Connection;
-            // cmd.CommandText = "show tables from " + _database; //non è ordinato
+            // cmd.CommandText = "show tables from " + _sDB_DatabaseName; //non è ordinato
             cmd.CommandText = "SELECT name FROM sqlite_master ORDER BY name ASC;";
 
             try

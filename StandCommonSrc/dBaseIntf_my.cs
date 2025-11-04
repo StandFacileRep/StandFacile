@@ -187,7 +187,7 @@ namespace StandFacile_DB
                     _dbCSB.Host = _sDB_ServerName;
                     _dbCSB.Database = _database;
                     _dbCSB.UserId = _uid;
-                    _dbCSB.Password = _password;
+                    _dbCSB.Password = _sDB_Password;
                     _dbCSB.FoundRows = true;
                     _dbCSB.Pooling = false;
                     _dbCSB.Unicode = true;
@@ -239,7 +239,7 @@ namespace StandFacile_DB
                     _dbCSB_Web.Host = _sDB_ServerName;
                     _dbCSB_Web.Database = _database;
                     _dbCSB_Web.UserId = _uid;
-                    _dbCSB_Web.Password = _password;
+                    _dbCSB_Web.Password = _sDB_Password;
                     _dbCSB_Web.Pooling = false;
                     _dbCSB_Web.Unicode = true;
                     _dbCSB_Web.ConnectionTimeout = TIMEOUT_DB_OPEN;

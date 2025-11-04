@@ -47,6 +47,10 @@ namespace StandFacile
                 _tt.SetToolTip(OKBtn, "si abilita se la password corrisponde");
                 textBox_PWD.Text = dBaseTunnel_my.Decrypt_WS(ReadRegistry(SET_ACCESS_KEY, sDEFAULT_PWD));
 
+                // sicurezza: se non c'è una password di default, la imposta
+                if (String.IsNullOrEmpty(textBox_PWD.Text.Trim()))
+                    textBox_PWD.Text = dBaseTunnel_my.Decrypt_WS(sDEFAULT_PWD);
+
                 Text = "Inserimento password";
                 textBox_PWD.Visible = false;
                 labelRIP.Visible = false;
@@ -90,8 +94,11 @@ namespace StandFacile
                 textBox_VER.ForeColor = SystemColors.WindowText;
             }
 
-            if (((textBox_PWD.Text == textBox_VER.Text) || (dBaseTunnel_my.Decrypt_WS(sDEFAULT_PWD) == textBox_VER.Text)) && (textBox_PWD.Text.Length >= 6) && (textBox_VER.Text.Length >= 6))
+            if ((dBaseTunnel_my.Decrypt_WS(sDEFAULT_PWD) == textBox_VER.Text) || (textBox_PWD.Text == textBox_VER.Text) && (textBox_PWD.Text.Length >= 6) && (textBox_VER.Text.Length >= 6))
             {
+                String sDebug = dBaseTunnel_my.Decrypt_WS(sDEFAULT_PWD);
+
+                // consente di proseguire
                 OKBtn.Enabled = true;
                 FrmMain.SetPasswordIsGood(true);
             }

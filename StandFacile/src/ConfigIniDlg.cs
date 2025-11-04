@@ -40,7 +40,7 @@ namespace StandFacile
             _tt.SetToolTip(BtnCancel, "esce senza salvare");
             _tt.SetToolTip(BtnSalva, "salve le modifiche effettuate sul file config.ini");
 
-            BtnEdit.Enabled = CheckService(CFG_COMMON_STRINGS._ESPERTO);
+            BtnEdit.Enabled = FrmMain.rFrmMain.GetEsperto();
             BtnCanc.Enabled = BtnEdit.Enabled;
             
             BtnSalva.Enabled = false;

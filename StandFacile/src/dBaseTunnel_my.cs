@@ -42,11 +42,13 @@ namespace StandFacile
     public class dBaseTunnel_my
     {
 
-        private static readonly string _NO_DB_ERRORS = "\"errornumber\":\"0\",\"errordescr\":\"";
+        private const string _NO_DB_ERRORS = "\"errornumber\":\"0\",\"errordescr\":\"";
 
-        private static readonly string _MYSQL_TUNNEL = "mysqlTunnel_v5c.php";
+        private const string _MYSQL_TUNNEL = "mysqlTunnel_v5c.php";
 
         static bool _bStartReadRemTable, _bWebServiceRequested, _bPrimaVolta_o_ForzaCaricamentoListino, _bPrimaVoltaLog;
+
+        static String _sTunnelVerTablePrefix;
 
         /// <summary>prefisso per la gestione delle tabelle remote</summary>
         static String _sRemoteTablePrefix;
@@ -129,20 +131,25 @@ namespace StandFacile
             else
                 _sRemoteTablePrefix = Path.GetFileName(_sWebServerParams.sWebTablePrefix).ToLower();
 
-            NOME_NSC_RDBTBL = RELEASE_TBL + "_" + _sRemoteTablePrefix + "_num_of_orders";
-            NOME_PREZZI_RDBTBL = RELEASE_TBL + "_" + _sRemoteTablePrefix + "_price_list";
-            NOME_STATUS_RDBTBL = RELEASE_TBL + "_" + _sRemoteTablePrefix + "_status";
-            NOME_ORDERS_RDBTBL = RELEASE_TBL + "_" + _sRemoteTablePrefix + "_orders";
-            NOME_LOG_RDBTBL = RELEASE_TBL + "_" + _sRemoteTablePrefix + "_log";
+            if (String.IsNullOrEmpty(sConfig.sWebUrlVersion))
+                _sTunnelVerTablePrefix = RELEASE_TBL;
+            else
+                _sTunnelVerTablePrefix = sConfig.sWebUrlVersion;
+
+            NOME_NSC_RDBTBL = _sTunnelVerTablePrefix + "_" + _sRemoteTablePrefix + "_num_of_orders";
+            NOME_PREZZI_RDBTBL = _sTunnelVerTablePrefix + "_" + _sRemoteTablePrefix + "_price_list";
+            NOME_STATUS_RDBTBL = _sTunnelVerTablePrefix + "_" + _sRemoteTablePrefix + "_status";
+            NOME_ORDERS_RDBTBL = _sTunnelVerTablePrefix + "_" + _sRemoteTablePrefix + "_orders";
+            NOME_LOG_RDBTBL = _sTunnelVerTablePrefix + "_" + _sRemoteTablePrefix + "_log";
 
             if (_sWebServerParams.sWeb_DBase == "standfacile_rdb")
             {
-                _sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", RELEASE_TBL, _MYSQL_TUNNEL);
+                _sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", _sTunnelVerTablePrefix, _MYSQL_TUNNEL);
                 _sHost = "localhost";
             }
             else
             {
-                _sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/{1}?", RELEASE_TBL, _MYSQL_TUNNEL);
+                _sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/{1}?", _sTunnelVerTablePrefix, _MYSQL_TUNNEL);
                 _sHost = DB_WEB_SERVER;
             }
 
@@ -297,12 +304,12 @@ namespace StandFacile
 
             if (sWeb_DBaseParam == "standfacile_rdb")
             {
-                sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", RELEASE_TBL, _MYSQL_TUNNEL);
+                sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", _sTunnelVerTablePrefix, _MYSQL_TUNNEL);
                 sEncryptedHost = Encrypt_WS("localhost");
             }
             else
             {
-                sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/{1}?", RELEASE_TBL, _MYSQL_TUNNEL);
+                sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/{1}?", _sTunnelVerTablePrefix, _MYSQL_TUNNEL);
                 sEncryptedHost = Encrypt_WS(DB_WEB_SERVER);
             }
 
@@ -314,7 +321,7 @@ namespace StandFacile
 
             try
             {
-                sSQL_Query = String.Format("SELECT * FROM {0};", RELEASE_TBL + "_" + Path.GetFileName(sWebPageParam) + "_status");
+                sSQL_Query = String.Format("SELECT * FROM {0};", _sTunnelVerTablePrefix + "_" + Path.GetFileName(sWebPageParam) + "_status");
                 sSQL_Query = Encrypt_WS(sSQL_Query);
 
                 sGQuery = String.Format(@"{0}host={1}&dbname={2}&password={3}&query={4}&encrypted=1",

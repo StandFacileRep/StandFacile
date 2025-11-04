@@ -16,7 +16,7 @@ può provocare il malfunzionamento (richiesta di licenza) della dll
 
 ---------------------------------------------------------------------------------
 
-Copyright (c) 2024 Mauro Artuso
+Copyright (c) 2024-2025 Mauro Artuso
 
 Questa Licenza è relativa alla Suite di Programmi "StandFacile" che comprende:<br>
 “StandFacile”, “StandCucina”, “StandMonitor”, “StandOrdini”

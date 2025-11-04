@@ -1,6 +1,6 @@
 ﻿/********************************************************************
 	NomeFile : StandFacile/Define.cs
-	Data	 : 10.09.2025
+	Data	 : 01.11.2025
 	Autore	 : Mauro Artuso
 
   Descrizione : definizioni specifiche per StandFacile
@@ -182,7 +182,7 @@ namespace StandFacile
         public const string NOME_FILE_RECEIPT_NP = "C{0}_TN{1:d4}.txt";
 
         /// <summary>formato nome copie</summary>
-        public const string NOME_FILE_COPIE = "C{0}_CT{1:d4}_G{2}.txt";
+        public const string NOME_FILE_COPIE_NET = "C{0}_CT{1:d4}_G{2}.txt";
         /// <summary>formato nome copie singole</summary>
         public const string NOME_FILE_COPIE_SINGOLE = "C{0}_CT{1:d4}_G{2}_S{3}.txt";
 

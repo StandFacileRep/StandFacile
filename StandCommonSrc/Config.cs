@@ -120,9 +120,22 @@ namespace StandFacile
                     {
                         iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
                         sInStr = sInStr.Remove(0, iPos + 1).Trim();
+                        sInStr = sInStr.Replace("\"", "");
 
                         sConfig.bRcpCopyRequired = true;
                         sConfig.sRcpCopyHeader = sInStr;
+
+                        continue;
+                    }
+
+                    // stringhe per cambio versione StandOrdiniWeb
+                    else if (sInStr.Contains("webUrlVersionIs"))
+                    {
+                        iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
+                        sInStr = sInStr.Remove(0, iPos + 1).Trim();
+                        sInStr = sInStr.Replace("\"", "");
+
+                        sConfig.sWebUrlVersion = sInStr;
 
                         continue;
                     }

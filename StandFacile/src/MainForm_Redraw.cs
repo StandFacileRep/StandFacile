@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 12.09.2025
+    Data	 : 28.10.2025
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -17,6 +17,9 @@ using static StandFacile.dBaseIntf;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
+
+using Newtonsoft.Json;
+
 using System.Collections.Generic;
 using System.Web.Script.Serialization;
 
@@ -647,7 +650,7 @@ namespace StandFacile
                         SF_Data.Articolo[_iCellPt].iOptionsFlags = ClearBit(SF_Data.Articolo[_iCellPt].iOptionsFlags, BIT_STAMPA_SINGOLA_NELLA_COPIA_RECEIPT);
                     break;
 
-                    // Elimina tutti dati del giorno
+                // Elimina tutti dati del giorno
                 case 'E':
                     if (MnuEsperto.Checked && (e.Modifiers == (Keys.Alt | Keys.Control)))
                     {
@@ -660,7 +663,7 @@ namespace StandFacile
                     }
                     break;
 
-                    // modifica Listino
+                // modifica Listino
                 case 'L':
                     if (MnuEsperto.Checked && !BtnVisListino.Checked && (e.Modifiers == (Keys.Alt | Keys.Control)))
                     {
@@ -1133,7 +1136,7 @@ namespace StandFacile
             bool bResult;
             int iNumScontrino, iRDB_StatusWeb, iGruppo, iLength;
             String sLog, sStrBarcode, sStrNum, sStrDay, sStrGruppo;
-            String JSON_Type = "";
+            String JSON_Type = "", JSON_CONFIG_TYPE;
 
             //Dictionary<int, object> dict = null;
 
@@ -1182,8 +1185,14 @@ namespace StandFacile
                         {
                         }
 
-                        if (JSON_Type == _JS_ORDER_V5)
+                        // consente utilizzo altro url da file di configurazione
+                        JSON_CONFIG_TYPE = String.Format("js_order_{0}", sConfig.sWebUrlVersion);
+
+                        if ((JSON_Type == _JS_ORDER_V5) || (JSON_Type == JSON_CONFIG_TYPE))
                         {
+                            // ottiene la tabella dell'output JSON
+                            var jss = new JavaScriptSerializer();
+
                             dbAzzeraDatiOrdine(ref DB_Data);
 
                             DB_Data.iNumOrdineWeb = Convert.ToInt32(dict["-9"]);
@@ -1207,7 +1216,17 @@ namespace StandFacile
                             DB_Data.iStatusSconto = (iRDB_StatusWeb >> 1) & 0x0007;
 
                             if (dict.ContainsKey("-4"))
-                                DB_Data.sNome = dict["-4"].ToString();
+                            {
+                                try
+                                {
+                                    var jsonObj = jss.Deserialize<dynamic>(dict["-4"].ToString());
+                                    DB_Data.sNome = String.Format("{0} {1}", (string) jsonObj[0], (string) jsonObj[1]);
+                                }
+                                catch (JsonException)
+                                {
+                                    DB_Data.sNome = dict["-4"].ToString();
+                                }
+                            }
 
                             if (dict.ContainsKey("-3"))
                                 DB_Data.sTavolo = dict["-3"].ToString();

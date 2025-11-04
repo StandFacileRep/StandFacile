@@ -74,7 +74,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                    readerDati?.Close();
+                readerDati?.Close();
             }
 
             try
@@ -92,7 +92,7 @@ namespace StandFacile_DB
 
                 if (bDBConnection_Ok) // se la connessione non è OK evita solo messagggi di errore
                 {
-                        readerDati?.Close(); // non serve più
+                    readerDati?.Close(); // non serve più
 
                     bNoProblem = true;
 
@@ -394,7 +394,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                    readerDati?.Close();
+                readerDati?.Close();
             }
 
             try
@@ -691,7 +691,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                    dbDataAdapterSelect?.Dispose();
+                dbDataAdapterSelect?.Dispose();
             }
 
             try
@@ -864,7 +864,7 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                    dbDataAdapterSelect?.Dispose();
+                dbDataAdapterSelect?.Dispose();
             }
 
             try

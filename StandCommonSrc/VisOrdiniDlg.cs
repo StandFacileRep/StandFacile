@@ -1,6 +1,6 @@
 ﻿/***************************************************************************
 	NomeFile : StandCommonSrc/VisOrdiniDlg.cs
-	Data	 : 10.09.2025
+	Data	 : 01.11.2025
 	Autore	 : Mauro Artuso
 	 
  ***************************************************************************/
@@ -524,7 +524,7 @@ namespace StandFacile
             // *** MESSA IN CODA DI STAMPA COPIE ***
             for (i = 0; i < NUM_EDIT_GROUPS; i++)
             {
-                sNomeFileCopiePrt = String.Format(NOME_FILE_COPIE, DB_Data.iNumCassa, _iNum, i);
+                sNomeFileCopiePrt = String.Format(NOME_FILE_COPIE_NET, DB_Data.iNumCassa, _iNum, i);
 
                 if (_dataIdentifierParam.bCopiesGroupsFlag[i])
                 {

@@ -57,7 +57,7 @@ namespace StandFacile
         /// <summary>accesso al database: nome del server</summary>
         public static String _sDB_ServerName;
         /// <summary>accesso al database: password</summary>
-        public static String _password;
+        public static String _sDB_Password;
 
         /// <summary>variabile che indica se è usato il network DB (MySQL, PostGreSQL) o no (SQLite)</summary>
         private static bool _bUsa_NDB;
@@ -115,10 +115,10 @@ namespace StandFacile
         public static void Reset_StatusDate_Changed() { _bStatusDate_IsChanged = false; }
 
         /// <summary>esegue check della connessione al DB</summary>
-        public bool dbFeedbackCheck() { return dbCheck(_sDB_ServerName, _password, _iNDbMode, false); }
+        public bool dbFeedbackCheck() { return dbCheck(_sDB_ServerName, _sDB_Password, _iNDbMode, false); }
 
         /// <summary>esegue check silente della connessione al DB</summary>
-        public void dbSilentCheck() { dbCheck(_sDB_ServerName, _password, _iNDbMode, true); }
+        public void dbSilentCheck() { dbCheck(_sDB_ServerName, _sDB_Password, _iNDbMode, true); }
 
 #endif
 
@@ -181,7 +181,7 @@ namespace StandFacile
         public static int iUSA_NDB() { return _iNDbMode; } //
 
         /// <summary>funzione di verifica della connessione al DB di rete</summary>
-        public bool dbCheck() { return dbCheck(_sDB_ServerName, _password, _iNDbMode); }
+        public bool dbCheck() { return dbCheck(_sDB_ServerName, _sDB_Password, _iNDbMode); }
 
         /// <summary>controllo stato della connessione</summary>
         public bool GetDB_Connected()
@@ -232,7 +232,7 @@ namespace StandFacile
             dbAzzeraDatiOrdine(ref DB_Data);
 
             _sDB_ServerName = ReadRegistry(DBASE_SERVER_NAME_KEY, Dns.GetHostName());
-            _password = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
+            _sDB_Password = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
 #if STANDFACILE
             _iNDbMode = ReadRegistry(DB_MODE_KEY, (int)DB_MODE.SQLITE); // punto unico
 #else
@@ -286,7 +286,7 @@ namespace StandFacile
         {
             _sDB_ServerName = sServerParam;
             _iNDbMode = iDbModePrm;
-            _password = sPwdParam;
+            _sDB_Password = sPwdParam;
 
 #if STAND_CUCINA
             if (_iNDbMode != iDbModePrm)

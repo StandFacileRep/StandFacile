@@ -59,7 +59,6 @@ namespace StandFacile
         public DataGridView pDBGrid;
 
         /// <summary>ottiene flag modo esperto</summary>
-        /// <returns></returns>
         public bool GetEsperto() { return MnuEsperto.Checked; }
 
         /// <summary>ottiene il flag MnuVisGruppi.Checked</summary>

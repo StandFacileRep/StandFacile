@@ -45,7 +45,7 @@ namespace StandCommonFiles
         public static bool CheckService(String sString)
         {
             if (!String.IsNullOrEmpty(sConfig.sService) && sConfig.sService.Contains(sString))
-                return true;
+                return true; // mediante config.ini
             else
                 return false;
         }
