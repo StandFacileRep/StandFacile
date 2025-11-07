@@ -106,12 +106,12 @@
             this.BtnSep_T3 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnAsporto = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T4 = new System.Windows.Forms.ToolStripSeparator();
+            this.BtnSconto = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T6 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnDB = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T7 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnScontrino = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T8 = new System.Windows.Forms.ToolStripSeparator();
-            this.BtnSconto = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTop_TC_lbl = new System.Windows.Forms.ToolStripLabel();
             this.EditTavolo = new System.Windows.Forms.TextBox();
@@ -140,6 +140,28 @@
             this.lblNome = new System.Windows.Forms.Label();
             this.EditNome = new System.Windows.Forms.TextBox();
             this.lblPagato = new System.Windows.Forms.Label();
+            this.MainGridMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.p1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p9 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p10 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m9 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m10 = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.StatusBar_Upper.SuspendLayout();
             this.TabSet.SuspendLayout();
@@ -148,6 +170,7 @@
             this.toolStripTop.SuspendLayout();
             this.StatusBar.SuspendLayout();
             this.toolStripR.SuspendLayout();
+            this.MainGridMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // Timer
@@ -695,6 +718,7 @@
             this.MainGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.MainGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MainGrid.ColumnHeadersVisible = false;
+            this.MainGrid.ContextMenuStrip = this.MainGridMenu;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.Teal;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -863,6 +887,18 @@
             this.BtnSep_T4.Name = "BtnSep_T4";
             this.BtnSep_T4.Size = new System.Drawing.Size(6, 39);
             // 
+            // BtnSconto
+            // 
+            this.BtnSconto.AutoSize = false;
+            this.BtnSconto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BtnSconto.Image = global::StandFacile.Properties.Resources.sconto_no;
+            this.BtnSconto.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.BtnSconto.ImageTransparentColor = System.Drawing.Color.White;
+            this.BtnSconto.Name = "BtnSconto";
+            this.BtnSconto.Size = new System.Drawing.Size(36, 36);
+            this.BtnSconto.ToolTipText = "(F9) applica sconto";
+            this.BtnSconto.Click += new System.EventHandler(this.BtnSconto_Click);
+            // 
             // BtnSep_T6
             // 
             this.BtnSep_T6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -913,18 +949,6 @@
             this.BtnSep_T8.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.BtnSep_T8.Name = "BtnSep_T8";
             this.BtnSep_T8.Size = new System.Drawing.Size(6, 39);
-            // 
-            // BtnSconto
-            // 
-            this.BtnSconto.AutoSize = false;
-            this.BtnSconto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.BtnSconto.Image = global::StandFacile.Properties.Resources.sconto_no;
-            this.BtnSconto.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.BtnSconto.ImageTransparentColor = System.Drawing.Color.White;
-            this.BtnSconto.Name = "BtnSconto";
-            this.BtnSconto.Size = new System.Drawing.Size(36, 36);
-            this.BtnSconto.ToolTipText = "(F9) applica sconto";
-            this.BtnSconto.Click += new System.EventHandler(this.BtnSconto_Click);
             // 
             // BtnSep_T5
             // 
@@ -1053,6 +1077,7 @@
             // 
             this.EditCoperti.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.EditCoperti.BackColor = System.Drawing.Color.LightBlue;
+            this.EditCoperti.ContextMenuStrip = this.MainGridMenu;
             this.EditCoperti.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.EditCoperti.Location = new System.Drawing.Point(1029, 69);
             this.EditCoperti.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
@@ -1323,6 +1348,178 @@
             this.lblPagato.TabIndex = 28;
             this.lblPagato.Text = "Pagato:";
             // 
+            // MainGridMenu
+            // 
+            this.MainGridMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.p1,
+            this.p2,
+            this.p3,
+            this.p4,
+            this.p5,
+            this.p6,
+            this.p7,
+            this.p8,
+            this.p9,
+            this.p10,
+            this.toolStripSeparator1,
+            this.toolStripMenuItem12,
+            this.m2,
+            this.m3,
+            this.m4,
+            this.m5,
+            this.m6,
+            this.m7,
+            this.m8,
+            this.m9,
+            this.m10});
+            this.MainGridMenu.Name = "MainGridMenu";
+            this.MainGridMenu.Size = new System.Drawing.Size(98, 450);
+            // 
+            // p1
+            // 
+            this.p1.Name = "p1";
+            this.p1.Size = new System.Drawing.Size(97, 22);
+            this.p1.Text = "+ 1";
+            this.p1.Click += new System.EventHandler(this.p1_Click);
+            // 
+            // p2
+            // 
+            this.p2.Name = "p2";
+            this.p2.Size = new System.Drawing.Size(97, 22);
+            this.p2.Text = "+ 2";
+            this.p2.Click += new System.EventHandler(this.p2_Click);
+            // 
+            // p3
+            // 
+            this.p3.Name = "p3";
+            this.p3.Size = new System.Drawing.Size(97, 22);
+            this.p3.Text = "+ 3";
+            this.p3.Click += new System.EventHandler(this.p3_Click);
+            // 
+            // p4
+            // 
+            this.p4.Name = "p4";
+            this.p4.Size = new System.Drawing.Size(97, 22);
+            this.p4.Text = "+ 4";
+            this.p4.Click += new System.EventHandler(this.p4_Click);
+            // 
+            // p5
+            // 
+            this.p5.Name = "p5";
+            this.p5.Size = new System.Drawing.Size(97, 22);
+            this.p5.Text = "+ 5";
+            this.p5.Click += new System.EventHandler(this.p5_Click);
+            // 
+            // p6
+            // 
+            this.p6.Name = "p6";
+            this.p6.Size = new System.Drawing.Size(97, 22);
+            this.p6.Text = "+ 6";
+            this.p6.Click += new System.EventHandler(this.p6_Click);
+            // 
+            // p7
+            // 
+            this.p7.Name = "p7";
+            this.p7.Size = new System.Drawing.Size(97, 22);
+            this.p7.Text = "+ 7";
+            this.p7.Click += new System.EventHandler(this.p7_Click);
+            // 
+            // p8
+            // 
+            this.p8.Name = "p8";
+            this.p8.Size = new System.Drawing.Size(97, 22);
+            this.p8.Text = "+ 8";
+            this.p8.Click += new System.EventHandler(this.p8_Click);
+            // 
+            // p9
+            // 
+            this.p9.Name = "p9";
+            this.p9.Size = new System.Drawing.Size(97, 22);
+            this.p9.Text = "+ 9";
+            this.p9.Click += new System.EventHandler(this.p9_Click);
+            // 
+            // p10
+            // 
+            this.p10.Name = "p10";
+            this.p10.Size = new System.Drawing.Size(97, 22);
+            this.p10.Text = "+ 10";
+            this.p10.Click += new System.EventHandler(this.p10_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(94, 6);
+            // 
+            // toolStripMenuItem12
+            // 
+            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(97, 22);
+            this.toolStripMenuItem12.Text = "- 1";
+            this.toolStripMenuItem12.Click += new System.EventHandler(this.toolStripMenuItem12_Click);
+            // 
+            // m2
+            // 
+            this.m2.Name = "m2";
+            this.m2.Size = new System.Drawing.Size(97, 22);
+            this.m2.Text = "- 2";
+            this.m2.Click += new System.EventHandler(this.m2_Click);
+            // 
+            // m3
+            // 
+            this.m3.Name = "m3";
+            this.m3.Size = new System.Drawing.Size(97, 22);
+            this.m3.Text = "- 3";
+            this.m3.Click += new System.EventHandler(this.m3_Click);
+            // 
+            // m4
+            // 
+            this.m4.Name = "m4";
+            this.m4.Size = new System.Drawing.Size(97, 22);
+            this.m4.Text = "- 4";
+            this.m4.Click += new System.EventHandler(this.m4_Click);
+            // 
+            // m5
+            // 
+            this.m5.Name = "m5";
+            this.m5.Size = new System.Drawing.Size(97, 22);
+            this.m5.Text = "- 5";
+            this.m5.Click += new System.EventHandler(this.m5_Click);
+            // 
+            // m6
+            // 
+            this.m6.Name = "m6";
+            this.m6.Size = new System.Drawing.Size(97, 22);
+            this.m6.Text = "- 6";
+            this.m6.Click += new System.EventHandler(this.m6_Click);
+            // 
+            // m7
+            // 
+            this.m7.Name = "m7";
+            this.m7.Size = new System.Drawing.Size(97, 22);
+            this.m7.Text = "- 7";
+            this.m7.Click += new System.EventHandler(this.m7_Click);
+            // 
+            // m8
+            // 
+            this.m8.Name = "m8";
+            this.m8.Size = new System.Drawing.Size(97, 22);
+            this.m8.Text = "- 8";
+            this.m8.Click += new System.EventHandler(this.m8_Click);
+            // 
+            // m9
+            // 
+            this.m9.Name = "m9";
+            this.m9.Size = new System.Drawing.Size(97, 22);
+            this.m9.Text = "- 9";
+            this.m9.Click += new System.EventHandler(this.m9_Click);
+            // 
+            // m10
+            // 
+            this.m10.Name = "m10";
+            this.m10.Size = new System.Drawing.Size(97, 22);
+            this.m10.Text = "- 10";
+            this.m10.Click += new System.EventHandler(this.m10_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1373,6 +1570,7 @@
             this.StatusBar.PerformLayout();
             this.toolStripR.ResumeLayout(false);
             this.toolStripR.PerformLayout();
+            this.MainGridMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1489,6 +1687,28 @@
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteLegacy;
         private System.Windows.Forms.ToolStripMenuItem MnuFileDiConfigurazione;
         private System.Windows.Forms.ToolStripLabel toolStripTop_TC_lbl;
+        private System.Windows.Forms.ContextMenuStrip MainGridMenu;
+        private System.Windows.Forms.ToolStripMenuItem p1;
+        private System.Windows.Forms.ToolStripMenuItem p2;
+        private System.Windows.Forms.ToolStripMenuItem p3;
+        private System.Windows.Forms.ToolStripMenuItem p4;
+        private System.Windows.Forms.ToolStripMenuItem p5;
+        private System.Windows.Forms.ToolStripMenuItem p6;
+        private System.Windows.Forms.ToolStripMenuItem p7;
+        private System.Windows.Forms.ToolStripMenuItem p8;
+        private System.Windows.Forms.ToolStripMenuItem p9;
+        private System.Windows.Forms.ToolStripMenuItem p10;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
+        private System.Windows.Forms.ToolStripMenuItem m2;
+        private System.Windows.Forms.ToolStripMenuItem m3;
+        private System.Windows.Forms.ToolStripMenuItem m4;
+        private System.Windows.Forms.ToolStripMenuItem m5;
+        private System.Windows.Forms.ToolStripMenuItem m6;
+        private System.Windows.Forms.ToolStripMenuItem m7;
+        private System.Windows.Forms.ToolStripMenuItem m8;
+        private System.Windows.Forms.ToolStripMenuItem m9;
+        private System.Windows.Forms.ToolStripMenuItem m10;
     }
 }
 
