@@ -72,17 +72,17 @@ namespace StandFacile
                 btnMinus.Enabled = false;
                 btnCanc.Enabled = false;
 
-                lblNome.Enabled = false;
+                //lblNome.Enabled = false;
                 EditNome.Enabled = false;
-                lblTavolo.Enabled = false;
+                //lblTavolo.Enabled = false;
                 EditTavolo.Enabled = false;
-                lblCoperti.Enabled = false;
+                //lblCoperti.Enabled = false;
                 EditCoperti.Enabled = false;
                 lblNota.Enabled = false;
                 EditNota.Enabled = false;
-                lblResto.Enabled = false;
+                //lblResto.Enabled = false;
                 EditResto.Enabled = false;
-                lblPagato.Enabled = false;
+                //lblPagato.Enabled = false;
                 EditContante.Enabled = false;
 
                 comboCashPos.Enabled = false;
@@ -137,17 +137,17 @@ namespace StandFacile
                 btnMinus.Enabled = false;
                 btnCanc.Enabled = false;
 
-                lblNome.Enabled = false;
+                //lblNome.Enabled = false;
                 EditNome.Enabled = false;
-                lblTavolo.Enabled = false;
+                //lblTavolo.Enabled = false;
                 EditTavolo.Enabled = false;
-                lblCoperti.Enabled = false;
+                //lblCoperti.Enabled = false;
                 EditCoperti.Enabled = false;
                 lblNota.Enabled = false;
                 EditNota.Enabled = false;
-                lblResto.Enabled = false;
+                //lblResto.Enabled = false;
                 EditResto.Enabled = false;
-                lblPagato.Enabled = false;
+                //lblPagato.Enabled = false;
                 EditContante.Enabled = false;
 
                 comboCashPos.Enabled = false;
@@ -187,17 +187,17 @@ namespace StandFacile
                 btnMinus.Enabled = false;
                 btnCanc.Enabled = false;
 
-                lblNome.Enabled = false;
+                //lblNome.Enabled = false;
                 EditNome.Enabled = false;
-                lblTavolo.Enabled = false;
+                //lblTavolo.Enabled = false;
                 EditTavolo.Enabled = false;
-                lblCoperti.Enabled = false;
+                //lblCoperti.Enabled = false;
                 EditCoperti.Enabled = false;
                 lblNota.Enabled = false;
                 EditNota.Enabled = false;
-                lblResto.Enabled = false;
+                //lblResto.Enabled = false;
                 EditResto.Enabled = false;
-                lblPagato.Enabled = false;
+                //lblPagato.Enabled = false;
                 EditContante.Enabled = false;
 
                 comboCashPos.Enabled = false;
@@ -220,17 +220,17 @@ namespace StandFacile
 
                 MainGrid.Enabled = true; // sicurezza
 
-                lblNome.Enabled = true;
+                //lblNome.Enabled = true;
                 EditNome.Enabled = true;
-                lblTavolo.Enabled = true;
+                //lblTavolo.Enabled = true;
                 EditTavolo.Enabled = true;
-                lblCoperti.Enabled = true;
+                //lblCoperti.Enabled = true;
                 EditCoperti.Enabled = true;
                 lblNota.Enabled = true;
                 EditNota.Enabled = true;
-                lblResto.Enabled = true;
+                //lblResto.Enabled = true;
                 EditResto.Enabled = true;
-                lblPagato.Enabled = true;
+                //lblPagato.Enabled = true;
                 EditContante.Enabled = true;
 
                 comboCashPos.Enabled = true;
@@ -844,7 +844,7 @@ namespace StandFacile
          *****************************/
         private void MainGrid_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            // il click del mouse annulla il conteggio per barcode scanner detect
+                       // il click del mouse annulla il conteggio per barcode scanner detect
             scannerInputQueue.Clear();
 
             iSwapStartIndex = e.ColumnIndex * MainGrid.RowCount + e.RowIndex + iArrayOffset;
@@ -1356,16 +1356,16 @@ namespace StandFacile
             float fColumnsWidth, fTextSize;
 
             // Toolbar
-            TabSet.Width = lblNome.Location.X - 10;
+            //TabSet.Width = lblNome.Location.X - 10;
 
             // tutto dipende dal topPanel
             topPanel.Width = this.Size.Width - 20;
 
-            toolStripR.Height = MainGrid.Height;
+            //toolStripR.Height = MainGrid.Height;
 
-            btnSep_R1.Height = toolStripR.Height / 10;
-            btnSep_R2.Height = toolStripR.Height / 10;
-            btnSep_R3.Height = btnSep_R2.Height;
+            //btnSep_R1.Height = toolStripR.Height / 10;
+            //btnSep_R2.Height = toolStripR.Height / 10;
+            //btnSep_R3.Height = btnSep_R2.Height;
 
             if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED)) // priorità
             {
@@ -1380,11 +1380,11 @@ namespace StandFacile
                 toolStripTop.Left = 2;
                 BtnSep_T6.Visible = false;
 
-                toolStripR.Visible = true;
-                toolStripR.Enabled = true;
-                toolStripR.Width = 82;
+                //toolStripR.Visible = true;
+                //toolStripR.Enabled = true;
+                //toolStripR.Width = 82;
 
-                EditCoperti.Left = topPanel.Width - toolStripR.Width / 2 - EditCoperti.Width / 2 - 2;
+                //EditCoperti.Left = topPanel.Width - toolStripR.Width / 2 - EditCoperti.Width / 2 - 2;
             }
             else if (OptionsDlg._rOptionsDlg.Get_VButtons())
             {
@@ -1399,11 +1399,11 @@ namespace StandFacile
                 toolStripTop.Left = 60;
                 BtnSep_T6.Visible = true;
 
-                toolStripR.Visible = true;
-                toolStripR.Enabled = true;
-                toolStripR.Width = 82;
+                //toolStripR.Visible = true;
+                //toolStripR.Enabled = true;
+                //toolStripR.Width = 82;
 
-                EditCoperti.Left = topPanel.Width - toolStripR.Width / 2 - EditCoperti.Width / 2 - 2;
+                //EditCoperti.Left = topPanel.Width - toolStripR.Width / 2 - EditCoperti.Width / 2 - 2;
             }
             else
             {
@@ -1418,9 +1418,9 @@ namespace StandFacile
                 toolStripTop.Left = 60;
                 BtnSep_T6.Visible = true;
 
-                toolStripR.Visible = false;
-                toolStripR.Enabled = false;
-                toolStripR.Width = 2;
+                //toolStripR.Visible = false;
+                //toolStripR.Enabled = false;
+                //toolStripR.Width = 2;
 
                 EditCoperti.Left = topPanel.Width - 75;
             }
@@ -1463,30 +1463,30 @@ namespace StandFacile
             // posizionamento verticale elementi
             TabSet.Top = MainMenu.Height + topPanel.Height + topPanel.Margin.Top + topPanel.Margin.Bottom;
 
-            EditTavolo.Top = TabSet.Top;
-            EditCoperti.Top = TabSet.Top;
-            EditNome.Top = TabSet.Top;
+            //EditTavolo.Top = TabSet.Top;
+            //EditCoperti.Top = TabSet.Top;
+            //EditNome.Top = TabSet.Top;
 
             EditTavolo.Font = EditCoperti.Font;
             EditNome.Font = EditCoperti.Font;
 
-            lblCoperti.Top = TabSet.Top + 2;
-            lblTavolo.Top = lblCoperti.Top;
-            lblNome.Top = lblCoperti.Top;
+            //lblCoperti.Top = TabSet.Top + 2;
+            //lblTavolo.Top = lblCoperti.Top;
+            //lblNome.Top = lblCoperti.Top;
 
             MainGrid.Top = TabSet.Top + TabSet.Height;
-            toolStripR.Top = MainGrid.Top;
+            //toolStripR.Top = MainGrid.Top;
             //lblPagato.Top = lblResto.Top; provoca modifica Anchor !
 
-            toolStripR.Left = topPanel.Width - toolStripR.Width - MainGrid.Location.X;
+            //toolStripR.Left = topPanel.Width - toolStripR.Width - MainGrid.Location.X;
 
-            lblCoperti.Left = EditCoperti.Left - lblCoperti.Width - 2;
+            //lblCoperti.Left = EditCoperti.Left - lblCoperti.Width - 2;
 
-            EditTavolo.Left = EditCoperti.Left - EditTavolo.Width - 80;
-            lblTavolo.Left = EditTavolo.Left - lblTavolo.Width - 2;
+            //EditTavolo.Left = EditCoperti.Left - EditTavolo.Width - 80;
+            //lblTavolo.Left = EditTavolo.Left - lblTavolo.Width - 2;
 
-            EditNome.Left = EditTavolo.Left - EditNome.Width - 80;
-            lblNome.Left = EditNome.Left - lblNome.Width - 2;
+            //EditNome.Left = EditTavolo.Left - EditNome.Width - 80;
+            //lblNome.Left = EditNome.Left - lblNome.Width - 2;
 
             //lblStatusResto.Left = EditStatusResto.Left - lblStatusResto.Width-2;
             //lblStatusPagato.Left = EditStatusContante.Left - lblStatusPagato.Width-2;
@@ -1509,7 +1509,7 @@ namespace StandFacile
             //StatusBar_Upper.Width = EditNota.Left - 150;
 
             // imposta la larghezza della griglia in base alla larghezza della form principale
-            MainGrid.Width = topPanel.Width - toolStripR.Width - MainGrid.Location.X * 2;
+            //MainGrid.Width = topPanel.Width - toolStripR.Width - MainGrid.Location.X * 2;
 
             // imposta l'altezza della griglia in base all'altezza della form principale
             MainGrid.Height = Height - MainMenu.Size.Height - toolStripTop.Size.Height - TabSet.Height -
@@ -1629,7 +1629,7 @@ namespace StandFacile
 
             //topPanel.Refresh();
             //TabSet.Refresh();
-            toolStripR.Refresh();
+            //toolStripR.Refresh();
 
             MainGrid.Refresh();
         } // end FormResize
