@@ -205,7 +205,7 @@ namespace StandFacile
         public void ClearAnteprima_TP()
         {
             _iAnteprimaTotParziale = 0;
-            toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
+            toolStripTop_TC_lbl.Text = String.Format("{0}", IntToEuro(0));
         }
 
         /// <summary>ottiene il testo della nota</summary>
@@ -358,10 +358,10 @@ namespace StandFacile
             EditNota.Width = 240;
 
             EditTavolo.MaxLength = 18;
-            EditTavolo.Width = 100;
+            //EditTavolo.Width = 100;
 
             EditNome.MaxLength = 20;
-            EditNome.Width = 140;
+            //EditNome.Width = 140;
 
             EditStatus_QRC.Text = "";
             EditStatus_QRC.MaxLength = 0; // nessun limite
@@ -781,10 +781,10 @@ namespace StandFacile
             if ((_iAnteprimaTotParziale > 0) || IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_GRATIS) ||
                 AnteprimaDlg.GetSomethingInto_GrpToPrint((int)DEST_TYPE.DEST_BUONI))
             {
-                toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
+                toolStripTop_TC_lbl.Text = String.Format(" {0}", IntToEuro(_iAnteprimaTotParziale));
             }
             else if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
-                toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
+                toolStripTop_TC_lbl.Text = String.Format(" {0}", IntToEuro(0));
 
             /*************************************
              *       calcolo del resto
@@ -1372,7 +1372,7 @@ namespace StandFacile
             _sEditNota = "";
 
             if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
-                toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
+                toolStripTop_TC_lbl.Text = String.Format(" {0}", IntToEuro(0));
 
             lblStatus_TC.Text = "";
 
@@ -2346,7 +2346,7 @@ namespace StandFacile
             _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
         }
 
-        private void BtnPlus_Click(object sender, EventArgs e)
+        private void AddQuantity(int plusQty = 1)
         {
             if (EditCoperti.Focused)
             {
@@ -2355,7 +2355,7 @@ namespace StandFacile
                 if (!String.IsNullOrEmpty(EditCoperti.Text))
                     iNum = Convert.ToInt32(EditCoperti.Text);
 
-                iNum++;
+                iNum += plusQty;
 
                 EditCoperti.Text = String.Format("{0,3}", iNum);
 
@@ -2365,7 +2365,7 @@ namespace StandFacile
             {
                 iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
 
-                SF_Data.Articolo[_iCellPt].iQuantitaOrdine++;
+                SF_Data.Articolo[_iCellPt].iQuantitaOrdine += plusQty;
 
                 AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                 _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
@@ -2376,7 +2376,7 @@ namespace StandFacile
             scannerInputQueue.Clear();
         }
 
-        private void BtnMinus_Click(object sender, EventArgs e)
+        private void RemoveQuantity(int minusQty = 1)
         {
             if (EditCoperti.Focused)
             {
@@ -2386,7 +2386,12 @@ namespace StandFacile
                     iNum = Convert.ToInt32(EditCoperti.Text);
 
                 if (iNum > 0)
-                    iNum--;
+                {
+                    iNum -= minusQty;
+                    if (iNum < 0)
+                        iNum = 0;
+                }
+
 
                 EditCoperti.Text = String.Format("{0,3}", iNum);
 
@@ -2397,19 +2402,199 @@ namespace StandFacile
                 iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
 
                 if (SF_Data.Articolo[_iCellPt].iQuantitaOrdine > 0)
-                    SF_Data.Articolo[_iCellPt].iQuantitaOrdine--;
+                    SF_Data.Articolo[_iCellPt].iQuantitaOrdine -= minusQty;
 
+                if (SF_Data.Articolo[_iCellPt].iQuantitaOrdine < 0)
+                    SF_Data.Articolo[_iCellPt].iQuantitaOrdine = 0;
                 AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
                 _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
 
                 // necessario altrimenti se _iAnteprimaTotParziale == 0 il timer non aggiorna toolStripTop_TC_lbl.Text
-                toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
+                toolStripTop_TC_lbl.Text = String.Format("{0}", IntToEuro(_iAnteprimaTotParziale));
 
                 MainGrid_Redraw(this, null);
             }
 
             scannerInputQueue.Clear();
+        }
+
+        private void BtnPlus_Click(object sender, EventArgs e)
+        {
+            AddQuantity(1);
+        }
+
+        private void BtnMinus_Click(object sender, EventArgs e)
+        {
+            RemoveQuantity(1);
+        }
+        private void p1_Click(object sender, EventArgs e)
+        {
+            AddQuantity(1);
+        }
+
+        private void p2_Click(object sender, EventArgs e)
+        {
+            AddQuantity(2);
+        }
+
+        private void p3_Click(object sender, EventArgs e)
+        {
+            AddQuantity(3);
+        }
+
+        private void p4_Click(object sender, EventArgs e)
+        {
+            AddQuantity(4);
+        }
+
+        private void p5_Click(object sender, EventArgs e)
+        {
+            AddQuantity(5);
+        }
+
+        private void p6_Click(object sender, EventArgs e)
+        {
+            AddQuantity(6);
+        }
+
+        private void p7_Click(object sender, EventArgs e)
+        {
+            AddQuantity(7);
+        }
+
+        private void p8_Click(object sender, EventArgs e)
+        {
+            AddQuantity(8);
+        }
+
+        private void p9_Click(object sender, EventArgs e)
+        {
+            AddQuantity(9);
+        }
+
+        private void p10_Click(object sender, EventArgs e)
+        {
+            AddQuantity(10);
+        }
+
+        private void toolStripMenuItem12_Click(object sender, EventArgs e)
+        {
+            RemoveQuantity(1);
+        }
+
+        private void m2_Click(object sender, EventArgs e)
+        {
+            RemoveQuantity(2);
+        }
+
+        private void m3_Click(object sender, EventArgs e)
+        {
+            RemoveQuantity(3);
+        }
+
+        private void m4_Click(object sender, EventArgs e)
+        {
+            RemoveQuantity(4);
+        }
+
+        private void m5_Click(object sender, EventArgs e)
+        {
+            RemoveQuantity(5);
+        }
+
+        private void m6_Click(object sender, EventArgs e)
+        {
+            RemoveQuantity(6);
+        }
+
+        private void m7_Click(object sender, EventArgs e)
+        {
+            RemoveQuantity(7);
+        }
+
+        private void m8_Click(object sender, EventArgs e)
+        {
+            RemoveQuantity(8);
+        }
+
+        private void m9_Click(object sender, EventArgs e)
+        {
+            RemoveQuantity(9);
+        }
+
+        private void m10_Click(object sender, EventArgs e)
+        {
+            RemoveQuantity(10);
+        }
+
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MainGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnPlus_Click_1(object sender, EventArgs e)
+        {
+            AddQuantity();
+        }
+
+        private void btnMinus_Click_1(object sender, EventArgs e)
+        {
+            RemoveQuantity();
+        }
+
+        private void btnCanc_Click_1(object sender, EventArgs e)
+        {
+            if (EditCoperti.Focused)
+            {
+                EditCoperti.Text = String.Format("{0,3}", 0);
+
+                TextBox_KeyUp(EditCoperti, null);
+            }
+            else
+            {
+                SF_Data.Articolo[_iCellPt].iQuantitaOrdine = 0;
+                iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
+            }
+
+            AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+            _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
+
+            // necessario altrimenti se _iAnteprimaTotParziale == 0 il timer non aggiorna toolStripTop_TC_lbl.Text
+            toolStripTop_TC_lbl.Text = String.Format("{0}", IntToEuro(_iAnteprimaTotParziale));
+
+            scannerInputQueue.Clear();
+            MainGrid_Redraw(this, null);
+        }
+
+        private void EditTavolo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EditTavolo_Leave(object sender, EventArgs e)
+        {
+            EditTavolo.Text = EditTavolo .Text.ToUpper().Trim();
+        }
+
+        private void EditNome_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void EditNome_Leave(object sender, EventArgs e)
+        {
+            EditNome.Text = EditNome.Text.ToUpper().Trim();
+        }
+
+        private void EditNota_Leave(object sender, EventArgs e)
+        {
+            EditNota.Text= EditNota.Text.ToUpper().Trim();
         }
 
         private void BtnCanc_Click(object sender, EventArgs e)
@@ -2430,7 +2615,7 @@ namespace StandFacile
             _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
 
             // necessario altrimenti se _iAnteprimaTotParziale == 0 il timer non aggiorna toolStripTop_TC_lbl.Text
-            toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
+            toolStripTop_TC_lbl.Text = String.Format("{0}", IntToEuro(_iAnteprimaTotParziale));
 
             scannerInputQueue.Clear();
             MainGrid_Redraw(this, null);

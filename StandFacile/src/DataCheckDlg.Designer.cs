@@ -65,7 +65,7 @@
             this.EditTavolo.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.EditTavolo.MaxLength = 12;
             this.EditTavolo.Name = "EditTavolo";
-            this.EditTavolo.Size = new System.Drawing.Size(100, 26);
+            //this.EditTavolo.Size = new System.Drawing.Size(100, 26);
             this.EditTavolo.TabIndex = 0;
             this.EditTavolo.WordWrap = false;
             this.EditTavolo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
