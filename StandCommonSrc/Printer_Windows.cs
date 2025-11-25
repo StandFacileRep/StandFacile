@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************
 	NomeFile : StandCommonSrc/Printer_Windows.cs
-    Data	 : 18.09.2025
+    Data	 : 25.11.2025
 	Autore   : Mauro Artuso
 
 	Descrizione :
@@ -491,6 +491,7 @@ namespace StandCommonFiles
             int i, iPos, iA4_PrintStatus;
 
             Graphics pg = ev.Graphics;
+            int iPaperSizeHeight = ev.PageSettings.PaperSize.Height;
 
             float fBC_LeftMargin, fBC_Height, fBC_Zoom;
 
@@ -521,7 +522,7 @@ namespace StandCommonFiles
             if (_bPaperIsA4)
                 PrintCanvas(pg, "");
 
-            while ((_fCanvasVertPos < ev.PageSettings.PaperSize.Height) && ((sInStr = _fileToPrint.ReadLine()) != null))
+            while ((_fCanvasVertPos < iPaperSizeHeight) && ((sInStr = _fileToPrint.ReadLine()) != null))
             {
                 if (!String.IsNullOrEmpty(sInStr) && (sInStr.IndexOf(_LOGO_T) != -1) || (sInStr.IndexOf(_LOGO) != -1))
                 {
@@ -646,11 +647,11 @@ namespace StandCommonFiles
 
                             // prepara 4Q, solo _fCanvasVertPos
                             case 1:
-                                if (_fCanvasVertPos_Q4 > ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC2)
+                                if (_fCanvasVertPos_Q4 > iPaperSizeHeight * PAGE_VERT_SIZE_PERC2)
                                 {
                                     // reset generale ed avanzamento pagina successiva
                                     _fLeftMargin = _sWinPrinterParams.iTckLeftMargin * _mm_to_gu;
-                                    _fCanvasVertPos = ev.PageSettings.PaperSize.Height;
+                                    _fCanvasVertPos = iPaperSizeHeight;
 
                                     _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk;
                                     _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk;
@@ -661,9 +662,9 @@ namespace StandCommonFiles
                                     ev.HasMorePages = true;
                                     break;
                                 }
-                                else if (_fCanvasVertPos_Q4 < ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC1) // se TT finisce presto
+                                else if (_fCanvasVertPos_Q4 < iPaperSizeHeight * PAGE_VERT_SIZE_PERC1) // se TT finisce presto
                                 {
-                                    _fCanvasVertPos = ev.PageSettings.PaperSize.Height * PAGE_VERT_SIZE_PERC1; // posiziona circa metà pagina
+                                    _fCanvasVertPos = iPaperSizeHeight * PAGE_VERT_SIZE_PERC1; // posiziona circa metà pagina
                                 }
                                 else if (_fCanvasVertPos < _fCanvasVertPos_Q4)
                                 {
@@ -682,7 +683,7 @@ namespace StandCommonFiles
                             default:
                                 // cambio pagina ed a capo
                                 _fLeftMargin = _fLeftMarginBk;
-                                _fCanvasVertPos = ev.PageSettings.PaperSize.Height;
+                                _fCanvasVertPos = iPaperSizeHeight;
 
                                 _fLogo_T_LeftMargin = _fLogo_T_LeftMarginBk;
                                 _fLogo_B_LeftMargin = _fLogo_B_LeftMarginBk;
@@ -710,7 +711,7 @@ namespace StandCommonFiles
                     else
                     {
                         PrintCanvas(pg, sInStr);
-                        Console.WriteLine("Prt_Win: {0}", sInStr);
+                        //Console.WriteLine("Prt_Win: {0}", sInStr);
                     }
                 }
 
@@ -811,7 +812,7 @@ namespace StandCommonFiles
             }
 
             // valuta se servono altre pagine, 25.4*32/100 = 8mm
-            if (_fCanvasVertPos > (ev.PageSettings.PaperSize.Height - 32))
+            if (_fCanvasVertPos > (iPaperSizeHeight - 32))
             {
                 Console.WriteLine("*****************************");
                 Console.WriteLine("** Prt_Win: cambio pagina ***");
