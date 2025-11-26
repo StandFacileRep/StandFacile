@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************
 	NomeFile : StandCommonSrc/Printer_Windows.cs
-    Data	 : 25.11.2025
+    Data	 : 25.11.2025 
 	Autore   : Mauro Artuso
 
 	Descrizione :

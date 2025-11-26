@@ -1223,7 +1223,7 @@ namespace StandFacile
                                     var jsonObj = jss.Deserialize<dynamic>(dict["-4"].ToString());
                                     DB_Data.sNome = String.Format("{0} {1}", (string)jsonObj[0], (string)jsonObj[1]);
                                 }
-                                catch (JsonException)
+                                catch (Exception)
                                 {
                                     DB_Data.sNome = dict["-4"].ToString();
                                 }
