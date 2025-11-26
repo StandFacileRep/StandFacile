@@ -285,6 +285,7 @@ namespace StandFacile
                 SF_Data.Articolo[i].iOptionsFlags = 0;
             }
 
+            rFrmMain.SetEditNome("");
             rFrmMain.SetEditTavolo("");
             rFrmMain.SetEditCoperto("");
             rFrmMain.SetEditNota("");

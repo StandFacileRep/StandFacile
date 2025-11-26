@@ -254,7 +254,7 @@ namespace StandFacile
                 if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
                 {
                     dataStream = response.GetResponseStream();
-                    reader = new StreamReader(dataStream);
+                    reader = new StreamReader(dataStream, Encoding.UTF8);
                     // necessario invocare questa funzione, altrimenti ci sono errori timeout
                     sResponseFromServer = reader.ReadToEnd();
 
@@ -337,7 +337,7 @@ namespace StandFacile
                 if ((response != null) && ((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
                 {
                     Stream dataStream = response.GetResponseStream();
-                    StreamReader reader = new StreamReader(dataStream);
+                    StreamReader reader = new StreamReader(dataStream, Encoding.UTF8);
                     sResponseFromServer = reader.ReadToEnd();
 
                     sResponseFromServer = Decrypt_WS(sResponseFromServer);
@@ -620,7 +620,7 @@ namespace StandFacile
                             var jsonObj = jss.Deserialize<dynamic>(sTable[iIndex][5]["6"]);
                             RDB_Data.sNome = String.Format("{0} {1}", (string)jsonObj[0], (string)jsonObj[1]);
                         }
-                        catch (JsonException)
+                        catch (Exception)
                         {
                             RDB_Data.sNome = sTable[iIndex][5]["6"];
                         }
@@ -1239,6 +1239,24 @@ namespace StandFacile
 
                 // Convert the decrypted byte array to string
                 plainText = Encoding.UTF8.GetString(plainBytes, 0, plainBytes.Length);
+                // plainText = Encoding.GetEncoding("ISO-8859-1").GetString(plainBytes, 0, plainBytes.Length);
+
+                // semplice heuristica di fallback per correggere il caso comune di doppia interpretazione
+                // (es. "piÃ¹" -> "più"): se trovi sequenze tipiche di mojibake, prova la riconversione
+                if (plainText.Contains("Ã") || plainText.Contains("Â") || plainText.Contains("â"))
+                {
+                    try
+                    {
+                        // prendi i byte come se fossero stati interpretati come Latin1 e decodificali come UTF8
+                        byte[] bytesFromLatin1 = Encoding.GetEncoding("ISO-8859-1").GetBytes(plainText);
+                        plainText = Encoding.UTF8.GetString(bytesFromLatin1);
+
+                        LogToFile("dBaseTunnel_my: mojibake found");
+                    }
+                    catch
+                    {
+                    }
+                }
             }
             finally
             {
