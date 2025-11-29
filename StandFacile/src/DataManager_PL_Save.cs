@@ -261,14 +261,21 @@ namespace StandFacile
                 uLocHashCode += Hash(sPrzRow);
 
                 //numero hex per gestione della opzioni generali
-                sPrzRow = String.Format("{0}{1:X5}", "#GO", SF_Data.iGeneralOptions);
+                sPrzRow = String.Format("{0}{1:X5}", "#GO", SF_Data.iGeneralProgOptions);
+
+                fPrz.WriteLine(sPrzRow);
+                iRowIndex++;
+                uLocHashCode += Hash(sPrzRow);
+
+                //numero hex per gestione della opzioni generiche di stampa
+                sPrzRow = String.Format("{0}{1:X5}", "#GP", SF_Data.iGenericPrintOptions);
 
                 fPrz.WriteLine(sPrzRow);
                 iRowIndex++;
                 uLocHashCode += Hash(sPrzRow);
 
                 //numero hex per gestione delle opzioni di stampa
-                sPrzRow = String.Format("{0}{1:X5}", "#LC", SF_Data.iReceiptCopyOptions);
+                sPrzRow = String.Format("{0}{1:X5}", "#LC", SF_Data.iLocalCopyOptions);
 
                 fPrz.WriteLine(sPrzRow);
                 iRowIndex++;
@@ -395,6 +402,19 @@ namespace StandFacile
             return true;
         } // end SalvaListino
 
+
+        /// <summary>
+        /// Mostra una finestra di progresso durante il salvataggio del listino `DataManager.SalvaListino()`
+        /// </summary>
+        public static void SalvaListinoPgrFrm()
+        {
+            FrmUpdateProgress progressForm = new FrmUpdateProgress("Salvataggio listino", "Salva listino nel Database e in Listino.txt", () =>
+            {
+                SalvaListino();
+            });
+
+            progressForm.ShowDialog();
+        }
 
         /// <summary>Funzione di salvataggio dei dati di riepilogo giornaliero</summary>
         public static void SalvaDati(TData dataIdParam)
@@ -570,6 +590,19 @@ namespace StandFacile
              *  salvataggio nel database Dati Riepilogo
              *********************************************/
             _rdBaseIntf.dbSalvaDati();
+        }
+
+        /// <summary>
+        /// Mostra una finestra di progresso durante il salvataggio dei dati di riepilogo `DataManager.SalvaDati()`
+        /// </summary>
+        public static void SalvaDatiForm(TData dataIdParam)
+        {
+            FrmUpdateProgress progressForm = new FrmUpdateProgress("Salvataggio dati", "Salva i dati di riepilogo giornaliero nel Database", () =>
+            {
+                SalvaDati(dataIdParam);
+            });
+
+            progressForm.ShowDialog();
         }
 
     } // end class

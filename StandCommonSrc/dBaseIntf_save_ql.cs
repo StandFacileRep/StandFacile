@@ -738,6 +738,42 @@ namespace StandFacile_DB
                             bNoProblem = false;
                     }
 
+                    sTmpSearch = "sTipo_Articolo = \'_BCD_Settings\'";
+                    ordiniRows = ordiniTable.Select(sTmpSearch);
+                    sTmp = String.Format("{0}{1:X5}", "#BC", SF_Data.iBarcodeRichiesto);
+
+                    if (ordiniRows != null)
+                        ordiniRows[0]["sText"] = sTmp;
+                    else
+                        bNoProblem = false;
+
+                    sTmpSearch = "sTipo_Articolo = \'_GenProgOptions\'";
+                    ordiniRows = ordiniTable.Select(sTmpSearch);
+                    sTmp = String.Format("{0}{1:X5}", "#GO", SF_Data.iGeneralProgOptions);
+
+                    if (ordiniRows != null)
+                        ordiniRows[0]["sText"] = sTmp;
+                    else
+                        bNoProblem = false;
+
+                    sTmpSearch = "sTipo_Articolo = \'_GenPrintSettings\'";
+                    ordiniRows = ordiniTable.Select(sTmpSearch);
+                    sTmp = String.Format("{0}{1:X5}", "#GP", SF_Data.iGenericPrintOptions);
+
+                    if (ordiniRows != null)
+                        ordiniRows[0]["sText"] = sTmp;
+                    else
+                        bNoProblem = false;
+
+                    sTmpSearch = "sTipo_Articolo = \'_LocCopySettings\'";
+                    ordiniRows = ordiniTable.Select(sTmpSearch);
+                    sTmp = String.Format("{0}{1:X5}", "#LC", SF_Data.iLocalCopyOptions);
+
+                    if (ordiniRows != null)
+                        ordiniRows[0]["sText"] = sTmp;
+                    else
+                        bNoProblem = false;
+
                     // aggiorna il database su disco
                     //dbDataAdapter.UpdateBatchSize = 100;
                     iUpdatedRows = dbDataAdapter.Update(ordiniTable);
@@ -928,6 +964,42 @@ namespace StandFacile_DB
 
                         ordiniTable.Rows.Add(row);
                     }
+
+                    row = ordiniTable.NewRow();
+
+                    row["iOrdine_ID"] = 0;
+                    row["sTipo_Articolo"] = "_BCD_Settings";
+                    row["sText"] = String.Format("{0}{1:X5}", "#BC", SF_Data.iBarcodeRichiesto);
+                    row["iNumCassa"] = 0;
+
+                    ordiniTable.Rows.Add(row);
+
+                    row = ordiniTable.NewRow();
+
+                    row["iOrdine_ID"] = 0;
+                    row["sTipo_Articolo"] = "_GenProgOptions";
+                    row["sText"] = String.Format("{0}{1:X5}", "#GO", SF_Data.iGeneralProgOptions);
+                    row["iNumCassa"] = 0;
+
+                    ordiniTable.Rows.Add(row);
+
+                    row = ordiniTable.NewRow();
+
+                    row["iOrdine_ID"] = 0;
+                    row["sTipo_Articolo"] = "_GenPrintSettings";
+                    row["sText"] = String.Format("{0}{1:X5}", "#GP", SF_Data.iGenericPrintOptions);
+                    row["iNumCassa"] = 0;
+
+                    ordiniTable.Rows.Add(row);
+
+                    row = ordiniTable.NewRow();
+
+                    row["iOrdine_ID"] = 0;
+                    row["sTipo_Articolo"] = "_LocCopySettings";
+                    row["sText"] = String.Format("{0}{1:X5}", "#LC", SF_Data.iLocalCopyOptions);
+                    row["iNumCassa"] = 0;
+
+                    ordiniTable.Rows.Add(row);
                 }
 
                 if (bDBConnection_Ok && !bCreateHead) // se la connessione non è OK evita solo messagggi di errore
@@ -936,7 +1008,7 @@ namespace StandFacile_DB
 
                     row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
                     row["sTipo_Articolo"] = ORDER_CONST._START_OF_ORDER;
-                    row["iPrezzo_Unitario"] = SF_Data.iBuoniApplicatiReceipt;
+                    //row["iPrezzo_Unitario"] = 0;
                     //row["iQuantita_Ordine"] = 0;
                     //row["iIndex_Listino"] = 0;
                     //row["iGruppo_Stampa"] = 0;
@@ -1052,6 +1124,23 @@ namespace StandFacile_DB
                         //row["iGruppo_Stampa"] = 0;
                         row["sText"] = SF_Data.sScontoText;
                         row["iStatus"] = SF_Data.iStatusSconto;
+                        row["iNumCassa"] = SF_Data.iNumCassa;
+                        row["iScaricato"] = 0;
+                        row["iAnnullato"] = 0;
+
+                        ordiniTable.Rows.Add(row);
+                    }
+
+                    if (SF_Data.iBuoniApplicatiReceipt > 0)
+                    {
+                        row = ordiniTable.NewRow();
+
+                        row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
+                        row["sTipo_Articolo"] = ORDER_CONST._BUONI;
+                        row["iPrezzo_Unitario"] = SF_Data.iBuoniApplicatiReceipt;
+                        //row["iQuantita_Ordine"] = 0;
+                        //row["iIndex_Listino"] = 0;
+                        //row["iGruppo_Stampa"] = 0;
                         row["iNumCassa"] = SF_Data.iNumCassa;
                         row["iScaricato"] = 0;
                         row["iAnnullato"] = 0;

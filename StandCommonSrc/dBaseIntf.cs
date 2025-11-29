@@ -55,9 +55,13 @@ namespace StandFacile
         // variabili membro DB
 
         /// <summary>accesso al database: nome del server</summary>
-        public static String _sDB_ServerName;
+        public static String _sDB_ServerName { get; private set; }
+        /// <summary>accesso al database: nome del database</summary>
+        public static String _sDB_DatabaseName { get; private set; } = "standfacile_db";
+        /// <summary>accesso al database: nome utente</summary>
+        public static String _sDB_Username { get; private set; } = "standfacile";
         /// <summary>accesso al database: password</summary>
-        public static String _sDB_Password;
+        public static String _sDB_Password { get; private set; }
 
         /// <summary>variabile che indica se è usato il network DB (MySQL, PostGreSQL) o no (SQLite)</summary>
         private static bool _bUsa_NDB;
@@ -233,6 +237,14 @@ namespace StandFacile
 
             _sDB_ServerName = ReadRegistry(DBASE_SERVER_NAME_KEY, Dns.GetHostName());
             _sDB_Password = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
+
+            // legge eventuali parametri di connessione al DB dal file di configurazione
+            if (!String.IsNullOrEmpty(sConfig.sDatabaseName))
+                _sDB_DatabaseName = sConfig.sDatabaseName;
+
+            if (!String.IsNullOrEmpty(sConfig.sDatabaseUser))
+                _sDB_Username = sConfig.sDatabaseUser;
+
 #if STANDFACILE
             _iNDbMode = ReadRegistry(DB_MODE_KEY, (int)DB_MODE.SQLITE); // punto unico
 #else
@@ -329,8 +341,9 @@ namespace StandFacile
         {
             int i;
 
-            DB_Data.iGeneralOptions = 0;
-            DB_Data.iReceiptCopyOptions = 0;
+            DB_Data.iGeneralProgOptions = 0;
+            DB_Data.iGenericPrintOptions = 0;
+            DB_Data.iLocalCopyOptions = 0;
             DB_Data.iGridCols = DEF_GRID_NCOLS;
             DB_Data.iGridRows = DEF_GRID_NROWS;
             DB_Data.iNumOfLastReceipt = 0;

@@ -550,13 +550,13 @@ namespace StandFacile_DB
 
             catch (Exception)
             {
-                readerStatus.Close();
+                readerStatus?.Close();
 
                 _WrnMsg.iErrID = WRN_DBE;
                 _WrnMsg.sMsg = "Scrittura Stato non possibile";
                 WarningManager(_WrnMsg);
 
-                return false;
+                //return false;
             }
 
             return true; // tutto OK

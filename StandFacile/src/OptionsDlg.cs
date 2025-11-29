@@ -73,12 +73,12 @@ namespace StandFacile
         /// <summary>Inizializzazione dei vari Flag caricati dal Listino e dal Registry</summary>
         public void Init(bool bShow)
         {
-            checkBoxTavolo.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED);
-            checkBoxCoperti.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED);
-            checkBoxPayment.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED);
-            checkBox_ZeroPriceItems.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_ZERO_PRICE_ITEMS_ALLOWED);
-            checkBoxPrivacy.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PRIVACY);
-            checkBox_Enter.Checked = IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_ENTER_PRINT_RECEIPT_ENABLED);
+            checkBoxTavolo.Checked = IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TABLE_REQUIRED);
+            checkBoxCoperti.Checked = IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PLACE_SETTINGS_REQUIRED);
+            checkBoxPayment.Checked = IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PAYMENT_REQUIRED);
+            checkBox_ZeroPriceItems.Checked = IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_ZERO_PRICE_ITEMS_ALLOWED);
+            checkBoxPrivacy.Checked = IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PRIVACY);
+            checkBox_Enter.Checked = IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_ENTER_PRINT_RECEIPT_ENABLED);
 
             checkBoxPresale_workMode.Checked = SF_Data.bPrevendita; //  passato dal Listino
 
@@ -120,7 +120,7 @@ namespace StandFacile
             checkBoxPresales_loadMode.Checked = (ReadRegistry(PRESALE_LOAD_MODE_KEY, 0) == 1);
 
             // In modo Touch checkBox_VButtons è sempre Checked
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
+            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
             {
                 checkBox_VButtons.Enabled = false;
                 checkBox_VButtons.Checked = true;
@@ -147,41 +147,41 @@ namespace StandFacile
         private void BtnOK_Click(object sender, EventArgs e)
         {
             bool bRiavvio = false;
-            int iGeneralOptionsCopy;
+            int iGeneralProgOptionsCopy;
             String sTmp;
 
-            iGeneralOptionsCopy = 0;
+            iGeneralProgOptionsCopy = 0;
 
             // BIT_TOUCH_MODE_REQUIRED è l'unico bit definito in un altro dialogo
             // va impostato qui altrimenti viene azzerato
 
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
-                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED);
+            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                iGeneralProgOptionsCopy = SetBit(iGeneralProgOptionsCopy, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED);
 
             if (checkBoxTavolo.Checked)
-                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_TABLE_REQUIRED);
+                iGeneralProgOptionsCopy = SetBit(iGeneralProgOptionsCopy, (int)GEN_PROGRAM_OPTIONS.BIT_TABLE_REQUIRED);
 
             if (checkBoxCoperti.Checked)
-                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED);
+                iGeneralProgOptionsCopy = SetBit(iGeneralProgOptionsCopy, (int)GEN_PROGRAM_OPTIONS.BIT_PLACE_SETTINGS_REQUIRED);
 
             if (checkBoxPayment.Checked)
-                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED);
+                iGeneralProgOptionsCopy = SetBit(iGeneralProgOptionsCopy, (int)GEN_PROGRAM_OPTIONS.BIT_PAYMENT_REQUIRED);
 
             if (checkBox_ZeroPriceItems.Checked)
-                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_ZERO_PRICE_ITEMS_ALLOWED);
+                iGeneralProgOptionsCopy = SetBit(iGeneralProgOptionsCopy, (int)GEN_PROGRAM_OPTIONS.BIT_ZERO_PRICE_ITEMS_ALLOWED);
 
             if (checkBoxPrivacy.Checked)
-                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_PRIVACY);
+                iGeneralProgOptionsCopy = SetBit(iGeneralProgOptionsCopy, (int)GEN_PROGRAM_OPTIONS.BIT_PRIVACY);
 
             if (checkBox_Enter.Checked)
-                iGeneralOptionsCopy = SetBit(iGeneralOptionsCopy, (int)GEN_OPTS.BIT_ENTER_PRINT_RECEIPT_ENABLED);
+                iGeneralProgOptionsCopy = SetBit(iGeneralProgOptionsCopy, (int)GEN_PROGRAM_OPTIONS.BIT_ENTER_PRINT_RECEIPT_ENABLED);
 
             // controllo _bListinoModificato a gruppi, salvataggio in : SF_Data[]
-            if (SF_Data.iGeneralOptions != iGeneralOptionsCopy)
+            if (SF_Data.iGeneralProgOptions != iGeneralProgOptionsCopy)
             {
                 _bListinoModificato = true;
 
-                SF_Data.iGeneralOptions = iGeneralOptionsCopy;
+                SF_Data.iGeneralProgOptions = iGeneralProgOptionsCopy;
             }
 
             if (SF_Data.bPrevendita != checkBoxPresale_workMode.Checked)

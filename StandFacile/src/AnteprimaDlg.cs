@@ -121,15 +121,18 @@ namespace StandFacile
         /// <summary>aggiornamento anteprima</summary>
         public void RedrawReceipt()
         {
+            bool bCassaInline;
             int i, j;
             int iIncassoParz, iScontoStdTicket, iScontoFissoTicket;
-            String sTmp, sIncassoParz;
+            String sTmp, sIncassoParz, sCashdeskAndReceiptNum;
 
             _iTotaleTicket = 0;
             _iTotaleDovutoReceipt = 0;
 
             iScontoStdTicket = 0;
             iScontoFissoTicket = SF_Data.iScontoFissoReceipt;
+
+            bCassaInline = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE);
 
             if (!_bInit) return;
 
@@ -248,35 +251,40 @@ namespace StandFacile
             //    return;
             //}
 
-            sTmp = String.Format("{0,-22}C.{1}", GetDateTimeString(), SF_Data.iNumCassa);
+            if (bCassaInline)
+                sTmp = GetDateTimeString();
+            else
+                sTmp = String.Format("{0,-22}C.{1}", GetDateTimeString(), SF_Data.iNumCassa);
+
             sTmp = CenterJustify(sTmp, iMAX_RECEIPT_CHARS);
             PrintCanvas(pg, sTmp);
             PrintCanvas(pg, "");
 
             _fCanvasVertNumPos = _fCanvasVertPos;
 
-            if (!String.IsNullOrEmpty(sOrdineStrings.sTavolo) && !String.IsNullOrEmpty(sOrdineStrings.sNome))
-            {
-                PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum); PrintCanvas(pg, "");
-                PrintCanvas(pg, sOrdineStrings.sTavolo);
-                PrintCanvas(pg, sOrdineStrings.sNome);
-            }
-            else if (!String.IsNullOrEmpty(sOrdineStrings.sTavolo))
-            {
-                PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum); PrintCanvas(pg, "");
-                PrintCanvas(pg, sOrdineStrings.sTavolo);
-            }
-            else if (!String.IsNullOrEmpty(sOrdineStrings.sNome))
-            {
-                PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum); PrintCanvas(pg, "");
-                PrintCanvas(pg, sOrdineStrings.sNome);
-            }
+            sCashdeskAndReceiptNum = sOrdineStrings.sOrdineNum;
+
+            // accorcia stringa
+            if (sCashdeskAndReceiptNum.StartsWith("   ") && !bCassaInline)
+                sCashdeskAndReceiptNum = sCashdeskAndReceiptNum.Substring(3);
+
+            // Stampa sempre il numero dell'ordine
+            if (bCassaInline)
+                PrintCanvas(pg, sCashdeskAndReceiptNum);
             else
-            {
-                PrintCanvas(pg, 1.20f, 1.50f, sOrdineStrings.sOrdineNum);
-            }
+                PrintCanvas(pg, 1.32f, 1.32f, sCashdeskAndReceiptNum);
 
             PrintCanvas(pg, "");
+
+            // Stampa il tavolo e il nome se presenti
+            if (!String.IsNullOrEmpty(sOrdineStrings.sTavolo))
+                PrintCanvas(pg, sOrdineStrings.sTavolo);
+            if (!String.IsNullOrEmpty(sOrdineStrings.sNome))
+                PrintCanvas(pg, sOrdineStrings.sNome);
+
+            if (!String.IsNullOrEmpty(sOrdineStrings.sTavolo) || !String.IsNullOrEmpty(sOrdineStrings.sNome))
+                PrintCanvas(pg, "");
+
 
             if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
             {
@@ -598,7 +606,7 @@ namespace StandFacile
                     PrintCanvas(pg, "");
                 }
             }
-            
+
             // quando picBox.Height > panel.Height appaiono scrollbar
             if (panel.Height < (int)_fCanvasVertPos)
                 picBox.Height = (int)_fCanvasVertPos;
@@ -613,14 +621,21 @@ namespace StandFacile
         public void RedrawTicketNum()
         {
             float fCanvasNumHeight;
-            String sNum;
+            String sCashdeskAndReceiptNum;
+
+            bool bCassaInline = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE);
 
             if (dBaseIntf.bUSA_NDB())
-                sNum = String.Format("{0}  {1}", _TICK_NUM, SF_Data.iNumOfLastReceipt);
+            {
+                if (bCassaInline)
+                    sCashdeskAndReceiptNum = String.Format("{0} {1}, {2} {3}", _TICK_CASSA, SF_Data.iNumCassa, _TICK_NUM, SF_Data.iNumOfLastReceipt);
+                else
+                    sCashdeskAndReceiptNum = String.Format("{0}  {1}", _TICK_NUM, SF_Data.iNumOfLastReceipt);
+            }
             else
                 return;
 
-            sNum = CenterJustify(sNum, iCenterOrderNum);
+            sCashdeskAndReceiptNum = CenterJustify(sCashdeskAndReceiptNum, iCenterOrderNum);
 
             // cancellazione TicketNum
             if (pg != null)
@@ -635,7 +650,14 @@ namespace StandFacile
 
             _fCanvasVertPos = _fCanvasVertNumPos;
 
-            PrintCanvas(pg, 1.20f, 1.50f, sNum);
+            // accorcia stringa
+            if (sCashdeskAndReceiptNum.StartsWith("   ") && !bCassaInline)
+                sCashdeskAndReceiptNum = sCashdeskAndReceiptNum.Substring(3);
+
+            if (bCassaInline)
+                PrintCanvas(pg, sCashdeskAndReceiptNum);
+            else
+                PrintCanvas(pg, 1.32f, 1.32f, sCashdeskAndReceiptNum);
         }
 
         private void AnteprimaDlg_Resize(object sender, EventArgs e)
@@ -667,8 +689,10 @@ namespace StandFacile
             if (pgParam == null)
                 return;
 
+            bool bChars33 = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
+
             // dimensione ricalibrata
-            float fFontSize = sGlbWinPrinterParams.bChars33 ? 1.06f * picBox.Width / 32.0f : 1.04f * picBox.Width / 28.0f;
+            float fFontSize = bChars33 ? 1.06f * picBox.Width / 32.0f : 1.04f * picBox.Width / 28.0f;
 
             _printFont = new Font(sGlbWinPrinterParams.sTckFontType, fFontSize);
 

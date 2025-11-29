@@ -232,6 +232,9 @@ namespace StandFacile
             if (!String.IsNullOrEmpty(ReadRegistry(DBASE_SERVER_NAME_KEY, "")))
                 _rdBaseIntf.dbCaricaOrdine(GetActualDate(), 0, false);
 
+            // copia impostazioni di stampa
+            SF_Data.iGenericPrintOptions = DB_Data.iGenericPrintOptions;
+
             for (i = 0; i < NUM_EDIT_GROUPS; i++)
             {
                 _pCheckBoxCopia[i].BackColor = GetColor(DB_Data.iGroupsColor[i])[0];

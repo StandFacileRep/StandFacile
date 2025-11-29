@@ -1,6 +1,6 @@
 ﻿/***************************************************************************
 	NomeFile : StandCommonSrc/VisOrdiniDlg.cs
-	Data	 : 01.11.2025
+	Data	 : 10.09.2025
 	Autore	 : Mauro Artuso
 	 
  ***************************************************************************/
@@ -492,7 +492,7 @@ namespace StandFacile
             _sNomeFileTicket = String.Format(NOME_FILE_RECEIPT, DB_Data.iNumCassa, _iNum);
             _sNomeFileTicketNpPrt = String.Format(NOME_FILE_RECEIPT_NP, DB_Data.iNumCassa, _iNum);
 
-            bTicketCopy_NoPrice = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
+            bTicketCopy_NoPrice = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
 
             // STAMPA SCONTRINO PRINCIPALE
 #if STANDFACILE

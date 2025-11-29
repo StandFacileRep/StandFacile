@@ -10,25 +10,27 @@
 // se è commentato accede al database remoto
 // se non è commentato accede a localhost
 
-using Newtonsoft.Json;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Net.NetworkInformation;
-using System.Security.Cryptography;
 using System.Text;
 using System.Timers;
-using System.Web.Script.Serialization;
+using System.Collections;
 using System.Windows.Forms;
+using System.Web.Script.Serialization;
+using System.Security.Cryptography;
+using System.Collections.Generic;
+using System.Net.NetworkInformation;
+
 using static StandCommonFiles.ComDef;
-using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.ComSafe;
+using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
-using static StandFacile.dBaseIntf;
+
 using static StandFacile.Define;
 using static StandFacile.glb;
+using static StandFacile.dBaseIntf;
+using Newtonsoft.Json;
 
 namespace StandFacile
 {
@@ -41,7 +43,7 @@ namespace StandFacile
     public class dBaseTunnel_my
     {
 
-        private const string _NO_DB_ERRORS = "\"errornumber\":\"0\",\"errordescr\":\"";
+        private static readonly string _NO_DB_ERRORS = "\"errornumber\":\"0\",\"errordescr\":\"";
 
         private const string _MYSQL_TUNNEL = "mysqlTunnel.php";
 
@@ -413,7 +415,7 @@ namespace StandFacile
                 // avvia Upload del Listino mediante altro Thread
                 if (sEvQueueObj[0] == WEB_PRICELIST_LOAD_START)
                 {
-                    if (rdbUploadListino(false))
+                    if (rdbUploadListinoPgrFrm(false))
                     {
                         DataManager.SetRemDBChecksum();
 
@@ -425,7 +427,7 @@ namespace StandFacile
                 // avvia Upload del Listino mediante altro Thread
                 if (sEvQueueObj[0] == WEB_PRICELIST_FORCE_LOAD_START)
                 {
-                    if (rdbUploadListino(true))
+                    if (rdbUploadListinoPgrFrm(true))
                     {
                         DataManager.SetRemDBChecksum();
 
@@ -1056,6 +1058,23 @@ namespace StandFacile
 
             fprz?.Close();
             return false;
+        }
+
+        /// <summary>
+        /// Mostra una finestra di progresso durante Upload del listino nel Database remoto
+        /// </summary>
+        public static bool rdbUploadListinoPgrFrm(bool bForceUploadPrm)
+        {
+            bool bResult = false;
+
+            FrmUpdateProgress progressForm = new FrmUpdateProgress("Upload listino", "Esegue Upload listino nel Database remoto", () =>
+            {
+                bResult = rdbUploadListino(bForceUploadPrm);
+            });
+
+            progressForm.ShowDialog();
+
+            return bResult;
         }
 
         /// <summary>

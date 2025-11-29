@@ -52,19 +52,19 @@ namespace StandFacile
                     break;
             }
 
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED))
+            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TABLE_REQUIRED))
             {
                 lblTavolo.ForeColor = Color.Blue;
                 lblTavolo.Font = new Font("Tahoma", 12); ;
             }
 
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED))
+            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PLACE_SETTINGS_REQUIRED))
             {
                 lblCoperti.ForeColor = Color.Blue;
                 lblCoperti.Font = new Font("Tahoma", 12); ;
             }
 
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED))
+            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PAYMENT_REQUIRED))
             {
                 groupBox.ForeColor = Color.Blue;
                 groupBox.Font = new Font("Tahoma", 12); ;
@@ -124,9 +124,9 @@ namespace StandFacile
 
             UpdateDataCheckParams();
 
-            if ((!IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED) || !String.IsNullOrEmpty(EditTavolo.Text.Trim())) &&
-                (!IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED) || (!String.IsNullOrEmpty(EditCoperti.Text.Trim()) && Convert.ToInt32(EditCoperti.Text) >= 0)) &&
-                (!IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED) || VerificaPOS_Richiesto()))
+            if ((!IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TABLE_REQUIRED) || !String.IsNullOrEmpty(EditTavolo.Text.Trim())) &&
+                (!IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PLACE_SETTINGS_REQUIRED) || (!String.IsNullOrEmpty(EditCoperti.Text.Trim()) && Convert.ToInt32(EditCoperti.Text) >= 0)) &&
+                (!IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PAYMENT_REQUIRED) || VerificaPOS_Richiesto()))
             {
                 FrmMain.EventEnqueue(sQueue_Object);
                 Close();
@@ -137,9 +137,9 @@ namespace StandFacile
         {
             UpdateDataCheckParams();
 
-            if ((!IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED) || !String.IsNullOrEmpty(EditTavolo.Text.Trim())) &&
-                (!IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED) || (!String.IsNullOrEmpty(EditCoperti.Text.Trim()) && Convert.ToInt32(EditCoperti.Text) >= 0)) &&
-                (!IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED) || VerificaPOS_Richiesto()))
+            if ((!IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TABLE_REQUIRED) || !String.IsNullOrEmpty(EditTavolo.Text.Trim())) &&
+                (!IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PLACE_SETTINGS_REQUIRED) || (!String.IsNullOrEmpty(EditCoperti.Text.Trim()) && Convert.ToInt32(EditCoperti.Text) >= 0)) &&
+                (!IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PAYMENT_REQUIRED) || VerificaPOS_Richiesto()))
             {
                 Close();
             }

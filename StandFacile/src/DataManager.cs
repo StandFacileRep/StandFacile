@@ -1,6 +1,6 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 02.11.2025
+	Data	 : 06.09.2025
     Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
@@ -42,6 +42,7 @@ namespace StandFacile
 
         static bool _bListinoModificato;
         static bool _bChecksumListinoCoerente;
+        static bool _bChars33;
 
         static bool[] _bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS];
         static bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS];
@@ -185,8 +186,9 @@ namespace StandFacile
             SF_Data.iStatusSconto = 0;
             SF_Data.sScontoText = "";
             SF_Data.iBarcodeRichiesto = 0;
-            SF_Data.iGeneralOptions = 0;
-            SF_Data.iReceiptCopyOptions = 0;
+            SF_Data.iGeneralProgOptions = 0;
+            SF_Data.iGenericPrintOptions = 0;
+            SF_Data.iLocalCopyOptions = 0;
             SF_Data.iGridCols = DEF_GRID_NCOLS;
             SF_Data.iGridRows = DEF_GRID_NROWS;
             SF_Data.iNumOfLastReceipt = 0;
@@ -406,7 +408,8 @@ namespace StandFacile
             sTmp = String.Format("Datamanager Init: iMAX_RECEIPT_CHARS = {0}", iMAX_RECEIPT_CHARS);
             LogToFile(sTmp, true);
 
-            InitFormatStrings(sGlbWinPrinterParams.bChars33);
+            _bChars33 = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
+            InitFormatStrings(_bChars33);
         }
 
         /// <summary>
@@ -569,7 +572,9 @@ namespace StandFacile
             TOrdineStrings sOrdineStrings = new TOrdineStrings();
 
             sOrdineStrings = SetupHeaderStrings(SF_Data, 0);
-            InitFormatStrings(sGlbWinPrinterParams.bChars33);
+
+            _bChars33 = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
+            InitFormatStrings(_bChars33);
 
             /*******************************
              ***     STAMPA SCONTRINO    ***

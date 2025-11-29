@@ -591,7 +591,7 @@ namespace StandFacile
                     case 2: tabPage2.Text = sTmp; break;
                     case 3: tabPage3.Text = sTmp; break;
                     case 4:
-                        if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
+                        if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
                             tabPage4.Text = sTmp;
                         else
                             tabPage4.Text = "";
@@ -752,7 +752,7 @@ namespace StandFacile
             else
                 iChangePageDxTimeout = CHANGE_PAGE_TIMEOUT;
 
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
+            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
                 iPageNumTmp = PAGES_NUM_TABM;
             else
                 iPageNumTmp = PAGES_NUM_TXTM;
@@ -1309,7 +1309,7 @@ namespace StandFacile
                 WarningManager(WRN_TZT);
 
             if (_bListinoModificato)
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoPgrFrm();
 
             _iAnteprimaTotParziale = 0;
             AnteprimaDlg.ResetSomethingInto_GrpToPrint();
@@ -1397,7 +1397,7 @@ namespace StandFacile
         /// </summary>
         public bool VerificaTavoloRichiesto()
         {
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TABLE_REQUIRED) && !BtnAsporto.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
+            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TABLE_REQUIRED) && !BtnAsporto.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {
                 if (String.IsNullOrEmpty(_sEditTavolo))
                 {
@@ -1422,7 +1422,7 @@ namespace StandFacile
         /// </summary>
         public bool VerificaCopertoRichiesto()
         {
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PLACE_SETTINGS_REQUIRED) && !BtnAsporto.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
+            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PLACE_SETTINGS_REQUIRED) && !BtnAsporto.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(_sEditCoperti) || (Convert.ToInt32(_sEditCoperti) < 0))
                 {
                     DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditTavolo, _sEditCoperti, comboCashPos.SelectedIndex);
@@ -1444,7 +1444,7 @@ namespace StandFacile
         /// </summary>
         public bool VerificaPOS_Richiesto()
         {
-            if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_PAYMENT_REQUIRED) && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
+            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PAYMENT_REQUIRED) && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(comboCashPos.Text.Trim()))
                 {
                     DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditTavolo, _sEditCoperti, comboCashPos.SelectedIndex);
@@ -1811,7 +1811,7 @@ namespace StandFacile
             VisDatiDlg rVisDatiDlg = new VisDatiDlg();
 
             if (_bListinoModificato)
-                DataManager.SalvaListino(); // aggiorna il file prima di visualizzarlo
+                DataManager.SalvaListinoPgrFrm(); // aggiorna il file prima di visualizzarlo
 
             rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_PREZZI, GetActualDate(), SF_Data.iNumCassa, false);
 
@@ -1973,12 +1973,17 @@ namespace StandFacile
             NetConfigDlg.rNetConfigDlg.Init(true);
         }
 
+        private void MnuImpostaStampanteGenerica_Click(object sender, EventArgs e)
+        {
+            GenPrinterDlg rGenericPrintDlg = new GenPrinterDlg();
+
+            if (GenPrinterDlg.GetListinoModificato())
+                DataManager.SalvaListinoPgrFrm();
+        }
+
         private void MnuImpostaStampanteWin_Click(object sender, EventArgs e)
         {
             WinPrinterDlg._rWinPrinterDlg.Init(true);
-
-            if (WinPrinterDlg.GetListinoModificato())
-                DataManager.SalvaListino();
         }
 
         private void MnuImpostaStampanteLegacy_Click(object sender, EventArgs e)
@@ -1991,7 +1996,7 @@ namespace StandFacile
             PrintLocalCopiesConfigDlg._rPrintTckConfigDlg.Init(true);
 
             if (PrintLocalCopiesConfigDlg.GetListinoModificato())
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoPgrFrm();
         }
 
         private void MnuImpostaCopieInRete_Click(object sender, EventArgs e)
@@ -1999,7 +2004,7 @@ namespace StandFacile
             PrintNetCopiesConfigDlg._rPrintConfigDlg.Init(true);
 
             if (PrintNetCopiesConfigDlg.GetListinoModificato())
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoPgrFrm();
         }
 
         private void MnuImpOpzioni_Click(object sender, EventArgs e)
@@ -2007,7 +2012,7 @@ namespace StandFacile
             OptionsDlg._rOptionsDlg.Init(true);
 
             if (OptionsDlg.GetListinoModificato())
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoPgrFrm();
 
             if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
                 SetShowTotaleScontrinoPrec(true);
@@ -2027,7 +2032,7 @@ namespace StandFacile
             EditHeaderFooterDlg rHeaderFooterDlg = new EditHeaderFooterDlg();
 
             if (EditHeaderFooterDlg.GetListinoModificato())
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoPgrFrm();
 
             rHeaderFooterDlg.Dispose();
         }
@@ -2038,7 +2043,7 @@ namespace StandFacile
 
             if (EditGridDlg.GetListinoModificato())
             {
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoPgrFrm();
 
                 SetTabsAppearance();
                 UpdateStatusBar("Pronto");
@@ -2253,7 +2258,7 @@ namespace StandFacile
             {
                 iArrayOffset = 3 * iLastGridIndex;
             }
-            else if ((TabSet.SelectedTab == tabPage4) && IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
+            else if ((TabSet.SelectedTab == tabPage4) && IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
             {
                 iArrayOffset = 4 * iLastGridIndex;
             }
@@ -2538,7 +2543,7 @@ namespace StandFacile
                 WarningManager(_WrnMsg);
             }
 
-            else if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED) && (_iCellPt == _iNewCellPt) && !MnuModDispArticoli.Checked && !MnuImpListino.Checked)
+            else if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED) && (_iCellPt == _iNewCellPt) && !MnuModDispArticoli.Checked && !MnuImpListino.Checked)
                 BtnPlus_Click(sender, e);
 
             _iCellPt = _iNewCellPt;
@@ -2599,7 +2604,7 @@ namespace StandFacile
                 DataManager.SalvaDati(DB_Data);
 
             if (_bListinoModificato)
-                DataManager.SalvaListino();
+                DataManager.SalvaListinoPgrFrm();
 
             if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_RECEIPT_GEN) && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {

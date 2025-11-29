@@ -8,8 +8,8 @@
 
 using System;
 using System.IO;
-using static System.Convert;
 using System.Collections.Generic;
+using static System.Convert;
 
 using static StandFacile.glb;
 using static StandFacile.Define;
@@ -633,7 +633,25 @@ namespace StandFacile
 
                         i = ToInt32(sTmp, 16);
 
-                        SF_Data.iGeneralOptions = i;
+                        SF_Data.iGeneralProgOptions = i;
+
+                        continue;
+                    }
+                    else if (sInStr.StartsWith("#GP")) // GP == General Print
+                    {
+                        /***********************************************************
+                         *	caricamento hex per gestione opzioni stampa generica
+                         ***********************************************************/
+                        sTmp = sInStr.Substring(3);
+
+                        i = ToInt32(sTmp, 16);
+
+                        SF_Data.iGenericPrintOptions = i;
+
+                        bool bChars33 = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
+
+                        iMAX_RECEIPT_CHARS = bChars33 ? MAX_ABS_RECEIPT_CHARS : MAX_LEG_RECEIPT_CHARS;
+                        iMAX_ART_CHAR = bChars33 ? MAX_ABS_ART_CHAR : MAX_LEG_ART_CHAR;
 
                         continue;
                     }
@@ -646,12 +664,7 @@ namespace StandFacile
 
                         i = ToInt32(sTmp, 16);
 
-                        SF_Data.iReceiptCopyOptions = i;
-
-                        sGlbWinPrinterParams.bChars33 = IsBitSet(SF_Data.iReceiptCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_CHARS33_PRINT_REQUIRED);
-
-                        iMAX_RECEIPT_CHARS = sGlbWinPrinterParams.bChars33 ? MAX_ABS_RECEIPT_CHARS : MAX_LEG_RECEIPT_CHARS;
-                        iMAX_ART_CHAR = sGlbWinPrinterParams.bChars33 ? MAX_ABS_ART_CHAR : MAX_LEG_ART_CHAR;
+                        SF_Data.iLocalCopyOptions = i;
 
                         continue;
                     }
@@ -708,7 +721,7 @@ namespace StandFacile
                     /*********************************************************
                      *	imposta numero di possibili Articoli nelle pagine
                      *********************************************************/
-                    if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
+                    if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
                         _iLastArticoloIndex = SF_Data.iGridRows * SF_Data.iGridCols * PAGES_NUM_TABM;
                     else
                         _iLastArticoloIndex = SF_Data.iGridRows * SF_Data.iGridCols * PAGES_NUM_TXTM;
@@ -718,7 +731,7 @@ namespace StandFacile
                     {
                         LogToFile("Datamanager : aumento dimensioni griglia");
 
-                        if (IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED))
+                        if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
                         {
                             SF_Data.iGridRows = MAX_GRID_NROWS_TABM;
                             SF_Data.iGridCols = MAX_GRID_NCOLS_TABM;
@@ -849,8 +862,8 @@ namespace StandFacile
                  *********************************************************/
                 LogToFile(String.Format("DataManager : CaricaListino prima di Check iGridRows = {0}, iGridCols = {1}", SF_Data.iGridRows, SF_Data.iGridCols));
 
-                SF_Data.iGridRows = EditGridDlg.CheckGridRows(SF_Data.iGridRows, IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED));
-                SF_Data.iGridCols = EditGridDlg.CheckGridCols(SF_Data.iGridCols, IsBitSet(SF_Data.iGeneralOptions, (int)GEN_OPTS.BIT_TOUCH_MODE_REQUIRED));
+                SF_Data.iGridRows = EditGridDlg.CheckGridRows(SF_Data.iGridRows, IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED));
+                SF_Data.iGridCols = EditGridDlg.CheckGridCols(SF_Data.iGridCols, IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED));
 
                 LogToFile(String.Format("DataManager : CaricaListino dopo di Check iGridRows = {0}, iGridCols = {1}", SF_Data.iGridRows, SF_Data.iGridCols));
 

@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using static System.Convert;
 
 using Devart.Data.MySql;
 
@@ -180,7 +181,7 @@ namespace StandFacile_DB
             _WrnMsg.iErrID = 0; // resetta errori in altra data
 
 #if !STAND_ORDINI
-            _iDBArticoliLength_Is33 = sGlbWinPrinterParams.bChars33;
+            _iDBArticoliLength_Is33 = IsBitSet(DB_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
 #endif
             // *** sicurezza ***
             if (!bUSA_NDB()) return -1;
@@ -522,8 +523,6 @@ namespace StandFacile_DB
                                 iStatus = readerOrdine.GetInt32("iStatus");
                                 bScaricato = readerOrdine.GetBoolean("iScaricato");
 
-                                iBuoniApplicatiReceipt = readerOrdine.GetInt32("iPrezzo_Unitario");
-
 #if STANDFACILE || STAND_MONITOR
                                 // prosegue solo se è stato effettuato un certo tipo di pagamento
                                 // deve stare prima dei vari DB_Data.iTotaleBuoniApplicati +=
@@ -532,12 +531,6 @@ namespace StandFacile_DB
                                     break;
                                 }
 #endif
-                                if (bRigaAnnullata)
-                                    // come per gli sconti i Buoni Applicati potrebbero essere parziali
-                                    DB_Data.iTotaleAnnullato -= iBuoniApplicatiReceipt;
-                                else
-                                    DB_Data.iTotaleBuoniApplicati += iBuoniApplicatiReceipt;
-
                                 if (IsBitSet(iStatus, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                                     DB_Data.iNumOfWebReceipts++;
 
@@ -550,6 +543,16 @@ namespace StandFacile_DB
                             {
                                 iStatusScontoReceipt = readerOrdine.GetInt32("iStatus");
                                 iPrezzoUnitario = readerOrdine.GetInt32("iPrezzo_Unitario");
+                            }
+                            else if (sTipo == ORDER_CONST._BUONI)
+                            {
+                                iBuoniApplicatiReceipt = readerOrdine.GetInt32("iPrezzo_Unitario");
+
+                                if (bRigaAnnullata)
+                                    // come per gli sconti i Buoni Applicati potrebbero essere parziali
+                                    DB_Data.iTotaleAnnullato -= iBuoniApplicatiReceipt;
+                                else
+                                    DB_Data.iTotaleBuoniApplicati += iBuoniApplicatiReceipt;
                             }
                             else
                             {
@@ -654,7 +657,6 @@ namespace StandFacile_DB
                                     if (DB_Data.Articolo[i].iGruppoStampa != (int)DEST_TYPE.DEST_BUONI)
                                         DB_Data.iTotaleAnnullato += iPrezzoUnitario * iQuantitaOrdine;
                                 }
-
 #if STANDFACILE || STAND_MONITOR
                                 else if (VisDatiDlg.DiscountReportIsRequested() && !IsBitSet(iStatusScontoReceipt, VisDatiDlg.GetDiscountReportBit()))
                                 {
@@ -861,7 +863,7 @@ namespace StandFacile_DB
             dbAzzeraDatiOrdine(ref DB_Data);
 
 #if !STAND_ORDINI
-            _iDBArticoliLength_Is33 = sGlbWinPrinterParams.bChars33;
+            _iDBArticoliLength_Is33 = IsBitSet(DB_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
 #endif
             try
             {
@@ -891,6 +893,46 @@ namespace StandFacile_DB
                         if (sInStr == "_Versione")
                         {
                             DB_Data.sVersione = readerOrdine.GetString("sText");
+                            continue;
+                        }
+
+                        else if (sInStr == "_BCD_Settings")
+                        {
+                            sTmp = readerOrdine.GetString("sText");
+                            sTmp = sTmp.Substring(3);
+                            i = ToInt32(sTmp, 16);
+
+                            DB_Data.iBarcodeRichiesto = i;
+                            continue;
+                        }
+
+                        else if (sInStr == "_GenProgOptions")
+                        {
+                            sTmp = readerOrdine.GetString("sText");
+                            sTmp = sTmp.Substring(3);
+                            i = ToInt32(sTmp, 16);
+
+                            DB_Data.iGeneralProgOptions = i;
+                            continue;
+                        }
+
+                        else if (sInStr == "_GenPrintSettings")
+                        {
+                            sTmp = readerOrdine.GetString("sText");
+                            sTmp = sTmp.Substring(3);
+                            i = ToInt32(sTmp, 16);
+
+                            DB_Data.iGenericPrintOptions = i;
+                            continue;
+                        }
+
+                        else if (sInStr == "_LocCopySettings")
+                        {
+                            sTmp = readerOrdine.GetString("sText");
+                            sTmp = sTmp.Substring(3);
+                            i = ToInt32(sTmp, 16);
+
+                            DB_Data.iLocalCopyOptions = i;
                             continue;
                         }
 

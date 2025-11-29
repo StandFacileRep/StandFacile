@@ -48,9 +48,6 @@
             this.labelZoomRcp = new System.Windows.Forms.Label();
             this.labelZoomRep = new System.Windows.Forms.Label();
             this.labelZoomLogo = new System.Windows.Forms.Label();
-            this.checkBox_Chars33 = new System.Windows.Forms.CheckBox();
-            this.checkBox_LogoNelleCopie = new System.Windows.Forms.CheckBox();
-            this.checkBox_CopertiNelleCopie = new System.Windows.Forms.CheckBox();
             this.labelCenterLogo = new System.Windows.Forms.Label();
             this.numUpDown_RcpMargin = new System.Windows.Forms.NumericUpDown();
             this.numUpDown_RepMargin = new System.Windows.Forms.NumericUpDown();
@@ -105,9 +102,8 @@
             // 
             // BtnLogoFileSelect
             // 
-            this.BtnLogoFileSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.BtnLogoFileSelect.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnLogoFileSelect.Location = new System.Drawing.Point(26, 421);
+            this.BtnLogoFileSelect.Location = new System.Drawing.Point(26, 426);
             this.BtnLogoFileSelect.Name = "BtnLogoFileSelect";
             this.BtnLogoFileSelect.Size = new System.Drawing.Size(141, 23);
             this.BtnLogoFileSelect.TabIndex = 10;
@@ -129,11 +125,10 @@
             // 
             // BtnDeleteLogo
             // 
-            this.BtnDeleteLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.BtnDeleteLogo.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.BtnDeleteLogo.Image = global::StandFacile.Properties.Resources.Cancel;
             this.BtnDeleteLogo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.BtnDeleteLogo.Location = new System.Drawing.Point(26, 464);
+            this.BtnDeleteLogo.Location = new System.Drawing.Point(26, 469);
             this.BtnDeleteLogo.Name = "BtnDeleteLogo";
             this.BtnDeleteLogo.Size = new System.Drawing.Size(141, 23);
             this.BtnDeleteLogo.TabIndex = 11;
@@ -143,9 +138,8 @@
             // 
             // SampleTextBtn
             // 
-            this.SampleTextBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.SampleTextBtn.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SampleTextBtn.Location = new System.Drawing.Point(26, 506);
+            this.SampleTextBtn.Location = new System.Drawing.Point(26, 511);
             this.SampleTextBtn.Name = "SampleTextBtn";
             this.SampleTextBtn.Size = new System.Drawing.Size(141, 23);
             this.SampleTextBtn.TabIndex = 13;
@@ -172,7 +166,7 @@
             this.btnCancel.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancel.Image = global::StandFacile.Properties.Resources.Cancel;
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(152, 650);
+            this.btnCancel.Location = new System.Drawing.Point(152, 584);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(81, 28);
@@ -189,7 +183,7 @@
             this.btnOK.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnOK.Image = global::StandFacile.Properties.Resources.OK;
             this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(302, 652);
+            this.btnOK.Location = new System.Drawing.Point(302, 586);
             this.btnOK.Margin = new System.Windows.Forms.Padding(4);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(72, 28);
@@ -299,13 +293,12 @@
             // 
             // numUpDownLogoZoom
             // 
-            this.numUpDownLogoZoom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.numUpDownLogoZoom.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numUpDownLogoZoom.Location = new System.Drawing.Point(181, 337);
+            this.numUpDownLogoZoom.Location = new System.Drawing.Point(181, 382);
             this.numUpDownLogoZoom.Maximum = new decimal(new int[] {
             140,
             0,
@@ -349,57 +342,19 @@
             // 
             // labelZoomLogo
             // 
-            this.labelZoomLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelZoomLogo.AutoSize = true;
             this.labelZoomLogo.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelZoomLogo.Location = new System.Drawing.Point(90, 318);
+            this.labelZoomLogo.Location = new System.Drawing.Point(23, 383);
             this.labelZoomLogo.Name = "labelZoomLogo";
             this.labelZoomLogo.Size = new System.Drawing.Size(140, 16);
             this.labelZoomLogo.TabIndex = 30;
             this.labelZoomLogo.Text = "Logo, Barcode Zoom %";
             // 
-            // checkBox_Chars33
-            // 
-            this.checkBox_Chars33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBox_Chars33.AutoSize = true;
-            this.checkBox_Chars33.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_Chars33.Location = new System.Drawing.Point(26, 572);
-            this.checkBox_Chars33.Name = "checkBox_Chars33";
-            this.checkBox_Chars33.Size = new System.Drawing.Size(223, 18);
-            this.checkBox_Chars33.TabIndex = 31;
-            this.checkBox_Chars33.Text = "articoli su 23 caratteri (invece di 18)";
-            this.checkBox_Chars33.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_LogoNelleCopie
-            // 
-            this.checkBox_LogoNelleCopie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBox_LogoNelleCopie.AutoSize = true;
-            this.checkBox_LogoNelleCopie.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_LogoNelleCopie.Location = new System.Drawing.Point(276, 609);
-            this.checkBox_LogoNelleCopie.Name = "checkBox_LogoNelleCopie";
-            this.checkBox_LogoNelleCopie.Size = new System.Drawing.Size(203, 18);
-            this.checkBox_LogoNelleCopie.TabIndex = 72;
-            this.checkBox_LogoNelleCopie.Text = "stampa il Logo anche nelle copie";
-            this.checkBox_LogoNelleCopie.UseVisualStyleBackColor = true;
-            // 
-            // checkBox_CopertiNelleCopie
-            // 
-            this.checkBox_CopertiNelleCopie.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBox_CopertiNelleCopie.AutoSize = true;
-            this.checkBox_CopertiNelleCopie.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_CopertiNelleCopie.Location = new System.Drawing.Point(276, 572);
-            this.checkBox_CopertiNelleCopie.Name = "checkBox_CopertiNelleCopie";
-            this.checkBox_CopertiNelleCopie.Size = new System.Drawing.Size(205, 18);
-            this.checkBox_CopertiNelleCopie.TabIndex = 73;
-            this.checkBox_CopertiNelleCopie.Text = "stampa i coperti in tutte le copie";
-            this.checkBox_CopertiNelleCopie.UseVisualStyleBackColor = true;
-            // 
             // labelCenterLogo
             // 
-            this.labelCenterLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelCenterLogo.AutoSize = true;
             this.labelCenterLogo.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCenterLogo.Location = new System.Drawing.Point(19, 379);
+            this.labelCenterLogo.Location = new System.Drawing.Point(19, 344);
             this.labelCenterLogo.Name = "labelCenterLogo";
             this.labelCenterLogo.Size = new System.Drawing.Size(152, 14);
             this.labelCenterLogo.TabIndex = 8;
@@ -455,13 +410,12 @@
             // 
             // numUpDown_LogoCenter
             // 
-            this.numUpDown_LogoCenter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.numUpDown_LogoCenter.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.numUpDown_LogoCenter.Location = new System.Drawing.Point(181, 377);
+            this.numUpDown_LogoCenter.Location = new System.Drawing.Point(181, 342);
             this.numUpDown_LogoCenter.Maximum = new decimal(new int[] {
             200,
             0,
@@ -480,7 +434,6 @@
             // 
             // BtnDefaults
             // 
-            this.BtnDefaults.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.BtnDefaults.Image = global::StandFacile.Properties.Resources.Cancel1;
             this.BtnDefaults.Location = new System.Drawing.Point(470, 519);
             this.BtnDefaults.Name = "BtnDefaults";
@@ -492,7 +445,6 @@
             // 
             // labelDefault
             // 
-            this.labelDefault.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelDefault.AutoSize = true;
             this.labelDefault.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelDefault.Location = new System.Drawing.Point(273, 525);
@@ -552,16 +504,13 @@
             this.AcceptButton = this.btnCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(543, 691);
+            this.ClientSize = new System.Drawing.Size(543, 625);
             this.Controls.Add(this.groupBoxLogoChoice);
             this.Controls.Add(this.labelDefault);
             this.Controls.Add(this.BtnDefaults);
             this.Controls.Add(this.numUpDown_LogoCenter);
             this.Controls.Add(this.numUpDown_RepMargin);
             this.Controls.Add(this.numUpDown_RcpMargin);
-            this.Controls.Add(this.checkBox_CopertiNelleCopie);
-            this.Controls.Add(this.checkBox_LogoNelleCopie);
-            this.Controls.Add(this.checkBox_Chars33);
             this.Controls.Add(this.labelZoomLogo);
             this.Controls.Add(this.labelZoomRep);
             this.Controls.Add(this.labelZoomRcp);
@@ -629,9 +578,6 @@
         private System.Windows.Forms.Label labelZoomRcp;
         private System.Windows.Forms.Label labelZoomRep;
         private System.Windows.Forms.Label labelZoomLogo;
-        private System.Windows.Forms.CheckBox checkBox_Chars33;
-        private System.Windows.Forms.CheckBox checkBox_LogoNelleCopie;
-        private System.Windows.Forms.CheckBox checkBox_CopertiNelleCopie;
         private System.Windows.Forms.Label labelCenterLogo;
         private System.Windows.Forms.NumericUpDown numUpDown_RcpMargin;
         private System.Windows.Forms.NumericUpDown numUpDown_RepMargin;

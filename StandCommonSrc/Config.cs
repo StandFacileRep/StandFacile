@@ -128,6 +128,28 @@ namespace StandFacile
                         continue;
                     }
 
+                    // stringhe per cambio nome database
+                    else if (sInStr.Contains("databaseNameIs"))
+                    {
+                        iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
+                        sInStr = sInStr.Remove(0, iPos + 1).Trim();
+
+                        sConfig.sDatabaseName = sInStr;
+
+                        continue;
+                    }
+
+                    // stringhe per cambio nome utente database
+                    else if (sInStr.Contains("databaseUserIs"))
+                    {
+                        iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
+                        sInStr = sInStr.Remove(0, iPos + 1).Trim();
+
+                        sConfig.sDatabaseUser = sInStr;
+
+                        continue;
+                    }
+
                     // stringhe per cambio versione StandOrdiniWeb
                     else if (sInStr.Contains("webUrlVersionIs"))
                     {

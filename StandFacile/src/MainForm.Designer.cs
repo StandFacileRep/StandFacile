@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.BtnImgList = new System.Windows.Forms.ImageList(this.components);
             this.MainMenu = new System.Windows.Forms.MenuStrip();
@@ -70,6 +70,7 @@
             this.MnuImpostaCopieLocali = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostaCopieInRete = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostaStampanteWin = new System.Windows.Forms.ToolStripMenuItem();
+            this.MnuImpostaStampanteGenerica = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostaStampanteLegacy = new System.Windows.Forms.ToolStripMenuItem();
             this.I2 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuImpOpzioni = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,12 +107,12 @@
             this.BtnSep_T3 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnAsporto = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T4 = new System.Windows.Forms.ToolStripSeparator();
+            this.BtnSconto = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T6 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnDB = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T7 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnScontrino = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T8 = new System.Windows.Forms.ToolStripSeparator();
-            this.BtnSconto = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTop_TC_lbl = new System.Windows.Forms.ToolStripLabel();
             this.EditTavolo = new System.Windows.Forms.TextBox();
@@ -403,6 +404,7 @@
             this.MnuImpostaCopieLocali,
             this.MnuImpostaCopieInRete,
             this.MnuImpostaStampanteWin,
+            this.MnuImpostaStampanteGenerica,
             this.MnuImpostaStampanteLegacy,
             this.I2,
             this.MnuImpOpzioni,
@@ -440,7 +442,7 @@
             // 
             this.MnuImpostaCopieLocali.Name = "MnuImpostaCopieLocali";
             this.MnuImpostaCopieLocali.Size = new System.Drawing.Size(346, 22);
-            this.MnuImpostaCopieLocali.Text = "Configurazione &Scontrino e Copie locali...";
+            this.MnuImpostaCopieLocali.Text = "Configurazione &Scontrino e Copie locali ...";
             this.MnuImpostaCopieLocali.Click += new System.EventHandler(this.MnuImpostaCopieLocali_Click);
             // 
             // MnuImpostaCopieInRete
@@ -456,6 +458,13 @@
             this.MnuImpostaStampanteWin.Size = new System.Drawing.Size(346, 22);
             this.MnuImpostaStampanteWin.Text = "Configurazione S&tampante Windows ...";
             this.MnuImpostaStampanteWin.Click += new System.EventHandler(this.MnuImpostaStampanteWin_Click);
+            // 
+            // MnuImpostaStampanteGenerica
+            // 
+            this.MnuImpostaStampanteGenerica.Name = "MnuImpostaStampanteGenerica";
+            this.MnuImpostaStampanteGenerica.Size = new System.Drawing.Size(346, 22);
+            this.MnuImpostaStampanteGenerica.Text = "Configurazione Generica di Stampa ...";
+            this.MnuImpostaStampanteGenerica.Click += new System.EventHandler(this.MnuImpostaStampanteGenerica_Click);
             // 
             // MnuImpostaStampanteLegacy
             // 
@@ -695,14 +704,14 @@
             this.MainGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.MainGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MainGrid.ColumnHeadersVisible = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MainGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MainGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.MainGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.MainGrid.EnableHeadersVisualStyles = false;
             this.MainGrid.GridColor = System.Drawing.Color.Gainsboro;
@@ -863,6 +872,18 @@
             this.BtnSep_T4.Name = "BtnSep_T4";
             this.BtnSep_T4.Size = new System.Drawing.Size(6, 39);
             // 
+            // BtnSconto
+            // 
+            this.BtnSconto.AutoSize = false;
+            this.BtnSconto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BtnSconto.Image = global::StandFacile.Properties.Resources.sconto_no;
+            this.BtnSconto.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.BtnSconto.ImageTransparentColor = System.Drawing.Color.White;
+            this.BtnSconto.Name = "BtnSconto";
+            this.BtnSconto.Size = new System.Drawing.Size(36, 36);
+            this.BtnSconto.ToolTipText = "(F9) applica sconto";
+            this.BtnSconto.Click += new System.EventHandler(this.BtnSconto_Click);
+            // 
             // BtnSep_T6
             // 
             this.BtnSep_T6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
@@ -913,18 +934,6 @@
             this.BtnSep_T8.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.BtnSep_T8.Name = "BtnSep_T8";
             this.BtnSep_T8.Size = new System.Drawing.Size(6, 39);
-            // 
-            // BtnSconto
-            // 
-            this.BtnSconto.AutoSize = false;
-            this.BtnSconto.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.BtnSconto.Image = global::StandFacile.Properties.Resources.sconto_no;
-            this.BtnSconto.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.BtnSconto.ImageTransparentColor = System.Drawing.Color.White;
-            this.BtnSconto.Name = "BtnSconto";
-            this.BtnSconto.Size = new System.Drawing.Size(36, 36);
-            this.BtnSconto.ToolTipText = "(F9) applica sconto";
-            this.BtnSconto.Click += new System.EventHandler(this.BtnSconto_Click);
             // 
             // BtnSep_T5
             // 
@@ -1489,6 +1498,7 @@
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteLegacy;
         private System.Windows.Forms.ToolStripMenuItem MnuFileDiConfigurazione;
         private System.Windows.Forms.ToolStripLabel toolStripTop_TC_lbl;
+        private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteGenerica;
     }
 }
 

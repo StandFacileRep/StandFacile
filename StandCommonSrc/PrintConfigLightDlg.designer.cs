@@ -33,6 +33,7 @@
             this.prt_Legacy = new System.Windows.Forms.RadioButton();
             this.prt_Windows = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.BtnGeneric = new System.Windows.Forms.Button();
             this.BtnLegacy = new System.Windows.Forms.Button();
             this.BtnWin = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -77,6 +78,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.BtnGeneric);
             this.groupBox1.Controls.Add(this.BtnLegacy);
             this.groupBox1.Controls.Add(this.BtnWin);
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -87,12 +89,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Impostazione stampanti Windows e Legacy";
             // 
+            // BtnGeneric
+            // 
+            this.BtnGeneric.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.BtnGeneric.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.BtnGeneric.Image = global::StandFacile.Properties.Resources.globe;
+            this.BtnGeneric.Location = new System.Drawing.Point(113, 29);
+            this.BtnGeneric.Name = "BtnGeneric";
+            this.BtnGeneric.Size = new System.Drawing.Size(50, 50);
+            this.BtnGeneric.TabIndex = 3;
+            this.BtnGeneric.UseVisualStyleBackColor = false;
+            this.BtnGeneric.Click += new System.EventHandler(this.BtnGeneric_Click);
+            // 
             // BtnLegacy
             // 
             this.BtnLegacy.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BtnLegacy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.BtnLegacy.Image = ((System.Drawing.Image)(resources.GetObject("BtnLegacy.Image")));
-            this.BtnLegacy.Location = new System.Drawing.Point(194, 29);
+            this.BtnLegacy.Location = new System.Drawing.Point(203, 29);
             this.BtnLegacy.Name = "BtnLegacy";
             this.BtnLegacy.Size = new System.Drawing.Size(50, 50);
             this.BtnLegacy.TabIndex = 1;
@@ -104,7 +118,7 @@
             this.BtnWin.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BtnWin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.BtnWin.Image = ((System.Drawing.Image)(resources.GetObject("BtnWin.Image")));
-            this.BtnWin.Location = new System.Drawing.Point(32, 29);
+            this.BtnWin.Location = new System.Drawing.Point(23, 29);
             this.BtnWin.Name = "BtnWin";
             this.BtnWin.Size = new System.Drawing.Size(50, 50);
             this.BtnWin.TabIndex = 0;
@@ -173,5 +187,6 @@
         private System.Windows.Forms.Button BtnLegacy;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
+        private System.Windows.Forms.Button BtnGeneric;
     }
 }

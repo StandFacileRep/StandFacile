@@ -69,22 +69,22 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Devart.Data, Version=6.0.235.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\dotConnect.Express.for.SQLite.6.4.235\lib\net2.0\Devart.Data.dll</HintPath>
+    <Reference Include="Devart.Data, Version=6.0.290.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\dotConnect.Express.for.SQLite.6.4.290\lib\net2.0\Devart.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Devart.Data.MySql, Version=9.4.235.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\dotConnect.Express.for.MySQL.9.4.235\lib\net2.0\Devart.Data.MySql.dll</HintPath>
+    <Reference Include="Devart.Data.MySql, Version=9.4.290.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\dotConnect.Express.for.MySQL.9.4.290\lib\net2.0\Devart.Data.MySql.dll</HintPath>
     </Reference>
-    <Reference Include="Devart.Data.PostgreSql, Version=8.4.235.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\dotConnect.Express.for.PostgreSQL.8.4.235\lib\net2.0\Devart.Data.PostgreSql.dll</HintPath>
+    <Reference Include="Devart.Data.PostgreSql, Version=8.4.290.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\dotConnect.Express.for.PostgreSQL.8.4.290\lib\net2.0\Devart.Data.PostgreSql.dll</HintPath>
     </Reference>
-    <Reference Include="Devart.Data.SQLite, Version=6.4.235.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\dotConnect.Express.for.SQLite.6.4.235\lib\net2.0\Devart.Data.SQLite.dll</HintPath>
+    <Reference Include="Devart.Data.SQLite, Version=6.4.290.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\dotConnect.Express.for.SQLite.6.4.290\lib\net2.0\Devart.Data.SQLite.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="QRCoder, Version=1.6.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\QRCoder.1.6.0\lib\net40\QRCoder.dll</HintPath>
+    <Reference Include="QRCoder, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\QRCoder.1.7.0\lib\net40\QRCoder.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -176,8 +176,24 @@
     <Compile Include="..\..\StandCommonSrc\Printer_Epson_POS.cs">
       <Link>Printer_Epson_POS.cs</Link>
     </Compile>
+    <Compile Include="..\..\StandCommonSrc\Printer_GenericDlg.cs">
+      <Link>Printer_GenericDlg.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\Printer_GenericDlg.designer.cs">
+      <Link>Printer_GenericDlg.designer.cs</Link>
+      <DependentUpon>Printer_GenericDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\StandCommonSrc\Printer_Legacy.cs">
       <Link>Printer_Legacy.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\Printer_WinDlg.cs">
+      <Link>Printer_WinDlg.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\Printer_WinDlg.designer.cs">
+      <Link>Printer_WinDlg.designer.cs</Link>
+      <DependentUpon>Printer_WinDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="..\..\StandCommonSrc\Printer_Windows.cs">
       <Link>Printer_Windows.cs</Link>
@@ -192,14 +208,6 @@
     <Compile Include="..\..\StandCommonSrc\VisOrdiniDlg.designer.cs">
       <Link>VisOrdiniDlg.designer.cs</Link>
       <DependentUpon>VisOrdiniDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\..\StandCommonSrc\WinPrinterDlg.cs">
-      <Link>WinPrinterDlg.cs</Link>
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="..\..\StandCommonSrc\WinPrinterDlg.designer.cs">
-      <Link>WinPrinterDlg.designer.cs</Link>
-      <DependentUpon>WinPrinterDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="Define.cs" />
     <Compile Include="InfoDlg.cs">
@@ -250,13 +258,17 @@
       <Link>PrintConfigLightDlg.resx</Link>
       <DependentUpon>PrintConfigLightDlg.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="..\..\StandCommonSrc\Printer_GenericDlg.resx">
+      <Link>Printer_GenericDlg.resx</Link>
+      <DependentUpon>Printer_GenericDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\StandCommonSrc\Printer_WinDlg.resx">
+      <Link>Printer_WinDlg.resx</Link>
+      <DependentUpon>Printer_WinDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="..\..\StandCommonSrc\VisOrdiniDlg.resx">
       <Link>VisOrdiniDlg.resx</Link>
       <DependentUpon>VisOrdiniDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\..\StandCommonSrc\WinPrinterDlg.resx">
-      <Link>WinPrinterDlg.resx</Link>
-      <DependentUpon>WinPrinterDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InfoDlg.resx">
       <DependentUpon>InfoDlg.cs</DependentUpon>
@@ -397,6 +409,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Cancel1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\globe.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

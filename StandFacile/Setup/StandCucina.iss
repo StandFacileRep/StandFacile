@@ -1,15 +1,15 @@
-; 04.11.2025 
+; 26.11.2025
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
-AppVersion= 5.15.1
+AppVersion= 5.16.0
 
 AppVerName=StandCucina {#SetupSetting("AppVersion")}
-AppName=StandCucina 2025
+AppName=StandCucina 2026
 AppPublisher=Mauro Artuso
-AppId={{1AEDC603-53ED-4080-B1CA-4AA9DD029D0B}
-DefaultDirName={sd}\StandFacile\StandCucina_515x
-DefaultGroupName=StandFacile\StandCucina_515x\
+AppId={{E6CB6826-16FF-496B-A652-C42C9B4EC76B}
+DefaultDirName={sd}\StandFacile\StandCucina_516x
+DefaultGroupName=StandFacile\StandCucina_516x\
 SourceDir=..\exe
 OutputDir=..\Setup
 OutputBaseFilename=StandCucinaSetup_{#SetupSetting("AppVersion")}

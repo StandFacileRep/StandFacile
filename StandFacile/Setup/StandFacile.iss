@@ -4,14 +4,14 @@
 ; The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 
 [Setup]
-AppVersion= 5.15.1
+AppVersion= 5.16.0
 
 AppVerName=StandFacile {#SetupSetting("AppVersion")}
-AppName=StandFacile 2025
+AppName=StandFacile 2026
 AppPublisher=Mauro Artuso
-AppId={{786877BD-4FD3-4A4F-A0FF-BB441E237AF5}
-DefaultDirName={sd}\StandFacile\StandFacile_515x
-DefaultGroupName=StandFacile\StandFacile_515x\
+AppId={{FC8585F5-FC8C-43AF-8F12-694C25732176}
+DefaultDirName={sd}\StandFacile\StandFacile_516x
+DefaultGroupName=StandFacile\StandFacile_516x\
 SourceDir=..\exe
 OutputDir=..\Setup
 OutputBaseFilename=StandFacileSetup_{#SetupSetting("AppVersion")}

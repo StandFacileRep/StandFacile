@@ -34,6 +34,7 @@
             this.prt_Legacy = new System.Windows.Forms.RadioButton();
             this.prt_Windows = new System.Windows.Forms.RadioButton();
             this.printersGroupBox = new System.Windows.Forms.GroupBox();
+            this.BtnGenPrinterOptions = new System.Windows.Forms.Button();
             this.BtnLegacy = new System.Windows.Forms.Button();
             this.BtnWin = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -107,6 +108,7 @@
             // 
             // printersGroupBox
             // 
+            this.printersGroupBox.Controls.Add(this.BtnGenPrinterOptions);
             this.printersGroupBox.Controls.Add(this.BtnLegacy);
             this.printersGroupBox.Controls.Add(this.BtnWin);
             this.printersGroupBox.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -117,12 +119,24 @@
             this.printersGroupBox.TabStop = false;
             this.printersGroupBox.Text = "Impostazione stampanti Windows e Legacy";
             // 
+            // BtnGenPrinterOptions
+            // 
+            this.BtnGenPrinterOptions.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.BtnGenPrinterOptions.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.BtnGenPrinterOptions.Image = global::StandFacile.Properties.Resources.globe;
+            this.BtnGenPrinterOptions.Location = new System.Drawing.Point(106, 29);
+            this.BtnGenPrinterOptions.Name = "BtnGenPrinterOptions";
+            this.BtnGenPrinterOptions.Size = new System.Drawing.Size(50, 50);
+            this.BtnGenPrinterOptions.TabIndex = 4;
+            this.BtnGenPrinterOptions.UseVisualStyleBackColor = false;
+            this.BtnGenPrinterOptions.Click += new System.EventHandler(this.BtnGeneric_Click);
+            // 
             // BtnLegacy
             // 
             this.BtnLegacy.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BtnLegacy.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.BtnLegacy.Image = ((System.Drawing.Image)(resources.GetObject("BtnLegacy.Image")));
-            this.BtnLegacy.Location = new System.Drawing.Point(172, 29);
+            this.BtnLegacy.Location = new System.Drawing.Point(192, 29);
             this.BtnLegacy.Name = "BtnLegacy";
             this.BtnLegacy.Size = new System.Drawing.Size(50, 50);
             this.BtnLegacy.TabIndex = 1;
@@ -134,7 +148,7 @@
             this.BtnWin.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.BtnWin.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.BtnWin.Image = ((System.Drawing.Image)(resources.GetObject("BtnWin.Image")));
-            this.BtnWin.Location = new System.Drawing.Point(43, 29);
+            this.BtnWin.Location = new System.Drawing.Point(19, 29);
             this.BtnWin.Name = "BtnWin";
             this.BtnWin.Size = new System.Drawing.Size(50, 50);
             this.BtnWin.TabIndex = 0;
@@ -558,5 +572,6 @@
         private System.Windows.Forms.CheckBox checkBoxCopia_9;
         private System.Windows.Forms.Label labelWarn1;
         private System.Windows.Forms.CheckBox checkBox_LocPrices;
+        private System.Windows.Forms.Button BtnGenPrinterOptions;
     }
 }
