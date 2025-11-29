@@ -399,13 +399,6 @@ namespace StandCommonFiles
                         if ((_sWinPrinterParams.iLogoWidth_T < 50) || (_sWinPrinterParams.iLogoWidth_T > (LOGO_WIDTH + 100)) ||
                            (_sWinPrinterParams.iLogoHeight_T < 50) || (_sWinPrinterParams.iLogoHeight_T > (LOGO_HEIGHT + 100)))
                             _bLogoCheck_T = false;
-                        else
-                        {
-                            _fLogo_T_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * _fLogoFont_HSize - _img_T.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
-
-                            if (_fLogo_T_LeftMargin < 0)
-                                _fLogo_T_LeftMargin = _fLogoCenter;
-                        }
                     }
 
                     // controlli sul Logo Bottom
@@ -417,13 +410,6 @@ namespace StandCommonFiles
                         if ((_sWinPrinterParams.iLogoWidth_B < 50) || (_sWinPrinterParams.iLogoWidth_B > (LOGO_WIDTH + 100)) ||
                            (_sWinPrinterParams.iLogoHeight_B < 50) || (_sWinPrinterParams.iLogoHeight_B > (LOGO_HEIGHT + 100)))
                             _bLogoCheck_B = false;
-                        else
-                        {
-                            _fLogo_B_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * _fLogoFont_HSize - _img_B.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
-
-                            if (_fLogo_B_LeftMargin < 0)
-                                _fLogo_B_LeftMargin = _fLogoCenter;
-                        }
                     }
 
                     if (sPrevPrinter != pd.PrinterSettings.PrinterName)
@@ -556,6 +542,10 @@ namespace StandCommonFiles
                  *************************************/
                 if (_bLogoCheck_T && bLogoRequested_T)
                 {
+                    _fLogo_T_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * _fLogoFont_HSize - _img_T.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
+
+                    if (_fLogo_T_LeftMargin < 0)
+                        _fLogo_T_LeftMargin = _fLogoCenter;
 
                     RectangleF imageRect = new RectangleF(_fLogo_T_LeftMargin, _fCanvasVertPos, _img_T.Size.Width * _fHZoom * _fH_px_to_gu,
                                                             _img_T.Size.Height * _fVZoom * _fV_px_to_gu);
@@ -720,6 +710,11 @@ namespace StandCommonFiles
                  *************************************/
                 if (_bLogoCheck_B && bLogoRequested_B)
                 {
+                    _fLogo_B_LeftMargin = _fLogoCenter + (iMAX_RECEIPT_CHARS * _fLogoFont_HSize - _img_B.Size.Width * _fHZoom) * _fH_px_to_gu / 2.0f;
+
+                    if (_fLogo_B_LeftMargin < 0)
+                        _fLogo_B_LeftMargin = _fLogoCenter;
+
                     RectangleF imageRect = new RectangleF(_fLogo_B_LeftMargin, _fCanvasVertPos, _img_B.Size.Width * _fHZoom * _fH_px_to_gu,
                                                             _img_B.Size.Height * _fVZoom * _fV_px_to_gu);
 

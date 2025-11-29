@@ -386,11 +386,12 @@ namespace StandFacile
 
             _sWinPrinterParamsCopy.bChars33 = checkBox_Chars33.Checked;
 
-            _sWinPrinterParamsCopy.iLogoWidth_T = sGlbWinPrinterParams.iLogoWidth_T;
-            _sWinPrinterParamsCopy.iLogoHeight_T = sGlbWinPrinterParams.iLogoHeight_T;
+            // questi non sono controlli !
+            //_sWinPrinterParamsCopy.iLogoWidth_T = sGlbWinPrinterParams.iLogoWidth_T;
+            //_sWinPrinterParamsCopy.iLogoHeight_T = sGlbWinPrinterParams.iLogoHeight_T;
 
-            _sWinPrinterParamsCopy.iLogoWidth_B = sGlbWinPrinterParams.iLogoWidth_B;
-            _sWinPrinterParamsCopy.iLogoHeight_B = sGlbWinPrinterParams.iLogoHeight_B;
+            //_sWinPrinterParamsCopy.iLogoWidth_B = sGlbWinPrinterParams.iLogoWidth_B;
+            //_sWinPrinterParamsCopy.iLogoHeight_B = sGlbWinPrinterParams.iLogoHeight_B;
         }
 
         private void SampleTextBtn_Click(object sender, EventArgs e)
