@@ -14,7 +14,7 @@ namespace StandFacile
     public struct Define
     {
         /// <summary>titolo</summary>
-        public const string TITLE = "Stand Monitor 2025";
+        public const string TITLE = "Stand Monitor 2026";
 
         /// <summary>nome dell'eseguibile</summary>
         public const string THE_APP = "StandMonitor.exe";

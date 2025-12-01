@@ -45,7 +45,7 @@
             this.MnuExit = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuModifica = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuModDispArticoli = new System.Windows.Forms.ToolStripMenuItem();
-            this.M1 = new System.Windows.Forms.ToolStripSeparator();
+            this.M_1 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuAnnulloOrdine = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuChangePayment = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuVisualizza = new System.Windows.Forms.ToolStripMenuItem();
@@ -97,6 +97,23 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.MainGrid = new System.Windows.Forms.DataGridView();
+            this.MainGridContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.p1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p6 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p9 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p10 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.m1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.m10 = new System.Windows.Forms.ToolStripMenuItem();
             this.topPanel = new System.Windows.Forms.Panel();
             this.toolStripTop = new System.Windows.Forms.ToolStrip();
             this.BtnVisListino = new System.Windows.Forms.ToolStripButton();
@@ -115,14 +132,7 @@
             this.BtnSep_T8 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnSep_T5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTop_TC_lbl = new System.Windows.Forms.ToolStripLabel();
-            this.EditTavolo = new System.Windows.Forms.TextBox();
-            this.EditResto = new System.Windows.Forms.TextBox();
-            this.EditContante = new System.Windows.Forms.TextBox();
-            this.lblTavolo = new System.Windows.Forms.Label();
-            this.lblResto = new System.Windows.Forms.Label();
             this.EditNota = new System.Windows.Forms.TextBox();
-            this.lblCoperti = new System.Windows.Forms.Label();
-            this.EditCoperti = new System.Windows.Forms.TextBox();
             this.lblStatus_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblStatus_TC = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblStatus_Date = new System.Windows.Forms.ToolStripStatusLabel();
@@ -130,25 +140,37 @@
             this.StatusBar = new System.Windows.Forms.StatusStrip();
             this.EditStatus_QRC = new System.Windows.Forms.TextBox();
             this.lblRead_bcd = new System.Windows.Forms.Label();
-            this.toolStripR = new System.Windows.Forms.ToolStrip();
-            this.btnSep_R1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtons_R = new System.Windows.Forms.ToolStrip();
             this.btnPlus = new System.Windows.Forms.ToolStripButton();
-            this.btnSep_R2 = new System.Windows.Forms.ToolStripButton();
-            this.btnMinus = new System.Windows.Forms.ToolStripButton();
-            this.btnSep_R3 = new System.Windows.Forms.ToolStripButton();
             this.btnCanc = new System.Windows.Forms.ToolStripButton();
+            this.btnMinus = new System.Windows.Forms.ToolStripButton();
             this.comboCashPos = new System.Windows.Forms.ComboBox();
-            this.lblNome = new System.Windows.Forms.Label();
-            this.EditNome = new System.Windows.Forms.TextBox();
+            this.panelRight = new System.Windows.Forms.Panel();
+            this.btnNavRight = new System.Windows.Forms.Button();
+            this.btnNavLeft = new System.Windows.Forms.Button();
+            this.EditResto = new System.Windows.Forms.TextBox();
+            this.EditContante = new System.Windows.Forms.TextBox();
             this.lblPagato = new System.Windows.Forms.Label();
+            this.lblResto = new System.Windows.Forms.Label();
+            this.Edit_TotCorrente = new System.Windows.Forms.TextBox();
+            this.labelTotale = new System.Windows.Forms.Label();
+            this.EditNome = new System.Windows.Forms.TextBox();
+            this.lblNome = new System.Windows.Forms.Label();
+            this.EditTavolo = new System.Windows.Forms.TextBox();
+            this.lblTavolo = new System.Windows.Forms.Label();
+            this.EditCoperti = new System.Windows.Forms.TextBox();
+            this.lblCoperti = new System.Windows.Forms.Label();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.MainMenu.SuspendLayout();
             this.StatusBar_Upper.SuspendLayout();
             this.TabSet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MainGrid)).BeginInit();
+            this.MainGridContextMenu.SuspendLayout();
             this.topPanel.SuspendLayout();
             this.toolStripTop.SuspendLayout();
             this.StatusBar.SuspendLayout();
-            this.toolStripR.SuspendLayout();
+            this.toolStripButtons_R.SuspendLayout();
+            this.panelRight.SuspendLayout();
             this.SuspendLayout();
             // 
             // Timer
@@ -250,7 +272,7 @@
             // 
             this.MnuModifica.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuModDispArticoli,
-            this.M1,
+            this.M_1,
             this.MnuAnnulloOrdine,
             this.MnuChangePayment});
             this.MnuModifica.Name = "MnuModifica";
@@ -265,10 +287,10 @@
             this.MnuModDispArticoli.Text = "&Disponibilità Articoli";
             this.MnuModDispArticoli.Click += new System.EventHandler(this.MnuModDispArticoli_Click);
             // 
-            // M1
+            // M_1
             // 
-            this.M1.Name = "M1";
-            this.M1.Size = new System.Drawing.Size(216, 6);
+            this.M_1.Name = "M_1";
+            this.M_1.Size = new System.Drawing.Size(216, 6);
             // 
             // MnuAnnulloOrdine
             // 
@@ -570,12 +592,12 @@
             this.lblStatusTotalePrec,
             this.lblStatusTickNum,
             this.lblNota});
-            this.StatusBar_Upper.Location = new System.Drawing.Point(0, 483);
+            this.StatusBar_Upper.Location = new System.Drawing.Point(0, 584);
             this.StatusBar_Upper.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.StatusBar_Upper.Name = "StatusBar_Upper";
             this.StatusBar_Upper.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.StatusBar_Upper.ShowItemToolTips = true;
-            this.StatusBar_Upper.Size = new System.Drawing.Size(468, 30);
+            this.StatusBar_Upper.Size = new System.Drawing.Size(486, 30);
             this.StatusBar_Upper.SizingGrip = false;
             this.StatusBar_Upper.Stretch = false;
             this.StatusBar_Upper.TabIndex = 7;
@@ -617,7 +639,7 @@
             this.lblNota.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblNota.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.lblNota.Name = "lblNota";
-            this.lblNota.Size = new System.Drawing.Size(135, 30);
+            this.lblNota.Size = new System.Drawing.Size(153, 30);
             this.lblNota.Spring = true;
             this.lblNota.Text = "Nota:";
             this.lblNota.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -631,11 +653,12 @@
             this.TabSet.Controls.Add(this.tabPage4);
             this.TabSet.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TabSet.HotTrack = true;
+            this.TabSet.ItemSize = new System.Drawing.Size(63, 25);
             this.TabSet.Location = new System.Drawing.Point(2, 70);
             this.TabSet.Name = "TabSet";
             this.TabSet.Padding = new System.Drawing.Point(4, 3);
             this.TabSet.SelectedIndex = 0;
-            this.TabSet.Size = new System.Drawing.Size(484, 26);
+            this.TabSet.Size = new System.Drawing.Size(484, 28);
             this.TabSet.TabIndex = 5;
             this.TabSet.TabStop = false;
             this.TabSet.SelectedIndexChanged += new System.EventHandler(this.TabSet_SelectedIndexChanged);
@@ -644,7 +667,7 @@
             // tabPage0
             // 
             this.tabPage0.BackColor = System.Drawing.SystemColors.Menu;
-            this.tabPage0.Location = new System.Drawing.Point(4, 27);
+            this.tabPage0.Location = new System.Drawing.Point(4, 29);
             this.tabPage0.Name = "tabPage0";
             this.tabPage0.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage0.Size = new System.Drawing.Size(476, 0);
@@ -654,7 +677,7 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.SystemColors.Menu;
-            this.tabPage1.Location = new System.Drawing.Point(4, 27);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(476, 0);
@@ -664,7 +687,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Menu;
-            this.tabPage2.Location = new System.Drawing.Point(4, 27);
+            this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Size = new System.Drawing.Size(476, 0);
             this.tabPage2.TabIndex = 2;
@@ -673,7 +696,7 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.SystemColors.Menu;
-            this.tabPage3.Location = new System.Drawing.Point(4, 27);
+            this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(476, 0);
             this.tabPage3.TabIndex = 3;
@@ -682,7 +705,7 @@
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.SystemColors.Menu;
-            this.tabPage4.Location = new System.Drawing.Point(4, 27);
+            this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(476, 0);
             this.tabPage4.TabIndex = 4;
@@ -704,6 +727,7 @@
             this.MainGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.MainGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MainGrid.ColumnHeadersVisible = false;
+            this.MainGrid.ContextMenuStrip = this.MainGridContextMenu;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -725,7 +749,7 @@
             this.MainGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.MainGrid.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.MainGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.MainGrid.Size = new System.Drawing.Size(991, 368);
+            this.MainGrid.Size = new System.Drawing.Size(851, 469);
             this.MainGrid.TabIndex = 0;
             this.MainGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MainGrid_CellClick);
             this.MainGrid.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MainGrid_CellDoubleClick);
@@ -739,6 +763,139 @@
             this.MainGrid.MouseLeave += new System.EventHandler(this.MainGrid_DragLeave);
             this.MainGrid.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MainGrid_MouseMove);
             this.MainGrid.Resize += new System.EventHandler(this.MainGrid_Resize);
+            // 
+            // MainGridContextMenu
+            // 
+            this.MainGridContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.p1,
+            this.p2,
+            this.p3,
+            this.p4,
+            this.p5,
+            this.p6,
+            this.p7,
+            this.p8,
+            this.p9,
+            this.p10,
+            this.toolStripSeparator1,
+            this.m1,
+            this.m2,
+            this.m3,
+            this.toolStripSeparator2,
+            this.m5,
+            this.m10});
+            this.MainGridContextMenu.Name = "MainGridMenu";
+            this.MainGridContextMenu.Size = new System.Drawing.Size(181, 368);
+            // 
+            // p1
+            // 
+            this.p1.Name = "p1";
+            this.p1.Size = new System.Drawing.Size(180, 22);
+            this.p1.Text = "+ 1";
+            this.p1.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // p2
+            // 
+            this.p2.Name = "p2";
+            this.p2.Size = new System.Drawing.Size(180, 22);
+            this.p2.Text = "+ 2";
+            this.p2.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // p3
+            // 
+            this.p3.Name = "p3";
+            this.p3.Size = new System.Drawing.Size(180, 22);
+            this.p3.Text = "+ 3";
+            this.p3.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // p4
+            // 
+            this.p4.Name = "p4";
+            this.p4.Size = new System.Drawing.Size(180, 22);
+            this.p4.Text = "+ 4";
+            this.p4.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // p5
+            // 
+            this.p5.Name = "p5";
+            this.p5.Size = new System.Drawing.Size(180, 22);
+            this.p5.Text = "+ 5";
+            this.p5.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // p6
+            // 
+            this.p6.Name = "p6";
+            this.p6.Size = new System.Drawing.Size(180, 22);
+            this.p6.Text = "+ 6";
+            this.p6.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // p7
+            // 
+            this.p7.Name = "p7";
+            this.p7.Size = new System.Drawing.Size(180, 22);
+            this.p7.Text = "+ 7";
+            this.p7.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // p8
+            // 
+            this.p8.Name = "p8";
+            this.p8.Size = new System.Drawing.Size(180, 22);
+            this.p8.Text = "+ 8";
+            this.p8.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // p9
+            // 
+            this.p9.Name = "p9";
+            this.p9.Size = new System.Drawing.Size(180, 22);
+            this.p9.Text = "+ 9";
+            this.p9.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // p10
+            // 
+            this.p10.Name = "p10";
+            this.p10.Size = new System.Drawing.Size(180, 22);
+            this.p10.Text = "+ 10";
+            this.p10.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // m1
+            // 
+            this.m1.Name = "m1";
+            this.m1.Size = new System.Drawing.Size(180, 22);
+            this.m1.Text = "- 1";
+            this.m1.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // m2
+            // 
+            this.m2.Name = "m2";
+            this.m2.Size = new System.Drawing.Size(180, 22);
+            this.m2.Text = "- 2";
+            this.m2.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // m3
+            // 
+            this.m3.Name = "m3";
+            this.m3.Size = new System.Drawing.Size(180, 22);
+            this.m3.Text = "- 3";
+            this.m3.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // m5
+            // 
+            this.m5.Name = "m5";
+            this.m5.Size = new System.Drawing.Size(180, 22);
+            this.m5.Text = "- 5";
+            this.m5.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // m10
+            // 
+            this.m10.Name = "m10";
+            this.m10.Size = new System.Drawing.Size(180, 22);
+            this.m10.Text = "- 10";
+            this.m10.Click += new System.EventHandler(this.mpx_Click);
             // 
             // topPanel
             // 
@@ -956,123 +1113,20 @@
             this.toolStripTop_TC_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolStripTop_TC_lbl.ToolTipText = "Totale Corrente";
             // 
-            // EditTavolo
-            // 
-            this.EditTavolo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.EditTavolo.BackColor = System.Drawing.Color.LightBlue;
-            this.EditTavolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditTavolo.Location = new System.Drawing.Point(855, 69);
-            this.EditTavolo.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
-            this.EditTavolo.MaxLength = 12;
-            this.EditTavolo.Name = "EditTavolo";
-            this.EditTavolo.Size = new System.Drawing.Size(100, 26);
-            this.EditTavolo.TabIndex = 1;
-            this.EditTavolo.WordWrap = false;
-            this.EditTavolo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
-            this.EditTavolo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
-            // 
-            // EditResto
-            // 
-            this.EditResto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.EditResto.BackColor = System.Drawing.Color.Honeydew;
-            this.EditResto.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditResto.Location = new System.Drawing.Point(785, 483);
-            this.EditResto.Margin = new System.Windows.Forms.Padding(0);
-            this.EditResto.MaxLength = 6;
-            this.EditResto.Name = "EditResto";
-            this.EditResto.ReadOnly = true;
-            this.EditResto.Size = new System.Drawing.Size(65, 26);
-            this.EditResto.TabIndex = 9;
-            this.EditResto.TabStop = false;
-            this.EditResto.Text = "- 123";
-            this.EditResto.WordWrap = false;
-            this.EditResto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.EditStatusResto_MouseClick);
-            this.EditResto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
-            // 
-            // EditContante
-            // 
-            this.EditContante.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.EditContante.BackColor = System.Drawing.Color.Honeydew;
-            this.EditContante.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditContante.Location = new System.Drawing.Point(923, 483);
-            this.EditContante.Margin = new System.Windows.Forms.Padding(0);
-            this.EditContante.MaxLength = 6;
-            this.EditContante.Name = "EditContante";
-            this.EditContante.Size = new System.Drawing.Size(65, 26);
-            this.EditContante.TabIndex = 3;
-            this.EditContante.WordWrap = false;
-            this.EditContante.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
-            this.EditContante.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditContante_KeyPress);
-            this.EditContante.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
-            // 
-            // lblTavolo
-            // 
-            this.lblTavolo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblTavolo.AutoSize = true;
-            this.lblTavolo.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTavolo.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblTavolo.Location = new System.Drawing.Point(789, 72);
-            this.lblTavolo.Margin = new System.Windows.Forms.Padding(3, 0, 3, 4);
-            this.lblTavolo.Name = "lblTavolo";
-            this.lblTavolo.Size = new System.Drawing.Size(63, 19);
-            this.lblTavolo.TabIndex = 6;
-            this.lblTavolo.Text = "Tavolo:";
-            // 
-            // lblResto
-            // 
-            this.lblResto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblResto.AutoSize = true;
-            this.lblResto.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResto.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblResto.Location = new System.Drawing.Point(728, 485);
-            this.lblResto.Name = "lblResto";
-            this.lblResto.Size = new System.Drawing.Size(54, 19);
-            this.lblResto.TabIndex = 8;
-            this.lblResto.Text = "Resto:";
-            // 
             // EditNota
             // 
             this.EditNota.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.EditNota.BackColor = System.Drawing.Color.Gainsboro;
             this.EditNota.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditNota.Location = new System.Drawing.Point(468, 483);
+            this.EditNota.Location = new System.Drawing.Point(479, 584);
             this.EditNota.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.EditNota.MaxLength = 28;
             this.EditNota.Name = "EditNota";
-            this.EditNota.Size = new System.Drawing.Size(218, 26);
+            this.EditNota.Size = new System.Drawing.Size(321, 26);
             this.EditNota.TabIndex = 2;
             this.EditNota.WordWrap = false;
             this.EditNota.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             this.EditNota.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
-            // 
-            // lblCoperti
-            // 
-            this.lblCoperti.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCoperti.AutoSize = true;
-            this.lblCoperti.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCoperti.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblCoperti.Location = new System.Drawing.Point(960, 72);
-            this.lblCoperti.Margin = new System.Windows.Forms.Padding(3, 0, 3, 4);
-            this.lblCoperti.Name = "lblCoperti";
-            this.lblCoperti.Size = new System.Drawing.Size(66, 19);
-            this.lblCoperti.TabIndex = 19;
-            this.lblCoperti.Text = "Coperti:";
-            // 
-            // EditCoperti
-            // 
-            this.EditCoperti.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.EditCoperti.BackColor = System.Drawing.Color.LightBlue;
-            this.EditCoperti.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditCoperti.Location = new System.Drawing.Point(1029, 69);
-            this.EditCoperti.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
-            this.EditCoperti.MaxLength = 3;
-            this.EditCoperti.Name = "EditCoperti";
-            this.EditCoperti.Size = new System.Drawing.Size(48, 26);
-            this.EditCoperti.TabIndex = 20;
-            this.EditCoperti.WordWrap = false;
-            this.EditCoperti.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
-            this.EditCoperti.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditFilter_KeyPress);
-            this.EditCoperti.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
             // 
             // lblStatus_Status
             // 
@@ -1140,7 +1194,7 @@
             this.lblStatus_TC,
             this.lblStatus_Date,
             this.lblStatus_Time});
-            this.StatusBar.Location = new System.Drawing.Point(0, 511);
+            this.StatusBar.Location = new System.Drawing.Point(0, 612);
             this.StatusBar.Margin = new System.Windows.Forms.Padding(2);
             this.StatusBar.Name = "StatusBar";
             this.StatusBar.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -1156,7 +1210,7 @@
             this.EditStatus_QRC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.EditStatus_QRC.BackColor = System.Drawing.Color.Honeydew;
             this.EditStatus_QRC.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditStatus_QRC.Location = new System.Drawing.Point(923, 512);
+            this.EditStatus_QRC.Location = new System.Drawing.Point(923, 613);
             this.EditStatus_QRC.Margin = new System.Windows.Forms.Padding(0);
             this.EditStatus_QRC.MaxLength = 0;
             this.EditStatus_QRC.Name = "EditStatus_QRC";
@@ -1173,106 +1227,76 @@
             this.lblRead_bcd.AutoSize = true;
             this.lblRead_bcd.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblRead_bcd.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblRead_bcd.Location = new System.Drawing.Point(801, 516);
+            this.lblRead_bcd.Location = new System.Drawing.Point(801, 617);
             this.lblRead_bcd.Name = "lblRead_bcd";
             this.lblRead_bcd.Size = new System.Drawing.Size(120, 19);
             this.lblRead_bcd.TabIndex = 22;
             this.lblRead_bcd.Text = "lettura QRcode:";
             // 
-            // toolStripR
+            // toolStripButtons_R
             // 
-            this.toolStripR.AllowMerge = false;
-            this.toolStripR.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.toolStripR.AutoSize = false;
-            this.toolStripR.BackColor = System.Drawing.Color.White;
-            this.toolStripR.CanOverflow = false;
-            this.toolStripR.Dock = System.Windows.Forms.DockStyle.None;
-            this.toolStripR.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStripR.ImageScalingSize = new System.Drawing.Size(80, 80);
-            this.toolStripR.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnSep_R1,
+            this.toolStripButtons_R.AllowMerge = false;
+            this.toolStripButtons_R.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.toolStripButtons_R.AutoSize = false;
+            this.toolStripButtons_R.BackColor = System.Drawing.Color.Honeydew;
+            this.toolStripButtons_R.CanOverflow = false;
+            this.toolStripButtons_R.Dock = System.Windows.Forms.DockStyle.None;
+            this.toolStripButtons_R.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripButtons_R.ImageScalingSize = new System.Drawing.Size(80, 80);
+            this.toolStripButtons_R.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnPlus,
-            this.btnSep_R2,
-            this.btnMinus,
-            this.btnSep_R3,
-            this.btnCanc});
-            this.toolStripR.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.VerticalStackWithOverflow;
-            this.toolStripR.Location = new System.Drawing.Point(1002, 97);
-            this.toolStripR.Name = "toolStripR";
-            this.toolStripR.Padding = new System.Windows.Forms.Padding(0);
-            this.toolStripR.Size = new System.Drawing.Size(83, 366);
-            this.toolStripR.TabIndex = 23;
-            this.toolStripR.Text = "toolStrip1";
-            // 
-            // btnSep_R1
-            // 
-            this.btnSep_R1.AutoSize = false;
-            this.btnSep_R1.BackColor = System.Drawing.Color.White;
-            this.btnSep_R1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSep_R1.Enabled = false;
-            this.btnSep_R1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnSep_R1.ImageTransparentColor = System.Drawing.Color.White;
-            this.btnSep_R1.Name = "btnSep_R1";
-            this.btnSep_R1.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnSep_R1.Size = new System.Drawing.Size(83, 32);
+            this.btnCanc,
+            this.btnMinus});
+            this.toolStripButtons_R.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
+            this.toolStripButtons_R.Location = new System.Drawing.Point(855, 95);
+            this.toolStripButtons_R.Name = "toolStripButtons_R";
+            this.toolStripButtons_R.Padding = new System.Windows.Forms.Padding(0);
+            this.toolStripButtons_R.Size = new System.Drawing.Size(230, 75);
+            this.toolStripButtons_R.TabIndex = 23;
+            this.toolStripButtons_R.Text = "toolStripButtons_R";
             // 
             // btnPlus
             // 
             this.btnPlus.AutoSize = false;
-            this.btnPlus.BackColor = System.Drawing.Color.White;
+            this.btnPlus.BackColor = System.Drawing.Color.Honeydew;
             this.btnPlus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnPlus.Image = ((System.Drawing.Image)(resources.GetObject("btnPlus.Image")));
             this.btnPlus.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnPlus.ImageTransparentColor = System.Drawing.Color.White;
+            this.btnPlus.Margin = new System.Windows.Forms.Padding(0, 1, 1, 1);
             this.btnPlus.Name = "btnPlus";
             this.btnPlus.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.btnPlus.Size = new System.Drawing.Size(80, 80);
+            this.btnPlus.Size = new System.Drawing.Size(75, 75);
             this.btnPlus.ToolTipText = "incrementa la quantità";
             this.btnPlus.Click += new System.EventHandler(this.BtnPlus_Click);
-            // 
-            // btnSep_R2
-            // 
-            this.btnSep_R2.AutoSize = false;
-            this.btnSep_R2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSep_R2.Enabled = false;
-            this.btnSep_R2.ImageTransparentColor = System.Drawing.Color.White;
-            this.btnSep_R2.Name = "btnSep_R2";
-            this.btnSep_R2.Size = new System.Drawing.Size(83, 22);
-            // 
-            // btnMinus
-            // 
-            this.btnMinus.AutoSize = false;
-            this.btnMinus.BackColor = System.Drawing.Color.White;
-            this.btnMinus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnMinus.Image = ((System.Drawing.Image)(resources.GetObject("btnMinus.Image")));
-            this.btnMinus.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.btnMinus.ImageTransparentColor = System.Drawing.Color.White;
-            this.btnMinus.Name = "btnMinus";
-            this.btnMinus.Size = new System.Drawing.Size(80, 80);
-            this.btnMinus.ToolTipText = "decrementa la quantità";
-            this.btnMinus.Click += new System.EventHandler(this.BtnMinus_Click);
-            // 
-            // btnSep_R3
-            // 
-            this.btnSep_R3.AutoSize = false;
-            this.btnSep_R3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.btnSep_R3.Enabled = false;
-            this.btnSep_R3.ImageTransparentColor = System.Drawing.Color.White;
-            this.btnSep_R3.Name = "btnSep_R3";
-            this.btnSep_R3.Size = new System.Drawing.Size(83, 22);
             // 
             // btnCanc
             // 
             this.btnCanc.AutoSize = false;
+            this.btnCanc.BackColor = System.Drawing.Color.Honeydew;
             this.btnCanc.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnCanc.Image = global::StandFacile.Properties.Resources.canc;
             this.btnCanc.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnCanc.ImageTransparentColor = System.Drawing.Color.White;
+            this.btnCanc.Margin = new System.Windows.Forms.Padding(1);
             this.btnCanc.Name = "btnCanc";
-            this.btnCanc.Size = new System.Drawing.Size(83, 84);
+            this.btnCanc.Size = new System.Drawing.Size(75, 75);
             this.btnCanc.ToolTipText = "azzera la quantità";
             this.btnCanc.Click += new System.EventHandler(this.BtnCanc_Click);
+            // 
+            // btnMinus
+            // 
+            this.btnMinus.AutoSize = false;
+            this.btnMinus.BackColor = System.Drawing.Color.Honeydew;
+            this.btnMinus.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.btnMinus.Image = ((System.Drawing.Image)(resources.GetObject("btnMinus.Image")));
+            this.btnMinus.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.btnMinus.ImageTransparentColor = System.Drawing.Color.White;
+            this.btnMinus.Margin = new System.Windows.Forms.Padding(1, 1, 0, 1);
+            this.btnMinus.Name = "btnMinus";
+            this.btnMinus.Size = new System.Drawing.Size(75, 75);
+            this.btnMinus.ToolTipText = "decrementa la quantità";
+            this.btnMinus.Click += new System.EventHandler(this.BtnMinus_Click);
             // 
             // comboCashPos
             // 
@@ -1286,76 +1310,251 @@
             "CARD",
             "SATYSPAY",
             "   "});
-            this.comboCashPos.Location = new System.Drawing.Point(993, 483);
+            this.comboCashPos.Location = new System.Drawing.Point(862, 584);
             this.comboCashPos.Name = "comboCashPos";
-            this.comboCashPos.Size = new System.Drawing.Size(78, 24);
+            this.comboCashPos.Size = new System.Drawing.Size(203, 24);
             this.comboCashPos.TabIndex = 24;
             this.comboCashPos.SelectedIndexChanged += new System.EventHandler(this.ComboCashPos_SelectedIndexChanged);
             // 
-            // lblNome
+            // panelRight
             // 
-            this.lblNome.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblNome.AutoSize = true;
-            this.lblNome.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNome.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblNome.Location = new System.Drawing.Point(584, 70);
-            this.lblNome.Margin = new System.Windows.Forms.Padding(3, 0, 3, 4);
-            this.lblNome.Name = "lblNome";
-            this.lblNome.Size = new System.Drawing.Size(57, 19);
-            this.lblNome.TabIndex = 26;
-            this.lblNome.Text = "Nome:";
+            this.panelRight.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelRight.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.panelRight.Controls.Add(this.btnNavRight);
+            this.panelRight.Controls.Add(this.btnNavLeft);
+            this.panelRight.Controls.Add(this.EditResto);
+            this.panelRight.Controls.Add(this.EditContante);
+            this.panelRight.Controls.Add(this.lblPagato);
+            this.panelRight.Controls.Add(this.lblResto);
+            this.panelRight.Controls.Add(this.Edit_TotCorrente);
+            this.panelRight.Controls.Add(this.labelTotale);
+            this.panelRight.Controls.Add(this.EditNome);
+            this.panelRight.Controls.Add(this.lblNome);
+            this.panelRight.Controls.Add(this.EditTavolo);
+            this.panelRight.Controls.Add(this.lblTavolo);
+            this.panelRight.Controls.Add(this.EditCoperti);
+            this.panelRight.Controls.Add(this.lblCoperti);
+            this.panelRight.Location = new System.Drawing.Point(855, 172);
+            this.panelRight.Margin = new System.Windows.Forms.Padding(0);
+            this.panelRight.Name = "panelRight";
+            this.panelRight.Size = new System.Drawing.Size(230, 394);
+            this.panelRight.TabIndex = 29;
+            // 
+            // btnNavRight
+            // 
+            this.btnNavRight.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnNavRight.Image = global::StandFacile.Properties.Resources.ArrowR;
+            this.btnNavRight.Location = new System.Drawing.Point(8, 64);
+            this.btnNavRight.Name = "btnNavRight";
+            this.btnNavRight.Size = new System.Drawing.Size(34, 28);
+            this.btnNavRight.TabIndex = 37;
+            this.btnNavRight.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNavRight.UseVisualStyleBackColor = false;
+            this.btnNavRight.Click += new System.EventHandler(this.btnNav_Click);
+            // 
+            // btnNavLeft
+            // 
+            this.btnNavLeft.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnNavLeft.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnNavLeft.Image = global::StandFacile.Properties.Resources.ArrowL;
+            this.btnNavLeft.Location = new System.Drawing.Point(8, 3);
+            this.btnNavLeft.Name = "btnNavLeft";
+            this.btnNavLeft.Size = new System.Drawing.Size(34, 28);
+            this.btnNavLeft.TabIndex = 36;
+            this.btnNavLeft.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNavLeft.UseVisualStyleBackColor = false;
+            this.btnNavLeft.Click += new System.EventHandler(this.btnNav_Click);
+            // 
+            // EditResto
+            // 
+            this.EditResto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.EditResto.BackColor = System.Drawing.Color.Honeydew;
+            this.EditResto.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditResto.Location = new System.Drawing.Point(7, 360);
+            this.EditResto.Margin = new System.Windows.Forms.Padding(0);
+            this.EditResto.MaxLength = 6;
+            this.EditResto.Name = "EditResto";
+            this.EditResto.ReadOnly = true;
+            this.EditResto.Size = new System.Drawing.Size(217, 29);
+            this.EditResto.TabIndex = 34;
+            this.EditResto.TabStop = false;
+            this.EditResto.Text = "4.40";
+            this.EditResto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.EditResto.WordWrap = false;
+            this.EditResto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.EditStatusResto_MouseClick);
+            this.EditResto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
+            // 
+            // EditContante
+            // 
+            this.EditContante.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.EditContante.BackColor = System.Drawing.Color.Honeydew;
+            this.EditContante.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditContante.Location = new System.Drawing.Point(7, 301);
+            this.EditContante.Margin = new System.Windows.Forms.Padding(0);
+            this.EditContante.MaxLength = 6;
+            this.EditContante.Name = "EditContante";
+            this.EditContante.Size = new System.Drawing.Size(217, 29);
+            this.EditContante.TabIndex = 33;
+            this.EditContante.Text = "2.20";
+            this.EditContante.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.EditContante.WordWrap = false;
+            this.EditContante.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
+            this.EditContante.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditContante_KeyPress);
+            this.EditContante.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
+            // 
+            // lblPagato
+            // 
+            this.lblPagato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblPagato.AutoSize = true;
+            this.lblPagato.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPagato.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblPagato.Location = new System.Drawing.Point(41, 276);
+            this.lblPagato.Name = "lblPagato";
+            this.lblPagato.Size = new System.Drawing.Size(146, 23);
+            this.lblPagato.TabIndex = 32;
+            this.lblPagato.Text = "PAG. CONTANTI";
+            // 
+            // lblResto
+            // 
+            this.lblResto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblResto.AutoSize = true;
+            this.lblResto.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblResto.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblResto.Location = new System.Drawing.Point(80, 335);
+            this.lblResto.Name = "lblResto";
+            this.lblResto.Size = new System.Drawing.Size(68, 23);
+            this.lblResto.TabIndex = 31;
+            this.lblResto.Text = "RESTO";
+            // 
+            // Edit_TotCorrente
+            // 
+            this.Edit_TotCorrente.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.Edit_TotCorrente.BackColor = System.Drawing.Color.Honeydew;
+            this.Edit_TotCorrente.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Edit_TotCorrente.ForeColor = System.Drawing.Color.Crimson;
+            this.Edit_TotCorrente.Location = new System.Drawing.Point(7, 242);
+            this.Edit_TotCorrente.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.Edit_TotCorrente.MaxLength = 20;
+            this.Edit_TotCorrente.Name = "Edit_TotCorrente";
+            this.Edit_TotCorrente.Size = new System.Drawing.Size(217, 29);
+            this.Edit_TotCorrente.TabIndex = 30;
+            this.Edit_TotCorrente.Text = "0.00";
+            this.Edit_TotCorrente.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.Edit_TotCorrente.WordWrap = false;
+            // 
+            // labelTotale
+            // 
+            this.labelTotale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelTotale.AutoSize = true;
+            this.labelTotale.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTotale.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.labelTotale.Location = new System.Drawing.Point(76, 216);
+            this.labelTotale.Margin = new System.Windows.Forms.Padding(3, 0, 3, 4);
+            this.labelTotale.Name = "labelTotale";
+            this.labelTotale.Size = new System.Drawing.Size(76, 23);
+            this.labelTotale.TabIndex = 29;
+            this.labelTotale.Text = "TOTALE";
             // 
             // EditNome
             // 
-            this.EditNome.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.EditNome.BackColor = System.Drawing.Color.LightBlue;
-            this.EditNome.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditNome.Location = new System.Drawing.Point(644, 69);
+            this.EditNome.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditNome.Location = new System.Drawing.Point(7, 151);
             this.EditNome.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.EditNome.MaxLength = 20;
             this.EditNome.Name = "EditNome";
-            this.EditNome.Size = new System.Drawing.Size(140, 26);
-            this.EditNome.TabIndex = 25;
+            this.EditNome.Size = new System.Drawing.Size(217, 29);
+            this.EditNome.TabIndex = 28;
             this.EditNome.WordWrap = false;
             this.EditNome.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             this.EditNome.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
             // 
-            // lblPagato
+            // lblNome
             // 
-            this.lblPagato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblPagato.AutoSize = true;
-            this.lblPagato.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPagato.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblPagato.Location = new System.Drawing.Point(857, 485);
-            this.lblPagato.Name = "lblPagato";
-            this.lblPagato.Size = new System.Drawing.Size(63, 19);
-            this.lblPagato.TabIndex = 28;
-            this.lblPagato.Text = "Pagato:";
+            this.lblNome.AutoSize = true;
+            this.lblNome.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNome.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblNome.Location = new System.Drawing.Point(82, 125);
+            this.lblNome.Margin = new System.Windows.Forms.Padding(3, 0, 3, 4);
+            this.lblNome.Name = "lblNome";
+            this.lblNome.Size = new System.Drawing.Size(62, 23);
+            this.lblNome.TabIndex = 27;
+            this.lblNome.Text = "NOME";
+            // 
+            // EditTavolo
+            // 
+            this.EditTavolo.BackColor = System.Drawing.Color.LightBlue;
+            this.EditTavolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditTavolo.Location = new System.Drawing.Point(7, 92);
+            this.EditTavolo.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.EditTavolo.MaxLength = 12;
+            this.EditTavolo.Name = "EditTavolo";
+            this.EditTavolo.Size = new System.Drawing.Size(217, 29);
+            this.EditTavolo.TabIndex = 23;
+            this.EditTavolo.WordWrap = false;
+            this.EditTavolo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
+            this.EditTavolo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
+            // 
+            // lblTavolo
+            // 
+            this.lblTavolo.AutoSize = true;
+            this.lblTavolo.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTavolo.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblTavolo.Location = new System.Drawing.Point(75, 66);
+            this.lblTavolo.Margin = new System.Windows.Forms.Padding(3, 0, 3, 4);
+            this.lblTavolo.Name = "lblTavolo";
+            this.lblTavolo.Size = new System.Drawing.Size(78, 23);
+            this.lblTavolo.TabIndex = 22;
+            this.lblTavolo.Text = "TAVOLO";
+            // 
+            // EditCoperti
+            // 
+            this.EditCoperti.BackColor = System.Drawing.Color.LightBlue;
+            this.EditCoperti.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditCoperti.Location = new System.Drawing.Point(7, 33);
+            this.EditCoperti.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.EditCoperti.MaxLength = 3;
+            this.EditCoperti.Name = "EditCoperti";
+            this.EditCoperti.Size = new System.Drawing.Size(217, 29);
+            this.EditCoperti.TabIndex = 21;
+            this.EditCoperti.WordWrap = false;
+            this.EditCoperti.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
+            this.EditCoperti.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditFilter_KeyPress);
+            this.EditCoperti.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
+            // 
+            // lblCoperti
+            // 
+            this.lblCoperti.AutoSize = true;
+            this.lblCoperti.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCoperti.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblCoperti.Location = new System.Drawing.Point(69, 7);
+            this.lblCoperti.Margin = new System.Windows.Forms.Padding(3, 0, 3, 4);
+            this.lblCoperti.Name = "lblCoperti";
+            this.lblCoperti.Size = new System.Drawing.Size(85, 23);
+            this.lblCoperti.TabIndex = 20;
+            this.lblCoperti.Text = "COPERTI";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1084, 541);
-            this.Controls.Add(this.lblPagato);
-            this.Controls.Add(this.lblNome);
-            this.Controls.Add(this.EditNome);
+            this.ClientSize = new System.Drawing.Size(1084, 642);
+            this.Controls.Add(this.panelRight);
             this.Controls.Add(this.comboCashPos);
-            this.Controls.Add(this.toolStripR);
+            this.Controls.Add(this.toolStripButtons_R);
             this.Controls.Add(this.lblRead_bcd);
             this.Controls.Add(this.EditStatus_QRC);
-            this.Controls.Add(this.EditCoperti);
-            this.Controls.Add(this.lblCoperti);
             this.Controls.Add(this.MainGrid);
             this.Controls.Add(this.TabSet);
             this.Controls.Add(this.EditNota);
-            this.Controls.Add(this.lblResto);
-            this.Controls.Add(this.lblTavolo);
-            this.Controls.Add(this.EditContante);
-            this.Controls.Add(this.EditResto);
             this.Controls.Add(this.topPanel);
-            this.Controls.Add(this.EditTavolo);
             this.Controls.Add(this.StatusBar_Upper);
             this.Controls.Add(this.StatusBar);
             this.Controls.Add(this.MainMenu);
@@ -1366,7 +1565,7 @@
             this.Name = "FrmMain";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "StandFacile 2025";
+            this.Text = "StandFacile 2026";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FrmMain_FormClosing);
             this.Resize += new System.EventHandler(this.FormResize);
             this.MainMenu.ResumeLayout(false);
@@ -1375,13 +1574,16 @@
             this.StatusBar_Upper.PerformLayout();
             this.TabSet.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MainGrid)).EndInit();
+            this.MainGridContextMenu.ResumeLayout(false);
             this.topPanel.ResumeLayout(false);
             this.toolStripTop.ResumeLayout(false);
             this.toolStripTop.PerformLayout();
             this.StatusBar.ResumeLayout(false);
             this.StatusBar.PerformLayout();
-            this.toolStripR.ResumeLayout(false);
-            this.toolStripR.PerformLayout();
+            this.toolStripButtons_R.ResumeLayout(false);
+            this.toolStripButtons_R.PerformLayout();
+            this.panelRight.ResumeLayout(false);
+            this.panelRight.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1436,7 +1638,7 @@
         private System.Windows.Forms.ToolStripButton BtnSendMsg;
         private System.Windows.Forms.ToolStripButton BtnX10;
         private System.Windows.Forms.ToolStripMenuItem MnuChiudiIncasso;
-        private System.Windows.Forms.ToolStripSeparator M1;
+        private System.Windows.Forms.ToolStripSeparator M_1;
         private System.Windows.Forms.ToolStripMenuItem MnuAnnulloOrdine;
         private System.Windows.Forms.ToolStripMenuItem MnuEsploraDB;
         private System.Windows.Forms.ToolStripSeparator V2;
@@ -1449,17 +1651,10 @@
         private System.Windows.Forms.ToolStripSeparator BtnSep_T2;
         private System.Windows.Forms.ToolStripSeparator BtnSep_T3;
         private System.Windows.Forms.ToolStripSeparator BtnSep_T7;
-        private System.Windows.Forms.TextBox EditTavolo;
-        private System.Windows.Forms.TextBox EditResto;
-        private System.Windows.Forms.TextBox EditContante;
-        private System.Windows.Forms.Label lblTavolo;
-        private System.Windows.Forms.Label lblResto;
         private System.Windows.Forms.TextBox EditNota;
         private System.Windows.Forms.DataGridView MainGrid;
         private System.Windows.Forms.ToolStripSeparator BtnSep_T4;
         private System.Windows.Forms.ToolStripSeparator BtnSep_T8;
-        private System.Windows.Forms.Label lblCoperti;
-        private System.Windows.Forms.TextBox EditCoperti;
         private System.Windows.Forms.ToolStripSeparator BtnSep_T6;
         private System.Windows.Forms.ToolStripButton BtnSconto;
         private System.Windows.Forms.ToolStripSeparator BtnSep_T5;
@@ -1479,26 +1674,53 @@
         private System.Windows.Forms.TextBox EditStatus_QRC;
         private System.Windows.Forms.Label lblRead_bcd;
         private System.Windows.Forms.ToolStripMenuItem MnuEsploraOrdiniWeb;
-        private System.Windows.Forms.ToolStrip toolStripR;
-        private System.Windows.Forms.ToolStripButton btnSep_R1;
+        private System.Windows.Forms.ToolStrip toolStripButtons_R;
         private System.Windows.Forms.ToolStripButton btnPlus;
-        private System.Windows.Forms.ToolStripButton btnSep_R2;
         private System.Windows.Forms.ToolStripButton btnMinus;
-        private System.Windows.Forms.ToolStripButton btnSep_R3;
         private System.Windows.Forms.ToolStripButton btnCanc;
         private System.Windows.Forms.ComboBox comboCashPos;
         private System.Windows.Forms.ToolStripMenuItem MnuChangePayment;
         private System.Windows.Forms.ToolStripMenuItem MnuEsperto;
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaCopieLocali;
-        private System.Windows.Forms.Label lblNome;
-        private System.Windows.Forms.TextBox EditNome;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Label lblPagato;
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteWin;
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteLegacy;
         private System.Windows.Forms.ToolStripMenuItem MnuFileDiConfigurazione;
-        private System.Windows.Forms.ToolStripLabel toolStripTop_TC_lbl;
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteGenerica;
+        private System.Windows.Forms.Panel panelRight;
+        private System.Windows.Forms.Label lblCoperti;
+        private System.Windows.Forms.TextBox EditCoperti;
+        private System.Windows.Forms.TextBox EditTavolo;
+        private System.Windows.Forms.Label lblTavolo;
+        private System.Windows.Forms.Label lblNome;
+        private System.Windows.Forms.TextBox EditNome;
+        private System.Windows.Forms.TextBox Edit_TotCorrente;
+        private System.Windows.Forms.Label labelTotale;
+        private System.Windows.Forms.TextBox EditResto;
+        private System.Windows.Forms.TextBox EditContante;
+        private System.Windows.Forms.Label lblPagato;
+        private System.Windows.Forms.Label lblResto;
+        private System.Windows.Forms.Button btnNavLeft;
+        private System.Windows.Forms.Button btnNavRight;
+        private System.Windows.Forms.ToolStripLabel toolStripTop_TC_lbl;
+        private System.Windows.Forms.ContextMenuStrip MainGridContextMenu;
+        private System.Windows.Forms.ToolStripMenuItem p1;
+        private System.Windows.Forms.ToolStripMenuItem p2;
+        private System.Windows.Forms.ToolStripMenuItem p3;
+        private System.Windows.Forms.ToolStripMenuItem p4;
+        private System.Windows.Forms.ToolStripMenuItem p5;
+        private System.Windows.Forms.ToolStripMenuItem p6;
+        private System.Windows.Forms.ToolStripMenuItem p7;
+        private System.Windows.Forms.ToolStripMenuItem p8;
+        private System.Windows.Forms.ToolStripMenuItem p9;
+        private System.Windows.Forms.ToolStripMenuItem p10;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem m1;
+        private System.Windows.Forms.ToolStripMenuItem m2;
+        private System.Windows.Forms.ToolStripMenuItem m3;
+        private System.Windows.Forms.ToolStripMenuItem m5;
+        private System.Windows.Forms.ToolStripMenuItem m10;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 

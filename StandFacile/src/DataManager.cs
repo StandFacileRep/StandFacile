@@ -531,10 +531,12 @@ namespace StandFacile
 
                 SF_Data.iTotaleAnnullato = DB_Data.iTotaleAnnullato;
 
-                if (DB_Data.iTotaleAnnullato < 0)
+                if (SF_Data.iTotaleAnnullato < 0)
                 {
                     sTmp = String.Format("DataManager : DB_Data.iTotaleAnnullato = {0}, deve essere sempre >= 0 !", DB_Data.iTotaleAnnullato);
                     LogToFile(sTmp, true);
+
+                    SF_Data.iTotaleAnnullato = 0; // sicurezza per evitare errori scrittura DB
                 }
 
                 SF_Data.iTotaleScontatoStd = DB_Data.iTotaleScontatoStd;

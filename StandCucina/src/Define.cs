@@ -13,7 +13,7 @@ namespace StandFacile
     public struct Define
     {
         /// <summary>titolo</summary>
-        public const string TITLE = "Stand Cucina 2025";
+        public const string TITLE = "Stand Cucina 2026";
 
         /// <summary>numero minimo di righe visualizzate</summary>
         public const int MIN_ROWS_NUMBER = 15;

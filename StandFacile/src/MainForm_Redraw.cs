@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 28.10.2025
+    Data	 : 30.11.2025
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -31,6 +31,11 @@ namespace StandFacile
     /// </summary>
     public partial class FrmMain : Form
     {
+        const int toolStripR_WIDTH_H = 230;
+        const int toolStripR_WIDTH_V = 100;
+        const int toolStripR_HEIGHT_H = 75;
+        const int toolStripR_HEIGHT_V = 232;
+
         /// <summary>
         /// abilita/disabilita le varie voci del Menù Principale
         /// </summary>
@@ -593,16 +598,16 @@ namespace StandFacile
                     break;
 
                 case KEY_F1:
-                    EditTavolo.Focus();
-                    break;
-                case KEY_F2:
                     EditCoperti.Focus();
                     break;
+                case KEY_F2:
+                    EditTavolo.Focus();
+                    break;
                 case KEY_F3:
-                    EditNota.Focus();
+                    EditContante.Focus();
                     break;
                 case KEY_F4:
-                    EditContante.Focus();
+                    EditNota.Focus();
                     break;
 
                 case KEY_F5:
@@ -794,7 +799,7 @@ namespace StandFacile
                 // reset EditNota
                 EditNota.BackColor = Color.Gainsboro;
                 EditNota.Text = _sEditNotaCopy;
-                EditNota.MaxLength = 28;
+                EditNota.MaxLength = iMAX_RECEIPT_CHARS;
                 lblNota.Text = "Nota:";
 
                 MainGrid_Redraw(this, null);
@@ -1034,7 +1039,7 @@ namespace StandFacile
 
                     EditNota.BackColor = Color.Gainsboro;
                     EditNota.Text = _sEditNotaCopy;
-                    EditNota.MaxLength = 28;
+                    EditNota.MaxLength = iMAX_RECEIPT_CHARS;
                     lblNota.Text = "Nota:";
 
                     MainGrid_Redraw(this, null);
@@ -1353,86 +1358,227 @@ namespace StandFacile
         public void FormResize(object sender, EventArgs e)
         {
             int i, j, k, h;
+            int iThresholdConst = lblCoperti.Height + EditCoperti.Height + lblCoperti.Top;
+
+            const int iStdEditDistance = 59;
+            const int iCompactEditDistance = 34;
+
             int iRowsHeight, iPrimoGruppoStampa, iGruppoStampa, iTextRightMargin;
             String sText;
 
             float fColumnsWidth, fTextSize;
 
-            // Toolbar
-            TabSet.Width = lblNome.Location.X - 10;
-
             // tutto dipende dal topPanel
             topPanel.Width = this.Size.Width - 20;
 
-            toolStripR.Height = MainGrid.Height;
+            btnNavRight.Top = btnNavLeft.Top;
 
-            btnSep_R1.Height = toolStripR.Height / 10;
-            btnSep_R2.Height = toolStripR.Height / 10;
-            btnSep_R3.Height = btnSep_R2.Height;
+            if (panelRight.Height == 0)
+                return;
 
-            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED)) // priorità
+            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
             {
                 TabSet.Height = 34;
-
-                EditCoperti.Font = new Font("Microsoft Sans Serif", 15);
-
-                BtnScontrino.Size = new Size(80, 60);
-
                 topPanel.Height = 60;
                 toolStripTop.Width = topPanel.Width - toolStripTop.Left - 2;
                 toolStripTop.Left = 2;
                 BtnSep_T6.Visible = false;
 
-                toolStripR.Visible = true;
-                toolStripR.Enabled = true;
-                toolStripR.Width = 82;
-
-                EditCoperti.Left = topPanel.Width - toolStripR.Width / 2 - EditCoperti.Width / 2 - 2;
-            }
-            else if (OptionsDlg._rOptionsDlg.Get_VButtons())
-            {
-                TabSet.Height = 26;
-
-                EditCoperti.Font = new Font("Microsoft Sans Serif", 12);
-
-                BtnScontrino.Size = new Size(45, 38);
-
-                topPanel.Height = 42;
-                toolStripTop.Width = topPanel.Width - toolStripTop.Left - 80;
-                toolStripTop.Left = 60;
-                BtnSep_T6.Visible = true;
-
-                toolStripR.Visible = true;
-                toolStripR.Enabled = true;
-                toolStripR.Width = 82;
-
-                EditCoperti.Left = topPanel.Width - toolStripR.Width / 2 - EditCoperti.Width / 2 - 2;
+                BtnScontrino.Size = new Size(80, 60);
             }
             else
             {
-                TabSet.Height = 26;
-
-                EditCoperti.Font = new Font("Microsoft Sans Serif", 12);
-
-                BtnScontrino.Size = new Size(45, 38);
-
+                TabSet.Height = 28;
                 topPanel.Height = 42;
                 toolStripTop.Width = topPanel.Width - toolStripTop.Left - 80;
                 toolStripTop.Left = 60;
                 BtnSep_T6.Visible = true;
 
-                toolStripR.Visible = false;
-                toolStripR.Enabled = false;
-                toolStripR.Width = 2;
-
-                EditCoperti.Left = topPanel.Width - 75;
+                BtnScontrino.Size = new Size(45, 38);
             }
 
-            TabSet.ItemSize = new Size(67, TabSet.Height - 3);
+
+            if (!IsBitSet(_iButtonStatus, (int)BUTTONS_STATUS_FLAGS.BIT_SHOW)) // no RButtons
+            {
+                btnNavRight.Visible = false;
+                btnNavLeft.Visible = false;
+
+                toolStripButtons_R.Visible = false;
+                toolStripButtons_R.Enabled = false;
+                toolStripButtons_R.Width = 2;
+
+                panelRight.Visible = false;
+                panelRight.Enabled = false;
+                panelRight.Width = 2;
+            }
+            else if (IsBitSet(_iButtonStatus, (int)BUTTONS_STATUS_FLAGS.BIT_WIDE)) // RButtons orizzontali
+            {
+                toolStripButtons_R.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
+                toolStripButtons_R.Size = new Size(toolStripR_WIDTH_H, toolStripR_HEIGHT_H);
+
+                toolStripButtons_R.Visible = true;
+                toolStripButtons_R.Enabled = true;
+
+                panelRight.Visible = true;
+                panelRight.Enabled = true;
+
+                panelRight.Height = MainGrid.Height - toolStripButtons_R.Height + 2;
+
+                btnNavRight.Visible = true;
+                btnNavLeft.Visible = false;
+
+                lblTavolo.Visible = true;
+                EditTavolo.Visible = true;
+                lblNome.Visible = true;
+                EditNome.Visible = true;
+                labelTotale.Visible = true;
+                lblPagato.Visible = true;
+                lblResto.Visible = true;
+
+                Edit_TotCorrente.Visible = true;
+
+                EditNome.Top = EditTavolo.Top + iStdEditDistance;
+                EditContante.Top = EditResto.Top - iStdEditDistance;
+                EditTavolo.Top = EditCoperti.Top + iStdEditDistance;
+
+                lblCoperti.Text = "COPERTI";
+                lblCoperti.Left = 69;
+
+                lblTavolo.Text = "TAVOLO";
+                lblTavolo.Left = 75;
+
+                EditTavolo.Top = EditCoperti.Top + 59;
+
+                lblNome.Left = 82;
+
+                labelTotale.Left = 76;
+
+                lblPagato.Text = "PAG. CONTANTI";
+
+                lblResto.Left = 80;
+            }
+            else // RButtons verticali
+            {
+                toolStripButtons_R.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
+                toolStripButtons_R.Size = new Size(toolStripR_WIDTH_V, toolStripR_HEIGHT_V);
+
+                toolStripButtons_R.Visible = true;
+                toolStripButtons_R.Enabled = true;
+
+                panelRight.Visible = true;
+                panelRight.Enabled = true;
+
+                panelRight.Height = MainGrid.Height - toolStripButtons_R.Height + 2;
+
+                btnNavRight.Visible = false;
+                btnNavLeft.Visible = true;
+
+                labelTotale.Visible = false;
+                Edit_TotCorrente.Visible = false;
+
+                // questo può scomparire del tutto
+
+                if (panelRight.Height > (6 * iThresholdConst) + 6)
+                {
+                    lblTavolo.Visible = true;
+                    lblNome.Visible = true;
+                    labelTotale.Visible = true;
+                    lblPagato.Visible = true;
+                    lblResto.Visible = true;
+
+                    Edit_TotCorrente.Visible = true;
+
+                    EditNome.Top = EditTavolo.Top + iStdEditDistance;
+                    EditContante.Top = EditResto.Top - iStdEditDistance;
+                    EditTavolo.Top = EditCoperti.Top + iStdEditDistance;
+                }
+                else
+                {
+                    labelTotale.Visible = false;
+                    Edit_TotCorrente.Visible = false;
+
+                    if (panelRight.Height > (5 * iThresholdConst) + 6)
+                    {
+                        lblPagato.Visible = true;
+                    }
+                    else
+                    {
+                        lblPagato.Visible = false;
+
+                        if (panelRight.Height > (4.5 * iThresholdConst) + 6)
+                        {
+                            lblResto.Visible = true;
+                            EditContante.Top = EditResto.Top - iStdEditDistance;
+                        }
+                        else
+                        {
+                            lblResto.Visible = false;
+                            EditContante.Top = EditResto.Top - iCompactEditDistance;
+
+                            if (panelRight.Height > (4 * iThresholdConst) + 16)
+                            {
+                                lblNome.Visible = true;
+                                EditNome.Top = EditTavolo.Top + iStdEditDistance;
+                            }
+                            else
+                            {
+                                lblNome.Visible = false;
+                                EditNome.Top = EditTavolo.Top + iCompactEditDistance;
+
+                                if (panelRight.Height > (3.5 * iThresholdConst) + 16)
+                                {
+                                    lblTavolo.Visible = true;
+                                    EditTavolo.Top = EditCoperti.Top + iStdEditDistance;
+                                    //EditNome.Top = EditTavolo.Top + iStdEditDistance;
+                                }
+                                else
+                                {
+                                    lblTavolo.Visible = false;
+                                    EditTavolo.Top = EditCoperti.Top + iCompactEditDistance;
+                                    EditNome.Top = EditTavolo.Top + iCompactEditDistance;
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+                lblCoperti.Text = "COP.";
+                lblCoperti.Left = 42;
+
+                lblTavolo.Text = "TAV.";
+                lblTavolo.Left = 28;
+
+                lblNome.Left = 22;
+
+                labelTotale.Left = 12;
+
+                lblPagato.Text = "PAG.";
+                lblPagato.Left = 30;
+
+                lblResto.Left = 18;
+            }
+
+            // indicazione alternativa del Totale
+            toolStripTop_TC_lbl.Visible = !Edit_TotCorrente.Visible;
+
+            TabSet.ItemSize = new Size(80, TabSet.Height - 3);
+            panelRight.Top = toolStripButtons_R.Top + toolStripButtons_R.Height;
+
+            panelRight.Left = toolStripButtons_R.Left;
+            panelRight.Width = toolStripButtons_R.Width;
+
+            EditCoperti.Width = toolStripButtons_R.Width - 12;
+            EditTavolo.Width = toolStripButtons_R.Width - 12;
+            EditNome.Width = toolStripButtons_R.Width - 12;
+
+            Edit_TotCorrente.Width = toolStripButtons_R.Width - 12;
+            EditContante.Width = toolStripButtons_R.Width - 12;
+            EditResto.Width = toolStripButtons_R.Width - 12;
 
             // funzione che determina BtnSep_T8.Margin per centrare toolStripTop_TC_lbl
 
-            if (_iToolStripTop_MarginTotal == 0)
+            if (toolStripTop_TC_lbl.Visible && (_iToolStripTop_MarginTotal == 0))
             {
                 //Console.WriteLine(String.Format("FormResize tsItem \n"));
                 //Console.WriteLine(String.Format("FormResize tsItem = \"{0}\"", toolStripTop_TC_lbl.Text));
@@ -1450,7 +1596,7 @@ namespace StandFacile
 
             iTextRightMargin = ((toolStripTop.Width - toolStripTop.Padding.Left - toolStripTop.Padding.Right - _iToolStripTop_MarginTotal) / 2);
 
-            LogToFile(String.Format("FormResize iTextRightMargin = {0}", iTextRightMargin), true);
+            LogToFile(String.Format("FormResize iTextRightMargin = {0}", iTextRightMargin), false);
 
             if (iTextRightMargin > 0)
                 BtnSep_T8.Margin = new Padding(iTextRightMargin, 0, 20, 0);
@@ -1466,30 +1612,12 @@ namespace StandFacile
             // posizionamento verticale elementi
             TabSet.Top = MainMenu.Height + topPanel.Height + topPanel.Margin.Top + topPanel.Margin.Bottom;
 
-            EditTavolo.Top = TabSet.Top;
-            EditCoperti.Top = TabSet.Top;
-            EditNome.Top = TabSet.Top;
-
-            EditTavolo.Font = EditCoperti.Font;
-            EditNome.Font = EditCoperti.Font;
-
-            lblCoperti.Top = TabSet.Top + 2;
-            lblTavolo.Top = lblCoperti.Top;
-            lblNome.Top = lblCoperti.Top;
-
             MainGrid.Top = TabSet.Top + TabSet.Height;
-            toolStripR.Top = MainGrid.Top;
+            toolStripButtons_R.Top = MainGrid.Top;
             //lblPagato.Top = lblResto.Top; provoca modifica Anchor !
 
-            toolStripR.Left = topPanel.Width - toolStripR.Width - MainGrid.Location.X;
-
-            lblCoperti.Left = EditCoperti.Left - lblCoperti.Width - 2;
-
-            EditTavolo.Left = EditCoperti.Left - EditTavolo.Width - 80;
-            lblTavolo.Left = EditTavolo.Left - lblTavolo.Width - 2;
-
-            EditNome.Left = EditTavolo.Left - EditNome.Width - 80;
-            lblNome.Left = EditNome.Left - lblNome.Width - 2;
+            toolStripButtons_R.Left = topPanel.Width - toolStripButtons_R.Width - MainGrid.Location.X;
+            panelRight.Left = toolStripButtons_R.Left;
 
             //lblStatusResto.Left = EditStatusResto.Left - lblStatusResto.Width-2;
             //lblStatusPagato.Left = EditStatusContante.Left - lblStatusPagato.Width-2;
@@ -1512,7 +1640,7 @@ namespace StandFacile
             //StatusBar_Upper.Width = EditNota.Left - 150;
 
             // imposta la larghezza della griglia in base alla larghezza della form principale
-            MainGrid.Width = topPanel.Width - toolStripR.Width - MainGrid.Location.X * 2;
+            MainGrid.Width = topPanel.Width - toolStripButtons_R.Width - MainGrid.Location.X * 2;
 
             // imposta l'altezza della griglia in base all'altezza della form principale
             MainGrid.Height = Height - MainMenu.Size.Height - toolStripTop.Size.Height - TabSet.Height -
@@ -1634,7 +1762,7 @@ namespace StandFacile
 
             //topPanel.Refresh();
             //TabSet.Refresh();
-            toolStripR.Refresh();
+            toolStripButtons_R.Refresh();
 
             MainGrid.Refresh();
         } // end FormResize
@@ -1644,6 +1772,7 @@ namespace StandFacile
         /// </summary>
         public void MainGrid_Redraw(object sender, EventArgs e)
         {
+            bool bTouchRequired;
             int i, j, k, h;
             String sTipoTmp, sTickQty, sDispQty, sPrzTmp, sCellText;
             String sToolTip;
@@ -1673,6 +1802,8 @@ namespace StandFacile
 
                 sCellText = "";
 
+                bTouchRequired = IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED);
+
                 if ((MnuImpListino.Checked || BtnVisListino.Checked) && !String.IsNullOrEmpty(SF_Data.Articolo[h].sTipo))
                 {
 
@@ -1680,77 +1811,78 @@ namespace StandFacile
 
                     switch (SF_Data.Articolo[h].iGruppoStampa)
                     {
+
                         // ******** allineamento *******
                         // 89 123456789012345678 9876.00
                         // fPrint.WriteLine("{0,2} {1,-18} {2,5}", // width=28
                         case (int)DEST_TYPE.DEST_TIPO1:
-                            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                            if (bTouchRequired)
                                 sCellText = String.Format(sGRD_FMT_TCH, "G1", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G1", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO2:
-                            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                            if (bTouchRequired)
                                 sCellText = String.Format(sGRD_FMT_TCH, "G2", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G2", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO3:
-                            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                            if (bTouchRequired)
                                 sCellText = String.Format(sGRD_FMT_TCH, "G3", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G3", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO4:
-                            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                            if (bTouchRequired)
                                 sCellText = String.Format(sGRD_FMT_TCH, "G4", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G4", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO5:
-                            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                            if (bTouchRequired)
                                 sCellText = String.Format(sGRD_FMT_TCH, "G5", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G5", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO6:
-                            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                            if (bTouchRequired)
                                 sCellText = String.Format(sGRD_FMT_TCH, "G6", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G6", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO7:
-                            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                            if (bTouchRequired)
                                 sCellText = String.Format(sGRD_FMT_TCH, "G7", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G7", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO8:
-                            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                            if (bTouchRequired)
                                 sCellText = String.Format(sGRD_FMT_TCH, "G8", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G8", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_TIPO9_NOWEB:
-                            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                            if (bTouchRequired)
                                 sCellText = String.Format(sGRD_FMT_TCH, "G9", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "G9", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_SINGLE:
-                            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                            if (bTouchRequired)
                                 sCellText = String.Format(sGRD_FMT_TCH, "CS", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "CS", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_COUNTER:
-                            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                            if (bTouchRequired)
                                 sCellText = String.Format(sGRD_FMT_TCH, "CN", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "CN", SF_Data.Articolo[h].sTipo, sPrzTmp);
                             break;
                         case (int)DEST_TYPE.DEST_BUONI:
-                            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                            if (bTouchRequired)
                                 sCellText = String.Format(sGRD_FMT_TCH, "BS", sPrzTmp, Environment.NewLine, CenterJustify(SF_Data.Articolo[h].sTipo, 18));
                             else
                                 sCellText = String.Format(sGRD_FMT_STD, "BS", SF_Data.Articolo[h].sTipo, sPrzTmp);
@@ -1787,7 +1919,7 @@ namespace StandFacile
                         MainGrid.Rows[i].Cells[j].Style.Font = new Font(MainGrid.DefaultCellStyle.Font.Name, _fFontWidth, FontStyle.Bold);
                     }
 
-                    if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                    if (bTouchRequired)
                     {
                         if (string.IsNullOrEmpty(sDispQty))
                             sCellText = String.Format(sGRDZ_FMT_TCH, sTickQty, Environment.NewLine, CenterJustify(sTipoTmp, 18));

@@ -835,7 +835,7 @@ namespace StandCommonFiles
             int iNumCoperti = 0;
             int iDebug = 0;
 
-            String sTmp, sGroup, sStarLine, sNomeFileTicketNpPrt;
+            String sTmp, sGroup, sNomeFileTicketNpPrt;
             String sHeader1_ToPrintBeforeCut, sHeader2_ToPrintBeforeCut;
 
             bool[] bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS];
@@ -1202,7 +1202,7 @@ namespace StandCommonFiles
                                 {
                                     bGroupsTextToPrint = false;
 
-//#pragma warning disable IDE0059
+                                    //#pragma warning disable IDE0059
                                     if (_bStarsOnUnderGroup)
                                     {
                                         WriteStarsFrame(dataIdParam.sCopiesGroupsText[iGrpReorderPtr[i]]);
@@ -1317,7 +1317,7 @@ namespace StandCommonFiles
             int i, j, k;
             int iEqRowsNumber, iColorLoop, iNumCoperti, iNumCopertiBackupCopy;
 
-            String sTmp, sGroup, sStarLine, sNomeFileCopiePrt = "";
+            String sTmp, sGroup, sNomeFileCopiePrt = "";
 
             bool[] bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS]; // OK
             bool[] bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
@@ -1478,12 +1478,12 @@ namespace StandCommonFiles
                         if (_bStarsOnUnderGroup)
                         {
                             WriteStarsFrame(sGroup);
-                            iEqRowsNumber += 4;
+                            iEqRowsNumber += 3;
                         }
                         else
                         {
                             _fPrint.WriteLine(sGroup);
-                            iEqRowsNumber += 2;
+                            iEqRowsNumber++;
                         }
 
                         _fPrint.WriteLine();
@@ -1806,7 +1806,7 @@ namespace StandCommonFiles
                         if (_bStarsOnUnderGroup)
                         {
                             WriteStarsFrame(sGroup);
-                            iEqRowsNumber += 4;
+                            iEqRowsNumber += 3;
                         }
 
                         _fPrint.WriteLine();

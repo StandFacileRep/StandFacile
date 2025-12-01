@@ -641,26 +641,5 @@ namespace StandFacile
 
         static bool bPrimaVoltaComp = true;
 
-        /// <summary>funzione per l'append di Test Automatici disponibilità Componenti</summary>
-        public static void TestRecord_setDispComp(int iParam, String sParam, int iDispParam)
-        {
-            string sTmpRec;
-
-            if (!CheckService(Define.CFG_SERVICE_STRINGS._REC_TEST))
-                return;
-
-            if (bPrimaVoltaComp)
-            {
-                bPrimaVoltaComp = false;
-                _fRecording.WriteLine("");
-            }
-
-            sTmpRec = String.Format("<IC><iv>{0,3}</iv> <tv>{1,-20}</tv> <dc>{2}</dc></IC>", iParam, sParam, iDispParam);
-            _fRecording.WriteLine(sTmpRec);
-            _fRecording.WriteLine("");
-
-            _fRecording.Flush();
-        }
-
     } // end class
 } // end namespace

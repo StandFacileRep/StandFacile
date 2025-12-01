@@ -58,6 +58,7 @@ namespace StandFacile
 
         static int _iDBDispTimeout;
         static int _iToolStripTop_MarginTotal;
+        static int _iButtonStatus;
 
         int _iCellPt;      // indice lineare di selezione Articolo
 
@@ -117,6 +118,10 @@ namespace StandFacile
         /// chiamata da DataManager.SalvaListino();
         /// </summary>
         public static void ClearListinoModificato() { _bListinoModificato = false; }
+
+        /// <summary>imposta lo stato di attivazione Pulsanti + - X</summary>
+        public static void Set_RButtons(int iStatusParam) { _iButtonStatus = iStatusParam; }
+
 
         /// <summary>mette evento in coda cross thread</summary>
         public static void EventEnqueue(String[] sEvQueueObjParam)
@@ -206,6 +211,7 @@ namespace StandFacile
         {
             _iAnteprimaTotParziale = 0;
             toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
+            Edit_TotCorrente.Text = IntToEuro(0);
         }
 
         /// <summary>ottiene il testo della nota</summary>
@@ -296,11 +302,16 @@ namespace StandFacile
                 "se attivi ordini web webservice verifica anche la connessione\n" +
                 "al DB remoto e con Ctrl premuto forza upload Listino";
 
-            _tt.SetToolTip(EditTavolo, "click o (F1) dalla griglia per inserire il Tavolo");
-            _tt.SetToolTip(EditCoperti, "click o (F2) dalla griglia per inserire i coperti");
-            _tt.SetToolTip(EditNota, "click o (F3) dalla griglia per inserire una Nota nello scontrino\ncon Crtl+click su una cella per inserire una nota relativa all'Articolo");
+            _tt.SetToolTip(btnNavLeft, "espande la barra laterale");
+            _tt.SetToolTip(btnNavRight, "riduce la barra laterale");
+
+            _tt.SetToolTip(EditCoperti, "click o (F1) dalla griglia per inserire i coperti");
+            _tt.SetToolTip(EditTavolo, "click o (F2) dalla griglia per inserire il Tavolo");
+            _tt.SetToolTip(EditNome, "Nome");
+            _tt.SetToolTip(Edit_TotCorrente, "Totale");
             _tt.SetToolTip(EditResto, "resto calcolato");
-            _tt.SetToolTip(EditContante, "click o (F4) dalla griglia per inserire il resto");
+            _tt.SetToolTip(EditContante, "click o (F3) dalla griglia per inserire il contante");
+            _tt.SetToolTip(EditNota, "click o (F4) dalla griglia per inserire una Nota nello scontrino\ncon Crtl+click su una cella per inserire una nota relativa all'Articolo");
             _tt.SetToolTip(EditStatus_QRC, "area per lettura barcode prevendite e pre-ordini web");
             _tt.SetToolTip(comboCashPos, "tipo di pagamento: Contanti/Card/Satispay");
 
@@ -358,10 +369,7 @@ namespace StandFacile
             EditNota.Width = 240;
 
             EditTavolo.MaxLength = 18;
-            EditTavolo.Width = 100;
-
             EditNome.MaxLength = 20;
-            EditNome.Width = 140;
 
             EditStatus_QRC.Text = "";
             EditStatus_QRC.MaxLength = 0; // nessun limite
@@ -369,6 +377,11 @@ namespace StandFacile
             _sEditTavolo = "";
             _sEditNome = "";
             _sEditCoperti = "";
+
+            Edit_TotCorrente.Text = "";
+            EditContante.Text = "";
+
+            _iButtonStatus = ReadRegistry(R_BUTTONS_KEY, 3);
 
             SetColorsTheme();
 
@@ -782,9 +795,13 @@ namespace StandFacile
                 AnteprimaDlg.GetSomethingInto_GrpToPrint((int)DEST_TYPE.DEST_BUONI))
             {
                 toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
+                Edit_TotCorrente.Text = IntToEuro(_iAnteprimaTotParziale);
             }
             else if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
+            {
                 toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
+                Edit_TotCorrente.Text = IntToEuro(0);
+            }
 
             /*************************************
              *       calcolo del resto
@@ -1046,16 +1063,6 @@ namespace StandFacile
             switch (iKey)
             {
                 case KEY_F1:
-                    if (EditTavolo.Focused)
-                        MainGrid.Focus();
-                    else if (EditCoperti.Focused)
-                        EditTavolo.Focus();
-                    else if (EditNota.Focused)
-                        EditTavolo.Focus();
-                    else if (EditContante.Focused)
-                        EditTavolo.Focus();
-                    break;
-                case KEY_F2:
                     if (EditCoperti.Focused)
                         MainGrid.Focus();
                     else if (EditTavolo.Focused)
@@ -1065,7 +1072,27 @@ namespace StandFacile
                     else if (EditContante.Focused)
                         EditCoperti.Focus();
                     break;
+                case KEY_F2:
+                    if (EditTavolo.Focused)
+                        MainGrid.Focus();
+                    else if (EditCoperti.Focused)
+                        EditTavolo.Focus();
+                    else if (EditNota.Focused)
+                        EditTavolo.Focus();
+                    else if (EditContante.Focused)
+                        EditTavolo.Focus();
+                    break;
                 case KEY_F3:
+                    if (EditContante.Focused)
+                        MainGrid.Focus();
+                    else if (EditCoperti.Focused)
+                        EditContante.Focus();
+                    else if (EditNota.Focused)
+                        EditContante.Focus();
+                    else if (EditTavolo.Focused)
+                        EditContante.Focus();
+                    break;
+                case KEY_F4:
                     if (EditNota.Focused)
                     {
                         MainGrid.Focus();
@@ -1075,7 +1102,7 @@ namespace StandFacile
                             // reset EditNota
                             EditNota.BackColor = Color.Gainsboro;
                             EditNota.Text = _sEditNotaCopy;
-                            EditNota.MaxLength = 28;
+                            EditNota.MaxLength = iMAX_RECEIPT_CHARS;
                             lblNota.Text = "Nota:";
 
                             MainGrid_Redraw(this, null);
@@ -1087,16 +1114,6 @@ namespace StandFacile
                         EditNota.Focus();
                     else if (EditContante.Focused)
                         EditNota.Focus();
-                    break;
-                case KEY_F4:
-                    if (EditContante.Focused)
-                        MainGrid.Focus();
-                    else if (EditCoperti.Focused)
-                        EditContante.Focus();
-                    else if (EditNota.Focused)
-                        EditContante.Focus();
-                    else if (EditTavolo.Focused)
-                        EditContante.Focus();
                     break;
                 case KEY_F5:
                 case KEY_F6:
@@ -1246,7 +1263,7 @@ namespace StandFacile
         }
 
         /// <summary>
-        /// ritorna true se c'è disponibilità sufficente di Articoli e Componenti
+        /// ritorna true se c'è disponibilità sufficente di Articoli
         /// </summary>
         bool VerificaTutteQuantita()
         {
@@ -1372,7 +1389,10 @@ namespace StandFacile
             _sEditNota = "";
 
             if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
+            {
                 toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
+                Edit_TotCorrente.Text = IntToEuro(0);
+            }
 
             lblStatus_TC.Text = "";
 
@@ -2353,6 +2373,16 @@ namespace StandFacile
 
         private void BtnPlus_Click(object sender, EventArgs e)
         {
+            AddQuantity(1);
+        }
+
+        private void BtnMinus_Click(object sender, EventArgs e)
+        {
+            RemoveQuantity(1);
+        }
+
+        private void AddQuantity(int plusQty = 1)
+        {
             if (EditCoperti.Focused)
             {
                 int iNum = 0;
@@ -2360,7 +2390,7 @@ namespace StandFacile
                 if (!String.IsNullOrEmpty(EditCoperti.Text))
                     iNum = Convert.ToInt32(EditCoperti.Text);
 
-                iNum++;
+                iNum += plusQty;
 
                 EditCoperti.Text = String.Format("{0,3}", iNum);
 
@@ -2370,7 +2400,7 @@ namespace StandFacile
             {
                 iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
 
-                SF_Data.Articolo[_iCellPt].iQuantitaOrdine++;
+                SF_Data.Articolo[_iCellPt].iQuantitaOrdine += plusQty;
 
                 AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                 _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
@@ -2381,7 +2411,7 @@ namespace StandFacile
             scannerInputQueue.Clear();
         }
 
-        private void BtnMinus_Click(object sender, EventArgs e)
+        private void RemoveQuantity(int minusQty = 1)
         {
             if (EditCoperti.Focused)
             {
@@ -2391,7 +2421,11 @@ namespace StandFacile
                     iNum = Convert.ToInt32(EditCoperti.Text);
 
                 if (iNum > 0)
-                    iNum--;
+                {
+                    iNum -= minusQty;
+                    if (iNum < 0)
+                        iNum = 0;
+                }
 
                 EditCoperti.Text = String.Format("{0,3}", iNum);
 
@@ -2402,19 +2436,60 @@ namespace StandFacile
                 iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
 
                 if (SF_Data.Articolo[_iCellPt].iQuantitaOrdine > 0)
-                    SF_Data.Articolo[_iCellPt].iQuantitaOrdine--;
+                    SF_Data.Articolo[_iCellPt].iQuantitaOrdine -= minusQty;
 
+                if (SF_Data.Articolo[_iCellPt].iQuantitaOrdine < 0)
+                    SF_Data.Articolo[_iCellPt].iQuantitaOrdine = 0;
                 AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
                 _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
 
                 // necessario altrimenti se _iAnteprimaTotParziale == 0 il timer non aggiorna toolStripTop_TC_lbl.Text
-                toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
+                toolStripTop_TC_lbl.Text = String.Format("{0}", IntToEuro(_iAnteprimaTotParziale));
+                Edit_TotCorrente.Text = IntToEuro(_iAnteprimaTotParziale);
 
                 MainGrid_Redraw(this, null);
             }
 
             scannerInputQueue.Clear();
+        }
+
+        private void btnNav_Click(object sender, EventArgs e)
+        {
+            bool bWideButton = IsBitSet(_iButtonStatus, (int)BUTTONS_STATUS_FLAGS.BIT_WIDE);
+
+            _iButtonStatus = UpdateBit(_iButtonStatus, !bWideButton, (int)BUTTONS_STATUS_FLAGS.BIT_WIDE);
+            FormResize(this, null);
+        }
+
+        private void mpx_Click(object sender, EventArgs e)
+        {
+            bool bItemToAdd;
+            int iValue = 0;
+            String sNumber;
+
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+
+            if (item.Text.Contains("+"))
+            {
+                bItemToAdd = true;
+                sNumber = item.Text.Replace("+", "").Trim();
+            }
+            else if (item.Text.Contains("-"))
+            {
+                bItemToAdd = false;
+                sNumber = item.Text.Replace("-", "").Trim();
+            }
+            else
+                return;
+
+            if (item != null)
+                iValue = Convert.ToInt32(sNumber);
+
+            if (bItemToAdd)
+                AddQuantity(iValue);
+            else
+                RemoveQuantity(iValue);
         }
 
         private void BtnCanc_Click(object sender, EventArgs e)
@@ -2436,6 +2511,7 @@ namespace StandFacile
 
             // necessario altrimenti se _iAnteprimaTotParziale == 0 il timer non aggiorna toolStripTop_TC_lbl.Text
             toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
+            Edit_TotCorrente.Text = IntToEuro(_iAnteprimaTotParziale);
 
             scannerInputQueue.Clear();
             MainGrid_Redraw(this, null);
@@ -2514,7 +2590,7 @@ namespace StandFacile
                 // reset EditNota
                 EditNota.BackColor = Color.Gainsboro;
                 EditNota.Text = _sEditNotaCopy;
-                EditNota.MaxLength = 28;
+                EditNota.MaxLength = iMAX_RECEIPT_CHARS;
                 lblNota.Text = "Nota:";
 
                 MainGrid_Redraw(this, null);
@@ -2528,7 +2604,7 @@ namespace StandFacile
                 // si predispone per acquisire la Nota Articolo
                 EditNota.Text = SF_Data.Articolo[_iNewCellPt].sNotaArt;
                 EditNota.BackColor = Color.LightBlue;
-                EditNota.MaxLength = 25;
+                EditNota.MaxLength = iMAX_RECEIPT_CHARS - 3;
                 lblNota.Text = "Nota Art:";
 
                 _bCtrlIsPressed = false; // altrimenti rimane troppo a lungo il Focus()
@@ -2691,6 +2767,8 @@ namespace StandFacile
                 WriteRegistry(MAIN_WIN_SIZE_X, rFrmMain.Size.Width);
             if (_iStoreSizeY != rFrmMain.Size.Height)
                 WriteRegistry(MAIN_WIN_SIZE_Y, rFrmMain.Size.Height);
+
+            WriteRegistry(R_BUTTONS_KEY, _iButtonStatus & 0x03);
 
             AnteprimaDlg.rAnteprimaDlg.AnteprimaDlg_FormClosing(this, null);
 

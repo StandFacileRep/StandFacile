@@ -22,6 +22,7 @@ namespace StandFacile
     public partial class OptionsDlg : Form
     {
         static int _iDispMngStatus, _iColorThemeIndex;
+        static int _iButtonOptStatus;
 
         static bool _bListinoModificato;
 
@@ -45,9 +46,6 @@ namespace StandFacile
 
         /// <summary>ottiene flag di consenso agli articoli con Prezzo zero Euro</summary>
         public bool GetZeroPriceEnabled() { return checkBox_ZeroPriceItems.Checked; }
-
-        /// <summary>ottiene flag di attivazione Pulsanti + - X</summary>
-        public bool Get_VButtons() { return checkBox_VButtons.Checked; }
 
         readonly ToolTip _tt = new ToolTip
         {
@@ -119,6 +117,8 @@ namespace StandFacile
 
             checkBoxPresales_loadMode.Checked = (ReadRegistry(PRESALE_LOAD_MODE_KEY, 0) == 1);
 
+            _iButtonOptStatus = ReadRegistry(R_BUTTONS_KEY, 3);
+
             // In modo Touch checkBox_VButtons è sempre Checked
             if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
             {
@@ -128,7 +128,7 @@ namespace StandFacile
             else
             {
                 checkBox_VButtons.Enabled = true;
-                checkBox_VButtons.Checked = (ReadRegistry(VBUTTONS_KEY, 1) == 1);
+                checkBox_VButtons.Checked = IsBitSet(_iButtonOptStatus, (int)BUTTONS_STATUS_FLAGS.BIT_SHOW);
             }
 
             _iColorThemeIndex = ReadRegistry(COLOR_THEME_KEY, 1);
@@ -209,7 +209,11 @@ namespace StandFacile
 
             WriteRegistry(PRESALE_LOAD_MODE_KEY, checkBoxPresales_loadMode.Checked ? 1 : 0);
 
-            WriteRegistry(VBUTTONS_KEY, checkBox_VButtons.Checked ? 1 : 0);
+            _iButtonOptStatus = UpdateBit(_iButtonOptStatus, checkBox_VButtons.Checked, (int)BUTTONS_STATUS_FLAGS.BIT_SHOW);
+            WriteRegistry(R_BUTTONS_KEY, _iButtonOptStatus);
+
+            // invia a FrmMain il nuovo stato dei bottoni
+            FrmMain.Set_RButtons(_iButtonOptStatus);
 
             sTmp = String.Format("optionsDlg OK: {0}, {1}, {2}, {3}, {4}", checkBoxTavolo.Checked, checkBoxTavolo.Checked,
                 checkBoxTavolo.Checked, checkBoxTavolo.Checked, checkBoxPresale_workMode.Checked);

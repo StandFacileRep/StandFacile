@@ -1,6 +1,6 @@
 ﻿/********************************************************************
 	NomeFile : StandFacile/Define.cs
-	Data	 : 01.11.2025
+	Data	 : 30.11.2025
 	Autore	 : Mauro Artuso
 
   Descrizione : definizioni specifiche per StandFacile
@@ -17,7 +17,7 @@ namespace StandFacile
 #pragma warning disable IDE0060
 
         /// <summary>titolo</summary>
-        public const string TITLE = "Stand Facile 2025";
+        public const string TITLE = "Stand Facile 2026";
 
         /// <summary>nome dell'eseguibile</summary>
         public const string THE_APP = "StandFacile.exe";
@@ -44,8 +44,11 @@ namespace StandFacile
         /// <summary>chiave che descrive il tema dei colori</summary>
         public const String COLOR_THEME_KEY = "iColorTheme";
 
-        /// <summary>chiave che attiva la barra dei Pulsanti + - X</summary>
-        public const String VBUTTONS_KEY = "iVButtons";
+        /// <summary>
+        /// chiave che attiva la barra dei Pulsanti + - X
+        /// bit0 = wide / narrow, bit1 = mostra / nascondi
+        /// </summary>
+        public const String R_BUTTONS_KEY = "iRButtons";
 
         /// <summary>posizione x della finestra principale</summary>
         public const String MAIN_WIN_POS_X = "iMainFrmPos_x";
@@ -76,6 +79,14 @@ namespace StandFacile
 
         /// <summary>registro: numero dei temi colore</summary>
         public const int NUM_COLOR_THEMES = 3;
+
+        public enum BUTTONS_STATUS_FLAGS
+        {
+            /// <summary>bit di _iButtonOptStatus che indica wide/narrow</summary>
+            BIT_WIDE = 0,
+            /// <summary>bit di _iButtonOptStatus che indica mostra/nascondi</summary>
+            BIT_SHOW = 1
+        }
 
         /*****************************************************
          *                      eventi

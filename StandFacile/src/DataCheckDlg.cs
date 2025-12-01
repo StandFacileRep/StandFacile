@@ -17,6 +17,9 @@ using static StandCommonFiles.CommonCl;
 
 namespace StandFacile
 {
+    /// <summary>
+    /// dialogo per la verifica dei dati obbligatori
+    /// </summary>
     public partial class DataCheckDlg : Form
     {
         readonly ToolTip _tt = new ToolTip
