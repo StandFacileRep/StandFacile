@@ -9,20 +9,17 @@
  *******************************************************************/
 
 using System;
+using System.IO;
+using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
-
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
-
-using static StandFacile.NetConfigLightDlg;
 using static StandFacile.dBaseIntf;
-
 using static StandFacile.Define;
 using static StandFacile.glb;
-
-using System.IO;
+using static StandFacile.NetConfigLightDlg;
 
 namespace StandFacile
 {
@@ -194,13 +191,15 @@ namespace StandFacile
 
         private void EditInput_KeyPress(object sender, KeyPressEventArgs e)
         {
-            bool bFound;
+            bool bFound = false;
+
             String sLog, sStrTmp, sStrBarcode, sStrNum, sStrDay, sStrGruppo;
             int i, j, iNumScontrino, iGruppo, iLength;
 
             /********************************************
                         ENTER senza e con Ctrl
             ********************************************/
+            
             if ((e.KeyChar == '\r') || (e.KeyChar == '\n'))
             {
                 // scarta edit vuoti
@@ -369,6 +368,12 @@ namespace StandFacile
 
                         iScaricoDelayTimer = 2; // 0,5s
                     }
+
+                    /*******************************************
+                        chiama la funzione di sintesi vocale
+                     *******************************************/
+                    SpeechSynth.rSpeechSynth.TextSpeak(iNumScontrino.ToString());
+
                 }
             }
             else
@@ -434,7 +439,7 @@ namespace StandFacile
             LabelClock.Text = sTime;
 
             // altrimenti è difficoltoso chiudere MsgForm
-            if (!MessageDlg.rMessageDlg.Visible)
+            if (!(MessageDlg.rMessageDlg.Visible || SpeechSynth.rSpeechSynth.Visible))
                 EditInput.Focus();
 
             // Lampeggio L
@@ -710,16 +715,16 @@ namespace StandFacile
             LogToFile(sTmp);
         }
 
-        /***************************************************
-                 Abilita/disabilita le varie voci
-                 del Menù Principale
-         ***************************************************/
+        /// <summary>
+        ///  Abilita/disabilita le varie voci del Menù Principale
+        /// </summary>
         private void CheckMenuItems()
         {
             if (MnuEsperto.Checked)
             {
                 MnuDBServer.Enabled = true;
 
+                MnuSintesiVocale.Enabled = true;
                 MnuScarico_DB.Enabled = true;
                 MnuDuplicazioneMonitor.Enabled = true;
                 MnuSoloLettura_BC.Enabled = true;
@@ -728,6 +733,7 @@ namespace StandFacile
             {
                 MnuDBServer.Enabled = false;
 
+                MnuSintesiVocale.Enabled = false;
                 MnuScarico_DB.Enabled = false;
                 MnuDuplicazioneMonitor.Enabled = false;
                 MnuSoloLettura_BC.Enabled = false;
@@ -805,6 +811,11 @@ namespace StandFacile
             MnuDuplicazioneMonitor.Checked = false;
             MnuSoloLettura_BC.Checked = false;
             EditInput.Enabled = true;
+        }
+
+        private void MnuSintesiVocale_Click(object sender, EventArgs e)
+        {
+            SpeechSynth.rSpeechSynth.Init(true);
         }
 
         private void MnuSoloLettura_BC_Click(object sender, EventArgs e)

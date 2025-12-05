@@ -275,7 +275,8 @@ namespace StandFacile_DB
                             // gia scaricato !!!
                             if (sTipo == ORDER_CONST._START_OF_ORDER)
                             {
-                                Console.Beep();
+                                if (!SpeechSynth.rSpeechSynth.GetVoiceSynthEnabled())
+                                    Console.Beep();
 
                                 sTmp = String.Format("dbScaricaOrdine : bRecord = {0} già scaricato!", iOrderID);
                                 LogToFile(sTmp);
@@ -333,7 +334,9 @@ namespace StandFacile_DB
                     dbDataAdapter.Dispose();
 
                     bResult = true;
-                    Console.Beep();
+
+                    if (!SpeechSynth.rSpeechSynth.GetVoiceSynthEnabled())
+                        Console.Beep();
                 }
 
                 catch (Exception)

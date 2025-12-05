@@ -76,6 +76,9 @@ namespace StandFacile
 
             NetConfigLightDlg rNetConfigLightDlg = new NetConfigLightDlg();
 
+            SpeechSynth rSpeechSynth = new SpeechSynth();
+            SpeechSynth.rSpeechSynth.Init(false);
+
             rFrmMain.Init(); // ultimo
 
             bApplicationRuns = true;

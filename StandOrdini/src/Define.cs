@@ -49,6 +49,18 @@ namespace StandFacile
         /// <summary>evento di scarico ordine dal database</summary>
         public const string SCARICO_DB_EVENT = "scaricoDB_Event";
 
+        /// <summary>chiave che descrive l'uso della sintesi vocale</summary>
+        public const String VOICE_SYNTH_KEY = "iVoiceSynthEnabled";
+
+        /// <summary>chiave che descrive l'indice del nome della voce del sintetizzatore</summary>
+        public const String VOICE_SYNTH_NAME = "iVoiceSynthName";
+
+        /// <summary>chiave che descrive il volume sonoro del sintetizzatore</summary>
+        public const String VOICE_SYNTH_VOL = "iVoiceSynthVolume";
+
+        /// <summary>chiave che descrive il testo che il sintetizzatore riproduce</summary>
+        public const String VOICE_SYNTH_TEXT = "iVoiceSynthText";
+
         /// <summary>costruttore struct per la gestione degli eventi</summary>
         public struct TQueue_Obj
         {

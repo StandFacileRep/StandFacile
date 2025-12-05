@@ -93,6 +93,7 @@
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
@@ -186,6 +187,12 @@
     <Compile Include="QuickHelpDlg.designer.cs">
       <DependentUpon>QuickHelpDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="SpeechSynth.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SpeechSynth.Designer.cs">
+      <DependentUpon>SpeechSynth.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="..\..\StandCommonSrc\MessageDlg.resx">
       <Link>MessageDlg.resx</Link>
       <DependentUpon>MessageDlg.cs</DependentUpon>
@@ -207,6 +214,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="QuickHelpDlg.resx">
       <DependentUpon>QuickHelpDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SpeechSynth.resx">
+      <DependentUpon>SpeechSynth.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
@@ -276,6 +286,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\gplv3-84x42.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ArrowSRight.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\play.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
