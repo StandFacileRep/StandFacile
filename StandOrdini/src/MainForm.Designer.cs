@@ -40,6 +40,7 @@
             this.MnuEsperto = new System.Windows.Forms.ToolStripMenuItem();
             this.N1 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuDBServer = new System.Windows.Forms.ToolStripMenuItem();
+            this.MnuSintesiVocale = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuScarico_DB = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuSoloLettura_BC = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuDuplicazioneMonitor = new System.Windows.Forms.ToolStripMenuItem();
@@ -116,52 +117,61 @@
             this.MnuEsperto,
             this.N1,
             this.MnuDBServer,
+            this.MnuSintesiVocale,
             this.MnuScarico_DB,
             this.MnuSoloLettura_BC,
             this.MnuDuplicazioneMonitor});
+            this.MnuImpostazioni.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MnuImpostazioni.Name = "MnuImpostazioni";
-            this.MnuImpostazioni.Size = new System.Drawing.Size(62, 20);
+            this.MnuImpostazioni.Size = new System.Drawing.Size(63, 20);
             this.MnuImpostazioni.Text = "Imposta";
             // 
             // MnuEsperto
             // 
             this.MnuEsperto.Name = "MnuEsperto";
-            this.MnuEsperto.Size = new System.Drawing.Size(320, 22);
+            this.MnuEsperto.Size = new System.Drawing.Size(318, 22);
             this.MnuEsperto.Text = "&Modo Esperto";
             this.MnuEsperto.Click += new System.EventHandler(this.MnuEspertoClick);
             // 
             // N1
             // 
             this.N1.Name = "N1";
-            this.N1.Size = new System.Drawing.Size(317, 6);
+            this.N1.Size = new System.Drawing.Size(315, 6);
             // 
             // MnuDBServer
             // 
             this.MnuDBServer.Enabled = false;
             this.MnuDBServer.Name = "MnuDBServer";
-            this.MnuDBServer.Size = new System.Drawing.Size(320, 22);
+            this.MnuDBServer.Size = new System.Drawing.Size(318, 22);
             this.MnuDBServer.Text = "Imposta &Rete e scarico ordini ...";
             this.MnuDBServer.Click += new System.EventHandler(this.MnuDBServer_Click);
+            // 
+            // MnuSintesiVocale
+            // 
+            this.MnuSintesiVocale.Name = "MnuSintesiVocale";
+            this.MnuSintesiVocale.Size = new System.Drawing.Size(318, 22);
+            this.MnuSintesiVocale.Text = "Sintesi vocale";
+            this.MnuSintesiVocale.Click += new System.EventHandler(this.MnuSintesiVocale_Click);
             // 
             // MnuScarico_DB
             // 
             this.MnuScarico_DB.Name = "MnuScarico_DB";
-            this.MnuScarico_DB.Size = new System.Drawing.Size(320, 22);
-            this.MnuScarico_DB.Text = "- Scarico &barcode degli ordini serviti (standard)";
+            this.MnuScarico_DB.Size = new System.Drawing.Size(318, 22);
+            this.MnuScarico_DB.Text = "Scarico &barcode degli ordini serviti (standard)";
             this.MnuScarico_DB.Click += new System.EventHandler(this.MnuScarico_DB_Click);
             // 
             // MnuSoloLettura_BC
             // 
             this.MnuSoloLettura_BC.Name = "MnuSoloLettura_BC";
-            this.MnuSoloLettura_BC.Size = new System.Drawing.Size(320, 22);
-            this.MnuSoloLettura_BC.Text = "- Sola lettura barcode (&no scarico DB)";
+            this.MnuSoloLettura_BC.Size = new System.Drawing.Size(318, 22);
+            this.MnuSoloLettura_BC.Text = "Sola lettura barcode (&no scarico DB)";
             this.MnuSoloLettura_BC.Click += new System.EventHandler(this.MnuSoloLettura_BC_Click);
             // 
             // MnuDuplicazioneMonitor
             // 
             this.MnuDuplicazioneMonitor.Name = "MnuDuplicazioneMonitor";
-            this.MnuDuplicazioneMonitor.Size = new System.Drawing.Size(320, 22);
-            this.MnuDuplicazioneMonitor.Text = "- &Duplicazione monitor ordini serviti";
+            this.MnuDuplicazioneMonitor.Size = new System.Drawing.Size(318, 22);
+            this.MnuDuplicazioneMonitor.Text = "&Duplicazione monitor ordini serviti";
             this.MnuDuplicazioneMonitor.Click += new System.EventHandler(this.MnuDuplicazioneMonitor_Click);
             // 
             // MnuAiuto
@@ -335,6 +345,7 @@
         private System.Windows.Forms.ToolStripMenuItem MnuScarico_DB;
         private System.Windows.Forms.ToolStripMenuItem MnuDuplicazioneMonitor;
         private System.Windows.Forms.ToolStripMenuItem Mnu_AiutoRapido;
+        private System.Windows.Forms.ToolStripMenuItem MnuSintesiVocale;
     }
 }
 

@@ -28,7 +28,7 @@ namespace StandFacile
 #pragma warning disable IDE0059
 #pragma warning disable IDE1006
 
-        const int REFRESH_PERIOD = 4 * 45; // 45s
+        const int REFRESH_PERIOD = 4 * 60; // 60s
         const int REFRESH_PERIOD_QUICK = 4 * 2; // 2s
 
         bool bPrimaVolta;

@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.BtnImgList = new System.Windows.Forms.ImageList(this.components);
             this.MainMenu = new System.Windows.Forms.MenuStrip();
@@ -112,6 +112,7 @@
             this.m1 = new System.Windows.Forms.ToolStripMenuItem();
             this.m2 = new System.Windows.Forms.ToolStripMenuItem();
             this.m3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.m5 = new System.Windows.Forms.ToolStripMenuItem();
             this.m10 = new System.Windows.Forms.ToolStripMenuItem();
             this.topPanel = new System.Windows.Forms.Panel();
@@ -160,7 +161,6 @@
             this.lblTavolo = new System.Windows.Forms.Label();
             this.EditCoperti = new System.Windows.Forms.TextBox();
             this.lblCoperti = new System.Windows.Forms.Label();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.MainMenu.SuspendLayout();
             this.StatusBar_Upper.SuspendLayout();
             this.TabSet.SuspendLayout();
@@ -728,14 +728,14 @@
             this.MainGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MainGrid.ColumnHeadersVisible = false;
             this.MainGrid.ContextMenuStrip = this.MainGridContextMenu;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MainGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MainGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.MainGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.MainGrid.EnableHeadersVisualStyles = false;
             this.MainGrid.GridColor = System.Drawing.Color.Gainsboro;
@@ -785,115 +785,120 @@
             this.m5,
             this.m10});
             this.MainGridContextMenu.Name = "MainGridMenu";
-            this.MainGridContextMenu.Size = new System.Drawing.Size(181, 368);
+            this.MainGridContextMenu.Size = new System.Drawing.Size(98, 346);
             // 
             // p1
             // 
             this.p1.Name = "p1";
-            this.p1.Size = new System.Drawing.Size(180, 22);
+            this.p1.Size = new System.Drawing.Size(97, 22);
             this.p1.Text = "+ 1";
             this.p1.Click += new System.EventHandler(this.mpx_Click);
             // 
             // p2
             // 
             this.p2.Name = "p2";
-            this.p2.Size = new System.Drawing.Size(180, 22);
+            this.p2.Size = new System.Drawing.Size(97, 22);
             this.p2.Text = "+ 2";
             this.p2.Click += new System.EventHandler(this.mpx_Click);
             // 
             // p3
             // 
             this.p3.Name = "p3";
-            this.p3.Size = new System.Drawing.Size(180, 22);
+            this.p3.Size = new System.Drawing.Size(97, 22);
             this.p3.Text = "+ 3";
             this.p3.Click += new System.EventHandler(this.mpx_Click);
             // 
             // p4
             // 
             this.p4.Name = "p4";
-            this.p4.Size = new System.Drawing.Size(180, 22);
+            this.p4.Size = new System.Drawing.Size(97, 22);
             this.p4.Text = "+ 4";
             this.p4.Click += new System.EventHandler(this.mpx_Click);
             // 
             // p5
             // 
             this.p5.Name = "p5";
-            this.p5.Size = new System.Drawing.Size(180, 22);
+            this.p5.Size = new System.Drawing.Size(97, 22);
             this.p5.Text = "+ 5";
             this.p5.Click += new System.EventHandler(this.mpx_Click);
             // 
             // p6
             // 
             this.p6.Name = "p6";
-            this.p6.Size = new System.Drawing.Size(180, 22);
+            this.p6.Size = new System.Drawing.Size(97, 22);
             this.p6.Text = "+ 6";
             this.p6.Click += new System.EventHandler(this.mpx_Click);
             // 
             // p7
             // 
             this.p7.Name = "p7";
-            this.p7.Size = new System.Drawing.Size(180, 22);
+            this.p7.Size = new System.Drawing.Size(97, 22);
             this.p7.Text = "+ 7";
             this.p7.Click += new System.EventHandler(this.mpx_Click);
             // 
             // p8
             // 
             this.p8.Name = "p8";
-            this.p8.Size = new System.Drawing.Size(180, 22);
+            this.p8.Size = new System.Drawing.Size(97, 22);
             this.p8.Text = "+ 8";
             this.p8.Click += new System.EventHandler(this.mpx_Click);
             // 
             // p9
             // 
             this.p9.Name = "p9";
-            this.p9.Size = new System.Drawing.Size(180, 22);
+            this.p9.Size = new System.Drawing.Size(97, 22);
             this.p9.Text = "+ 9";
             this.p9.Click += new System.EventHandler(this.mpx_Click);
             // 
             // p10
             // 
             this.p10.Name = "p10";
-            this.p10.Size = new System.Drawing.Size(180, 22);
+            this.p10.Size = new System.Drawing.Size(97, 22);
             this.p10.Text = "+ 10";
             this.p10.Click += new System.EventHandler(this.mpx_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(94, 6);
             // 
             // m1
             // 
             this.m1.Name = "m1";
-            this.m1.Size = new System.Drawing.Size(180, 22);
+            this.m1.Size = new System.Drawing.Size(97, 22);
             this.m1.Text = "- 1";
             this.m1.Click += new System.EventHandler(this.mpx_Click);
             // 
             // m2
             // 
             this.m2.Name = "m2";
-            this.m2.Size = new System.Drawing.Size(180, 22);
+            this.m2.Size = new System.Drawing.Size(97, 22);
             this.m2.Text = "- 2";
             this.m2.Click += new System.EventHandler(this.mpx_Click);
             // 
             // m3
             // 
             this.m3.Name = "m3";
-            this.m3.Size = new System.Drawing.Size(180, 22);
+            this.m3.Size = new System.Drawing.Size(97, 22);
             this.m3.Text = "- 3";
             this.m3.Click += new System.EventHandler(this.mpx_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(94, 6);
             // 
             // m5
             // 
             this.m5.Name = "m5";
-            this.m5.Size = new System.Drawing.Size(180, 22);
+            this.m5.Size = new System.Drawing.Size(97, 22);
             this.m5.Text = "- 5";
             this.m5.Click += new System.EventHandler(this.mpx_Click);
             // 
             // m10
             // 
             this.m10.Name = "m10";
-            this.m10.Size = new System.Drawing.Size(180, 22);
+            this.m10.Size = new System.Drawing.Size(97, 22);
             this.m10.Text = "- 10";
             this.m10.Click += new System.EventHandler(this.mpx_Click);
             // 
@@ -1210,11 +1215,11 @@
             this.EditStatus_QRC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.EditStatus_QRC.BackColor = System.Drawing.Color.Honeydew;
             this.EditStatus_QRC.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditStatus_QRC.Location = new System.Drawing.Point(923, 613);
+            this.EditStatus_QRC.Location = new System.Drawing.Point(884, 613);
             this.EditStatus_QRC.Margin = new System.Windows.Forms.Padding(0);
             this.EditStatus_QRC.MaxLength = 0;
             this.EditStatus_QRC.Name = "EditStatus_QRC";
-            this.EditStatus_QRC.Size = new System.Drawing.Size(142, 26);
+            this.EditStatus_QRC.Size = new System.Drawing.Size(181, 26);
             this.EditStatus_QRC.TabIndex = 21;
             this.EditStatus_QRC.Text = "1234567890123";
             this.EditStatus_QRC.WordWrap = false;
@@ -1229,9 +1234,9 @@
             this.lblRead_bcd.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblRead_bcd.Location = new System.Drawing.Point(801, 617);
             this.lblRead_bcd.Name = "lblRead_bcd";
-            this.lblRead_bcd.Size = new System.Drawing.Size(120, 19);
+            this.lblRead_bcd.Size = new System.Drawing.Size(70, 19);
             this.lblRead_bcd.TabIndex = 22;
-            this.lblRead_bcd.Text = "lettura QRcode:";
+            this.lblRead_bcd.Text = "QRcode:";
             // 
             // toolStripButtons_R
             // 
@@ -1302,17 +1307,17 @@
             // 
             this.comboCashPos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboCashPos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboCashPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboCashPos.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboCashPos.FormattingEnabled = true;
-            this.comboCashPos.ItemHeight = 16;
+            this.comboCashPos.ItemHeight = 18;
             this.comboCashPos.Items.AddRange(new object[] {
             "CONTANTI",
             "CARD",
             "SATYSPAY",
             "   "});
-            this.comboCashPos.Location = new System.Drawing.Point(862, 584);
+            this.comboCashPos.Location = new System.Drawing.Point(884, 584);
             this.comboCashPos.Name = "comboCashPos";
-            this.comboCashPos.Size = new System.Drawing.Size(203, 24);
+            this.comboCashPos.Size = new System.Drawing.Size(181, 26);
             this.comboCashPos.TabIndex = 24;
             this.comboCashPos.SelectedIndexChanged += new System.EventHandler(this.ComboCashPos_SelectedIndexChanged);
             // 
@@ -1534,11 +1539,6 @@
             this.lblCoperti.Size = new System.Drawing.Size(85, 23);
             this.lblCoperti.TabIndex = 20;
             this.lblCoperti.Text = "COPERTI";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // FrmMain
             // 

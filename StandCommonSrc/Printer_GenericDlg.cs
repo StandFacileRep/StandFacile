@@ -95,7 +95,6 @@ namespace StandFacile
             iGenPrinterOptionsCopy = SetNumberOfSetBits(iGenPrinterOptionsCopy, (int)numUpDown_RigheIniziali.Value, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_INITIAL, 4);
             iGenPrinterOptionsCopy = SetNumberOfSetBits(iGenPrinterOptionsCopy, (int)numUpDown_RigheFinali.Value, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_FINAL, 4);
 
-            // controllo _bListinoModificato per gestione della stampa QuantitàUno, salvataggio in : SF_Data[]
             if (SF_Data.iGenericPrintOptions != iGenPrinterOptionsCopy)
             {
                 _bListinoModificato = true;

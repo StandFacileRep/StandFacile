@@ -773,7 +773,7 @@ namespace StandFacile_DB
                         else if (sInStr == "_GenProgOptions")
                         {
                             sTmp = readerOrdine.GetString("sText");
-                            sTmp = readerOrdine.GetString("sText");
+                            sTmp = sTmp.Substring(3);
                             i = ToInt32(sTmp, 16);
 
                             DB_Data.iGeneralProgOptions = i;
@@ -783,7 +783,7 @@ namespace StandFacile_DB
                         else if (sInStr == "_GenPrintSettings")
                         {
                             sTmp = readerOrdine.GetString("sText");
-                            sTmp = readerOrdine.GetString("sText");
+                            sTmp = sTmp.Substring(3);
                             i = ToInt32(sTmp, 16);
 
                             DB_Data.iGenericPrintOptions = i;
@@ -793,7 +793,7 @@ namespace StandFacile_DB
                         else if (sInStr == "_LocCopySettings")
                         {
                             sTmp = readerOrdine.GetString("sText");
-                            sTmp = readerOrdine.GetString("sText");
+                            sTmp = sTmp.Substring(3);
                             i = ToInt32(sTmp, 16);
 
                             DB_Data.iLocalCopyOptions = i;

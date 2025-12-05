@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.16.1";
+        public const String RELEASE_SW = "v5.16.2";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_DB_TBLS = "v5d";
@@ -1513,7 +1513,7 @@ namespace StandCommonFiles
                 sRcpCopyHeader = "";
                 sDatabaseName = "";
                 sDatabaseUser = "";
-                sWebUrlVersion = "v5c";
+                sWebUrlVersion = "v5d";
                 sRcp_CS_Header = new String[4];
             }
         }
