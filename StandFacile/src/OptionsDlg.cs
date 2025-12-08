@@ -22,7 +22,6 @@ namespace StandFacile
     public partial class OptionsDlg : Form
     {
         static int _iDispMngStatus, _iColorThemeIndex;
-        static int _iButtonOptStatus;
 
         static bool _bListinoModificato;
 
@@ -117,20 +116,6 @@ namespace StandFacile
 
             checkBoxPresales_loadMode.Checked = (ReadRegistry(PRESALE_LOAD_MODE_KEY, 0) == 1);
 
-            _iButtonOptStatus = ReadRegistry(R_BUTTONS_KEY, 3);
-
-            // In modo Touch checkBox_VButtons è sempre Checked
-            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
-            {
-                checkBox_VButtons.Enabled = false;
-                checkBox_VButtons.Checked = true;
-            }
-            else
-            {
-                checkBox_VButtons.Enabled = true;
-                checkBox_VButtons.Checked = IsBitSet(_iButtonOptStatus, (int)BUTTONS_STATUS_FLAGS.BIT_SHOW);
-            }
-
             _iColorThemeIndex = ReadRegistry(COLOR_THEME_KEY, 1);
 
             if (_iColorThemeIndex < NUM_COLOR_THEMES)
@@ -208,12 +193,6 @@ namespace StandFacile
             WriteRegistry(VIEW_PREV_RECEIPT_KEY, checkBoxShowPrevReceipt.Checked ? 1 : 0);
 
             WriteRegistry(PRESALE_LOAD_MODE_KEY, checkBoxPresales_loadMode.Checked ? 1 : 0);
-
-            _iButtonOptStatus = UpdateBit(_iButtonOptStatus, checkBox_VButtons.Checked, (int)BUTTONS_STATUS_FLAGS.BIT_SHOW);
-            WriteRegistry(R_BUTTONS_KEY, _iButtonOptStatus);
-
-            // invia a FrmMain il nuovo stato dei bottoni
-            FrmMain.Set_RButtons(_iButtonOptStatus);
 
             sTmp = String.Format("optionsDlg OK: {0}, {1}, {2}, {3}, {4}", checkBoxTavolo.Checked, checkBoxTavolo.Checked,
                 checkBoxTavolo.Checked, checkBoxTavolo.Checked, checkBoxPresale_workMode.Checked);

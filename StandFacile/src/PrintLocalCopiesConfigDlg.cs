@@ -165,7 +165,7 @@ namespace StandFacile
 
         private void BtnGeneric_Click(object sender, EventArgs e)
         {
-            GenPrinterDlg rGenericPrintDlg = new GenPrinterDlg();
+            GenPrinterDlg._rGenPrinterDlg.Init(true);
         }
 
         private void BtnLegacy_Click(object sender, EventArgs e)

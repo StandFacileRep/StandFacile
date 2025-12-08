@@ -195,19 +195,18 @@ namespace StandCommonFiles
         public static void PrintFile(String sFileToPrintParam)
         {
             int i, iGruppoStampa, iPos;
-            bool bLogo, bCopiaCucina;
+            bool bLogo;
 
             String sInStr, sTmp;
             String sReceiptNum = "0123", sDataStr, sGruppoStampa = "0";
 
-            StreamReader fTxtFile = null;
+            StreamReader fTxtFile;
 
             _sFileToPrint = sFileToPrintParam;
 
             sDataStr = GetActualDate().ToString("ddMMyy");
 
             Init();
-            bCopiaCucina = false;
 
             /******************************************
                 stampa il Logo solo se il file
@@ -231,23 +230,6 @@ namespace StandCommonFiles
             }
             else
                 bLogo = false;
-
-            /*************************************
-                if(bCopiaCucina) stampa BARCODE
-             *************************************/
-#if STANDFACILE
-            if (sTmp.Contains("_CT"))
-                bCopiaCucina = true;
-            else
-                bCopiaCucina = false;
-#endif
-
-#if STAND_CUCINA
-	if (sTmp.Contains("CT_") || (_sFileToPrint == NOME_FILE_STAMPA_RECEIPT))
-		bCopiaCucina = true; //StandCucina stampa solo copie
-	else
-		bCopiaCucina = false;
-#endif
 
             if (String.IsNullOrEmpty(_sFileToPrint))
             {

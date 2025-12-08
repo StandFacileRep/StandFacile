@@ -80,12 +80,15 @@ namespace StandFacile
         /// <summary>registro: numero dei temi colore</summary>
         public const int NUM_COLOR_THEMES = 3;
 
+        /// <summary>enum stato dei pulsanti</summary>
         public enum BUTTONS_STATUS_FLAGS
         {
-            /// <summary>bit di _iButtonOptStatus che indica wide/narrow</summary>
+            /// <summary>valore di _iButtonOptStatus che indica wide</summary>
             BIT_WIDE = 0,
-            /// <summary>bit di _iButtonOptStatus che indica mostra/nascondi</summary>
-            BIT_SHOW = 1
+            /// <summary>valore di _iButtonOptStatus che indica narrow</summary>
+            BIT_NARROW = 1,
+            /// <summary>valore di _iButtonOptStatus che indica nascosto</summary>
+            BIT_HIDE = 2
         }
 
         /*****************************************************
@@ -158,6 +161,9 @@ namespace StandFacile
 
             /// <summary>serviceStrings: evita le presentazione del dialogo relativo alla Data</summary>
             public const string _SKIP_DATA = "noData";
+
+            /// <summary>evita di stampare il numero dello scontrino</summary>
+            public const String _SKIP_RCP_NUM = "skipRcpNum";
 
             /// <summary>serviceStrings: attivazione stampa su carta A4</summary>
             public const string PRINT_ON_A4_PAPER = "printOnA4Paper";

@@ -7,6 +7,8 @@
 using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Collections;
+using System.Collections.Generic;
 
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
@@ -19,8 +21,7 @@ using static StandFacile.Define;
 using static StandFacile.NetConfigLightDlg;
 using static StandFacile.dBaseIntf;
 using static StandFacile.LogForm;
-using System.Collections;
-using System.Collections.Generic;
+using StandCommonFiles;
 
 namespace StandFacile
 {
@@ -79,6 +80,9 @@ namespace StandFacile
         /// <summary>evento cross Thread che attiva l'agiornamento della label DB</summary>
         public static void QueueUpdate(String[] sEvQueueObj) { eventQueue.Enqueue(sEvQueueObj); }
 
+        /// <summary>ottiene il flag di modo esperto</summary>
+        public bool GetEsperto() { return MnuEsperto.Checked; }
+
         VisOrdiniDlg _rVisOrdiniDlg;
 
         /// <summary>colore di sfondo dello scontrino Annullato</summary>
@@ -121,8 +125,8 @@ namespace StandFacile
             tt.SetToolTip(BtnPrevMsg, "Visualizza Precedente");
             tt.SetToolTip(BtnNextMsg, "Visualizza Successivo");
 
-            tt.SetToolTip(TB_Tickets, "lo sfondo è Giallo per gli scontrini già stampati da StandCucina");
-            tt.SetToolTip(TB_Messaggi, "lo sfondo è Giallo per i messaggi già stampati da StandCucina");
+            tt.SetToolTip(TB_Tickets, "lo sfondo è Verde chiaro per gli scontrini già stampati da StandCucina");
+            tt.SetToolTip(TB_Messaggi, "lo sfondo è Verde chiaro per i messaggi già stampati da StandCucina");
 
             InitActualDate();
 
@@ -159,7 +163,7 @@ namespace StandFacile
                 MessageBox.Show("E' la prima esecuzione, imposta la connessione al database e la stampante !", "Attenzione !", MessageBoxButtons.OK);
 
                 // Imposta il nome del server
-                NetConfigLightDlg.rNetConfigLightDlg.ShowDialog();
+                NetConfigLightDlg.rNetConfigLightDlg.Init(true);
             }
             else if (CheckService(CFG_COMMON_STRINGS._ESPERTO))
                 MnuEspertoClick(this, null);
@@ -202,6 +206,8 @@ namespace StandFacile
             }
 
             Text = String.Format("{0}   {1}", Define.TITLE, _sShortDBType);
+
+            CheckMenuItems();
 
             LogToFile("FrmMain : Init");
         }
@@ -594,19 +600,30 @@ namespace StandFacile
             {
                 MnuEsperto.Checked = !MnuEsperto.Checked;
 
-                if (MnuEsperto.Checked)
-                {
-                    MnuNetConfig.Enabled = true;
-                    MnuConfigurazioneStampe.Enabled = true;
-                }
-                else
-                {
-                    MnuNetConfig.Enabled = false;
-                    MnuConfigurazioneStampe.Enabled = false;
-                }
+                CheckMenuItems();
 
                 sTmp = String.Format("FrmMain: Modo Esperto {0}", MnuEsperto.Checked);
                 LogToFile(sTmp);
+            }
+        }
+
+        /***************************************************
+       *       Abilita/disabilita le varie voci
+       *       del Menù Principale
+       ***************************************************/
+        private void CheckMenuItems()
+        {
+            if (MnuEsperto.Checked)
+            {
+                MnuNetConfig.Enabled = true;
+                MnuFileDiConfigurazione.Enabled = true;
+                MnuConfigurazioneStampe.Enabled = true;
+            }
+            else
+            {
+                MnuNetConfig.Enabled = false;
+                MnuFileDiConfigurazione.Enabled = false;
+                MnuConfigurazioneStampe.Enabled = false;
             }
         }
 
@@ -669,7 +686,7 @@ namespace StandFacile
         {
             _rdBaseIntf.dbCaricaOrdine(GetActualDate(), 0, false);
 
-            rNetConfigLightDlg.ShowDialog();
+            rNetConfigLightDlg.Init(true);
         }
 
         private void MnuAbout_Click(object sender, EventArgs e)
@@ -1221,6 +1238,12 @@ namespace StandFacile
                 if (File.Exists(sNomeFileCopiePrt))
                     File.Delete(sNomeFileCopiePrt);
             }
+        }
+
+        private void MnuFileDiConfigurazione_Click(object sender, EventArgs e)
+        {
+            // Avvio della Form di Visualizzazione file di configurazione
+            ConfigIniDlg rConfigIniDlg = new ConfigIniDlg();
         }
 
         /// <summary>

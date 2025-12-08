@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.16.2";
+        public const String RELEASE_SW = "v5.16.2"; 
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_DB_TBLS = "v5d";
@@ -1479,6 +1479,8 @@ namespace StandCommonFiles
             public int iReceiptStartNumber;
             /// <summary>numero di secondi del Timer di refresh, normalmente = 30s per StandMonitor</summary>
             public int iRefreshTimer;
+            /// <summary>numero di millisecondi dell'intervallo tra stampe, normalmente = 200ms per StandFacile</summary>
+            public int iPrintInterval;
             /// <summary>stringa per gestione Service Mode</summary>
             public String sService;
 
@@ -1507,7 +1509,8 @@ namespace StandCommonFiles
             {
                 bFileLoaded = false;
                 iReceiptStartNumber = 0;
-                iRefreshTimer = 0;
+                iRefreshTimer = 30;
+                iPrintInterval = 200;
                 sService = "";
                 bRcpCopyRequired = false;
                 sRcpCopyHeader = "";

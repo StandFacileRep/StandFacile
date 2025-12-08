@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : Program.cs
-	Data	 : 16.02.2025
+	Data	 : 08.12.2025
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -30,21 +30,6 @@ namespace StandFacile
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            try
-            {
-                for (int i = 0; i < args.Length; i++)
-                {
-                    if (args[0].Contains("-su"))
-                        bSuperUser = true;
-                    else
-                        bSuperUser = false;
-                }
-            }
-            catch (Exception)
-            {
-                Printer_Windows.iPrint_WaitInterval = 500;
-            }
 
             // Caricamento configurazione
             Config rConfig = new Config();
@@ -86,6 +71,8 @@ namespace StandFacile
             dBaseIntf rdBaseIntf = new dBaseIntf();
 
             NetConfigLightDlg rNetConfigLightDlg = new NetConfigLightDlg();
+
+            GenPrinterDlg rGenericPrintDlg = new GenPrinterDlg();
 
             FiltroDlg rFiltroDlg = new FiltroDlg();
 

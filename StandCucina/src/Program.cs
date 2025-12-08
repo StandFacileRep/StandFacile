@@ -86,6 +86,8 @@ namespace StandFacile
 
             NetConfigLightDlg rNetConfigLightDlg = new NetConfigLightDlg();
 
+            GenPrinterDlg rGenericPrintDlg = new GenPrinterDlg();
+
             Barcode_EAN13 rBarcode_EAN13 = new Barcode_EAN13();
 
             // inizializza i parametri di stampa

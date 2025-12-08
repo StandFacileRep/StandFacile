@@ -115,6 +115,14 @@
     <Compile Include="..\..\StandCommonSrc\Config.cs">
       <Link>Config.cs</Link>
     </Compile>
+    <Compile Include="..\..\StandCommonSrc\ConfigIniDlg.cs">
+      <Link>ConfigIniDlg.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\ConfigIniDlg.Designer.cs">
+      <Link>ConfigIniDlg.Designer.cs</Link>
+      <DependentUpon>ConfigIniDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\StandCommonSrc\dBaseIntf.cs">
       <Link>dBaseIntf.cs</Link>
     </Compile>
@@ -288,6 +296,10 @@
     <Compile Include="VisOrdiniTableFrm.designer.cs">
       <DependentUpon>VisOrdiniTableFrm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="..\..\StandCommonSrc\ConfigIniDlg.resx">
+      <Link>ConfigIniDlg.resx</Link>
+      <DependentUpon>ConfigIniDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="..\..\StandCommonSrc\EsploraDB_Dlg.resx">
       <Link>EsploraDB_Dlg.resx</Link>
       <DependentUpon>EsploraDB_Dlg.cs</DependentUpon>

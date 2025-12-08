@@ -7,6 +7,7 @@ using System;
 using System.Windows.Forms;
 
 using static StandCommonFiles.CommonCl;
+using static StandFacile.Define;
 
 namespace StandFacile
 {
@@ -92,7 +93,7 @@ namespace StandFacile
             {
                 _bFirstTimeSort = false;
 
-                if (CheckService("sortByDeliver") || FrmMain.rFrmMain.GetRedColums() || CheckService("reducedColumns"))
+                if (CheckService(CFG_SERVICE_STRINGS._SORT_DELIVER) || FrmMain.rFrmMain.GetRedColums() || CheckService(CFG_SERVICE_STRINGS._REDUCE_COLUMNS))
                     DBGrid.Sort(DBGrid.Columns[2], System.ComponentModel.ListSortDirection.Descending);
                 else
                     DBGrid.Sort(DBGrid.Columns[1], System.ComponentModel.ListSortDirection.Descending);
@@ -137,7 +138,7 @@ namespace StandFacile
             {
                 DBGrid.Columns[4].Visible = false;
 
-                if (FrmMain.rFrmMain.GetRedColums() || CheckService("reducedColumns"))
+                if (FrmMain.rFrmMain.GetRedColums() || CheckService(CFG_SERVICE_STRINGS._REDUCE_COLUMNS))
                     DBGrid.Columns[1].Visible = false;
                 else
                     DBGrid.Columns[1].Visible = true;
@@ -167,7 +168,7 @@ namespace StandFacile
             }
             else
             {
-                if (FrmMain.rFrmMain.GetRedColums() || CheckService("reducedColumns"))
+                if (FrmMain.rFrmMain.GetRedColums() || CheckService(CFG_SERVICE_STRINGS._REDUCE_COLUMNS))
                 {
                     DBGrid.Columns[0].Width = (int)(fWidth * 0.58f);
                     DBGrid.Columns[1].Width = (int)(fWidth * 0.02f);

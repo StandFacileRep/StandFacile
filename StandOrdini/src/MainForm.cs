@@ -131,7 +131,7 @@ namespace StandFacile
                 MessageBox.Show("E' la prima esecuzione, imposta la connessione al database !", "Attenzione !", MessageBoxButtons.OK);
 
                 // Imposta il nome del server
-                NetConfigLightDlg.rNetConfigLightDlg.ShowDialog();
+                NetConfigLightDlg.rNetConfigLightDlg.Init(true);
             }
             else if (CheckService(CFG_COMMON_STRINGS._ESPERTO))
                 MnuEspertoClick(this, null);
@@ -744,7 +744,7 @@ namespace StandFacile
 
         private void MnuDBServer_Click(object sender, EventArgs e)
         {
-            NetConfigLightDlg.rNetConfigLightDlg.ShowDialog();
+            NetConfigLightDlg.rNetConfigLightDlg.Init(true);
         }
 
         private void MnuAbout_Click(object sender, EventArgs e)

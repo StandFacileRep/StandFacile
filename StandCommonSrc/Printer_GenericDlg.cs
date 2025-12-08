@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
 	NomeFile : StandCommonSrc/GenPrinterDlg.cs
-    Data	 : 22.09.2025
+    Data	 : 06.12.2025
 	Autore   : Mauro Artuso/nicola02nb
 
 	Descrizione : classe per la gestione della Form per l'impostazione dei
@@ -14,6 +14,8 @@ using StandCommonFiles;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
+
+using static StandFacile.dBaseIntf;
 using static StandFacile.Define;
 using static StandFacile.glb;
 
@@ -52,33 +54,100 @@ namespace StandFacile
 
             LogToFile("GenPrinterDlg : Init in");
 
-            numUpDown_RigheIniziali.Value = GetNumberOfSetBits(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_INITIAL, 4);
-            numUpDown_RigheFinali.Value = GetNumberOfSetBits(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_FINAL, 4);
+#if STANDFACILE
+            Height = 300;
+            ckBoxLocalSettings.Visible = false;
+#else
+            Height = 352;
+            ckBoxLocalSettings.Visible = true;
+            ckBoxLocalSettings.Checked = (ReadRegistry(GEN_PRINT_LOC_STORE_KEY, 0) == 1);
+            ckBoxLocalSettings_CheckedChanged(this, null);
+#endif
 
-            checkBox_CassaInlineNumero.Checked = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE);
-            checkBox_StarsOnUnderGroup.Checked = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_STARS_ON_UNDER_GROUP);
-            checkBox_CenterTableAndName.Checked = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CENTER_TABLE_AND_NAME);
-
-            // caricato dal Listino
-            checkBox_Chars33.Checked = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
-
-            checkBox_LogoNelleCopie.Checked = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_ON_COPIES_REQUIRED);
-            checkBox_CopertiNelleCopie.Checked = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
-
-            ShowDialog();
+            Init(false);
 
             LogToFile("GenPrinterDlg : Init out");
 
             return;
         }
 
+        /// <summary>
+        /// inizializza i controlli dal SF_Data (HeadOrdini) o dal registro
+        /// </summary>
+        public void Init(bool bShow)
+        {
+            int iGenericPrintOptions;
+
+#if STAND_CUCINA || STAND_MONITOR
+
+            if (ckBoxLocalSettings.Checked)
+                iGenericPrintOptions = ReadRegistry(GEN_PRINT_OPT_KEY, 1);
+            else
+            {
+                // copia impostazioni di stampa
+                SF_Data.iGenericPrintOptions = DB_Data.iGenericPrintOptions;
+
+                iGenericPrintOptions = SF_Data.iGenericPrintOptions;
+            }
+#else
+            iGenericPrintOptions = SF_Data.iGenericPrintOptions;
+#endif
+
+            numUpDown_RigheIniziali.Value = GetNumberOfSetBits(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_INITIAL, 4);
+            numUpDown_RigheFinali.Value = GetNumberOfSetBits(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_FINAL, 4);
+
+            checkBox_CassaInlineNumero.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE);
+            checkBox_StarsOnUnderGroup.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_STARS_ON_UNDER_GROUP);
+            checkBox_CenterTableAndName.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CENTER_TABLE_AND_NAME);
+
+            // caricato dal Listino
+            checkBox_Chars33.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
+
+            checkBox_LogoNelleCopie.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_ON_COPIES_REQUIRED);
+            checkBox_CopertiNelleCopie.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
+
+            if (bShow)
+                ShowDialog();
+        }
+
+        private void ckBoxLocalSettings_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ckBoxLocalSettings.Checked)
+            {
+                checkBox_Chars33.Enabled = true;
+                checkBox_LogoNelleCopie.Enabled = true;
+                checkBox_CopertiNelleCopie.Enabled = true;
+                checkBox_CassaInlineNumero.Enabled = true;
+                checkBox_StarsOnUnderGroup.Enabled = true;
+                checkBox_CenterTableAndName.Enabled = true;
+
+                labelEmptyInitial.Enabled = true;
+                labelEmptyFinal.Enabled = true;
+                numUpDown_RigheIniziali.Enabled = true;
+                numUpDown_RigheFinali.Enabled = true;
+            }
+            else
+            {
+                checkBox_Chars33.Enabled = false;
+                checkBox_LogoNelleCopie.Enabled = false;
+                checkBox_CopertiNelleCopie.Enabled = false;
+                checkBox_CassaInlineNumero.Enabled = false;
+                checkBox_StarsOnUnderGroup.Enabled = false;
+                checkBox_CenterTableAndName.Enabled = false;
+
+                labelEmptyInitial.Enabled = false;
+                labelEmptyFinal.Enabled = false;
+                numUpDown_RigheIniziali.Enabled = false;
+                numUpDown_RigheFinali.Enabled = false;
+            }
+
+            Init(false);
+        }
+
         private void BtnOK_Click(object sender, EventArgs e)
         {
+            bool bChars33;
             int iGenPrinterOptionsCopy;
-
-#if STANDFACILE
-            AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
-#endif
 
             _bListinoModificato = false;
 
@@ -102,8 +171,20 @@ namespace StandFacile
                 SF_Data.iGenericPrintOptions = iGenPrinterOptionsCopy;
             }
 
-            InitFormatStrings(checkBox_Chars33.Checked);
+            bChars33 = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
+            InitFormatStrings(bChars33);
 
+#if STANDFACILE
+            AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+#else
+            WriteRegistry(GEN_PRINT_LOC_STORE_KEY, ckBoxLocalSettings.Checked ? 1 : 0);
+
+            if (ckBoxLocalSettings.Checked)
+                WriteRegistry(GEN_PRINT_OPT_KEY, iGenPrinterOptionsCopy);
+#endif
+
+
+            Hide();
             LogToFile("GenPrinterDlg : OKBtnClick");
         }
 

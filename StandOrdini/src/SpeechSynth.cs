@@ -82,7 +82,7 @@ namespace StandFacile
             }
 
             if (bShow)
-                Show();
+                ShowDialog();
         }
 
         /// <summary>
@@ -130,6 +130,7 @@ namespace StandFacile
 
             Hide();
         }
+
 
         private void SpeechSynth_FormClosing(object sender, FormClosingEventArgs e)
         {

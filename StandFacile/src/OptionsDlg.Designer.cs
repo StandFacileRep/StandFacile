@@ -42,12 +42,9 @@
             this.comboColorTheme = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBox_Enter = new System.Windows.Forms.CheckBox();
-            this.checkBox_VButtons = new System.Windows.Forms.CheckBox();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.checkBoxShowPrevReceipt = new System.Windows.Forms.CheckBox();
             this.checkBox_ZeroPriceItems = new System.Windows.Forms.CheckBox();
             this.panelPresale.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // checkBoxCoperti
@@ -161,7 +158,7 @@
             // 
             this.checkBoxPrivacy.AutoSize = true;
             this.checkBoxPrivacy.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxPrivacy.Location = new System.Drawing.Point(15, 259);
+            this.checkBoxPrivacy.Location = new System.Drawing.Point(361, 69);
             this.checkBoxPrivacy.Name = "checkBoxPrivacy";
             this.checkBoxPrivacy.Size = new System.Drawing.Size(205, 18);
             this.checkBoxPrivacy.TabIndex = 5;
@@ -202,31 +199,6 @@
             this.checkBox_Enter.Text = "consenti stampa scontrino con ENTER";
             this.checkBox_Enter.UseVisualStyleBackColor = true;
             // 
-            // checkBox_VButtons
-            // 
-            this.checkBox_VButtons.AutoSize = true;
-            this.checkBox_VButtons.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox_VButtons.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.checkBox_VButtons.Location = new System.Drawing.Point(360, 69);
-            this.checkBox_VButtons.Name = "checkBox_VButtons";
-            this.checkBox_VButtons.Size = new System.Drawing.Size(156, 18);
-            this.checkBox_VButtons.TabIndex = 23;
-            this.checkBox_VButtons.Text = "attiva barra pulsanti      ";
-            this.checkBox_VButtons.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.ErrorImage = null;
-            this.pictureBox.Image = global::StandFacile.Properties.Resources.plusMinCan;
-            this.pictureBox.InitialImage = null;
-            this.pictureBox.Location = new System.Drawing.Point(495, 65);
-            this.pictureBox.Margin = new System.Windows.Forms.Padding(2);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(70, 26);
-            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureBox.TabIndex = 24;
-            this.pictureBox.TabStop = false;
-            // 
             // checkBoxShowPrevReceipt
             // 
             this.checkBoxShowPrevReceipt.AutoSize = true;
@@ -256,8 +228,6 @@
             this.ClientSize = new System.Drawing.Size(696, 347);
             this.Controls.Add(this.checkBox_ZeroPriceItems);
             this.Controls.Add(this.checkBoxShowPrevReceipt);
-            this.Controls.Add(this.pictureBox);
-            this.Controls.Add(this.checkBox_VButtons);
             this.Controls.Add(this.checkBox_Enter);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboColorTheme);
@@ -278,7 +248,6 @@
             this.Text = "Opzioni varie";
             this.panelPresale.ResumeLayout(false);
             this.panelPresale.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -299,8 +268,6 @@
         private System.Windows.Forms.ComboBox comboColorTheme;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBox_Enter;
-        private System.Windows.Forms.CheckBox checkBox_VButtons;
-        private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.CheckBox checkBoxShowPrevReceipt;
         private System.Windows.Forms.CheckBox checkBox_ZeroPriceItems;
     }

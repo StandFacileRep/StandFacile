@@ -181,6 +181,14 @@
     <Compile Include="..\..\StandCommonSrc\Config.cs">
       <Link>Config.cs</Link>
     </Compile>
+    <Compile Include="..\..\StandCommonSrc\ConfigIniDlg.cs">
+      <Link>ConfigIniDlg.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\ConfigIniDlg.Designer.cs">
+      <Link>ConfigIniDlg.Designer.cs</Link>
+      <DependentUpon>ConfigIniDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\..\StandCommonSrc\dBaseIntf.cs">
       <Link>dBaseIntf.cs</Link>
     </Compile>
@@ -305,12 +313,6 @@
     <Compile Include="EsploraRemOrdiniDB_Dlg.designer.cs">
       <DependentUpon>EsploraRemOrdiniDB_Dlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConfigIniDlg.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ConfigIniDlg.Designer.cs">
-      <DependentUpon>ConfigIniDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="DataCheckDlg.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -392,6 +394,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="..\..\StandCommonSrc\ConfigIniDlg.resx">
+      <Link>ConfigIniDlg.resx</Link>
+      <DependentUpon>ConfigIniDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="..\..\StandCommonSrc\EsploraDB_Dlg.resx">
       <Link>EsploraDB_Dlg.resx</Link>
       <DependentUpon>EsploraDB_Dlg.cs</DependentUpon>
@@ -429,9 +435,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EsploraRemOrdiniDB_Dlg.resx">
       <DependentUpon>EsploraRemOrdiniDB_Dlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ConfigIniDlg.resx">
-      <DependentUpon>ConfigIniDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataCheckDlg.resx">
       <DependentUpon>DataCheckDlg.cs</DependentUpon>

@@ -157,6 +157,12 @@ namespace StandFacile
             for (i = 0; i < NUM_GROUPS_COLORS - 1; i++)
                 _pTextBoxColor[i].Top -= iVShift;
 
+            LogToFile("TFrmNetConfig : TFrmNetConfig");
+        }
+
+        /// <summary>Inizializzazione per visualizzazione</summary>
+        public void Init(bool bShow)
+        {
             // controllo per prima esecuzione, in questo caso la chiamata è inopportuna
             if (!String.IsNullOrEmpty(ReadRegistry(DBASE_SERVER_NAME_KEY, "")))
             {
@@ -167,7 +173,8 @@ namespace StandFacile
                 NetConfigDlg_Shown(this, null);
             }
 
-            LogToFile("TFrmNetConfig : TFrmNetConfig");
+            if (bShow)
+                ShowDialog();
         }
 
         // verifica il collegamento con il DB Server e ne salva il nome
@@ -232,9 +239,6 @@ namespace StandFacile
             if (!String.IsNullOrEmpty(ReadRegistry(DBASE_SERVER_NAME_KEY, "")))
                 _rdBaseIntf.dbCaricaOrdine(GetActualDate(), 0, false);
 
-            // copia impostazioni di stampa
-            SF_Data.iGenericPrintOptions = DB_Data.iGenericPrintOptions;
-
             for (i = 0; i < NUM_EDIT_GROUPS; i++)
             {
                 _pCheckBoxCopia[i].BackColor = GetColor(DB_Data.iGroupsColor[i])[0];
@@ -292,6 +296,11 @@ namespace StandFacile
                 btnOK.Enabled = true;
         }
 
+        private void Combo_TipoDBase_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AggiornaAspettoControlli();
+        }
+
         private void OKBtn_Click(object sender, EventArgs e)
         {
             // verifica il collegamento con il DB Server e ne salva il nome
@@ -333,12 +342,14 @@ namespace StandFacile
 
             FrmMain.rFrmMain.VisualizzaTicket(iGlbNumOfTickets);
 #endif
-            Close();
+            Hide();
         }
 
-        private void Combo_TipoDBase_SelectedIndexChanged(object sender, EventArgs e)
+        private void NetConfigLightDlg_FormClosing(object sender, FormClosingEventArgs e)
         {
-            AggiornaAspettoControlli();
+            Hide();
+            // evita la distruzione della form creando una eccezione alla successiva apertura
+            e.Cancel = true;
         }
 
     }

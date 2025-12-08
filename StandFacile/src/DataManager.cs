@@ -292,6 +292,7 @@ namespace StandFacile
             rFrmMain.SetEditCoperto("");
             rFrmMain.SetEditNota("");
 
+            rFrmMain.ClearAnteprima_TP();
             rFrmMain.ResetPayment();
 
             rFrmMain.ClearAnteprima_TP();

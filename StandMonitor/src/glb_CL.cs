@@ -17,9 +17,6 @@ namespace StandFacile
     /// </summary>
     public struct glb
     {
-        /// <summary>ottiene il flag di superuser</summary>
-        public static bool bSuperUser;
-
         /// <summary>numero massimo di caratteri per riga</summary>
         public static int iMAX_RECEIPT_CHARS;
 

@@ -34,7 +34,7 @@ namespace StandFacile
         const int toolStripR_WIDTH_H = 230;
         const int toolStripR_WIDTH_V = 100;
         const int toolStripR_HEIGHT_H = 75;
-        const int toolStripR_HEIGHT_V = 232;
+        const int toolStripR_HEIGHT_V = 260;
 
         /// <summary>
         /// abilita/disabilita le varie voci del Menù Principale
@@ -123,6 +123,7 @@ namespace StandFacile
                 MnuCambiaPassword.Enabled = false;
                 MnuImpHeader.Enabled = false;
                 MnuImpTabsGrid.Enabled = false;
+                MnuFileDiConfigurazione.Enabled = false;
                 MnuImpListino.Enabled = true;
 
                 // Bottoni
@@ -264,6 +265,7 @@ namespace StandFacile
                         MnuChiudiIncasso.Enabled = false;
                         MnuImpHeader.Enabled = false;
                         MnuImpTabsGrid.Enabled = false;
+                        MnuFileDiConfigurazione.Enabled = false;
 
                         if (SF_Data.bPrevendita)
                             MnuImpOpzioni.Enabled = false;
@@ -280,6 +282,7 @@ namespace StandFacile
                         // altrimenti con la Prevendita è troppo complessa la gestione dei nomi delle tabelle
                         MnuChiudiIncasso.Enabled = !SF_Data.bPrevendita;
                         MnuImpHeader.Enabled = true;
+                        MnuFileDiConfigurazione.Enabled = true;
                         MnuImpTabsGrid.Enabled = true;
                         MnuImpOpzioni.Enabled = true;
                         MnuImpListino.Enabled = true;
@@ -335,6 +338,7 @@ namespace StandFacile
                     MnuCambiaPassword.Enabled = false;
                     MnuImpOpzioni.Enabled = false;
                     MnuImpHeader.Enabled = false;
+                    MnuFileDiConfigurazione.Enabled = false;
                     MnuImpTabsGrid.Enabled = false;
                     MnuImpListino.Enabled = false;
                 }
@@ -1152,8 +1156,6 @@ namespace StandFacile
 
             // EditStatus_BC.UseSystemPasswordChar = true; si perde il carattere successivo
 
-#pragma warning disable IDE0059
-
             /*************************
                       ENTER
              *************************/
@@ -1369,9 +1371,7 @@ namespace StandFacile
             float fColumnsWidth, fTextSize;
 
             // tutto dipende dal topPanel
-            topPanel.Width = this.Size.Width - 20;
-
-            btnNavRight.Top = btnNavLeft.Top;
+            topPanel.Width = this.Size.Width - 26;
 
             if (panelRight.Height == 0)
                 return;
@@ -1380,7 +1380,7 @@ namespace StandFacile
             {
                 TabSet.Height = 34;
                 topPanel.Height = 60;
-                toolStripTop.Width = topPanel.Width - toolStripTop.Left - 2;
+                toolStripTop.Width = topPanel.Width - toolStripTop.Left - 40;
                 toolStripTop.Left = 2;
                 BtnSep_T6.Visible = false;
 
@@ -1398,23 +1398,27 @@ namespace StandFacile
             }
 
 
-            if (!IsBitSet(_iButtonStatus, (int)BUTTONS_STATUS_FLAGS.BIT_SHOW)) // no RButtons
-            {
-                btnNavRight.Visible = false;
-                btnNavLeft.Visible = false;
+            // tutto dipende dal topPanel
+            toolStripTop.Height = topPanel.Height - 2;
 
-                toolStripButtons_R.Visible = false;
-                toolStripButtons_R.Enabled = false;
-                toolStripButtons_R.Width = 2;
+            // posizionamento verticale elementi
+            TabSet.Top = MainMenu.Height + topPanel.Height + topPanel.Margin.Top + topPanel.Margin.Bottom;
 
-                panelRight.Visible = false;
-                panelRight.Enabled = false;
-                panelRight.Width = 2;
-            }
-            else if (IsBitSet(_iButtonStatus, (int)BUTTONS_STATUS_FLAGS.BIT_WIDE)) // RButtons orizzontali
+            MainGrid.Top = TabSet.Top + TabSet.Height;
+
+            toolStripButtons_R.Left = topPanel.Width - toolStripButtons_R.Width - MainGrid.Location.X + 10;
+            panelRight.Left = toolStripButtons_R.Left;
+
+            if (_iButtonStatus == (int)BUTTONS_STATUS_FLAGS.BIT_WIDE) // RButtons orizzontali
             {
+                toolStripButtons_R.Top = MainGrid.Top;
+
                 toolStripButtons_R.LayoutStyle = ToolStripLayoutStyle.HorizontalStackWithOverflow;
                 toolStripButtons_R.Size = new Size(toolStripR_WIDTH_H, toolStripR_HEIGHT_H);
+
+                toolStripButtons_R.Items[0].Margin = new Padding(1, 1, 1, 1);
+                toolStripButtons_R.Items[1].Margin = new Padding(1, 1, 1, 1);
+                toolStripButtons_R.Items[2].Margin = new Padding(1, 1, 1, 1);
 
                 toolStripButtons_R.Visible = true;
                 toolStripButtons_R.Enabled = true;
@@ -1422,10 +1426,11 @@ namespace StandFacile
                 panelRight.Visible = true;
                 panelRight.Enabled = true;
 
+                panelRight.Top = toolStripButtons_R.Top + toolStripButtons_R.Height;
                 panelRight.Height = MainGrid.Height - toolStripButtons_R.Height + 2;
 
-                btnNavRight.Visible = true;
                 btnNavLeft.Visible = false;
+                btnNavRight.Visible = true;
 
                 lblTavolo.Visible = true;
                 EditTavolo.Visible = true;
@@ -1457,10 +1462,16 @@ namespace StandFacile
 
                 lblResto.Left = 80;
             }
-            else // RButtons verticali
+            else if (_iButtonStatus == (int)BUTTONS_STATUS_FLAGS.BIT_NARROW) // RButtons verticali
             {
+                toolStripButtons_R.Top = TabSet.Top;
+
                 toolStripButtons_R.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
                 toolStripButtons_R.Size = new Size(toolStripR_WIDTH_V, toolStripR_HEIGHT_V);
+
+                toolStripButtons_R.Items[0].Margin = new Padding(1, 10, 1, 1);
+                toolStripButtons_R.Items[1].Margin = new Padding(1, 5, 1, 1);
+                toolStripButtons_R.Items[2].Margin = new Padding(1, 5, 1, 1);
 
                 toolStripButtons_R.Visible = true;
                 toolStripButtons_R.Enabled = true;
@@ -1468,10 +1479,11 @@ namespace StandFacile
                 panelRight.Visible = true;
                 panelRight.Enabled = true;
 
-                panelRight.Height = MainGrid.Height - toolStripButtons_R.Height + 2;
+                panelRight.Top = toolStripButtons_R.Top + toolStripButtons_R.Height;
+                panelRight.Height = MainGrid.Height - toolStripButtons_R.Height + 28;
 
-                btnNavRight.Visible = false;
-                btnNavLeft.Visible = true;
+                btnNavLeft.Visible = false;
+                btnNavRight.Visible = true;
 
                 labelTotale.Visible = false;
                 Edit_TotCorrente.Visible = false;
@@ -1558,12 +1570,26 @@ namespace StandFacile
 
                 lblResto.Left = 18;
             }
+            else // Hide
+            {
+                toolStripButtons_R.Size = new Size(0, 0);
+                toolStripButtons_R.Visible = false;
+                toolStripButtons_R.Enabled = false;
+
+                panelRight.Visible = false;
+                panelRight.Enabled = false;
+
+                btnNavLeft.Top = TabSet.Top;
+                btnNavLeft.Left = MainGrid.Width - 38;
+
+                btnNavLeft.Visible = true;
+                btnNavRight.Visible = false;
+            }
 
             // indicazione alternativa del Totale
             toolStripTop_TC_lbl.Visible = !Edit_TotCorrente.Visible;
 
             TabSet.ItemSize = new Size(80, TabSet.Height - 3);
-            panelRight.Top = toolStripButtons_R.Top + toolStripButtons_R.Height;
 
             panelRight.Left = toolStripButtons_R.Left;
             panelRight.Width = toolStripButtons_R.Width;
@@ -1606,22 +1632,6 @@ namespace StandFacile
 
             toolStripTop.Refresh();
 
-            // tutto dipende dal topPanel
-            toolStripTop.Height = topPanel.Height - 2;
-
-            // posizionamento verticale elementi
-            TabSet.Top = MainMenu.Height + topPanel.Height + topPanel.Margin.Top + topPanel.Margin.Bottom;
-
-            MainGrid.Top = TabSet.Top + TabSet.Height;
-            toolStripButtons_R.Top = MainGrid.Top;
-            //lblPagato.Top = lblResto.Top; provoca modifica Anchor !
-
-            toolStripButtons_R.Left = topPanel.Width - toolStripButtons_R.Width - MainGrid.Location.X;
-            panelRight.Left = toolStripButtons_R.Left;
-
-            //lblStatusResto.Left = EditStatusResto.Left - lblStatusResto.Width-2;
-            //lblStatusPagato.Left = EditStatusContante.Left - lblStatusPagato.Width-2;
-
             BtnVisListino.Size = BtnScontrino.Size;
             BtnSendMsg.Size = BtnScontrino.Size;
             BtnX10.Size = BtnScontrino.Size;
@@ -1629,18 +1639,8 @@ namespace StandFacile
             BtnSconto.Size = BtnScontrino.Size;
             BtnDB.Size = BtnScontrino.Size;
 
-            // posizionamento controlli in basso a dx
-            //comboCashPos.Left = topPanel.Width - comboCashPos.Width - 6;
-            //EditContante.Left = comboCashPos.Left - EditContante.Width - 5;
-            //lblPagato.Left = EditContante.Left - lblPagato.Width - 3;
-            //EditResto.Left = lblPagato.Left - EditResto.Width - 7;
-            //lblResto.Left = EditResto.Left - lblResto.Width - 3;
-
-            //EditNota.Left = lblResto.Left - EditNota.Width - 42;
-            //StatusBar_Upper.Width = EditNota.Left - 150;
-
             // imposta la larghezza della griglia in base alla larghezza della form principale
-            MainGrid.Width = topPanel.Width - toolStripButtons_R.Width - MainGrid.Location.X * 2;
+            MainGrid.Width = topPanel.Width - toolStripButtons_R.Width - MainGrid.Location.X * 2 + 10;
 
             // imposta l'altezza della griglia in base all'altezza della form principale
             MainGrid.Height = Height - MainMenu.Size.Height - toolStripTop.Size.Height - TabSet.Height -

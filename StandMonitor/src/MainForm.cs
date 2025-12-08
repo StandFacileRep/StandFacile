@@ -197,9 +197,8 @@ namespace StandFacile
             DBGrid.DataSource = DS.Tables[0];
             DBGrid.MultiSelect = false;
 
-            // gestione visibilità del Super User passato su linea di comando
-            // per accedere alla visibilità e stampa degli incassi
-            if (!bSuperUser)
+            // gestione visibilità del Super User per accedere alla visibilità e stampa degli incassi
+            if (!CheckService(Define.CFG_SERVICE_STRINGS._SUPER_USER))
             {
                 MnuStampaDiProva.Enabled = false;
                 MnuStampaDiProva.Visible = false;
@@ -247,7 +246,7 @@ namespace StandFacile
                 MessageBox.Show("E' la prima esecuzione, imposta la connessione al database !", "Attenzione !", MessageBoxButtons.OK);
 
                 // Imposta il nome del server
-                NetConfigLightDlg.rNetConfigLightDlg.ShowDialog();
+                NetConfigLightDlg.rNetConfigLightDlg.Init(true);
             }
             else if (CheckService(CFG_COMMON_STRINGS._ESPERTO))
                 MnuEspertoClick(this, null);
@@ -508,7 +507,7 @@ namespace StandFacile
                     {
                         _bFirstTimeSort = false;
 
-                        if (CheckService("sortByDeliver") || MnuRidColumns.Checked || CheckService("reducedColumns"))
+                        if (CheckService(CFG_SERVICE_STRINGS._SORT_DELIVER) || MnuRidColumns.Checked || CheckService(CFG_SERVICE_STRINGS._REDUCE_COLUMNS))
                             DBGrid.Sort(DBGrid.Columns[2], System.ComponentModel.ListSortDirection.Descending);
                         else
                             DBGrid.Sort(DBGrid.Columns[1], System.ComponentModel.ListSortDirection.Descending);
@@ -613,12 +612,14 @@ namespace StandFacile
             {
                 MnuDBServer.Enabled = true;
                 MnuFiltro.Enabled = true;
+                MnuFileDiConfigurazione.Enabled = true;
                 MnuConfigurazioneStampe.Enabled = true;
             }
             else
             {
                 MnuDBServer.Enabled = false;
                 MnuFiltro.Enabled = false;
+                MnuFileDiConfigurazione.Enabled = false;
                 MnuConfigurazioneStampe.Enabled = false;
             }
 
@@ -627,7 +628,7 @@ namespace StandFacile
 
         private void MnuDBServer_Click(object sender, EventArgs e)
         {
-            NetConfigLightDlg.rNetConfigLightDlg.ShowDialog();
+            NetConfigLightDlg.rNetConfigLightDlg.Init(true);
             iRefresh = 0; // AuxRefresh immediato
         }
 
@@ -693,7 +694,7 @@ namespace StandFacile
             {
                 DBGrid.Columns[4].Visible = false;
 
-                if (MnuRidColumns.Checked || CheckService("reducedColumns"))
+                if (MnuRidColumns.Checked || CheckService(CFG_SERVICE_STRINGS._REDUCE_COLUMNS))
                     DBGrid.Columns[1].Visible = false;
                 else
                     DBGrid.Columns[1].Visible = true;
@@ -709,7 +710,7 @@ namespace StandFacile
             }
             else
             {
-                if (MnuRidColumns.Checked || CheckService("reducedColumns"))
+                if (MnuRidColumns.Checked || CheckService(CFG_SERVICE_STRINGS._REDUCE_COLUMNS))
                 {
                     DBGrid.Columns[0].Width = (int)(fWidth * 0.58f);
                     DBGrid.Columns[1].Width = (int)(fWidth * 0.02f);
@@ -931,6 +932,12 @@ namespace StandFacile
             QuickHelpDlg rQuickHelpDlg = new QuickHelpDlg();
 
             rQuickHelpDlg.Dispose();
+        }
+
+        private void MnuFileDiConfigurazione_Click(object sender, EventArgs e)
+        {
+            // Avvio della Form di Visualizzazione file di configurazione
+            ConfigIniDlg rConfigIniDlg = new ConfigIniDlg();
         }
     }
 }

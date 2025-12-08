@@ -41,8 +41,8 @@ namespace StandFacile
             _tt.SetToolTip(BtnSalva, "salve le modifiche effettuate sul file config.ini");
 
             BtnEdit.Enabled = FrmMain.rFrmMain.GetEsperto();
-            BtnCanc.Enabled = BtnEdit.Enabled;
-            
+
+            BtnCanc.Enabled = false;
             BtnSalva.Enabled = false;
 
             textBox.ForeColor = Color.Silver;
@@ -56,7 +56,7 @@ namespace StandFacile
         public void CaricaFileConfig()
         {
             int iCount;
-            String sInStr;
+            String sInStr, sExeDir;
             StreamReader fConfig = null;
 
             iCount = 0;
@@ -65,7 +65,15 @@ namespace StandFacile
 
             LogToFile("ConfigIniDlg : I CaricaFileConfig");
 
+            // impostazione della directory per il file Prezzi (la stessa dell'eseguibile)
+            sExeDir = Directory.GetCurrentDirectory();
+
+
+#if STANDFACILE
             _sNomeFileConfig = DataManager.GetExeDir() + "\\" + CONFIG_FILE;
+#else
+            _sNomeFileConfig = sExeDir + "\\" + CONFIG_FILE;
+#endif
 
             if (File.Exists(_sNomeFileConfig))
                 fConfig = File.OpenText(_sNomeFileConfig);
@@ -96,7 +104,9 @@ namespace StandFacile
         {
             textBox.ForeColor = Color.White;
             textBox.ReadOnly = false;
-            BtnEdit.Enabled = false;    
+
+            BtnEdit.Enabled = false;
+            BtnCanc.Enabled = true;
             Refresh();
         }
 
@@ -119,22 +129,55 @@ namespace StandFacile
         private void BtnCanc_Click(object sender, EventArgs e)
         {
             textBox.Clear();
+#if STANDFACILE
+
             textBox.AppendText(@"
 ; file di configurazione di StandFacile
 ; le righe che iniziano per ';' sono di commento
 
-; stringhe multiple per attivazione modalità speciali
-; serviceStrings = ""Esperto noData noLegacyPrinters noStampaRcp""
+; stringhe multiple per attivazione modalità speciali , vedi manuale ""StandFacile.pdf""
+; serviceStrings = ""Esperto noData noLegacyPrinters noStampaRcp skipRcpNum printOnA4Paper printOnA5Paper""
 
 ; parametri interi per attivazione funzioni speciali
 
 ; valore di inizio numerazione
 ; receiptStartNumber = 101
 
+; intervallo in ms tra stampe successive
+; iPrintInterval = 1000
+
 ; parametri stringa per attivazione funzioni speciali
 
 ; receiptCopyRequired_HeaderIs = COPIA PER SEGRETERIA
+
 ; receipt_CS_AltHeader_AH2 = CASSA_2");
+
+#elif STAND_CUCINA
+
+            textBox.AppendText(@"
+; file di configurazione di StandCucina
+; le righe che iniziano per ';' sono di commento
+
+; parametri stringa per attivazione funzioni speciali
+
+; serviceStrings = ""Esperto noLegacyPrinters""
+");
+
+#else
+            textBox.AppendText(@"
+; file di configurazione di StandMonitor
+; le righe che iniziano per ';' sono di commento
+
+; parametri interi per attivazione funzioni speciali
+; normalmente questo valore è 30, accettabile solo >= 5
+; refreshTimer=10
+
+; parametri stringa per attivazione funzioni speciali
+; serviceStrings = ""Esperto noLegacyPrinters sortByDeliver reducedColumns superUser""
+
+");
+
+#endif
 
             _bModificato = true;
             textBox.ForeColor = Color.White;

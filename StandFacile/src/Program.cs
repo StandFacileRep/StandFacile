@@ -1,6 +1,6 @@
 ﻿/*********************************************************
     NomeFile : StandFacile
-    Data	 : 27.09.2025
+    Data	 : 08.12.2025
     Autore   : Mauro Artuso
 
     Avvia le classi visuali e non, nell'ordine corretto
@@ -35,30 +35,6 @@ namespace StandFacile
         {
             int iNDbMode, iLoop = 5;
             bool bStandIsRunning = false;
-
-            try
-            {
-                Printer_Windows.SetSkipNumeroScontrino(false); // init
-
-                for (int i=0; i < args.Length; i++)
-                {
-                    // acquisisce riga di comando per intervallo tre le stampe
-                    if (args[i].Contains("-pw"))
-                        Printer_Windows.iPrint_WaitInterval = ToInt32(args[i+1]);
-
-                    if (args[i].Contains("-nn"))
-                        Printer_Windows.SetSkipNumeroScontrino(true);
-
-                    // eventuale skip della stampa scontrino
-                    if (args[i].Contains("-skipTicket"))
-                        Printer_Windows.SetSkipTicketPrint(true);
-                }
-            }
-            catch (Exception)
-            {
-                Printer_Windows.iPrint_WaitInterval = 500;
-            }
-
 
             do
             {
@@ -153,6 +129,8 @@ namespace StandFacile
 
             // Avvio della Form di verifica iniziale della data, va messo dopo WinPrinterDlg
             startDlg rStartDlg = new startDlg();
+
+            GenPrinterDlg rGenericPrintDlg = new GenPrinterDlg();
 
             // inizializza le impostazioni di stampa copie locali
             PrintLocalCopiesConfigDlg rPrintConfigReceiptDlg = new PrintLocalCopiesConfigDlg();

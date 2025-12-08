@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.DBGrid = new System.Windows.Forms.DataGridView();
             this.Timer = new System.Windows.Forms.Timer(this.components);
@@ -52,10 +52,12 @@
             this.N3 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuEsploraDB = new System.Windows.Forms.ToolStripMenuItem();
             this.N4 = new System.Windows.Forms.ToolStripSeparator();
+            this.MnuRidColumns = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuVisGruppi = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuVisOrdini = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostazioni = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuEsperto = new System.Windows.Forms.ToolStripMenuItem();
+            this.MnuFileDiConfigurazione = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuConfigurazioneStampe = new System.Windows.Forms.ToolStripMenuItem();
             this.N5 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuDBServer = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,7 +68,6 @@
             this.BtnImgList = new System.Windows.Forms.ImageList(this.components);
             this.lblElapsedTime = new System.Windows.Forms.Label();
             this.btnAnt = new System.Windows.Forms.Button();
-            this.MnuRidColumns = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DBGrid)).BeginInit();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -79,24 +80,24 @@
             this.DBGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.DBGrid.BackgroundColor = System.Drawing.Color.Navy;
             this.DBGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Yellow;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DBGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DBGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.DBGrid.ColumnHeadersHeight = 30;
             this.DBGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DBGrid.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DBGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.DBGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.DBGrid.EnableHeadersVisualStyles = false;
             this.DBGrid.GridColor = System.Drawing.SystemColors.ControlLight;
@@ -275,6 +276,13 @@
             this.N4.Name = "N4";
             this.N4.Size = new System.Drawing.Size(234, 6);
             // 
+            // MnuRidColumns
+            // 
+            this.MnuRidColumns.Name = "MnuRidColumns";
+            this.MnuRidColumns.Size = new System.Drawing.Size(237, 22);
+            this.MnuRidColumns.Text = "&Riduci Colonne";
+            this.MnuRidColumns.Click += new System.EventHandler(this.MnuRidColumns_Click);
+            // 
             // MnuVisGruppi
             // 
             this.MnuVisGruppi.Font = new System.Drawing.Font("Tahoma", 9F);
@@ -298,7 +306,8 @@
             this.MnuConfigurazioneStampe,
             this.N5,
             this.MnuDBServer,
-            this.MnuFiltro});
+            this.MnuFiltro,
+            this.MnuFileDiConfigurazione});
             this.MnuImpostazioni.Font = new System.Drawing.Font("Tahoma", 9F);
             this.MnuImpostazioni.Name = "MnuImpostazioni";
             this.MnuImpostazioni.Size = new System.Drawing.Size(63, 20);
@@ -310,6 +319,13 @@
             this.MnuEsperto.Size = new System.Drawing.Size(244, 22);
             this.MnuEsperto.Text = "&Modo Esperto";
             this.MnuEsperto.Click += new System.EventHandler(this.MnuEspertoClick);
+            // 
+            // MnuFileDiConfigurazione
+            // 
+            this.MnuFileDiConfigurazione.Name = "MnuFileDiConfigurazione";
+            this.MnuFileDiConfigurazione.Size = new System.Drawing.Size(244, 22);
+            this.MnuFileDiConfigurazione.Text = "&File di configurazione ...";
+            this.MnuFileDiConfigurazione.Click += new System.EventHandler(this.MnuFileDiConfigurazione_Click);
             // 
             // MnuConfigurazioneStampe
             // 
@@ -397,13 +413,6 @@
             this.btnAnt.UseVisualStyleBackColor = false;
             this.btnAnt.Click += new System.EventHandler(this.BtnAnt_Click);
             // 
-            // MnuRidColumns
-            // 
-            this.MnuRidColumns.Name = "MnuRidColumns";
-            this.MnuRidColumns.Size = new System.Drawing.Size(237, 22);
-            this.MnuRidColumns.Text = "&Riduci Colonne";
-            this.MnuRidColumns.Click += new System.EventHandler(this.MnuRidColumns_Click);
-            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -470,6 +479,7 @@
         private System.Windows.Forms.ToolStripMenuItem MnuAiutoRapido;
         private System.Windows.Forms.ToolStripMenuItem MnuAuxWindow3;
         private System.Windows.Forms.ToolStripMenuItem MnuRidColumns;
+        private System.Windows.Forms.ToolStripMenuItem MnuFileDiConfigurazione;
     }
 }
 

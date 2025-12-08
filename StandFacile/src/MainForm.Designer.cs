@@ -56,7 +56,6 @@
             this.MnuEsploraOrdiniWeb = new System.Windows.Forms.ToolStripMenuItem();
             this.V2 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuVisListino = new System.Windows.Forms.ToolStripMenuItem();
-            this.MnuFileDiConfigurazione = new System.Windows.Forms.ToolStripMenuItem();
             this.V3 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuReceiptPreview = new System.Windows.Forms.ToolStripMenuItem();
             this.V4 = new System.Windows.Forms.ToolStripSeparator();
@@ -79,8 +78,9 @@
             this.MnuImpHeader = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpTabsGrid = new System.Windows.Forms.ToolStripMenuItem();
             this.I4 = new System.Windows.Forms.ToolStripSeparator();
+            this.MnuFileDiConfigurazione = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpListino = new System.Windows.Forms.ToolStripMenuItem();
-            this.aiutoMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.HelpMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuQuickHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.A1 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuInfo = new System.Windows.Forms.ToolStripMenuItem();
@@ -109,10 +109,12 @@
             this.p9 = new System.Windows.Forms.ToolStripMenuItem();
             this.p10 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.z1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.m1 = new System.Windows.Forms.ToolStripMenuItem();
             this.m2 = new System.Windows.Forms.ToolStripMenuItem();
             this.m3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.m5 = new System.Windows.Forms.ToolStripMenuItem();
             this.m10 = new System.Windows.Forms.ToolStripMenuItem();
             this.topPanel = new System.Windows.Forms.Panel();
@@ -148,7 +150,6 @@
             this.comboCashPos = new System.Windows.Forms.ComboBox();
             this.panelRight = new System.Windows.Forms.Panel();
             this.btnNavRight = new System.Windows.Forms.Button();
-            this.btnNavLeft = new System.Windows.Forms.Button();
             this.EditResto = new System.Windows.Forms.TextBox();
             this.EditContante = new System.Windows.Forms.TextBox();
             this.lblPagato = new System.Windows.Forms.Label();
@@ -161,6 +162,7 @@
             this.lblTavolo = new System.Windows.Forms.Label();
             this.EditCoperti = new System.Windows.Forms.TextBox();
             this.lblCoperti = new System.Windows.Forms.Label();
+            this.btnNavLeft = new System.Windows.Forms.Button();
             this.MainMenu.SuspendLayout();
             this.StatusBar_Upper.SuspendLayout();
             this.TabSet.SuspendLayout();
@@ -194,7 +196,7 @@
             this.MnuModifica,
             this.MnuVisualizza,
             this.MnuImpostazioni,
-            this.aiutoMenu});
+            this.HelpMenu});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
             this.MainMenu.Size = new System.Drawing.Size(1084, 24);
@@ -316,7 +318,6 @@
             this.MnuEsploraOrdiniWeb,
             this.V2,
             this.MnuVisListino,
-            this.MnuFileDiConfigurazione,
             this.V3,
             this.MnuReceiptPreview,
             this.V4,
@@ -371,13 +372,6 @@
             this.MnuVisListino.Size = new System.Drawing.Size(235, 22);
             this.MnuVisListino.Text = "&Listino Prezzi";
             this.MnuVisListino.Click += new System.EventHandler(this.MnuVisListino_Click);
-            // 
-            // MnuFileDiConfigurazione
-            // 
-            this.MnuFileDiConfigurazione.Name = "MnuFileDiConfigurazione";
-            this.MnuFileDiConfigurazione.Size = new System.Drawing.Size(235, 22);
-            this.MnuFileDiConfigurazione.Text = "&File di configurazione";
-            this.MnuFileDiConfigurazione.Click += new System.EventHandler(this.MnuFileDiConfigurazione_Click);
             // 
             // V3
             // 
@@ -435,6 +429,7 @@
             this.MnuImpHeader,
             this.MnuImpTabsGrid,
             this.I4,
+            this.MnuFileDiConfigurazione,
             this.MnuImpListino});
             this.MnuImpostazioni.Name = "MnuImpostazioni";
             this.MnuImpostazioni.Size = new System.Drawing.Size(63, 20);
@@ -511,7 +506,7 @@
             // 
             this.MnuCambiaPassword.Name = "MnuCambiaPassword";
             this.MnuCambiaPassword.Size = new System.Drawing.Size(346, 22);
-            this.MnuCambiaPassword.Text = "&Modifica password";
+            this.MnuCambiaPassword.Text = "&Modifica password ...";
             this.MnuCambiaPassword.Click += new System.EventHandler(this.MnuCambiaPassword_Click);
             // 
             // I3
@@ -538,6 +533,13 @@
             this.I4.Name = "I4";
             this.I4.Size = new System.Drawing.Size(343, 6);
             // 
+            // MnuFileDiConfigurazione
+            // 
+            this.MnuFileDiConfigurazione.Name = "MnuFileDiConfigurazione";
+            this.MnuFileDiConfigurazione.Size = new System.Drawing.Size(346, 22);
+            this.MnuFileDiConfigurazione.Text = "&File di configurazione ...";
+            this.MnuFileDiConfigurazione.Click += new System.EventHandler(this.MnuFileDiConfigurazione_Click);
+            // 
             // MnuImpListino
             // 
             this.MnuImpListino.CheckOnClick = true;
@@ -546,32 +548,32 @@
             this.MnuImpListino.Text = "&Listino Prezzi";
             this.MnuImpListino.Click += new System.EventHandler(this.MnuImpListino_Click);
             // 
-            // aiutoMenu
+            // HelpMenu
             // 
-            this.aiutoMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.HelpMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuQuickHelp,
             this.A1,
             this.MnuInfo});
-            this.aiutoMenu.Name = "aiutoMenu";
-            this.aiutoMenu.Size = new System.Drawing.Size(48, 20);
-            this.aiutoMenu.Text = "&Aiuto";
+            this.HelpMenu.Name = "HelpMenu";
+            this.HelpMenu.Size = new System.Drawing.Size(48, 20);
+            this.HelpMenu.Text = "&Aiuto";
             // 
             // MnuQuickHelp
             // 
             this.MnuQuickHelp.Name = "MnuQuickHelp";
-            this.MnuQuickHelp.Size = new System.Drawing.Size(171, 22);
+            this.MnuQuickHelp.Size = new System.Drawing.Size(180, 22);
             this.MnuQuickHelp.Text = "Aiuto &Rapido";
             this.MnuQuickHelp.Click += new System.EventHandler(this.MnuQHelp_Click);
             // 
             // A1
             // 
             this.A1.Name = "A1";
-            this.A1.Size = new System.Drawing.Size(168, 6);
+            this.A1.Size = new System.Drawing.Size(177, 6);
             // 
             // MnuInfo
             // 
             this.MnuInfo.Name = "MnuInfo";
-            this.MnuInfo.Size = new System.Drawing.Size(171, 22);
+            this.MnuInfo.Size = new System.Drawing.Size(180, 22);
             this.MnuInfo.Text = "&Informazioni su ...";
             this.MnuInfo.Click += new System.EventHandler(this.MnuInfo_Click);
             // 
@@ -654,11 +656,11 @@
             this.TabSet.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TabSet.HotTrack = true;
             this.TabSet.ItemSize = new System.Drawing.Size(63, 25);
-            this.TabSet.Location = new System.Drawing.Point(2, 70);
+            this.TabSet.Location = new System.Drawing.Point(5, 70);
             this.TabSet.Name = "TabSet";
             this.TabSet.Padding = new System.Drawing.Point(4, 3);
             this.TabSet.SelectedIndex = 0;
-            this.TabSet.Size = new System.Drawing.Size(484, 28);
+            this.TabSet.Size = new System.Drawing.Size(481, 28);
             this.TabSet.TabIndex = 5;
             this.TabSet.TabStop = false;
             this.TabSet.SelectedIndexChanged += new System.EventHandler(this.TabSet_SelectedIndexChanged);
@@ -670,7 +672,7 @@
             this.tabPage0.Location = new System.Drawing.Point(4, 29);
             this.tabPage0.Name = "tabPage0";
             this.tabPage0.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage0.Size = new System.Drawing.Size(476, 0);
+            this.tabPage0.Size = new System.Drawing.Size(473, 0);
             this.tabPage0.TabIndex = 0;
             this.tabPage0.Text = "Pagina 1";
             // 
@@ -739,8 +741,8 @@
             this.MainGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.MainGrid.EnableHeadersVisualStyles = false;
             this.MainGrid.GridColor = System.Drawing.Color.Gainsboro;
-            this.MainGrid.Location = new System.Drawing.Point(2, 95);
-            this.MainGrid.Margin = new System.Windows.Forms.Padding(2);
+            this.MainGrid.Location = new System.Drawing.Point(5, 95);
+            this.MainGrid.Margin = new System.Windows.Forms.Padding(0);
             this.MainGrid.MultiSelect = false;
             this.MainGrid.Name = "MainGrid";
             this.MainGrid.ReadOnly = true;
@@ -778,129 +780,144 @@
             this.p9,
             this.p10,
             this.toolStripSeparator1,
+            this.z1,
+            this.toolStripSeparator2,
             this.m1,
             this.m2,
             this.m3,
-            this.toolStripSeparator2,
+            this.toolStripSeparator3,
             this.m5,
             this.m10});
             this.MainGridContextMenu.Name = "MainGridMenu";
-            this.MainGridContextMenu.Size = new System.Drawing.Size(98, 346);
+            this.MainGridContextMenu.Size = new System.Drawing.Size(98, 374);
             // 
             // p1
             // 
             this.p1.Name = "p1";
             this.p1.Size = new System.Drawing.Size(97, 22);
             this.p1.Text = "+ 1";
-            this.p1.Click += new System.EventHandler(this.mpx_Click);
+            this.p1.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p2
             // 
             this.p2.Name = "p2";
             this.p2.Size = new System.Drawing.Size(97, 22);
             this.p2.Text = "+ 2";
-            this.p2.Click += new System.EventHandler(this.mpx_Click);
+            this.p2.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p3
             // 
             this.p3.Name = "p3";
             this.p3.Size = new System.Drawing.Size(97, 22);
             this.p3.Text = "+ 3";
-            this.p3.Click += new System.EventHandler(this.mpx_Click);
+            this.p3.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p4
             // 
             this.p4.Name = "p4";
             this.p4.Size = new System.Drawing.Size(97, 22);
             this.p4.Text = "+ 4";
-            this.p4.Click += new System.EventHandler(this.mpx_Click);
+            this.p4.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p5
             // 
             this.p5.Name = "p5";
             this.p5.Size = new System.Drawing.Size(97, 22);
             this.p5.Text = "+ 5";
-            this.p5.Click += new System.EventHandler(this.mpx_Click);
+            this.p5.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p6
             // 
             this.p6.Name = "p6";
             this.p6.Size = new System.Drawing.Size(97, 22);
             this.p6.Text = "+ 6";
-            this.p6.Click += new System.EventHandler(this.mpx_Click);
+            this.p6.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p7
             // 
             this.p7.Name = "p7";
             this.p7.Size = new System.Drawing.Size(97, 22);
             this.p7.Text = "+ 7";
-            this.p7.Click += new System.EventHandler(this.mpx_Click);
+            this.p7.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p8
             // 
             this.p8.Name = "p8";
             this.p8.Size = new System.Drawing.Size(97, 22);
             this.p8.Text = "+ 8";
-            this.p8.Click += new System.EventHandler(this.mpx_Click);
+            this.p8.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p9
             // 
             this.p9.Name = "p9";
             this.p9.Size = new System.Drawing.Size(97, 22);
             this.p9.Text = "+ 9";
-            this.p9.Click += new System.EventHandler(this.mpx_Click);
+            this.p9.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p10
             // 
             this.p10.Name = "p10";
             this.p10.Size = new System.Drawing.Size(97, 22);
             this.p10.Text = "+ 10";
-            this.p10.Click += new System.EventHandler(this.mpx_Click);
+            this.p10.Click += new System.EventHandler(this.MPx_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(94, 6);
             // 
-            // m1
+            // z1
             // 
-            this.m1.Name = "m1";
-            this.m1.Size = new System.Drawing.Size(97, 22);
-            this.m1.Text = "- 1";
-            this.m1.Click += new System.EventHandler(this.mpx_Click);
-            // 
-            // m2
-            // 
-            this.m2.Name = "m2";
-            this.m2.Size = new System.Drawing.Size(97, 22);
-            this.m2.Text = "- 2";
-            this.m2.Click += new System.EventHandler(this.mpx_Click);
-            // 
-            // m3
-            // 
-            this.m3.Name = "m3";
-            this.m3.Size = new System.Drawing.Size(97, 22);
-            this.m3.Text = "- 3";
-            this.m3.Click += new System.EventHandler(this.mpx_Click);
+            this.z1.Name = "z1";
+            this.z1.Size = new System.Drawing.Size(97, 22);
+            this.z1.Text = "= 0";
+            this.z1.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.z1.Click += new System.EventHandler(this.MPx_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(94, 6);
             // 
+            // m1
+            // 
+            this.m1.Name = "m1";
+            this.m1.Size = new System.Drawing.Size(97, 22);
+            this.m1.Text = "- 1";
+            this.m1.Click += new System.EventHandler(this.MPx_Click);
+            // 
+            // m2
+            // 
+            this.m2.Name = "m2";
+            this.m2.Size = new System.Drawing.Size(97, 22);
+            this.m2.Text = "- 2";
+            this.m2.Click += new System.EventHandler(this.MPx_Click);
+            // 
+            // m3
+            // 
+            this.m3.Name = "m3";
+            this.m3.Size = new System.Drawing.Size(97, 22);
+            this.m3.Text = "- 3";
+            this.m3.Click += new System.EventHandler(this.MPx_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(94, 6);
+            // 
             // m5
             // 
             this.m5.Name = "m5";
             this.m5.Size = new System.Drawing.Size(97, 22);
             this.m5.Text = "- 5";
-            this.m5.Click += new System.EventHandler(this.mpx_Click);
+            this.m5.Click += new System.EventHandler(this.MPx_Click);
             // 
             // m10
             // 
             this.m10.Name = "m10";
             this.m10.Size = new System.Drawing.Size(97, 22);
             this.m10.Text = "- 10";
-            this.m10.Click += new System.EventHandler(this.mpx_Click);
+            this.m10.Click += new System.EventHandler(this.MPx_Click);
             // 
             // topPanel
             // 
@@ -910,10 +927,10 @@
             this.topPanel.BackColor = System.Drawing.SystemColors.Menu;
             this.topPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.topPanel.Controls.Add(this.toolStripTop);
-            this.topPanel.Location = new System.Drawing.Point(2, 27);
+            this.topPanel.Location = new System.Drawing.Point(5, 27);
             this.topPanel.Name = "topPanel";
             this.topPanel.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.topPanel.Size = new System.Drawing.Size(1082, 41);
+            this.topPanel.Size = new System.Drawing.Size(1073, 41);
             this.topPanel.TabIndex = 18;
             // 
             // toolStripTop
@@ -944,12 +961,13 @@
             this.BtnSep_T5,
             this.toolStripTop_TC_lbl});
             this.toolStripTop.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStripTop.Location = new System.Drawing.Point(3, 0);
+            this.toolStripTop.Location = new System.Drawing.Point(-1, 0);
             this.toolStripTop.Margin = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.toolStripTop.Name = "toolStripTop";
+            this.toolStripTop.Padding = new System.Windows.Forms.Padding(2);
             this.toolStripTop.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
             this.toolStripTop.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripTop.Size = new System.Drawing.Size(1072, 39);
+            this.toolStripTop.Size = new System.Drawing.Size(1067, 39);
             this.toolStripTop.TabIndex = 0;
             // 
             // BtnVisListino
@@ -1253,7 +1271,7 @@
             this.btnCanc,
             this.btnMinus});
             this.toolStripButtons_R.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
-            this.toolStripButtons_R.Location = new System.Drawing.Point(855, 95);
+            this.toolStripButtons_R.Location = new System.Drawing.Point(855, 70);
             this.toolStripButtons_R.Name = "toolStripButtons_R";
             this.toolStripButtons_R.Padding = new System.Windows.Forms.Padding(0);
             this.toolStripButtons_R.Size = new System.Drawing.Size(230, 75);
@@ -1268,7 +1286,7 @@
             this.btnPlus.Image = ((System.Drawing.Image)(resources.GetObject("btnPlus.Image")));
             this.btnPlus.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.btnPlus.ImageTransparentColor = System.Drawing.Color.White;
-            this.btnPlus.Margin = new System.Windows.Forms.Padding(0, 1, 1, 1);
+            this.btnPlus.Margin = new System.Windows.Forms.Padding(1);
             this.btnPlus.Name = "btnPlus";
             this.btnPlus.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
             this.btnPlus.Size = new System.Drawing.Size(75, 75);
@@ -1327,7 +1345,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelRight.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panelRight.Controls.Add(this.btnNavRight);
-            this.panelRight.Controls.Add(this.btnNavLeft);
             this.panelRight.Controls.Add(this.EditResto);
             this.panelRight.Controls.Add(this.EditContante);
             this.panelRight.Controls.Add(this.lblPagato);
@@ -1340,43 +1357,30 @@
             this.panelRight.Controls.Add(this.lblTavolo);
             this.panelRight.Controls.Add(this.EditCoperti);
             this.panelRight.Controls.Add(this.lblCoperti);
-            this.panelRight.Location = new System.Drawing.Point(855, 172);
+            this.panelRight.Location = new System.Drawing.Point(854, 145);
             this.panelRight.Margin = new System.Windows.Forms.Padding(0);
             this.panelRight.Name = "panelRight";
-            this.panelRight.Size = new System.Drawing.Size(230, 394);
+            this.panelRight.Size = new System.Drawing.Size(230, 421);
             this.panelRight.TabIndex = 29;
             // 
             // btnNavRight
             // 
             this.btnNavRight.BackColor = System.Drawing.SystemColors.ControlLight;
             this.btnNavRight.Image = global::StandFacile.Properties.Resources.ArrowR;
-            this.btnNavRight.Location = new System.Drawing.Point(8, 64);
+            this.btnNavRight.Location = new System.Drawing.Point(7, 3);
             this.btnNavRight.Name = "btnNavRight";
             this.btnNavRight.Size = new System.Drawing.Size(34, 28);
             this.btnNavRight.TabIndex = 37;
             this.btnNavRight.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNavRight.UseVisualStyleBackColor = false;
-            this.btnNavRight.Click += new System.EventHandler(this.btnNav_Click);
-            // 
-            // btnNavLeft
-            // 
-            this.btnNavLeft.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.btnNavLeft.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btnNavLeft.Image = global::StandFacile.Properties.Resources.ArrowL;
-            this.btnNavLeft.Location = new System.Drawing.Point(8, 3);
-            this.btnNavLeft.Name = "btnNavLeft";
-            this.btnNavLeft.Size = new System.Drawing.Size(34, 28);
-            this.btnNavLeft.TabIndex = 36;
-            this.btnNavLeft.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnNavLeft.UseVisualStyleBackColor = false;
-            this.btnNavLeft.Click += new System.EventHandler(this.btnNav_Click);
+            this.btnNavRight.Click += new System.EventHandler(this.BtnNav_Click);
             // 
             // EditResto
             // 
             this.EditResto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.EditResto.BackColor = System.Drawing.Color.Honeydew;
             this.EditResto.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditResto.Location = new System.Drawing.Point(7, 360);
+            this.EditResto.Location = new System.Drawing.Point(7, 387);
             this.EditResto.Margin = new System.Windows.Forms.Padding(0);
             this.EditResto.MaxLength = 6;
             this.EditResto.Name = "EditResto";
@@ -1395,7 +1399,7 @@
             this.EditContante.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.EditContante.BackColor = System.Drawing.Color.Honeydew;
             this.EditContante.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditContante.Location = new System.Drawing.Point(7, 301);
+            this.EditContante.Location = new System.Drawing.Point(7, 328);
             this.EditContante.Margin = new System.Windows.Forms.Padding(0);
             this.EditContante.MaxLength = 6;
             this.EditContante.Name = "EditContante";
@@ -1414,7 +1418,7 @@
             this.lblPagato.AutoSize = true;
             this.lblPagato.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPagato.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblPagato.Location = new System.Drawing.Point(41, 276);
+            this.lblPagato.Location = new System.Drawing.Point(41, 303);
             this.lblPagato.Name = "lblPagato";
             this.lblPagato.Size = new System.Drawing.Size(146, 23);
             this.lblPagato.TabIndex = 32;
@@ -1426,7 +1430,7 @@
             this.lblResto.AutoSize = true;
             this.lblResto.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResto.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblResto.Location = new System.Drawing.Point(80, 335);
+            this.lblResto.Location = new System.Drawing.Point(80, 362);
             this.lblResto.Name = "lblResto";
             this.lblResto.Size = new System.Drawing.Size(68, 23);
             this.lblResto.TabIndex = 31;
@@ -1438,7 +1442,7 @@
             this.Edit_TotCorrente.BackColor = System.Drawing.Color.Honeydew;
             this.Edit_TotCorrente.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Edit_TotCorrente.ForeColor = System.Drawing.Color.Crimson;
-            this.Edit_TotCorrente.Location = new System.Drawing.Point(7, 242);
+            this.Edit_TotCorrente.Location = new System.Drawing.Point(7, 269);
             this.Edit_TotCorrente.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.Edit_TotCorrente.MaxLength = 20;
             this.Edit_TotCorrente.Name = "Edit_TotCorrente";
@@ -1454,7 +1458,7 @@
             this.labelTotale.AutoSize = true;
             this.labelTotale.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTotale.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.labelTotale.Location = new System.Drawing.Point(76, 216);
+            this.labelTotale.Location = new System.Drawing.Point(76, 243);
             this.labelTotale.Margin = new System.Windows.Forms.Padding(3, 0, 3, 4);
             this.labelTotale.Name = "labelTotale";
             this.labelTotale.Size = new System.Drawing.Size(76, 23);
@@ -1497,6 +1501,7 @@
             this.EditTavolo.Name = "EditTavolo";
             this.EditTavolo.Size = new System.Drawing.Size(217, 29);
             this.EditTavolo.TabIndex = 23;
+            this.EditTavolo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.EditTavolo.WordWrap = false;
             this.EditTavolo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             this.EditTavolo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
@@ -1523,6 +1528,7 @@
             this.EditCoperti.Name = "EditCoperti";
             this.EditCoperti.Size = new System.Drawing.Size(217, 29);
             this.EditCoperti.TabIndex = 21;
+            this.EditCoperti.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.EditCoperti.WordWrap = false;
             this.EditCoperti.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             this.EditCoperti.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditFilter_KeyPress);
@@ -1540,12 +1546,27 @@
             this.lblCoperti.TabIndex = 20;
             this.lblCoperti.Text = "COPERTI";
             // 
+            // btnNavLeft
+            // 
+            this.btnNavLeft.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnNavLeft.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.btnNavLeft.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btnNavLeft.Image = global::StandFacile.Properties.Resources.ArrowL;
+            this.btnNavLeft.Location = new System.Drawing.Point(819, 69);
+            this.btnNavLeft.Name = "btnNavLeft";
+            this.btnNavLeft.Size = new System.Drawing.Size(34, 26);
+            this.btnNavLeft.TabIndex = 37;
+            this.btnNavLeft.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnNavLeft.UseVisualStyleBackColor = false;
+            this.btnNavLeft.Click += new System.EventHandler(this.BtnNav_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1084, 642);
+            this.Controls.Add(this.btnNavLeft);
             this.Controls.Add(this.panelRight);
             this.Controls.Add(this.comboCashPos);
             this.Controls.Add(this.toolStripButtons_R);
@@ -1611,7 +1632,7 @@
         private System.Windows.Forms.ToolStripSeparator I1;
         private System.Windows.Forms.ToolStripMenuItem MnuImpTabsGrid;
         private System.Windows.Forms.ToolStripSeparator I4;
-        private System.Windows.Forms.ToolStripMenuItem aiutoMenu;
+        private System.Windows.Forms.ToolStripMenuItem HelpMenu;
         private System.Windows.Forms.ToolStripMenuItem MnuQuickHelp;
         private System.Windows.Forms.ToolStripSeparator A1;
         private System.Windows.Forms.ToolStripMenuItem MnuInfo;
@@ -1685,7 +1706,6 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteWin;
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteLegacy;
-        private System.Windows.Forms.ToolStripMenuItem MnuFileDiConfigurazione;
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteGenerica;
         private System.Windows.Forms.Panel panelRight;
         private System.Windows.Forms.Label lblCoperti;
@@ -1700,7 +1720,6 @@
         private System.Windows.Forms.TextBox EditContante;
         private System.Windows.Forms.Label lblPagato;
         private System.Windows.Forms.Label lblResto;
-        private System.Windows.Forms.Button btnNavLeft;
         private System.Windows.Forms.Button btnNavRight;
         private System.Windows.Forms.ToolStripLabel toolStripTop_TC_lbl;
         private System.Windows.Forms.ContextMenuStrip MainGridContextMenu;
@@ -1721,6 +1740,10 @@
         private System.Windows.Forms.ToolStripMenuItem m5;
         private System.Windows.Forms.ToolStripMenuItem m10;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem MnuFileDiConfigurazione;
+        private System.Windows.Forms.ToolStripMenuItem z1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.Button btnNavLeft;
     }
 }
 

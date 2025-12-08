@@ -64,7 +64,7 @@ namespace StandCommonFiles
         static bool _bCopiaCucina;
         static bool _bTicketNumFound;
         static bool _bSkipNumeroScontrino, _bLogoPrinted_T, _bLogoPrinted_B;
-        
+
         static bool _bChars33, _bCassaInline;
         static int _iInitialRowsToAdd, _finalRowsToAdd;
 
@@ -75,7 +75,7 @@ namespace StandCommonFiles
         static bool _bPageContinueSameHorPos;
 
         /// <summary>imposta l'intervallo tra le stampe</summary>
-        public static int iPrint_WaitInterval = 200;
+        static int iPrint_WaitInterval = 200;
 
         static float _fLeftMargin, _fLogoCenter, _fLeftMarginBk;
         static float _fCanvasVertPos, _fCanvasVertPos_Q4;
@@ -116,16 +116,6 @@ namespace StandCommonFiles
         const float _mm_to_gu = 0.3937f; // corrisponde a 0.1mm
 
         static string sPrevPrinter;
-
-        /// <summary>
-        /// imposta _bSkipTicketPrint
-        /// </summary>
-        public static void SetSkipTicketPrint(bool bParam) { _bSkipTicketPrint = bParam; }
-
-        /// <summary>
-        /// imposta _bSkipNumeroScontrino
-        /// </summary>
-        public static void SetSkipNumeroScontrino(bool bParam) { _bSkipNumeroScontrino = bParam; }
 
         /****************************************************
             STAMPA su stampante gestita da driver windows
@@ -441,7 +431,7 @@ namespace StandCommonFiles
                     }
 
                     // non stampa la Receipt
-                    if (_bIsTicket && (_bSkipTicketPrint || CheckService(CFG_COMMON_STRINGS._SKIP_STAMPA_RCP)))
+                    if (_bIsTicket && CheckService(CFG_COMMON_STRINGS._SKIP_STAMPA_RCP))
                     {
                         break;
                     }
@@ -459,6 +449,13 @@ namespace StandCommonFiles
                 _fileToPrint.Close();
 
 #if STANDFACILE
+
+                if (CheckService(Define.CFG_SERVICE_STRINGS._SKIP_RCP_NUM))
+                    _bSkipNumeroScontrino = true;
+
+                if (sConfig.iPrintInterval > 200)
+                    iPrint_WaitInterval = sConfig.iPrintInterval;
+
                 if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                     Thread.Sleep(iPrint_WaitInterval);
 #endif

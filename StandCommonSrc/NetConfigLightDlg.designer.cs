@@ -424,6 +424,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Imposta rete e Gruppi";
             this.TopMost = true;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NetConfigLightDlg_FormClosing);
             this.Shown += new System.EventHandler(this.NetConfigDlg_Shown);
             this.panelCopies.ResumeLayout(false);
             this.panelCopies.PerformLayout();

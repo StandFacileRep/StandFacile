@@ -12,12 +12,12 @@ using System.Drawing;
 using System.Collections;
 using System.Threading;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 using static StandFacile.glb;
 using static StandFacile.Define;
 using static StandFacile.dBaseIntf;
 using static StandFacile.dBaseTunnel_my;
-using System.Collections.Generic;
 
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
@@ -381,7 +381,7 @@ namespace StandFacile
             Edit_TotCorrente.Text = "";
             EditContante.Text = "";
 
-            _iButtonStatus = ReadRegistry(R_BUTTONS_KEY, 3);
+            _iButtonStatus = ReadRegistry(R_BUTTONS_KEY, (int)BUTTONS_STATUS_FLAGS.BIT_WIDE);
 
             SetColorsTheme();
 
@@ -1929,12 +1929,6 @@ namespace StandFacile
             rVisOrdiniDlg.Dispose();
         }
 
-        private void MnuFileDiConfigurazione_Click(object sender, EventArgs e)
-        {
-            // Avvio della Form di Visualizzazione file di configurazionme
-            ConfigIniDlg rConfigIniDlg = new ConfigIniDlg();
-        }
-
         /**************************************
          ***    Gestione del menù: Imposta 	***
          **************************************/
@@ -1995,7 +1989,11 @@ namespace StandFacile
 
         private void MnuImpostaStampanteGenerica_Click(object sender, EventArgs e)
         {
-            GenPrinterDlg rGenericPrintDlg = new GenPrinterDlg();
+            GenPrinterDlg._rGenPrinterDlg.Init(true);
+
+            // può cambiare checkBox_Chars33
+            FormResize(this, null);
+            MainGrid_Redraw(this, null);
 
             if (GenPrinterDlg.GetListinoModificato())
                 DataManager.SalvaListinoPgrFrm();
@@ -2454,15 +2452,15 @@ namespace StandFacile
             scannerInputQueue.Clear();
         }
 
-        private void btnNav_Click(object sender, EventArgs e)
+        private void BtnNav_Click(object sender, EventArgs e)
         {
-            bool bWideButton = IsBitSet(_iButtonStatus, (int)BUTTONS_STATUS_FLAGS.BIT_WIDE);
+            _iButtonStatus++;
+            _iButtonStatus = (_iButtonStatus % 3);
 
-            _iButtonStatus = UpdateBit(_iButtonStatus, !bWideButton, (int)BUTTONS_STATUS_FLAGS.BIT_WIDE);
             FormResize(this, null);
         }
 
-        private void mpx_Click(object sender, EventArgs e)
+        private void MPx_Click(object sender, EventArgs e)
         {
             bool bItemToAdd;
             int iValue = 0;
@@ -2480,6 +2478,13 @@ namespace StandFacile
                 bItemToAdd = false;
                 sNumber = item.Text.Replace("-", "").Trim();
             }
+            else if (item.Text.Contains("= 0"))
+            {
+                SF_Data.Articolo[_iCellPt].iQuantitaOrdine = 0;
+
+                MainGrid_Redraw(this, null);
+                return;
+            }
             else
                 return;
 
@@ -2490,6 +2495,12 @@ namespace StandFacile
                 AddQuantity(iValue);
             else
                 RemoveQuantity(iValue);
+        }
+
+        private void MnuFileDiConfigurazione_Click(object sender, EventArgs e)
+        {
+            // Avvio della Form di Visualizzazione file di configurazione
+            ConfigIniDlg rConfigIniDlg = new ConfigIniDlg();
         }
 
         private void BtnCanc_Click(object sender, EventArgs e)
@@ -2768,7 +2779,7 @@ namespace StandFacile
             if (_iStoreSizeY != rFrmMain.Size.Height)
                 WriteRegistry(MAIN_WIN_SIZE_Y, rFrmMain.Size.Height);
 
-            WriteRegistry(R_BUTTONS_KEY, _iButtonStatus & 0x03);
+            WriteRegistry(R_BUTTONS_KEY, _iButtonStatus);
 
             AnteprimaDlg.rAnteprimaDlg.AnteprimaDlg_FormClosing(this, null);
 

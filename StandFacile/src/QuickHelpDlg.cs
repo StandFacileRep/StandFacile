@@ -1,6 +1,6 @@
 ﻿/*************************************************
 	NomeFile : StandFacile/QuickHelpDlg.cs
-    Data	 : 06.12.2024
+    Data	 : 06.12.2025
 	Autore	 : Mauro Artuso
  
  *************************************************/
@@ -66,5 +66,6 @@ namespace StandFacile
             if (iKey == KEY_ESC)
                 DialogResult = DialogResult.Cancel;
         }
+
     }
 }

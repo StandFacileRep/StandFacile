@@ -115,6 +115,24 @@ namespace StandFacile
                         continue;
                     }
 
+                    else if (sInStr.Contains("iPrintInterval"))
+                    {
+                        iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
+                        sInStr = sInStr.Remove(0, iPos + 1);
+                        try
+                        {
+                            iVal = Convert.ToInt32(sInStr.Trim());
+
+                            if (iVal > 0)
+                                sConfig.iPrintInterval = iVal;
+                        }
+                        catch (Exception)
+                        {
+                        }
+
+                        continue;
+                    }
+
                     // stringhe per stampa copia Receipt() completa dei prezzi
                     else if (sInStr.Contains("receiptCopyRequired_HeaderIs"))
                     {
