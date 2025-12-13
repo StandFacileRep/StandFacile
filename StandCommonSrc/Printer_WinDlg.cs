@@ -89,7 +89,7 @@ namespace StandFacile
         static String sDefaultPrinter;
 
         /// <summary>ottiene l'immagine bitmap del Logo Top o Bottom</summary>
-        public Image GetWinPrinterLogo(bool bLogoTopParam) { return bLogoTopParam ? LogoImage_T : LogoImage_B; }
+        public Image GetWinPrinterLogo(bool bLogoParam) { return bLogoParam ? LogoImage_T : LogoImage_B; }
 
         static TErrMsg _ErrMsg;
 

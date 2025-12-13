@@ -103,7 +103,7 @@ namespace StandFacile
             _synth.SpeakAsync(sTextToPlay);
         }
 
-        private void buttonPlay_Click(object sender, EventArgs e)
+        private void BtnPlay_Click(object sender, EventArgs e)
         {
             String sTextToPlay = textBox.Text.Replace("#", "10");
 
@@ -116,7 +116,7 @@ namespace StandFacile
         /// <summary>
         /// salva le impostazioni di sintesi vocale nel registry
         /// </summary>
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             WriteRegistry(VOICE_SYNTH_KEY, ckBox_VoiceSynthEnabled.Checked ? 1 : 0);
 

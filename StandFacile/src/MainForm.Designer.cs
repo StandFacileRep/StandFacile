@@ -142,7 +142,7 @@
             this.lblStatus_Time = new System.Windows.Forms.ToolStripStatusLabel();
             this.StatusBar = new System.Windows.Forms.StatusStrip();
             this.EditStatus_QRC = new System.Windows.Forms.TextBox();
-            this.lblRead_bcd = new System.Windows.Forms.Label();
+            this.lblRead_Qrc = new System.Windows.Forms.Label();
             this.toolStripButtons_R = new System.Windows.Forms.ToolStrip();
             this.btnPlus = new System.Windows.Forms.ToolStripButton();
             this.btnCanc = new System.Windows.Forms.ToolStripButton();
@@ -1244,17 +1244,17 @@
             this.EditStatus_QRC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             this.EditStatus_QRC.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditStatus_QRC_KeyPress);
             // 
-            // lblRead_bcd
+            // lblRead_Qrc
             // 
-            this.lblRead_bcd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblRead_bcd.AutoSize = true;
-            this.lblRead_bcd.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRead_bcd.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblRead_bcd.Location = new System.Drawing.Point(801, 617);
-            this.lblRead_bcd.Name = "lblRead_bcd";
-            this.lblRead_bcd.Size = new System.Drawing.Size(70, 19);
-            this.lblRead_bcd.TabIndex = 22;
-            this.lblRead_bcd.Text = "QRcode:";
+            this.lblRead_Qrc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblRead_Qrc.AutoSize = true;
+            this.lblRead_Qrc.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRead_Qrc.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblRead_Qrc.Location = new System.Drawing.Point(801, 617);
+            this.lblRead_Qrc.Name = "lblRead_Qrc";
+            this.lblRead_Qrc.Size = new System.Drawing.Size(70, 19);
+            this.lblRead_Qrc.TabIndex = 22;
+            this.lblRead_Qrc.Text = "QRcode:";
             // 
             // toolStripButtons_R
             // 
@@ -1570,7 +1570,7 @@
             this.Controls.Add(this.panelRight);
             this.Controls.Add(this.comboCashPos);
             this.Controls.Add(this.toolStripButtons_R);
-            this.Controls.Add(this.lblRead_bcd);
+            this.Controls.Add(this.lblRead_Qrc);
             this.Controls.Add(this.EditStatus_QRC);
             this.Controls.Add(this.MainGrid);
             this.Controls.Add(this.TabSet);
@@ -1693,7 +1693,7 @@
         private System.Windows.Forms.ToolStripStatusLabel lblStatus_Time;
         private System.Windows.Forms.StatusStrip StatusBar;
         private System.Windows.Forms.TextBox EditStatus_QRC;
-        private System.Windows.Forms.Label lblRead_bcd;
+        private System.Windows.Forms.Label lblRead_Qrc;
         private System.Windows.Forms.ToolStripMenuItem MnuEsploraOrdiniWeb;
         private System.Windows.Forms.ToolStrip toolStripButtons_R;
         private System.Windows.Forms.ToolStripButton btnPlus;

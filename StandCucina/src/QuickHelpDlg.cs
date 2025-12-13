@@ -65,10 +65,5 @@ namespace StandFacile
             if (iKey == KEY_ESC)
                 DialogResult = DialogResult.Cancel;
         }
-
-        private void textBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }

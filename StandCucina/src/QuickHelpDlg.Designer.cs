@@ -45,7 +45,6 @@
             this.textBox.TabIndex = 0;
             this.textBox.TabStop = false;
             this.textBox.Text = resources.GetString("textBox.Text");
-            this.textBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // ManBtn
             // 

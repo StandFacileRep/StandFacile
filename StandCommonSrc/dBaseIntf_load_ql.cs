@@ -15,9 +15,6 @@
  *************************************************************************************************/
 
 using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Data;
 using static System.Convert;
 
 using Devart.Data.SQLite;

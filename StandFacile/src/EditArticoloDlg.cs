@@ -155,10 +155,10 @@ namespace StandFacile
 
             PrzEdit_KeyUp(this, null);
 
-            groupsCombo_SelectedIndexChanged(this, null);
+            GroupsCombo_SelectedIndexChanged(this, null);
         }
 
-        private void groupsCombo_SelectedIndexChanged(object sender, EventArgs e)
+        private void GroupsCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             if ((tabEditArticolo.SelectedIndex == 0) && (groupsCombo.SelectedIndex == (int)DEST_TYPE.DEST_COUNTER))
             {
@@ -306,7 +306,7 @@ namespace StandFacile
             }
         }
 
-        private void tabEditArticolo_Selecting(object sender, TabControlCancelEventArgs e)
+        private void TabEditArticolo_Selecting(object sender, TabControlCancelEventArgs e)
         {
             // l'esito negativo evita il cambio TAB
             if (!CheckModifiche(sender))

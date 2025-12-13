@@ -154,7 +154,7 @@
             this.tabEditArticolo.Size = new System.Drawing.Size(235, 23);
             this.tabEditArticolo.TabIndex = 4;
             this.tabEditArticolo.SelectedIndexChanged += new System.EventHandler(this.TabEditArt_SelectedIndexChanged);
-            this.tabEditArticolo.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabEditArticolo_Selecting);
+            this.tabEditArticolo.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.TabEditArticolo_Selecting);
             // 
             // tabPage1
             // 
@@ -235,7 +235,7 @@
             this.groupsCombo.Name = "groupsCombo";
             this.groupsCombo.Size = new System.Drawing.Size(240, 22);
             this.groupsCombo.TabIndex = 2;
-            this.groupsCombo.SelectedIndexChanged += new System.EventHandler(this.groupsCombo_SelectedIndexChanged);
+            this.groupsCombo.SelectedIndexChanged += new System.EventHandler(this.GroupsCombo_SelectedIndexChanged);
             // 
             // lbl3
             // 

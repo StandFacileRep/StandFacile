@@ -50,7 +50,7 @@
             this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox.Size = new System.Drawing.Size(520, 325);
             this.textBox.TabIndex = 0;
-            this.textBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox_FileConfig_KeyUp);
+            this.textBox.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_FileConfig_KeyUp);
             // 
             // BtnSalva
             // 
@@ -108,7 +108,7 @@
             this.BtnEdit.Text = "Modifica";
             this.BtnEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnEdit.UseVisualStyleBackColor = true;
-            this.BtnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
             // 
             // ConfigIniDlg
             // 

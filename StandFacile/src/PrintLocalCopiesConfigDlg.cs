@@ -141,7 +141,7 @@ namespace StandFacile
             checkBox_AvoidPrintGroups.Checked = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
 
             checkBoxSelectedOnly.Enabled = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
-            checkBox_LocalCopy.Checked   = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
+            checkBox_LocalCopy.Checked = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
 
             checkBoxSelectedOnly.Checked = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_SELECTEDONLY_PRINT_REQUIRED);
 
@@ -181,11 +181,11 @@ namespace StandFacile
 
         private void CheckBoxNoPrice_CheckedChanged(object sender, EventArgs e)
         {
-            checkBoxSelectedOnly.Enabled    = checkBox_LocalCopy.Checked;
-            checkBox_LocPrices.Enabled      = checkBox_LocalCopy.Checked;
-            checkBoxSingleRowItems.Enabled  = checkBox_LocalCopy.Checked;
-            checkBoxUnitItems.Enabled       = checkBox_LocalCopy.Checked;
-            labelWarn2.Enabled              = checkBox_LocalCopy.Checked;
+            checkBoxSelectedOnly.Enabled = checkBox_LocalCopy.Checked;
+            checkBox_LocPrices.Enabled = checkBox_LocalCopy.Checked;
+            checkBoxSingleRowItems.Enabled = checkBox_LocalCopy.Checked;
+            checkBoxUnitItems.Enabled = checkBox_LocalCopy.Checked;
+            labelWarn2.Enabled = checkBox_LocalCopy.Checked;
 
             panelCopies.Enabled = checkBox_LocalCopy.Checked && checkBoxSelectedOnly.Checked;
         }
@@ -240,19 +240,19 @@ namespace StandFacile
                     iLocalCopyOptions = SetBit(iLocalCopyOptions, i);
             }
 
-                iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBox_LocPrices.Checked, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_ON_COPIES_REQUIRED);
+            iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBox_LocPrices.Checked, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_ON_COPIES_REQUIRED);
 
-                iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBox_AvoidPrintGroups.Checked, (int)LOCAL_COPIES_OPTS.BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
+            iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBox_AvoidPrintGroups.Checked, (int)LOCAL_COPIES_OPTS.BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
 
-                iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBox_LocalCopy.Checked, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
+            iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBox_LocalCopy.Checked, (int)LOCAL_COPIES_OPTS.BIT_RECEIPT_LOCAL_COPY_REQUIRED);
 
-                iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBoxSelectedOnly.Checked, (int)LOCAL_COPIES_OPTS.BIT_SELECTEDONLY_PRINT_REQUIRED);
+            iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBoxSelectedOnly.Checked, (int)LOCAL_COPIES_OPTS.BIT_SELECTEDONLY_PRINT_REQUIRED);
 
-                iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBoxSingleRowItems.Checked, (int)LOCAL_COPIES_OPTS.BIT_SINGLEROWITEMS_PRINT_REQUIRED);
+            iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBoxSingleRowItems.Checked, (int)LOCAL_COPIES_OPTS.BIT_SINGLEROWITEMS_PRINT_REQUIRED);
 
-                iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBoxUnitItems.Checked, (int)LOCAL_COPIES_OPTS.BIT_QUANTITYONE_PRINT_REQUIRED);
+            iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBoxUnitItems.Checked, (int)LOCAL_COPIES_OPTS.BIT_QUANTITYONE_PRINT_REQUIRED);
 
-                iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBox_CUT.Checked, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
+            iLocalCopyOptions = UpdateBit(iLocalCopyOptions, checkBox_CUT.Checked, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
 
             // controllo _bListinoModificato per gestione della stampa QuantitàUno, salvataggio in : SF_Data[]
             if (SF_Data.iLocalCopyOptions != iLocalCopyOptions)

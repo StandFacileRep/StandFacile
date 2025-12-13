@@ -946,12 +946,12 @@ namespace StandFacile
         /// <summary>
         /// Esportazione dei dati di riepilogo giornaliero
         /// </summary>
-        private void ComboFormat_Click(object sender, EventArgs e)
+        private void BtnXls_Click(object sender, EventArgs e)
         {
             switch (ComboExpFormat.SelectedIndex)
             {
                 case 0:
-                    xls_Export();
+                    Xls_Export();
                     break;
                 case 1:
                     FreeExport(true);

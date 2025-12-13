@@ -96,6 +96,7 @@ namespace StandFacile
 
             LogToFile("Mainform : Avvio StandMonitor");
 
+            Text = Define.TITLE;
             this.MinimumSize = new System.Drawing.Size(Define.MAINWD_WIDTH, Define.MAINWD_HEIGHT);
 
             this.Size = new System.Drawing.Size(1000, 680);

@@ -202,7 +202,7 @@
             this.BtnExport.TabIndex = 7;
             this.BtnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BtnExport.UseVisualStyleBackColor = true;
-            this.BtnExport.Click += new System.EventHandler(this.ComboFormat_Click);
+            this.BtnExport.Click += new System.EventHandler(this.BtnXls_Click);
             // 
             // BtnDate
             // 

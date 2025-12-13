@@ -134,6 +134,8 @@ namespace StandFacile
 
             rFrmMain = this;
 
+            Text = Define.TITLE;
+
             _bOnLine = true;
             _iPrevShownOnline_TicketNum = -100;
             _iPrevShownOnline_MessageNum = -100;

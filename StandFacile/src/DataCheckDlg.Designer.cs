@@ -109,7 +109,7 @@
             this.btnOK.Text = "OK   ";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // btnCancel
             // 
@@ -148,7 +148,7 @@
             this.radioSatispayBtn.TabStop = true;
             this.radioSatispayBtn.Text = "Satispay";
             this.radioSatispayBtn.UseVisualStyleBackColor = true;
-            this.radioSatispayBtn.Click += new System.EventHandler(this.radioBtn_Click);
+            this.radioSatispayBtn.Click += new System.EventHandler(this.RadioBtn_Click);
             // 
             // radioCardBtn
             // 
@@ -160,7 +160,7 @@
             this.radioCardBtn.TabStop = true;
             this.radioCardBtn.Text = "Card";
             this.radioCardBtn.UseVisualStyleBackColor = true;
-            this.radioCardBtn.Click += new System.EventHandler(this.radioBtn_Click);
+            this.radioCardBtn.Click += new System.EventHandler(this.RadioBtn_Click);
             // 
             // radioContantiBtn
             // 
@@ -172,7 +172,7 @@
             this.radioContantiBtn.TabStop = true;
             this.radioContantiBtn.Text = "Contanti";
             this.radioContantiBtn.UseVisualStyleBackColor = true;
-            this.radioContantiBtn.Click += new System.EventHandler(this.radioBtn_Click);
+            this.radioContantiBtn.Click += new System.EventHandler(this.RadioBtn_Click);
             // 
             // BtnPrt
             // 

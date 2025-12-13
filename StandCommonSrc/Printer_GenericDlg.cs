@@ -61,7 +61,7 @@ namespace StandFacile
             Height = 352;
             ckBoxLocalSettings.Visible = true;
             ckBoxLocalSettings.Checked = (ReadRegistry(GEN_PRINT_LOC_STORE_KEY, 0) == 1);
-            ckBoxLocalSettings_CheckedChanged(this, null);
+            CheckBoxLocalSettings_CheckedChanged(this, null);
 #endif
 
             Init(false);
@@ -110,7 +110,7 @@ namespace StandFacile
                 ShowDialog();
         }
 
-        private void ckBoxLocalSettings_CheckedChanged(object sender, EventArgs e)
+        private void CheckBoxLocalSettings_CheckedChanged(object sender, EventArgs e)
         {
             if (ckBoxLocalSettings.Checked)
             {

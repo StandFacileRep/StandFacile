@@ -97,11 +97,8 @@ namespace StandFacile
             LogoBmpCombo.Items.Add("Logo bmp 4");
 
             FontTypeCombo.Items.Clear();
-            FontTypeCombo.Items.Add("LP2844 : Font originali");
-            FontTypeCombo.Items.Add("LP2844 : Soft Font \"a\"");
-            FontTypeCombo.Items.Add("LP2844 : Soft Font \"b\"");
-            FontTypeCombo.Items.Add("LP2844 : Soft Font \"c\"");
-            FontTypeCombo.Items.Add("LP2844 : Soft Font \"d\"");
+            FontTypeCombo.Items.Add("TM-T88 : Font B  9x17 x2");
+            FontTypeCombo.Items.Add("TM-T88 : Font A 12x24 x1");
 
             Init(false);
         }

@@ -92,7 +92,7 @@ namespace StandFacile
 
                 comboCashPos.Enabled = false;
                 EditStatus_QRC.Enabled = false;
-                lblRead_bcd.Enabled = false;
+                lblRead_Qrc.Enabled = false;
             }
             else if (MnuImpListino.Checked)
             {
@@ -159,7 +159,7 @@ namespace StandFacile
 
                 comboCashPos.Enabled = false;
                 EditStatus_QRC.Enabled = false;
-                lblRead_bcd.Enabled = false;
+                lblRead_Qrc.Enabled = false;
             }
             // con BtnVisListino->Enabled = false -->  BtnVisListino->Down == true sempre
             else if (BtnVisListino.Checked && BtnVisListino.Enabled)
@@ -209,7 +209,7 @@ namespace StandFacile
 
                 comboCashPos.Enabled = false;
                 EditStatus_QRC.Enabled = false;
-                lblRead_bcd.Enabled = false;
+                lblRead_Qrc.Enabled = false;
             }
             else
             {
@@ -246,12 +246,12 @@ namespace StandFacile
                 if (SF_Data.bPrevendita)
                 {
                     EditStatus_QRC.Enabled = false;
-                    lblRead_bcd.Enabled = false;
+                    lblRead_Qrc.Enabled = false;
                 }
                 else
                 {
                     EditStatus_QRC.Enabled = true;
-                    lblRead_bcd.Enabled = true;
+                    lblRead_Qrc.Enabled = true;
                 }
 
                 if (MnuEsperto.Checked)

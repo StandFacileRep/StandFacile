@@ -82,7 +82,7 @@
             this.button1.Size = new System.Drawing.Size(37, 32);
             this.button1.TabIndex = 2;
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.buttonPlay_Click);
+            this.button1.Click += new System.EventHandler(this.BtnPlay_Click);
             // 
             // btnOK
             // 
@@ -99,7 +99,7 @@
             this.btnOK.Text = "OK";
             this.btnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            this.btnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // ckBox_VoiceSynthEnabled
             // 

@@ -318,6 +318,8 @@ namespace StandFacile
             // layout Toolbar e Menu
             toolStripTop.Left = 60;
 
+            Text = Define.TITLE;
+
             comboCashPos.Items.Clear();
 
             for (int i = sConst_PaymentType.Length - 1; i > 0; i--) // OK esclude "da effettuare"

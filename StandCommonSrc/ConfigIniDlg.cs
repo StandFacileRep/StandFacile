@@ -100,7 +100,7 @@ namespace StandFacile
             }
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        private void BtnEdit_Click(object sender, EventArgs e)
         {
             textBox.ForeColor = Color.White;
             textBox.ReadOnly = false;
@@ -110,7 +110,7 @@ namespace StandFacile
             Refresh();
         }
 
-        private void textBox_FileConfig_KeyUp(object sender, KeyEventArgs e)
+        private void TextBox_FileConfig_KeyUp(object sender, KeyEventArgs e)
         {
             if (textBox.ReadOnly)
                 return;

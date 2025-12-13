@@ -9,15 +9,16 @@
     SF_Data si può utilizzare di sicuro all'interno di WriteLocalCopy
  *********************************************************************************/
 
-using StandFacile;
 using System;
-using System.Drawing;
 using System.IO;
+using System.Drawing;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
-using static StandFacile.Define;
+
+using StandFacile;
 using static StandFacile.glb;
+using static StandFacile.Define;
 
 namespace StandCommonFiles
 {

@@ -29,7 +29,7 @@ namespace StandFacile
         public static StandFacile_DB.dBaseIntf_pg _rBdBaseIntf_pg;
 
         [STAThread]
-        static void Main(string[] args)
+        static void Main()
         {
             int iLoop = 5;
             bool bStandIsRunning = false;

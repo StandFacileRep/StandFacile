@@ -31,7 +31,7 @@ namespace StandFacile
         static Mutex _mx;
 
         [STAThread]
-        public static void Main(string[] args)
+        public static void Main()
         {
             int iNDbMode, iLoop = 5;
             bool bStandIsRunning = false;
