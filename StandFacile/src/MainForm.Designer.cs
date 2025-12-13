@@ -69,7 +69,7 @@
             this.MnuImpostaCopieLocali = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostaCopieInRete = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostaStampanteWin = new System.Windows.Forms.ToolStripMenuItem();
-            this.MnuImpostaStampanteGenerica = new System.Windows.Forms.ToolStripMenuItem();
+            this.MnuImpostazioniStampaComuni = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostaStampanteLegacy = new System.Windows.Forms.ToolStripMenuItem();
             this.I2 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuImpOpzioni = new System.Windows.Forms.ToolStripMenuItem();
@@ -420,7 +420,7 @@
             this.MnuImpostaCopieLocali,
             this.MnuImpostaCopieInRete,
             this.MnuImpostaStampanteWin,
-            this.MnuImpostaStampanteGenerica,
+            this.MnuImpostazioniStampaComuni,
             this.MnuImpostaStampanteLegacy,
             this.I2,
             this.MnuImpOpzioni,
@@ -476,12 +476,12 @@
             this.MnuImpostaStampanteWin.Text = "Configurazione S&tampante Windows ...";
             this.MnuImpostaStampanteWin.Click += new System.EventHandler(this.MnuImpostaStampanteWin_Click);
             // 
-            // MnuImpostaStampanteGenerica
+            // MnuImpostazioniStampaComuni
             // 
-            this.MnuImpostaStampanteGenerica.Name = "MnuImpostaStampanteGenerica";
-            this.MnuImpostaStampanteGenerica.Size = new System.Drawing.Size(346, 22);
-            this.MnuImpostaStampanteGenerica.Text = "Configurazione Generica di Stampa ...";
-            this.MnuImpostaStampanteGenerica.Click += new System.EventHandler(this.MnuImpostaStampanteGenerica_Click);
+            this.MnuImpostazioniStampaComuni.Name = "MnuImpostazioniStampaComuni";
+            this.MnuImpostazioniStampaComuni.Size = new System.Drawing.Size(346, 22);
+            this.MnuImpostazioniStampaComuni.Text = "Opzioni Comuni di Stampa ...";
+            this.MnuImpostazioniStampaComuni.Click += new System.EventHandler(this.MnuImpostaStampanteGenerica_Click);
             // 
             // MnuImpostaStampanteLegacy
             // 
@@ -561,19 +561,19 @@
             // MnuQuickHelp
             // 
             this.MnuQuickHelp.Name = "MnuQuickHelp";
-            this.MnuQuickHelp.Size = new System.Drawing.Size(180, 22);
+            this.MnuQuickHelp.Size = new System.Drawing.Size(171, 22);
             this.MnuQuickHelp.Text = "Aiuto &Rapido";
             this.MnuQuickHelp.Click += new System.EventHandler(this.MnuQHelp_Click);
             // 
             // A1
             // 
             this.A1.Name = "A1";
-            this.A1.Size = new System.Drawing.Size(177, 6);
+            this.A1.Size = new System.Drawing.Size(168, 6);
             // 
             // MnuInfo
             // 
             this.MnuInfo.Name = "MnuInfo";
-            this.MnuInfo.Size = new System.Drawing.Size(180, 22);
+            this.MnuInfo.Size = new System.Drawing.Size(171, 22);
             this.MnuInfo.Text = "&Informazioni su ...";
             this.MnuInfo.Click += new System.EventHandler(this.MnuInfo_Click);
             // 
@@ -682,7 +682,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(476, 0);
+            this.tabPage1.Size = new System.Drawing.Size(473, 0);
             this.tabPage1.TabIndex = 1;
             this.tabPage1.Text = "Pagina 2";
             // 
@@ -691,7 +691,7 @@
             this.tabPage2.BackColor = System.Drawing.SystemColors.Menu;
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(476, 0);
+            this.tabPage2.Size = new System.Drawing.Size(473, 0);
             this.tabPage2.TabIndex = 2;
             this.tabPage2.Text = "Pagina 3";
             // 
@@ -700,7 +700,7 @@
             this.tabPage3.BackColor = System.Drawing.SystemColors.Menu;
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(476, 0);
+            this.tabPage3.Size = new System.Drawing.Size(473, 0);
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Pagina 4";
             // 
@@ -709,7 +709,7 @@
             this.tabPage4.BackColor = System.Drawing.SystemColors.Menu;
             this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(476, 0);
+            this.tabPage4.Size = new System.Drawing.Size(473, 0);
             this.tabPage4.TabIndex = 4;
             this.tabPage4.Text = "Pagina 5";
             // 
@@ -988,7 +988,7 @@
             // 
             this.BtnSep_T1.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.BtnSep_T1.Name = "BtnSep_T1";
-            this.BtnSep_T1.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T1.Size = new System.Drawing.Size(6, 35);
             // 
             // BtnSendMsg
             // 
@@ -1008,7 +1008,7 @@
             // 
             this.BtnSep_T2.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.BtnSep_T2.Name = "BtnSep_T2";
-            this.BtnSep_T2.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T2.Size = new System.Drawing.Size(6, 35);
             // 
             // BtnX10
             // 
@@ -1029,7 +1029,7 @@
             // 
             this.BtnSep_T3.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.BtnSep_T3.Name = "BtnSep_T3";
-            this.BtnSep_T3.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T3.Size = new System.Drawing.Size(6, 35);
             // 
             // BtnAsporto
             // 
@@ -1050,7 +1050,7 @@
             // 
             this.BtnSep_T4.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.BtnSep_T4.Name = "BtnSep_T4";
-            this.BtnSep_T4.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T4.Size = new System.Drawing.Size(6, 35);
             // 
             // BtnSconto
             // 
@@ -1069,7 +1069,7 @@
             this.BtnSep_T6.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.BtnSep_T6.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.BtnSep_T6.Name = "BtnSep_T6";
-            this.BtnSep_T6.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T6.Size = new System.Drawing.Size(6, 35);
             // 
             // BtnDB
             // 
@@ -1091,7 +1091,7 @@
             this.BtnSep_T7.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.BtnSep_T7.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.BtnSep_T7.Name = "BtnSep_T7";
-            this.BtnSep_T7.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T7.Size = new System.Drawing.Size(6, 35);
             // 
             // BtnScontrino
             // 
@@ -1113,13 +1113,13 @@
             this.BtnSep_T8.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.BtnSep_T8.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.BtnSep_T8.Name = "BtnSep_T8";
-            this.BtnSep_T8.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T8.Size = new System.Drawing.Size(6, 35);
             // 
             // BtnSep_T5
             // 
             this.BtnSep_T5.Margin = new System.Windows.Forms.Padding(20, 0, 20, 0);
             this.BtnSep_T5.Name = "BtnSep_T5";
-            this.BtnSep_T5.Size = new System.Drawing.Size(6, 39);
+            this.BtnSep_T5.Size = new System.Drawing.Size(6, 35);
             // 
             // toolStripTop_TC_lbl
             // 
@@ -1131,7 +1131,7 @@
             this.toolStripTop_TC_lbl.Margin = new System.Windows.Forms.Padding(0);
             this.toolStripTop_TC_lbl.Name = "toolStripTop_TC_lbl";
             this.toolStripTop_TC_lbl.RightToLeftAutoMirrorImage = true;
-            this.toolStripTop_TC_lbl.Size = new System.Drawing.Size(105, 39);
+            this.toolStripTop_TC_lbl.Size = new System.Drawing.Size(105, 35);
             this.toolStripTop_TC_lbl.Text = "TC = 0.00";
             this.toolStripTop_TC_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolStripTop_TC_lbl.ToolTipText = "Totale Corrente";
@@ -1706,7 +1706,7 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteWin;
         private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteLegacy;
-        private System.Windows.Forms.ToolStripMenuItem MnuImpostaStampanteGenerica;
+        private System.Windows.Forms.ToolStripMenuItem MnuImpostazioniStampaComuni;
         private System.Windows.Forms.Panel panelRight;
         private System.Windows.Forms.Label lblCoperti;
         private System.Windows.Forms.TextBox EditCoperti;

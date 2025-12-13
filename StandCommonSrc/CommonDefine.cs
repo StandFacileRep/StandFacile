@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 30.11.2025
+    Data	 : 30.11.2025 
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.16.2"; 
+        public const String RELEASE_SW = "v5.16.2";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_DB_TBLS = "v5d";
@@ -703,9 +703,12 @@ namespace StandCommonFiles
         }
 
         /****************************************************************
-         *     Flags generali di gestione della Stampante Generica      *
+         *     Flags generali di gestione comune della Stampa           *
          ****************************************************************/
-        /// <summary>Flags generali di gestione della Stampante Generica</summary>
+
+        /// <summary>
+        /// Flags generali di gestione comune della Stampa
+        /// </summary>
         public enum GEN_PRINTER_OPTS
         {
             /// <summary>bit di iGeneralPrinterOptions per gestione righe vuote iniziali</summary>
@@ -1075,7 +1078,7 @@ namespace StandCommonFiles
             public int iBarcodeRichiesto;
             /// <summary>numero hex per gestione delle opzioni generali di StandFacile</summary>
             public int iGeneralProgOptions;
-            /// <summary>numero hex per gestione delle opzioni generiche della stampa</summary>
+            /// <summary>numero hex per gestione delle opzioni comuni della stampa</summary>
             public int iGenericPrintOptions;
             /// <summary>numero hex per gestione della stampa copie locali e copie con quantità Uno</summary>
             public int iLocalCopyOptions;

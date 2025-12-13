@@ -752,8 +752,11 @@ namespace StandFacile_DB
                     readerOrdine.Close();
                 }
 
-                sTmp = String.Format("iGetNumOfOrdersFromDB : iNum = {0}", iNum);
-                LogToFile(sTmp);
+                if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
+                {
+                    sTmp = String.Format("iGetNumOfOrdersFromDB : iNum = {0}", iNum);
+                    LogToFile(sTmp);
+                }
             }
 
             catch (Exception)

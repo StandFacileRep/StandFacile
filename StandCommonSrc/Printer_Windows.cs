@@ -817,8 +817,9 @@ namespace StandCommonFiles
                 for (i = 0; i < _finalRowsToAdd - 1; i++) // N righe di fine stampa
                     PrintCanvas(pg, " ");
 
-                PrintCanvas(pg, "_");
             }
+
+            PrintCanvas(pg, "_");
 
             // valuta se servono altre pagine, 25.4*32/100 = 8mm
             if (_fCanvasVertPos > (iPaperSizeHeight - 32))

@@ -114,7 +114,7 @@ namespace StandFacile
                 MnuImpostazioni.Enabled = true;
                 MnuEsperto.Enabled = false;
                 MnuImpostaRete.Enabled = false;
-                MnuImpostaStampanteGenerica.Enabled = false;
+                MnuImpostazioniStampaComuni.Enabled = false;
                 MnuImpostaStampanteWin.Enabled = false;
                 MnuImpostaStampanteLegacy.Enabled = false;
                 MnuImpostaCopieLocali.Enabled = false;
@@ -297,7 +297,7 @@ namespace StandFacile
                     // Menù Impostazioni
                     MnuCambiaPassword.Enabled = true;
                     MnuImpostaRete.Enabled = true;
-                    MnuImpostaStampanteGenerica.Enabled = true;
+                    MnuImpostazioniStampaComuni.Enabled = true;
                     MnuImpostaStampanteWin.Enabled = true;
                     MnuImpostaStampanteLegacy.Enabled = true;
                     MnuImpostaCopieLocali.Enabled = true;
@@ -330,7 +330,7 @@ namespace StandFacile
 
                     // Menù Impostazioni
                     MnuImpostaRete.Enabled = false;
-                    MnuImpostaStampanteGenerica.Enabled = false;
+                    MnuImpostazioniStampaComuni.Enabled = false;
                     MnuImpostaStampanteWin.Enabled = false;
                     MnuImpostaStampanteLegacy.Enabled = false;
                     MnuImpostaCopieLocali.Enabled = false;

@@ -33,7 +33,7 @@
             this.prt_Legacy = new System.Windows.Forms.RadioButton();
             this.prt_Windows = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.BtnGeneric = new System.Windows.Forms.Button();
+            this.BtnCommonPrintSetup = new System.Windows.Forms.Button();
             this.BtnLegacy = new System.Windows.Forms.Button();
             this.BtnWin = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
@@ -78,7 +78,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.BtnGeneric);
+            this.groupBox1.Controls.Add(this.BtnCommonPrintSetup);
             this.groupBox1.Controls.Add(this.BtnLegacy);
             this.groupBox1.Controls.Add(this.BtnWin);
             this.groupBox1.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -89,17 +89,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Impostazione stampanti Windows e Legacy";
             // 
-            // BtnGeneric
+            // BtnCommonPrintSetup
             // 
-            this.BtnGeneric.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.BtnGeneric.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.BtnGeneric.Image = global::StandFacile.Properties.Resources.globe;
-            this.BtnGeneric.Location = new System.Drawing.Point(113, 29);
-            this.BtnGeneric.Name = "BtnGeneric";
-            this.BtnGeneric.Size = new System.Drawing.Size(50, 50);
-            this.BtnGeneric.TabIndex = 3;
-            this.BtnGeneric.UseVisualStyleBackColor = false;
-            this.BtnGeneric.Click += new System.EventHandler(this.BtnGeneric_Click);
+            this.BtnCommonPrintSetup.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.BtnCommonPrintSetup.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.BtnCommonPrintSetup.Image = global::StandFacile.Properties.Resources.globe;
+            this.BtnCommonPrintSetup.Location = new System.Drawing.Point(113, 29);
+            this.BtnCommonPrintSetup.Name = "BtnCommonPrintSetup";
+            this.BtnCommonPrintSetup.Size = new System.Drawing.Size(50, 50);
+            this.BtnCommonPrintSetup.TabIndex = 3;
+            this.BtnCommonPrintSetup.UseVisualStyleBackColor = false;
+            this.BtnCommonPrintSetup.Click += new System.EventHandler(this.BtnGeneric_Click);
             // 
             // BtnLegacy
             // 
@@ -187,6 +187,6 @@
         private System.Windows.Forms.Button BtnLegacy;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnOK;
-        private System.Windows.Forms.Button BtnGeneric;
+        private System.Windows.Forms.Button BtnCommonPrintSetup;
     }
 }

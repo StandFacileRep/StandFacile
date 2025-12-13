@@ -63,7 +63,7 @@ namespace StandFacile
             _rPrintTckConfigDlg = this;
 
             _tt.SetToolTip(BtnWin, "imposta stampante Windows: USB, LAN, WiFi");
-            _tt.SetToolTip(BtnGenPrinterOptions, "impostazioni Generiche stampa");
+            _tt.SetToolTip(BtnGenPrinterOptions, "opzioni Comuni di stampa");
             _tt.SetToolTip(BtnLegacy, "imposta stampante Legacy: COM, LPT");
 
             _pCheckBoxCopia[0] = checkBoxCopia_0;
@@ -151,6 +151,7 @@ namespace StandFacile
             checkBox_CUT.Checked = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
 
             CheckBoxNoPrice_CheckedChanged(this, null);
+            Timer_Tick(this, null);
 
             _bListinoModificato = false;
 

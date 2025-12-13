@@ -1808,6 +1808,11 @@ namespace StandCommonFiles
                             WriteStarsFrame(sGroup);
                             iEqRowsNumber += 3;
                         }
+                        else
+                        {
+                            _fPrint.WriteLine(sGroup);
+                            iEqRowsNumber++;
+                        }
 
                         _fPrint.WriteLine();
                         iEqRowsNumber++;

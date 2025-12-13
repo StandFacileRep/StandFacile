@@ -1359,7 +1359,7 @@ namespace StandFacile_DB
 
                                 ordiniTable.Rows[i]["sScaricato"] = sTmp;
 
-                                sTmp = String.Format("dbScaricaOrdine : trovato iOrderID = {0}", iOrderID);
+                                sTmp = String.Format("dbScaricaOrdinePrev : trovato iOrderID = {0}", iOrderID);
                                 LogToFile(sTmp);
                             }
                             else
@@ -1376,7 +1376,7 @@ namespace StandFacile_DB
                     //dbOrdiniAdapter.UpdateBatchSize = 100;
                     iUpdatedRowsOrdini = dbOrdiniAdapter.Update(ordiniTable);
 
-                    Console.WriteLine("dbScaricaOrdine : iUpdatedRows ordini = {0}", iUpdatedRowsOrdini);
+                    Console.WriteLine("dbScaricaOrdinePrev : iUpdatedRows ordini = {0}", iUpdatedRowsOrdini);
 
                     /*** aggiorna il database su disco ***/
                     transaction.Commit();

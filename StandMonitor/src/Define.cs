@@ -74,6 +74,9 @@ namespace StandFacile
 
             /// <summary>ordinata secondo la colonna "da consegnare"</summary>
             public const String _SORT_DELIVER = "sortByDeliver";
+
+            /// <summary>serviceStrings: generazione automatica di scontrini da file di sequenza per test</summary>
+            public const string _AUTO_SEQ_TEST = "seqTest"; //
         }
 
     } // end class

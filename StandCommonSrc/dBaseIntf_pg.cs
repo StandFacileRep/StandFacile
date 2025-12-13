@@ -752,8 +752,11 @@ namespace StandFacile_DB
                     readerOrdine.Close();
                 }
 
-                sTmp = String.Format("iGetNumOfOrdersFromDB : iNum = {0}", iNum);
-                LogToFile(sTmp);
+                if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
+                {
+                    sTmp = String.Format("iGetNumOfOrdersFromDB : iNum = {0}", iNum);
+                    LogToFile(sTmp);
+                }
             }
 
             catch (Exception)
@@ -1301,7 +1304,7 @@ namespace StandFacile_DB
 #if STANDFACILE
                     if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
 #endif
-                    WarningManager(_WrnMsg);
+                        WarningManager(_WrnMsg);
 
                     sTmp = String.Format("dbAnnulloOrdine : annullo eseguito iOrdine_ID = {0} !", iNumAnnulloParam);
                     LogToFile(sTmp);
@@ -1760,7 +1763,7 @@ namespace StandFacile_DB
                 }
                 else
 #endif
-                return 0;
+                    return 0;
             }
         }
 
@@ -1844,7 +1847,7 @@ namespace StandFacile_DB
                 }
                 else
 #endif
-                return 0;
+                    return 0;
             }
         }
 

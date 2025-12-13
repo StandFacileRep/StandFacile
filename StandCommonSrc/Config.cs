@@ -151,6 +151,7 @@ namespace StandFacile
                     {
                         iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
                         sInStr = sInStr.Remove(0, iPos + 1).Trim();
+                        sInStr = sInStr.Replace("\"", "");
 
                         sConfig.sDatabaseName = sInStr;
 
@@ -162,6 +163,7 @@ namespace StandFacile
                     {
                         iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
                         sInStr = sInStr.Remove(0, iPos + 1).Trim();
+                        sInStr = sInStr.Replace("\"", "");
 
                         sConfig.sDatabaseUser = sInStr;
 

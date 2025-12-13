@@ -245,7 +245,7 @@
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Impostazioni Generiche di stampa";
+            this.Text = "Opzioni Comuni di stampa";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.GenPrinterDlg_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheIniziali)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDown_RigheFinali)).EndInit();

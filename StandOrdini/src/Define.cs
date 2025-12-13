@@ -93,5 +93,12 @@ namespace StandFacile
             DUPLICAZIONE_MONITOR
         };
 
+        /// <summary>queste stringhe consentono l'attivazione di alcune funzioni di debug</summary>
+        public struct CFG_SERVICE_STRINGS
+        {
+            /// <summary>serviceStrings: generazione automatica di scontrini da file di sequenza per test</summary>
+            public const string _AUTO_SEQ_TEST = "seqTest";
+        }
+
     } // end class
 }
