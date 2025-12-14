@@ -649,10 +649,10 @@ namespace StandFacile
                         LogToFile(sTmp);
 
                         // Ctrl + 0
-                        SetEditStatus_BC("");
+                        SetEditStatus_QRC("");
 
                         DataManager.ClearGrid();
-                        AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+                        _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     }
                     break;
 
@@ -700,7 +700,8 @@ namespace StandFacile
                         comboCashPos.SelectedIndex = (comboCashPos.SelectedIndex + 1) % (sConst_PaymentType.Length - 1);
                         scannerInputQueue.Clear();
                     }
-                    AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+
+                    _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
 
                 case 'P':
@@ -761,8 +762,7 @@ namespace StandFacile
                         SF_Data.Articolo[_iCellPt].iQuantitaOrdine = 0;
                 }
 
-                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
-                _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
+                _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
             }
             // per sicurezza si azzerano in caso numeri di fuori griglia
             else if ((iKey == '0') && String.IsNullOrEmpty(SF_Data.Articolo[_iCellPt].sTipo) &&
@@ -772,8 +772,7 @@ namespace StandFacile
             {
                 SF_Data.Articolo[_iCellPt].iQuantitaOrdine = 0;
 
-                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
-                _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
+                _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
             }
 
             if (MnuImpListino.Checked)
@@ -1152,9 +1151,7 @@ namespace StandFacile
 
             //Dictionary<int, object> dict = null;
 
-            iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
-
-            // EditStatus_BC.UseSystemPasswordChar = true; si perde il carattere successivo
+            iFocus_QRC_Timeout = QRC_FOCUS_TIMEOUT;
 
             /*************************
                       ENTER

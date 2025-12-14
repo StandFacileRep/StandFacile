@@ -1,6 +1,6 @@
 ﻿/********************************************************************
   	NomeFile : StandFacile/AnteprimaDlg.cs
-	Data	 : 10.08.2025
+	Data	 : 14.12.2025
   	Autore   : Mauro Artuso
 
   Classe di visualizzazione dell'anteprima dello scontrino.
@@ -119,7 +119,7 @@ namespace StandFacile
         }
 
         /// <summary>aggiornamento anteprima</summary>
-        public void RedrawReceipt()
+        public int RedrawReceipt()
         {
             bool bCassaInline;
             int i, j;
@@ -134,7 +134,7 @@ namespace StandFacile
 
             bCassaInline = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE);
 
-            if (!_bInit) return;
+            if (!_bInit) return 0;
 
             if (Visible)
             {
@@ -615,6 +615,8 @@ namespace StandFacile
 
             LogToFile("AnteprimaDlg: RedrawReceipt");
             picBox.Refresh();
+
+            return _iTotaleDovutoReceipt;
         }
 
         /// <summary>aggiornamento del numero dello scontrino con quello reale</summary>

@@ -1227,10 +1227,13 @@ namespace StandFacile
                 rFrmMain.BtnAsporto_Click(null, null);
 
             rFrmMain.SetEditCoperto(DB_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
+            rFrmMain.SetEditTavolo(DB_Data.sTavolo);
+            rFrmMain.SetEditNome(DB_Data.sNome);
             rFrmMain.SetEditNota(DB_Data.sNota);
 
             AnteprimaDlg.rAnteprimaDlg.Show();
             AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+            rFrmMain.SetAnteprima_TP();
 
             // avvia la visualizzazione della tabella
             sQueue_Object[0] = PREV_ORDER_LOAD_DONE;
@@ -1378,6 +1381,7 @@ namespace StandFacile
                 rFrmMain.EnableTextBox(true);
 
                 AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+                rFrmMain.SetAnteprima_TP();
 
                 // avvia la visualizzazione dell'ordine
                 sQueue_Object[0] = WEB_ORDER_LOAD_DONE;
@@ -1480,14 +1484,15 @@ namespace StandFacile
 
             rFrmMain.SetEditCoperto(DB_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
 
-            rFrmMain.SetEditNome(DB_Data.sNome);
             rFrmMain.SetEditTavolo(DB_Data.sTavolo);
+            rFrmMain.SetEditNome(DB_Data.sNome);
             rFrmMain.SetEditNota(DB_Data.sNota);
 
             rFrmMain.EnableTextBox(true);
 
             AnteprimaDlg.rAnteprimaDlg.Show();
             AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+            rFrmMain.SetAnteprima_TP();
 
             // avvia la visualizzazione dell'ordine
             sQueue_Object[0] = WEB_ORDER_LOAD_DONE;

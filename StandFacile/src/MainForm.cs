@@ -37,7 +37,7 @@ namespace StandFacile
 #pragma warning disable IDE0059
 
         const int CHANGE_PAGE_TIMEOUT = 5;      // *250ms
-        const int BC_FOCUS_TIMEOUT = 8 * 4;     // *250ms
+        const int QRC_FOCUS_TIMEOUT = 8 * 4;     // *250ms
 
         static bool _bListinoModificato;  // true se ci sono state modifiche al Listino
         static bool _bPasswordIsGood;
@@ -75,7 +75,7 @@ namespace StandFacile
         int iSwapStartIndex;
         int iChangePageDxTimeout;
         int iChangePageSxTimeout;
-        int iFocus_BC_Timeout;
+        int iFocus_QRC_Timeout;
         int _iColorTheme;
 
         float _fFontWidth = 9;
@@ -245,14 +245,14 @@ namespace StandFacile
             EditNota.Refresh();
         }
 
-        /// <summary>imposta il testo della nota</summary>
-        public void SetEditStatus_BC(String sBCParam) { EditStatus_QRC.Text = sBCParam; TextBox_KeyUp(null, null); }
+        /// <summary>imposta il testo del QRC</summary>
+        public void SetEditStatus_QRC(String sQRCParam) { EditStatus_QRC.Text = sQRCParam; TextBox_KeyUp(null, null); }
 
         /// <summary>imposta il testo dello stato</summary>
         public void SetStatus(String sNotaParam) { sStatusText = sNotaParam; }
 
         /// <summary>resetta il timer del Focus al BC_Edit</summary>
-        void ClearBC_FocusTimer() { iFocus_BC_Timeout = BC_FOCUS_TIMEOUT; }
+        void ClearBC_FocusTimer() { iFocus_QRC_Timeout = QRC_FOCUS_TIMEOUT; }
 
         /// <summary>imposta il flag per nascondere lblStatusTotalePrec</summary>
         public static void SetShowTotaleScontrinoPrec(bool bShowParam) { _bShowTotaleScontrinoPrec = bShowParam; }
@@ -379,9 +379,9 @@ namespace StandFacile
             _sEditTavolo = "";
             _sEditNome = "";
             _sEditCoperti = "";
-
-            Edit_TotCorrente.Text = "";
             EditContante.Text = "";
+
+            ClearAnteprima_TP();
 
             _iButtonStatus = ReadRegistry(R_BUTTONS_KEY, (int)BUTTONS_STATUS_FLAGS.BIT_WIDE);
 
@@ -478,7 +478,7 @@ namespace StandFacile
 
             MainGrid.Focus();
 
-            iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
+            iFocus_QRC_Timeout = QRC_FOCUS_TIMEOUT;
             Timer.Enabled = true;
             CheckMenuItems();
 
@@ -748,15 +748,14 @@ namespace StandFacile
                 }
             }
 
-            if ((iFocus_BC_Timeout > 0) && (OptionsDlg._rOptionsDlg.GetPresales_LoadMode() || NetConfigDlg.rNetConfigDlg.GetWebOrderEnabled()))
+            if ((iFocus_QRC_Timeout > 0) && (OptionsDlg._rOptionsDlg.GetPresales_LoadMode() || NetConfigDlg.rNetConfigDlg.GetWebOrderEnabled()))
             {
-                iFocus_BC_Timeout--;
+                iFocus_QRC_Timeout--;
 
-                if (iFocus_BC_Timeout == 0)
+                if (iFocus_QRC_Timeout == 0)
                 {
-                    iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
+                    iFocus_QRC_Timeout = QRC_FOCUS_TIMEOUT;
                     EditStatus_QRC.Focus();
-                    // EditStatus_BC.UseSystemPasswordChar = false;
                     EditStatus_QRC.Text = ""; // pulizia
                 }
             }
@@ -792,17 +791,13 @@ namespace StandFacile
                     iChangePageSxTimeout = 2 * CHANGE_PAGE_TIMEOUT;
                 }
 
-            // indicazione Totale provvisorio
-            if ((_iAnteprimaTotParziale > 0) || IsBitSet(SF_Data.iStatusSconto, BIT_SCONTO_GRATIS) ||
-                AnteprimaDlg.GetSomethingInto_GrpToPrint((int)DEST_TYPE.DEST_BUONI))
+            // indicazione Totale corrente, ottimizza aggiornamento grafica
+            _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
+
+            if (Edit_TotCorrente.Text != IntToEuro(_iAnteprimaTotParziale))
             {
                 toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
                 Edit_TotCorrente.Text = IntToEuro(_iAnteprimaTotParziale);
-            }
-            else if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
-            {
-                toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
-                Edit_TotCorrente.Text = IntToEuro(0);
             }
 
             /*************************************
@@ -904,7 +899,6 @@ namespace StandFacile
                     if (!(IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB) && bEsploraAuto))
                         _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
 
-                    // EditStatus_BC.UseSystemPasswordChar = false;
                     EditStatus_QRC.Text = ""; // pulizia
                     MainGrid_Redraw(this, null);
                 }
@@ -1029,8 +1023,7 @@ namespace StandFacile
                 _sEditCoperti = EditCoperti.Text.Trim();
 
                 BtnScontrino.Checked = true;
-                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
-                _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
+                _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                 MainGrid_Redraw(this, null);
             }
 
@@ -1052,7 +1045,7 @@ namespace StandFacile
         {
             int iKey = (int)e.KeyValue;
 
-            iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
+            iFocus_QRC_Timeout = QRC_FOCUS_TIMEOUT;
 
             // ridà il controllo alla griglia
             if ((sender == EditStatus_QRC && String.IsNullOrEmpty(EditStatus_QRC.Text)) &&
@@ -1128,6 +1121,11 @@ namespace StandFacile
             }
         }
 
+
+        /// <summary>
+        /// aggiorna SF_Data con il valore dei campi di edit: _sEditCoperti, sTavolo, sNome, sNota<br/>
+        /// chiama anche AnteprimaDlg.rAnteprimaDlg.RedrawReceipt() per aggiornare la grafica
+        /// </summary>
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
         {
             // sicurezza per scannerInputQueue.Enqueue(iKey)
@@ -1159,7 +1157,7 @@ namespace StandFacile
                         Console.WriteLine(_sEditCoperti); // debug
                 }
 
-                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+                _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
             }
         }
 
@@ -1390,14 +1388,9 @@ namespace StandFacile
             EditNota.Text = "";
             _sEditNota = "";
 
-            if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
-            {
-                toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(0));
-                Edit_TotCorrente.Text = IntToEuro(0);
-            }
+            ClearAnteprima_TP();
 
             lblStatus_TC.Text = "";
-
             EditStatus_QRC.Text = "";
 
             UpdateStatusBar(DataManager.GetNumOfLocalOrders(), SF_Data.iTotaleReceiptDovuto);
@@ -1885,7 +1878,7 @@ namespace StandFacile
                 AnteprimaDlg.rAnteprimaDlg.Show();
                 MnuReceiptPreview.Checked = true;
 
-                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+                _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                 Focus();
             }
         }
@@ -2367,8 +2360,7 @@ namespace StandFacile
             else
                 BtnSconto.Checked = false;
 
-            AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
-            _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
+            _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
         }
 
         private void BtnPlus_Click(object sender, EventArgs e)
@@ -2398,16 +2390,14 @@ namespace StandFacile
             }
             else if (!String.IsNullOrEmpty(SF_Data.Articolo[_iCellPt].sTipo) && (SF_Data.Articolo[_iCellPt].iDisponibilita != 0))
             {
-                iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
+                iFocus_QRC_Timeout = QRC_FOCUS_TIMEOUT;
 
                 SF_Data.Articolo[_iCellPt].iQuantitaOrdine += plusQty;
 
-                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
-                _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
-
-                MainGrid_Redraw(this, null);
+                _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
             }
 
+            MainGrid_Redraw(this, null);
             scannerInputQueue.Clear();
         }
 
@@ -2433,24 +2423,18 @@ namespace StandFacile
             }
             else if (!String.IsNullOrEmpty(SF_Data.Articolo[_iCellPt].sTipo))
             {
-                iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
+                iFocus_QRC_Timeout = QRC_FOCUS_TIMEOUT;
 
                 if (SF_Data.Articolo[_iCellPt].iQuantitaOrdine > 0)
                     SF_Data.Articolo[_iCellPt].iQuantitaOrdine -= minusQty;
 
                 if (SF_Data.Articolo[_iCellPt].iQuantitaOrdine < 0)
                     SF_Data.Articolo[_iCellPt].iQuantitaOrdine = 0;
-                AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
-                _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
-
-                // necessario altrimenti se _iAnteprimaTotParziale == 0 il timer non aggiorna toolStripTop_TC_lbl.Text
-                toolStripTop_TC_lbl.Text = String.Format("{0}", IntToEuro(_iAnteprimaTotParziale));
-                Edit_TotCorrente.Text = IntToEuro(_iAnteprimaTotParziale);
-
-                MainGrid_Redraw(this, null);
+                _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
             }
 
+            MainGrid_Redraw(this, null);
             scannerInputQueue.Clear();
         }
 
@@ -2516,15 +2500,10 @@ namespace StandFacile
             else
             {
                 SF_Data.Articolo[_iCellPt].iQuantitaOrdine = 0;
-                iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
+                iFocus_QRC_Timeout = QRC_FOCUS_TIMEOUT;
             }
 
-            AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
-            _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
-
-            // necessario altrimenti se _iAnteprimaTotParziale == 0 il timer non aggiorna toolStripTop_TC_lbl.Text
-            toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
-            Edit_TotCorrente.Text = IntToEuro(_iAnteprimaTotParziale);
+            _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
             scannerInputQueue.Clear();
             MainGrid_Redraw(this, null);
@@ -2542,19 +2521,19 @@ namespace StandFacile
                     SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD);
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
-                    AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+                    _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
                 case 1:
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
                     SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD);
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
-                    AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+                    _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
                 case 2:
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH);
                     SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD);
                     SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY);
-                    AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+                    _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
                     break;
                 default:
                     // se si toglie il commento si pulisce l'Anteprima dopo la stampa dello scontrino
@@ -2593,7 +2572,7 @@ namespace StandFacile
         private void MainGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //MainGrid.Focus(); // non serve cliccandoci ho il focus
-            iFocus_BC_Timeout = BC_FOCUS_TIMEOUT;
+            iFocus_QRC_Timeout = QRC_FOCUS_TIMEOUT;
 
             // _iNewCellPt serve a non incrementare quando ci si sposta sulla griglia
             int _iNewCellPt = e.ColumnIndex * MainGrid.RowCount + e.RowIndex + iArrayOffset;
@@ -2651,7 +2630,7 @@ namespace StandFacile
             else
                 SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO);
 
-            AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+            _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
         }
 
         private void EditStatusResto_MouseClick(object sender, MouseEventArgs e)
