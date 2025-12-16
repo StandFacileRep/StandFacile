@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.16.2";
+        public const String RELEASE_SW = "v5.16.2a";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_DB_TBLS = "v5d";
@@ -75,7 +75,10 @@ namespace StandCommonFiles
         }
 
         /// <summary>indicatore di ordine formattato JSON</summary>
-        public const String _JS_ORDER_V5 = "js_order_v5c";
+        public const String _JS_ORDER_V5c = "js_order_v5c";
+
+        /// <summary>indicatore di ordine formattato JSON</summary>
+        public const String _JS_ORDER_V5d = "js_order_v5d";
 
         /// <summary>radice segnaposto per indicare i tipi vuoti</summary>
         public const String SHMAGIC = "_#@$_";

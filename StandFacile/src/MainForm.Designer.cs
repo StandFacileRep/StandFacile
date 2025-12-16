@@ -108,6 +108,7 @@
             this.p8 = new System.Windows.Forms.ToolStripMenuItem();
             this.p9 = new System.Windows.Forms.ToolStripMenuItem();
             this.p10 = new System.Windows.Forms.ToolStripMenuItem();
+            this.p20 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.z1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -163,7 +164,6 @@
             this.EditCoperti = new System.Windows.Forms.TextBox();
             this.lblCoperti = new System.Windows.Forms.Label();
             this.btnNavLeft = new System.Windows.Forms.Button();
-            this.p20 = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.StatusBar_Upper.SuspendLayout();
             this.TabSet.SuspendLayout();
@@ -562,19 +562,19 @@
             // MnuQuickHelp
             // 
             this.MnuQuickHelp.Name = "MnuQuickHelp";
-            this.MnuQuickHelp.Size = new System.Drawing.Size(171, 22);
+            this.MnuQuickHelp.Size = new System.Drawing.Size(180, 22);
             this.MnuQuickHelp.Text = "Aiuto &Rapido";
             this.MnuQuickHelp.Click += new System.EventHandler(this.MnuQHelp_Click);
             // 
             // A1
             // 
             this.A1.Name = "A1";
-            this.A1.Size = new System.Drawing.Size(168, 6);
+            this.A1.Size = new System.Drawing.Size(177, 6);
             // 
             // MnuInfo
             // 
             this.MnuInfo.Name = "MnuInfo";
-            this.MnuInfo.Size = new System.Drawing.Size(171, 22);
+            this.MnuInfo.Size = new System.Drawing.Size(180, 22);
             this.MnuInfo.Text = "&Informazioni su ...";
             this.MnuInfo.Click += new System.EventHandler(this.MnuInfo_Click);
             // 
@@ -862,6 +862,13 @@
             this.p10.Size = new System.Drawing.Size(180, 22);
             this.p10.Text = "+ 10";
             this.p10.Click += new System.EventHandler(this.MPx_Click);
+            // 
+            // p20
+            // 
+            this.p20.Name = "p20";
+            this.p20.Size = new System.Drawing.Size(180, 22);
+            this.p20.Text = "+ 20";
+            this.p20.Click += new System.EventHandler(this.MPx_Click);
             // 
             // toolStripSeparator1
             // 
@@ -1561,12 +1568,6 @@
             this.btnNavLeft.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnNavLeft.UseVisualStyleBackColor = false;
             this.btnNavLeft.Click += new System.EventHandler(this.BtnNav_Click);
-            // 
-            // p20
-            // 
-            this.p20.Name = "p20";
-            this.p20.Size = new System.Drawing.Size(180, 22);
-            this.p20.Text = "+ 20";
             // 
             // FrmMain
             // 

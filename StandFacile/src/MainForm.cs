@@ -68,7 +68,7 @@ namespace StandFacile
         int _iNumOfOrders;
         int _iModDisponibilitaTimeout;
         int _iContante;
-        int _iAnteprimaTotParziale;
+        int _iAnteprimaTotParziale, _iAnteprimaTotParzialePrev;
         int iLastGridIndex; //indice dell'ultimo Articolo della griglia corrente  = iGridRows * iGridCols
         int iArrayOffset;   //indice della primo Articolo della griglia corrente  nel vettore Articolo[],
                             // = TabSet->SelectedIndex * iLastGridIndex;/
@@ -794,10 +794,11 @@ namespace StandFacile
             // indicazione Totale corrente, ottimizza aggiornamento grafica
             _iAnteprimaTotParziale = AnteprimaDlg.GetTotaleReceipt();
 
-            if (Edit_TotCorrente.Text != IntToEuro(_iAnteprimaTotParziale))
+            if (_iAnteprimaTotParzialePrev != _iAnteprimaTotParziale)
             {
                 toolStripTop_TC_lbl.Text = String.Format("TC = {0}", IntToEuro(_iAnteprimaTotParziale));
                 Edit_TotCorrente.Text = IntToEuro(_iAnteprimaTotParziale);
+                _iAnteprimaTotParzialePrev = _iAnteprimaTotParziale;
             }
 
             /*************************************

@@ -1,6 +1,6 @@
 ﻿/*****************************************************
  	NomeFile : StandCommonSrc/CommonFunc.cs
-    Data	 : 10.09.2025
+    Data	 : 11.12.2025
  	Autore	 : Mauro Artuso
 
 	Classi statiche di uso comune

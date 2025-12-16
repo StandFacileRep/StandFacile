@@ -813,6 +813,9 @@ namespace StandFacile
 
         private void MainGrid_Resize(object sender, EventArgs e)
         {
+            if (rFrmMain == null)
+                return;
+
             Console.WriteLine(String.Format("MainGrid_Resize: {0}, {1}", rFrmMain.Size.Width, rFrmMain.Size.Height));
             FormResize(sender, null);
         }
@@ -1182,7 +1185,8 @@ namespace StandFacile
                             string sTmpJson = "";
 
                             // correzione tastiera Italiana 142, QRcode non produce le parentesi !
-                            if ((sStrBarcode[0] != '{') && (sStrBarcode.Contains(_JS_ORDER_V5) || sStrBarcode.Contains(JSON_CONFIG_TYPE)))
+                            if ((sStrBarcode[0] != '{') && (sStrBarcode.Contains(_JS_ORDER_V5c) || sStrBarcode.Contains(_JS_ORDER_V5d) ||
+                                 sStrBarcode.Contains(JSON_CONFIG_TYPE) && !String.IsNullOrWhiteSpace(JSON_CONFIG_TYPE)))
                                 sTmpJson = '{' + sStrBarcode + '}';
                             else
                                 sTmpJson = sStrBarcode;
@@ -1196,7 +1200,7 @@ namespace StandFacile
                         }
 
                         // compatibilità con versioni precedenti
-                        if ((JSON_Type == _JS_ORDER_V5) || (JSON_Type == JSON_CONFIG_TYPE))
+                        if ((JSON_Type == _JS_ORDER_V5c) || (JSON_Type == _JS_ORDER_V5d) || (JSON_Type == JSON_CONFIG_TYPE) && !String.IsNullOrWhiteSpace(JSON_CONFIG_TYPE))
                         {
                             // ottiene la tabella dell'output JSON
                             var jss = new JavaScriptSerializer();
