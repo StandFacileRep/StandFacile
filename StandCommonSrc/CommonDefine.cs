@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.16.2a";
+        public const String RELEASE_SW = "v5.16.2b";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_DB_TBLS = "v5d";
@@ -331,6 +331,12 @@ namespace StandCommonFiles
 
         /// <summary>chiave che descrive se è richiesta la stampa della copia per il gruppo, ed il colore</summary>
         public const String SEL_DB_COPY_KEY = "iDB_RequestCopy{0}";
+
+        /// <summary>chiave che descrive le opzioni locali di stampa generica</summary>
+        public const String GEN_PRINT_OPT_KEY = "iGenPrintSettings";
+
+        /// <summary>chiave che descrive dove memorizzare le opzioni di stampa generica</summary>
+        public const String GEN_PRINT_LOC_STORE_KEY = "iGenPrintLocStoreSettings";
 
         /// <summary>chiave per memorizzare il DB server corrente</summary>
         public const String DBASE_SERVER_NAME_KEY = "sDB_ServerName";

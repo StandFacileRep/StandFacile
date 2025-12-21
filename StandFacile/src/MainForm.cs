@@ -480,10 +480,11 @@ namespace StandFacile
 
             iFocus_QRC_Timeout = QRC_FOCUS_TIMEOUT;
             Timer.Enabled = true;
-            CheckMenuItems();
 
             // abilita la voce di menù se il file di configurazione esiste
             MnuFileDiConfigurazione.Enabled = sConfig.bFileLoaded;
+
+            CheckMenuItems(); // dopo sConfig.bFileLoaded
 
             LogToFile("Mainform : Init()");
 

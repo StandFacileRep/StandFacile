@@ -25,12 +25,6 @@ namespace StandFacile
         /// <summary>chiave di registro</summary>
         public const string KEY_STAND_MONITOR = "HKEY_CURRENT_USER\\Software\\StandMonitor";
 
-        /// <summary>chiave che descrive dove memorizzare le opzioni di stampa generica</summary>
-        public const String GEN_PRINT_LOC_STORE_KEY = "iGenPrintLocStoreSettings";
-
-        /// <summary>chiave che descrive le opzioni locali di stampa generica</summary>
-        public const String GEN_PRINT_OPT_KEY = "iGenPrintSettings";
-
         /// <summary>AuxRefresh tabella ogni 30s</summary>
         public static int REFRESH_TIMER = 30 * 4;  // timer da 250ms
 

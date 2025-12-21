@@ -40,12 +40,6 @@ namespace StandFacile
         /// <summary>chiave che descrive se è richiesta la stampa del barcode</summary>
         public const String STAMPA_MANUALE_KEY = "iStampaManuale";
 
-        /// <summary>chiave che descrive dove memorizzare le opzioni di stampa generica</summary>
-        public const String GEN_PRINT_LOC_STORE_KEY = "iGenPrintLocStoreSettings";
-
-        /// <summary>chiave che descrive le opzioni locali di stampa generica</summary>
-        public const String GEN_PRINT_OPT_KEY = "iGenPrintSettings";
-
         /// <summary> 
         /// refresh di sService * 250ms circa in StandFacile, 200 in StandClient
         /// </summary>

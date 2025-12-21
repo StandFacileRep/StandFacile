@@ -1,6 +1,6 @@
 ﻿/*******************************************************************************
-	NomeFile : StandCommonSrc/GenPrinterDlg.cs
-    Data	 : 06.12.2025
+	NomeFile : StandCommonSrc\Printer_GenericDlg.cs
+    Data	 : 21.12.2025
 	Autore   : Mauro Artuso/nicola02nb
 
 	Descrizione : classe per la gestione della Form per l'impostazione dei
@@ -35,6 +35,7 @@ namespace StandFacile
         };
 
         static bool _bListinoModificato;
+        static int _iGenericPrintOptions_Copy;
 
         /// <summary>ottiene flag di modifica listino necessaria</summary>
         public static bool GetListinoModificato() { return _bListinoModificato; }
@@ -55,12 +56,29 @@ namespace StandFacile
             LogToFile("GenPrinterDlg : Init in");
 
 #if STANDFACILE
-            Height = 300;
-            ckBoxLocalSettings.Visible = false;
+
+            // se cassa secondaria e DB si può scegliere
+            if (DataManager.CheckIf_CassaSec_and_NDB())
+            {
+                Height = 352;
+                ckBoxLocalSettings.Visible = true;
+                ckBoxLocalSettings.Checked = (ReadRegistry(GEN_PRINT_LOC_STORE_KEY, 0) == 1);
+
+                CheckBoxLocalSettings_CheckedChanged(this, null);
+            }
+            else
+            {
+                Height = 300;
+                ckBoxLocalSettings.Visible = false;
+                ckBoxLocalSettings.Checked = false;
+            }
+
 #else
+            // se STAND_MONITOR || STAND_CUCINA si può scegliere
             Height = 352;
             ckBoxLocalSettings.Visible = true;
             ckBoxLocalSettings.Checked = (ReadRegistry(GEN_PRINT_LOC_STORE_KEY, 0) == 1);
+
             CheckBoxLocalSettings_CheckedChanged(this, null);
 #endif
 
@@ -78,48 +96,73 @@ namespace StandFacile
         {
             int iGenericPrintOptions;
 
-#if STAND_CUCINA || STAND_MONITOR
 
             if (ckBoxLocalSettings.Checked)
+            {
                 iGenericPrintOptions = ReadRegistry(GEN_PRINT_OPT_KEY, 1);
+            }
             else
             {
                 // copia impostazioni di stampa
-                SF_Data.iGenericPrintOptions = DB_Data.iGenericPrintOptions;
-
+#if STANDFACILE
                 iGenericPrintOptions = SF_Data.iGenericPrintOptions;
-            }
 #else
-            iGenericPrintOptions = SF_Data.iGenericPrintOptions;
+                iGenericPrintOptions = DB_Data.iGenericPrintOptions;
 #endif
+
+            }
+
+#if STANDFACILE
+            _iGenericPrintOptions_Copy = SF_Data.iGenericPrintOptions;
+#else
+            _iGenericPrintOptions_Copy = DB_Data.iGenericPrintOptions;
+#endif
+
+            // caricato comunque dal DB
+            checkBox_Chars33.Checked = IsBitSet(_iGenericPrintOptions_Copy, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
+            checkBox_CopertiNelleCopie.Checked = IsBitSet(_iGenericPrintOptions_Copy, (int)GEN_PRINTER_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
+            checkBox_CassaInlineNumero.Checked = IsBitSet(_iGenericPrintOptions_Copy, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE);
+            checkBox_CenterTableAndName.Checked = IsBitSet(_iGenericPrintOptions_Copy, (int)GEN_PRINTER_OPTS.BIT_CENTER_TABLE_AND_NAME);
+            checkBox_StarsOnUnderGroup.Checked = IsBitSet(_iGenericPrintOptions_Copy, (int)GEN_PRINTER_OPTS.BIT_STARS_ON_UNDER_GROUP);
+
+            // caricato dal DB o da impostazioni locali
+            checkBox_LogoNelleCopie.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_ON_COPIES_REQUIRED);
 
             numUpDown_RigheIniziali.Value = GetNumberOfSetBits(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_INITIAL, 4);
             numUpDown_RigheFinali.Value = GetNumberOfSetBits(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_EMPTY_ROWS_FINAL, 4);
-
-            checkBox_CassaInlineNumero.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE);
-            checkBox_StarsOnUnderGroup.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_STARS_ON_UNDER_GROUP);
-            checkBox_CenterTableAndName.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CENTER_TABLE_AND_NAME);
-
-            // caricato dal Listino
-            checkBox_Chars33.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
-
-            checkBox_LogoNelleCopie.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_LOGO_PRINT_ON_COPIES_REQUIRED);
-            checkBox_CopertiNelleCopie.Checked = IsBitSet(iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
 
             if (bShow)
                 ShowDialog();
         }
 
+        /// <summary>
+        /// funzione chiamata da STAND_CUCINA || STAND_MONITOR <br/>
+        /// oppure da STAND_FACILE mo solo CASSA_SECONDARIA
+        /// </summary>
         private void CheckBoxLocalSettings_CheckedChanged(object sender, EventArgs e)
         {
             if (ckBoxLocalSettings.Checked)
             {
-                checkBox_Chars33.Enabled = true;
+#if STANDFACILE
+                if (DataManager.CheckIf_CassaSec_and_NDB())
+                {
+                    checkBox_Chars33.Enabled = false;
+                    checkBox_CopertiNelleCopie.Enabled = false;
+                    checkBox_CassaInlineNumero.Enabled = false;
+                    checkBox_CenterTableAndName.Enabled = false;
+                    checkBox_StarsOnUnderGroup.Enabled = false;
+                }
+                else
+#endif
+                {
+                    checkBox_Chars33.Enabled = true;
+                    checkBox_CopertiNelleCopie.Enabled = true;
+                    checkBox_CassaInlineNumero.Enabled = true;
+                    checkBox_CenterTableAndName.Enabled = true;
+                    checkBox_StarsOnUnderGroup.Enabled = true;
+                }
+
                 checkBox_LogoNelleCopie.Enabled = true;
-                checkBox_CopertiNelleCopie.Enabled = true;
-                checkBox_CassaInlineNumero.Enabled = true;
-                checkBox_StarsOnUnderGroup.Enabled = true;
-                checkBox_CenterTableAndName.Enabled = true;
 
                 labelEmptyInitial.Enabled = true;
                 labelEmptyFinal.Enabled = true;
@@ -129,11 +172,11 @@ namespace StandFacile
             else
             {
                 checkBox_Chars33.Enabled = false;
-                checkBox_LogoNelleCopie.Enabled = false;
                 checkBox_CopertiNelleCopie.Enabled = false;
+                checkBox_LogoNelleCopie.Enabled = false;
                 checkBox_CassaInlineNumero.Enabled = false;
-                checkBox_StarsOnUnderGroup.Enabled = false;
                 checkBox_CenterTableAndName.Enabled = false;
+                checkBox_StarsOnUnderGroup.Enabled = false;
 
                 labelEmptyInitial.Enabled = false;
                 labelEmptyFinal.Enabled = false;
@@ -176,13 +219,12 @@ namespace StandFacile
 
 #if STANDFACILE
             AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
-#else
+#endif
+
             WriteRegistry(GEN_PRINT_LOC_STORE_KEY, ckBoxLocalSettings.Checked ? 1 : 0);
 
             if (ckBoxLocalSettings.Checked)
                 WriteRegistry(GEN_PRINT_OPT_KEY, iGenPrinterOptionsCopy);
-#endif
-
 
             Hide();
             LogToFile("GenPrinterDlg : OKBtnClick");

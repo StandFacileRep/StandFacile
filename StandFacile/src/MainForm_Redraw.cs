@@ -265,7 +265,6 @@ namespace StandFacile
                         MnuChiudiIncasso.Enabled = false;
                         MnuImpHeader.Enabled = false;
                         MnuImpTabsGrid.Enabled = false;
-                        MnuFileDiConfigurazione.Enabled = false;
 
                         if (SF_Data.bPrevendita)
                             MnuImpOpzioni.Enabled = false;
@@ -282,7 +281,6 @@ namespace StandFacile
                         // altrimenti con la Prevendita è troppo complessa la gestione dei nomi delle tabelle
                         MnuChiudiIncasso.Enabled = !SF_Data.bPrevendita;
                         MnuImpHeader.Enabled = true;
-                        MnuFileDiConfigurazione.Enabled = true;
                         MnuImpTabsGrid.Enabled = true;
                         MnuImpOpzioni.Enabled = true;
                         MnuImpListino.Enabled = true;
@@ -302,6 +300,7 @@ namespace StandFacile
                     MnuImpostaStampanteLegacy.Enabled = true;
                     MnuImpostaCopieLocali.Enabled = true;
                     MnuImpostaCopieInRete.Enabled = true;
+                    MnuFileDiConfigurazione.Enabled = true;
 
                 }
                 else // non Esperto

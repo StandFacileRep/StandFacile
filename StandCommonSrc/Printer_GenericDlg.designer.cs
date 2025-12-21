@@ -213,9 +213,9 @@
             this.ckBoxLocalSettings.Font = new System.Drawing.Font("Tahoma", 9F);
             this.ckBoxLocalSettings.Location = new System.Drawing.Point(23, 32);
             this.ckBoxLocalSettings.Name = "ckBoxLocalSettings";
-            this.ckBoxLocalSettings.Size = new System.Drawing.Size(357, 18);
+            this.ckBoxLocalSettings.Size = new System.Drawing.Size(364, 18);
             this.ckBoxLocalSettings.TabIndex = 94;
-            this.ckBoxLocalSettings.Text = "memorizza localmente (o vengono prese tramite il DataBase)";
+            this.ckBoxLocalSettings.Text = "memorizza localmente (altrimenti vengono lette dal DataBase)";
             this.ckBoxLocalSettings.UseVisualStyleBackColor = true;
             this.ckBoxLocalSettings.CheckedChanged += new System.EventHandler(this.CheckBoxLocalSettings_CheckedChanged);
             // 
