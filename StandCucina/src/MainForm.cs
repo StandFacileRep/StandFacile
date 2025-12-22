@@ -620,12 +620,14 @@ namespace StandFacile
                 MnuNetConfig.Enabled = true;
                 MnuFileDiConfigurazione.Enabled = true;
                 MnuConfigurazioneStampe.Enabled = true;
+                MnuImpostazioniStampaComuni.Enabled = true;
             }
             else
             {
                 MnuNetConfig.Enabled = false;
                 MnuFileDiConfigurazione.Enabled = false;
                 MnuConfigurazioneStampe.Enabled = false;
+                MnuImpostazioniStampaComuni.Enabled = false;
             }
         }
 
@@ -676,7 +678,12 @@ namespace StandFacile
             }
         }
 
-        private void MnuConfigurazioneStampeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void MnuImpostazioniStampaComuni_Click(object sender, EventArgs e)
+        {
+            GenPrinterDlg._rGenPrinterDlg.Init(true);
+        }
+
+        private void MnuConfigurazioneStampe_Click(object sender, EventArgs e)
         {
             if (CheckService(CFG_COMMON_STRINGS._HIDE_LEGACY_PRINTER))
                 WinPrinterDlg._rWinPrinterDlg.Init(true);

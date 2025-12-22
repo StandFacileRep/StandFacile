@@ -28,9 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            this.Timer = new System.Windows.Forms.Timer(this.components);
+            this.Timer = new System.Windows.Forms.Timer();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.MnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuPrintTest = new System.Windows.Forms.ToolStripMenuItem();
@@ -63,7 +62,7 @@
             this.BtnOnline = new System.Windows.Forms.Button();
             this.ME_TickNum = new System.Windows.Forms.TextBox();
             this.Label_ServerName = new System.Windows.Forms.Label();
-            this.ClientTimer = new System.Windows.Forms.Timer(this.components);
+            this.ClientTimer = new System.Windows.Forms.Timer();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.btnAnt = new System.Windows.Forms.Button();
             this.printerPicBox = new System.Windows.Forms.PictureBox();
@@ -75,6 +74,7 @@
             this.BtnNextTicket = new System.Windows.Forms.Button();
             this.checkBoxSkipPrinted = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.MnuImpostazioniStampaComuni = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.SBar_Tickets.SuspendLayout();
             this.SBar_Messages.SuspendLayout();
@@ -158,6 +158,7 @@
             this.N1,
             this.MnuNetConfig,
             this.toolStripSeparator2,
+            this.MnuImpostazioniStampaComuni,
             this.MnuConfigurazioneStampe,
             this.MnuFileDiConfigurazione});
             this.MnuImpostazioni.Name = "MnuImpostazioni";
@@ -193,7 +194,7 @@
             this.MnuConfigurazioneStampe.Name = "MnuConfigurazioneStampe";
             this.MnuConfigurazioneStampe.Size = new System.Drawing.Size(239, 22);
             this.MnuConfigurazioneStampe.Text = "Configurazione &Stampante ...";
-            this.MnuConfigurazioneStampe.Click += new System.EventHandler(this.MnuConfigurazioneStampeToolStripMenuItem_Click);
+            this.MnuConfigurazioneStampe.Click += new System.EventHandler(this.MnuConfigurazioneStampe_Click);
             // 
             // MnuFileDiConfigurazione
             // 
@@ -214,14 +215,14 @@
             // MnuAiutoRapido
             // 
             this.MnuAiutoRapido.Name = "MnuAiutoRapido";
-            this.MnuAiutoRapido.Size = new System.Drawing.Size(180, 22);
+            this.MnuAiutoRapido.Size = new System.Drawing.Size(168, 22);
             this.MnuAiutoRapido.Text = "&Aiuto rapido";
             this.MnuAiutoRapido.Click += new System.EventHandler(this.MnuManuale_Click);
             // 
             // MnuInfo
             // 
             this.MnuInfo.Name = "MnuInfo";
-            this.MnuInfo.Size = new System.Drawing.Size(180, 22);
+            this.MnuInfo.Size = new System.Drawing.Size(168, 22);
             this.MnuInfo.Text = "&Informazioni su ...";
             this.MnuInfo.Click += new System.EventHandler(this.MnuAbout_Click);
             // 
@@ -519,6 +520,13 @@
             this.label2.TabIndex = 28;
             this.label2.Text = "o annullati";
             // 
+            // MnuImpostazioniStampaComuni
+            // 
+            this.MnuImpostazioniStampaComuni.Name = "MnuImpostazioniStampaComuni";
+            this.MnuImpostazioniStampaComuni.Size = new System.Drawing.Size(239, 22);
+            this.MnuImpostazioniStampaComuni.Text = "Opzioni Comuni di Stampa ...";
+            this.MnuImpostazioniStampaComuni.Click += new System.EventHandler(this.MnuImpostazioniStampaComuni_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -614,6 +622,7 @@
         private System.Windows.Forms.CheckBox checkBoxSkipPrinted;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem MnuFileDiConfigurazione;
+        private System.Windows.Forms.ToolStripMenuItem MnuImpostazioniStampaComuni;
     }
 }
 

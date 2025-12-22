@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.DBGrid = new System.Windows.Forms.DataGridView();
             this.Timer = new System.Windows.Forms.Timer(this.components);
@@ -57,17 +57,18 @@
             this.MnuVisOrdini = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuImpostazioni = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuEsperto = new System.Windows.Forms.ToolStripMenuItem();
-            this.MnuFileDiConfigurazione = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuConfigurazioneStampe = new System.Windows.Forms.ToolStripMenuItem();
             this.N5 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuDBServer = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuFiltro = new System.Windows.Forms.ToolStripMenuItem();
+            this.MnuFileDiConfigurazione = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuAiuto = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuAiutoRapido = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnImgList = new System.Windows.Forms.ImageList(this.components);
             this.lblElapsedTime = new System.Windows.Forms.Label();
             this.btnAnt = new System.Windows.Forms.Button();
+            this.MnuImpostazioniStampaComuni = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DBGrid)).BeginInit();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -80,24 +81,24 @@
             this.DBGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.DBGrid.BackgroundColor = System.Drawing.Color.Navy;
             this.DBGrid.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Yellow;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DBGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DBGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.DBGrid.ColumnHeadersHeight = 30;
             this.DBGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DBGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DBGrid.DefaultCellStyle = dataGridViewCellStyle6;
             this.DBGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.DBGrid.EnableHeadersVisualStyles = false;
             this.DBGrid.GridColor = System.Drawing.SystemColors.ControlLight;
@@ -303,6 +304,7 @@
             // 
             this.MnuImpostazioni.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MnuEsperto,
+            this.MnuImpostazioniStampaComuni,
             this.MnuConfigurazioneStampe,
             this.N5,
             this.MnuDBServer,
@@ -319,13 +321,6 @@
             this.MnuEsperto.Size = new System.Drawing.Size(244, 22);
             this.MnuEsperto.Text = "&Modo Esperto";
             this.MnuEsperto.Click += new System.EventHandler(this.MnuEspertoClick);
-            // 
-            // MnuFileDiConfigurazione
-            // 
-            this.MnuFileDiConfigurazione.Name = "MnuFileDiConfigurazione";
-            this.MnuFileDiConfigurazione.Size = new System.Drawing.Size(244, 22);
-            this.MnuFileDiConfigurazione.Text = "&File di configurazione ...";
-            this.MnuFileDiConfigurazione.Click += new System.EventHandler(this.MnuFileDiConfigurazione_Click);
             // 
             // MnuConfigurazioneStampe
             // 
@@ -352,6 +347,13 @@
             this.MnuFiltro.Size = new System.Drawing.Size(244, 22);
             this.MnuFiltro.Text = "Fil&tro ...";
             this.MnuFiltro.Click += new System.EventHandler(this.MnuFiltro_Click);
+            // 
+            // MnuFileDiConfigurazione
+            // 
+            this.MnuFileDiConfigurazione.Name = "MnuFileDiConfigurazione";
+            this.MnuFileDiConfigurazione.Size = new System.Drawing.Size(244, 22);
+            this.MnuFileDiConfigurazione.Text = "&File di configurazione ...";
+            this.MnuFileDiConfigurazione.Click += new System.EventHandler(this.MnuFileDiConfigurazione_Click);
             // 
             // MnuAiuto
             // 
@@ -412,6 +414,13 @@
             this.btnAnt.TabIndex = 4;
             this.btnAnt.UseVisualStyleBackColor = false;
             this.btnAnt.Click += new System.EventHandler(this.BtnAnt_Click);
+            // 
+            // MnuImpostazioniStampaComuni
+            // 
+            this.MnuImpostazioniStampaComuni.Name = "MnuImpostazioniStampaComuni";
+            this.MnuImpostazioniStampaComuni.Size = new System.Drawing.Size(244, 22);
+            this.MnuImpostazioniStampaComuni.Text = "Opzioni Comuni di Stampa ...";
+            this.MnuImpostazioniStampaComuni.Click += new System.EventHandler(this.MnuImpostazioniStampaComuni_Click);
             // 
             // FrmMain
             // 
@@ -480,6 +489,7 @@
         private System.Windows.Forms.ToolStripMenuItem MnuAuxWindow3;
         private System.Windows.Forms.ToolStripMenuItem MnuRidColumns;
         private System.Windows.Forms.ToolStripMenuItem MnuFileDiConfigurazione;
+        private System.Windows.Forms.ToolStripMenuItem MnuImpostazioniStampaComuni;
     }
 }
 
