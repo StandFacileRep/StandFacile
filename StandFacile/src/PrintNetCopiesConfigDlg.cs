@@ -57,6 +57,10 @@ namespace StandFacile
 
         int[] _iGroupsColor = new int[NUM_EDIT_GROUPS];
 
+        /*****************************************************
+            vanno restituite solo variabili e non controlli,
+            che potrebbero non essere confermati con OK
+         *****************************************************/
 
         /// <summary> overload funzione che ritorna true se la stampante copie in uso è windows</summary>
         public static bool GetPrinterTypeIsWinwows(int iPrinterIndex)

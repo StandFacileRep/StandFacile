@@ -196,7 +196,7 @@ namespace StandFacile
                 sGlbWinPrinterParams.iTckLeftMargin = (int)numUpDown_RcpMargin.Minimum;
 
             if (sGlbWinPrinterParams.iTckLeftMargin > numUpDown_RcpMargin.Maximum)
-                sGlbWinPrinterParams.iTckLeftMargin = (int)numUpDown_RcpMargin.Maximum; ;
+                sGlbWinPrinterParams.iTckLeftMargin = (int)numUpDown_RcpMargin.Maximum;
 
             String stmp = sGlbWinPrinterParams.sTckFontType;
 
@@ -339,8 +339,8 @@ namespace StandFacile
             _sWinPrinterParamsCopy.iTckPrinterModel = PrintersListCombo.SelectedIndex;
 
             _sWinPrinterParamsCopy.iTckLeftMargin = (int)numUpDown_RcpMargin.Value;
-            _sWinPrinterParamsCopy.iRepLeftMargin = (int)numUpDown_RepMargin.Value; ;
-            _sWinPrinterParamsCopy.iLogoCenter = (int)numUpDown_LogoCenter.Value; ;
+            _sWinPrinterParamsCopy.iRepLeftMargin = (int)numUpDown_RepMargin.Value;
+            _sWinPrinterParamsCopy.iLogoCenter = (int)numUpDown_LogoCenter.Value;
 
             _sWinPrinterParamsCopy.iTckZoomValue = (int)numUpDownRcpZoom.Value;
             _sWinPrinterParamsCopy.iRepZoomValue = (int)numUpDownRepZoom.Value;

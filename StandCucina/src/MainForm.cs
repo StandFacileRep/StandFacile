@@ -292,7 +292,7 @@ namespace StandFacile
         private void BtnPrevTicket_Click(object sender, EventArgs e)
         {
             bool bThereIsSomethingToPrint;
-            int iDebug1, iDebug2; ;
+            int iDebug1, iDebug2;
 
             iDebug1 = iGlbCurrentOffline_TicketNum;
             iDebug2 = DB_Data.iStartingNumOfReceipts;

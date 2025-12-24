@@ -58,19 +58,19 @@ namespace StandFacile
             if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TABLE_REQUIRED))
             {
                 lblTavolo.ForeColor = Color.Blue;
-                lblTavolo.Font = new Font("Tahoma", 12); ;
+                lblTavolo.Font = new Font("Tahoma", 12);
             }
 
             if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PLACE_SETTINGS_REQUIRED))
             {
                 lblCoperti.ForeColor = Color.Blue;
-                lblCoperti.Font = new Font("Tahoma", 12); ;
+                lblCoperti.Font = new Font("Tahoma", 12);
             }
 
             if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PAYMENT_REQUIRED))
             {
                 groupBox.ForeColor = Color.Blue;
-                groupBox.Font = new Font("Tahoma", 12); ;
+                groupBox.Font = new Font("Tahoma", 12);
             }
 
             ShowDialog();

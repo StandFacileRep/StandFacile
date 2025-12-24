@@ -517,11 +517,10 @@ namespace StandFacile
 
                     if (sInStr == ORDER_CONST._START_OF_ORDER)
                     {
-
                         sOrdineTmp.iNumOrdine = Convert.ToInt32(sTable[iTableRow][0]["1"]);
-                        sOrdineTmp.iStatus = Convert.ToInt32(sTable[iTableRow][7]["8"]);
+                        sOrdineTmp.iStatus = Convert.ToInt32(sTable[iTableRow][8]["9"]);
                         sOrdineTmp.sCliente = sTable[iTableRow][1]["2"];
-                        sOrdineTmp.sDateTime = sTable[iTableRow][5]["6"];
+                        sOrdineTmp.sDateTime = sTable[iTableRow][6]["7"];
                         sOrdineTmp.iTotaleReceipt = Convert.ToInt32(sTable[iTableRow][3]["4"]);
 
                         if (int.TryParse(sTable[iTableRow][4]["5"], out iNumCoperti) == true)
@@ -531,7 +530,7 @@ namespace StandFacile
                     }
                     else if (sInStr == ORDER_CONST._PRICE_LIST_CHECKSUM)
                     {
-                        sOrdineTmp.sChecksum = sTable[iTableRow][5]["6"];
+                        sOrdineTmp.sChecksum = sTable[iTableRow][6]["7"];
 
                         iIndex++;
                     }
@@ -593,7 +592,7 @@ namespace StandFacile
                     {
                         //String sDebug = sTable[iIndex][8]["9"];
 
-                        int iRDB_StatusWeb = Convert.ToInt32(sTable[iIndex][7]["8"]); //readerOrdine.GetInt32("status");
+                        int iRDB_StatusWeb = Convert.ToInt32(sTable[iIndex][8]["9"]); //readerOrdine.GetInt32("status");
 
                         RDB_Data.iStatusReceipt = iRDB_StatusWeb & 0xFFF1;
                         // | BIT_CARICATO_DA_WEB doppione utile per la comprensione
@@ -603,41 +602,43 @@ namespace StandFacile
                         RDB_Data.iStatusSconto = (iRDB_StatusWeb >> 1) & 0x0007;
 
                         RDB_Data.iNumOrdineWeb = Convert.ToInt32(sTable[iIndex][0]["1"]);    //readerOrdine.GetInt32("order_ID");
-                        RDB_Data.sWebDateTime = Convert.ToString(sTable[iIndex][5]["6"]);    //readerOrdine.GetString("sText");
-                        RDB_Data.bAnnullato = (Convert.ToInt32(sTable[iIndex][8]["9"]) != 0);    //readerOrdine.GetBoolean("iAnnullato");
-                        RDB_Data.bStampato = (Convert.ToInt32(sTable[iIndex][10]["11"]) != 0);  //readerOrdine.GetBoolean("bStampato");
+                        RDB_Data.sWebDateTime = Convert.ToString(sTable[iIndex][6]["7"]);    //readerOrdine.GetString("sText");
+                        RDB_Data.bAnnullato = (Convert.ToInt32(sTable[iIndex][9]["10"]) != 0);    //readerOrdine.GetBoolean("iAnnullato");
+                        RDB_Data.bStampato = (Convert.ToInt32(sTable[iIndex][11]["12"]) != 0);  //readerOrdine.GetBoolean("bStampato");
                     }
 
                     // Tavolo
                     else if (sTipo == ORDER_CONST._TAVOLO)
-                        RDB_Data.sTavolo = sTable[iIndex][5]["6"];
+                        RDB_Data.sTavolo = sTable[iIndex][6]["7"];
 
                     // Name
                     else if (sTipo == ORDER_CONST._NOME)
 
-                        // RDB_Data.sNome = sTable[iIndex][5]["6"];
+                        // RDB_Data.sNome = sTable[iIndex][6]["7"];
 
                         try
                         {
-                            var jsonObj = jss.Deserialize<dynamic>(sTable[iIndex][5]["6"]);
+                            var jsonObj = jss.Deserialize<dynamic>(sTable[iIndex][6]["7"]);
                             RDB_Data.sNome = String.Format("{0} {1}", (string)jsonObj[0], (string)jsonObj[1]);
                         }
                         catch (Exception)
                         {
-                            RDB_Data.sNome = sTable[iIndex][5]["6"];
+                            RDB_Data.sNome = sTable[iIndex][6]["7"];
                         }
 
                     // Nota
                     else if (sTipo == ORDER_CONST._NOTA)
-                        RDB_Data.sNota = sTable[iIndex][5]["6"];
+                        RDB_Data.sNota = sTable[iIndex][6]["7"];
 
                     // Checksum
                     else if (sTipo == ORDER_CONST._PRICE_LIST_CHECKSUM)
                     {
-                        RDB_Data.sPL_Checksum = sTable[iIndex][5]["6"];
+                        RDB_Data.sPL_Checksum = sTable[iIndex][6]["7"];
                     }
 
-                    // Sconto alla cassa
+                    // Sconto web: viene ricostruito
+                    else if (sTipo == ORDER_CONST._SCONTO)
+                        sTipo = ""; // non fare nulla
 
                     else
                     {

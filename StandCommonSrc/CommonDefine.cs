@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.16.2b";
+        public const String RELEASE_SW = "v5.16.2c";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_DB_TBLS = "v5d";
@@ -75,10 +75,7 @@ namespace StandCommonFiles
         }
 
         /// <summary>indicatore di ordine formattato JSON</summary>
-        public const String _JS_ORDER_V5c = "js_order_v5c";
-
-        /// <summary>indicatore di ordine formattato JSON</summary>
-        public const String _JS_ORDER_V5d = "js_order_v5d";
+        public const String _JS_ORDER = "js_order_v5d";
 
         /// <summary>radice segnaposto per indicare i tipi vuoti</summary>
         public const String SHMAGIC = "_#@$_";
@@ -101,7 +98,7 @@ namespace StandCommonFiles
             public const String _NOTA = "_Note" + SHMAGIC;
 
             /// <summary>sTipo_Articolo per memorizzazione dello sconto Fisso e Gratis nella tabella ordini_YYmmdd</summary>
-            public const String _SCONTO = "_Sconto" + SHMAGIC;
+            public const String _SCONTO = "_Discount" + SHMAGIC;
 
             /// <summary>sTipo_Articolo per memorizzazione del valore Buoni Applicati nella tabella ordini_YYmmdd</summary>
             public const String _BUONI = "_Buoni" + SHMAGIC;

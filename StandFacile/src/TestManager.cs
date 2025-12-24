@@ -218,7 +218,7 @@ namespace StandFacile
 
             iTagStart_IA = sInStr.IndexOf("<IA>"); // Imposta Articolo
             iTagStart_ET = sInStr.IndexOf("<ET>"); // Emissione scontrino
-            iTagStart_ES = sInStr.IndexOf("<ES>"); // Esportazione
+            iTagStart_ES = sInStr.IndexOf("<ES>"); // Asporto
             iTagStart_IF = sInStr.IndexOf("<IF>"); // Ignora file
             iTagStart_DS = sInStr.IndexOf("<DS>"); // Sconto
             iTagStart_CS = sInStr.IndexOf("<CS>"); // Cassa
@@ -376,7 +376,7 @@ namespace StandFacile
             }
             else if ((iTagStart_ES != -1) && (iTagStop_ES != -1))
             {
-                // Esportazione
+                // Asporto
                 if (_iNumCassa == SF_Data.iNumCassa)
                     rFrmMain.BtnAsporto_Click(null, null);
 
@@ -600,7 +600,7 @@ namespace StandFacile
                 _fRecording.WriteLine(sTmpRec);
             }
 
-            // esportazione
+            // asporto
             if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO))
                 _fRecording.WriteLine("<ES><bv>1</bv></ES>");
 

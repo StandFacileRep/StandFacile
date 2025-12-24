@@ -1149,7 +1149,7 @@ namespace StandFacile
             bool bResult;
             int iNumScontrino, iRDB_StatusWeb, iGruppo, iLength;
             String sLog, sStrBarcode, sStrNum, sStrDay, sStrGruppo;
-            String JSON_Type = "", JSON_CONFIG_TYPE;
+            String JSON_Type = "";
 
             //Dictionary<int, object> dict = null;
 
@@ -1172,9 +1172,6 @@ namespace StandFacile
 
                     try
                     {
-                        // consente utilizzo altro url da file di configurazione
-                        JSON_CONFIG_TYPE = String.Format("js_order_{0}", sConfig.sWebUrlVersion);
-
                         Dictionary<String, object> dict = null;
 
                         try
@@ -1184,8 +1181,7 @@ namespace StandFacile
                             string sTmpJson = "";
 
                             // correzione tastiera Italiana 142, QRcode non produce le parentesi !
-                            if ((sStrBarcode[0] != '{') && (sStrBarcode.Contains(_JS_ORDER_V5c) || sStrBarcode.Contains(_JS_ORDER_V5d) ||
-                                 sStrBarcode.Contains(JSON_CONFIG_TYPE) && !String.IsNullOrWhiteSpace(JSON_CONFIG_TYPE)))
+                            if ((sStrBarcode[0] != '{') && sStrBarcode.Contains(_JS_ORDER))
                                 sTmpJson = '{' + sStrBarcode + '}';
                             else
                                 sTmpJson = sStrBarcode;
@@ -1199,7 +1195,7 @@ namespace StandFacile
                         }
 
                         // compatibilità con versioni precedenti
-                        if ((JSON_Type == _JS_ORDER_V5c) || (JSON_Type == _JS_ORDER_V5d) || (JSON_Type == JSON_CONFIG_TYPE) && !String.IsNullOrWhiteSpace(JSON_CONFIG_TYPE))
+                        if (JSON_Type == _JS_ORDER)
                         {
                             // ottiene la tabella dell'output JSON
                             var jss = new JavaScriptSerializer();
