@@ -98,7 +98,7 @@ namespace StandCommonFiles
             public const String _NOTA = "_Note" + SHMAGIC;
 
             /// <summary>sTipo_Articolo per memorizzazione dello sconto Fisso e Gratis nella tabella ordini_YYmmdd</summary>
-            public const String _SCONTO = "_Discount" + SHMAGIC;
+            public const String _DISCOUNT = "_Discount" + SHMAGIC;
 
             /// <summary>sTipo_Articolo per memorizzazione del valore Buoni Applicati nella tabella ordini_YYmmdd</summary>
             public const String _BUONI = "_Buoni" + SHMAGIC;
@@ -113,7 +113,7 @@ namespace StandCommonFiles
             public const String _PRICE_LIST_CHECKSUM = "_PriceListChecksum" + SHMAGIC;
 
             /// <summary>array per la ricerca di una stringa</summary>
-            public static readonly String[] sArray = new String[] { _START_OF_ORDER, _TAVOLO, _NOME, _NOTA, _SCONTO,
+            public static readonly String[] sArray = new String[] { _START_OF_ORDER, _TAVOLO, _NOME, _NOTA, _DISCOUNT,
                                                                         _BUONI, _NUM_ORD_WEB, _NUM_ORD_PREV };
         }
 

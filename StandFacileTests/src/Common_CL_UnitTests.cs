@@ -263,7 +263,7 @@ namespace StandFacileTests
             string sSconto = ORDER_CONST._START_OF_ORDER;
 
             // Act
-            bool bResult = StringBelongsTo_ORDER_CONST(sSconto, ORDER_CONST._SCONTO);
+            bool bResult = StringBelongsTo_ORDER_CONST(sSconto, ORDER_CONST._DISCOUNT);
 
             // Assert
             Assert.IsTrue(bResult);
@@ -273,10 +273,10 @@ namespace StandFacileTests
         public void StringBelongsTo_ORDER_CONST_SCONTO_exc_ReturnsFalse()
         {
             // Arrange
-            string sSconto = ORDER_CONST._SCONTO;
+            string sSconto = ORDER_CONST._DISCOUNT;
 
             // Act
-            bool bResult = StringBelongsTo_ORDER_CONST(sSconto, ORDER_CONST._SCONTO);
+            bool bResult = StringBelongsTo_ORDER_CONST(sSconto, ORDER_CONST._DISCOUNT);
 
             // Assert
             Assert.IsFalse(bResult);
@@ -286,7 +286,7 @@ namespace StandFacileTests
         public void StringBelongsTo_ORDER_CONST_SCONTO_ReturnsTrue()
         {
             // Arrange
-            string sSconto = ORDER_CONST._SCONTO;
+            string sSconto = ORDER_CONST._DISCOUNT;
 
             // Act
             bool bResult = StringBelongsTo_ORDER_CONST(sSconto);

@@ -637,7 +637,7 @@ namespace StandFacile
                     }
 
                     // Sconto web: viene ricostruito
-                    else if (sTipo == ORDER_CONST._SCONTO)
+                    else if (sTipo == ORDER_CONST._DISCOUNT)
                         sTipo = ""; // non fare nulla
 
                     else

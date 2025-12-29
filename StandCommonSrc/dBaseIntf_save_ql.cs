@@ -1079,7 +1079,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = ORDER_CONST._SCONTO;
+                        row["sTipo_Articolo"] = ORDER_CONST._DISCOUNT;
                         row["iPrezzo_Unitario"] = SF_Data.iScontoStdReceipt;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
@@ -1098,7 +1098,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = ORDER_CONST._SCONTO;
+                        row["sTipo_Articolo"] = ORDER_CONST._DISCOUNT;
                         row["iPrezzo_Unitario"] = SF_Data.iScontoFissoReceipt;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
@@ -1117,7 +1117,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = ORDER_CONST._SCONTO;
+                        row["sTipo_Articolo"] = ORDER_CONST._DISCOUNT;
                         row["iPrezzo_Unitario"] = SF_Data.iScontoGratisReceipt;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;

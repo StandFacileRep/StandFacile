@@ -412,7 +412,7 @@ namespace StandFacile_DB
                                 if (DB_Data.bAnnullato)
                                     DB_Data.iNumAnnullati++;
                             }
-                            else if (sTipo == ORDER_CONST._SCONTO)
+                            else if (sTipo == ORDER_CONST._DISCOUNT)
                             {
                                 iStatusScontoReceipt = readerOrdine.GetInt32("iStatus");
                                 iPrezzoUnitario = readerOrdine.GetInt32("iPrezzo_Unitario");
@@ -434,7 +434,7 @@ namespace StandFacile_DB
                                 iGruppoStampa = readerOrdine.GetInt32("iGruppo_Stampa");
                             }
 
-                            if (StringBelongsTo_ORDER_CONST(sTipo, ORDER_CONST._SCONTO))
+                            if (StringBelongsTo_ORDER_CONST(sTipo, ORDER_CONST._DISCOUNT))
                                 continue;
 
                             /************************************
@@ -452,7 +452,7 @@ namespace StandFacile_DB
 
                                     sDebug = DB_Data.Articolo[0].sTipo;
 
-                                    if ((DB_Data.Articolo[i].sTipo == sTipo) || (sTipo == ORDER_CONST._SCONTO))
+                                    if ((DB_Data.Articolo[i].sTipo == sTipo) || (sTipo == ORDER_CONST._DISCOUNT))
                                     {
                                         if (bRigaAnnullata)
                                         {
@@ -461,17 +461,17 @@ namespace StandFacile_DB
                                         }
                                         else
                                         {
-                                            if (IsBitSet(iStatusScontoReceipt, BIT_SCONTO_STD) && (sTipo == ORDER_CONST._SCONTO))
+                                            if (IsBitSet(iStatusScontoReceipt, BIT_SCONTO_STD) && (sTipo == ORDER_CONST._DISCOUNT))
                                             {
                                                 DB_Data.iTotaleScontatoStd += iPrezzoUnitario;
                                                 iScontoStdReceipt = iPrezzoUnitario;
                                             }
-                                            else if (IsBitSet(iStatusScontoReceipt, BIT_SCONTO_FISSO) && (sTipo == ORDER_CONST._SCONTO))
+                                            else if (IsBitSet(iStatusScontoReceipt, BIT_SCONTO_FISSO) && (sTipo == ORDER_CONST._DISCOUNT))
                                             {
                                                 DB_Data.iTotaleScontatoFisso += iPrezzoUnitario;
                                                 iScontoFissoReceipt = iPrezzoUnitario;
                                             }
-                                            else if (IsBitSet(iStatusScontoReceipt, BIT_SCONTO_GRATIS) && (sTipo == ORDER_CONST._SCONTO))
+                                            else if (IsBitSet(iStatusScontoReceipt, BIT_SCONTO_GRATIS) && (sTipo == ORDER_CONST._DISCOUNT))
                                             {
                                                 DB_Data.iTotaleScontatoGratis += iPrezzoUnitario;
                                                 iScontoGratisReceipt = iPrezzoUnitario;
@@ -513,7 +513,7 @@ namespace StandFacile_DB
                             } // end for i
 
                             // aggiunge alla fine l'Articolo altrimenti non trovato
-                            // sTipo == _SCONTO non passa mai di qua, quindi non serve aggiornare 
+                            // sTipo == _DISCOUNT non passa mai di qua, quindi non serve aggiornare 
                             // DB_Data.iTotaleScontatoStd, DB_Data.iTotaleScontatoFisso, DB_Data.iTotaleScontatoGratis
                             if (!bMatch)
                             {
@@ -914,7 +914,7 @@ namespace StandFacile_DB
                         }
 
                         // Sconto
-                        else if (sInStr == ORDER_CONST._SCONTO)
+                        else if (sInStr == ORDER_CONST._DISCOUNT)
                         {
                             DB_Data.iStatusSconto = readerOrdine.GetInt32("iStatus");
                             DB_Data.sScontoText = readerOrdine.GetString("sText");
