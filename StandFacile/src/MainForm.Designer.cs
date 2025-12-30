@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.BtnImgList = new System.Windows.Forms.ImageList(this.components);
             this.MainMenu = new System.Windows.Forms.MenuStrip();
@@ -562,19 +562,19 @@
             // MnuQuickHelp
             // 
             this.MnuQuickHelp.Name = "MnuQuickHelp";
-            this.MnuQuickHelp.Size = new System.Drawing.Size(180, 22);
+            this.MnuQuickHelp.Size = new System.Drawing.Size(171, 22);
             this.MnuQuickHelp.Text = "Aiuto &Rapido";
             this.MnuQuickHelp.Click += new System.EventHandler(this.MnuQHelp_Click);
             // 
             // A1
             // 
             this.A1.Name = "A1";
-            this.A1.Size = new System.Drawing.Size(177, 6);
+            this.A1.Size = new System.Drawing.Size(168, 6);
             // 
             // MnuInfo
             // 
             this.MnuInfo.Name = "MnuInfo";
-            this.MnuInfo.Size = new System.Drawing.Size(180, 22);
+            this.MnuInfo.Size = new System.Drawing.Size(171, 22);
             this.MnuInfo.Text = "&Informazioni su ...";
             this.MnuInfo.Click += new System.EventHandler(this.MnuInfo_Click);
             // 
@@ -731,14 +731,14 @@
             this.MainGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MainGrid.ColumnHeadersVisible = false;
             this.MainGrid.ContextMenuStrip = this.MainGridContextMenu;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MainGrid.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MainGrid.DefaultCellStyle = dataGridViewCellStyle2;
             this.MainGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.MainGrid.EnableHeadersVisualStyles = false;
             this.MainGrid.GridColor = System.Drawing.Color.Gainsboro;
@@ -791,94 +791,94 @@
             this.m5,
             this.m10});
             this.MainGridContextMenu.Name = "MainGridMenu";
-            this.MainGridContextMenu.Size = new System.Drawing.Size(181, 418);
+            this.MainGridContextMenu.Size = new System.Drawing.Size(98, 396);
             // 
             // p1
             // 
             this.p1.Name = "p1";
-            this.p1.Size = new System.Drawing.Size(180, 22);
+            this.p1.Size = new System.Drawing.Size(97, 22);
             this.p1.Text = "+ 1";
             this.p1.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p2
             // 
             this.p2.Name = "p2";
-            this.p2.Size = new System.Drawing.Size(180, 22);
+            this.p2.Size = new System.Drawing.Size(97, 22);
             this.p2.Text = "+ 2";
             this.p2.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p3
             // 
             this.p3.Name = "p3";
-            this.p3.Size = new System.Drawing.Size(180, 22);
+            this.p3.Size = new System.Drawing.Size(97, 22);
             this.p3.Text = "+ 3";
             this.p3.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p4
             // 
             this.p4.Name = "p4";
-            this.p4.Size = new System.Drawing.Size(180, 22);
+            this.p4.Size = new System.Drawing.Size(97, 22);
             this.p4.Text = "+ 4";
             this.p4.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p5
             // 
             this.p5.Name = "p5";
-            this.p5.Size = new System.Drawing.Size(180, 22);
+            this.p5.Size = new System.Drawing.Size(97, 22);
             this.p5.Text = "+ 5";
             this.p5.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p6
             // 
             this.p6.Name = "p6";
-            this.p6.Size = new System.Drawing.Size(180, 22);
+            this.p6.Size = new System.Drawing.Size(97, 22);
             this.p6.Text = "+ 6";
             this.p6.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p7
             // 
             this.p7.Name = "p7";
-            this.p7.Size = new System.Drawing.Size(180, 22);
+            this.p7.Size = new System.Drawing.Size(97, 22);
             this.p7.Text = "+ 7";
             this.p7.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p8
             // 
             this.p8.Name = "p8";
-            this.p8.Size = new System.Drawing.Size(180, 22);
+            this.p8.Size = new System.Drawing.Size(97, 22);
             this.p8.Text = "+ 8";
             this.p8.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p9
             // 
             this.p9.Name = "p9";
-            this.p9.Size = new System.Drawing.Size(180, 22);
+            this.p9.Size = new System.Drawing.Size(97, 22);
             this.p9.Text = "+ 9";
             this.p9.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p10
             // 
             this.p10.Name = "p10";
-            this.p10.Size = new System.Drawing.Size(180, 22);
+            this.p10.Size = new System.Drawing.Size(97, 22);
             this.p10.Text = "+ 10";
             this.p10.Click += new System.EventHandler(this.MPx_Click);
             // 
             // p20
             // 
             this.p20.Name = "p20";
-            this.p20.Size = new System.Drawing.Size(180, 22);
+            this.p20.Size = new System.Drawing.Size(97, 22);
             this.p20.Text = "+ 20";
             this.p20.Click += new System.EventHandler(this.MPx_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(94, 6);
             // 
             // z1
             // 
             this.z1.Name = "z1";
-            this.z1.Size = new System.Drawing.Size(180, 22);
+            this.z1.Size = new System.Drawing.Size(97, 22);
             this.z1.Text = "= 0";
             this.z1.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.z1.Click += new System.EventHandler(this.MPx_Click);
@@ -886,45 +886,45 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(94, 6);
             // 
             // m1
             // 
             this.m1.Name = "m1";
-            this.m1.Size = new System.Drawing.Size(180, 22);
+            this.m1.Size = new System.Drawing.Size(97, 22);
             this.m1.Text = "- 1";
             this.m1.Click += new System.EventHandler(this.MPx_Click);
             // 
             // m2
             // 
             this.m2.Name = "m2";
-            this.m2.Size = new System.Drawing.Size(180, 22);
+            this.m2.Size = new System.Drawing.Size(97, 22);
             this.m2.Text = "- 2";
             this.m2.Click += new System.EventHandler(this.MPx_Click);
             // 
             // m3
             // 
             this.m3.Name = "m3";
-            this.m3.Size = new System.Drawing.Size(180, 22);
+            this.m3.Size = new System.Drawing.Size(97, 22);
             this.m3.Text = "- 3";
             this.m3.Click += new System.EventHandler(this.MPx_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(94, 6);
             // 
             // m5
             // 
             this.m5.Name = "m5";
-            this.m5.Size = new System.Drawing.Size(180, 22);
+            this.m5.Size = new System.Drawing.Size(97, 22);
             this.m5.Text = "- 5";
             this.m5.Click += new System.EventHandler(this.MPx_Click);
             // 
             // m10
             // 
             this.m10.Name = "m10";
-            this.m10.Size = new System.Drawing.Size(180, 22);
+            this.m10.Size = new System.Drawing.Size(97, 22);
             this.m10.Text = "- 10";
             this.m10.Click += new System.EventHandler(this.MPx_Click);
             // 

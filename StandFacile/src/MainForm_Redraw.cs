@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 30.11.2025
+    Data	 : 30.12.2025
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -1356,13 +1356,13 @@ namespace StandFacile
         public void FormResize(object sender, EventArgs e)
         {
             int i, j, k, h;
-            int iThresholdConst = lblCoperti.Height + EditCoperti.Height + lblCoperti.Top;
+            int iThresholdConst = lblCoperti.Height + EditCoperti.Height + lblCoperti.Top + 1;
 
             const int iStdEditDistance = 59;
             const int iCompactEditDistance = 34;
 
             int iRowsHeight, iPrimoGruppoStampa, iGruppoStampa, iTextRightMargin;
-            String sText;
+            String sText, sLogStr;
 
             float fColumnsWidth, fTextSize;
 
@@ -1376,8 +1376,8 @@ namespace StandFacile
             {
                 TabSet.Height = 34;
                 topPanel.Height = 60;
-                toolStripTop.Width = topPanel.Width - toolStripTop.Left - 40;
-                toolStripTop.Left = 2;
+                toolStripTop.Width = topPanel.Width - toolStripTop.Left - 20;
+                toolStripTop.Left = 6;
                 BtnSep_T6.Visible = false;
 
                 BtnScontrino.Size = new Size(80, 60);
@@ -1438,17 +1438,15 @@ namespace StandFacile
 
                 Edit_TotCorrente.Visible = true;
 
+                EditTavolo.Top = EditCoperti.Top + iStdEditDistance;
                 EditNome.Top = EditTavolo.Top + iStdEditDistance;
                 EditContante.Top = EditResto.Top - iStdEditDistance;
-                EditTavolo.Top = EditCoperti.Top + iStdEditDistance;
 
                 lblCoperti.Text = "COPERTI";
                 lblCoperti.Left = 69;
 
                 lblTavolo.Text = "TAVOLO";
                 lblTavolo.Left = 75;
-
-                EditTavolo.Top = EditCoperti.Top + 59;
 
                 lblNome.Left = 82;
 
@@ -1484,6 +1482,14 @@ namespace StandFacile
                 labelTotale.Visible = false;
                 Edit_TotCorrente.Visible = false;
 
+                sLogStr = String.Format("FormResize: pRH = {0}, Trh = {1}", panelRight.Height, iThresholdConst);
+                LogToFile(sLogStr, true);
+
+                // può generare sfarfallio, ma ottiene maggiore precisione
+                EditTavolo.Top = EditCoperti.Top + iStdEditDistance;
+                EditNome.Top = EditTavolo.Top + iStdEditDistance;
+                EditContante.Top = EditResto.Top - iStdEditDistance;
+
                 // questo può scomparire del tutto
 
                 if (panelRight.Height > (6 * iThresholdConst) + 6)
@@ -1495,10 +1501,7 @@ namespace StandFacile
                     lblResto.Visible = true;
 
                     Edit_TotCorrente.Visible = true;
-
-                    EditNome.Top = EditTavolo.Top + iStdEditDistance;
-                    EditContante.Top = EditResto.Top - iStdEditDistance;
-                    EditTavolo.Top = EditCoperti.Top + iStdEditDistance;
+                    LogToFile("FormResize: Trh = 6*", true);
                 }
                 else
                 {
@@ -1508,6 +1511,7 @@ namespace StandFacile
                     if (panelRight.Height > (5 * iThresholdConst) + 6)
                     {
                         lblPagato.Visible = true;
+                        LogToFile("FormResize: Trh = 5*", true);
                     }
                     else
                     {
@@ -1516,7 +1520,7 @@ namespace StandFacile
                         if (panelRight.Height > (4.5 * iThresholdConst) + 6)
                         {
                             lblResto.Visible = true;
-                            EditContante.Top = EditResto.Top - iStdEditDistance;
+                            LogToFile("FormResize: Trh = 4.5*", true);
                         }
                         else
                         {
@@ -1526,7 +1530,7 @@ namespace StandFacile
                             if (panelRight.Height > (4 * iThresholdConst) + 16)
                             {
                                 lblNome.Visible = true;
-                                EditNome.Top = EditTavolo.Top + iStdEditDistance;
+                                LogToFile("FormResize: Trh = 4*", true);
                             }
                             else
                             {
@@ -1536,14 +1540,14 @@ namespace StandFacile
                                 if (panelRight.Height > (3.5 * iThresholdConst) + 16)
                                 {
                                     lblTavolo.Visible = true;
-                                    EditTavolo.Top = EditCoperti.Top + iStdEditDistance;
-                                    //EditNome.Top = EditTavolo.Top + iStdEditDistance;
+                                    LogToFile("FormResize: Trh = 3.5*", true);
                                 }
                                 else
                                 {
                                     lblTavolo.Visible = false;
                                     EditTavolo.Top = EditCoperti.Top + iCompactEditDistance;
                                     EditNome.Top = EditTavolo.Top + iCompactEditDistance;
+                                    LogToFile("FormResize: Trh = 3*", true);
                                 }
                             }
                         }
@@ -1618,12 +1622,12 @@ namespace StandFacile
 
             iTextRightMargin = ((toolStripTop.Width - toolStripTop.Padding.Left - toolStripTop.Padding.Right - _iToolStripTop_MarginTotal) / 2);
 
-            LogToFile(String.Format("FormResize iTextRightMargin = {0}", iTextRightMargin), false);
+            LogToFile(String.Format("FormResize iTextRightMargin = {0}", iTextRightMargin), true);
 
             if (iTextRightMargin > 0)
                 BtnSep_T8.Margin = new Padding(iTextRightMargin, 0, 20, 0);
             else
-                BtnSep_T8.Margin = new Padding(20, 0, 20, 0);
+                BtnSep_T8.Margin = new Padding(0, 0, 20, 0);
 
 
             toolStripTop.Refresh();
