@@ -1479,8 +1479,8 @@ namespace StandFacile
                 btnNavLeft.Visible = false;
                 btnNavRight.Visible = true;
 
-                labelTotale.Visible = false;
-                Edit_TotCorrente.Visible = false;
+                labelTotale.Visible = true;
+                Edit_TotCorrente.Visible = true;
 
                 sLogStr = String.Format("FormResize: pRH = {0}, Trh = {1}", panelRight.Height, iThresholdConst);
                 LogToFile(sLogStr, true);
@@ -1490,17 +1490,14 @@ namespace StandFacile
                 EditNome.Top = EditTavolo.Top + iStdEditDistance;
                 EditContante.Top = EditResto.Top - iStdEditDistance;
 
-                // questo può scomparire del tutto
+                lblTavolo.Visible = true;
+                lblNome.Visible = true;
+                labelTotale.Visible = true;
+                lblPagato.Visible = true;
+                lblResto.Visible = true;
 
                 if (panelRight.Height > (6 * iThresholdConst) + 6)
                 {
-                    lblTavolo.Visible = true;
-                    lblNome.Visible = true;
-                    labelTotale.Visible = true;
-                    lblPagato.Visible = true;
-                    lblResto.Visible = true;
-
-                    Edit_TotCorrente.Visible = true;
                     LogToFile("FormResize: Trh = 6*", true);
                 }
                 else
@@ -1510,7 +1507,6 @@ namespace StandFacile
 
                     if (panelRight.Height > (5 * iThresholdConst) + 6)
                     {
-                        lblPagato.Visible = true;
                         LogToFile("FormResize: Trh = 5*", true);
                     }
                     else
@@ -1519,7 +1515,6 @@ namespace StandFacile
 
                         if (panelRight.Height > (4.5 * iThresholdConst) + 6)
                         {
-                            lblResto.Visible = true;
                             LogToFile("FormResize: Trh = 4.5*", true);
                         }
                         else
@@ -1529,7 +1524,6 @@ namespace StandFacile
 
                             if (panelRight.Height > (4 * iThresholdConst) + 16)
                             {
-                                lblNome.Visible = true;
                                 LogToFile("FormResize: Trh = 4*", true);
                             }
                             else
@@ -1539,7 +1533,6 @@ namespace StandFacile
 
                                 if (panelRight.Height > (3.5 * iThresholdConst) + 16)
                                 {
-                                    lblTavolo.Visible = true;
                                     LogToFile("FormResize: Trh = 3.5*", true);
                                 }
                                 else
@@ -1762,8 +1755,9 @@ namespace StandFacile
 
             //topPanel.Refresh();
             //TabSet.Refresh();
-            toolStripButtons_R.Refresh();
 
+            toolStripButtons_R.Refresh();
+            //panelRight.Refresh();
             MainGrid.Refresh();
         } // end FormResize
 
