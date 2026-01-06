@@ -229,6 +229,7 @@
             // 
             // checkBoxBCD_9
             // 
+            this.checkBoxBCD_9.AutoCheck = false;
             this.checkBoxBCD_9.AutoSize = true;
             this.checkBoxBCD_9.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxBCD_9.Image = global::StandFacile.Properties.Resources.barcode;

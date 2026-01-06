@@ -293,7 +293,7 @@ namespace StandFacile
 #endif
         }
 
-        /// <summary> imposta i parametri della connessione letta dallo Stato NOME_STATO_DBTBL </summary>
+        /// <summary> imposta i parametri della connessione letta dallo Stato NOME_STATUS_DBTBL </summary>
         public static void SetDbMode(String sServerParam, String sPwdParam, int iDbModePrm)
         {
             _sDB_ServerName = sServerParam;

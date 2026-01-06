@@ -287,7 +287,7 @@ namespace StandFacile
                 SF_Data.Articolo[i].iOptionsFlags = 0;
             }
 
-            rFrmMain.SetEditNome("");
+            rFrmMain.SetEditName("");
             rFrmMain.SetEditTavolo("");
             rFrmMain.SetEditCoperto("");
             rFrmMain.SetEditNota("");
@@ -1228,7 +1228,7 @@ namespace StandFacile
 
             rFrmMain.SetEditCoperto(DB_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
             rFrmMain.SetEditTavolo(DB_Data.sTavolo);
-            rFrmMain.SetEditNome(DB_Data.sNome);
+            rFrmMain.SetEditName(DB_Data.sNome);
             rFrmMain.SetEditNota(DB_Data.sNota);
 
             AnteprimaDlg.rAnteprimaDlg.Show();
@@ -1348,7 +1348,7 @@ namespace StandFacile
                 SF_Data.sNota = RDB_Data.sNota;
 
                 rFrmMain.SetEditTavolo(RDB_Data.sTavolo);
-                rFrmMain.SetEditNome(RDB_Data.sNome);
+                rFrmMain.SetEditName(RDB_Data.sNome);
                 rFrmMain.SetEditNota(RDB_Data.sNota);
 
                 if (!IsBitSet(RDB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ORDINE_DIRETTO_DA_WEB))
@@ -1485,7 +1485,7 @@ namespace StandFacile
             rFrmMain.SetEditCoperto(DB_Data.Articolo[MAX_NUM_ARTICOLI - 1].iQuantitaOrdine.ToString());
 
             rFrmMain.SetEditTavolo(DB_Data.sTavolo);
-            rFrmMain.SetEditNome(DB_Data.sNome);
+            rFrmMain.SetEditName(DB_Data.sNome);
             rFrmMain.SetEditNota(DB_Data.sNota);
 
             rFrmMain.EnableTextBox(true);

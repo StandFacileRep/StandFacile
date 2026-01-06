@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************************
 	NomeFile : StandFacile/dBaseTunnel_my.cs
-    Data	 : 10.08.2025
+    Data	 : 31.12.2025
 	Autore   : Mauro Artuso
 
     Classe per la lettura degli ordini in remoto, utilizza HTTP tunneling
@@ -227,9 +227,10 @@ namespace StandFacile
         /// </summary>
         private static String SendWebRequest(String sSQL_QueryPrm, int iTimeoutParam = 4000)
         {
-            String sSQL_Query, sGQuery, sResponseFromServer = "";
+            String sSQL_Query, sResponseFromServer = "";
             StreamReader reader;
             Stream dataStream;
+            byte[] dataBytes;
 
             // LogToFile(String.Format("dBaseTunnel : sSQL_Query {0}", sSQL_QueryPrm));
             sSQL_Query = Encrypt_WS(sSQL_QueryPrm);
@@ -238,20 +239,40 @@ namespace StandFacile
              * VIP: l'utente ha lo stesso nome del database, quindi non serve inviarlo !
              *****************************************************************************/
 
-            sGQuery = String.Format(@"{0}host={1}&dbname={2}&password={3}&query={4}&encrypted=1",
-                        _sTunnel_URL, Base64Encode(_sEncryptedHost), Base64Encode(_sEncryptedDatabase),
-                        Base64Encode(_sWebServerParams.sWebEncryptedPwd), Base64Encode(sSQL_Query));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(_sTunnel_URL);
+            HttpWebResponse response;
 
-            LogToFile(String.Format("SendWebRequest : sGQuery lenght={0}", sGQuery.Length));
+            request.Method = "POST"; // consente maggiore invio di dati rispetto a GET
+            request.ContentType = "application/x-www-form-urlencoded";
 
-            WebResponse response;
-            WebRequest request = WebRequest.Create(sGQuery);
+            //request.ContentLength = dataBytes.Length;
+
             request.Credentials = CredentialCache.DefaultCredentials;
             request.Timeout = iTimeoutParam;
 
+            // scrittura del body POST
+            using (var stream = request.GetRequestStream())
+            {
+                dataBytes = Encoding.UTF8.GetBytes("host=" + Base64Encode(_sEncryptedHost));
+                stream.Write(dataBytes, 0, dataBytes.Length);
+
+                dataBytes = Encoding.UTF8.GetBytes("&dbname=" + Base64Encode(_sEncryptedDatabase));
+                stream.Write(dataBytes, 0, dataBytes.Length);
+
+                dataBytes = Encoding.UTF8.GetBytes("&password=" + Base64Encode(_sWebServerParams.sWebEncryptedPwd));
+                stream.Write(dataBytes, 0, dataBytes.Length);
+
+                dataBytes = Encoding.UTF8.GetBytes("&query=" + Base64Encode(sSQL_Query));
+                stream.Write(dataBytes, 0, dataBytes.Length);
+
+                dataBytes = Encoding.UTF8.GetBytes("&encrypted=1");
+                stream.Write(dataBytes, 0, dataBytes.Length);
+            }
+
+
             try
             {
-                response = request.GetResponse();
+                response = (HttpWebResponse)request.GetResponse();
 
                 if (((HttpWebResponse)response).StatusCode == HttpStatusCode.OK)
                 {
@@ -612,7 +633,7 @@ namespace StandFacile
                         RDB_Data.sTavolo = sTable[iIndex][6]["7"];
 
                     // Name
-                    else if (sTipo == ORDER_CONST._NOME)
+                    else if (sTipo == ORDER_CONST._NAME)
 
                         // RDB_Data.sNome = sTable[iIndex][6]["7"];
 
@@ -627,7 +648,7 @@ namespace StandFacile
                         }
 
                     // Nota
-                    else if (sTipo == ORDER_CONST._NOTA)
+                    else if (sTipo == ORDER_CONST._NOTE)
                         RDB_Data.sNota = sTable[iIndex][6]["7"];
 
                     // Checksum
@@ -944,9 +965,9 @@ namespace StandFacile
             bool bHostConnection_Ok;
 
             int i, j;
-            // obbiettivo url lenght < 2083  bytes
-            // 60 max, 85 ko altrimenti url è troppo lungo
-            const int MAX_JOINED_ROWS = 40;
+            // vecchio obbiettivo con invio GET: url lenght < 2083  bytes
+            // vecchio limite con invio GET: 60 max, 85 ko altrimenti url è troppo lungo
+            const int MAX_JOINED_ROWS = 500;
 
             String sInStr, sSQL_Query, sResponseFromServer;
             String sNomeFilePrezzi, sDir, sTmp;
@@ -1070,6 +1091,9 @@ namespace StandFacile
 
             FrmUpdateProgress progressForm = new FrmUpdateProgress("Upload listino", "Esegue Upload listino nel Database remoto", () =>
             {
+                String sLogStr = "rdbUploadListinoPgrFrm: prima di rdbUploadListino()";
+                LogToFile(sLogStr);
+
                 bResult = rdbUploadListino(bForceUploadPrm);
             });
 

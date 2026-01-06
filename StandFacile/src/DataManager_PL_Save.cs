@@ -297,6 +297,7 @@ namespace StandFacile
 
                 for (i = 0; i < _iLastArticoloIndexP1; i++)
                 {
+                  
                     if (String.IsNullOrEmpty(SF_Data.Articolo[i].sTipo))
                     {
                         // verifica possibilità di compattazione #LF
@@ -410,6 +411,9 @@ namespace StandFacile
         {
             FrmUpdateProgress progressForm = new FrmUpdateProgress("Salvataggio listino", "Salva listino nel Database e in Listino.txt", () =>
             {
+                String sLogStr = "SalvaListinoPgrFrm: prima di SalvaListino()";
+                LogToFile(sLogStr);
+
                 SalvaListino();
             });
 
@@ -584,7 +588,7 @@ namespace StandFacile
             sTmp = String.Format("DataManager SD: NT={0,3}, TTeor={1,8}, TInc={2,8}, T_SF={3,8}, T_SS={4,8}, T_SG={5,8}",
                     dataIdParam.iNumOfLastReceipt, iTotaleTeorico, dataIdParam.iTotaleIncasso, dataIdParam.iTotaleScontatoFisso, dataIdParam.iTotaleScontatoStd, dataIdParam.iTotaleScontatoGratis);
 
-            LogTestToFile(sTmp);
+            //LogTestToFile(sTmp);
 
             /*********************************************
              *  salvataggio nel database Dati Riepilogo
@@ -599,6 +603,9 @@ namespace StandFacile
         {
             FrmUpdateProgress progressForm = new FrmUpdateProgress("Salvataggio dati", "Salva i dati di riepilogo giornaliero nel Database", () =>
             {
+                String sLogStr = "SalvaDatiForm: prima di SalvaDati()";
+                LogToFile(sLogStr);
+
                 SalvaDati(dataIdParam);
             });
 

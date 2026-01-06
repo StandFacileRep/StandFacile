@@ -114,7 +114,6 @@ namespace StandFacile
             Combo_DBServerName.Text = ReadRegistry(DBASE_SERVER_NAME_KEY, _sHostName);
             dbPasswordEdit.Text = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
 
-            // impostate da dBaseTunnel_my in base a SF_Data.iNumCassa
             Edit_WebServiceDBaseName.Text = _sWebServerParams.sWeb_DBase;
             Edit_WebServiceDBasePwd.Text = Decrypt_WS(_sWebServerParams.sWebEncryptedPwd);
             Edit_WebService_Name.Text = _sWebServerParams.sWebTablePrefix;

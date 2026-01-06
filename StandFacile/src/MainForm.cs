@@ -85,7 +85,7 @@ namespace StandFacile
         String _sCopertiPrev;
 
         String _sOrdiniPrevDBTable;
-        String _sEditNotaCopy;
+        String _sEditNoteCopy;
         string _sShortDBType;
 
         DataGridViewCellStyle _prevStyle = new DataGridViewCellStyle();
@@ -181,19 +181,19 @@ namespace StandFacile
         /// <summary>imposta il testo del tavolo</summary>
         public void SetEditTavolo(String sTavoloParam)
         {
-            EditTavolo.Text = sTavoloParam;
-            if (EditTavolo.Enabled)
+            EditTable.Text = sTavoloParam;
+            if (EditTable.Enabled)
                 TextBox_KeyUp(null, null);
         }
 
         /// <summary>ottiene il testo del tavolo</summary>
-        public String GetEditTavolo() { return EditTavolo.Text; }
+        public String GetEditTavolo() { return EditTable.Text; }
 
         /// <summary>imposta il testo del nome</summary>
-        public void SetEditNome(String sNomeParam)
+        public void SetEditName(String sNomeParam)
         {
-            EditNome.Text = sNomeParam;
-            if (EditNome.Enabled)
+            EditName.Text = sNomeParam;
+            if (EditName.Enabled)
                 TextBox_KeyUp(null, null);
         }
 
@@ -215,15 +215,15 @@ namespace StandFacile
         }
 
         /// <summary>ottiene il testo della nota</summary>
-        public String GetEditNota() { return EditNota.Text; }
+        public String GetEditNota() { return EditNote.Text; }
 
         /// <summary>ottiene lo stato della nota: true => nota in calce</summary>
-        public bool GetStatusNota() { return EditNota.BackColor == Color.Gainsboro; }
+        public bool GetStatusNota() { return EditNote.BackColor == Color.Gainsboro; }
 
         /// <summary>imposta il testo della nota</summary>
         public void SetEditNota(String sNotaParam)
         {
-            EditNota.Text = sNotaParam;
+            EditNote.Text = sNotaParam;
             TextBox_KeyUp(null, null);
         }
 
@@ -239,10 +239,10 @@ namespace StandFacile
             _bCtrlIsPressed = true; // perchè usato da TestManager
             MainGrid_CellClick(this, new DataGridViewCellEventArgs(j, i));
 
-            EditNota.Text = sNotaParam; // simulta input testo
+            EditNote.Text = sNotaParam; // simulta input testo
             ProcessCmdKey(ref msg, Keys.Enter);
 
-            EditNota.Refresh();
+            EditNote.Refresh();
         }
 
         /// <summary>imposta il testo del QRC</summary>
@@ -285,10 +285,10 @@ namespace StandFacile
         public void EnableTextBox(bool bEnable)
         {
             MainGrid.Enabled = bEnable;
-            EditNome.Enabled = bEnable;
-            EditTavolo.Enabled = bEnable;
+            EditName.Enabled = bEnable;
+            EditTable.Enabled = bEnable;
             EditCoperti.Enabled = bEnable;
-            EditNota.Enabled = bEnable;
+            EditNote.Enabled = bEnable;
         }
 
         /// <summary>costruttore</summary>
@@ -296,7 +296,7 @@ namespace StandFacile
         {
             InitializeComponent();
 
-            //bool bTmp = StringBelongsTo_ORDER_CONST(ORDER_CONST._NOTA, ORDER_CONST._NOTA);
+            //bool bTmp = StringBelongsTo_ORDER_CONST(ORDER_CONST._NOTE, ORDER_CONST._NOTE);
 
             BtnDB.ToolTipText = "test connessione DB:\n" +
                 "se attivi ordini web webservice verifica anche la connessione\n" +
@@ -306,12 +306,12 @@ namespace StandFacile
             _tt.SetToolTip(btnNavRight, "riduce la barra laterale");
 
             _tt.SetToolTip(EditCoperti, "click o (F1) dalla griglia per inserire i coperti");
-            _tt.SetToolTip(EditTavolo, "click o (F2) dalla griglia per inserire il Tavolo");
-            _tt.SetToolTip(EditNome, "Nome");
+            _tt.SetToolTip(EditTable, "click o (F2) dalla griglia per inserire il Tavolo");
+            _tt.SetToolTip(EditName, "Nome");
             _tt.SetToolTip(Edit_TotCorrente, "Totale");
-            _tt.SetToolTip(EditResto, "resto calcolato");
-            _tt.SetToolTip(EditContante, "click o (F3) dalla griglia per inserire il contante");
-            _tt.SetToolTip(EditNota, "click o (F4) dalla griglia per inserire una Nota nello scontrino\ncon Crtl+click su una cella per inserire una nota relativa all'Articolo");
+            _tt.SetToolTip(EditChange, "resto calcolato");
+            _tt.SetToolTip(EditPaidCash, "click o (F3) dalla griglia per inserire il contante");
+            _tt.SetToolTip(EditNote, "click o (F4) dalla griglia per inserire una Nota nello scontrino\ncon Crtl+click su una cella per inserire una nota relativa all'Articolo");
             _tt.SetToolTip(EditStatus_QRC, "area per lettura barcode prevendite e pre-ordini web");
             _tt.SetToolTip(comboCashPos, "tipo di pagamento: Contanti/Card/Satispay");
 
@@ -367,11 +367,11 @@ namespace StandFacile
             // Larghezza barra di stato
             //LblStatus_Status.Width = 320;
 
-            EditNota.MaxLength = iMAX_RECEIPT_CHARS;
-            EditNota.Width = 240;
+            EditNote.MaxLength = iMAX_RECEIPT_CHARS;
+            EditNote.Width = 240;
 
-            EditTavolo.MaxLength = 18;
-            EditNome.MaxLength = 20;
+            EditTable.MaxLength = 18;
+            EditName.MaxLength = 20;
 
             EditStatus_QRC.Text = "";
             EditStatus_QRC.MaxLength = 0; // nessun limite
@@ -379,7 +379,7 @@ namespace StandFacile
             _sEditTavolo = "";
             _sEditNome = "";
             _sEditCoperti = "";
-            EditContante.Text = "";
+            EditPaidCash.Text = "";
 
             ClearAnteprima_TP();
 
@@ -806,7 +806,7 @@ namespace StandFacile
              *       calcolo del resto
              *************************************/
 
-            _sEditContante = EditContante.Text.Trim();
+            _sEditContante = EditPaidCash.Text.Trim();
 
             if (!String.IsNullOrEmpty(_sEditContante))
             {
@@ -814,17 +814,17 @@ namespace StandFacile
 
                 if (_iContante != -1)
                 {
-                    EditResto.Text = IntToEuro(_iContante - _iAnteprimaTotParziale);
-                    EditContante.BackColor = Color.Aquamarine;
+                    EditChange.Text = IntToEuro(_iContante - _iAnteprimaTotParziale);
+                    EditPaidCash.BackColor = Color.Aquamarine;
                 }
                 else
                 {
-                    EditResto.Text = "";
-                    EditContante.BackColor = Color.Red;
+                    EditChange.Text = "";
+                    EditPaidCash.BackColor = Color.Red;
                 }
             }
             else
-                EditResto.Text = "";
+                EditChange.Text = "";
 
             // aggiornamento disponibilità
             if (bUSA_NDB())
@@ -1006,11 +1006,11 @@ namespace StandFacile
 
                 // *** NOTE ***
                 if (iRandNum.Next(5) == 0) // 1 su 5
-                    EditNota.Text = String.Format("CIAO {0}", iRandNum.Next(100));
+                    EditNote.Text = String.Format("CIAO {0}", iRandNum.Next(100));
 
                 // *** TAVOLO ***
                 if (iRandNum.Next(4) == 0) // 1 su 4
-                    EditTavolo.Text = iRandNum.Next(100).ToString();
+                    EditTable.Text = iRandNum.Next(100).ToString();
 
                 // *** COPERTI ***
                 if (iRandNum.Next(4) == 0) // 1 su 4
@@ -1020,8 +1020,8 @@ namespace StandFacile
                 if (iRandNum.Next(10) == 0) // 1 su 10
                     BtnSconto.Checked = true;
 
-                _sEditTavolo = EditTavolo.Text.Trim();
-                _sEditNota = EditNota.Text.Trim();
+                _sEditTavolo = EditTable.Text.Trim();
+                _sEditNota = EditNote.Text.Trim();
                 _sEditCoperti = EditCoperti.Text.Trim();
 
                 BtnScontrino.Checked = true;
@@ -1062,55 +1062,55 @@ namespace StandFacile
                 case KEY_F1:
                     if (EditCoperti.Focused)
                         MainGrid.Focus();
-                    else if (EditTavolo.Focused)
+                    else if (EditTable.Focused)
                         EditCoperti.Focus();
-                    else if (EditNota.Focused)
+                    else if (EditNote.Focused)
                         EditCoperti.Focus();
-                    else if (EditContante.Focused)
+                    else if (EditPaidCash.Focused)
                         EditCoperti.Focus();
                     break;
                 case KEY_F2:
-                    if (EditTavolo.Focused)
+                    if (EditTable.Focused)
                         MainGrid.Focus();
                     else if (EditCoperti.Focused)
-                        EditTavolo.Focus();
-                    else if (EditNota.Focused)
-                        EditTavolo.Focus();
-                    else if (EditContante.Focused)
-                        EditTavolo.Focus();
+                        EditTable.Focus();
+                    else if (EditNote.Focused)
+                        EditTable.Focus();
+                    else if (EditPaidCash.Focused)
+                        EditTable.Focus();
                     break;
                 case KEY_F3:
-                    if (EditContante.Focused)
+                    if (EditPaidCash.Focused)
                         MainGrid.Focus();
                     else if (EditCoperti.Focused)
-                        EditContante.Focus();
-                    else if (EditNota.Focused)
-                        EditContante.Focus();
-                    else if (EditTavolo.Focused)
-                        EditContante.Focus();
+                        EditPaidCash.Focus();
+                    else if (EditNote.Focused)
+                        EditPaidCash.Focus();
+                    else if (EditTable.Focused)
+                        EditPaidCash.Focus();
                     break;
                 case KEY_F4:
-                    if (EditNota.Focused)
+                    if (EditNote.Focused)
                     {
                         MainGrid.Focus();
 
-                        if ((EditNota.BackColor == Color.LightBlue) && !_bCtrlIsPressed)
+                        if ((EditNote.BackColor == Color.LightBlue) && !_bCtrlIsPressed)
                         {
-                            // reset EditNota
-                            EditNota.BackColor = Color.Gainsboro;
-                            EditNota.Text = _sEditNotaCopy;
-                            EditNota.MaxLength = iMAX_RECEIPT_CHARS;
-                            lblNota.Text = "Nota:";
+                            // reset EditNote
+                            EditNote.BackColor = Color.Gainsboro;
+                            EditNote.Text = _sEditNoteCopy;
+                            EditNote.MaxLength = iMAX_RECEIPT_CHARS;
+                            lblNote.Text = "Nota:";
 
                             MainGrid_Redraw(this, null);
                         }
                     }
-                    else if (EditTavolo.Focused)
-                        EditNota.Focus();
+                    else if (EditTable.Focused)
+                        EditNote.Focus();
                     else if (EditCoperti.Focused)
-                        EditNota.Focus();
-                    else if (EditContante.Focused)
-                        EditNota.Focus();
+                        EditNote.Focus();
+                    else if (EditPaidCash.Focused)
+                        EditNote.Focus();
                     break;
                 case KEY_F5:
                 case KEY_F6:
@@ -1134,15 +1134,15 @@ namespace StandFacile
             // altrimenti il prezzo dei coperti genera eccezioni
             if (!MnuImpListino.Checked && !BtnVisListino.Checked)
             {
-                _sEditTavolo = EditTavolo.Text.Trim();
+                _sEditTavolo = EditTable.Text.Trim();
                 SF_Data.sTavolo = _sEditTavolo;
 
-                _sEditNome = EditNome.Text.Trim();
+                _sEditNome = EditName.Text.Trim();
                 SF_Data.sNome = _sEditNome;
 
                 if (GetStatusNota())
                 {
-                    _sEditNota = EditNota.Text.Trim();
+                    _sEditNota = EditNote.Text.Trim();
                     SF_Data.sNota = _sEditNota;
                 }
 
@@ -1328,7 +1328,7 @@ namespace StandFacile
                 WarningManager(WRN_TZT);
 
             if (_bListinoModificato)
-                DataManager.SalvaListinoPgrFrm();
+                DataManager.SalvaListino();
 
             _iAnteprimaTotParziale = 0;
             AnteprimaDlg.ResetSomethingInto_GrpToPrint();
@@ -1350,8 +1350,8 @@ namespace StandFacile
             lblStatusTickNum.Text = String.Format("Num. Ordini: {0}", iNumOfTicketsParm);
 
             // aggiornamento del resto
-            EditResto.Text = "";
-            EditContante.Text = "";
+            EditChange.Text = "";
+            EditPaidCash.Text = "";
         }
 
         /// <summary>overload: aggiorna la barra di stato</summary>
@@ -1378,16 +1378,16 @@ namespace StandFacile
             BtnScontrino.Enabled = true;
             BtnScontrino.Checked = false;
 
-            EditTavolo.Text = "";
+            EditTable.Text = "";
             _sEditTavolo = "";
 
-            EditNome.Text = "";
+            EditName.Text = "";
             _sEditNome = "";
 
             EditCoperti.Text = "";
             _sEditCoperti = "";
 
-            EditNota.Text = "";
+            EditNote.Text = "";
             _sEditNota = "";
 
             ClearAnteprima_TP();
@@ -1423,7 +1423,7 @@ namespace StandFacile
                     //MessageBox.Show("Inserisci il numero del Tavolo,\n\ncon (F1) passi dalla griglia alla casella del Tavolo.",
                     //    "Attenzione !", MessageBoxButtons.OK);
 
-                    EditTavolo.Focus();
+                    EditTable.Focus();
                     return false;
                 }
                 else
@@ -1828,7 +1828,7 @@ namespace StandFacile
             VisDatiDlg rVisDatiDlg = new VisDatiDlg();
 
             if (_bListinoModificato)
-                DataManager.SalvaListinoPgrFrm(); // aggiorna il file prima di visualizzarlo
+                DataManager.SalvaListino(); // aggiorna il file prima di visualizzarlo
 
             rVisDatiDlg.VisualizzaDati((int)FILE_TO_SHOW.FILE_PREZZI, GetActualDate(), SF_Data.iNumCassa, false);
 
@@ -1993,7 +1993,7 @@ namespace StandFacile
             MainGrid_Redraw(this, null);
 
             if (GenPrinterDlg.GetListinoModificato())
-                DataManager.SalvaListinoPgrFrm();
+                DataManager.SalvaListino();
         }
 
         private void MnuImpostaStampanteWin_Click(object sender, EventArgs e)
@@ -2011,7 +2011,7 @@ namespace StandFacile
             PrintLocalCopiesConfigDlg._rPrintTckConfigDlg.Init(true);
 
             if (PrintLocalCopiesConfigDlg.GetListinoModificato())
-                DataManager.SalvaListinoPgrFrm();
+                DataManager.SalvaListino();
         }
 
         private void MnuImpostaCopieInRete_Click(object sender, EventArgs e)
@@ -2019,7 +2019,7 @@ namespace StandFacile
             PrintNetCopiesConfigDlg._rPrintConfigDlg.Init(true);
 
             if (PrintNetCopiesConfigDlg.GetListinoModificato())
-                DataManager.SalvaListinoPgrFrm();
+                DataManager.SalvaListino();
         }
 
         private void MnuImpOpzioni_Click(object sender, EventArgs e)
@@ -2027,7 +2027,7 @@ namespace StandFacile
             OptionsDlg._rOptionsDlg.Init(true);
 
             if (OptionsDlg.GetListinoModificato())
-                DataManager.SalvaListinoPgrFrm();
+                DataManager.SalvaListino();
 
             if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
                 SetShowTotaleScontrinoPrec(true);
@@ -2047,7 +2047,7 @@ namespace StandFacile
             EditHeaderFooterDlg rHeaderFooterDlg = new EditHeaderFooterDlg();
 
             if (EditHeaderFooterDlg.GetListinoModificato())
-                DataManager.SalvaListinoPgrFrm();
+                DataManager.SalvaListino();
 
             rHeaderFooterDlg.Dispose();
         }
@@ -2058,7 +2058,7 @@ namespace StandFacile
 
             if (EditGridDlg.GetListinoModificato())
             {
-                DataManager.SalvaListinoPgrFrm();
+                DataManager.SalvaListino();
 
                 SetTabsAppearance();
                 UpdateStatusBar("Pronto");
@@ -2193,9 +2193,9 @@ namespace StandFacile
                 _iPrintTimeout = TIMEOUT_PRINT_RESET; // 5s
 
                 BtnScontrino.Enabled = true;
-                EditContante.Enabled = true;
+                EditPaidCash.Enabled = true;
                 comboCashPos.Enabled = true;
-                EditResto.Enabled = true;
+                EditChange.Enabled = true;
 
                 // sicurezza
                 rFrmMain.EnableTextBox(true);
@@ -2579,13 +2579,13 @@ namespace StandFacile
             // _iNewCellPt serve a non incrementare quando ci si sposta sulla griglia
             int _iNewCellPt = e.ColumnIndex * MainGrid.RowCount + e.RowIndex + iArrayOffset;
 
-            if ((EditNota.BackColor == Color.LightBlue) && !_bCtrlIsPressed)
+            if ((EditNote.BackColor == Color.LightBlue) && !_bCtrlIsPressed)
             {
-                // reset EditNota
-                EditNota.BackColor = Color.Gainsboro;
-                EditNota.Text = _sEditNotaCopy;
-                EditNota.MaxLength = iMAX_RECEIPT_CHARS;
-                lblNota.Text = "Nota:";
+                // reset EditNote
+                EditNote.BackColor = Color.Gainsboro;
+                EditNote.Text = _sEditNoteCopy;
+                EditNote.MaxLength = iMAX_RECEIPT_CHARS;
+                lblNote.Text = "Nota:";
 
                 MainGrid_Redraw(this, null);
             }
@@ -2593,16 +2593,16 @@ namespace StandFacile
             else if ((!MnuImpListino.Checked) && (!MnuModDispArticoli.Checked) && _bCtrlIsPressed &&
                     (SF_Data.Articolo[_iNewCellPt].iQuantitaOrdine > 0))
             {
-                _sEditNotaCopy = EditNota.Text;
+                _sEditNoteCopy = EditNote.Text;
 
                 // si predispone per acquisire la Nota Articolo
-                EditNota.Text = SF_Data.Articolo[_iNewCellPt].sNotaArt;
-                EditNota.BackColor = Color.LightBlue;
-                EditNota.MaxLength = iMAX_RECEIPT_CHARS - 3;
-                lblNota.Text = "Nota Art:";
+                EditNote.Text = SF_Data.Articolo[_iNewCellPt].sNotaArt;
+                EditNote.BackColor = Color.LightBlue;
+                EditNote.MaxLength = iMAX_RECEIPT_CHARS - 3;
+                lblNote.Text = "Nota Art:";
 
                 _bCtrlIsPressed = false; // altrimenti rimane troppo a lungo il Focus()
-                EditNota.Focus();
+                EditNote.Focus();
             }
             else if ((!MnuImpListino.Checked) && (!MnuModDispArticoli.Checked) && _bCtrlIsPressed &&
                     (SF_Data.Articolo[_iNewCellPt].iQuantitaOrdine == 0))
@@ -2637,7 +2637,7 @@ namespace StandFacile
 
         private void EditStatusResto_MouseClick(object sender, MouseEventArgs e)
         {
-            EditContante.Focus();
+            EditPaidCash.Focus();
         }
 
         /// <summary>
@@ -2674,7 +2674,7 @@ namespace StandFacile
                 DataManager.SalvaDati(DB_Data);
 
             if (_bListinoModificato)
-                DataManager.SalvaListinoPgrFrm();
+                DataManager.SalvaListino();
 
             if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_RECEIPT_GEN) && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {

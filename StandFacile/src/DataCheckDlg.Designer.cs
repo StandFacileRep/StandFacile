@@ -56,7 +56,7 @@
             this.lblTavolo.TabIndex = 20;
             this.lblTavolo.Text = "Tavolo:";
             // 
-            // EditTavolo
+            // EditTable
             // 
             this.EditTavolo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.EditTavolo.BackColor = System.Drawing.Color.LightBlue;
@@ -64,7 +64,7 @@
             this.EditTavolo.Location = new System.Drawing.Point(151, 35);
             this.EditTavolo.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
             this.EditTavolo.MaxLength = 12;
-            this.EditTavolo.Name = "EditTavolo";
+            this.EditTavolo.Name = "EditTable";
             this.EditTavolo.Size = new System.Drawing.Size(100, 26);
             this.EditTavolo.TabIndex = 0;
             this.EditTavolo.WordWrap = false;

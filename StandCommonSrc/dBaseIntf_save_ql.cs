@@ -794,10 +794,10 @@ namespace StandFacile_DB
                 }
             }
 
-            catch (Exception)
+            catch (Exception e)
             {
                 _WrnMsg.iErrID = WRN_DBE;
-                _WrnMsg.sMsg = String.Format("dbUpdateHeadOrdine : {0}", bUSA_NDB());
+                _WrnMsg.sMsg = String.Format("dbUpdateHeadOrdine : {0}", e.Message);
                 WarningManager(_WrnMsg);
 
                 LogToFile("dbUpdateHeadOrdine : dbSalvaHeadOrdini Ordini");
@@ -1043,7 +1043,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = ORDER_CONST._NOME;
+                        row["sTipo_Articolo"] = ORDER_CONST._NAME;
                         //row["iPrezzo_Unitario"] = 0;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;
@@ -1061,7 +1061,7 @@ namespace StandFacile_DB
                         row = ordiniTable.NewRow();
 
                         row["iOrdine_ID"] = SF_Data.iNumOfLastReceipt;
-                        row["sTipo_Articolo"] = ORDER_CONST._NOTA;
+                        row["sTipo_Articolo"] = ORDER_CONST._NOTE;
                         //row["iPrezzo_Unitario"] = 0;
                         //row["iQuantita_Ordine"] = 0;
                         //row["iIndex_Listino"] = 0;

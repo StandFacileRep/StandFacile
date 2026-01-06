@@ -474,7 +474,7 @@ namespace StandFacile
                 sTmp = sInStr.Substring(iTagStart_tv + 4, iTagStop_tv - iTagStart_tv - 4).Trim();
 
                 if (_iNumCassa == SF_Data.iNumCassa)
-                    rFrmMain.SetEditNome(sTmp);
+                    rFrmMain.SetEditName(sTmp);
 
                 _iCounter = 1;
                 bCMD_OK = true;
@@ -638,8 +638,6 @@ namespace StandFacile
 
             _fRecording.Flush();
         }
-
-        static bool bPrimaVoltaComp = true;
 
     } // end class
 } // end namespace

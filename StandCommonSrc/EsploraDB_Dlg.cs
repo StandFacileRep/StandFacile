@@ -61,7 +61,7 @@ namespace StandFacile
             {
                 sCell = _sElencoStrings[i];
 
-                if (sCell.Contains(NOME_STATO_DBTBL) || sCell.Contains(NOME_NSC_DBTBL) ||
+                if (sCell.Contains(NOME_STATUS_DBTBL) || sCell.Contains(NOME_NSC_DBTBL) ||
                     sCell.Contains(NOME_DISP_DBTBL) || sCell.Contains(NOME_NMSG_DBTBL) ||
                     sCell.Contains(NOME_LISTINO_DBTBL) || sCell.Contains(NOME_TEST_DBTBL) ||
                     sCell.Contains("images") || sCell.Contains("indexes") ||

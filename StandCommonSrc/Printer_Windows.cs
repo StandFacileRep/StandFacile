@@ -816,7 +816,6 @@ namespace StandCommonFiles
             {
                 for (i = 0; i < _finalRowsToAdd - 1; i++) // N righe di fine stampa
                     PrintCanvas(pg, " ");
-
             }
 
             PrintCanvas(pg, "_");

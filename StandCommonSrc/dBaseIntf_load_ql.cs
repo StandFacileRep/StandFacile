@@ -900,14 +900,14 @@ namespace StandFacile_DB
                         }
 
                         // Nome
-                        else if (sInStr == ORDER_CONST._NOME)
+                        else if (sInStr == ORDER_CONST._NAME)
                         {
                             DB_Data.sNome = readerOrdine.GetString("sText");
                             continue;
                         }
 
                         // Nota
-                        else if (sInStr == ORDER_CONST._NOTA)
+                        else if (sInStr == ORDER_CONST._NOTE)
                         {
                             DB_Data.sNota = readerOrdine.GetString("sText");
                             continue;

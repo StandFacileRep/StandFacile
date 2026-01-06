@@ -78,17 +78,17 @@ namespace StandFacile
                 btnCanc.Enabled = false;
 
                 lblNome.Enabled = false;
-                EditNome.Enabled = false;
+                EditName.Enabled = false;
                 lblTavolo.Enabled = false;
-                EditTavolo.Enabled = false;
+                EditTable.Enabled = false;
                 lblCoperti.Enabled = false;
                 EditCoperti.Enabled = false;
-                lblNota.Enabled = false;
-                EditNota.Enabled = false;
+                lblNote.Enabled = false;
+                EditNote.Enabled = false;
                 lblResto.Enabled = false;
-                EditResto.Enabled = false;
+                EditChange.Enabled = false;
                 lblPagato.Enabled = false;
-                EditContante.Enabled = false;
+                EditPaidCash.Enabled = false;
 
                 comboCashPos.Enabled = false;
                 EditStatus_QRC.Enabled = false;
@@ -145,17 +145,17 @@ namespace StandFacile
                 btnCanc.Enabled = false;
 
                 lblNome.Enabled = false;
-                EditNome.Enabled = false;
+                EditName.Enabled = false;
                 lblTavolo.Enabled = false;
-                EditTavolo.Enabled = false;
+                EditTable.Enabled = false;
                 lblCoperti.Enabled = false;
                 EditCoperti.Enabled = false;
-                lblNota.Enabled = false;
-                EditNota.Enabled = false;
+                lblNote.Enabled = false;
+                EditNote.Enabled = false;
                 lblResto.Enabled = false;
-                EditResto.Enabled = false;
+                EditChange.Enabled = false;
                 lblPagato.Enabled = false;
-                EditContante.Enabled = false;
+                EditPaidCash.Enabled = false;
 
                 comboCashPos.Enabled = false;
                 EditStatus_QRC.Enabled = false;
@@ -195,17 +195,17 @@ namespace StandFacile
                 btnCanc.Enabled = false;
 
                 lblNome.Enabled = false;
-                EditNome.Enabled = false;
+                EditName.Enabled = false;
                 lblTavolo.Enabled = false;
-                EditTavolo.Enabled = false;
+                EditTable.Enabled = false;
                 lblCoperti.Enabled = false;
                 EditCoperti.Enabled = false;
-                lblNota.Enabled = false;
-                EditNota.Enabled = false;
+                lblNote.Enabled = false;
+                EditNote.Enabled = false;
                 lblResto.Enabled = false;
-                EditResto.Enabled = false;
+                EditChange.Enabled = false;
                 lblPagato.Enabled = false;
-                EditContante.Enabled = false;
+                EditPaidCash.Enabled = false;
 
                 comboCashPos.Enabled = false;
                 EditStatus_QRC.Enabled = false;
@@ -228,17 +228,17 @@ namespace StandFacile
                 MainGrid.Enabled = true; // sicurezza
 
                 lblNome.Enabled = true;
-                EditNome.Enabled = true;
+                EditName.Enabled = true;
                 lblTavolo.Enabled = true;
-                EditTavolo.Enabled = true;
+                EditTable.Enabled = true;
                 lblCoperti.Enabled = true;
                 EditCoperti.Enabled = true;
-                lblNota.Enabled = true;
-                EditNota.Enabled = true;
+                lblNote.Enabled = true;
+                EditNote.Enabled = true;
                 lblResto.Enabled = true;
-                EditResto.Enabled = true;
+                EditChange.Enabled = true;
                 lblPagato.Enabled = true;
-                EditContante.Enabled = true;
+                EditPaidCash.Enabled = true;
 
                 comboCashPos.Enabled = true;
 
@@ -411,7 +411,7 @@ namespace StandFacile
 
                 if (_bListinoModificato)
                 {
-                    DataManager.SalvaListinoPgrFrm();
+                    DataManager.SalvaListino();
 
                     DataManager.SalvaDati(SF_Data); // così si visualizzano prezzi e dati aggiornati
                     SetTabsAppearance();
@@ -524,7 +524,7 @@ namespace StandFacile
                     // ci passa se si modifica l'header altrimenti
                     // ci pensa CheckMenuItems();
                     if (_bListinoModificato)
-                        DataManager.SalvaListinoPgrFrm();
+                        DataManager.SalvaListino();
 
                     // default TAB
                     TabSet.SelectedIndex = 0;
@@ -604,13 +604,13 @@ namespace StandFacile
                     EditCoperti.Focus();
                     break;
                 case KEY_F2:
-                    EditTavolo.Focus();
+                    EditTable.Focus();
                     break;
                 case KEY_F3:
-                    EditContante.Focus();
+                    EditPaidCash.Focus();
                     break;
                 case KEY_F4:
-                    EditNota.Focus();
+                    EditNote.Focus();
                     break;
 
                 case KEY_F5:
@@ -779,8 +779,8 @@ namespace StandFacile
 
             if (SF_Data.Articolo[_iCellPt].iQuantitaOrdine == 0)
             {
-                // reset EditNota
-                EditNota.BackColor = Color.Gainsboro;
+                // reset EditNote
+                EditNote.BackColor = Color.Gainsboro;
                 SF_Data.Articolo[_iCellPt].sNotaArt = "";
 
                 MainGrid_Redraw(this, null);
@@ -796,13 +796,13 @@ namespace StandFacile
             else
                 _bCtrlIsPressed = false;
 
-            if ((EditNota.BackColor == Color.LightBlue) && !_bCtrlIsPressed)
+            if ((EditNote.BackColor == Color.LightBlue) && !_bCtrlIsPressed)
             {
-                // reset EditNota
-                EditNota.BackColor = Color.Gainsboro;
-                EditNota.Text = _sEditNotaCopy;
-                EditNota.MaxLength = iMAX_RECEIPT_CHARS;
-                lblNota.Text = "Nota:";
+                // reset EditNote
+                EditNote.BackColor = Color.Gainsboro;
+                EditNote.Text = _sEditNoteCopy;
+                EditNote.MaxLength = iMAX_RECEIPT_CHARS;
+                lblNote.Text = "Nota:";
 
                 MainGrid_Redraw(this, null);
             }
@@ -1035,17 +1035,17 @@ namespace StandFacile
 
                 return true; // cursore rimane sul posto
             }
-            else if (EditNota.Focused && (keyData == Keys.Enter))
+            else if (EditNote.Focused && (keyData == Keys.Enter))
             {
-                if (EditNota.BackColor == Color.LightBlue)
+                if (EditNote.BackColor == Color.LightBlue)
                 {
                     // acquisisce Nota Articolo
-                    SF_Data.Articolo[_iCellPt].sNotaArt = EditNota.Text;
+                    SF_Data.Articolo[_iCellPt].sNotaArt = EditNote.Text;
 
-                    EditNota.BackColor = Color.Gainsboro;
-                    EditNota.Text = _sEditNotaCopy;
-                    EditNota.MaxLength = iMAX_RECEIPT_CHARS;
-                    lblNota.Text = "Nota:";
+                    EditNote.BackColor = Color.Gainsboro;
+                    EditNote.Text = _sEditNoteCopy;
+                    EditNote.MaxLength = iMAX_RECEIPT_CHARS;
+                    lblNote.Text = "Nota:";
 
                     MainGrid_Redraw(this, null);
                 }
@@ -1429,18 +1429,18 @@ namespace StandFacile
                 btnNavRight.Visible = true;
 
                 lblTavolo.Visible = true;
-                EditTavolo.Visible = true;
+                EditTable.Visible = true;
                 lblNome.Visible = true;
-                EditNome.Visible = true;
+                EditName.Visible = true;
                 labelTotale.Visible = true;
                 lblPagato.Visible = true;
                 lblResto.Visible = true;
 
                 Edit_TotCorrente.Visible = true;
 
-                EditTavolo.Top = EditCoperti.Top + iStdEditDistance;
-                EditNome.Top = EditTavolo.Top + iStdEditDistance;
-                EditContante.Top = EditResto.Top - iStdEditDistance;
+                EditTable.Top = EditCoperti.Top + iStdEditDistance;
+                EditName.Top = EditTable.Top + iStdEditDistance;
+                EditPaidCash.Top = EditChange.Top - iStdEditDistance;
 
                 lblCoperti.Text = "COPERTI";
                 lblCoperti.Left = 69;
@@ -1486,9 +1486,9 @@ namespace StandFacile
                 LogToFile(sLogStr, true);
 
                 // può generare sfarfallio, ma ottiene maggiore precisione
-                EditTavolo.Top = EditCoperti.Top + iStdEditDistance;
-                EditNome.Top = EditTavolo.Top + iStdEditDistance;
-                EditContante.Top = EditResto.Top - iStdEditDistance;
+                EditTable.Top = EditCoperti.Top + iStdEditDistance;
+                EditName.Top = EditTable.Top + iStdEditDistance;
+                EditPaidCash.Top = EditChange.Top - iStdEditDistance;
 
                 lblTavolo.Visible = true;
                 lblNome.Visible = true;
@@ -1520,7 +1520,7 @@ namespace StandFacile
                         else
                         {
                             lblResto.Visible = false;
-                            EditContante.Top = EditResto.Top - iCompactEditDistance;
+                            EditPaidCash.Top = EditChange.Top - iCompactEditDistance;
 
                             if (panelRight.Height > (4 * iThresholdConst) + 16)
                             {
@@ -1529,7 +1529,7 @@ namespace StandFacile
                             else
                             {
                                 lblNome.Visible = false;
-                                EditNome.Top = EditTavolo.Top + iCompactEditDistance;
+                                EditName.Top = EditTable.Top + iCompactEditDistance;
 
                                 if (panelRight.Height > (3.5 * iThresholdConst) + 16)
                                 {
@@ -1538,8 +1538,8 @@ namespace StandFacile
                                 else
                                 {
                                     lblTavolo.Visible = false;
-                                    EditTavolo.Top = EditCoperti.Top + iCompactEditDistance;
-                                    EditNome.Top = EditTavolo.Top + iCompactEditDistance;
+                                    EditTable.Top = EditCoperti.Top + iCompactEditDistance;
+                                    EditName.Top = EditTable.Top + iCompactEditDistance;
                                     LogToFile("FormResize: Trh = 3*", true);
                                 }
                             }
@@ -1588,12 +1588,12 @@ namespace StandFacile
             panelRight.Width = toolStripButtons_R.Width;
 
             EditCoperti.Width = toolStripButtons_R.Width - 12;
-            EditTavolo.Width = toolStripButtons_R.Width - 12;
-            EditNome.Width = toolStripButtons_R.Width - 12;
+            EditTable.Width = toolStripButtons_R.Width - 12;
+            EditName.Width = toolStripButtons_R.Width - 12;
 
             Edit_TotCorrente.Width = toolStripButtons_R.Width - 12;
-            EditContante.Width = toolStripButtons_R.Width - 12;
-            EditResto.Width = toolStripButtons_R.Width - 12;
+            EditPaidCash.Width = toolStripButtons_R.Width - 12;
+            EditChange.Width = toolStripButtons_R.Width - 12;
 
             // funzione che determina BtnSep_T8.Margin per centrare toolStripTop_TC_lbl
 

@@ -1,12 +1,13 @@
 /************************************************************
     NomeFile : StandCommonSrc/UpdateProgressFrm.cs
-    Data	 : 22.09.2025
+    Data	 : 05.01.2026
     Autore	 : nicola02nb
  ************************************************************/
 
 using System;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static StandCommonFiles.LogServer;
 
 namespace StandFacile
 {
@@ -79,9 +80,11 @@ namespace StandFacile
                 this.action?.Invoke();
                 this.Invoke((Action)(() => this.Close()));
             });
+
+            LogToFile("FrmUpdateProgress");
         }
 
         private ProgressBar progressBar1;
         private System.Windows.Forms.Label labelMessage;
     }
-} 
+}

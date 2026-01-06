@@ -206,7 +206,7 @@ namespace StandFacile
 
                 labelPayMethod.Top = labelPrint.Top;
                 comboPaymentType.Top = labelPayMethod.Top + 20;
-                
+
                 checkBoxNotPaid.Top = BtnPrev.Top + 6;
             }
             else  // vis Ordini

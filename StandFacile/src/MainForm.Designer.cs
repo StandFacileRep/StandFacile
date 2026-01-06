@@ -89,7 +89,7 @@
             this.StatusBar_Upper = new System.Windows.Forms.StatusStrip();
             this.lblStatusTotalePrec = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblStatusTickNum = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblNota = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblNote = new System.Windows.Forms.ToolStripStatusLabel();
             this.TabSet = new System.Windows.Forms.TabControl();
             this.tabPage0 = new System.Windows.Forms.TabPage();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -136,7 +136,7 @@
             this.BtnSep_T8 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnSep_T5 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripTop_TC_lbl = new System.Windows.Forms.ToolStripLabel();
-            this.EditNota = new System.Windows.Forms.TextBox();
+            this.EditNote = new System.Windows.Forms.TextBox();
             this.lblStatus_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblStatus_TC = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblStatus_Date = new System.Windows.Forms.ToolStripStatusLabel();
@@ -151,15 +151,15 @@
             this.comboCashPos = new System.Windows.Forms.ComboBox();
             this.panelRight = new System.Windows.Forms.Panel();
             this.btnNavRight = new System.Windows.Forms.Button();
-            this.EditResto = new System.Windows.Forms.TextBox();
-            this.EditContante = new System.Windows.Forms.TextBox();
+            this.EditChange = new System.Windows.Forms.TextBox();
+            this.EditPaidCash = new System.Windows.Forms.TextBox();
             this.lblPagato = new System.Windows.Forms.Label();
             this.lblResto = new System.Windows.Forms.Label();
             this.Edit_TotCorrente = new System.Windows.Forms.TextBox();
             this.labelTotale = new System.Windows.Forms.Label();
-            this.EditNome = new System.Windows.Forms.TextBox();
+            this.EditName = new System.Windows.Forms.TextBox();
             this.lblNome = new System.Windows.Forms.Label();
-            this.EditTavolo = new System.Windows.Forms.TextBox();
+            this.EditTable = new System.Windows.Forms.TextBox();
             this.lblTavolo = new System.Windows.Forms.Label();
             this.EditCoperti = new System.Windows.Forms.TextBox();
             this.lblCoperti = new System.Windows.Forms.Label();
@@ -594,7 +594,7 @@
             this.StatusBar_Upper.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.lblStatusTotalePrec,
             this.lblStatusTickNum,
-            this.lblNota});
+            this.lblNote});
             this.StatusBar_Upper.Location = new System.Drawing.Point(0, 584);
             this.StatusBar_Upper.Margin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.StatusBar_Upper.Name = "StatusBar_Upper";
@@ -634,18 +634,18 @@
             this.lblStatusTickNum.Text = "N. Scontrino : 8888";
             this.lblStatusTickNum.ToolTipText = "Numero di scontrini emessi";
             // 
-            // lblNota
+            // lblNote
             // 
-            this.lblNota.AutoSize = false;
-            this.lblNota.BackColor = System.Drawing.SystemColors.Window;
-            this.lblNota.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNota.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblNota.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.lblNota.Name = "lblNota";
-            this.lblNota.Size = new System.Drawing.Size(153, 30);
-            this.lblNota.Spring = true;
-            this.lblNota.Text = "Nota:";
-            this.lblNota.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblNote.AutoSize = false;
+            this.lblNote.BackColor = System.Drawing.SystemColors.Window;
+            this.lblNote.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNote.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblNote.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.lblNote.Name = "lblNote";
+            this.lblNote.Size = new System.Drawing.Size(153, 30);
+            this.lblNote.Spring = true;
+            this.lblNote.Text = "Nota:";
+            this.lblNote.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // TabSet
             // 
@@ -1145,20 +1145,20 @@
             this.toolStripTop_TC_lbl.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolStripTop_TC_lbl.ToolTipText = "Totale Corrente";
             // 
-            // EditNota
+            // EditNote
             // 
-            this.EditNota.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.EditNota.BackColor = System.Drawing.Color.Gainsboro;
-            this.EditNota.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditNota.Location = new System.Drawing.Point(479, 584);
-            this.EditNota.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
-            this.EditNota.MaxLength = 28;
-            this.EditNota.Name = "EditNota";
-            this.EditNota.Size = new System.Drawing.Size(321, 26);
-            this.EditNota.TabIndex = 2;
-            this.EditNota.WordWrap = false;
-            this.EditNota.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
-            this.EditNota.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
+            this.EditNote.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.EditNote.BackColor = System.Drawing.Color.Gainsboro;
+            this.EditNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditNote.Location = new System.Drawing.Point(479, 584);
+            this.EditNote.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.EditNote.MaxLength = 28;
+            this.EditNote.Name = "EditNote";
+            this.EditNote.Size = new System.Drawing.Size(321, 26);
+            this.EditNote.TabIndex = 2;
+            this.EditNote.WordWrap = false;
+            this.EditNote.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
+            this.EditNote.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
             // 
             // lblStatus_Status
             // 
@@ -1354,15 +1354,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelRight.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.panelRight.Controls.Add(this.btnNavRight);
-            this.panelRight.Controls.Add(this.EditResto);
-            this.panelRight.Controls.Add(this.EditContante);
+            this.panelRight.Controls.Add(this.EditChange);
+            this.panelRight.Controls.Add(this.EditPaidCash);
             this.panelRight.Controls.Add(this.lblPagato);
             this.panelRight.Controls.Add(this.lblResto);
             this.panelRight.Controls.Add(this.Edit_TotCorrente);
             this.panelRight.Controls.Add(this.labelTotale);
-            this.panelRight.Controls.Add(this.EditNome);
+            this.panelRight.Controls.Add(this.EditName);
             this.panelRight.Controls.Add(this.lblNome);
-            this.panelRight.Controls.Add(this.EditTavolo);
+            this.panelRight.Controls.Add(this.EditTable);
             this.panelRight.Controls.Add(this.lblTavolo);
             this.panelRight.Controls.Add(this.EditCoperti);
             this.panelRight.Controls.Add(this.lblCoperti);
@@ -1384,42 +1384,42 @@
             this.btnNavRight.UseVisualStyleBackColor = false;
             this.btnNavRight.Click += new System.EventHandler(this.BtnNav_Click);
             // 
-            // EditResto
+            // EditChange
             // 
-            this.EditResto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.EditResto.BackColor = System.Drawing.Color.Honeydew;
-            this.EditResto.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditResto.Location = new System.Drawing.Point(7, 387);
-            this.EditResto.Margin = new System.Windows.Forms.Padding(0);
-            this.EditResto.MaxLength = 6;
-            this.EditResto.Name = "EditResto";
-            this.EditResto.ReadOnly = true;
-            this.EditResto.Size = new System.Drawing.Size(217, 29);
-            this.EditResto.TabIndex = 34;
-            this.EditResto.TabStop = false;
-            this.EditResto.Text = "4.40";
-            this.EditResto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.EditResto.WordWrap = false;
-            this.EditResto.MouseClick += new System.Windows.Forms.MouseEventHandler(this.EditStatusResto_MouseClick);
-            this.EditResto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
+            this.EditChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.EditChange.BackColor = System.Drawing.Color.Honeydew;
+            this.EditChange.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditChange.Location = new System.Drawing.Point(7, 387);
+            this.EditChange.Margin = new System.Windows.Forms.Padding(0);
+            this.EditChange.MaxLength = 6;
+            this.EditChange.Name = "EditChange";
+            this.EditChange.ReadOnly = true;
+            this.EditChange.Size = new System.Drawing.Size(217, 29);
+            this.EditChange.TabIndex = 34;
+            this.EditChange.TabStop = false;
+            this.EditChange.Text = "4.40";
+            this.EditChange.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.EditChange.WordWrap = false;
+            this.EditChange.MouseClick += new System.Windows.Forms.MouseEventHandler(this.EditStatusResto_MouseClick);
+            this.EditChange.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             // 
-            // EditContante
+            // EditPaidCash
             // 
-            this.EditContante.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.EditContante.BackColor = System.Drawing.Color.Honeydew;
-            this.EditContante.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditContante.Location = new System.Drawing.Point(7, 328);
-            this.EditContante.Margin = new System.Windows.Forms.Padding(0);
-            this.EditContante.MaxLength = 6;
-            this.EditContante.Name = "EditContante";
-            this.EditContante.Size = new System.Drawing.Size(217, 29);
-            this.EditContante.TabIndex = 33;
-            this.EditContante.Text = "2.20";
-            this.EditContante.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.EditContante.WordWrap = false;
-            this.EditContante.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
-            this.EditContante.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditContante_KeyPress);
-            this.EditContante.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
+            this.EditPaidCash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.EditPaidCash.BackColor = System.Drawing.Color.Honeydew;
+            this.EditPaidCash.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditPaidCash.Location = new System.Drawing.Point(7, 328);
+            this.EditPaidCash.Margin = new System.Windows.Forms.Padding(0);
+            this.EditPaidCash.MaxLength = 6;
+            this.EditPaidCash.Name = "EditPaidCash";
+            this.EditPaidCash.Size = new System.Drawing.Size(217, 29);
+            this.EditPaidCash.TabIndex = 33;
+            this.EditPaidCash.Text = "2.20";
+            this.EditPaidCash.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.EditPaidCash.WordWrap = false;
+            this.EditPaidCash.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
+            this.EditPaidCash.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.EditContante_KeyPress);
+            this.EditPaidCash.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
             // 
             // lblPagato
             // 
@@ -1474,19 +1474,19 @@
             this.labelTotale.TabIndex = 29;
             this.labelTotale.Text = "TOTALE";
             // 
-            // EditNome
+            // EditName
             // 
-            this.EditNome.BackColor = System.Drawing.Color.LightBlue;
-            this.EditNome.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditNome.Location = new System.Drawing.Point(7, 151);
-            this.EditNome.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
-            this.EditNome.MaxLength = 20;
-            this.EditNome.Name = "EditNome";
-            this.EditNome.Size = new System.Drawing.Size(217, 29);
-            this.EditNome.TabIndex = 28;
-            this.EditNome.WordWrap = false;
-            this.EditNome.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
-            this.EditNome.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
+            this.EditName.BackColor = System.Drawing.Color.LightBlue;
+            this.EditName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditName.Location = new System.Drawing.Point(7, 151);
+            this.EditName.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.EditName.MaxLength = 20;
+            this.EditName.Name = "EditName";
+            this.EditName.Size = new System.Drawing.Size(217, 29);
+            this.EditName.TabIndex = 28;
+            this.EditName.WordWrap = false;
+            this.EditName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
+            this.EditName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
             // 
             // lblNome
             // 
@@ -1500,20 +1500,20 @@
             this.lblNome.TabIndex = 27;
             this.lblNome.Text = "NOME";
             // 
-            // EditTavolo
+            // EditTable
             // 
-            this.EditTavolo.BackColor = System.Drawing.Color.LightBlue;
-            this.EditTavolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EditTavolo.Location = new System.Drawing.Point(7, 92);
-            this.EditTavolo.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
-            this.EditTavolo.MaxLength = 12;
-            this.EditTavolo.Name = "EditTavolo";
-            this.EditTavolo.Size = new System.Drawing.Size(217, 29);
-            this.EditTavolo.TabIndex = 23;
-            this.EditTavolo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.EditTavolo.WordWrap = false;
-            this.EditTavolo.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
-            this.EditTavolo.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
+            this.EditTable.BackColor = System.Drawing.Color.LightBlue;
+            this.EditTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EditTable.Location = new System.Drawing.Point(7, 92);
+            this.EditTable.Margin = new System.Windows.Forms.Padding(0, 0, 0, 2);
+            this.EditTable.MaxLength = 12;
+            this.EditTable.Name = "EditTable";
+            this.EditTable.Size = new System.Drawing.Size(217, 29);
+            this.EditTable.TabIndex = 23;
+            this.EditTable.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.EditTable.WordWrap = false;
+            this.EditTable.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
+            this.EditTable.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
             // 
             // lblTavolo
             // 
@@ -1583,7 +1583,7 @@
             this.Controls.Add(this.EditStatus_QRC);
             this.Controls.Add(this.MainGrid);
             this.Controls.Add(this.TabSet);
-            this.Controls.Add(this.EditNota);
+            this.Controls.Add(this.EditNote);
             this.Controls.Add(this.topPanel);
             this.Controls.Add(this.StatusBar_Upper);
             this.Controls.Add(this.StatusBar);
@@ -1656,7 +1656,7 @@
         private System.Windows.Forms.StatusStrip StatusBar_Upper;
         private System.Windows.Forms.ToolStripStatusLabel lblStatusTickNum;
         private System.Windows.Forms.ToolStripStatusLabel lblStatusTotalePrec;
-        private System.Windows.Forms.ToolStripStatusLabel lblNota;
+        private System.Windows.Forms.ToolStripStatusLabel lblNote;
         private System.Windows.Forms.TabControl TabSet;
         private System.Windows.Forms.TabPage tabPage0;
         private System.Windows.Forms.TabPage tabPage1;
@@ -1681,7 +1681,7 @@
         private System.Windows.Forms.ToolStripSeparator BtnSep_T2;
         private System.Windows.Forms.ToolStripSeparator BtnSep_T3;
         private System.Windows.Forms.ToolStripSeparator BtnSep_T7;
-        private System.Windows.Forms.TextBox EditNota;
+        private System.Windows.Forms.TextBox EditNote;
         private System.Windows.Forms.DataGridView MainGrid;
         private System.Windows.Forms.ToolStripSeparator BtnSep_T4;
         private System.Windows.Forms.ToolStripSeparator BtnSep_T8;
@@ -1719,14 +1719,14 @@
         private System.Windows.Forms.Panel panelRight;
         private System.Windows.Forms.Label lblCoperti;
         private System.Windows.Forms.TextBox EditCoperti;
-        private System.Windows.Forms.TextBox EditTavolo;
+        private System.Windows.Forms.TextBox EditTable;
         private System.Windows.Forms.Label lblTavolo;
         private System.Windows.Forms.Label lblNome;
-        private System.Windows.Forms.TextBox EditNome;
+        private System.Windows.Forms.TextBox EditName;
         private System.Windows.Forms.TextBox Edit_TotCorrente;
         private System.Windows.Forms.Label labelTotale;
-        private System.Windows.Forms.TextBox EditResto;
-        private System.Windows.Forms.TextBox EditContante;
+        private System.Windows.Forms.TextBox EditChange;
+        private System.Windows.Forms.TextBox EditPaidCash;
         private System.Windows.Forms.Label lblPagato;
         private System.Windows.Forms.Label lblResto;
         private System.Windows.Forms.Button btnNavRight;

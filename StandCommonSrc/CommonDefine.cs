@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 30.11.2025 
+    Data	 : 06.12.2026
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.16.2d";
+        public const String RELEASE_SW = "v5.16.3";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_DB_TBLS = "v5d";
@@ -44,7 +44,7 @@ namespace StandCommonFiles
 
         // *** evitare maiuscole ***
         /// <summary>database: nome tabella di stato</summary>
-        public const string NOME_STATO_DBTBL = RELEASE_DB_TBLS + "_stato";
+        public const string NOME_STATUS_DBTBL = RELEASE_DB_TBLS + "_stato";
 
         /// <summary>prefisso tabella degli ordini</summary>
         public const string _dbOrdersTablePrefix = RELEASE_DB_TBLS + "_ordini";
@@ -92,10 +92,10 @@ namespace StandCommonFiles
             public const String _TAVOLO = "_Table" + SHMAGIC;
 
             /// <summary>sTipo_Articolo per memorizzazione del nome utente nella tabella ordini_YYmmdd</summary>
-            public const String _NOME = "_Name" + SHMAGIC;
+            public const String _NAME = "_Name" + SHMAGIC;
 
             /// <summary>sTipo_Articolo per memorizzazione della nota nella tabella ordini_YYmmdd</summary>
-            public const String _NOTA = "_Note" + SHMAGIC;
+            public const String _NOTE = "_Note" + SHMAGIC;
 
             /// <summary>sTipo_Articolo per memorizzazione dello sconto Fisso e Gratis nella tabella ordini_YYmmdd</summary>
             public const String _DISCOUNT = "_Discount" + SHMAGIC;
@@ -113,7 +113,7 @@ namespace StandCommonFiles
             public const String _PRICE_LIST_CHECKSUM = "_PriceListChecksum" + SHMAGIC;
 
             /// <summary>array per la ricerca di una stringa</summary>
-            public static readonly String[] sArray = new String[] { _START_OF_ORDER, _TAVOLO, _NOME, _NOTA, _DISCOUNT,
+            public static readonly String[] sArray = new String[] { _START_OF_ORDER, _TAVOLO, _NAME, _NOTE, _DISCOUNT,
                                                                         _BUONI, _NUM_ORD_WEB, _NUM_ORD_PREV };
         }
 
@@ -636,7 +636,7 @@ namespace StandCommonFiles
          *              Flags di di stato gestione Ordine               *
          ****************************************************************/
 
-        /// <summary>Flags  di Stato</summary>
+        /// <summary>Flags di Stato</summary>
         public enum STATUS_FLAGS
         {
             /// <summary>bit di iStatus che indica l'asporto</summary>
@@ -1375,7 +1375,7 @@ namespace StandCommonFiles
         };
 
         /// <summary>testo descrittivo della Nota</summary>
-        public static readonly String[] sConst_Nota =
+        public static readonly String[] sConst_Note =
         {
             "======= annotazione =======",
             "==========================="

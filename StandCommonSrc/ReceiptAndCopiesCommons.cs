@@ -1,6 +1,6 @@
 ﻿/*********************************************************************************
  	NomeFile : StandCommonSrc/ReceiptAndCopiesCommons.cs
-    Data	 : 10.09.2025
+    Data	 : 01.01.2026
  	Autore	 : Mauro Artuso
 
 	Classi di uso comune a DataManager.Receipt(), VisOrdiniDlg.ReceiptRebuild()<br/>
@@ -328,7 +328,8 @@ namespace StandCommonFiles
         /// </summary>
         public static void WriteReceipt(ref TData dataIdParam, int iNumOfReceiptsParam, String sDirParam, TOrdineStrings sOrdineStringsParam)
         {
-            int i, j, iIncassoParz;
+            bool bBuoniApplicatiParz = false;
+            int i, j, iIncassoParz, iBuoniApplicatiParz;
             int k, iRcpCopyLoop;
 
 #if STANDFACILE
@@ -532,16 +533,34 @@ namespace StandCommonFiles
                         {
                             if ((dataIdParam.Articolo[j].iQuantitaOrdine > 0) && (dataIdParam.Articolo[j].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI))
                             {
-                                iIncassoParz = dataIdParam.Articolo[j].iQuantitaOrdine * dataIdParam.Articolo[j].iPrezzoUnitario;
+                                iBuoniApplicatiParz = dataIdParam.Articolo[j].iQuantitaOrdine * dataIdParam.Articolo[j].iPrezzoUnitario;
 
-                                dataIdParam.iBuoniApplicatiReceipt += iIncassoParz;
+                                dataIdParam.iBuoniApplicatiReceipt += iBuoniApplicatiParz;
+                                dataIdParam.iTotaleReceipt -= iBuoniApplicatiParz; // ---------------- ****************
 
-                                dataIdParam.iTotaleReceipt -= iIncassoParz; // ---------------- ****************
-                                sIncassoParz = "-" + IntToEuro(iIncassoParz);
+                                // causa presenza buoni è sempre possibile !
+                                if (dataIdParam.iTotaleReceipt < 0)
+                                {
+                                    // iBuoniApplicatiReceipt dimuisce dato che dataIdParam.iTotaleReceipt < 0
+                                    iBuoniApplicatiParz += dataIdParam.iTotaleReceipt;
+                                    dataIdParam.iBuoniApplicatiReceipt += dataIdParam.iTotaleReceipt;
+
+                                    dataIdParam.iTotaleReceipt = 0;
+
+                                    bBuoniApplicatiParz = true;
+                                }
+
+                                sIncassoParz = "-" + IntToEuro(iBuoniApplicatiParz);
 
                                 // 89 123456789012345678 9876.00  width=28
                                 sTmp = String.Format(sRCP_FMT_RCPT, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo, sIncassoParz);
                                 _fPrint.WriteLine("{0}", sTmp);
+
+                                if (bBuoniApplicatiParz)
+                                {
+                                    sTmp = String.Format(sRCP_FMT_NOTE + "\r\n", "applicato valore ridotto");
+                                    _fPrint.WriteLine("{0}", sTmp);
+                                }
 
                                 if (!String.IsNullOrEmpty(dataIdParam.Articolo[j].sNotaArt))
                                 {
@@ -557,13 +576,13 @@ namespace StandCommonFiles
                     // punto doppio
                     dataIdParam.iScontoStdReceipt = Arrotonda(dataIdParam.iScontoStdReceipt);
 
-                    // causa presenza buoni è sempre possibile !
-                    if (dataIdParam.iTotaleReceipt < 0)
-                    {
-                        // iBuoniApplicatiReceipt dimuisce dato che dataIdParam.iTotaleReceipt < 0
-                        dataIdParam.iBuoniApplicatiReceipt += dataIdParam.iTotaleReceipt;
-                        dataIdParam.iTotaleReceipt = 0;
-                    }
+                    //// causa presenza buoni è sempre possibile !
+                    //if (dataIdParam.iTotaleReceipt < 0)
+                    //{
+                    //    // iBuoniApplicatiReceipt dimuisce dato che dataIdParam.iTotaleReceipt < 0
+                    //    dataIdParam.iBuoniApplicatiReceipt += dataIdParam.iTotaleReceipt;
+                    //    dataIdParam.iTotaleReceipt = 0;
+                    //}
 
                     if (IsBitSet(dataIdParam.iStatusSconto, BIT_SCONTO_STD) && TicketScontatoStdIsGood(dataIdParam, bScontoGruppo))
                     {
@@ -706,13 +725,13 @@ namespace StandCommonFiles
 
                     if (!String.IsNullOrEmpty(dataIdParam.sNota))
                     {
-                        sTmp = CenterJustify(sConst_Nota[0], iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(sConst_Note[0], iMAX_RECEIPT_CHARS);
                         _fPrint.WriteLine("{0}", sTmp);
 
                         sTmp = CenterJustify(dataIdParam.sNota, iMAX_RECEIPT_CHARS);
                         _fPrint.WriteLine("{0}", sTmp);
 
-                        sTmp = CenterJustify(sConst_Nota[1], iMAX_RECEIPT_CHARS);
+                        sTmp = CenterJustify(sConst_Note[1], iMAX_RECEIPT_CHARS);
                         _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
                     }
 
@@ -1609,13 +1628,13 @@ namespace StandCommonFiles
 
                         if (!String.IsNullOrEmpty(dataIdParam.sNota))
                         {
-                            sTmp = CenterJustify(sConst_Nota[0], MAX_RECEIPT_CHARS_CPY);
+                            sTmp = CenterJustify(sConst_Note[0], MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp);
 
                             sTmp = CenterJustify(dataIdParam.sNota, MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp);
 
-                            sTmp = CenterJustify(sConst_Nota[1], MAX_RECEIPT_CHARS_CPY);
+                            sTmp = CenterJustify(sConst_Note[1], MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
                             iEqRowsNumber += 4;
                         }
@@ -1879,13 +1898,13 @@ namespace StandCommonFiles
 
                         if (!String.IsNullOrEmpty(dataIdParam.sNota))
                         {
-                            sTmp = CenterJustify(sConst_Nota[0], MAX_RECEIPT_CHARS_CPY);
+                            sTmp = CenterJustify(sConst_Note[0], MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp);
 
                             sTmp = CenterJustify(dataIdParam.sNota, MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp);
 
-                            sTmp = CenterJustify(sConst_Nota[1], MAX_RECEIPT_CHARS_CPY);
+                            sTmp = CenterJustify(sConst_Note[1], MAX_RECEIPT_CHARS_CPY);
                             _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
                             iEqRowsNumber += 4;
                         }
@@ -2006,13 +2025,13 @@ namespace StandCommonFiles
 
             if (!String.IsNullOrEmpty(dataIdParam.sNota))
             {
-                sTmp = CenterJustify(sConst_Nota[0], MAX_RECEIPT_CHARS_CPY);
+                sTmp = CenterJustify(sConst_Note[0], MAX_RECEIPT_CHARS_CPY);
                 fPrintParam.WriteLine("{0}", sTmp);
 
                 sTmp = CenterJustify(dataIdParam.sNota, MAX_RECEIPT_CHARS_CPY);
                 fPrintParam.WriteLine("{0}", sTmp);
 
-                sTmp = CenterJustify(sConst_Nota[1], MAX_RECEIPT_CHARS_CPY);
+                sTmp = CenterJustify(sConst_Note[1], MAX_RECEIPT_CHARS_CPY);
                 fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
             }
 

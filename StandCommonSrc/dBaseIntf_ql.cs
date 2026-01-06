@@ -270,7 +270,7 @@ namespace StandFacile_DB
             try
             {
                 cmd.Connection = _Connection;
-                cmd.CommandText = "SELECT * FROM " + NOME_STATO_DBTBL + " WHERE (key_ID = 'Data')";
+                cmd.CommandText = "SELECT * FROM " + NOME_STATUS_DBTBL + " WHERE (key_ID = 'Data')";
 
                 readerStato = cmd.ExecuteReader();
 
@@ -295,7 +295,7 @@ namespace StandFacile_DB
                     LogToFile("dbCheckStatus : stato non letto");
 
                 // lettura Versione
-                cmd.CommandText = "SELECT * FROM " + NOME_STATO_DBTBL + " WHERE (key_ID = 'Versione')";
+                cmd.CommandText = "SELECT * FROM " + NOME_STATUS_DBTBL + " WHERE (key_ID = 'Versione')";
                 readerStato = cmd.ExecuteReader();
 
                 if (readerStato != null)
@@ -348,7 +348,7 @@ namespace StandFacile_DB
                     try
                     {
                         // stato
-                        sQueryTxt = "DROP TABLE IF EXISTS " + NOME_STATO_DBTBL + ";";
+                        sQueryTxt = "DROP TABLE IF EXISTS " + NOME_STATUS_DBTBL + ";";
 
                         cmd.Connection = _Connection;
                         cmd.CommandText = sQueryTxt;
@@ -358,7 +358,7 @@ namespace StandFacile_DB
 
                         sQueryTxt = String.Format(@"CREATE TABLE IF NOT EXISTS {0} (key_ID VARCHAR(50) NOT NULL, sText VARCHAR(50),
                                 iYear INT NOT NULL, iMonth INT NOT NULL, iDay INT NOT NULL, PRIMARY KEY(key_ID));",
-                            NOME_STATO_DBTBL);
+                            NOME_STATUS_DBTBL);
 
                         cmd.CommandText = sQueryTxt;
                         qResult = cmd.ExecuteScalar();
@@ -373,27 +373,27 @@ namespace StandFacile_DB
                         iGiorno = Convert.ToInt32(sTmp);
 
                         sQueryTxt = String.Format("INSERT INTO {0} (key_ID, sText, iYear, iMonth, iDay) VALUES (\'{1}\', \'{2}\', {3}, {4}, {5});",
-                            NOME_STATO_DBTBL, "Data", "-", iAnno, iMese, iGiorno);
+                            NOME_STATUS_DBTBL, "Data", "-", iAnno, iMese, iGiorno);
                         cmd.CommandText = sQueryTxt;
                         qResult = cmd.ExecuteScalar();
 
                         sQueryTxt = String.Format("INSERT INTO {0} (key_ID, sText, iYear, iMonth, iDay) VALUES (\'{1}\', \'{2}\', {3}, {4}, {5});",
-                            NOME_STATO_DBTBL, "Versione", RELEASE_SW, 0, 0, 0);
+                            NOME_STATUS_DBTBL, "Versione", RELEASE_SW, 0, 0, 0);
                         cmd.CommandText = sQueryTxt;
                         qResult = cmd.ExecuteScalar();
 
                         sQueryTxt = String.Format("INSERT INTO {0} (key_ID, sText, iYear, iMonth, iDay) VALUES (\'{1}\', \'{2}\', {3}, {4}, {5});",
-                            NOME_STATO_DBTBL, WEB_SERVER_NAME_KEY, sWebServerParams.sWebTablePrefix, 0, 0, 0);
+                            NOME_STATUS_DBTBL, WEB_SERVER_NAME_KEY, sWebServerParams.sWebTablePrefix, 0, 0, 0);
                         cmd.CommandText = sQueryTxt;
                         qResult = cmd.ExecuteScalar();
 
                         sQueryTxt = String.Format("INSERT INTO {0} (key_ID, sText, iYear, iMonth, iDay) VALUES (\'{1}\', \'{2}\', {3}, {4}, {5});",
-                            NOME_STATO_DBTBL, WEB_DBASE_NAME_KEY, sWebServerParams.sWeb_DBase, 0, 0, 0);
+                            NOME_STATUS_DBTBL, WEB_DBASE_NAME_KEY, sWebServerParams.sWeb_DBase, 0, 0, 0);
                         cmd.CommandText = sQueryTxt;
                         qResult = cmd.ExecuteScalar();
 
                         sQueryTxt = String.Format("INSERT INTO {0} (key_ID, sText, iYear, iMonth, iDay) VALUES (\'{1}\', \'{2}\', {3}, {4}, {5});",
-                            NOME_STATO_DBTBL, WEB_DBASE_PWD_KEY, sWebServerParams.sWebEncryptedPwd, 0, 0, 0);
+                            NOME_STATUS_DBTBL, WEB_DBASE_PWD_KEY, sWebServerParams.sWebEncryptedPwd, 0, 0, 0);
                         cmd.CommandText = sQueryTxt;
                         qResult = cmd.ExecuteScalar();
 
@@ -431,7 +431,7 @@ namespace StandFacile_DB
 
                 // aggiorna versione
                 sReadVersion = "";
-                cmd.CommandText = "UPDATE " + NOME_STATO_DBTBL + " SET sText = '" + RELEASE_SW + "' WHERE (key_ID = 'Versione')";
+                cmd.CommandText = "UPDATE " + NOME_STATUS_DBTBL + " SET sText = '" + RELEASE_SW + "' WHERE (key_ID = 'Versione')";
                 readerStato = cmd.ExecuteReader();
             }
 
@@ -460,7 +460,7 @@ namespace StandFacile_DB
             try
             {
                 cmd.Connection = _Connection;
-                cmd.CommandText = "SELECT * FROM " + NOME_STATO_DBTBL + ";";
+                cmd.CommandText = "SELECT * FROM " + NOME_STATUS_DBTBL + ";";
                 readerStatus = cmd.ExecuteReader();
 
                 while (readerStatus.Read())
@@ -534,13 +534,13 @@ namespace StandFacile_DB
             {
                 cmd.Connection = _Connection;
 
-                cmd.CommandText = "UPDATE " + NOME_STATO_DBTBL + " SET sText = '" + sWebServerParams.sWebTablePrefix + "' WHERE (key_ID = '" + WEB_SERVER_NAME_KEY + "')";
+                cmd.CommandText = "UPDATE " + NOME_STATUS_DBTBL + " SET sText = '" + sWebServerParams.sWebTablePrefix + "' WHERE (key_ID = '" + WEB_SERVER_NAME_KEY + "')";
                 readerStatus = cmd.ExecuteReader();
 
-                cmd.CommandText = "UPDATE " + NOME_STATO_DBTBL + " SET sText = '" + sWebServerParams.sWeb_DBase + "' WHERE (key_ID = '" + WEB_DBASE_NAME_KEY + "')";
+                cmd.CommandText = "UPDATE " + NOME_STATUS_DBTBL + " SET sText = '" + sWebServerParams.sWeb_DBase + "' WHERE (key_ID = '" + WEB_DBASE_NAME_KEY + "')";
                 readerStatus = cmd.ExecuteReader();
 
-                cmd.CommandText = "UPDATE " + NOME_STATO_DBTBL + " SET sText = '" + sWebServerParams.sWebEncryptedPwd + "' WHERE (key_ID = '" + WEB_DBASE_PWD_KEY + "')";
+                cmd.CommandText = "UPDATE " + NOME_STATUS_DBTBL + " SET sText = '" + sWebServerParams.sWebEncryptedPwd + "' WHERE (key_ID = '" + WEB_DBASE_PWD_KEY + "')";
                 readerStatus = cmd.ExecuteReader();
 
                 readerStatus?.Close();

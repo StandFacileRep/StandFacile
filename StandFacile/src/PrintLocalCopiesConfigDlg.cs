@@ -216,7 +216,7 @@ namespace StandFacile
             PrintNetCopiesConfigDlg._rPrintConfigDlg.Init(true);
 
             if (PrintNetCopiesConfigDlg.GetListinoModificato())
-                DataManager.SalvaListinoPgrFrm();
+                DataManager.SalvaListino();
         }
 
         private void BtnCancel_Click(object sender, EventArgs e)

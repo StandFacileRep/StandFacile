@@ -1,6 +1,6 @@
 ﻿/********************************************************************
   	NomeFile : StandCommonSrc/SelDataDlg.cs
-    Data	 : 01.08.2025
+    Data	 : 31.12.2025
   	Autore   : Mauro Artuso
  ********************************************************************/
 
@@ -78,11 +78,16 @@ namespace StandFacile
             if (_rdBaseIntf != null) // per StandMonitor
                 iDB_StringsCount = _rdBaseIntf.dbElencoTabelle(sElencoStrings);
 
+            if (SF_Data.bPrevendita)
+                sPrefix = _dbPreDataTablePrefix;
+            else
+                sPrefix = _dbDataTablePrefix;
+
             for (i = 0; i < iDB_StringsCount; i++)
             {
                 sCell = sElencoStrings[i];
 
-                if (sCell.Contains(NOME_STATO_DBTBL) || sCell.Contains(NOME_NSC_DBTBL) ||
+                if (sCell.Contains(NOME_STATUS_DBTBL) || sCell.Contains(NOME_NSC_DBTBL) ||
                     sCell.Contains(NOME_DISP_DBTBL) || sCell.Contains(NOME_NMSG_DBTBL) ||
                     sCell.Contains("_unionetmp1") || sCell.Contains("_unionetmp2") ||
                     sCell.Contains("images") || sCell.Contains("indexes") ||
@@ -92,11 +97,6 @@ namespace StandFacile
                     !sCell.Contains(RELEASE_DB_TBLS) ||
                     String.IsNullOrEmpty(sCell))
                     continue;
-
-                if (SF_Data.bPrevendita)
-                    sPrefix = _dbPreDataTablePrefix;
-                else
-                    sPrefix = _dbDataTablePrefix;
 
                 if (sCell.Contains(sPrefix))
                 {
