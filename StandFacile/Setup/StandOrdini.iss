@@ -1,8 +1,8 @@
-; 22.12.2025
+; 24.01.2026
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
-AppVersion= 5.16.2
+AppVersion= 5.16.4
 
 AppVerName=StandOrdini {#SetupSetting("AppVersion")}
 AppName=StandOrdini 2026

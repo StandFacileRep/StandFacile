@@ -1,5 +1,4 @@
 
-[05.12.2024]<br>
 Attenzione: <br>
 il file Listino.txt va aggiunto alla directory dell'eseguibile<br>
 il file StandCommonSafe.cs presente nella root va copiato nella directory: StandCommonSrc
@@ -11,12 +10,7 @@ può provocare il malfunzionamento (richiesta di licenza) della dll
 
 ---------------------------------------------------------------------------------
 
-  Versione 5.13.0
-- commit su GitHub in qualità di repository pubblica
-
----------------------------------------------------------------------------------
-
-Copyright (c) 2024-2025 Mauro Artuso
+Copyright (c) 2024-2026 Mauro Artuso
 
 Questa Licenza è relativa alla Suite di Programmi "StandFacile" che comprende:<br>
 “StandFacile”, “StandCucina”, “StandMonitor”, “StandOrdini”
@@ -48,5 +42,4 @@ utilizza una tecnica di tipo http_tunneling: la chiave CIPHER_KEY di StandFacile
 a quella dell' "http tunnel" presente nel sito remoto e scritto in linguaggio php.
 
 StandCommonSafe.cs è il file che contiene le chiavi crittografiche e l'indirizzo del db_web_server
-
 
