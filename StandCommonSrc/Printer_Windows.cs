@@ -61,7 +61,6 @@ namespace StandCommonFiles
 
         static bool _bIsDati, _bIsTicket;
         static bool _bLogoCheck_T, _bLogoCheck_B;
-        static bool _bCopiaCucina;
         static bool _bTicketNumFound;
         static bool _bSkipNumeroScontrino, _bLogoPrinted_T, _bLogoPrinted_B;
 
@@ -142,7 +141,6 @@ namespace StandCommonFiles
             string sTmp;
 
             _bIsDati = false;
-            _bCopiaCucina = false;
             _bIsTicket = false;
             _bLogoCheck_T = true;
             _bLogoCheck_B = true;
@@ -247,23 +245,6 @@ namespace StandCommonFiles
             // String sTmpFormat = String.Format("{0,2:D2}", _iGruppoStampa);
             _cGruppoStampa[0] = String.Format("{0,2:D2}", _iGruppoStampa)[0];
             _cGruppoStampa[1] = String.Format("{0,2:D2}", _iGruppoStampa)[1];
-
-            /*************************************
-                if(bCopiaCucina) stampa BARCODE
-             *************************************/
-#if STANDFACILE
-            if (sTmp.Contains("_CT"))
-                _bCopiaCucina = true;
-            else
-                _bCopiaCucina = false;
-#endif
-
-#if STAND_CUCINA
-            if (sTmp.Contains("CT_") || (_sFileToPrintParam == NOME_FILE_STAMPA_RECEIPT))
-                _bCopiaCucina = true; //StandCucina stampa solo copie
-            else
-                _bCopiaCucina = false;
-#endif
 
             try
             {

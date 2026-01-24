@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 06.12.2026
+    Data	 : 18.01.2026
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.16.3";
+        public const String RELEASE_SW = "v5.16.4";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_DB_TBLS = "v5d";
@@ -585,21 +585,21 @@ namespace StandCommonFiles
         /// </summary>
         public enum DEST_TYPE
         {
-            /// <summary>gruppo generico es:primi</summary>
+            /// <summary>gruppo generico es: primi</summary>
             DEST_TIPO1 = 0,
-            /// <summary>gruppo generico es:secondi</summary>
+            /// <summary>gruppo generico es: secondi</summary>
             DEST_TIPO2,
-            /// <summary>gruppo generico es:contorni</summary>
+            /// <summary>gruppo generico es: contorni</summary>
             DEST_TIPO3,
-            /// <summary>gruppo generico es:analcolici</summary>
+            /// <summary>gruppo generico es: analcolici</summary>
             DEST_TIPO4,
-            /// <summary>gruppo generico es:alcolici</summary>
+            /// <summary>gruppo generico es: alcolici</summary>
             DEST_TIPO5,
-            /// <summary>gruppo generico es:dessert</summary>
+            /// <summary>gruppo generico es: dessert</summary>
             DEST_TIPO6,
-            /// <summary>gruppo generico es:panini</summary>
+            /// <summary>gruppo generico es: panini</summary>
             DEST_TIPO7,
-            /// <summary>gruppo generico es:caffetteria</summary>
+            /// <summary>gruppo generico es: caffetteria</summary>
             DEST_TIPO8,
             /// <summary>gruppo generico es: GRUPPO 9 (no-web)</summary>
             DEST_TIPO9_NOWEB,

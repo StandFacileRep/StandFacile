@@ -900,7 +900,8 @@ namespace StandCommonFiles
 
             bTicketCopies_CutRequired = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
 
-            _bPlaceSettingsOnCopies = IsBitSet(SF_Data.iLocalCopyOptions, (int)GEN_PRINTER_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
+            // GEN_PRINTER_OPTS
+            _bPlaceSettingsOnCopies = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
 
             // conferma dalle altre dipendenze
             _bAvoidPrintOtherGroups |= !(_bPrintSelectedOnly && (bSingleRowItems || bUnitQtyItems));

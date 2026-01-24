@@ -192,7 +192,6 @@ namespace StandFacile
                     SF_Data.Articolo[_iPt].sTipo = "";
                     SF_Data.Articolo[_iPt].iPrezzoUnitario = 0;
                     SF_Data.Articolo[_iPt].iGruppoStampa = 0;
-                    _bListinoModificato = true;
 
                     Init(_iPt, true);
                 }

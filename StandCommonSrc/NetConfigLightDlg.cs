@@ -1,6 +1,6 @@
 ﻿/******************************************************
   	NomeFile : StandCommonSrc/NetConfigLightDlg.cs
-    Data	 : 18.04.2025
+    Data	 : 24.01.2026
   	Autore   : Mauro Artuso
 
  ******************************************************/
@@ -157,7 +157,7 @@ namespace StandFacile
             for (i = 0; i < NUM_GROUPS_COLORS - 1; i++)
                 _pTextBoxColor[i].Top -= iVShift;
 
-            LogToFile("TFrmNetConfig : TFrmNetConfig");
+            LogToFile("NetConfigLightDlg : costruttore");
         }
 
         /// <summary>Inizializzazione per visualizzazione</summary>
@@ -201,7 +201,7 @@ namespace StandFacile
             else
                 btnOK.Enabled = false;
 
-            LogToFile("FrmNetConfig : BtnDB_ServerTestClick");
+            LogToFile("NetConfigLightDlg : BtnDB_ServerTestClick");
         }
 
         void AggiornaAspettoControlli()
@@ -231,8 +231,6 @@ namespace StandFacile
         {
             int i;
             String sTmp;
-
-            btnOK.Enabled = false;
 
             // carica iGlbNumOfTickets, iGlbNumOfMessages, _Versione, _Header, _HeaderText
             // solo se non è la prima esecuzione
@@ -267,6 +265,8 @@ namespace StandFacile
 
             for (i = 0; i < NUM_GROUPS_COLORS - 1; i++)
                 _pTextBoxColor[i].Text = DB_Data.sColorGroupsText[i];
+
+            AggiornaAspettoControlli();
         }
 
         private void CheckBoxCopia_MouseClick(object sender, MouseEventArgs e)
@@ -333,7 +333,7 @@ namespace StandFacile
             }
 #endif
 
-            LogToFile("FrmNetConfig : OKBtnClick");
+            LogToFile("NetConfigLightDlg : OKBtnClick");
 
 #if STAND_CUCINA
 

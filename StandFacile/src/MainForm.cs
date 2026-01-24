@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 10.09.2025
+    Data	 : 24.01.2026
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -45,7 +45,7 @@ namespace StandFacile
         static bool _bShowTotaleScontrinoPrec;
 
         /// <summary>variabile per tracking tasto Crtl pressed per gestione Note</summary>
-        static bool _bCtrlIsPressed;
+        static bool _bAltIsPressed, _bCtrlIsPressed;
 
         bool _bPrimaEsecuzione;
         bool _bPrintTimeoutEnabled;
@@ -298,9 +298,9 @@ namespace StandFacile
 
             //bool bTmp = StringBelongsTo_ORDER_CONST(ORDER_CONST._NOTE, ORDER_CONST._NOTE);
 
-            BtnDB.ToolTipText = "test connessione DB:\n" +
-                "se attivi ordini web webservice verifica anche la connessione\n" +
-                "al DB remoto e con Ctrl premuto forza upload Listino";
+            BtnDB.ToolTipText = "test di connessione DB:\n" +
+                "con Ctrl premuto e webservice attivo verifica la connessione\n" +
+                "al DB remoto e forza l'upload del Listino";
 
             _tt.SetToolTip(btnNavLeft, "espande la barra laterale");
             _tt.SetToolTip(btnNavRight, "riduce la barra laterale");
@@ -339,6 +339,7 @@ namespace StandFacile
 
             _bPrintTimeoutEnabled = false;
             _bPrimaEsecuzione = true;
+            _bAltIsPressed = false;
             _bCtrlIsPressed = false;
 
             bSkipDrag = false;
@@ -2296,7 +2297,8 @@ namespace StandFacile
             String sRemDBChecksum;
             String[] sQueue_Object = new String[2];
 
-            if (bUSA_NDB() && !_bCtrlIsPressed)
+            // funzione originale dbCheck() e AggiornaDisponibilità()
+            if (bUSA_NDB() && ! (_bAltIsPressed || _bCtrlIsPressed))
             {
                 SF_Data.iNumOfLastReceipt = DataManager.GetNumOfOrders();
                 UpdateStatusBar(SF_Data.iNumOfLastReceipt, 0);
@@ -2309,7 +2311,12 @@ namespace StandFacile
                 _iDBDispTimeout = _REFRESH_DISP_SHORT; // dopo 2s dbCaricaDisponibilità()
             }
 
-            if (dBaseTunnel_my.GetWebServiceReq() || _bCtrlIsPressed)
+            // forza salvataggio listino nel DB
+            if (bUSA_NDB() && _bAltIsPressed)
+                DataManager.SalvaListino();
+
+            // forza salvataggio listino nel web
+            if (dBaseTunnel_my.GetWebServiceReq() && _bCtrlIsPressed)
             {
                 if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && dBaseTunnel_my.rdbPing())
                 {
@@ -2395,9 +2402,9 @@ namespace StandFacile
                 iFocus_QRC_Timeout = QRC_FOCUS_TIMEOUT;
 
                 SF_Data.Articolo[_iCellPt].iQuantitaOrdine += plusQty;
-
-                _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
             }
+
+            _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
             MainGrid_Redraw(this, null);
             scannerInputQueue.Clear();
@@ -2432,9 +2439,9 @@ namespace StandFacile
 
                 if (SF_Data.Articolo[_iCellPt].iQuantitaOrdine < 0)
                     SF_Data.Articolo[_iCellPt].iQuantitaOrdine = 0;
-
-                _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
             }
+
+            _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
 
             MainGrid_Redraw(this, null);
             scannerInputQueue.Clear();
@@ -2470,8 +2477,8 @@ namespace StandFacile
             {
                 SF_Data.Articolo[_iCellPt].iQuantitaOrdine = 0;
 
-                MainGrid_Redraw(this, null);
-                return;
+                bItemToAdd = false;
+                sNumber = "0";
             }
             else
                 return;

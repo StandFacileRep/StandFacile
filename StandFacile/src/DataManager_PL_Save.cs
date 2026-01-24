@@ -593,7 +593,8 @@ namespace StandFacile
             /*********************************************
              *  salvataggio nel database Dati Riepilogo
              *********************************************/
-            _rdBaseIntf.dbSalvaDati();
+            if (Equals(dataIdParam, SF_Data))
+                _rdBaseIntf.dbSalvaDati();
         }
 
         /// <summary>

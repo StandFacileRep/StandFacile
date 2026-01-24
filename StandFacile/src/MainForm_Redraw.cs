@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 30.12.2025
+    Data	 : 24.01.2026
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -476,6 +476,11 @@ namespace StandFacile
                 _bCtrlIsPressed = true;
             else
                 _bCtrlIsPressed = false;
+
+            if (e.Modifiers == Keys.Alt)
+                _bAltIsPressed = true;
+            else
+                _bAltIsPressed = false;
 
             switch (iKey)
             {
