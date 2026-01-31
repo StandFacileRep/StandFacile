@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 18.01.2026
+    Data	 : 31.01.2026
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -1484,12 +1484,16 @@ namespace StandCommonFiles
         {
             /// <summary>flag per comunicare l'avvenuto caricamento del file config.ini</summary>
             public bool bFileLoaded;
+
             /// <summary>numero di avvio conteggio scontrini, normalmente = 1</summary>
             public int iReceiptStartNumber;
             /// <summary>numero di secondi del Timer di refresh, normalmente = 30s per StandMonitor</summary>
             public int iRefreshTimer;
             /// <summary>numero di millisecondi dell'intervallo tra stampe, normalmente = 200ms per StandFacile</summary>
             public int iPrintInterval;
+            /// <summary>indice della stampante per il redirect della stampa copie locali</summary>
+            public int iLocalCopyPrinterNumRedirect;
+
             /// <summary>stringa per gestione Service Mode</summary>
             public String sService;
 
@@ -1520,6 +1524,7 @@ namespace StandCommonFiles
                 iReceiptStartNumber = 0;
                 iRefreshTimer = 30;
                 iPrintInterval = 200;
+                iLocalCopyPrinterNumRedirect = -1;
                 sService = "";
                 bRcpCopyRequired = false;
                 sRcpCopyHeader = "";

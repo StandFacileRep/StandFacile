@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.BtnImgList = new System.Windows.Forms.ImageList(this.components);
             this.MainMenu = new System.Windows.Forms.MenuStrip();
@@ -661,7 +661,7 @@
             this.TabSet.Name = "TabSet";
             this.TabSet.Padding = new System.Drawing.Point(4, 3);
             this.TabSet.SelectedIndex = 0;
-            this.TabSet.Size = new System.Drawing.Size(481, 28);
+            this.TabSet.Size = new System.Drawing.Size(600, 28);
             this.TabSet.TabIndex = 5;
             this.TabSet.TabStop = false;
             this.TabSet.SelectedIndexChanged += new System.EventHandler(this.TabSet_SelectedIndexChanged);
@@ -673,7 +673,7 @@
             this.tabPage0.Location = new System.Drawing.Point(4, 29);
             this.tabPage0.Name = "tabPage0";
             this.tabPage0.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage0.Size = new System.Drawing.Size(473, 0);
+            this.tabPage0.Size = new System.Drawing.Size(592, 0);
             this.tabPage0.TabIndex = 0;
             this.tabPage0.Text = "Pagina 1";
             // 
@@ -731,14 +731,14 @@
             this.MainGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.MainGrid.ColumnHeadersVisible = false;
             this.MainGrid.ContextMenuStrip = this.MainGridContextMenu;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Teal;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MainGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Teal;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MainGrid.DefaultCellStyle = dataGridViewCellStyle1;
             this.MainGrid.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.MainGrid.EnableHeadersVisualStyles = false;
             this.MainGrid.GridColor = System.Drawing.Color.Gainsboro;

@@ -1,6 +1,6 @@
 ﻿/*****************************************************
   	NomeFile : StandFacile/Config.cs
-	Data	 : 01.08.2025
+	Data	 : 31.01.2026
   	Autore	 : Mauro Artuso
  *****************************************************/
 
@@ -84,6 +84,8 @@ namespace StandFacile
                     {
                         iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
                         sInStr = sInStr.Remove(0, iPos + 1);
+                        sInStr = sInStr.Replace(";", "");
+
                         try
                         {
                             iVal = Convert.ToInt32(sInStr.Trim());
@@ -101,6 +103,8 @@ namespace StandFacile
                     {
                         iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
                         sInStr = sInStr.Remove(0, iPos + 1);
+                        sInStr = sInStr.Replace(";", "");
+
                         try
                         {
                             iVal = Convert.ToInt32(sInStr.Trim());
@@ -119,12 +123,35 @@ namespace StandFacile
                     {
                         iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
                         sInStr = sInStr.Remove(0, iPos + 1);
+                        sInStr = sInStr.Replace(";", "");
+
                         try
                         {
                             iVal = Convert.ToInt32(sInStr.Trim());
 
                             if (iVal > 0)
                                 sConfig.iPrintInterval = iVal;
+                        }
+                        catch (Exception)
+                        {
+                        }
+
+                        continue;
+                    }
+
+                    else if (sInStr.Contains("localCopyPrinterNumRedirect"))
+                    {
+                        iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
+                        sInStr = sInStr.Remove(0, iPos + 1);
+                        sInStr = sInStr.Replace(";", "");
+
+                        try
+                        {
+                            iVal = Convert.ToInt32(sInStr.Trim());
+
+                            // i gruppi vanno da 1 a 11 per l'utente, 0 - 10 per il programma
+                            if ((iVal > 0) && (iVal <= NUM_SEP_PRINT_GROUPS + 1))
+                                sConfig.iLocalCopyPrinterNumRedirect = iVal - 1; 
                         }
                         catch (Exception)
                         {

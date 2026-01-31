@@ -1,6 +1,6 @@
 ﻿/****************************************************************************
     NomeFile : StandFacile/EditGridDlg.cs
-	Data	 : 12.07.2025
+	Data	 :31.01.2026
     Autore   : Mauro Artuso
 
     modo Touch:         3 4 5 6	righe
@@ -423,10 +423,7 @@ namespace StandFacile
 
             if (bModificaOK)
             {
-                if (checkBoxTouchMode.Checked)
-                    SF_Data.iGeneralProgOptions = SetBit(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED);
-                else
-                    SF_Data.iGeneralProgOptions = ClearBit(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED);
+                SF_Data.iGeneralProgOptions = UpdateBit(SF_Data.iGeneralProgOptions, checkBoxTouchMode.Checked, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED);
 
                 SF_Data.iGridCols = iNumColonneTmp;
                 SF_Data.iGridRows = iNumRigheTmp;

@@ -146,6 +146,9 @@ namespace StandFacile
 ; intervallo in ms tra stampe successive
 ; iPrintInterval = 1000
 
+; indice del gruppo di Articoli per il redirect della stampa copie locali
+; localCopyPrinterNumRedirect = 0;
+
 ; parametri stringa per attivazione funzioni speciali
 
 ; receiptCopyRequired_HeaderIs = COPIA PER SEGRETERIA

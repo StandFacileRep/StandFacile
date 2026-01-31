@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 24.01.2026
+    Data	 : 31.01.2026
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -1300,15 +1300,9 @@ namespace StandFacile
             LogToFile("Mainform : EmissioneScontrino 1");
 
             // ripetuto per sicurezza
-            if (BtnAsporto.Checked)
-                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO);
-            else
-                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO);
+            SF_Data.iStatusReceipt = UpdateBit(SF_Data.iStatusReceipt, BtnAsporto.Checked, (int)STATUS_FLAGS.BIT_ASPORTO);
 
-            if (SF_Data.bPrevendita)
-                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_EMESSO_IN_PREVENDITA);
-            else
-                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_EMESSO_IN_PREVENDITA);
+            SF_Data.iStatusReceipt = UpdateBit(SF_Data.iStatusReceipt, SF_Data.bPrevendita, (int)STATUS_FLAGS.BIT_EMESSO_IN_PREVENDITA);
 
             // non deve passarci quando è emesso direttamente dal WEB oppure quando è presente qualche forma di pagamento,
             // è scontato che si pagano gli ordini emessi dalle casse
@@ -2634,10 +2628,7 @@ namespace StandFacile
                 BtnAsporto.Checked = true;
 
             // ripetuto per sicurezza
-            if (BtnAsporto.Checked)
-                SF_Data.iStatusReceipt = SetBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO);
-            else
-                SF_Data.iStatusReceipt = ClearBit(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_ASPORTO);
+            SF_Data.iStatusReceipt = UpdateBit(SF_Data.iStatusReceipt, BtnAsporto.Checked, (int)STATUS_FLAGS.BIT_ASPORTO);
 
             _iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
         }

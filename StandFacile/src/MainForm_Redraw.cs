@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 24.01.2026
+    Data	 : 31.01.2026
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -1377,6 +1377,9 @@ namespace StandFacile
             if (panelRight.Height == 0)
                 return;
 
+            // per evitare che sia troppo stretto in modo touch
+            TabSet.Width = 600;
+
             if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
             {
                 TabSet.Height = 34;
@@ -1620,7 +1623,7 @@ namespace StandFacile
 
             iTextRightMargin = ((toolStripTop.Width - toolStripTop.Padding.Left - toolStripTop.Padding.Right - _iToolStripTop_MarginTotal) / 2);
 
-            LogToFile(String.Format("FormResize iTextRightMargin = {0}", iTextRightMargin), true);
+            // LogToFile(String.Format("FormResize iTextRightMargin = {0}", iTextRightMargin), true);
 
             if (iTextRightMargin > 0)
                 BtnSep_T8.Margin = new Padding(iTextRightMargin, 0, 20, 0);

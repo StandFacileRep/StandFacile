@@ -1,6 +1,6 @@
 ﻿/*********************************************************************************
  	NomeFile : StandCommonSrc/ReceiptAndCopiesCommons.cs
-    Data	 : 01.01.2026
+    Data	 : 31.01.2026
  	Autore	 : Mauro Artuso
 
 	Classi di uso comune a DataManager.Receipt(), VisOrdiniDlg.ReceiptRebuild()<br/>
@@ -1318,7 +1318,12 @@ namespace StandCommonFiles
                 if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data) && !sGlbWinPrinterParams.bA4Paper)
                 {
                     if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
-                        Printer_Windows.PrintFile(sDirParam + sNomeFileTicketNpPrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);
+                    {
+                        if (sConfig.iLocalCopyPrinterNumRedirect >= 0)
+                            Printer_Windows.PrintFile(sDirParam + sNomeFileTicketNpPrt, sGlbWinPrinterParams, sConfig.iLocalCopyPrinterNumRedirect); // redirezione
+                        else
+                            Printer_Windows.PrintFile(sDirParam + sNomeFileTicketNpPrt, sGlbWinPrinterParams, NUM_SEP_PRINT_GROUPS);    // stampa locale
+                    }
                     else
                         Printer_Legacy.PrintFile(sDirParam + sNomeFileTicketNpPrt, sGlbLegacyPrinterParams, (int)PRINT_QUEUE_ACTION.PRINT_ENQUEUE);
                 }
