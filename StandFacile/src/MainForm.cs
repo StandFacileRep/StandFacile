@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 31.01.2026
+    Data	 : 04.02.2026
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -2310,7 +2310,7 @@ namespace StandFacile
                 DataManager.SalvaListino();
 
             // forza salvataggio listino nel web
-            if (dBaseTunnel_my.GetWebServiceReq() && _bCtrlIsPressed)
+            if (dBaseTunnel_my.GetWebServiceReq() || _bCtrlIsPressed)
             {
                 if ((SF_Data.iNumCassa == CASSA_PRINCIPALE) && dBaseTunnel_my.rdbPing())
                 {

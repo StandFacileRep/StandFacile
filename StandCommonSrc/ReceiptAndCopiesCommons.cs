@@ -1,6 +1,6 @@
 ﻿/*********************************************************************************
  	NomeFile : StandCommonSrc/ReceiptAndCopiesCommons.cs
-    Data	 : 31.01.2026
+    Data	 : 04.02.2026
  	Autore	 : Mauro Artuso
 
 	Classi di uso comune a DataManager.Receipt(), VisOrdiniDlg.ReceiptRebuild()<br/>
@@ -849,7 +849,7 @@ namespace StandCommonFiles
         public static void WriteLocalCopy(TData dataIdParam, int iNumOfReceiptsParam, String sDirParam, TOrdineStrings sOrdineStringsParam)
         {
             bool bLocalCopyRequested, bLocalPricesRequested, bSingleRowItems, bUnitQtyItems;
-            bool bHeaderToBePrinted, bGroupsTextToPrint, bTicketCopies_CutRequired;
+            bool bHeaderToBePrinted, bGroupsTextToPrint, bReceiptGroups_CutRequired;
 
             int i, j, k;
             int iNumCoperti = 0;
@@ -898,7 +898,7 @@ namespace StandCommonFiles
 
             bUnitQtyItems = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_QUANTITYONE_PRINT_REQUIRED);
 
-            bTicketCopies_CutRequired = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
+            bReceiptGroups_CutRequired = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRINT_GROUPS_CUT_REQUIRED);
 
             // GEN_PRINTER_OPTS
             _bPlaceSettingsOnCopies = IsBitSet(SF_Data.iGenericPrintOptions, (int)GEN_PRINTER_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
@@ -1191,7 +1191,7 @@ namespace StandCommonFiles
                         bGroupsTextToPrint = true;
 
                         // evita il taglio con CONTATORI e DEST_TIPO1
-                        if (bTicketCopies_CutRequired && !((iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_TIPO1) && bSomethingInto_GrpToPrint[(int)DEST_TYPE.DEST_COUNTER]))
+                        if (bReceiptGroups_CutRequired && !((iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_TIPO1) && bSomethingInto_GrpToPrint[(int)DEST_TYPE.DEST_COUNTER]))
                             bHeaderToBePrinted = true; // consente più Headers
 
                         for (j = 0; (j < MAX_NUM_ARTICOLI) && bSomethingInto_GrpToPrint[iGrpReorderPtr[i]]; j++)
@@ -1219,7 +1219,7 @@ namespace StandCommonFiles
 
                                 }
 
-                                if (bTicketCopies_CutRequired && bGroupsTextToPrint)
+                                if (bReceiptGroups_CutRequired && bGroupsTextToPrint)
                                 {
                                     bGroupsTextToPrint = false;
 
@@ -1241,7 +1241,8 @@ namespace StandCommonFiles
                                 {
                                     bHeaderToBePrinted = false;
 
-                                    if ((iNumCoperti > 0) && bTicketCopies_CutRequired && (_bPlaceSettingsOnCopies || (iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_COUNTER)))
+                                    // valutare se eliminare !bReceiptGroups_CutRequired
+                                    if ((iNumCoperti > 0) && (!bReceiptGroups_CutRequired && _bPlaceSettingsOnCopies || (iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_COUNTER)))
                                     {
                                         if (bLocalPricesRequested)
                                             sTmp = String.Format(sRCP_FMT_RCPT, iNumCoperti, _COPERTO, IntToEuro(iNumCoperti * dataIdParam.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario));
@@ -1280,7 +1281,7 @@ namespace StandCommonFiles
                                 if (CheckLastItemToPrint_OnSameGroup(dataIdParam, iGrpReorderPtr[i], j))
                                 {
                                     // se c'è il taglio
-                                    if (bTicketCopies_CutRequired && !((iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_COUNTER) && bSomethingInto_GrpToPrint[(int)DEST_TYPE.DEST_TIPO1]))
+                                    if (bReceiptGroups_CutRequired && !((iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_COUNTER) && bSomethingInto_GrpToPrint[(int)DEST_TYPE.DEST_TIPO1]))
                                     {
                                         WriteFooter(dataIdParam, _fPrint);
 
