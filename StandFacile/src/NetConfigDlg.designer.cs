@@ -250,9 +250,9 @@
             // 
             this.link_QRcode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.link_QRcode.Font = new System.Drawing.Font("Tahoma", 9F);
-            this.link_QRcode.Location = new System.Drawing.Point(19, 226);
+            this.link_QRcode.Location = new System.Drawing.Point(3, 226);
             this.link_QRcode.Name = "link_QRcode";
-            this.link_QRcode.Size = new System.Drawing.Size(466, 16);
+            this.link_QRcode.Size = new System.Drawing.Size(491, 16);
             this.link_QRcode.TabIndex = 15;
             this.link_QRcode.TabStop = true;
             this.link_QRcode.Text = "https://www.standfacile.org";

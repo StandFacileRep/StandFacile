@@ -1,6 +1,6 @@
 ﻿/******************************************************************
  	NomeFile : StandFacile/NetConfigDlg.cs
-    Data	 : 06.12.2024
+    Data	 : 20.03.2026
  	Autore   : Mauro Artuso
 
  ******************************************************************/
@@ -129,15 +129,22 @@ namespace StandFacile
             // anche la CASSA_SECONDARIA puo collegarsi per lo scarico degli ordini
             WO_ckBox.Checked = (ReadRegistry(WEB_SERVICE_MODE_KEY, 0) == 1);
 
-            if (Edit_WebServiceDBaseName.Text == "standfacile_rdb")
+            if (Edit_WebServiceDBaseName.Text == PREFIX_DB_LOCAL)
                 link_QRcode.Text = String.Format("https://localhost/standfacile_{0}_php/{1}/index.php", sConfig.sWebUrlVersion, Edit_WebService_Name.Text);
             else
             {
-                if (!String.IsNullOrEmpty(Edit_WebService_Name.Text))
-                    link_QRcode.Text = String.Format("https://{0}/standfacile_{1}_php/{2}/index.php", URL_SITO, sConfig.sWebUrlVersion, Edit_WebService_Name.Text);
+                if ((!String.IsNullOrEmpty(Edit_WebService_Name.Text)) && Edit_WebServiceDBaseName.Text.Contains(PREFIX_DB_SERVER1))
+                {
+                    link_QRcode.Text = String.Format("{0}/standfacile_{1}_php/{2}/index.php", URL_WEBAPP1, sConfig.sWebUrlVersion, Edit_WebService_Name.Text);
+                }
+                else if ((!String.IsNullOrEmpty(Edit_WebService_Name.Text)) && Edit_WebServiceDBaseName.Text.Contains(PREFIX_DB_SERVER2))
+                {
+                    link_QRcode.Text = String.Format("{0}/standfacile_{1}_php/{2}/index.php", URL_WEBAPP2, sConfig.sWebUrlVersion, Edit_WebService_Name.Text);
+                }
                 else
-                    link_QRcode.Text = String.Format("https://{0}/{1}", URL_SITO, "controlla");
+                    link_QRcode.Text = String.Format("{0}/{1}", URL_WEBAPP1, "controlla");
             }
+
             _bInitComplete = true; // per non scatenare l'evento onClick
 
             AggiornaAspettoControlli();

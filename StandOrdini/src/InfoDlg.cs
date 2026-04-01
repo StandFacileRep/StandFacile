@@ -29,7 +29,7 @@ namespace StandFacile
             
             lblTitolo.Text = Define.TITLE;
             lblRel.Text = RELEASE_SW;
-            LinkLbl_Web.Text = URL_SITO;
+            LinkLbl_Web.Text = URL_APP_WEBSITE;
             LinkLbl_mail.Text = MAIL;
 
             Lbl_DB.Text = String.Format("DB server : {0}", dBaseIntf.GetDB_ServerName());
@@ -56,7 +56,7 @@ namespace StandFacile
         {
             this.LinkLbl_Web.LinkVisited = true;
 
-            System.Diagnostics.Process.Start(URL_SITO);
+            System.Diagnostics.Process.Start(URL_APP_WEBSITE);
         }
 
         private void ImageLic_Click(object sender, EventArgs e)

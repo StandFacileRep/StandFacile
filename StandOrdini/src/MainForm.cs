@@ -200,7 +200,7 @@ namespace StandFacile
             /********************************************
                         ENTER senza e con Ctrl
             ********************************************/
-            
+
             if ((e.KeyChar == '\r') || (e.KeyChar == '\n'))
             {
                 // scarta edit vuoti
@@ -370,10 +370,13 @@ namespace StandFacile
                         iScaricoDelayTimer = 2; // 0,5s
                     }
 
-                    /*******************************************
-                        chiama la funzione di sintesi vocale
-                     *******************************************/
-                    SpeechSynth.rSpeechSynth.TextSpeak(iNumScontrino.ToString());
+                    if (!_bShiftKeyPressed)
+                    {
+                        /*******************************************
+                            chiama la funzione di sintesi vocale
+                         *******************************************/
+                        SpeechSynth.rSpeechSynth.TextSpeak(iNumScontrino.ToString());
+                    }
 
                 }
             }

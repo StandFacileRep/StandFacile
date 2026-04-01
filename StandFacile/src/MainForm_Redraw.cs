@@ -1384,20 +1384,20 @@ namespace StandFacile
             {
                 TabSet.Height = 34;
                 topPanel.Height = 60;
-                toolStripTop.Width = topPanel.Width - toolStripTop.Left - 20;
                 toolStripTop.Left = 6;
-                BtnSep_T6.Visible = false;
-
+                toolStripTop.Width = topPanel.Width - 2*toolStripTop.Left - 20;
+                BtnKeyb.Visible = true;
+                BtnSep_T6.Visible = true;
                 BtnScontrino.Size = new Size(80, 60);
             }
             else
             {
                 TabSet.Height = 28;
                 topPanel.Height = 42;
-                toolStripTop.Width = topPanel.Width - toolStripTop.Left - 80;
                 toolStripTop.Left = 60;
-                BtnSep_T6.Visible = true;
-
+                toolStripTop.Width = topPanel.Width - 2*toolStripTop.Left - 20;
+                BtnKeyb.Visible = false;
+                BtnSep_T6.Visible = false;
                 BtnScontrino.Size = new Size(45, 38);
             }
 
@@ -1612,6 +1612,9 @@ namespace StandFacile
 
                 foreach (ToolStripItem tsItem in toolStripTop.Items)
                 {
+                    if (!tsItem.Visible)
+                        continue;
+
                     if (tsItem.Equals(BtnSep_T8))
                         _iToolStripTop_MarginTotal += (tsItem.Width + 20); // ignora tsItem.Margin.Left
                     else
@@ -1623,6 +1626,7 @@ namespace StandFacile
 
             iTextRightMargin = ((toolStripTop.Width - toolStripTop.Padding.Left - toolStripTop.Padding.Right - _iToolStripTop_MarginTotal) / 2);
 
+            // Console.WriteLine(String.Format("FormResize iTextRightMargin = {0}", iTextRightMargin));
             // LogToFile(String.Format("FormResize iTextRightMargin = {0}", iTextRightMargin), true);
 
             if (iTextRightMargin > 0)

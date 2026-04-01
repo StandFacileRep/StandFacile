@@ -106,6 +106,7 @@
             this.Name = "AnteprimaDlg";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Anteprima Scontrino";
+            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AnteprimaDlg_FormClosing);
             this.Resize += new System.EventHandler(this.AnteprimaDlg_Resize);
             this.panel.ResumeLayout(false);

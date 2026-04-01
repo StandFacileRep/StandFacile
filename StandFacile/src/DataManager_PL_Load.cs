@@ -886,7 +886,7 @@ namespace StandFacile
 
                 // pubblicità al sito
                 if (String.IsNullOrEmpty(SF_Data.sHeaders[3]))
-                    SF_Data.sHeaders[3] = URL_SITO;
+                    SF_Data.sHeaders[3] = URL_APP_WEBSITE;
 
                 LogToFile("DataManager : F CaricaListino");
 

@@ -129,6 +129,7 @@
             this.BtnAsporto = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T4 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnSconto = new System.Windows.Forms.ToolStripButton();
+            this.BtnKeyb = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T6 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnDB = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T7 = new System.Windows.Forms.ToolStripSeparator();
@@ -683,7 +684,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 29);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(473, 0);
+            this.tabPage1.Size = new System.Drawing.Size(592, 0);
             this.tabPage1.TabIndex = 1;
             this.tabPage1.Text = "Pagina 2";
             // 
@@ -692,7 +693,7 @@
             this.tabPage2.BackColor = System.Drawing.SystemColors.Menu;
             this.tabPage2.Location = new System.Drawing.Point(4, 29);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(473, 0);
+            this.tabPage2.Size = new System.Drawing.Size(592, 0);
             this.tabPage2.TabIndex = 2;
             this.tabPage2.Text = "Pagina 3";
             // 
@@ -701,7 +702,7 @@
             this.tabPage3.BackColor = System.Drawing.SystemColors.Menu;
             this.tabPage3.Location = new System.Drawing.Point(4, 29);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(473, 0);
+            this.tabPage3.Size = new System.Drawing.Size(592, 0);
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "Pagina 4";
             // 
@@ -710,7 +711,7 @@
             this.tabPage4.BackColor = System.Drawing.SystemColors.Menu;
             this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(473, 0);
+            this.tabPage4.Size = new System.Drawing.Size(592, 0);
             this.tabPage4.TabIndex = 4;
             this.tabPage4.Text = "Pagina 5";
             // 
@@ -962,6 +963,7 @@
             this.BtnAsporto,
             this.BtnSep_T4,
             this.BtnSconto,
+            this.BtnKeyb,
             this.BtnSep_T6,
             this.BtnDB,
             this.BtnSep_T7,
@@ -1072,6 +1074,18 @@
             this.BtnSconto.Size = new System.Drawing.Size(36, 36);
             this.BtnSconto.ToolTipText = "(F9) applica sconto";
             this.BtnSconto.Click += new System.EventHandler(this.BtnSconto_Click);
+            // 
+            // BtnKeyb
+            // 
+            this.BtnKeyb.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.BtnKeyb.AutoSize = false;
+            this.BtnKeyb.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.BtnKeyb.Image = global::StandFacile.Properties.Resources.keyboard;
+            this.BtnKeyb.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.BtnKeyb.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.BtnKeyb.Name = "BtnKeyb";
+            this.BtnKeyb.Size = new System.Drawing.Size(45, 38);
+            this.BtnKeyb.Click += new System.EventHandler(this.BtnKeyb_Click);
             // 
             // BtnSep_T6
             // 
@@ -1754,6 +1768,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.Button btnNavLeft;
         private System.Windows.Forms.ToolStripMenuItem p20;
+        private System.Windows.Forms.ToolStripButton BtnKeyb;
     }
 }
 

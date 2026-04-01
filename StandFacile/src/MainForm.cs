@@ -6,24 +6,23 @@
 
 // #define FONT_CHECK
 
+using StandCommonFiles;
 using System;
-using System.IO;
-using System.Drawing;
 using System.Collections;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
-using System.Collections.Generic;
-
-using static StandFacile.glb;
-using static StandFacile.Define;
-using static StandFacile.dBaseIntf;
-using static StandFacile.dBaseTunnel_my;
-
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
-using StandCommonFiles;
+using static StandFacile.dBaseIntf;
+using static StandFacile.dBaseTunnel_my;
+using static StandFacile.Define;
+using static StandFacile.glb;
 
 namespace StandFacile
 {
@@ -299,7 +298,7 @@ namespace StandFacile
             //bool bTmp = StringBelongsTo_ORDER_CONST(ORDER_CONST._NOTE, ORDER_CONST._NOTE);
 
             BtnDB.ToolTipText = "test di connessione DB:\n" +
-                "con Ctrl premuto e webservice attivo verifica la connessione\n" +
+                "con Ctrl premuto verifica la connessione\n" +
                 "al DB remoto e forza l'upload del Listino";
 
             _tt.SetToolTip(btnNavLeft, "espande la barra laterale");
@@ -314,9 +313,6 @@ namespace StandFacile
             _tt.SetToolTip(EditNote, "click o (F4) dalla griglia per inserire una Nota nello scontrino\ncon Crtl+click su una cella per inserire una nota relativa all'Articolo");
             _tt.SetToolTip(EditStatus_QRC, "area per lettura barcode prevendite e pre-ordini web");
             _tt.SetToolTip(comboCashPos, "tipo di pagamento: Contanti/Card/Satispay");
-
-            // layout Toolbar e Menu
-            toolStripTop.Left = 60;
 
             Text = Define.TITLE;
 
@@ -2292,7 +2288,7 @@ namespace StandFacile
             String[] sQueue_Object = new String[2];
 
             // funzione originale dbCheck() e AggiornaDisponibilità()
-            if (bUSA_NDB() && ! (_bAltIsPressed || _bCtrlIsPressed))
+            if (bUSA_NDB() && !(_bAltIsPressed || _bCtrlIsPressed))
             {
                 SF_Data.iNumOfLastReceipt = DataManager.GetNumOfOrders();
                 UpdateStatusBar(SF_Data.iNumOfLastReceipt, 0);
@@ -2447,6 +2443,38 @@ namespace StandFacile
             _iButtonStatus = (_iButtonStatus % 3);
 
             FormResize(this, null);
+        }
+
+        private void BtnKeyb_Click(object sender, EventArgs e)
+        {
+            var p = Process.GetProcessesByName("osk");
+            string windows = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
+            string oskPath;
+
+            if (BtnKeyb.Checked)
+            {
+                if (p.Length != 0)
+                    p[0].Kill();
+
+                BtnKeyb.Checked = false;
+            }
+            else
+            {
+                if (Environment.Is64BitOperatingSystem && !Environment.Is64BitProcess)
+                {
+                    // Processo a 32 bit su OS a 64 bit → usa Sysnative
+                    oskPath = Path.Combine(windows, "Sysnative", "osk.exe");
+                }
+                else
+                {
+                    // Processo a 64 bit, oppure OS a 32 bit
+                    oskPath = Path.Combine(windows, "System32", "osk.exe");
+                }
+
+                Process.Start(oskPath);
+
+                BtnKeyb.Checked = true;
+            }
         }
 
         private void MPx_Click(object sender, EventArgs e)

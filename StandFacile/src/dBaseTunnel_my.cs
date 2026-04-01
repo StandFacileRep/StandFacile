@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************************
 	NomeFile : StandFacile/dBaseTunnel_my.cs
-    Data	 : 31.12.2025
+    Data	 : 30.03.2026
 	Autore   : Mauro Artuso
 
     Classe per la lettura degli ordini in remoto, utilizza HTTP tunneling
@@ -79,7 +79,7 @@ namespace StandFacile
         static int _iTimerCounter = 5 * 30;
 
         // Attenzione l'utente del database è uguale al nome del DataBase stesso VIP !!!
-        static String _sEncryptedHost, _sEncryptedDatabase;
+        static String _sEncryptedHost, _sEncryptedUser, _sEncryptedDatabase;
         static String _sHost, _sTunnel_URL;
 
         static String[] _sQueue_Object = new String[2];
@@ -136,19 +136,34 @@ namespace StandFacile
             NOME_ORDERS_RDBTBL = sConfig.sWebUrlVersion + "_" + _sRemoteTablePrefix + "_orders";
             NOME_LOG_RDBTBL = sConfig.sWebUrlVersion + "_" + _sRemoteTablePrefix + "_log";
 
-            if (_sWebServerParams.sWeb_DBase == "standfacile_rdb")
+            if (_sWebServerParams.sWeb_DBase.Contains(PREFIX_DB_SERVER1) && !_sWebServerParams.sWeb_DBase.Contains(PREFIX_DB_LOCAL))
+            {
+                _sTunnel_URL = String.Format("{0}/standfacile_{1}_php/{2}?", URL_WEBAPP1, sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
+                _sHost = URL_DB_SERVER1;
+            }
+            else if (_sWebServerParams.sWeb_DBase.Contains(PREFIX_DB_SERVER2) && !_sWebServerParams.sWeb_DBase.Contains(PREFIX_DB_LOCAL))
+            {
+                _sTunnel_URL = String.Format("{0}/standfacile_{1}_php/{2}?", URL_WEBAPP2, sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
+                _sHost = URL_DB_SERVER2;
+            }
+            else // "standfacile_rdb"
             {
                 _sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
                 _sHost = "localhost";
             }
-            else
-            {
-                _sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/{1}?", sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
-                _sHost = DB_WEB_SERVER;
-            }
 
             _sEncryptedHost = Encrypt_WS(_sHost);
             _sEncryptedDatabase = Encrypt_WS(_sWebServerParams.sWeb_DBase);
+
+            // per semplicità ricava il nome utente dal nome del database aggiungendo i primi 6 caratteri del sWebTablePrefix
+            String sComposeUserName;
+
+            if (_sWebServerParams.sWebTablePrefix.Length >= 6)
+                sComposeUserName = _sWebServerParams.sWeb_DBase.Split('_')[0] + '_' + _sWebServerParams.sWebTablePrefix.Substring(0, 6);
+            else
+                sComposeUserName = _sWebServerParams.sWeb_DBase.Split('_')[0] + '_' + _sWebServerParams.sWebTablePrefix;
+
+            _sEncryptedUser = Encrypt_WS(sComposeUserName);
 
             eventQueue.Clear();
 
@@ -259,6 +274,9 @@ namespace StandFacile
                 dataBytes = Encoding.UTF8.GetBytes("&dbname=" + Base64Encode(_sEncryptedDatabase));
                 stream.Write(dataBytes, 0, dataBytes.Length);
 
+                dataBytes = Encoding.UTF8.GetBytes("&username=" + Base64Encode(_sEncryptedUser));
+                stream.Write(dataBytes, 0, dataBytes.Length);
+
                 dataBytes = Encoding.UTF8.GetBytes("&password=" + Base64Encode(_sWebServerParams.sWebEncryptedPwd));
                 stream.Write(dataBytes, 0, dataBytes.Length);
 
@@ -315,17 +333,32 @@ namespace StandFacile
             String sEncryptedDatabase = Encrypt_WS(sWeb_DBaseParam);
             String sEncryptedPwd = Encrypt_WS(sWeb_DBasePwdParam);
 
-            String sTunnel_URL, sEncryptedHost;
+            String sTunnel_URL, sEncryptedHost, sComposeUserName;
 
-            if (sWeb_DBaseParam == "standfacile_rdb")
+            // per semplicità ricava il nome utente dal nome del database aggiungendo i primi 6 caratteri del sWebTablePrefix
+
+            if (_sWebServerParams.sWebTablePrefix.Length >= 6)
+                sComposeUserName = sWeb_DBaseParam.Split('_')[0] + '_' + _sWebServerParams.sWebTablePrefix.Substring(0, 6);
+            else
+                sComposeUserName = sWeb_DBaseParam.Split('_')[0] + '_' + _sWebServerParams.sWebTablePrefix;
+
+            String sEncryptedUser = Encrypt_WS(sComposeUserName);
+
+
+            if (sWeb_DBaseParam.Contains(PREFIX_DB_SERVER1) && !sWeb_DBaseParam.Contains(PREFIX_DB_LOCAL))
+            {
+                sTunnel_URL = String.Format("{0}/standfacile_{1}_php/{2}?", URL_WEBAPP1, sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
+                sEncryptedHost = Encrypt_WS(URL_DB_SERVER1);
+            }
+            else if (sWeb_DBaseParam.Contains(PREFIX_DB_SERVER2) && !sWeb_DBaseParam.Contains(PREFIX_DB_LOCAL))
+            {
+                sTunnel_URL = String.Format("{0}/standfacile_{1}_php/{2}?", URL_WEBAPP2, sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
+                sEncryptedHost = Encrypt_WS(URL_DB_SERVER2);
+            }
+            else // "standfacile_rdb"
             {
                 sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
                 sEncryptedHost = Encrypt_WS("localhost");
-            }
-            else
-            {
-                sTunnel_URL = String.Format("https://www.standfacile.org/standfacile_{0}_php/{1}?", sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
-                sEncryptedHost = Encrypt_WS(DB_WEB_SERVER);
             }
 
             bHostConnection_Ok = rdbPing();
@@ -339,9 +372,9 @@ namespace StandFacile
                 sSQL_Query = String.Format("SELECT * FROM {0};", sConfig.sWebUrlVersion + "_" + Path.GetFileName(sWebPageParam) + "_status");
                 sSQL_Query = Encrypt_WS(sSQL_Query);
 
-                sGQuery = String.Format(@"{0}host={1}&dbname={2}&password={3}&query={4}&encrypted=1",
+                sGQuery = String.Format(@"{0}host={1}&dbname={2}&username={3}&password={4}&query={5}&encrypted=1",
                             sTunnel_URL, Base64Encode(sEncryptedHost), Base64Encode(sEncryptedDatabase),
-                            Base64Encode(sEncryptedPwd), Base64Encode(sSQL_Query));
+                            Base64Encode(sEncryptedUser), Base64Encode(sEncryptedPwd), Base64Encode(sSQL_Query));
 
                 WebResponse response = null;
                 WebRequest request = WebRequest.Create(sGQuery);
@@ -877,8 +910,8 @@ namespace StandFacile
                 sResponseFromServer = SendWebRequest(sSQL_Query, iTimeoutParam);
 
                 // connessione Host ma la tabella Listino non esiste
-                if (sResponseFromServer.Contains(NOME_PREZZI_RDBTBL) &&
-                    sResponseFromServer.Contains("doesn") && sResponseFromServer.Contains("exist"))
+                if (String.IsNullOrEmpty(sResponseFromServer) ||    // PHP 8.x
+                    (sResponseFromServer.Contains(NOME_PREZZI_RDBTBL) && sResponseFromServer.Contains("doesn") && sResponseFromServer.Contains("exist"))) // PHP 7.X
                 {
                     LogToFile("rdbCheckListino : tabella Listino non esiste");
 

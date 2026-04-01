@@ -44,7 +44,7 @@ namespace StandFacile
 
             LblTitle.Text = String.Format("{0}, {1} {2}", TITLE, RELEASE_SW, sConfig.sWebUrlVersion);
 
-            LinkLbl_Web.Text = URL_SITO;
+            LinkLbl_Web.Text = URL_APP_WEBSITE;
             sCassa = sConstCassaType[SF_Data.iNumCassa - 1];
 
             if (iUSA_NDB() == (int)DB_MODE.MYSQL)
@@ -93,7 +93,7 @@ namespace StandFacile
         {
             this.LinkLbl_Web.LinkVisited = true;
 
-            System.Diagnostics.Process.Start(URL_SITO);
+            System.Diagnostics.Process.Start(URL_APP_WEBSITE);
         }
 
         private void OkBtn_Click(object sender, EventArgs e)

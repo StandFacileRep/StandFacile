@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.16.4a";
+        public const String RELEASE_SW = "v5.16.5";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_DB_TBLS = "v5d";
@@ -27,7 +27,7 @@ namespace StandCommonFiles
         /// <summary>autore del Programma</summary>
         public const String AUTHOR = "Mauro Artuso";
         /// <summary>sito internet del Programma</summary>
-        public const String URL_SITO = "www.standfacile.org";
+        public const String URL_APP_WEBSITE = "www.standfacile.org";
 
         /// <summary>dll Devart comune</summary>
         public const String DB_CONNECTOR_DLL_DEV = "Devart.Data.dll";

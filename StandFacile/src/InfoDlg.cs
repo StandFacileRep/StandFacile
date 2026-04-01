@@ -35,7 +35,7 @@ namespace StandFacile
             lblTitolo.Text = Define.TITLE;
             lblSW_Rel.Text = String.Format("versione = {0}", RELEASE_SW);
             lblDB_Rel.Text = String.Format("tables db = {0}, web = {1}", RELEASE_DB_TBLS, sConfig.sWebUrlVersion);
-            LinkLbl_Web.Text = URL_SITO;
+            LinkLbl_Web.Text = URL_APP_WEBSITE;
             LinkLbl_mail.Text = MAIL;
 
             sCassa = sConstCassaType[SF_Data.iNumCassa - 1];
@@ -80,7 +80,7 @@ namespace StandFacile
         {
             this.LinkLbl_Web.LinkVisited = true;
 
-            System.Diagnostics.Process.Start(URL_SITO);
+            System.Diagnostics.Process.Start(URL_APP_WEBSITE);
         }
 
         private void ImageDona_Click(object sender, EventArgs e)

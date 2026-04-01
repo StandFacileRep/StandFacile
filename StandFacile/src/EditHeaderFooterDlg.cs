@@ -123,7 +123,7 @@ namespace StandFacile
 
         private void BtnCanc3_Click(object sender, EventArgs e)
         {
-            PiePaginaEdit2.Text = URL_SITO;
+            PiePaginaEdit2.Text = URL_APP_WEBSITE;
         }
     }
 }
