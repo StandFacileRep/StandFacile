@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/StandCommonSafe.cs, versione utente
-    Data	 : 03.04.2024
+    Data	 : 30.03.2026
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -27,9 +27,28 @@ namespace StandCommonFiles
 
         /// <summary>chiave per la crittografia della password per http_tunnel</summary>
         public const String CIPHER_KEY = "inserisci_la_chiave_http_tunnel";
+      
+        /// <summary>prefisso tabelle del db server di test locale</summary>
+        public const String PREFIX_DB_LOCAL = "standfacile_rdb";
 
-        /// <summary>indirizzo del db web_server remoto</summary>
-        public const String DB_WEB_SERVER = "inserisci_indirizzo_db_web_server";
+        /// <summary>sito internet #1 del Programma</summary>
+        public const String URL_WEBAPP1 = "https://www.standfacile.org";
+
+        /// <summary>indirizzo del db server remoto #1</summary>
+        public const String URL_DB_SERVER1 = "inserisci_indirizzo_db_web_server1";
+
+        /// <summary>prefisso tabelle del db server remoto #1</summary>
+        public const String PREFIX_DB_SERVER1 = "inserisci_db_prefix1";
+
+        /// <summary>sito internet #2 del Programma</summary>
+        public const String URL_WEBAPP2 = "inserisci_url_tuo_sito/wa"; // wa indica subdir WebApp
+
+        /// <summary>indirizzo del db server remoto #2</summary>
+        public const String URL_DB_SERVER2 = "inserisci_indirizzo_db_web_server2";
+
+        /// <summary>prefisso tabelle del db server remoto #2</summary>
+        public const String PREFIX_DB_SERVER2 = "inserisci_db_prefix2";
+
 
     } // end struct
 } // end namespace
