@@ -209,6 +209,18 @@ namespace StandFacile
                         continue;
                     }
 
+                    // stringhe per footer alternativo
+                    else if (sInStr.Contains("extraFooterIs"))
+                    {
+                        iPos = sInStr.IndexOf('=');    // ricerca prima semicolon
+                        sInStr = sInStr.Remove(0, iPos + 1).Trim();
+                        sInStr = sInStr.Replace("\"", "");
+
+                        sConfig.sExtraFooter = sInStr;
+
+                        continue;
+                    }
+
                     // stringhe per stampa Header/Footer Alternativo
                     else if (sInStr.Contains(sRCP_CS_HEADER))
                     {

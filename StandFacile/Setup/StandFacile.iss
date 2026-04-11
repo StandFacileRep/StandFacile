@@ -1,4 +1,4 @@
-; 30.03.2026
+; 11.04.2026
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 ; tra una versione e l'altra cambiare GUID per facilitare l'installazione distinta
 ; The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.

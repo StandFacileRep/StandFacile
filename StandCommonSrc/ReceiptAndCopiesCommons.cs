@@ -38,7 +38,7 @@ namespace StandCommonFiles
 
 #if STANDFACILE
         static bool[] _bSelectedGroups = new bool[NUM_COPIES_GRPS];
-        static bool _bPrintSelectedOnly, _bAvoidPrintOtherGroups;
+        static bool _bLocalPricesRequested, _bPrintSelectedOnly, _bAvoidPrintOtherGroups;
 #endif
 
         static bool _bLogoNelleCopie, _bCassaInline, _bStarsOnUnderGroup;
@@ -777,6 +777,17 @@ namespace StandCommonFiles
                         _fPrint.WriteLine("{0}", sTmp); _fPrint.WriteLine();
                     }
 
+                    if (!String.IsNullOrEmpty(sConfig.sExtraFooter))
+                    {
+                        String[] sExtraFooterLines = sConfig.sExtraFooter.Split(new[] { @"\n" }, StringSplitOptions.None);
+
+                        for (i = 0; i < sExtraFooterLines.Length; i++)
+                        {
+                            sTmp = CenterJustify(sExtraFooterLines[i], iMAX_RECEIPT_CHARS);
+                            _fPrint.WriteLine("{0}", sTmp);
+                        }
+                    }
+
                     // richiesta copia Receipt e primo ciclo for(;;)
                     if (sConfig.bRcpCopyRequired && (k == 0))
                         _fPrint.WriteLine(_CUT_FMT, CenterJustify(_CUT, MAX_RECEIPT_CHARS_CPY));
@@ -848,7 +859,7 @@ namespace StandCommonFiles
         /// </summary>
         public static void WriteLocalCopy(TData dataIdParam, int iNumOfReceiptsParam, String sDirParam, TOrdineStrings sOrdineStringsParam)
         {
-            bool bLocalCopyRequested, bLocalPricesRequested, bSingleRowItems, bUnitQtyItems;
+            bool bLocalCopyRequested, bSingleRowItems, bUnitQtyItems;
             bool bHeaderToBePrinted, bGroupsTextToPrint, bReceiptGroups_CutRequired;
 
             int i, j, k;
@@ -886,7 +897,7 @@ namespace StandCommonFiles
 
             _ErrMsg.sNomeFile = sNomeFileTicketNpPrt;
 
-            bLocalPricesRequested = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_ON_COPIES_REQUIRED);
+            _bLocalPricesRequested = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_PRICE_PRINT_ON_COPIES_REQUIRED);
 
             _bAvoidPrintOtherGroups = IsBitSet(SF_Data.iLocalCopyOptions, (int)LOCAL_COPIES_OPTS.BIT_AVOIDPRINTGROUPS_PRINT_REQUIRED);
 
@@ -1041,7 +1052,7 @@ namespace StandCommonFiles
                                         _fPrint.WriteLine("{0}", sHeader2_ToPrintBeforeCut);
 
                                     // larghezza 28 "{0,2} {1,-18}{2,7}" :89 123456789012345678 9876.00
-                                    if (bLocalPricesRequested)
+                                    if (_bLocalPricesRequested)
                                         sTmp = String.Format(sRCP_FMT_RCPT, 1, dataIdParam.Articolo[j].sTipo, IntToEuro(dataIdParam.Articolo[j].iPrezzoUnitario));
                                     else
                                         sTmp = String.Format(sRCP_FMT_CPY, 1, dataIdParam.Articolo[j].sTipo);
@@ -1093,7 +1104,7 @@ namespace StandCommonFiles
                                         _fPrint.WriteLine("{0}", sHeader2_ToPrintBeforeCut);
 
                                     // larghezza 28 "{0,2} {1,-18}{2,7}" :89 123456789012345678 9876.00
-                                    if (bLocalPricesRequested)
+                                    if (_bLocalPricesRequested)
                                         sTmp = String.Format(sRCP_FMT_RCPT, 1, dataIdParam.Articolo[j].sTipo, IntToEuro(dataIdParam.Articolo[j].iPrezzoUnitario));
                                     else
                                         sTmp = String.Format(sRCP_FMT_CPY, 1, dataIdParam.Articolo[j].sTipo);
@@ -1154,7 +1165,7 @@ namespace StandCommonFiles
                                 _fPrint.WriteLine();
 
                                 // larghezza 28 "{0,2} {1,-18}{2,7}" :89 123456789012345678 9876.00
-                                if (bLocalPricesRequested)
+                                if (_bLocalPricesRequested)
                                     sTmp = String.Format(sRCP_FMT_RCPT, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo,
                                         IntToEuro(dataIdParam.Articolo[j].iQuantitaOrdine * dataIdParam.Articolo[j].iPrezzoUnitario));
                                 else
@@ -1244,7 +1255,7 @@ namespace StandCommonFiles
                                     // valutare se eliminare !bReceiptGroups_CutRequired
                                     if ((iNumCoperti > 0) && (!bReceiptGroups_CutRequired && _bPlaceSettingsOnCopies || (iGrpReorderPtr[i] == (int)DEST_TYPE.DEST_COUNTER)))
                                     {
-                                        if (bLocalPricesRequested)
+                                        if (_bLocalPricesRequested)
                                             sTmp = String.Format(sRCP_FMT_RCPT, iNumCoperti, _COPERTO, IntToEuro(iNumCoperti * dataIdParam.Articolo[MAX_NUM_ARTICOLI - 1].iPrezzoUnitario));
                                         else
                                             sTmp = String.Format(sRCP_FMT_CPY, iNumCoperti, _COPERTO);
@@ -1259,7 +1270,7 @@ namespace StandCommonFiles
 
                                 if ((dataIdParam.Articolo[j].iIndexListino != MAX_NUM_ARTICOLI - 1) || (dataIdParam.Articolo[j].iGruppoStampa != (int)DEST_TYPE.DEST_COUNTER))
                                 {
-                                    if (bLocalPricesRequested)
+                                    if (_bLocalPricesRequested)
                                         sTmp = String.Format(sRCP_FMT_RCPT, dataIdParam.Articolo[j].iQuantitaOrdine, dataIdParam.Articolo[j].sTipo,
                                             IntToEuro(dataIdParam.Articolo[j].iQuantitaOrdine * dataIdParam.Articolo[j].iPrezzoUnitario));
                                     else
@@ -2069,7 +2080,7 @@ namespace StandCommonFiles
             }
             else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[2]))
             {
-                sTmp = CenterJustify(dataIdParam.sHeaders[2], MAX_RECEIPT_CHARS_CPY);
+                sTmp = CenterJustify(dataIdParam.sHeaders[2], iMAX_RECEIPT_CHARS);
                 fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
             }
 
@@ -2080,8 +2091,19 @@ namespace StandCommonFiles
             }
             else if (!String.IsNullOrEmpty(dataIdParam.sHeaders[3]))
             {
-                sTmp = CenterJustify(dataIdParam.sHeaders[3], MAX_RECEIPT_CHARS_CPY);
+                sTmp = CenterJustify(dataIdParam.sHeaders[3], iMAX_RECEIPT_CHARS);
                 fPrintParam.WriteLine("{0}", sTmp); fPrintParam.WriteLine();
+            }
+
+            if (!String.IsNullOrEmpty(sConfig.sExtraFooter) && _bLocalPricesRequested)
+            {
+                String[] sExtraFooterLines = sConfig.sExtraFooter.Split(new[] { @"\n" }, StringSplitOptions.None);
+
+                for (int i = 0; i < sExtraFooterLines.Length; i++)
+                {
+                    sTmp = CenterJustify(sExtraFooterLines[i], iMAX_RECEIPT_CHARS);
+                    fPrintParam.WriteLine("{0}", sTmp);
+                }
             }
 
             if (((iSysPrinterType == (int)PRINTER_SEL.STAMPANTE_WINDOWS) && !string.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B)) && _bLogoNelleCopie)

@@ -1467,6 +1467,20 @@ namespace StandFacile
 
             ScontoDlg.SetSconto(DB_Data.iStatusSconto);
 
+            // pagamento
+            if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CASH))
+            {
+                rFrmMain.SetPagamento_CASH();
+            }
+            else if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_CARD))
+            {
+                rFrmMain.SetPagamento_CARD();
+            }
+            else if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_PAGAM_SATISPAY))
+            {
+                rFrmMain.SetPagamento_SATISPAY();
+            }
+
             // sicurezza
             SF_Data.iStatusReceipt = SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB);
 

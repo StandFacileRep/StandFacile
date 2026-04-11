@@ -586,9 +586,20 @@ namespace StandFacile
                 PrintCanvas(pg, "");
             }
 
+            if (!String.IsNullOrEmpty(sConfig.sExtraFooter))
+            {
+                String[] sExtraFooterLines = sConfig.sExtraFooter.Split(new[] { @"\n" }, StringSplitOptions.None);
+
+                for (i = 0; i < sExtraFooterLines.Length; i++)
+                {
+                    sTmp = CenterJustify(sExtraFooterLines[i], iMAX_RECEIPT_CHARS);
+                    PrintCanvas(pg, sTmp);
+                }
+            }
+
             /*************************************
-             * 		 Stampa del Logo Bottom
-             *************************************/
+                      * 		 Stampa del Logo Bottom
+                      *************************************/
             if (Visible && checkBoxLogo.Checked && !String.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B) && PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
             {
                 Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo(false);

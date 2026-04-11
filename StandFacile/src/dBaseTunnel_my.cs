@@ -156,6 +156,8 @@ namespace StandFacile
             _sEncryptedDatabase = Encrypt_WS(_sWebServerParams.sWeb_DBase);
 
             // per semplicità ricava il nome utente dal nome del database aggiungendo i primi 6 caratteri del sWebTablePrefix
+            // limitazione Hosting
+
             String sComposeUserName;
 
             if (_sWebServerParams.sWebTablePrefix.Length >= 6)
@@ -336,6 +338,7 @@ namespace StandFacile
             String sTunnel_URL, sEncryptedHost, sComposeUserName;
 
             // per semplicità ricava il nome utente dal nome del database aggiungendo i primi 6 caratteri del sWebTablePrefix
+            // limitazione Hosting
 
             if (_sWebServerParams.sWebTablePrefix.Length >= 6)
                 sComposeUserName = sWeb_DBaseParam.Split('_')[0] + '_' + _sWebServerParams.sWebTablePrefix.Substring(0, 6);

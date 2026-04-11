@@ -6,7 +6,6 @@
 
 // #define FONT_CHECK
 
-using StandCommonFiles;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,10 +14,13 @@ using System.Drawing;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+
+using StandCommonFiles;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
+
 using static StandFacile.dBaseIntf;
 using static StandFacile.dBaseTunnel_my;
 using static StandFacile.Define;

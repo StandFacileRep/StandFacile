@@ -1385,7 +1385,7 @@ namespace StandFacile
                 TabSet.Height = 34;
                 topPanel.Height = 60;
                 toolStripTop.Left = 6;
-                toolStripTop.Width = topPanel.Width - 2*toolStripTop.Left - 20;
+                toolStripTop.Width = topPanel.Width - 2 * toolStripTop.Left - 20;
                 BtnKeyb.Visible = true;
                 BtnSep_T6.Visible = true;
                 BtnScontrino.Size = new Size(80, 60);
@@ -1395,7 +1395,7 @@ namespace StandFacile
                 TabSet.Height = 28;
                 topPanel.Height = 42;
                 toolStripTop.Left = 60;
-                toolStripTop.Width = topPanel.Width - 2*toolStripTop.Left - 20;
+                toolStripTop.Width = topPanel.Width - 2 * toolStripTop.Left - 20;
                 BtnKeyb.Visible = false;
                 BtnSep_T6.Visible = false;
                 BtnScontrino.Size = new Size(45, 38);

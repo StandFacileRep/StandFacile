@@ -1514,6 +1514,9 @@ namespace StandCommonFiles
             /// </summary>
             public String sWebUrlVersion;
 
+            /// <summary>stringa per testo intestazione/piè di pagina aggiuntivo</summary>
+            public String sExtraFooter;
+
             /// <summary>stringa per testo intestazione/piè di pagina alternativo per la CASSA_SECONDARIA</summary>
             public String[] sRcp_CS_Header;
 
@@ -1531,6 +1534,7 @@ namespace StandCommonFiles
                 sDatabaseName = "";
                 sDatabaseUser = "";
                 sWebUrlVersion = "v5d";
+                sExtraFooter = "";
                 sRcp_CS_Header = new String[4];
             }
         }
