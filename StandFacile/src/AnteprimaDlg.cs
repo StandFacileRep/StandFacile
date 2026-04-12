@@ -598,8 +598,8 @@ namespace StandFacile
             }
 
             /*************************************
-                      * 		 Stampa del Logo Bottom
-                      *************************************/
+             * 		 Stampa del Logo Bottom
+             *************************************/
             if (Visible && checkBoxLogo.Checked && !String.IsNullOrEmpty(sGlbWinPrinterParams.sLogoName_B) && PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
             {
                 Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo(false);
