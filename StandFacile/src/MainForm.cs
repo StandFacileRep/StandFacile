@@ -904,9 +904,8 @@ namespace StandFacile
                     MainGrid_Redraw(this, null);
                 }
 
-                // solo se non c'è emissione di scontrini in corso _iAnteprimaTotParziale == 0
-                // avvia la stampa dell'ordine
-                else if ((sEvQueueObj[0] == WEB_ORDER_PRINT_START) && (_iAnteprimaTotParziale == 0))
+                // EsploraRemOrdiniDB_Dlg avvia la stampa automatica dell'ordine, previa verifica con GetAnteprima_TP_IsZero()
+                else if (sEvQueueObj[0] == WEB_ORDER_PRINT_START)
                 {
                     if ((_webPrintTimeout <= 0) && !bOrderProcessingRunning)
                     {

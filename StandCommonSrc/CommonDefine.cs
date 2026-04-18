@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.16.5a";
+        public const String RELEASE_SW = "v5.16.5a"; 
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_DB_TBLS = "v5d";
@@ -351,7 +351,7 @@ namespace StandCommonFiles
         public const String SEL_WEB_SERVER_KEY = "sComboServerWeb{0}";
 
         /// <summary>chiave per memorizzare il nome del DBase remoto</summary>
-        public const String WEB_DBASE_NAME_KEY = "sWeb_DBaseName";
+        public const String WEB_DBASE_NAME_KEY = "sWeb_DBase";
 
         /// <summary>chiave per memorizzare la password del DBase remoto</summary>
         public const String WEB_DBASE_PWD_KEY = "sWeb_DBasePwd";
