@@ -430,7 +430,7 @@ namespace StandFacile_DB
                         qResult = cmd.ExecuteScalar();
 
                         sQueryTxt = String.Format("INSERT INTO {0} (key_ID, sText, iYear, iMonth, iDay) VALUES (\'{1}\', \'{2}\', {3}, {4}, {5});",
-                            NOME_STATUS_DBTBL, WEB_DBASE_NAME_KEY, sWebServerParams.sWeb_DBase, 0, 0, 0);
+                            NOME_STATUS_DBTBL, WEB_DBASE_NAME_KEY, sWebServerParams.sWeb_DBaseName, 0, 0, 0);
                         cmd.CommandText = sQueryTxt;
                         qResult = cmd.ExecuteScalar();
 
@@ -858,7 +858,7 @@ namespace StandFacile_DB
                             sWebServerParams.sWebTablePrefix = sText;
                             break;
                         case WEB_DBASE_NAME_KEY:
-                            sWebServerParams.sWeb_DBase = sText;
+                            sWebServerParams.sWeb_DBaseName = sText;
                             break;
                         case WEB_DBASE_PWD_KEY:
                             sWebServerParams.sWebEncryptedPwd = sText;
@@ -930,7 +930,7 @@ namespace StandFacile_DB
                     cmd.CommandText = "UPDATE " + NOME_STATUS_DBTBL + " SET sText = '" + sWebServerParams.sWebTablePrefix + "' WHERE (key_ID = '" + WEB_SERVER_NAME_KEY + "')";
                     readerStatus = cmd.ExecuteReader();
 
-                    cmd.CommandText = "UPDATE " + NOME_STATUS_DBTBL + " SET sText = '" + sWebServerParams.sWeb_DBase + "' WHERE (key_ID = '" + WEB_DBASE_NAME_KEY + "')";
+                    cmd.CommandText = "UPDATE " + NOME_STATUS_DBTBL + " SET sText = '" + sWebServerParams.sWeb_DBaseName + "' WHERE (key_ID = '" + WEB_DBASE_NAME_KEY + "')";
                     readerStatus = cmd.ExecuteReader();
 
                     cmd.CommandText = "UPDATE " + NOME_STATUS_DBTBL + " SET sText = '" + sWebServerParams.sWebEncryptedPwd + "' WHERE (key_ID = '" + WEB_DBASE_PWD_KEY + "')";

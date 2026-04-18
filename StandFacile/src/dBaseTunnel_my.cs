@@ -1,10 +1,14 @@
 ﻿/*****************************************************************************************
 	NomeFile : StandFacile/dBaseTunnel_my.cs
-    Data	 : 30.03.2026
+    Data	 : 18.04.2026
 	Autore   : Mauro Artuso
 
     Classe per la lettura degli ordini in remoto, utilizza HTTP tunneling
     la eventuale tabella viene restituita dal DB server in formato JSON
+
+    Attenzione: _sEncryptedUser è utilizzato solo dal tunnel su URL_WEBAPP2,
+                nel tunnel su URL_WEBAPP1 l'utente del database è uguale al nome 
+                del DataBase stesso !!!
  *****************************************************************************************/
 
 // se è commentato accede al database remoto
@@ -78,8 +82,13 @@ namespace StandFacile
 
         static int _iTimerCounter = 5 * 30;
 
-        // Attenzione l'utente del database è uguale al nome del DataBase stesso VIP !!!
-        static String _sEncryptedHost, _sEncryptedUser, _sEncryptedDatabase;
+        /// <summary>
+        /// Attenzione: _sEncryptedUser è utilizzato solo dal tunnel su URL_WEBAPP2,<br/>
+        /// nel tunnel su URL_WEBAPP1 l'utente del database è uguale al nome del DataBase stesso !!!
+        /// </summary>
+        static String _sEncryptedUser;
+
+        static String _sEncryptedHost, _sEncryptedDatabase;
         static String _sHost, _sTunnel_URL;
 
         static String[] _sQueue_Object = new String[2];
@@ -136,12 +145,12 @@ namespace StandFacile
             NOME_ORDERS_RDBTBL = sConfig.sWebUrlVersion + "_" + _sRemoteTablePrefix + "_orders";
             NOME_LOG_RDBTBL = sConfig.sWebUrlVersion + "_" + _sRemoteTablePrefix + "_log";
 
-            if (_sWebServerParams.sWeb_DBase.Contains(PREFIX_DB_SERVER1) && !_sWebServerParams.sWeb_DBase.Contains(PREFIX_DB_LOCAL))
+            if (_sWebServerParams.sWeb_DBaseName.Contains(PREFIX_DB_SERVER1) && !_sWebServerParams.sWeb_DBaseName.Contains(PREFIX_DB_LOCAL))
             {
                 _sTunnel_URL = String.Format("{0}/standfacile_{1}_php/{2}?", URL_WEBAPP1, sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
                 _sHost = URL_DB_SERVER1;
             }
-            else if (_sWebServerParams.sWeb_DBase.Contains(PREFIX_DB_SERVER2) && !_sWebServerParams.sWeb_DBase.Contains(PREFIX_DB_LOCAL))
+            else if (_sWebServerParams.sWeb_DBaseName.Contains(PREFIX_DB_SERVER2) && !_sWebServerParams.sWeb_DBaseName.Contains(PREFIX_DB_LOCAL))
             {
                 _sTunnel_URL = String.Format("{0}/standfacile_{1}_php/{2}?", URL_WEBAPP2, sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
                 _sHost = URL_DB_SERVER2;
@@ -153,17 +162,17 @@ namespace StandFacile
             }
 
             _sEncryptedHost = Encrypt_WS(_sHost);
-            _sEncryptedDatabase = Encrypt_WS(_sWebServerParams.sWeb_DBase);
+            _sEncryptedDatabase = Encrypt_WS(_sWebServerParams.sWeb_DBaseName);
 
             // per semplicità ricava il nome utente dal nome del database aggiungendo i primi 6 caratteri del sWebTablePrefix
-            // limitazione Hosting
+            // limitazione Hosting, significativo solo per URL_WEBAPP2
 
             String sComposeUserName;
 
             if (_sWebServerParams.sWebTablePrefix.Length >= 6)
-                sComposeUserName = _sWebServerParams.sWeb_DBase.Split('_')[0] + '_' + _sWebServerParams.sWebTablePrefix.Substring(0, 6);
+                sComposeUserName = _sWebServerParams.sWeb_DBaseName.Split('_')[0] + '_' + _sWebServerParams.sWebTablePrefix.Substring(0, 6);
             else
-                sComposeUserName = _sWebServerParams.sWeb_DBase.Split('_')[0] + '_' + _sWebServerParams.sWebTablePrefix;
+                sComposeUserName = _sWebServerParams.sWeb_DBaseName.Split('_')[0] + '_' + _sWebServerParams.sWebTablePrefix;
 
             _sEncryptedUser = Encrypt_WS(sComposeUserName);
 
@@ -326,13 +335,13 @@ namespace StandFacile
         /// ritorna true se la connessione al webserver ha successo, false altrimenti<br/>
         /// viene controllata la lettura della tabella di Stato
         /// </summary>
-        public static bool rdbCheckConnection(String sWebPageParam, String sWeb_DBaseParam, String sWeb_DBasePwdParam, bool bSilentParam)
+        public static bool rdbCheckConnection(String sWebPageParam, String sWeb_DBaseNameParam, String sWeb_DBasePwdParam, bool bSilentParam)
         {
             bool bHostConnection_Ok;
             String sSQL_Query, sGQuery;
             String sResponseFromServer = "";
 
-            String sEncryptedDatabase = Encrypt_WS(sWeb_DBaseParam);
+            String sEncryptedDatabase = Encrypt_WS(sWeb_DBaseNameParam);
             String sEncryptedPwd = Encrypt_WS(sWeb_DBasePwdParam);
 
             String sTunnel_URL, sEncryptedHost, sComposeUserName;
@@ -340,20 +349,20 @@ namespace StandFacile
             // per semplicità ricava il nome utente dal nome del database aggiungendo i primi 6 caratteri del sWebTablePrefix
             // limitazione Hosting
 
-            if (_sWebServerParams.sWebTablePrefix.Length >= 6)
-                sComposeUserName = sWeb_DBaseParam.Split('_')[0] + '_' + _sWebServerParams.sWebTablePrefix.Substring(0, 6);
+            if (sWebPageParam.Length >= 6)
+                sComposeUserName = sWeb_DBaseNameParam.Split('_')[0] + '_' + sWebPageParam.Substring(0, 6);
             else
-                sComposeUserName = sWeb_DBaseParam.Split('_')[0] + '_' + _sWebServerParams.sWebTablePrefix;
+                sComposeUserName = sWeb_DBaseNameParam.Split('_')[0] + '_' + sWebPageParam;
 
             String sEncryptedUser = Encrypt_WS(sComposeUserName);
 
 
-            if (sWeb_DBaseParam.Contains(PREFIX_DB_SERVER1) && !sWeb_DBaseParam.Contains(PREFIX_DB_LOCAL))
+            if (sWeb_DBaseNameParam.Contains(PREFIX_DB_SERVER1) && !sWeb_DBaseNameParam.Contains(PREFIX_DB_LOCAL))
             {
                 sTunnel_URL = String.Format("{0}/standfacile_{1}_php/{2}?", URL_WEBAPP1, sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
                 sEncryptedHost = Encrypt_WS(URL_DB_SERVER1);
             }
-            else if (sWeb_DBaseParam.Contains(PREFIX_DB_SERVER2) && !sWeb_DBaseParam.Contains(PREFIX_DB_LOCAL))
+            else if (sWeb_DBaseNameParam.Contains(PREFIX_DB_SERVER2) && !sWeb_DBaseNameParam.Contains(PREFIX_DB_LOCAL))
             {
                 sTunnel_URL = String.Format("{0}/standfacile_{1}_php/{2}?", URL_WEBAPP2, sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
                 sEncryptedHost = Encrypt_WS(URL_DB_SERVER2);
@@ -402,7 +411,7 @@ namespace StandFacile
                     sResponseFromServer = Decrypt_WS(sResponseFromServer);
                 }
 
-                _WrnMsg.sMsg = "'" + sWeb_DBaseParam + "'";
+                _WrnMsg.sMsg = "'" + sWeb_DBaseNameParam + "'";
 
                 if (sResponseFromServer.Contains(_NO_DB_ERRORS))
                 {
@@ -830,7 +839,7 @@ namespace StandFacile
                 if (!bHostConnection_Ok)
                     return false;
 
-                if (string.IsNullOrEmpty(_sWebServerParams.sWeb_DBase))
+                if (string.IsNullOrEmpty(_sWebServerParams.sWeb_DBaseName))
                     return false;
 
                 sSQL_Query = String.Format("INSERT INTO {0} (user_ID, text, date) VALUES ('{1}', '{2}', '{3}')", NOME_LOG_RDBTBL, -2, sTxtParam, GetDateTimeString());
@@ -1019,7 +1028,7 @@ namespace StandFacile
                 if (!bHostConnection_Ok || !(_bWebServiceRequested || bForceUpload) || (SF_Data.iNumCassa != CASSA_PRINCIPALE))
                     return false;
 
-                if (String.IsNullOrEmpty(_sWebServerParams.sWeb_DBase))
+                if (String.IsNullOrEmpty(_sWebServerParams.sWeb_DBaseName))
                     return false;
 
                 // ulteriore sicurezza MessageBox modale 

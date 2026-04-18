@@ -114,9 +114,9 @@ namespace StandFacile
             Combo_DBServerName.Text = ReadRegistry(DBASE_SERVER_NAME_KEY, _sHostName);
             dbPasswordEdit.Text = Decrypt(ReadRegistry(DBASE_PASSWORD_KEY, DBASE_LAN_PASSWORD));
 
-            Edit_WebServiceDBaseName.Text = _sWebServerParams.sWeb_DBase;
+            Edit_WebServiceDBaseName.Text = _sWebServerParams.sWeb_DBaseName;
             Edit_WebServiceDBasePwd.Text = Decrypt_WS(_sWebServerParams.sWebEncryptedPwd);
-            Edit_WebService_Name.Text = _sWebServerParams.sWebTablePrefix;
+            Edit_WebService_Page.Text = _sWebServerParams.sWebTablePrefix;
 
             // se è MySQL, oppure è se attivo il corrispondente DB
             if ((combo_TipoDBase.SelectedIndex == 0) || combo_TipoDBase.SelectedIndex == iUSA_NDB())
@@ -150,16 +150,16 @@ namespace StandFacile
             if (_bOK_EnableRem)
             {
                 if (Edit_WebServiceDBaseName.Text == PREFIX_DB_LOCAL)
-                    link_QRcode.Text = String.Format("https://localhost/standfacile_{0}_php/{1}/index.php", sConfig.sWebUrlVersion, Edit_WebService_Name.Text);
+                    link_QRcode.Text = String.Format("https://localhost/standfacile_{0}_php/{1}/index.php", sConfig.sWebUrlVersion, Edit_WebService_Page.Text);
                 else
                 {
-                    if ((!String.IsNullOrEmpty(Edit_WebService_Name.Text)) && Edit_WebServiceDBaseName.Text.Contains(PREFIX_DB_SERVER1))
+                    if ((!String.IsNullOrEmpty(Edit_WebService_Page.Text)) && Edit_WebServiceDBaseName.Text.Contains(PREFIX_DB_SERVER1))
                     {
-                        link_QRcode.Text = String.Format("{0}/standfacile_{1}_php/{2}/index.php", URL_WEBAPP1, sConfig.sWebUrlVersion, Edit_WebService_Name.Text);
+                        link_QRcode.Text = String.Format("{0}/standfacile_{1}_php/{2}/index.php", URL_WEBAPP1, sConfig.sWebUrlVersion, Edit_WebService_Page.Text);
                     }
-                    else if ((!String.IsNullOrEmpty(Edit_WebService_Name.Text)) && Edit_WebServiceDBaseName.Text.Contains(PREFIX_DB_SERVER2))
+                    else if ((!String.IsNullOrEmpty(Edit_WebService_Page.Text)) && Edit_WebServiceDBaseName.Text.Contains(PREFIX_DB_SERVER2))
                     {
-                        link_QRcode.Text = String.Format("{0}/standfacile_{1}_php/{2}/index.php", URL_WEBAPP2, sConfig.sWebUrlVersion, Edit_WebService_Name.Text);
+                        link_QRcode.Text = String.Format("{0}/standfacile_{1}_php/{2}/index.php", URL_WEBAPP2, sConfig.sWebUrlVersion, Edit_WebService_Page.Text);
                     }
                     else
                         link_QRcode.Text = String.Format("{0}/{1}", URL_WEBAPP1, "controlla");
@@ -207,7 +207,7 @@ namespace StandFacile
                     NC_lbl8.Enabled = true;
                     Edit_WebServiceDBaseName.Enabled = true;
                     Edit_WebServiceDBasePwd.Enabled = true;
-                    Edit_WebService_Name.Enabled = true;
+                    Edit_WebService_Page.Enabled = true;
                 }
                 else
                 {
@@ -217,7 +217,7 @@ namespace StandFacile
                     NC_lbl8.Enabled = false;
                     Edit_WebServiceDBaseName.Enabled = false;
                     Edit_WebServiceDBasePwd.Enabled = false;
-                    Edit_WebService_Name.Enabled = false;
+                    Edit_WebService_Page.Enabled = false;
                 }
 
                 NC_btn_webSiteTest.Enabled = true;
@@ -237,7 +237,7 @@ namespace StandFacile
                 NC_lbl8.Enabled = false;
                 Edit_WebServiceDBaseName.Enabled = false;
                 Edit_WebServiceDBasePwd.Enabled = false;
-                Edit_WebService_Name.Enabled = false;
+                Edit_WebService_Page.Enabled = false;
                 NC_btn_webSiteTest.Enabled = false;
                 //link_QRcode.Enabled = false;
                 pictureBox_QRCode.Enabled = false;
@@ -297,7 +297,7 @@ namespace StandFacile
 
         private void NC_btn_webSiteTest_Click(object sender, EventArgs e)
         {
-            if (rdbCheckConnection(Edit_WebService_Name.Text, Edit_WebServiceDBaseName.Text, Edit_WebServiceDBasePwd.Text, false))
+            if (rdbCheckConnection(Edit_WebService_Page.Text, Edit_WebServiceDBaseName.Text, Edit_WebServiceDBasePwd.Text, false))
                 _bOK_EnableRem = true;
             else
                 _bOK_EnableRem = false;
@@ -357,9 +357,9 @@ namespace StandFacile
             // Web params
             if (WO_ckBox.Checked && (SF_Data.iNumCassa == CASSA_PRINCIPALE))
             {
-                if ((Edit_WebServiceDBaseName.Text != _sWebServerParams.sWeb_DBase) && (!String.IsNullOrEmpty(Edit_WebServiceDBaseName.Text)))
+                if ((Edit_WebServiceDBaseName.Text != _sWebServerParams.sWeb_DBaseName) && (!String.IsNullOrEmpty(Edit_WebServiceDBaseName.Text)))
                 {
-                    _sWebServerParams.sWeb_DBase = Edit_WebServiceDBaseName.Text;
+                    _sWebServerParams.sWeb_DBaseName = Edit_WebServiceDBaseName.Text;
                     WriteRegistry(WEB_DBASE_NAME_KEY, Edit_WebServiceDBaseName.Text);
 
                     bRiavvio = true;
@@ -374,10 +374,10 @@ namespace StandFacile
                     bRiavvio = true;
                 }
 
-                if ((Edit_WebService_Name.Text != _sWebServerParams.sWebTablePrefix) && (!String.IsNullOrEmpty(Edit_WebService_Name.Text))) // 1, 2
+                if ((Edit_WebService_Page.Text != _sWebServerParams.sWebTablePrefix) && (!String.IsNullOrEmpty(Edit_WebService_Page.Text))) // 1, 2
                 {
-                    _sWebServerParams.sWebTablePrefix = Edit_WebService_Name.Text;
-                    WriteRegistry(WEB_SERVER_NAME_KEY, Edit_WebService_Name.Text);
+                    _sWebServerParams.sWebTablePrefix = Edit_WebService_Page.Text;
+                    WriteRegistry(WEB_SERVER_NAME_KEY, Edit_WebService_Page.Text);
 
                     bRiavvio = true;
                 }

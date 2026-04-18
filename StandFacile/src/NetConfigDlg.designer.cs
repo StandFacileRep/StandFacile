@@ -43,7 +43,7 @@
             this.Combo_DBServerName = new System.Windows.Forms.ComboBox();
             this.NC_lbl1 = new System.Windows.Forms.Label();
             this.panelWeb = new System.Windows.Forms.Panel();
-            this.Edit_WebService_Name = new System.Windows.Forms.TextBox();
+            this.Edit_WebService_Page = new System.Windows.Forms.TextBox();
             this.link_QRcode = new System.Windows.Forms.LinkLabel();
             this.pictureBox_QRCode = new System.Windows.Forms.PictureBox();
             this.NC_lbl8 = new System.Windows.Forms.Label();
@@ -221,7 +221,7 @@
             // panelWeb
             // 
             this.panelWeb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelWeb.Controls.Add(this.Edit_WebService_Name);
+            this.panelWeb.Controls.Add(this.Edit_WebService_Page);
             this.panelWeb.Controls.Add(this.link_QRcode);
             this.panelWeb.Controls.Add(this.pictureBox_QRCode);
             this.panelWeb.Controls.Add(this.NC_lbl8);
@@ -237,14 +237,14 @@
             this.panelWeb.Size = new System.Drawing.Size(499, 250);
             this.panelWeb.TabIndex = 5;
             // 
-            // Edit_WebService_Name
+            // Edit_WebService_Page
             // 
-            this.Edit_WebService_Name.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Edit_WebService_Name.Location = new System.Drawing.Point(15, 161);
-            this.Edit_WebService_Name.MaxLength = 24;
-            this.Edit_WebService_Name.Name = "Edit_WebService_Name";
-            this.Edit_WebService_Name.Size = new System.Drawing.Size(170, 22);
-            this.Edit_WebService_Name.TabIndex = 16;
+            this.Edit_WebService_Page.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Edit_WebService_Page.Location = new System.Drawing.Point(15, 161);
+            this.Edit_WebService_Page.MaxLength = 24;
+            this.Edit_WebService_Page.Name = "Edit_WebService_Page";
+            this.Edit_WebService_Page.Size = new System.Drawing.Size(170, 22);
+            this.Edit_WebService_Page.TabIndex = 16;
             // 
             // link_QRcode
             // 
@@ -412,7 +412,7 @@
         private System.Windows.Forms.Label NC_lbl8;
         private System.Windows.Forms.PictureBox pictureBox_QRCode;
         private System.Windows.Forms.LinkLabel link_QRcode;
-        private System.Windows.Forms.TextBox Edit_WebService_Name;
+        private System.Windows.Forms.TextBox Edit_WebService_Page;
         private System.Windows.Forms.ComboBox Combo_DBServerName;
         private System.Windows.Forms.Panel Panel_DB;
     }

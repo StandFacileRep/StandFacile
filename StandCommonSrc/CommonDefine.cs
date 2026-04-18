@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.16.5";
+        public const String RELEASE_SW = "v5.16.5a";
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_DB_TBLS = "v5d";
@@ -351,7 +351,7 @@ namespace StandCommonFiles
         public const String SEL_WEB_SERVER_KEY = "sComboServerWeb{0}";
 
         /// <summary>chiave per memorizzare il nome del DBase remoto</summary>
-        public const String WEB_DBASE_NAME_KEY = "sWeb_DBase";
+        public const String WEB_DBASE_NAME_KEY = "sWeb_DBaseName";
 
         /// <summary>chiave per memorizzare la password del DBase remoto</summary>
         public const String WEB_DBASE_PWD_KEY = "sWeb_DBasePwd";
@@ -1428,10 +1428,10 @@ namespace StandCommonFiles
         /// <summary>definizione della struttura per l'accesso al database remoto</summary>
         public struct TWebServerParams
         {
-            /// <summary>prefisso tabella remota</summary>
+            /// <summary>prefisso tabella e pagina remota</summary>
             public String sWebTablePrefix;
             /// <summary>nome database remoto</summary>
-            public String sWeb_DBase;
+            public String sWeb_DBaseName;
             /// <summary>password criptata database remoto</summary>
             public String sWebEncryptedPwd;
 
@@ -1439,7 +1439,7 @@ namespace StandCommonFiles
             public TWebServerParams(int iParam)
             {
                 sWebTablePrefix = "";
-                sWeb_DBase = "";
+                sWeb_DBaseName = "";
                 sWebEncryptedPwd = "";
             }
         };
