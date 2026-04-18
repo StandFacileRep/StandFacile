@@ -150,7 +150,7 @@ namespace StandFacile
             if (_bOK_EnableRem)
             {
                 if (Edit_WebServiceDBaseName.Text == PREFIX_DB_LOCAL)
-                    link_QRcode.Text = String.Format("https://localhost/standfacile_{0}_php/{1}/index.php", sConfig.sWebUrlVersion, Edit_WebService_Page.Text);
+                    link_QRcode.Text = String.Format("http://localhost/wa/standfacile_{0}_php/{1}/index.php", sConfig.sWebUrlVersion, Edit_WebService_Page.Text);
                 else
                 {
                     if ((!String.IsNullOrEmpty(Edit_WebService_Page.Text)) && Edit_WebServiceDBaseName.Text.Contains(PREFIX_DB_SERVER1))

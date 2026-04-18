@@ -168,7 +168,7 @@ namespace StandFacile
             }
             else // "standfacile_rdb"
             {
-                _sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
+                _sTunnel_URL = String.Format("http://localhost/wa/standfacile_{0}_php/{1}?", sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
                 _sHost = "localhost";
 
                 sComposeUserName = _sWebServerParams.sWeb_DBaseName;
@@ -373,7 +373,7 @@ namespace StandFacile
             }
             else // "standfacile_rdb"
             {
-                sTunnel_URL = String.Format("http://localhost/standfacile_{0}_php/{1}?", sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
+                sTunnel_URL = String.Format("http://localhost/wa/standfacile_{0}_php/{1}?", sConfig.sWebUrlVersion, _MYSQL_TUNNEL);
                 sEncryptedHost = Encrypt_WS("localhost");
 
                 sComposeUserName = sWeb_DBaseNameParam;
