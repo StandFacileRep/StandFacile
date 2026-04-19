@@ -75,14 +75,14 @@
     <Reference Include="Devart.Data.SQLite, Version=6.4.290.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL">
       <HintPath>..\..\packages\dotConnect.Express.for.SQLite.6.4.290\lib\net2.0\Devart.Data.SQLite.dll</HintPath>
     </Reference>
-    <Reference Include="FreeDataExports, Version=1.1.13.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\FreeDataExports.1.1.13\lib\netstandard2.0\FreeDataExports.dll</HintPath>
+    <Reference Include="FreeDataExports, Version=1.1.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FreeDataExports.1.1.14\lib\netstandard2.0\FreeDataExports.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="QRCoder, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\QRCoder.1.7.0\lib\net40\QRCoder.dll</HintPath>
+    <Reference Include="QRCoder, Version=1.8.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\QRCoder.1.8.0\lib\net40\QRCoder.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

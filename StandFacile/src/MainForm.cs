@@ -1514,6 +1514,7 @@ namespace StandFacile
             {
                 sDestinationFile = DlgSaveFile.FileName;
 
+                // copia del file Listino
                 if (File.Exists(sDestinationFile))
                 {
                     sTmp = "Sei sicuro di voler sovrascrivere il file : \n\n" + Path.GetFileName(sDestinationFile) + " ?";

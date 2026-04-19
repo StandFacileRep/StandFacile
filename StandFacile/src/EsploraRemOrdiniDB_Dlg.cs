@@ -1,6 +1,6 @@
 ﻿/********************************************************************
   	NomeFile : StandFacile/EsploraRemOrdiniDB_Dlg.cs
-	Data	 : 20.03.2025
+	Data	 : 19.04.2026
   	Autore   : Mauro Artuso
 
   Classe di esplorazione del database remoto, 
@@ -56,7 +56,14 @@ namespace StandFacile
         public bool GetAutoCheckbox() { return ckBoxAutoLoad.Checked; }
 
         /// <summary>imposta _bProcessingOrder = false per proseguire con la stampa automatica</summary>
-        public static void KeepPrintWebOrders() { _bProcessingOrder = false; }
+        public static void KeepPrintWebOrders()
+        {
+            // azzera indirettamente _iAnteprimaTotParziale
+            // e quindi FrmMain.rFrmMain.GetAnteprima_TP_IsZero()
+            int iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+
+            _bProcessingOrder = false;
+        }
 
         readonly ToolTip _tt = new ToolTip
         {
@@ -211,6 +218,7 @@ namespace StandFacile
 
                         if (bDbRead_Ok)
                         {
+                            // solo se non c'è input manuale ordine in corso
                             if (FrmMain.rFrmMain.GetAnteprima_TP_IsZero())
                             {
                                 DataManager.CaricaOrdineWeb();

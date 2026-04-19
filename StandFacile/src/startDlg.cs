@@ -22,10 +22,10 @@ namespace StandFacile
     /// <summary>
     /// classe di avvio con informazioni
     /// </summary>
-    public partial class startDlg : Form
+    public partial class StartDlg : Form
     {
         /// <summary>costruttore</summary>
-        public startDlg()
+        public StartDlg()
         {
             InitializeComponent();
 

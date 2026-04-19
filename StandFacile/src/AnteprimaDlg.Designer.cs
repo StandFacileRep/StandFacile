@@ -33,6 +33,7 @@
             this.panel = new System.Windows.Forms.Panel();
             this.picBox = new System.Windows.Forms.PictureBox();
             this.checkBoxLogo = new System.Windows.Forms.CheckBox();
+            this.checkBox_PrimoPiano = new System.Windows.Forms.CheckBox();
             this.panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             this.SuspendLayout();
@@ -91,6 +92,20 @@
             this.checkBoxLogo.UseVisualStyleBackColor = true;
             this.checkBoxLogo.CheckedChanged += new System.EventHandler(this.CheckBoxLogo_CheckedChanged);
             // 
+            // checkBox_PrimoPiano
+            // 
+            this.checkBox_PrimoPiano.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBox_PrimoPiano.AutoSize = true;
+            this.checkBox_PrimoPiano.Checked = true;
+            this.checkBox_PrimoPiano.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox_PrimoPiano.Location = new System.Drawing.Point(157, 516);
+            this.checkBox_PrimoPiano.Name = "checkBox_PrimoPiano";
+            this.checkBox_PrimoPiano.Size = new System.Drawing.Size(91, 17);
+            this.checkBox_PrimoPiano.TabIndex = 4;
+            this.checkBox_PrimoPiano.Text = "in primo piano";
+            this.checkBox_PrimoPiano.UseVisualStyleBackColor = true;
+            this.checkBox_PrimoPiano.CheckedChanged += new System.EventHandler(this.checkBox_PrimoPiano_CheckedChanged);
+            // 
             // AnteprimaDlg
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -98,6 +113,7 @@
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(412, 550);
+            this.Controls.Add(this.checkBox_PrimoPiano);
             this.Controls.Add(this.checkBoxLogo);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.btnCancel);
@@ -122,5 +138,6 @@
         private System.Windows.Forms.Panel panel;
         private System.Windows.Forms.PictureBox picBox;
         private System.Windows.Forms.CheckBox checkBoxLogo;
+        private System.Windows.Forms.CheckBox checkBox_PrimoPiano;
     }
 }

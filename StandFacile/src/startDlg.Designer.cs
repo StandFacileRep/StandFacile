@@ -1,6 +1,6 @@
 ﻿namespace StandFacile
 {
-    partial class startDlg
+    partial class StartDlg
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(startDlg));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartDlg));
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.OraLbl = new System.Windows.Forms.Label();
             this.DateLbl = new System.Windows.Forms.Label();

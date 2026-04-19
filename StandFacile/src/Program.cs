@@ -128,7 +128,7 @@ namespace StandFacile
             WinPrinterDlg rWinPrinterDlg = new WinPrinterDlg();
 
             // Avvio della Form di verifica iniziale della data, va messo dopo WinPrinterDlg
-            startDlg rStartDlg = new startDlg();
+            StartDlg rStartDlg = new StartDlg();
 
             GenPrinterDlg rGenericPrintDlg = new GenPrinterDlg();
 

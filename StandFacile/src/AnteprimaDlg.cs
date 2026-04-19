@@ -1,6 +1,6 @@
 ﻿/********************************************************************
   	NomeFile : StandFacile/AnteprimaDlg.cs
-	Data	 : 01.01.2026
+	Data	 : 19.04.2026
   	Autore   : Mauro Artuso
 
   Classe di visualizzazione dell'anteprima dello scontrino.
@@ -674,6 +674,11 @@ namespace StandFacile
                 PrintCanvas(pg, sCashdeskAndReceiptNum);
             else
                 PrintCanvas(pg, 1.32f, 1.32f, sCashdeskAndReceiptNum);
+        }
+
+        private void checkBox_PrimoPiano_CheckedChanged(object sender, EventArgs e)
+        {
+            TopMost = checkBox_PrimoPiano.Checked;
         }
 
         private void AnteprimaDlg_Resize(object sender, EventArgs e)
