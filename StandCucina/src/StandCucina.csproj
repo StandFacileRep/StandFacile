@@ -25,12 +25,12 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>5.12.0.0</ApplicationVersion>
+    <ApplicationVersion>5.16.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -208,6 +208,9 @@
     </Compile>
     <Compile Include="..\..\StandCommonSrc\ReceiptAndCopiesCommons.cs">
       <Link>ReceiptAndCopiesCommons.cs</Link>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\UDP_service.cs">
+      <Link>UDP_service.cs</Link>
     </Compile>
     <Compile Include="..\..\StandCommonSrc\VisOrdiniDlg.cs">
       <Link>VisOrdiniDlg.cs</Link>

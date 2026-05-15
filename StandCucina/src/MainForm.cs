@@ -1,6 +1,6 @@
 ﻿/************************************************************
   	NomeFile : StandCucina/MainForm.cs
-	Data	 : 25.04.2025
+	Data	 : 15.05.2026
   	Autore   : Mauro Artuso
  ************************************************************/
 
@@ -21,7 +21,6 @@ using static StandFacile.Define;
 using static StandFacile.NetConfigLightDlg;
 using static StandFacile.dBaseIntf;
 using static StandFacile.LogForm;
-using StandCommonFiles;
 
 namespace StandFacile
 {
@@ -45,6 +44,8 @@ namespace StandFacile
         static int _iPrevTicketNum;
         /// <summary>numero di scontrini da stampare che comprendono e seguono iGlbCurrentOffline_TicketNum</summary>
         static int _iNextTicketNum;
+
+        static int iRefresh;
 
         /// <summary>numero dello scontrino corrente in modo offline</summary>
         public static int iGlbCurrentOffline_TicketNum;
@@ -83,6 +84,9 @@ namespace StandFacile
         /// <summary>ottiene il flag di modo esperto</summary>
         public bool GetEsperto() { return MnuEsperto.Checked; }
 
+        /// <summary>imposta il timeout in x 250ms per aggiornamento</summary>
+        public void SetShortUpdateTimeout(int iParam) { iRefresh = iParam; }
+
         VisOrdiniDlg _rVisOrdiniDlg;
 
         /// <summary>colore di sfondo dello scontrino Annullato</summary>
@@ -92,7 +96,7 @@ namespace StandFacile
         /// <summary>colore di sfondo della copia scontrino stampata da StandCucina</summary>
         System.Drawing.Color _clrPrintedFromStandCucinaBkgr;
         /// <summary>colore di sfondo della copia scontrino non significativa</summary>
-        System.Drawing.Color  _clrNonInteressaBkgr;
+        System.Drawing.Color _clrNonInteressaBkgr;
 
         /// <summary>costruttore</summary>
         public FrmMain()
@@ -172,7 +176,7 @@ namespace StandFacile
 
             ME_TickNum.Text = "0";
 
-            ClientTimer.Interval = DB_CLIENT_TIMER;
+            iRefresh = 4; // 1s
 
             // Il timer avvia tute le richieste al DB server
             ClientTimer.Enabled = true;
@@ -709,166 +713,173 @@ namespace StandFacile
             int iDebug;
             String sTmp, sTime;
 
-            // if (!rNetConfigDlg.Visible && _bOnLine && _rdBaseIntf.GetDB_Connected())
-            if (!rNetConfigLightDlg.Visible && _rdBaseIntf.GetDB_Connected())
+            if (iRefresh == 0)
             {
-                StartBmpTimer(); // aggiorna bmp trasmissione
+                iRefresh = DB_CLIENT_TIMER;
 
-                // carica iGlbNumOfTickets, iGlbNumOfMessages, _Versione, _Header, _HeaderText
-                if (!rNetConfigLightDlg.Visible)
+                // if (!rNetConfigDlg.Visible && _bOnLine && _rdBaseIntf.GetDB_Connected())
+                if (!rNetConfigLightDlg.Visible && _rdBaseIntf.GetDB_Connected())
                 {
-                    _rdBaseIntf.dbCheckStatus();
+                    StartBmpTimer(); // aggiorna bmp trasmissione
 
-                    iGlbNumOfTickets = _rdBaseIntf.dbGetNumOfOrdersFromDB(false);
-                    iGlbNumOfMessages = _rdBaseIntf.dbGetNumOfMessagesFromDB(false);
-
-                    _iNextTicketNum = _rdBaseIntf.dbGetNumOfPrintedOrders(iGlbCurrentOffline_TicketNum, true);
-                    _iPrevTicketNum = _rdBaseIntf.dbGetNumOfPrintedOrders(iGlbCurrentOffline_TicketNum, false);
-
-                    CorreggiNumeroOrdiniDaStampare();
-
-                    //if (_bOnLine)
-                    //    toolStripCurrTicketNum.Text = String.Format("Ticket num : {0}", iGlbCurrentOffline_TicketNum);
-                    //else
-                    //    toolStripCurrTicketNum.Text = String.Format("Ticket num : {0}, Prec.={1}, Succ.={2}", iGlbNumOfTickets, _iPrevTicketNum, _iNextTicketNum);
-
-                    toolStripTotTicketNum.Text = String.Format("Presenti : {0}", iGlbNumOfTickets);
-
-                    iDebug = ClientTimer.Interval;
-                }
-
-                iDebug = iGlbNumOfTickets;
-
-                // c'è la connessione ma non i dati = StandFacile da avviare
-                if (iGlbNumOfTickets == 0)
-                    _bInitNetReadParams = true;
-
-                // _bInitNetReadParams è true anche in fase di avvio
-                if (_bInitNetReadParams)
-                {
-                    rNetConfigLightDlg.NetConfig_ReadParams();
-                    _bInitNetReadParams = false;
-                }
-
-                /****************************************
-                 *      controllo emissione Ticket
-                 ****************************************/
-                if (_iPrevShownOnline_TicketNum < iGlbNumOfTickets)
-                {
-                    if (_iPrevShownOnline_TicketNum == -100) // skip la prima volta
+                    // carica iGlbNumOfTickets, iGlbNumOfMessages, _Versione, _Header, _HeaderText
+                    if (!rNetConfigLightDlg.Visible)
                     {
-                        iGlbCurrentOffline_TicketNum = iGlbNumOfTickets;
-                        _iPrevShownOnline_TicketNum = iGlbNumOfTickets;
+                        _rdBaseIntf.dbCheckStatus();
 
-                        Reset_StatusDate_Changed();
+                        iGlbNumOfTickets = _rdBaseIntf.dbGetNumOfOrdersFromDB(false);
+                        iGlbNumOfMessages = _rdBaseIntf.dbGetNumOfMessagesFromDB(false);
 
-                        VisualizzaTicket(iGlbNumOfTickets);
+                        _iNextTicketNum = _rdBaseIntf.dbGetNumOfPrintedOrders(iGlbCurrentOffline_TicketNum, true);
+                        _iPrevTicketNum = _rdBaseIntf.dbGetNumOfPrintedOrders(iGlbCurrentOffline_TicketNum, false);
+
+                        CorreggiNumeroOrdiniDaStampare();
+
+                        //if (_bOnLine)
+                        //    toolStripCurrTicketNum.Text = String.Format("Ticket num : {0}", iGlbCurrentOffline_TicketNum);
+                        //else
+                        //    toolStripCurrTicketNum.Text = String.Format("Ticket num : {0}, Prec.={1}, Succ.={2}", iGlbNumOfTickets, _iPrevTicketNum, _iNextTicketNum);
+
+                        toolStripTotTicketNum.Text = String.Format("Presenti : {0}", iGlbNumOfTickets);
+
+                        iDebug = ClientTimer.Interval;
                     }
-                    else if (_bOnLine || (_iPrevShownOnline_TicketNum == 0)) // Visualizza almeno _iPrevShownOnline_TicketNum = 1
+
+                    iDebug = iGlbNumOfTickets;
+
+                    // c'è la connessione ma non i dati = StandFacile da avviare
+                    if (iGlbNumOfTickets == 0)
+                        _bInitNetReadParams = true;
+
+                    // _bInitNetReadParams è true anche in fase di avvio
+                    if (_bInitNetReadParams)
                     {
-                        if (!Get_StatusDate_IsChanged())
-                            _iPrevShownOnline_TicketNum++;                  // così li stampa tutti
-                        else
-                            _iPrevShownOnline_TicketNum = iGlbNumOfTickets; // evita raffica di scontrini
+                        rNetConfigLightDlg.NetConfig_ReadParams();
+                        _bInitNetReadParams = false;
+                    }
 
-                        VisualizzaTicket(_iPrevShownOnline_TicketNum);
-
-                        ClientTimer.Interval = DB_CLIENT_TIMER_SHORT; // accelera
-
-                        if (!Get_StatusDate_IsChanged() && _bOnLine)
+                    /****************************************
+                     *      controllo emissione Ticket
+                     ****************************************/
+                    if (_iPrevShownOnline_TicketNum < iGlbNumOfTickets)
+                    {
+                        if (_iPrevShownOnline_TicketNum == -100) // skip la prima volta
                         {
-                            // *** stampa solo le copie e non lo scontrino ***
-                            if ((_sNomeFileTicket != NOME_FILE_RECEIPT) && !GetStampaSoloManuale() && !DB_Data.bAnnullato && !IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
+                            iGlbCurrentOffline_TicketNum = iGlbNumOfTickets;
+                            _iPrevShownOnline_TicketNum = iGlbNumOfTickets;
+
+                            Reset_StatusDate_Changed();
+
+                            VisualizzaTicket(iGlbNumOfTickets);
+                        }
+                        else if (_bOnLine || (_iPrevShownOnline_TicketNum == 0)) // Visualizza almeno _iPrevShownOnline_TicketNum = 1
+                        {
+                            if (!Get_StatusDate_IsChanged())
+                                _iPrevShownOnline_TicketNum++;                  // così li stampa tutti
+                            else
+                                _iPrevShownOnline_TicketNum = iGlbNumOfTickets; // evita raffica di scontrini
+
+                            VisualizzaTicket(_iPrevShownOnline_TicketNum);
+
+                            iRefresh = DB_CLIENT_TIMER_SHORT; // accelera
+
+                            if (!Get_StatusDate_IsChanged() && _bOnLine)
                             {
-                                StampaCopie();
+                                // *** stampa solo le copie e non lo scontrino ***
+                                if ((_sNomeFileTicket != NOME_FILE_RECEIPT) && !GetStampaSoloManuale() && !DB_Data.bAnnullato && !IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
+                                {
+                                    StampaCopie();
 
-                                // aggiorna il flag BIT_RECEIPT_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
-                                _rdBaseIntf.dbEditStatus(_iPrevShownOnline_TicketNum, SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
+                                    // aggiorna il flag BIT_RECEIPT_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
+                                    _rdBaseIntf.dbEditStatus(_iPrevShownOnline_TicketNum, SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA));
 
-                                TB_Tickets.BackColor = _clrPrintedFromStandCucinaBkgr;
-                                TB_Tickets.ForeColor = System.Drawing.Color.Black;
+                                    TB_Tickets.BackColor = _clrPrintedFromStandCucinaBkgr;
+                                    TB_Tickets.ForeColor = System.Drawing.Color.Black;
+                                }
+                                else // visualizza soltanto
+                                {
+                                    // aggiorna l'elenco di ordini per i quali non è richiesta la stampa
+                                    if (!IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
+                                        if (!_iElencoOrdiniNoPrint.Contains(_iPrevShownOnline_TicketNum))
+                                            _iElencoOrdiniNoPrint.Add(_iPrevShownOnline_TicketNum);
+
+                                    sTime = DateTime.Now.ToString("HH.mm.ss");
+                                    sTmp = String.Format("{0} DB_Client : {1}, Cs = {2}, N. = {3}", sTime, " - - - ", DB_Data.iNumCassa, _iPrevShownOnline_TicketNum);
+                                    rLogForm.LogAddLine(sTmp);
+
+                                    sTmp = String.Format("DB_Client : {0}, Cs = {1}, N. = {2}, ", " - - - ", DB_Data.iNumCassa, _iPrevShownOnline_TicketNum);
+                                    LogToFile(sTmp);
+
+                                    iRefresh = DB_CLIENT_TIMER_SHORT / 2; // accelera ancora di più se non stampa
+                                }
                             }
-                            else // visualizza soltanto
+                        }
+                    }
+                    else
+                    {
+                        iRefresh = DB_CLIENT_TIMER; // siamo in passo: intervallo standard 16s
+                    }
+
+                    if (_bOnLine)
+                        ME_TickNum.Text = _iPrevShownOnline_TicketNum.ToString();
+
+                    /****************************************
+                     *    controllo emissione messaggi
+                     ****************************************/
+                    if (_iPrevShownOnline_MessageNum < iGlbNumOfMessages)
+                    {
+                        iDebug = iGlbNumOfMessages;
+
+                        if (_iPrevShownOnline_MessageNum == -100) // skip la prima volta
+                        {
+                            iGlbCurrentOffline_MessageNum = iGlbNumOfMessages;
+                            _iPrevShownOnline_MessageNum = iGlbNumOfMessages;
+
+                            VisualizzaMsg(iGlbNumOfMessages);
+                        }
+                        else if (_bOnLine)
+                        {
+                            if (!Get_StatusDate_IsChanged())
+                                _iPrevShownOnline_MessageNum++; // così li stampa tutti
+                            else
+                                _iPrevShownOnline_MessageNum = iGlbNumOfMessages;
+
+                            VisualizzaMsg(_iPrevShownOnline_MessageNum);
+
+                            if (!Get_StatusDate_IsChanged() && !GetStampaSoloManuale() && !IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_MSG_STAMPATO_DA_STANDCUCINA))
                             {
-                                // aggiorna l'elenco di ordini per i quali non è richiesta la stampa
-                                if (!IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_RECEIPT_STAMPATO_DA_STANDCUCINA))
-                                    if (!_iElencoOrdiniNoPrint.Contains(_iPrevShownOnline_TicketNum))
-                                        _iElencoOrdiniNoPrint.Add(_iPrevShownOnline_TicketNum);
+                                StampaMessaggio();
 
-                                sTime = DateTime.Now.ToString("HH.mm.ss");
-                                sTmp = String.Format("{0} DB_Client : {1}, Cs = {2}, N. = {3}", sTime, " - - - ", DB_Data.iNumCassa, _iPrevShownOnline_TicketNum);
-                                rLogForm.LogAddLine(sTmp);
+                                // aggiorna il flag BIT_MSG_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
+                                _rdBaseIntf.dbEditStatus(-_iPrevShownOnline_MessageNum, SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_MSG_STAMPATO_DA_STANDCUCINA));
 
-                                sTmp = String.Format("DB_Client : {0}, Cs = {1}, N. = {2}, ", " - - - ", DB_Data.iNumCassa, _iPrevShownOnline_TicketNum);
-                                LogToFile(sTmp);
-
-                                ClientTimer.Interval = DB_CLIENT_TIMER_SHORT / 2; // accelera ancora di più se non stampa
+                                TB_Messaggi.BackColor = _clrPrintedFromStandCucinaBkgr;
+                                TB_Messaggi.ForeColor = System.Drawing.Color.Black;
                             }
+
+                            // *** alla fine c'è il reset cambio data ***
+                            Reset_StatusDate_Changed();
+
+                            sTime = DateTime.Now.ToString("HH.mm.ss");
+                            sTmp = String.Format("{0} DB_Client : Cs = {1}, Msg N. = {2}", sTime, DB_Data.iNumCassa, _iPrevShownOnline_MessageNum);
+                            rLogForm.LogAddLine(sTmp);
+
+                            sTmp = String.Format("DB_Client : Cs = {0}, Msg N. = {1}", DB_Data.iNumCassa, _iPrevShownOnline_MessageNum);
+                            LogToFile(sTmp);
                         }
                     }
                 }
                 else
                 {
-                    ClientTimer.Interval = DB_CLIENT_TIMER; // siamo in passo: intervallo standard 16s
-                }
+                    // al tick successivo troverà la connessione attiva!
+                    if (!rNetConfigLightDlg.Visible)
+                        _rdBaseIntf.dbSilentCheck();
 
-                if (_bOnLine)
-                    ME_TickNum.Text = _iPrevShownOnline_TicketNum.ToString();
-
-                /****************************************
-                 *    controllo emissione messaggi
-                 ****************************************/
-                if (_iPrevShownOnline_MessageNum < iGlbNumOfMessages)
-                {
-                    iDebug = iGlbNumOfMessages;
-
-                    if (_iPrevShownOnline_MessageNum == -100) // skip la prima volta
-                    {
-                        iGlbCurrentOffline_MessageNum = iGlbNumOfMessages;
-                        _iPrevShownOnline_MessageNum = iGlbNumOfMessages;
-
-                        VisualizzaMsg(iGlbNumOfMessages);
-                    }
-                    else if (_bOnLine)
-                    {
-                        if (!Get_StatusDate_IsChanged())
-                            _iPrevShownOnline_MessageNum++; // così li stampa tutti
-                        else
-                            _iPrevShownOnline_MessageNum = iGlbNumOfMessages;
-
-                        VisualizzaMsg(_iPrevShownOnline_MessageNum);
-
-                        if (!Get_StatusDate_IsChanged() && !GetStampaSoloManuale() && !IsBitSet(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_MSG_STAMPATO_DA_STANDCUCINA))
-                        {
-                            StampaMessaggio();
-
-                            // aggiorna il flag BIT_MSG_STAMPATO_DA_STANDCUCINA per contrassegnare la stampa avvenuta
-                            _rdBaseIntf.dbEditStatus(-_iPrevShownOnline_MessageNum, SetBit(DB_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_MSG_STAMPATO_DA_STANDCUCINA));
-
-                            TB_Messaggi.BackColor = _clrPrintedFromStandCucinaBkgr;
-                            TB_Messaggi.ForeColor = System.Drawing.Color.Black;
-                        }
-
-                        // *** alla fine c'è il reset cambio data ***
-                        Reset_StatusDate_Changed();
-
-                        sTime = DateTime.Now.ToString("HH.mm.ss");
-                        sTmp = String.Format("{0} DB_Client : Cs = {1}, Msg N. = {2}", sTime, DB_Data.iNumCassa, _iPrevShownOnline_MessageNum);
-                        rLogForm.LogAddLine(sTmp);
-
-                        sTmp = String.Format("DB_Client : Cs = {0}, Msg N. = {1}", DB_Data.iNumCassa, _iPrevShownOnline_MessageNum);
-                        LogToFile(sTmp);
-                    }
+                    iRefresh = DB_CLIENT_TIMER_SHORT; // accelera
                 }
             }
             else
-            {
-                // al tick successivo troverà la connessione attiva!
-                if (!rNetConfigLightDlg.Visible)
-                    _rdBaseIntf.dbSilentCheck();
-
-                ClientTimer.Interval = DB_CLIENT_TIMER_SHORT; // accelera
-            }
+                iRefresh--;
         }
 
         /// <summary>Invio copie alla Stampante</summary>
@@ -1166,7 +1177,7 @@ namespace StandFacile
 
                         // restartPrint così stampa l'attuale
                         _iPrevShownOnline_TicketNum = Convert.ToInt32(sTmpString) - 1;
-                        ClientTimer.Interval = 1000; // 1s
+                        iRefresh = 4; // 1s
 
                         _bOnLine = !_bOnLine;
                         AggiornaAspettoControlli();

@@ -118,7 +118,7 @@ namespace StandFacile
             _iGenericPrintOptions_Copy = DB_Data.iGenericPrintOptions;
 #endif
 
-            // caricato comunque dal DB
+            // caricato comunque dal Listino
             checkBox_Chars33.Checked = IsBitSet(_iGenericPrintOptions_Copy, (int)GEN_PRINTER_OPTS.BIT_CHARS33_PRINT_REQUIRED);
             checkBox_CopertiNelleCopie.Checked = IsBitSet(_iGenericPrintOptions_Copy, (int)GEN_PRINTER_OPTS.BIT_PLACESETTS_PRINT_ON_COPIES_REQUIRED);
             checkBox_CassaInlineNumero.Checked = IsBitSet(_iGenericPrintOptions_Copy, (int)GEN_PRINTER_OPTS.BIT_CASSA_INLINE);

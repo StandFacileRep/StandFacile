@@ -46,9 +46,9 @@ namespace StandFacile
         public const int REFRESH_SSERVICE = 5 * 60;
 
         /// <summary>timer del client</summary>
-        public const int DB_CLIENT_TIMER        = 16 * 1000;  // 16s
+        public const int DB_CLIENT_TIMER        = 16 * 4;  // 16s
         /// <summary>timer breve del client</summary>
-        public const int DB_CLIENT_TIMER_SHORT  = 4 * 1000;
+        public const int DB_CLIENT_TIMER_SHORT  = 4 * 4;
 
         /// <summary>timer per lampeggio LED con stampante windows</summary>
         public const int LED_TIMER = 3 * 10;
@@ -60,9 +60,9 @@ namespace StandFacile
         public const string NOME_FILE_RECEIPT_NP = "TN_tmp.txt";
 
         /// <summary>nome locale per il file delle copie</summary>
-        public const string NOME_FILE_COPIE     = "CT_G{0}.txt";
+        public const string NOME_FILE_COPIE = "CT_G{0}.txt";
 
-       /// <summary>nome locale per il file del messaggio</summary>
+        /// <summary>nome locale per il file del messaggio</summary>
         public const string NOME_FILE_MESSAGGIO = "Msg_tmp.txt";
 
         // eventi

@@ -24,7 +24,7 @@ namespace StandFacile
         public static int iMAX_ART_CHAR;
 
         /// <summary>Struct fondamentale</summary>
-        public static TData SF_Data = new TData(0);
+        public static TData SF_Data = new TData(DataID.SF_DATA);
 
         /// <summary>descrive se Windows o Legacy</summary>
         public static int iSysPrinterType; // 

@@ -32,7 +32,7 @@ namespace StandFacileTests
         {
             bool bResult;
 
-            TData DB_Data = new TData(0);
+            TData DB_Data = new TData(DataID.DB_DATA);
             bool[] _bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS]; // OK
             bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
 
@@ -62,7 +62,7 @@ namespace StandFacileTests
         {
             bool bResult;
 
-            TData DB_Data = new TData(0);
+            TData DB_Data = new TData(DataID.DB_DATA);
             bool[] _bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS]; // OK
             bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
 
@@ -95,7 +95,7 @@ namespace StandFacileTests
         {
             bool bResult;
 
-            TData DB_Data = new TData(0);
+            TData DB_Data = new TData(DataID.DB_DATA);
             bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
 
             // Arrange
@@ -122,7 +122,7 @@ namespace StandFacileTests
         {
             bool bResult;
 
-            TData DB_Data = new TData(0);
+            TData DB_Data = new TData(DataID.DB_DATA);
             bool[] _bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS]; // OK
             bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
 
@@ -152,7 +152,7 @@ namespace StandFacileTests
         {
             bool bResult;
 
-            TData DB_Data = new TData(0);
+            TData DB_Data = new TData(DataID.DB_DATA);
             bool[] _bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS]; // OK
             bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
 
@@ -177,7 +177,7 @@ namespace StandFacileTests
         {
             bool bResult;
 
-            TData DB_Data = new TData(0);
+            TData DB_Data = new TData(DataID.DB_DATA);
             bool[] _bSomethingInto_GrpToPrint = new bool[NUM_COPIES_GRPS]; // OK
             bool[] _bSomethingInto_ClrToPrint = new bool[NUM_COPIES_GRPS]; // OK
 
@@ -201,7 +201,7 @@ namespace StandFacileTests
         {
             bool bResult;
 
-            TData DB_Data = new TData(0);
+            TData DB_Data = new TData(DataID.DB_DATA);
             bool[] bScontoGruppo = new bool[NUM_SEP_PRINT_GROUPS];
 
             // Arrange

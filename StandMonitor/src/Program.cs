@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : Program.cs
-	Data	 : 08.12.2025
+	Data	 : 24.04.2026
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -75,6 +75,9 @@ namespace StandFacile
             GenPrinterDlg rGenericPrintDlg = new GenPrinterDlg();
 
             FiltroDlg rFiltroDlg = new FiltroDlg();
+
+            // Avvio gestione delle notifiche UDP
+            UdpBroadcastService rUdpService = new UdpBroadcastService();
 
             rFrmMain.Init();
 

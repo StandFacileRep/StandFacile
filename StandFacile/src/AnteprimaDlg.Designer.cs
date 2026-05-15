@@ -44,7 +44,7 @@
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Image = ((System.Drawing.Image)(resources.GetObject("btnCancel.Image")));
             this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(281, 511);
+            this.btnCancel.Location = new System.Drawing.Point(284, 511);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(88, 28);
             this.btnCancel.TabIndex = 0;
@@ -84,7 +84,7 @@
             this.checkBoxLogo.AutoSize = true;
             this.checkBoxLogo.Checked = true;
             this.checkBoxLogo.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxLogo.Location = new System.Drawing.Point(35, 516);
+            this.checkBoxLogo.Location = new System.Drawing.Point(21, 516);
             this.checkBoxLogo.Name = "checkBoxLogo";
             this.checkBoxLogo.Size = new System.Drawing.Size(101, 17);
             this.checkBoxLogo.TabIndex = 2;
@@ -98,7 +98,7 @@
             this.checkBox_PrimoPiano.AutoSize = true;
             this.checkBox_PrimoPiano.Checked = true;
             this.checkBox_PrimoPiano.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox_PrimoPiano.Location = new System.Drawing.Point(157, 516);
+            this.checkBox_PrimoPiano.Location = new System.Drawing.Point(143, 516);
             this.checkBox_PrimoPiano.Name = "checkBox_PrimoPiano";
             this.checkBox_PrimoPiano.Size = new System.Drawing.Size(91, 17);
             this.checkBox_PrimoPiano.TabIndex = 4;

@@ -15,6 +15,7 @@ using static StandFacile.glb;
 using static StandFacile.Define;
 using static StandFacile.dBaseIntf;
 using static StandFacile.ScontoDlg;
+using static StandFacile.OptionsDlg;
 
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
@@ -721,7 +722,7 @@ namespace StandFacile
                     /*********************************************************
                      *	imposta numero di possibili Articoli nelle pagine
                      *********************************************************/
-                    if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                    if (GetTouchModeEnabled())
                         _iLastArticoloIndex = SF_Data.iGridRows * SF_Data.iGridCols * PAGES_NUM_TABM;
                     else
                         _iLastArticoloIndex = SF_Data.iGridRows * SF_Data.iGridCols * PAGES_NUM_TXTM;
@@ -731,7 +732,7 @@ namespace StandFacile
                     {
                         LogToFile("Datamanager : aumento dimensioni griglia");
 
-                        if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                        if (GetTouchModeEnabled())
                         {
                             SF_Data.iGridRows = MAX_GRID_NROWS_TABM;
                             SF_Data.iGridCols = MAX_GRID_NCOLS_TABM;
@@ -862,8 +863,8 @@ namespace StandFacile
                  *********************************************************/
                 LogToFile(String.Format("DataManager : CaricaListino prima di Check iGridRows = {0}, iGridCols = {1}", SF_Data.iGridRows, SF_Data.iGridCols));
 
-                SF_Data.iGridRows = EditGridDlg.CheckGridRows(SF_Data.iGridRows, IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED));
-                SF_Data.iGridCols = EditGridDlg.CheckGridCols(SF_Data.iGridCols, IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED));
+                SF_Data.iGridRows = EditGridDlg.CheckGridRows(SF_Data.iGridRows, GetTouchModeEnabled());
+                SF_Data.iGridCols = EditGridDlg.CheckGridCols(SF_Data.iGridCols, GetTouchModeEnabled());
 
                 LogToFile(String.Format("DataManager : CaricaListino dopo di Check iGridRows = {0}, iGridCols = {1}", SF_Data.iGridRows, SF_Data.iGridCols));
 

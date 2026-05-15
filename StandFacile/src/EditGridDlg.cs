@@ -1,6 +1,6 @@
 ﻿/****************************************************************************
     NomeFile : StandFacile/EditGridDlg.cs
-	Data	 :31.01.2026
+	Data	 : 31.01.2026
     Autore   : Mauro Artuso
 
     modo Touch:         3 4 5 6	righe
@@ -57,7 +57,7 @@ namespace StandFacile
             Edit_3.MaxLength = MAX_PAGES_CHAR;
             Edit_4.MaxLength = MAX_PAGES_CHAR;
 
-            checkBoxTouchMode.Checked = IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED);
+            checkBoxTouchMode.Checked = OptionsDlg.GetTouchModeEnabled();
 
             Edit_0.Text = SF_Data.sPageTabs[0];
             Edit_1.Text = SF_Data.sPageTabs[1];

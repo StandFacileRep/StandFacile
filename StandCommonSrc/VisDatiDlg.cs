@@ -136,6 +136,7 @@ namespace StandFacile
 
             _InitCompletato = false;
             _iReportIndex = 0;
+            _SelRange = null;
 
             // configura il ComboNumCassa
             Combo_NumCassa.Items.Clear();

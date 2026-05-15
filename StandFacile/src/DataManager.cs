@@ -1,6 +1,6 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 06.09.2025
+	Data	 : 15.05.2026
     Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
@@ -80,7 +80,7 @@ namespace StandFacile
         static String _sMessagesDir;// una directory per ciascun giorno
         static String _sCopiesDir;  // una directory per ciascun giorno
 
-        static TErrMsg _ErrMsg;
+        static TErrMsg _ErrMsg, _WrnMsg;
 
         static TArticolo[] _dispArticoli = new TArticolo[MAX_NUM_ARTICOLI];
 
@@ -138,9 +138,7 @@ namespace StandFacile
         /// </summary>
         public static void SetLastArticoloIndex(int iParam) { _iLastArticoloIndex = iParam; }
 
-        /// <summary>
-        /// Costruttore
-        /// </summary>
+        /// <summary>Costruttore</summary>
         public DataManager()
         {
             // impostazione della data, è necessario effettuarla qui prima di lanciare
@@ -393,7 +391,7 @@ namespace StandFacile
                 CaricaDatidaOrdini();   // inizializza Articolo[] con i dati del database, punto unico
 
             if (InitialDispDlg.GetApplicaDisponibilita())
-                CaricaDisponibilita();
+                CaricaInitialDisp();
 
             _rdBaseIntf.dbSalvaOrdine(true);
 
@@ -539,6 +537,8 @@ namespace StandFacile
 
                     SF_Data.iTotaleAnnullato = 0; // sicurezza per evitare errori scrittura DB
                 }
+
+                SF_Data.iTotaleBuoniApplicati = DB_Data.iTotaleBuoniApplicati;
 
                 SF_Data.iTotaleScontatoStd = DB_Data.iTotaleScontatoStd;
                 SF_Data.iTotaleScontatoFisso = DB_Data.iTotaleScontatoFisso;
@@ -689,6 +689,7 @@ namespace StandFacile
 
             bool bMatch, bSingleWarn, bDbRead_Ok, bServeSalvare = false;
             int i, j, iNumScontrinoSec; // numero scontrino dalla cassa Secondaria
+            int iNumScontrini_CSec = 0;
             String sTmp, sTipo, sDebug;
 
             // *** sicurezza ***
@@ -738,6 +739,8 @@ namespace StandFacile
                                     // aggiornamento dell'Articolo[] presente nell'ordine
                                     if ((SF_Data.Articolo[i].sTipo == sTipo))
                                     {
+                                        //Logger.Info("AggiornaDisponibilità : {0} {1}", sTipo, DB_Data.Articolo[j].iQuantitaOrdine);
+
                                         if (SF_Data.Articolo[i].iDisponibilita != DISP_OK)
                                         {
                                             if (bOrdineAnnullato)
@@ -747,7 +750,10 @@ namespace StandFacile
 
                                             if (SF_Data.Articolo[i].iDisponibilita < 0)
                                             {
-                                                WarningManager(WRN_QMD);
+                                                _WrnMsg.sMsg = iNumScontrinoSec.ToString();
+                                                _WrnMsg.iErrID = WRN_QMDB;
+                                                WarningManager(_WrnMsg);
+
                                                 SF_Data.Articolo[i].iDisponibilita = 0;
                                             }
                                         }
@@ -781,7 +787,16 @@ namespace StandFacile
                 while (iNumScontrinoSec > 0);
 
                 if (bServeSalvare)
+                {
+                    //SF_Data.iNumOfLastReceipt = GetNumOfOrders();
+
+                    //if (SF_Data.iNumOfLastReceipt < iNumScontrini_CSec)
+                    //    SF_Data.iNumOfLastReceipt = iNumScontrini_CSec;
+
                     SalvaDati(SF_Data);
+
+                    UdpBroadcastService.rUdpService.SendFromClient(String.Format("{0} {1}", UDP_EVENTS.SEC_CASH_DATA_UPDATE_EVENT, SF_Data.iNumOfLastReceipt));
+                }
             }
             else
             {
@@ -842,7 +857,7 @@ namespace StandFacile
         } // fine AggiornaDisponibilità()
 
         /// <summary>funzione che carica la disponibilità della sessione precedente, usata da Init()</summary>
-        static void CaricaDisponibilita()
+        static void CaricaInitialDisp()
         {
             bool bSingleWarn, bMatch;
             int i, j;
@@ -933,6 +948,14 @@ namespace StandFacile
                              ****************************************************************/
 
                             SF_Data.Articolo[i].iQuantitaVenduta -= iQuantita_Ordine;
+
+                            if (SF_Data.Articolo[i].iQuantitaVenduta < 0)
+                            {
+                                _WrnMsg.sMsg = iNumAnnulloParam.ToString();
+                                _WrnMsg.iErrID = WRN_QAMZ;
+                                WarningManager(_WrnMsg);
+                                SF_Data.Articolo[i].iQuantitaVenduta = 0;
+                            }
 
                             // questo aggiornamento è importante
                             if (SF_Data.Articolo[i].iDisponibilita != DISP_OK)

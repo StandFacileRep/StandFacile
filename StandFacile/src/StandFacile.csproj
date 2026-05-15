@@ -43,7 +43,7 @@
     <PublisherName>Mauro</PublisherName>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>5.13.2.%2a</ApplicationVersion>
+    <ApplicationVersion>5.16.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -269,6 +269,9 @@
     <Compile Include="..\..\StandCommonSrc\SelDataDlg.designer.cs">
       <Link>SelDataDlg.designer.cs</Link>
       <DependentUpon>SelDataDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\UDP_service.cs">
+      <Link>UDP_service.cs</Link>
     </Compile>
     <Compile Include="..\..\StandCommonSrc\UpdateProgressFrm.cs">
       <Link>UpdateProgressFrm.cs</Link>

@@ -129,9 +129,9 @@
             this.BtnAsporto = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T4 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnSconto = new System.Windows.Forms.ToolStripButton();
-            this.BtnKeyb = new System.Windows.Forms.ToolStripButton();
+            this.Btn_OSKeyb = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T6 = new System.Windows.Forms.ToolStripSeparator();
-            this.BtnDB = new System.Windows.Forms.ToolStripButton();
+            this.Btn_DB_Check = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T7 = new System.Windows.Forms.ToolStripSeparator();
             this.BtnScontrino = new System.Windows.Forms.ToolStripButton();
             this.BtnSep_T8 = new System.Windows.Forms.ToolStripSeparator();
@@ -963,9 +963,9 @@
             this.BtnAsporto,
             this.BtnSep_T4,
             this.BtnSconto,
-            this.BtnKeyb,
+            this.Btn_OSKeyb,
             this.BtnSep_T6,
-            this.BtnDB,
+            this.Btn_DB_Check,
             this.BtnSep_T7,
             this.BtnScontrino,
             this.BtnSep_T8,
@@ -1075,17 +1075,19 @@
             this.BtnSconto.ToolTipText = "(F9) applica sconto";
             this.BtnSconto.Click += new System.EventHandler(this.BtnSconto_Click);
             // 
-            // BtnKeyb
+            // Btn_OSKeyb
             // 
-            this.BtnKeyb.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.BtnKeyb.AutoSize = false;
-            this.BtnKeyb.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.BtnKeyb.Image = global::StandFacile.Properties.Resources.keyboard;
-            this.BtnKeyb.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.BtnKeyb.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.BtnKeyb.Name = "BtnKeyb";
-            this.BtnKeyb.Size = new System.Drawing.Size(45, 38);
-            this.BtnKeyb.Click += new System.EventHandler(this.BtnKeyb_Click);
+            this.Btn_OSKeyb.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Btn_OSKeyb.AutoSize = false;
+            this.Btn_OSKeyb.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Btn_OSKeyb.Image = global::StandFacile.Properties.Resources.keyboard;
+            this.Btn_OSKeyb.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.Btn_OSKeyb.ImageTransparentColor = System.Drawing.Color.White;
+            this.Btn_OSKeyb.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.Btn_OSKeyb.Name = "Btn_OSKeyb";
+            this.Btn_OSKeyb.Size = new System.Drawing.Size(45, 38);
+            this.Btn_OSKeyb.ToolTipText = "vis. tastiera OSK";
+            this.Btn_OSKeyb.Click += new System.EventHandler(this.BtnKeyb_Click);
             // 
             // BtnSep_T6
             // 
@@ -1094,20 +1096,20 @@
             this.BtnSep_T6.Name = "BtnSep_T6";
             this.BtnSep_T6.Size = new System.Drawing.Size(6, 35);
             // 
-            // BtnDB
+            // Btn_DB_Check
             // 
-            this.BtnDB.AccessibleDescription = "";
-            this.BtnDB.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.BtnDB.AutoSize = false;
-            this.BtnDB.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.BtnDB.Image = ((System.Drawing.Image)(resources.GetObject("BtnDB.Image")));
-            this.BtnDB.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.BtnDB.ImageTransparentColor = System.Drawing.Color.White;
-            this.BtnDB.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
-            this.BtnDB.Name = "BtnDB";
-            this.BtnDB.Size = new System.Drawing.Size(45, 38);
-            this.BtnDB.ToolTipText = "test connessione DB";
-            this.BtnDB.Click += new System.EventHandler(this.BtnDB_Click);
+            this.Btn_DB_Check.AccessibleDescription = "";
+            this.Btn_DB_Check.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.Btn_DB_Check.AutoSize = false;
+            this.Btn_DB_Check.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.Btn_DB_Check.Image = global::StandFacile.Properties.Resources.database;
+            this.Btn_DB_Check.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.Btn_DB_Check.ImageTransparentColor = System.Drawing.Color.White;
+            this.Btn_DB_Check.Margin = new System.Windows.Forms.Padding(0, 1, 0, 1);
+            this.Btn_DB_Check.Name = "Btn_DB_Check";
+            this.Btn_DB_Check.Size = new System.Drawing.Size(45, 38);
+            this.Btn_DB_Check.ToolTipText = "test connessione DB";
+            this.Btn_DB_Check.Click += new System.EventHandler(this.BtnDB_Click);
             // 
             // BtnSep_T7
             // 
@@ -1438,26 +1440,26 @@
             // lblPagato
             // 
             this.lblPagato.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblPagato.AutoSize = true;
             this.lblPagato.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPagato.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblPagato.Location = new System.Drawing.Point(41, 303);
+            this.lblPagato.Location = new System.Drawing.Point(7, 303);
             this.lblPagato.Name = "lblPagato";
-            this.lblPagato.Size = new System.Drawing.Size(146, 23);
+            this.lblPagato.Size = new System.Drawing.Size(217, 23);
             this.lblPagato.TabIndex = 32;
             this.lblPagato.Text = "PAG. CONTANTI";
+            this.lblPagato.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblResto
             // 
             this.lblResto.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblResto.AutoSize = true;
             this.lblResto.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblResto.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblResto.Location = new System.Drawing.Point(80, 362);
+            this.lblResto.Location = new System.Drawing.Point(7, 362);
             this.lblResto.Name = "lblResto";
-            this.lblResto.Size = new System.Drawing.Size(68, 23);
+            this.lblResto.Size = new System.Drawing.Size(217, 23);
             this.lblResto.TabIndex = 31;
             this.lblResto.Text = "RESTO";
+            this.lblResto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Edit_TotCorrente
             // 
@@ -1478,15 +1480,15 @@
             // labelTotale
             // 
             this.labelTotale.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelTotale.AutoSize = true;
             this.labelTotale.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTotale.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.labelTotale.Location = new System.Drawing.Point(76, 243);
+            this.labelTotale.Location = new System.Drawing.Point(7, 243);
             this.labelTotale.Margin = new System.Windows.Forms.Padding(3, 0, 3, 4);
             this.labelTotale.Name = "labelTotale";
-            this.labelTotale.Size = new System.Drawing.Size(76, 23);
+            this.labelTotale.Size = new System.Drawing.Size(217, 23);
             this.labelTotale.TabIndex = 29;
             this.labelTotale.Text = "TOTALE";
+            this.labelTotale.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // EditName
             // 
@@ -1498,21 +1500,22 @@
             this.EditName.Name = "EditName";
             this.EditName.Size = new System.Drawing.Size(217, 29);
             this.EditName.TabIndex = 28;
+            this.EditName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.EditName.WordWrap = false;
             this.EditName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyDown);
             this.EditName.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TextBox_KeyUp);
             // 
             // lblNome
             // 
-            this.lblNome.AutoSize = true;
             this.lblNome.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNome.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblNome.Location = new System.Drawing.Point(82, 125);
+            this.lblNome.Location = new System.Drawing.Point(7, 125);
             this.lblNome.Margin = new System.Windows.Forms.Padding(3, 0, 3, 4);
             this.lblNome.Name = "lblNome";
-            this.lblNome.Size = new System.Drawing.Size(62, 23);
+            this.lblNome.Size = new System.Drawing.Size(217, 23);
             this.lblNome.TabIndex = 27;
             this.lblNome.Text = "NOME";
+            this.lblNome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // EditTable
             // 
@@ -1531,15 +1534,15 @@
             // 
             // lblTavolo
             // 
-            this.lblTavolo.AutoSize = true;
             this.lblTavolo.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTavolo.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.lblTavolo.Location = new System.Drawing.Point(75, 66);
+            this.lblTavolo.Location = new System.Drawing.Point(7, 66);
             this.lblTavolo.Margin = new System.Windows.Forms.Padding(3, 0, 3, 4);
             this.lblTavolo.Name = "lblTavolo";
-            this.lblTavolo.Size = new System.Drawing.Size(78, 23);
+            this.lblTavolo.Size = new System.Drawing.Size(217, 23);
             this.lblTavolo.TabIndex = 22;
             this.lblTavolo.Text = "TAVOLO";
+            this.lblTavolo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // EditCoperti
             // 
@@ -1704,7 +1707,7 @@
         private System.Windows.Forms.ToolStripSeparator BtnSep_T5;
         private System.Windows.Forms.ToolStripButton BtnAsporto;
         private System.Windows.Forms.ToolStripButton BtnScontrino;
-        private System.Windows.Forms.ToolStripButton BtnDB;
+        private System.Windows.Forms.ToolStripButton Btn_DB_Check;
         private System.Windows.Forms.ToolStripMenuItem MnuVisOrdiniAltraData;
         private System.Windows.Forms.ToolStripSeparator I3;
         private System.Windows.Forms.ToolStripMenuItem MnuImpListino;
@@ -1768,7 +1771,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.Button btnNavLeft;
         private System.Windows.Forms.ToolStripMenuItem p20;
-        private System.Windows.Forms.ToolStripButton BtnKeyb;
+        private System.Windows.Forms.ToolStripButton Btn_OSKeyb;
     }
 }
 

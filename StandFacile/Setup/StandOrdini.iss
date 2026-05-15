@@ -1,13 +1,13 @@
-; 30.03.2026
+; 24.04.2026
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
-AppVersion= 5.16.5
+AppVersion= 5.16.6 
 
 AppVerName=StandOrdini {#SetupSetting("AppVersion")}
 AppName=StandOrdini 2026
 AppPublisher=Mauro Artuso
-AppId={{557FB8AD-F5F4-4AA0-AF1B-A66A03530CC6}
+AppId={{B834DAE6-1D42-4329-A956-6CA2B26D1372}
 DefaultDirName={sd}\StandFacile\StandOrdini_516x
 DefaultGroupName=StandFacile\StandOrdini_516x\
 SourceDir=..\exe
@@ -40,4 +40,6 @@ Name: {commondesktop}\StandOrdini; Filename: {app}\StandOrdini.exe; WorkingDir: 
 
 [Run]
 Filename: {app}\StandOrdini.exe; Description: {cm:LaunchProgram,StandOrdini}; Flags: nowait postinstall skipifsilent unchecked; WorkingDir: {app}
+Filename: "netsh"; Parameters: "advfirewall firewall add rule name=""StandOrdini"" dir=in action=allow program=""{app}\StandOrdini.exe"" enable=yes"; Flags: runhidden
+Filename: "netsh"; Parameters: "advfirewall firewall add rule name=""StandOrdini"" dir=out action=allow program=""{app}\StandOrdini.exe"" enable=yes"; Flags: runhidden
 

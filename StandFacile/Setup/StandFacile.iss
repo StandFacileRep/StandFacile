@@ -1,15 +1,15 @@
-; 12.04.2026
+; 24.04.2026
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 ; tra una versione e l'altra cambiare GUID per facilitare l'installazione distinta
 ; The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 
 [Setup]
-AppVersion= 5.16.5
+AppVersion= 5.16.6 
 
 AppVerName=StandFacile {#SetupSetting("AppVersion")}
 AppName=StandFacile 2026
 AppPublisher=Mauro Artuso
-AppId={{FC8585F5-FC8C-43AF-8F12-694C25732176}
+AppId={{FD0B7D99-DF6A-4B38-B554-A9FC44990F16}
 DefaultDirName={sd}\StandFacile\StandFacile_516x
 DefaultGroupName=StandFacile\StandFacile_516x\
 SourceDir=..\exe
@@ -52,3 +52,7 @@ Name: "{commondesktop}\StandFacile"; Filename: "{app}\StandFacile.exe"; WorkingD
 
 [Run]
 Filename: "{app}\StandFacile.exe"; WorkingDir: "{app}"; Flags: nowait postinstall skipifsilent unchecked; Description: "{cm:LaunchProgram,StandFacile}"
+Filename: "netsh"; Parameters: "advfirewall firewall add rule name=""StandFacile"" dir=in action=allow program=""{app}\StandFacile.exe"" enable=yes"; Flags: runhidden
+Filename: "netsh"; Parameters: "advfirewall firewall add rule name=""StandFacile"" dir=out action=allow program=""{app}\StandFacile.exe"" enable=yes"; Flags: runhidden
+
+

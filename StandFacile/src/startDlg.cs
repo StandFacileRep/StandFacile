@@ -81,7 +81,7 @@ namespace StandFacile
                 ShowDialog();
             }
 
-            LogToFile("StartDlg : Start Program");
+            LogToFile("StartDlg : Start_UDP Program");
         }
 
         private void Timer_Tick(object sender, EventArgs e)

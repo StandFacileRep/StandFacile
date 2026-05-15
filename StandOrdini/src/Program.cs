@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandOrdini.cs
-	Data	 : 06.12.2024
+	Data	 : 24.04.2026
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -78,6 +78,9 @@ namespace StandFacile
 
             SpeechSynth rSpeechSynth = new SpeechSynth();
             SpeechSynth.rSpeechSynth.Init(false);
+
+            // Avvio gestione delle notifiche UDP
+            UdpBroadcastService rUdpService = new UdpBroadcastService();
 
             rFrmMain.Init(); // ultimo
 

@@ -1,21 +1,20 @@
 ﻿/*********************************************************
     NomeFile : StandFacile
-    Data	 : 08.12.2025
+    Data	 : 24.04.2026
     Autore   : Mauro Artuso
 
     Avvia le classi visuali e non, nell'ordine corretto
  *********************************************************/
 
-using System;
-using System.Windows.Forms;
 using Microsoft.Win32;
+using System;
 using System.Threading;
-
+using System.Threading.Tasks;
+using System.Windows.Forms;
 using StandCommonFiles;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
-
 using static System.Convert;
 
 namespace StandFacile
@@ -70,7 +69,7 @@ namespace StandFacile
             // LogServer và creato dopo TDataManager in quanto è utilizzato dalle altre classi
             LogServer rLogServer = new LogServer();
 
-            LogToFile("Program : Start");
+            LogToFile("Program : Start_UDP");
 
             iNDbMode = ReadRegistry(DB_MODE_KEY, (int)DB_MODE.SQLITE);
 
@@ -146,6 +145,9 @@ namespace StandFacile
 
             // Avvio della funzione di esecuzione Test Automatici
             TestManager rTestManager = new TestManager();
+
+            // Avvio gestione delle notifiche UDP
+            UdpBroadcastService rUdpService = new UdpBroadcastService();
 
             rFrmMain.Init();
             rFrmMain.Show();

@@ -56,7 +56,7 @@ namespace StandFacile
         static String _sRemoteTablePrefix;
 
         /// <summary>Struct fondamentale per i dati dell' RDB</summary>
-        public static TData RDB_Data = new TData(0);
+        public static TData RDB_Data = new TData(DataID.RDB_DATA);
 
         /// <summary>nome tabella per la gestione del numero progressivo degli ordini</summary>
         static string NOME_NSC_RDBTBL;

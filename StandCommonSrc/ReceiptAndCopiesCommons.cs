@@ -809,7 +809,7 @@ namespace StandCommonFiles
              *  in caso di VisOrdini si stampa solo successivamente con click pulsante
              *****************************************************************************/
 
-            if (Equals(dataIdParam, SF_Data))
+            if (dataIdParam.iDataStruct_ID == DataID.SF_DATA)
             {
                 ulStart = (ulong)Environment.TickCount;
 
@@ -1327,7 +1327,7 @@ namespace StandCommonFiles
                  *  in caso di stampa su A4 bisogna aspettare il completamento del file
                  *  in caso di VisOrdini si stampa solo successivamente con click pulsante
                  *****************************************************************************/
-                if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data) && !sGlbWinPrinterParams.bA4Paper)
+                if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && (dataIdParam.iDataStruct_ID == DataID.SF_DATA) && !sGlbWinPrinterParams.bA4Paper)
                 {
                     if (PrintLocalCopiesConfigDlg.GetPrinterTypeIsWinwows())
                     {
@@ -1364,7 +1364,7 @@ namespace StandCommonFiles
             if (iNumOfReceiptsParam == 0)
                 iNumOfReceiptsParam = dataIdParam.iNumOfLastReceipt;
 
-            if (Equals(dataIdParam, SF_Data))
+            if (dataIdParam.iDataStruct_ID == DataID.SF_DATA)
                 Console.WriteLine("WriteNetworkCopy: --- SF_Data ---");
             else
                 Console.WriteLine("WriteNetworkCopy: *** DB_Data ***");
@@ -1722,7 +1722,7 @@ namespace StandCommonFiles
                      *  in caso di stampa su A4 bisogna aspettare il completamento del file
                      *  in caso di VisOrdini si stampa solo successivamente con click pulsante
                      *****************************************************************************/
-                    if (dataIdParam.bCopiesGroupsFlag[i] && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data) && !sGlbWinPrinterParams.bA4Paper)
+                    if (dataIdParam.bCopiesGroupsFlag[i] && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && (dataIdParam.iDataStruct_ID == DataID.SF_DATA) && !sGlbWinPrinterParams.bA4Paper)
                     {
                         if (PrintNetCopiesConfigDlg.GetPrinterTypeIsWinwows(i))
                             Printer_Windows.PrintFile(sDirParam + sNomeFileCopiePrt, sGlbWinPrinterParams, i);
@@ -1974,7 +1974,7 @@ namespace StandCommonFiles
                      *  in caso di stampa su A4 bisogna aspettare il completamento del file
                      *  in caso di VisOrdini si stampa solo successivamente con click pulsante
                      *****************************************************************************/
-                    if (dataIdParam.bCopiesGroupsFlag[(int)DEST_TYPE.DEST_SINGLE] && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && Equals(dataIdParam, SF_Data) && !sGlbWinPrinterParams.bA4Paper)
+                    if (dataIdParam.bCopiesGroupsFlag[(int)DEST_TYPE.DEST_SINGLE] && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST) && (dataIdParam.iDataStruct_ID == DataID.SF_DATA) && !sGlbWinPrinterParams.bA4Paper)
                     {
                         if (PrintNetCopiesConfigDlg.GetPrinterTypeIsWinwows((int)DEST_TYPE.DEST_SINGLE))
                             Printer_Windows.PrintFile(sDirParam + sNomeFileCopiePrt, sGlbWinPrinterParams, (int)DEST_TYPE.DEST_SINGLE);

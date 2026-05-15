@@ -126,11 +126,9 @@ namespace StandFacile
 
                 _iLastArticoloIndexP1 = MAX_NUM_ARTICOLI; // successivamente potrebbe incrementare
 
-                iRow = 0;
                 iLastItemRow = 0;
 
                 j = 0;
-                iColumn = 1;
 
                 for (int iRepeatForLayout = 0; iRepeatForLayout < 2; iRepeatForLayout++)
                 {
@@ -161,7 +159,7 @@ namespace StandFacile
                         }
 
                         // Headers
-                        if (columnDay == _SelRange.Start)
+                        if (iColumn == 0)
                         {
                             iRow = 2;
                             j = 0;

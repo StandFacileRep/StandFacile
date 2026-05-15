@@ -56,7 +56,7 @@ namespace StandFacile
 
         Font _printFont;
         Bitmap bmpCanvas;
-        Graphics pg;
+        Graphics pg, pg_cpy;
 
         /// <summary>funzione che ottiene se c'è qualcosa da stampare nel gruppo di stampa iGrpParam</summary>
         public static bool GetSomethingInto_GrpToPrint(int iGrpParam) { return _bSomethingInto_GrpToPrint[iGrpParam]; }
@@ -118,8 +118,11 @@ namespace StandFacile
             RedrawReceipt();
         }
 
-        /// <summary>aggiornamento anteprima</summary>
-        public int RedrawReceipt()
+        /// <summary>
+        /// aggiornamento anteprima, se bShow = false aggiorna il valore restituito _iTotaleDovutoReceipt<br/>
+        /// senza modificare la finestra di Anteprima
+        /// </summary>
+        public int RedrawReceipt(bool bShow = true)
         {
             bool bCassaInline, bBuoniApplicatiParz;
             int i, j;
@@ -138,7 +141,7 @@ namespace StandFacile
 
             if (!_bInit) return 0;
 
-            if (Visible)
+            if (Visible && bShow)
             {
                 picBox.Width = rAnteprimaDlg.Width - 48; // spazio per scrollbar
                 picBox.Height = panel.Height + 1;
@@ -152,9 +155,14 @@ namespace StandFacile
                 _fHZoom = picBox.Width / _fTM_T88_IV_PAPER_WIDTH;
                 _fVZoom = _fHZoom;
 
+                _fCanvasVertPos = 0;
+
                 pg.Clear(Color.White);
                 PrintCanvas(pg, "");
+                pg_cpy = pg;
             }
+            else
+                pg = null;
 
             //if (!Visible)                       // controllo
             //    return;
@@ -168,8 +176,6 @@ namespace StandFacile
 
             _fLeftMargin = (10 + sGlbWinPrinterParams.iRepLeftMargin) * _fHZoom;
 
-            _fCanvasVertPos = 0;
-
             // inizio scrittura
             PrintCanvas(pg, "");
 
@@ -180,7 +186,7 @@ namespace StandFacile
             {
                 Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo(true);
 
-                if (img != null)
+                if ((img != null) && (pg != null))
                 {
                     fLogo_LeftMargin = ((sGlbWinPrinterParams.iRepLeftMargin + _fTM_T88_IV_PAPER_WIDTH - img.Size.Width) / 2.0f) * _fHZoom;
 
@@ -243,7 +249,8 @@ namespace StandFacile
             PrintCanvas(pg, sTmp);
             PrintCanvas(pg, "");
 
-            _fCanvasVertNumPos = _fCanvasVertPos;
+            if (Visible && bShow)
+                _fCanvasVertNumPos = _fCanvasVertPos;
 
             sCashdeskAndReceiptNum = sOrdineStrings.sOrdineNum;
 
@@ -604,7 +611,7 @@ namespace StandFacile
             {
                 Image img = WinPrinterDlg._rWinPrinterDlg.GetWinPrinterLogo(false);
 
-                if (img != null)
+                if ((img != null) && (pg != null))
                 {
                     fLogo_LeftMargin = ((sGlbWinPrinterParams.iRepLeftMargin + _fTM_T88_IV_PAPER_WIDTH - img.Size.Width) / 2.0f) * _fHZoom;
 
@@ -654,14 +661,14 @@ namespace StandFacile
             sCashdeskAndReceiptNum = CenterJustify(sCashdeskAndReceiptNum, iCenterOrderNum);
 
             // cancellazione TicketNum
-            if (pg != null)
+            if (pg_cpy != null)
             {
                 _fCanvasVertPos = _fCanvasVertNumPos;
-                fCanvasNumHeight = _printFont.GetHeight(pg) * 1.50f;
+                fCanvasNumHeight = _printFont.GetHeight(pg_cpy) * 1.50f;
 
                 RectangleF imageRect = new RectangleF(0, _fCanvasVertPos, picBox.Width, fCanvasNumHeight);
 
-                pg.FillRectangle(Brushes.White, imageRect);
+                pg_cpy.FillRectangle(Brushes.White, imageRect);
             }
 
             _fCanvasVertPos = _fCanvasVertNumPos;
@@ -671,9 +678,9 @@ namespace StandFacile
                 sCashdeskAndReceiptNum = sCashdeskAndReceiptNum.Substring(3);
 
             if (bCassaInline)
-                PrintCanvas(pg, sCashdeskAndReceiptNum);
+                PrintCanvas(pg_cpy, sCashdeskAndReceiptNum);
             else
-                PrintCanvas(pg, 1.32f, 1.32f, sCashdeskAndReceiptNum);
+                PrintCanvas(pg_cpy, 1.32f, 1.32f, sCashdeskAndReceiptNum);
         }
 
         private void checkBox_PrimoPiano_CheckedChanged(object sender, EventArgs e)

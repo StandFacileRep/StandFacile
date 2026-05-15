@@ -29,7 +29,7 @@ namespace StandFacile
         public static int iGlbNumOfMessages;
 
         /// <summary>Struct fondamentale</summary>
-        public static TData SF_Data = new TData(0);
+        public static TData SF_Data = new TData(DataID.SF_DATA);
 
         /// <summary>tipo di stampante Windows o Legacy</summary>
         public static int iSysPrinterType;

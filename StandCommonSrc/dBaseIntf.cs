@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************************
 	NomeFile : StandCommonSrc/dBaseIntf.cs
-	Data	 : 01.08.2025
+	Data	 : 24.04.2026
 	Autore   : Mauro Artuso
 
  *****************************************************************************************/
@@ -100,7 +100,7 @@ namespace StandFacile
         public static dBaseIntf _rdBaseIntf;
 
         /// <summary>Struct fondamentale per i dati del DB</summary>
-        public static TData DB_Data = new TData(0);
+        public static TData DB_Data = new TData(DataID.DB_DATA);
 
         TWebServerCheckParams _sWebServerCheckParams = new TWebServerCheckParams(0);
 
@@ -193,10 +193,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.GetDB_Connected();
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.GetDB_Connected();
-            else
-                return false;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.GetDB_Connected();
+                else
+                    return false;
         }
 
         /// <summary>ottiene ora e data dal DB</summary>
@@ -326,10 +326,10 @@ namespace StandFacile
                 bResult = _rdBaseIntf_ql.dbInit(dateParam, bSilentParam, sNomeTabellaParam);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                bResult = _rdBaseIntf_my.dbInit(dateParam, iNumCassaParam, bSilentParam, sNomeTabellaParam);
-            else
-                bResult = _rdBaseIntf_pg.dbInit(dateParam, iNumCassaParam, bSilentParam, sNomeTabellaParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    bResult = _rdBaseIntf_my.dbInit(dateParam, iNumCassaParam, bSilentParam, sNomeTabellaParam);
+                else
+                    bResult = _rdBaseIntf_pg.dbInit(dateParam, iNumCassaParam, bSilentParam, sNomeTabellaParam);
 
             return bResult;
         }
@@ -451,10 +451,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbCheckStatus(bResetParam);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbCheckStatus(bResetParam);
-            else
-                return _rdBaseIntf_pg.dbCheckStatus(bResetParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbCheckStatus(bResetParam);
+                else
+                    return _rdBaseIntf_pg.dbCheckStatus(bResetParam);
         }
 
 
@@ -469,10 +469,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.dbResetNumOfOrders(iInitialNumOfReceiptsParam);
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbResetNumOfOrders(iInitialNumOfReceiptsParam);
-            else
-                return false;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.dbResetNumOfOrders(iInitialNumOfReceiptsParam);
+                else
+                    return false;
         }
 
         /// <summary>
@@ -486,10 +486,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.dbResetNumOfMessages(iInitialNumOfMessagesParam);
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbResetNumOfMessages(iInitialNumOfMessagesParam);
-            else
-                return false;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.dbResetNumOfMessages(iInitialNumOfMessagesParam);
+                else
+                    return false;
         }
 
         /// <summary>
@@ -501,10 +501,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.dbGetNumOfPrintedOrders(iNumOfReceiptParam, bModeNextParam);
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbGetNumOfPrintedOrders(iNumOfReceiptParam, bModeNextParam);
-            else
-                return 0;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.dbGetNumOfPrintedOrders(iNumOfReceiptParam, bModeNextParam);
+                else
+                    return 0;
         }
 
         /// <summary>
@@ -516,10 +516,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.dbGetNumOfOrdersFromDB(bModeParamStandard);
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbGetNumOfOrdersFromDB(bModeParamStandard);
-            else
-                return 0;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.dbGetNumOfOrdersFromDB(bModeParamStandard);
+                else
+                    return 0;
         }
 
         /// <summary>
@@ -531,10 +531,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.dbGetNumOfMessagesFromDB(bModeParamStandard);
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbGetNumOfMessagesFromDB(bModeParamStandard);
-            else
-                return 0;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.dbGetNumOfMessagesFromDB(bModeParamStandard);
+                else
+                    return 0;
         }
 
         /// <summary>funzione di lettura parametri per accesso database remoto</summary>
@@ -543,11 +543,11 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.dbGetWebServerParams();
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbGetWebServerParams();
-            else
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.dbGetWebServerParams();
+                else
 #if STANDFACILE
-                return _rdBaseIntf_ql.dbGetWebServerParams();
+                    return _rdBaseIntf_ql.dbGetWebServerParams();
 #else
                 return new TWebServerParams(0);
 #endif
@@ -568,23 +568,23 @@ namespace StandFacile
                 return _rdBaseIntf_my.dbSetWebServerParams(sWebServerParams, _sWebServerCheckParams);
             }
             else
-            if (iNDbModeParam == (int)DB_MODE.POSTGRES)
-            {
-                // ci pensa già dbCheck()
-                //if (_rdBaseIntf_pg == null)
-                //    _rdBaseIntf_pg = new dBaseIntf_pg();
+                if (iNDbModeParam == (int)DB_MODE.POSTGRES)
+                {
+                    // ci pensa già dbCheck()
+                    //if (_rdBaseIntf_pg == null)
+                    //    _rdBaseIntf_pg = new dBaseIntf_pg();
 
-                return _rdBaseIntf_pg.dbSetWebServerParams(sWebServerParams, _sWebServerCheckParams);
-            }
-            else
+                    return _rdBaseIntf_pg.dbSetWebServerParams(sWebServerParams, _sWebServerCheckParams);
+                }
+                else
 #if STANDFACILE
-            {
-                // qui invece dbCheck() non viene chiamato
-                if (_rdBaseIntf_ql == null)
-                    _rdBaseIntf_ql = new dBaseIntf_ql();
+                {
+                    // qui invece dbCheck() non viene chiamato
+                    if (_rdBaseIntf_ql == null)
+                        _rdBaseIntf_ql = new dBaseIntf_ql();
 
-                return _rdBaseIntf_ql.dbSetWebServerParams(sWebServerParams);
-            }
+                    return _rdBaseIntf_ql.dbSetWebServerParams(sWebServerParams);
+                }
 #else
                 return false;
 #endif
@@ -600,10 +600,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.dbCaricaListino(sStringsParam);
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbCaricaListino(sStringsParam);
-            else
-                return 0;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.dbCaricaListino(sStringsParam);
+                else
+                    return 0;
         }
 
         /// <summary>
@@ -616,10 +616,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.dbCaricaTest(sStringsParam);
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbCaricaTest(sStringsParam);
-            else
-                return 0;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.dbCaricaTest(sStringsParam);
+                else
+                    return 0;
         }
 
         /// <summary>
@@ -637,10 +637,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbCaricaDatidaOrdini(dateParam, bSilentParam, sNomeTabellaParam, iReportParam);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbCaricaDatidaOrdini(dateParam, iNumCassaParam, bSilentParam, sNomeTabellaParam, iReportParam);
-            else
-                return _rdBaseIntf_pg.dbCaricaDatidaOrdini(dateParam, iNumCassaParam, bSilentParam, sNomeTabellaParam, iReportParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbCaricaDatidaOrdini(dateParam, iNumCassaParam, bSilentParam, sNomeTabellaParam, iReportParam);
+                else
+                    return _rdBaseIntf_pg.dbCaricaDatidaOrdini(dateParam, iNumCassaParam, bSilentParam, sNomeTabellaParam, iReportParam);
         }
 
         /// <summary>
@@ -655,10 +655,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbCaricaDisponibilità(dateParam);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbCaricaDisponibilità(dateParam);
-            else
-                return _rdBaseIntf_pg.dbCaricaDisponibilità(dateParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbCaricaDisponibilità(dateParam);
+                else
+                    return _rdBaseIntf_pg.dbCaricaDisponibilità(dateParam);
         }
 
         /// <summary>
@@ -673,10 +673,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.dbClearOrdiniCSec(bClearOrdiniParam);
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbClearOrdiniCSec(bClearOrdiniParam);
-            else
-                return 0;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.dbClearOrdiniCSec(bClearOrdiniParam);
+                else
+                    return 0;
         }
 
         /// <summary>
@@ -691,10 +691,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbGetOrdiniWebServiti();
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbGetOrdiniWebServiti();
-            else
-                return _rdBaseIntf_pg.dbGetOrdiniWebServiti();
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbGetOrdiniWebServiti();
+                else
+                    return _rdBaseIntf_pg.dbGetOrdiniWebServiti();
         }
 
         /// <summary>
@@ -708,10 +708,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbClearOrdineWebServito(iOrderParam);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbClearOrdineWebServito(iOrderParam);
-            else
-                return _rdBaseIntf_pg.dbClearOrdineWebServito(iOrderParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbClearOrdineWebServito(iOrderParam);
+                else
+                    return _rdBaseIntf_pg.dbClearOrdineWebServito(iOrderParam);
         }
 
         /// <summary>
@@ -728,10 +728,10 @@ namespace StandFacile
                 _rdBaseIntf_ql.dbSalvaDati();
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                _rdBaseIntf_my.dbSalvaDati();
-            else
-                _rdBaseIntf_pg.dbSalvaDati();
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    _rdBaseIntf_my.dbSalvaDati();
+                else
+                    _rdBaseIntf_pg.dbSalvaDati();
         }
 
         /// <summary>
@@ -748,10 +748,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbCaricaOrdine(dateParam, iParam, bFiltraPerCassa, sNomeTabellaParam);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbCaricaOrdine(dateParam, iParam, bFiltraPerCassa, sNomeTabellaParam);
-            else
-                return _rdBaseIntf_pg.dbCaricaOrdine(dateParam, iParam, bFiltraPerCassa, sNomeTabellaParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbCaricaOrdine(dateParam, iParam, bFiltraPerCassa, sNomeTabellaParam);
+                else
+                    return _rdBaseIntf_pg.dbCaricaOrdine(dateParam, iParam, bFiltraPerCassa, sNomeTabellaParam);
         }
 
         /// <summary>
@@ -765,10 +765,10 @@ namespace StandFacile
                 _rdBaseIntf_ql.dbUpdateHeadOrdine();
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                _rdBaseIntf_my.dbUpdateHeadOrdine();
-            else
-                _rdBaseIntf_pg.dbUpdateHeadOrdine();
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    _rdBaseIntf_my.dbUpdateHeadOrdine();
+                else
+                    _rdBaseIntf_pg.dbUpdateHeadOrdine();
         }
 
         /// <summary>
@@ -782,10 +782,10 @@ namespace StandFacile
                 _rdBaseIntf_ql.dbSalvaOrdine(bCreateHead);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                _rdBaseIntf_my.dbSalvaOrdine(bCreateHead);
-            else
-                _rdBaseIntf_pg.dbSalvaOrdine(bCreateHead);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    _rdBaseIntf_my.dbSalvaOrdine(bCreateHead);
+                else
+                    _rdBaseIntf_pg.dbSalvaOrdine(bCreateHead);
         }
 
         /// <summary>
@@ -799,10 +799,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbAnnulloOrdine(dateParam, iNumAnnulloParam, sNomeTabellaParam);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbAnnulloOrdine(dateParam, iNumAnnulloParam, sNomeTabellaParam);
-            else
-                return _rdBaseIntf_pg.dbAnnulloOrdine(dateParam, iNumAnnulloParam, sNomeTabellaParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbAnnulloOrdine(dateParam, iNumAnnulloParam, sNomeTabellaParam);
+                else
+                    return _rdBaseIntf_pg.dbAnnulloOrdine(dateParam, iNumAnnulloParam, sNomeTabellaParam);
         }
 
         /// <summary>
@@ -816,10 +816,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbCaricaMessaggio(iParam, bTutteCassaParam);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbCaricaMessaggio(iParam, bTutteCassaParam);
-            else
-                return _rdBaseIntf_pg.dbCaricaMessaggio(iParam, bTutteCassaParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbCaricaMessaggio(iParam, bTutteCassaParam);
+                else
+                    return _rdBaseIntf_pg.dbCaricaMessaggio(iParam, bTutteCassaParam);
         }
 
         /// <summary>Salva il messaggio corrente nel database</summary>
@@ -830,10 +830,10 @@ namespace StandFacile
                 _rdBaseIntf_ql.dbSalvaMessaggio(rVisMessaggiLines, sNomeFileMsg);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                _rdBaseIntf_my.dbSalvaMessaggio(rVisMessaggiLines, sNomeFileMsg);
-            else
-                _rdBaseIntf_pg.dbSalvaMessaggio(rVisMessaggiLines, sNomeFileMsg);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    _rdBaseIntf_my.dbSalvaMessaggio(rVisMessaggiLines, sNomeFileMsg);
+                else
+                    _rdBaseIntf_pg.dbSalvaMessaggio(rVisMessaggiLines, sNomeFileMsg);
         }
 
         /// <summary>
@@ -845,10 +845,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.dbCheckListino();
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbCheckListino();
-            else
-                return "";
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.dbCheckListino();
+                else
+                    return "";
         }
 
         /// <summary>
@@ -861,10 +861,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 _rdBaseIntf_my.dbSalvaListino();
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                _rdBaseIntf_pg.dbSalvaListino();
-            else
-                return;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    _rdBaseIntf_pg.dbSalvaListino();
+                else
+                    return;
         }
 
         /// <summary>
@@ -877,10 +877,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 _rdBaseIntf_my.dbSalvaTest();
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                _rdBaseIntf_pg.dbSalvaTest();
-            else
-                return;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    _rdBaseIntf_pg.dbSalvaTest();
+                else
+                    return;
         }
 
         /// <summary>
@@ -894,10 +894,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbRenameTables(sNewPostFix);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbRenameTables(sNewPostFix);
-            else
-                return _rdBaseIntf_pg.dbRenameTables(sNewPostFix);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbRenameTables(sNewPostFix);
+                else
+                    return _rdBaseIntf_pg.dbRenameTables(sNewPostFix);
         }
 
         /// <summary>
@@ -912,10 +912,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbRenameTable(sOldTabellaParam, sNewTabellaParam);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbRenameTable(sOldTabellaParam, sNewTabellaParam);
-            else
-                return _rdBaseIntf_pg.dbRenameTable(sOldTabellaParam, sNewTabellaParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbRenameTable(sOldTabellaParam, sNewTabellaParam);
+                else
+                    return _rdBaseIntf_pg.dbRenameTable(sOldTabellaParam, sNewTabellaParam);
         }
 
         /// <summary>
@@ -929,10 +929,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbDropTables();
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbDropTables();
-            else
-                return _rdBaseIntf_pg.dbDropTables();
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbDropTables();
+                else
+                    return _rdBaseIntf_pg.dbDropTables();
         }
 
         /// <summary>
@@ -945,10 +945,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbDropTable(sNomeTabellaParam);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbDropTable(sNomeTabellaParam);
-            else
-                return _rdBaseIntf_pg.dbDropTable(sNomeTabellaParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbDropTable(sNomeTabellaParam);
+                else
+                    return _rdBaseIntf_pg.dbDropTable(sNomeTabellaParam);
         }
 
         /// <summary>
@@ -963,10 +963,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbElencoTabelle(sStringsParam);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbElencoTabelle(sStringsParam);
-            else
-                return _rdBaseIntf_pg.dbElencoTabelle(sStringsParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbElencoTabelle(sStringsParam);
+                else
+                    return _rdBaseIntf_pg.dbElencoTabelle(sStringsParam);
         }
 
         /// <summary>
@@ -978,10 +978,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.dbNewOrdineNumRequest();
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbNewOrdineNumRequest();
-            else
-                return 0;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.dbNewOrdineNumRequest();
+                else
+                    return 0;
         }
 
         /// <summary>
@@ -993,10 +993,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 return _rdBaseIntf_my.dbNewMessageNumRequest();
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                return _rdBaseIntf_pg.dbNewMessageNumRequest();
-            else
-                return 0;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    return _rdBaseIntf_pg.dbNewMessageNumRequest();
+                else
+                    return 0;
         }
 
         /// <summary>
@@ -1009,10 +1009,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.MYSQL)
                 _rdBaseIntf_my.dbCSecOrderEnqueue(iEnqueueParam);
             else
-            if (_iNDbMode == (int)DB_MODE.POSTGRES)
-                _rdBaseIntf_pg.dbCSecOrderEnqueue(iEnqueueParam);
-            else
-                return;
+                if (_iNDbMode == (int)DB_MODE.POSTGRES)
+                    _rdBaseIntf_pg.dbCSecOrderEnqueue(iEnqueueParam);
+                else
+                    return;
         }
 
 #if STANDFACILE
@@ -1025,10 +1025,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.SQLITE)
                 _rdBaseIntf_ql.dbWebOrderEnqueue(iEnqueueParam);
             else
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                _rdBaseIntf_my.dbWebOrderEnqueue(iEnqueueParam);
-            else
-                _rdBaseIntf_pg.dbWebOrderEnqueue(iEnqueueParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    _rdBaseIntf_my.dbWebOrderEnqueue(iEnqueueParam);
+                else
+                    _rdBaseIntf_pg.dbWebOrderEnqueue(iEnqueueParam);
             return;
         }
 
@@ -1038,10 +1038,10 @@ namespace StandFacile
             if (_iNDbMode == (int)DB_MODE.SQLITE)
                 return _rdBaseIntf_ql.dbScaricaOrdinePrevendita(iOrderID, sPrevTableParam);
             else
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbScaricaOrdinePrevendita(iOrderID, sPrevTableParam);
-            else
-                return _rdBaseIntf_pg.dbScaricaOrdinePrevendita(iOrderID, sPrevTableParam);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbScaricaOrdinePrevendita(iOrderID, sPrevTableParam);
+                else
+                    return _rdBaseIntf_pg.dbScaricaOrdinePrevendita(iOrderID, sPrevTableParam);
         }
 #endif
 
@@ -1053,10 +1053,10 @@ namespace StandFacile
                 return _rdBaseIntf_ql.dbEditStatus(iOrderID, iStatus);
             else
 #endif
-            if (_iNDbMode == (int)DB_MODE.MYSQL)
-                return _rdBaseIntf_my.dbEditStatus(iOrderID, iStatus);
-            else
-                return _rdBaseIntf_pg.dbEditStatus(iOrderID, iStatus);
+                if (_iNDbMode == (int)DB_MODE.MYSQL)
+                    return _rdBaseIntf_my.dbEditStatus(iOrderID, iStatus);
+                else
+                    return _rdBaseIntf_pg.dbEditStatus(iOrderID, iStatus);
         }
 
 
@@ -1160,11 +1160,11 @@ namespace StandFacile
             }
             else
             {
-//#if STANDFACILE
-//                // serve a dbSetWebServerParams()
-//                if (Program._rBdBaseIntf_ql == null)
-//                    Program._rBdBaseIntf_ql = new dBaseIntf_ql();
-//#endif
+                //#if STANDFACILE
+                //                // serve a dbSetWebServerParams()
+                //                if (Program._rBdBaseIntf_ql == null)
+                //                    Program._rBdBaseIntf_ql = new dBaseIntf_ql();
+                //#endif
                 _sWebServerCheckParams.iDB_mode = (int)DB_MODE.SQLITE;
                 _sWebServerCheckParams.sDB_ServerName = "";
                 _sWebServerCheckParams.sDB_pwd = "";

@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandCucina/Program.cs
-	Data	 : 27.09.2025
+	Data	 : 15.05.2026
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -98,6 +98,9 @@ namespace StandFacile
 
             // inizializza i parametri di stampa
             PrintConfigLightDlg rPrintConfigLightDlg = new PrintConfigLightDlg();
+
+            // Avvio gestione delle notifiche UDP
+            UdpBroadcastService rUdpService = new UdpBroadcastService();
 
             rFrmMain.Init();
 

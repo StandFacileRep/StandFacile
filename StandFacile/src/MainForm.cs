@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 04.02.2026
+    Data	 : 02.05.2026
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -21,10 +21,11 @@ using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 using static StandCommonFiles.Printer_Legacy;
 
+using static StandFacile.glb;
+using static StandFacile.Define;
+using static StandFacile.OptionsDlg;
 using static StandFacile.dBaseIntf;
 using static StandFacile.dBaseTunnel_my;
-using static StandFacile.Define;
-using static StandFacile.glb;
 
 namespace StandFacile
 {
@@ -110,6 +111,9 @@ namespace StandFacile
 
         /// <summary>ottiene il flag di modo esperto</summary>
         public bool GetEsperto() { return MnuEsperto.Checked; }
+
+        /// <summary>imposta il timeout (* 250ms) per aggiornamento Disponibilità</summary>
+        public static void SetShortDispUpdateTimeout(int iParam = _REFRESH_DISP_SHORT) { if (iParam < _iDBDispTimeout) _iDBDispTimeout = iParam; }
 
         /// <summary>imposta il flag di password corretta</summary>
         public static void SetPasswordIsGood(bool passwordIsGoodPrm) { _bPasswordIsGood = passwordIsGoodPrm; }
@@ -299,7 +303,7 @@ namespace StandFacile
 
             //bool bTmp = StringBelongsTo_ORDER_CONST(ORDER_CONST._NOTE, ORDER_CONST._NOTE);
 
-            BtnDB.ToolTipText = "test di connessione DB:\n" +
+            Btn_DB_Check.ToolTipText = "test di connessione DB:\n" +
                 "con Ctrl premuto verifica la connessione\n" +
                 "al DB remoto e forza l'upload del Listino";
 
@@ -451,8 +455,6 @@ namespace StandFacile
 
             sStatusText = "Pronto";
 
-            lblStatusTickNum.Text = "Num. Ordini : " + DataManager.GetNumOfOrders().ToString();
-
             if (OptionsDlg._rOptionsDlg.GetShowPrevReceipt())
             {
                 _bShowTotaleScontrinoPrec = true;
@@ -470,6 +472,8 @@ namespace StandFacile
 
             // altrimenti la disponibilità cambia ad ogni avvio
             _iNumOfOrders = DataManager.GetNumOfOrders();
+
+            lblStatusTickNum.Text = "Num. Ordini : " + _iNumOfOrders.ToString();
 
             _iDBDispTimeout = _REFRESH_DISP_SHORT;
 
@@ -606,7 +610,7 @@ namespace StandFacile
                     case 2: tabPage2.Text = sTmp; break;
                     case 3: tabPage3.Text = sTmp; break;
                     case 4:
-                        if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                        if (GetTouchModeEnabled())
                             tabPage4.Text = sTmp;
                         else
                             tabPage4.Text = "";
@@ -766,7 +770,7 @@ namespace StandFacile
             else
                 iChangePageDxTimeout = CHANGE_PAGE_TIMEOUT;
 
-            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+            if (GetTouchModeEnabled())
                 iPageNumTmp = PAGES_NUM_TABM;
             else
                 iPageNumTmp = PAGES_NUM_TXTM;
@@ -844,9 +848,9 @@ namespace StandFacile
 
             // aggiorna icona
             if (_rdBaseIntf.GetDB_Connected())
-                BtnDB.Image = BtnImgList.Images[1];
+                Btn_DB_Check.Image = BtnImgList.Images[1];
             else
-                BtnDB.Image = BtnImgList.Images[0];
+                Btn_DB_Check.Image = BtnImgList.Images[0];
 
             // rimette a posto
             if (AnteprimaDlg.rAnteprimaDlg.Visible)
@@ -1401,40 +1405,15 @@ namespace StandFacile
         }
 
         /// <summary>
-        /// toggle del Focus tra griglia ed EditStatusTavolo<br/>
-        /// verifica inserimento del Tavolo se non è Asporto e c'è almeno una Pietanza
-        /// </summary>
-        public bool VerificaTavoloRichiesto()
-        {
-            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TABLE_REQUIRED) && !BtnAsporto.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
-            {
-                if (String.IsNullOrEmpty(_sEditTavolo))
-                {
-                    DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditTavolo, _sEditCoperti, comboCashPos.SelectedIndex);
-
-                    //MessageBox.Show("Inserisci il numero del Tavolo,\n\ncon (F1) passi dalla griglia alla casella del Tavolo.",
-                    //    "Attenzione !", MessageBoxButtons.OK);
-
-                    EditTable.Focus();
-                    return false;
-                }
-                else
-                    return true;
-            }
-            else
-                return true; // si omette la verifica
-        }
-
-        /// <summary>
         /// verifica inserimento dei coperti se non è Asporto e c'è almeno una Pietanza<br/>
         /// lo zero è consentito
         /// </summary>
         public bool VerificaCopertoRichiesto()
         {
-            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PLACE_SETTINGS_REQUIRED) && !BtnAsporto.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
+            if (GetPlaceSettings_MandatoryFlag() && !BtnAsporto.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(_sEditCoperti) || (Convert.ToInt32(_sEditCoperti) < 0))
                 {
-                    DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditTavolo, _sEditCoperti, comboCashPos.SelectedIndex);
+                    DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditCoperti, _sEditTavolo, _sEditNome, comboCashPos.SelectedIndex);
 
                     //MessageBox.Show("Inserisci il numero dei Coperti,\n\ncon (F2) passi dalla griglia alla casella dei Coperti.",
                     //    "Attenzione !", MessageBoxButtons.OK);
@@ -1449,14 +1428,57 @@ namespace StandFacile
         }
 
         /// <summary>
+        /// verifica inserimento del Tavolo se non è Asporto e c'è almeno una Pietanza
+        /// </summary>
+        public bool VerificaTavoloRichiesto()
+        {
+            if (GetTable_MandatoryFlag() && !BtnAsporto.Checked && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
+            {
+                if (String.IsNullOrEmpty(_sEditTavolo))
+                {
+                    DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditCoperti, _sEditTavolo, _sEditNome, comboCashPos.SelectedIndex);
+
+                    //MessageBox.Show("Inserisci il numero del Tavolo,\n\ncon (F1) passi dalla griglia alla casella del Tavolo.",
+                    //    "Attenzione !", MessageBoxButtons.OK);
+
+                    EditTable.Focus();
+                    return false;
+                }
+                else
+                    return true;
+            }
+            else
+                return true; // si omette la verifica
+        }
+
+        /// <summary>verifica inserimento del Nome cliente</summary>
+        public bool VerificaNomeRichiesto()
+        {
+            if (GetName_MandatoryFlag() && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
+            {
+                if (String.IsNullOrEmpty(_sEditNome))
+                {
+                    DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditCoperti, _sEditTavolo, _sEditNome, comboCashPos.SelectedIndex);
+
+                    EditName.Focus();
+                    return false;
+                }
+                else
+                    return true;
+            }
+            else
+                return true; // si omette la verifica
+        }
+
+        /// <summary>
         /// verifica inserimento del pagamento in Contanti/Card/Satispay
         /// </summary>
         public bool VerificaPOS_Richiesto()
         {
-            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PAYMENT_REQUIRED) && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
+            if (GetPayment_MandatoryFlag() && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
                 if (String.IsNullOrEmpty(comboCashPos.Text.Trim()))
                 {
-                    DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditTavolo, _sEditCoperti, comboCashPos.SelectedIndex);
+                    DataCheckDlg rDataCheckDlg = new DataCheckDlg(_sEditCoperti, _sEditTavolo, _sEditNome, comboCashPos.SelectedIndex);
 
                     //MessageBox.Show("Inserisci il tipo di pagamento Contanti/Card/Satispay",
                     //    "Attenzione !", MessageBoxButtons.OK);
@@ -2033,6 +2055,9 @@ namespace StandFacile
             SetColorsTheme();
 
             CheckMenuItems();
+
+            _iToolStripTop_MarginTotal = 0; // forza ricalcolo per centraggio TC
+            FormResize(this, null); // per gestire pulsanti e centraggio TC
         }
 
         private void MnuImpHeader_Click(object sender, EventArgs e)
@@ -2171,7 +2196,8 @@ namespace StandFacile
             }
 
             // verifiche : scontrino non nulle, quantità < disponibilità, dimenticanza tavolo
-            if (DataManager.TicketIsGood() && VerificaTutteQuantita() && VerificaTavoloRichiesto() && VerificaCopertoRichiesto() && VerificaPOS_Richiesto())
+            if (DataManager.TicketIsGood() && VerificaTutteQuantita() && VerificaCopertoRichiesto() && VerificaTavoloRichiesto() && 
+                VerificaNomeRichiesto() && VerificaPOS_Richiesto())
             {
                 if (IsBitSet(SF_Data.iStatusReceipt, (int)STATUS_FLAGS.BIT_CARICATO_DA_WEB))
                     _rdBaseIntf.dbWebOrderEnqueue(SF_Data.iNumOrdineWeb);
@@ -2242,6 +2268,13 @@ namespace StandFacile
                     EditStatus_QRC.Focus();
             }
 
+            // invio dell'avviso UDP a seguito missione scontrino
+            if (SF_Data.iNumCassa == CASSA_PRINCIPALE)
+                UdpBroadcastService.rUdpService.SendFromClient(String.Format("{0} {1}", UDP_EVENTS.PRI_CASHDESK_TICKET_EVENT, SF_Data.iNumOfLastReceipt));
+            else
+                UdpBroadcastService.rUdpService.SendFromClient(String.Format("{0} {1}", UDP_EVENTS.SEC_CASHDESK_TICKET_EVENT, SF_Data.iNumOfLastReceipt));
+
+
             CheckMenuItems();
 
             MainGrid_Redraw(this, null); // aggiorna visivamente
@@ -2266,7 +2299,7 @@ namespace StandFacile
             {
                 iArrayOffset = 3 * iLastGridIndex;
             }
-            else if ((TabSet.SelectedTab == tabPage4) && IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+            else if ((TabSet.SelectedTab == tabPage4) && GetTouchModeEnabled())
             {
                 iArrayOffset = 4 * iLastGridIndex;
             }
@@ -2299,7 +2332,7 @@ namespace StandFacile
 
                 DataManager.AggiornaDisponibilità();
 
-                BtnDB.Image = BtnImgList.Images[0];
+                Btn_DB_Check.Image = BtnImgList.Images[0];
                 _iDBDispTimeout = _REFRESH_DISP_SHORT; // dopo 2s dbCaricaDisponibilità()
             }
 
@@ -2453,12 +2486,12 @@ namespace StandFacile
             string windows = Environment.GetFolderPath(Environment.SpecialFolder.Windows);
             string oskPath;
 
-            if (BtnKeyb.Checked)
+            if (Btn_OSKeyb.Checked)
             {
                 if (p.Length != 0)
                     p[0].Kill();
 
-                BtnKeyb.Checked = false;
+                Btn_OSKeyb.Checked = false;
             }
             else
             {
@@ -2475,7 +2508,7 @@ namespace StandFacile
 
                 Process.Start(oskPath);
 
-                BtnKeyb.Checked = true;
+                Btn_OSKeyb.Checked = true;
             }
         }
 
@@ -2644,7 +2677,7 @@ namespace StandFacile
                 WarningManager(_WrnMsg);
             }
 
-            else if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED) && (_iCellPt == _iNewCellPt) && !MnuModDispArticoli.Checked && !MnuImpListino.Checked)
+            else if (GetTouchModeEnabled() && (_iCellPt == _iNewCellPt) && !MnuModDispArticoli.Checked && !MnuImpListino.Checked)
                 BtnPlus_Click(sender, e);
 
             _iCellPt = _iNewCellPt;
@@ -2695,14 +2728,24 @@ namespace StandFacile
             // Stop del timer
             Timer.Enabled = false;
 
-            // struct DB_Data utilizzata da DataManager.SalvaDati(DB_Data); 
-            iNumTicket = _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true);
-
-            if ((SF_Data.iNumOfLastReceipt > 0) || (SF_Data.iNumOfMessages > 0) || DataManager.CheckDispLoaded())
-                DataManager.SalvaDati(DB_Data);
+            DataManager.AggiornaDisponibilità();
 
             if (_bListinoModificato)
                 DataManager.SalvaListino();
+
+            // struct DB_Data utilizzata da DataManager.SalvaDati(DB_Data);
+
+            iNumTicket = _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), 0, true);
+
+            // salva su file i dati di tutte le casse
+            if ((SF_Data.iNumOfLastReceipt > 0) || (SF_Data.iNumOfMessages > 0) || DataManager.CheckDispLoaded())
+                DataManager.SalvaDati(DB_Data, true);
+
+            iNumTicket = _rdBaseIntf.dbCaricaDatidaOrdini(GetActualDate(), SF_Data.iNumCassa, true);
+
+            // salva su file i dati solo della cassa corrente
+            if ((SF_Data.iNumOfLastReceipt > 0) || (SF_Data.iNumOfMessages > 0) || DataManager.CheckDispLoaded())
+                DataManager.SalvaDati(DB_Data, false);
 
             if (!CheckService(Define.CFG_SERVICE_STRINGS._AUTO_RECEIPT_GEN) && !CheckService(Define.CFG_SERVICE_STRINGS._AUTO_SEQ_TEST))
             {
@@ -2795,6 +2838,7 @@ namespace StandFacile
             AnteprimaDlg.rAnteprimaDlg.AnteprimaDlg_FormClosing(this, null);
 
             // arresto dei server
+            UdpBroadcastService.rUdpService.Stop_UDP();
             StopPrintServer();
             StopLogServer(); // deve stare per ultimo
         }

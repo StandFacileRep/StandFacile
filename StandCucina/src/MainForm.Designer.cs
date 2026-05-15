@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
-            this.Timer = new System.Windows.Forms.Timer();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.MnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuPrintTest = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +44,7 @@
             this.N1 = new System.Windows.Forms.ToolStripSeparator();
             this.MnuNetConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.MnuImpostazioniStampaComuni = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuConfigurazioneStampe = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuFileDiConfigurazione = new System.Windows.Forms.ToolStripMenuItem();
             this.MnuAiuto = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,7 +64,7 @@
             this.BtnOnline = new System.Windows.Forms.Button();
             this.ME_TickNum = new System.Windows.Forms.TextBox();
             this.Label_ServerName = new System.Windows.Forms.Label();
-            this.ClientTimer = new System.Windows.Forms.Timer();
+            this.ClientTimer = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.btnAnt = new System.Windows.Forms.Button();
             this.printerPicBox = new System.Windows.Forms.PictureBox();
@@ -74,7 +76,6 @@
             this.BtnNextTicket = new System.Windows.Forms.Button();
             this.checkBoxSkipPrinted = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.MnuImpostazioniStampaComuni = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu.SuspendLayout();
             this.SBar_Tickets.SuspendLayout();
             this.SBar_Messages.SuspendLayout();
@@ -147,7 +148,7 @@
             // MnuVisLog
             // 
             this.MnuVisLog.Name = "MnuVisLog";
-            this.MnuVisLog.Size = new System.Drawing.Size(180, 22);
+            this.MnuVisLog.Size = new System.Drawing.Size(151, 22);
             this.MnuVisLog.Text = "Finestra di &Log";
             this.MnuVisLog.Click += new System.EventHandler(this.MnuVisLog_Click);
             // 
@@ -188,6 +189,13 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(236, 6);
+            // 
+            // MnuImpostazioniStampaComuni
+            // 
+            this.MnuImpostazioniStampaComuni.Name = "MnuImpostazioniStampaComuni";
+            this.MnuImpostazioniStampaComuni.Size = new System.Drawing.Size(239, 22);
+            this.MnuImpostazioniStampaComuni.Text = "Opzioni Comuni di Stampa ...";
+            this.MnuImpostazioniStampaComuni.Click += new System.EventHandler(this.MnuImpostazioniStampaComuni_Click);
             // 
             // MnuConfigurazioneStampe
             // 
@@ -392,7 +400,7 @@
             // 
             // ClientTimer
             // 
-            this.ClientTimer.Interval = 1000;
+            this.ClientTimer.Interval = 250;
             this.ClientTimer.Tick += new System.EventHandler(this.FrmMainTimerLoop_Tick);
             // 
             // openFileDialog
@@ -519,13 +527,6 @@
             this.label2.Size = new System.Drawing.Size(66, 16);
             this.label2.TabIndex = 28;
             this.label2.Text = "o annullati";
-            // 
-            // MnuImpostazioniStampaComuni
-            // 
-            this.MnuImpostazioniStampaComuni.Name = "MnuImpostazioniStampaComuni";
-            this.MnuImpostazioniStampaComuni.Size = new System.Drawing.Size(239, 22);
-            this.MnuImpostazioniStampaComuni.Text = "Opzioni Comuni di Stampa ...";
-            this.MnuImpostazioniStampaComuni.Click += new System.EventHandler(this.MnuImpostazioniStampaComuni_Click);
             // 
             // FrmMain
             // 

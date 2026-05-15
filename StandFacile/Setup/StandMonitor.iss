@@ -1,13 +1,13 @@
-; 30.03.2026
+; 24.04.2026
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
-AppVersion= 5.16.5
+AppVersion= 5.16.6 
 
 AppVerName=StandMonitor {#SetupSetting("AppVersion")}
 AppName=StandMonitor 2026
 AppPublisher=Mauro Artuso
-AppId={{CF37FC7C-2FAE-40E0-AA86-E0062FE7BBFB}
+AppId={{180F6795-C8D3-4A65-8A04-7C283C8A2E64}
 DefaultDirName={sd}\StandFacile\StandMonitor_516x
 DefaultGroupName=StandFacile\StandMonitor_516x\
 SourceDir=..\exe
@@ -27,7 +27,7 @@ Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:Ad
 [Files]
 Source: "..\..\StandMonitor\exe\Release\StandMonitor.exe"; DestDir: "{app}"; Flags: replacesameversion
 Source: "..\..\StandMonitor\doc\Manuale_StandMonitor.pdf"; DestDir: "{app}"
-Source: "..\..\StandMonitor\StandAux\config.ini"; DestDir: "{app}";
+Source: "..\..\StandMonitor\StandAux\config.ini"; DestDir: "{app}"; Flags: uninsneveruninstall confirmoverwrite; Languages: it
 Source: "..\StandAux\Licenza.txt"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.MySql.dll"; DestDir: "{app}"
@@ -42,4 +42,5 @@ Name: "{commondesktop}\StandMonitor"; Filename: "{app}\StandMonitor.exe"; Workin
 
 [Run]
 Filename: {app}\StandMonitor.exe; WorkingDir: {app}; Flags: nowait postinstall unchecked
-
+Filename: "netsh"; Parameters: "advfirewall firewall add rule name=""StandMonitor"" dir=in action=allow program=""{app}\StandMonitor.exe"" enable=yes"; Flags: runhidden
+Filename: "netsh"; Parameters: "advfirewall firewall add rule name=""StandMonitor"" dir=out action=allow program=""{app}\StandMonitor.exe"" enable=yes"; Flags: runhidden

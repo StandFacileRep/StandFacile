@@ -1,6 +1,6 @@
 /**********************************************************************
     NomeFile : StandFacile/DataManager.cs
-	Data	 : 18.08.2025
+	Data	 : 24.04.2026
     Autore   : Mauro Artuso
 
      nb: DB_Data compare sempre a destra nelle assegnazioni
@@ -15,6 +15,7 @@ using static StandFacile.dBaseIntf;
 using static StandFacile.ScontoDlg;
 using static StandFacile.FrmMain;
 
+using StandCommonFiles;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
@@ -54,6 +55,9 @@ namespace StandFacile
             // sicurezza e coerenza con CaricaListino(), altra App lo salva
             if (CheckIf_CassaSec_and_NDB()) // cassa secondaria e DB
                 return false;
+
+            // invio dell'avviso UDP alla CASSA_SECONDARIA di modifica Listino
+            UdpBroadcastService.rUdpService.SendFromClient(String.Format("{0} {1}", UDP_EVENTS.PRICELIST_MODIFIED_EVENT, SF_Data.iNumOfLastReceipt));
 
             sDir = _sExeDir + "\\";
 
@@ -297,7 +301,7 @@ namespace StandFacile
 
                 for (i = 0; i < _iLastArticoloIndexP1; i++)
                 {
-                  
+
                     if (String.IsNullOrEmpty(SF_Data.Articolo[i].sTipo))
                     {
                         // verifica possibilità di compattazione #LF
@@ -421,23 +425,36 @@ namespace StandFacile
         }
 
         /// <summary>Funzione di salvataggio dei dati di riepilogo giornaliero</summary>
-        public static void SalvaDati(TData dataIdParam)
+        public static void SalvaDati(TData dataIdParam, bool bTutteCasseParam = false)
         {
-            int i, iIncassoParz;
+            int i, iQuantitaVenduta, iIncassoParz;
             String sDir, sNomeFileDati, sNomeFileDatiBak;
-            String sTmp, sDataRow, sDisp;
+            String sTmp, sDataRow, sDisp, sParz;
             StreamWriter fData;
 
             ulong iTotaleTeorico = 0;
 
             sDir = _sDataDir + "\\";
 
-            sNomeFileDati = GetNomeFileDati(SF_Data.iNumCassa, GetActualDate());
-            sNomeFileDatiBak = GetNomeFileDatiBak(SF_Data.iNumCassa);
+            if (bTutteCasseParam)
+            {
+                if (SF_Data.iNumCassa == CASSA_PRINCIPALE)
+                {
+                    sNomeFileDati = GetNomeFileDati(0, GetActualDate());
+                    sNomeFileDatiBak = GetNomeFileDatiBak(0);
+                }
+                else
+                    return;
+            }
+            else
+            {
+                sNomeFileDati = GetNomeFileDati(SF_Data.iNumCassa, GetActualDate());
+                sNomeFileDatiBak = GetNomeFileDatiBak(SF_Data.iNumCassa);
+            }
 
             _ErrMsg.sNomeFile = sNomeFileDati;
 
-            // esegue il backup del file Prezzi
+            // esegue il backup del file Dati
             if (File.Exists(sDir + sNomeFileDati))
             {
                 try
@@ -462,7 +479,11 @@ namespace StandFacile
             {
                 fData.WriteLine("  StandFacile {0}", RELEASE_SW);
 
-                fData.WriteLine("  Cassa n.{0}", SF_Data.iNumCassa);
+                if (bTutteCasseParam)
+                    fData.WriteLine("  dati di tutte Casse");
+                else
+                    fData.WriteLine("  Cassa n.{0}", SF_Data.iNumCassa);
+
                 fData.WriteLine("  {0};", GetDateTimeString());
 
                 if (!String.IsNullOrEmpty(dataIdParam.sHeaders[0]))
@@ -503,49 +524,53 @@ namespace StandFacile
                         (!String.IsNullOrEmpty(dataIdParam.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled())))
                         fData.WriteLine();
 
-                    if ((dataIdParam.Articolo[i].iPrezzoUnitario > 0) || !String.IsNullOrEmpty(dataIdParam.Articolo[i].sTipo) ||
+                    if (dataIdParam.Articolo[i].iDisponibilita == DISP_OK)
+                        sDisp = "OK";
+                    else
+                        sDisp = dataIdParam.Articolo[i].iDisponibilita.ToString();
+
+                    if ((dataIdParam.Articolo[i].iPrezzoUnitario > 0) ||
+                        (!String.IsNullOrEmpty(dataIdParam.Articolo[i].sTipo) && OptionsDlg._rOptionsDlg.GetZeroPriceEnabled()) ||
                         (dataIdParam.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER))
                     {
-                        if (dataIdParam.Articolo[i].iDisponibilita == DISP_OK)
-                            sDisp = "OK";
-                        else
-                            sDisp = dataIdParam.Articolo[i].iDisponibilita.ToString();
+                        iQuantitaVenduta = dataIdParam.Articolo[i].iQuantitaVenduta;
+
+                        iIncassoParz = dataIdParam.Articolo[i].iPrezzoUnitario * iQuantitaVenduta;
+                        sParz = IntToEuro(iIncassoParz);
 
                         // 123456789012345678 999.00 8888 9876.00 OK
                         // eventuali superamenti del formato non precludono i conti ma solo l'impaginazione
                         // fData.WriteLine("{0,-18}{1,6+2}{2,4+2}{3,7+2}{4,3+2}",
-                        if ((dataIdParam.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_COUNTER) && (dataIdParam.Articolo[i].iIndexListino != MAX_NUM_ARTICOLI - 1))
-                        {
-                            sDataRow = String.Format(sDAT_FMT_DAT,
-                                dataIdParam.Articolo[i].sTipo,                              // 18
-                                IntToEuro(dataIdParam.Articolo[i].iPrezzoUnitario),         //  6
-                                dataIdParam.Articolo[i].iQuantitaVenduta,                   //  4
-                                0,                                                      //  7
-                                sDisp);                                                 //  3
 
-                            fData.WriteLine(sDataRow);
+                        if (dataIdParam.Articolo[i].iGruppoStampa == (int)DEST_TYPE.DEST_BUONI)
+                        {
+                            sParz = "-" + sParz;
+                            sDataRow = String.Format(sDAT_FMT_DAT + " (*)", dataIdParam.Articolo[i].sTipo,
+                                    IntToEuro(dataIdParam.Articolo[i].iPrezzoUnitario), iQuantitaVenduta, sParz, sDisp);
                         }
                         else
                         {
-                            // vendita normale
-                            iIncassoParz = dataIdParam.Articolo[i].iQuantitaVenduta * dataIdParam.Articolo[i].iPrezzoUnitario;
-
-                            sDataRow = String.Format(sDAT_FMT_DAT,
-                                dataIdParam.Articolo[i].sTipo,                              // 18
-                                IntToEuro(dataIdParam.Articolo[i].iPrezzoUnitario),         //  6
-                                dataIdParam.Articolo[i].iQuantitaVenduta,                   //  4
-                                IntToEuro(iIncassoParz),                                //  7
-                                sDisp);                                                 //  3
-
-                            iTotaleTeorico += (ulong)iIncassoParz;
-
-                            fData.WriteLine(sDataRow);
+                            sDataRow = String.Format(sDAT_FMT_DAT, dataIdParam.Articolo[i].sTipo,
+                                    IntToEuro(dataIdParam.Articolo[i].iPrezzoUnitario), iQuantitaVenduta, sParz, sDisp);
                         }
+
+                        iTotaleTeorico += (ulong)iIncassoParz;
+
+                        fData.WriteLine(sDataRow);
                     }
                 }
 
                 fData.WriteLine(sDAT_FMT_DSH, "--------");
                 fData.WriteLine(sDAT_FMT_TOT, "TOTALE", IntToEuro(dataIdParam.iTotaleIncasso));
+
+
+                if (dataIdParam.iTotaleBuoniApplicati > 0)
+                {
+                    fData.WriteLine("");
+
+                    fData.WriteLine(sDAT_FMT_TOT, "valore effettivo", "");
+                    fData.WriteLine(sDAT_FMT_TOT, "buoni applicati", " " + IntToEuro(dataIdParam.iTotaleBuoniApplicati) + " (*)");
+                }
 
                 if ((dataIdParam.iTotaleScontatoStd > 0) || (dataIdParam.iTotaleScontatoFisso > 0) || (dataIdParam.iTotaleScontatoGratis > 0))
                 {
@@ -590,10 +615,15 @@ namespace StandFacile
 
             //LogTestToFile(sTmp);
 
+            if (dataIdParam.iDataStruct_ID == DataID.SF_DATA)
+                Console.WriteLine("DataManager : SalvaDati: --- SF_Data ---");
+            else
+                Console.WriteLine("DataManager : SalvaDati: *** DB_Data ***");
+
             /*********************************************
-             *  salvataggio nel database Dati Riepilogo
-             *********************************************/
-            if (Equals(dataIdParam, SF_Data))
+            *  salvataggio nel database Dati Riepilogo
+            *********************************************/
+            if (dataIdParam.iDataStruct_ID == DataID.SF_DATA)
                 _rdBaseIntf.dbSalvaDati();
         }
 

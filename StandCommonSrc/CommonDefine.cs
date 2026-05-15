@@ -1,6 +1,6 @@
 ﻿/************************************************************
     NomeFile : StandCommonSrc/CommonDefine.cs
-    Data	 : 31.01.2026
+    Data	 : 05.05.2026
     Autore	 : Mauro Artuso
  ************************************************************/
 
@@ -17,7 +17,7 @@ namespace StandCommonFiles
 #pragma warning disable IDE0060
 
         /// <summary>versione del Programma</summary>
-        public const String RELEASE_SW = "v5.16.5a"; 
+        public const String RELEASE_SW = "v5.16.6"; 
 
         /// <summary>prefisso versione delle tabelle DB</summary>
         public const String RELEASE_DB_TBLS = "v5d";
@@ -57,6 +57,26 @@ namespace StandCommonFiles
 
         /// <summary>prefisso tabella dei dati di prevendita</summary>
         public const string _dbPreDataTablePrefix = RELEASE_DB_TBLS + "_dati_prev";
+
+
+        /// <summary>mnemonici eventi UDP</summary>
+        public struct UDP_EVENTS
+        {
+            /// <summary>evento di emissione scontrino da cassa principale</summary>
+            public const string PRI_CASHDESK_TICKET_EVENT = "primaryCashDeskTicketEvent";
+
+            /// <summary>evento di emissione scontrino da cassa secondaria</summary>
+            public const string SEC_CASHDESK_TICKET_EVENT = "secondaryCashDeskTicketEvent";
+
+            /// <summary>evento di aggiornamento tabelle dati a seguito emissione Receipt da casse secondarie</summary>
+            public const string SEC_CASH_DATA_UPDATE_EVENT = "secondaryCashDataUpdateEvent";
+
+            /// <summary>evento di modifica del listino prezzi</summary>
+            public const string PRICELIST_MODIFIED_EVENT = "pricelistModifiedEvent";
+
+            /// <summary>evento di ordine evaso da StandOrdini</summary>
+            public const string ORDER_COMPLETED_EVENT = "orderCompletedEvent";
+        }
 
         /// <summary>
         ///  mnemonici chiavi del file config.ini:<br/>
@@ -705,7 +725,27 @@ namespace StandCommonFiles
             BIT_PRIVACY,
 
             /// <summary>bit di iGeneralProgOptions per consentire la stampa con ENTER</summary>
-            BIT_ENTER_PRINT_RECEIPT_ENABLED
+            BIT_ENTER_PRINT_RECEIPT_ENABLED,
+
+            /// <summary>bit di iGeneralProgOptions per obbligare ad indicazione nome utente ante emissione Receipt</summary>
+            BIT_NAME_REQUIRED,
+
+            /***************************** pulsanti ******************************/
+
+            /// <summary>bit di iGeneralProgOptions per visualizzare il pulsante invia messaggio a Cucina</summary>
+            BIT_SHOW_MSG_BUTTON,
+
+            /// <summary>bit di iGeneralProgOptions per visualizzare il pulsante Asporto</summary>
+            BIT_SHOW_TAKEAWAY_BUTTON,
+
+            /// <summary>bit di iGeneralProgOptions per visualizzare il pulsante Applica Sconto</summary>
+            BIT_SHOW_DISCOUNT_BUTTON,
+
+            /// <summary>bit di iGeneralProgOptions per visualizzare il pulsante DB</summary>
+            BIT_SHOW_DB_BUTTON,
+
+            /// <summary>bit di iGeneralProgOptions per visualizzare il pulsante Tastiera Touch</summary>
+            BIT_SHOW_TOUCH_KEYB_BUTTON
         }
 
         /****************************************************************
@@ -1049,6 +1089,19 @@ namespace StandCommonFiles
         };
 
         /// <summary>
+        /// struct per la identificazione di TData, consente di eliminare Equals
+        /// </summary>
+        public enum DataID
+        {
+            /// <summary>intero per la identificazione SF_DATA</summary>
+            SF_DATA = 0,
+            /// <summary>intero per la identificazione DB_DATA</summary>
+            DB_DATA,
+            /// <summary>intero per la identificazione RDB_DATA</summary>
+            RDB_DATA
+        }
+
+        /// <summary>
         /// definizione della struttura fondamentale
         /// c'è tutto l'occorrente per gestire la produzione di uno scontrino
         /// </summary>
@@ -1063,6 +1116,9 @@ namespace StandCommonFiles
             public bool bStampato;
             /// <summary>flag di stato = annullato</summary>
             public bool bAnnullato;
+
+            /// <summary>identificazione della struttura dati</summary>
+            public DataID iDataStruct_ID;
 
             /// <summary>numero della cassa, parte da 1</summary>
             public int iNumCassa;
@@ -1170,8 +1226,10 @@ namespace StandCommonFiles
             public TArticolo[] Articolo;
 
             /// <summary>costruttore</summary>
-            public TData(int iParam)
+            public TData(DataID iParam)
             {
+                iDataStruct_ID = iParam;
+
                 bPrevendita = false;
                 bScaricato = false;
                 bStampato = false;

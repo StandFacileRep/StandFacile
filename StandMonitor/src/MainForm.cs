@@ -1,6 +1,6 @@
 ﻿/************************************************************
   	NomeFile : StandMonitor/MainForm.cs
-	Data	 : 27.07.2025
+	Data	 : 24.04.2026
   	Autore   : Mauro Artuso
 
   Programma per monitorare la statistica degli ordini
@@ -11,6 +11,8 @@ using System.Data;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
+
+using StandCommonFiles;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
@@ -42,7 +44,7 @@ namespace StandFacile
         bool _bFirstTimeSort = true;
 
         int iBlink;
-        int iRefresh;
+        static int iRefresh;
 
         /// <summary>
         /// dataset per costruzione tabella
@@ -73,6 +75,9 @@ namespace StandFacile
 
         /// <summary>ottiene stringa ultimi scontrini serviti</summary>
         public String GetNumScontrinoLabel() { return LabelNumScontrino.Text; }
+
+        /// <summary>imposta il timeout (* 250ms) per aggiornamento Disponibilità</summary>
+        public static void SetShortUpdateTimeout(int iParam) { if (iParam < iRefresh) iRefresh = iParam; }
 
         /// <summary>costruttore</summary>
         public FrmMain()
@@ -906,6 +911,7 @@ namespace StandFacile
         {
             LogToFile("Mainform : uscita");
 
+            UdpBroadcastService.rUdpService.Stop_UDP();
             StopPrintServer();
             StopLogServer(); // deve stare per ultimo
         }

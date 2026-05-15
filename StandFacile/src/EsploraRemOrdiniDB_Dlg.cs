@@ -60,7 +60,7 @@ namespace StandFacile
         {
             // azzera indirettamente _iAnteprimaTotParziale
             // e quindi FrmMain.rFrmMain.GetAnteprima_TP_IsZero()
-            int iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt();
+            int iAnteprimaTotParziale = AnteprimaDlg.rAnteprimaDlg.RedrawReceipt(false);
 
             _bProcessingOrder = false;
         }

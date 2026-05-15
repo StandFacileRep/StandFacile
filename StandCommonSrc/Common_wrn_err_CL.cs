@@ -1,6 +1,6 @@
 ﻿/*****************************************************
- 	NomeFile : StandCommonSrc/CommonFunc.cs
-    Data	 : 02.06.2025
+ 	NomeFile : StandCommonSrc/Common_wrn_err_CL.cs
+    Data	 : 15.05.2026
  	Autore	 : Mauro Artuso
 
 	Classi statiche di uso comune
@@ -116,6 +116,10 @@ namespace StandCommonFiles
         public const int WRN_TSF = 560;
         /// <summary>Quantità Articoli maggiore della disponibilità</summary>
         public const int WRN_QMD = 570;
+        /// <summary>rilevata in background Quantità Articoli maggiore della disponibilità</summary>
+        public const int WRN_QMDB = 580;
+        /// <summary>rilevata Quantità Articoli Annullata maggiore del venduto</summary>
+        public const int WRN_QAMZ = 585;
         /// <summary>Modifica non possibile !</summary>
         public const int WRN_MNP = 590;
         /// <summary>Test di comunicazione con il NumSc server eseguito con successo !</summary>
@@ -239,6 +243,11 @@ namespace StandCommonFiles
         /// <summary>nessuna stampante presente</summary>
         public const int WRN_PRTNP = 1060;
 
+        /// <summary>listino modificato</summary>
+        public const int WRN_PRLM = 1070;
+
+        static bool _bControlledExit = false;
+
         /// <summary>
         /// Funzione di gestione dei warning,
         /// ogni warning ha un suo codice univoco iWrnID
@@ -357,7 +366,15 @@ namespace StandCommonFiles
                     break;
 
                 case WRN_QMD:
-                    sWrnStr = "Attenzione !\nQuantità " + WrnMsg.sMsg + "\nmaggiore della disponibilità !\r\n\r\nCorreggere!";
+                    sWrnStr = "Attenzione !\r\n\r\nQuantità " + WrnMsg.sMsg + "\r\n\r\nmaggiore della disponibilità !\r\n\r\nCorreggere!";
+                    break;
+
+                case WRN_QMDB:
+                    sWrnStr = String.Format("Attenzione !\r\n\r\nrilevata nell'ordine {0} Quantità \r\nmaggiore della disponibilità !", WrnMsg.sMsg);
+                    break;
+
+                case WRN_QAMZ:
+                    sWrnStr = String.Format("Attenzione !\r\n\r\nrilevata nell'ordine {0} Quantità Annullata \r\nmaggiore del venduto !", WrnMsg.sMsg);
                     break;
 
                 case WRN_CKPL:
@@ -581,6 +598,13 @@ namespace StandCommonFiles
                     sWrnStr = " Attenzione nessuna stampante presente !\r\n\r\nInstallarne almeno una.";
                     break;
 
+#if STANDFACILE
+                case WRN_PRLM:
+                    bModal = true;
+                    sWrnStr = " Attenzione !\r\n\r\n Listino modificato: \r\n\r\nSi consiglia di riavviare il programma.";
+                    break;
+#endif
+
                 default:
                     sWrnStr = "Warning generico";
                     break;
@@ -601,6 +625,27 @@ namespace StandCommonFiles
                 MessageBox.Show(sWrnStr, sCaptionBuf, MessageBoxButtons.OK);
 
 #endif
+
+//#if STANDFACILE
+//            if (!_bControlledExit)
+//            {
+//                sCaptionBuf = String.Format("Avviso {0} : {1}", WrnMsg.iErrID, TITLE);
+//                sWrnStr += "\r\n\r\nSi richiede di riavviare il programma.";
+//                MessageBox.Show(sWrnStr, sCaptionBuf, MessageBoxButtons.OK);
+
+//                if (bApplicationRuns)
+//                    Application.Exit();
+//                else
+//                    Environment.Exit(0);
+//            }
+//            else
+//            {
+//                FrmMain.rFrmMain.Close();
+//                Application.Exit();
+//            }
+//#endif
+
+
 
         } // end WarningManager()
 
@@ -624,7 +669,6 @@ namespace StandCommonFiles
         /// </summary>
         public static void ErrorManager(TErrMsg ErrMsg)
         {
-            bool bControlledExit = false;
             String sCaptionBuf, sErrStr, sLogStr;
 
             if (ErrMsg.iErrID == 0)
@@ -695,7 +739,7 @@ namespace StandCommonFiles
                     LogToFile(sLogStr);
                     Directory.SetCurrentDirectory(DataManager.GetExeDir());
                     System.Diagnostics.Process.Start(THE_APP);
-                    bControlledExit = true;
+                    _bControlledExit = true;
                     break;
 
                 case ERR_AZD:
@@ -706,14 +750,14 @@ namespace StandCommonFiles
                     sCaptionBuf = String.Format("Avviso {0} : {1}", ErrMsg.iErrID, TITLE);
                     sErrStr += "\r\n\r\nIl programma viene terminato.";
                     MessageBox.Show(sErrStr, sCaptionBuf, MessageBoxButtons.OK);
-                    bControlledExit = true;
+                    _bControlledExit = true;
                     break;
 
                 case ERR_CHC:
                     sCaptionBuf = String.Format("Avviso {0} : {1}", ErrMsg.iErrID, TITLE);
                     sErrStr = "Chiusura cassa riuscita !\r\n\r\nIl programma viene terminato.";
                     MessageBox.Show(sErrStr, sCaptionBuf, MessageBoxButtons.OK);
-                    bControlledExit = true;
+                    _bControlledExit = true;
                     break;
 
                 case ERR_AZP:
@@ -725,7 +769,7 @@ namespace StandCommonFiles
                     MessageBox.Show(sErrStr, sCaptionBuf, MessageBoxButtons.OK);
                     Directory.SetCurrentDirectory(DataManager.GetExeDir());
                     System.Diagnostics.Process.Start(THE_APP);
-                    bControlledExit = true;
+                    _bControlledExit = true;
                     break;
 #endif
 
@@ -759,7 +803,7 @@ namespace StandCommonFiles
             sLogStr = String.Format("#E{0} {1}", ErrMsg.iErrID, sErrStr);
             LogToFile(sLogStr);
 
-            if (!bControlledExit)
+            if (!_bControlledExit)
             {
                 sCaptionBuf = String.Format("Errore {0} : {1}", ErrMsg.iErrID, TITLE);
                 sErrStr += "\r\n\r\nIl programma viene terminato.";

@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 31.01.2026
+    Data	 : 02.05.2026
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using static StandFacile.glb;
 using static StandFacile.Define;
 using static StandFacile.dBaseIntf;
+using static StandFacile.OptionsDlg;
 
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
@@ -70,7 +71,7 @@ namespace StandFacile
                 BtnAsporto.Enabled = false;
                 BtnSconto.Enabled = false;
                 BtnScontrino.Enabled = false;
-                BtnDB.Enabled = false;
+                Btn_DB_Check.Enabled = false;
 
                 // Bottoni Touch
                 btnPlus.Enabled = false;
@@ -135,7 +136,7 @@ namespace StandFacile
                 BtnAsporto.Enabled = false;
                 BtnSconto.Enabled = false;
                 BtnScontrino.Enabled = false;
-                BtnDB.Enabled = false;
+                Btn_DB_Check.Enabled = false;
 
                 sStatusText = "Modifica Listino : Esc per uscire";
 
@@ -187,7 +188,7 @@ namespace StandFacile
                 BtnAsporto.Enabled = false;
                 BtnSconto.Enabled = false;
                 BtnScontrino.Enabled = false;
-                BtnDB.Enabled = false;
+                Btn_DB_Check.Enabled = false;
 
                 // Bottoni Touch
                 btnPlus.Enabled = false;
@@ -407,7 +408,7 @@ namespace StandFacile
                 BtnScontrino.Enabled = true;
                 BtnScontrino.Checked = false;
 
-                BtnDB.Enabled = true;
+                Btn_DB_Check.Enabled = true;
 
                 if (_bListinoModificato)
                 {
@@ -435,7 +436,7 @@ namespace StandFacile
 
             String sTmp;
 
-            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+            if (GetTouchModeEnabled())
                 iPageNumTmp = PAGES_NUM_TABM;
             else
                 iPageNumTmp = PAGES_NUM_TXTM;
@@ -897,7 +898,7 @@ namespace StandFacile
                 m = ToCellX * MainGrid.RowCount + ToCellY + iArrayOffset;
                 n = iSwapStartIndex;
 
-                if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                if (GetTouchModeEnabled())
                     iLastArticoloPageIndex = SF_Data.iGridRows * SF_Data.iGridCols * PAGES_NUM_TABM;
                 else
                     iLastArticoloPageIndex = SF_Data.iGridRows * SF_Data.iGridCols * PAGES_NUM_TXTM;
@@ -1003,7 +1004,7 @@ namespace StandFacile
         {
             int iPageNumTmp, iRow, iCol;
 
-            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+            if (GetTouchModeEnabled())
                 iPageNumTmp = PAGES_NUM_TABM;
             else
                 iPageNumTmp = PAGES_NUM_TXTM;
@@ -1380,13 +1381,12 @@ namespace StandFacile
             // per evitare che sia troppo stretto in modo touch
             TabSet.Width = 600;
 
-            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+            if (GetTouchModeEnabled())
             {
                 TabSet.Height = 34;
                 topPanel.Height = 60;
                 toolStripTop.Left = 6;
                 toolStripTop.Width = topPanel.Width - 2 * toolStripTop.Left - 20;
-                BtnKeyb.Visible = true;
                 BtnSep_T6.Visible = true;
                 BtnScontrino.Size = new Size(80, 60);
             }
@@ -1396,11 +1396,26 @@ namespace StandFacile
                 topPanel.Height = 42;
                 toolStripTop.Left = 60;
                 toolStripTop.Width = topPanel.Width - 2 * toolStripTop.Left - 20;
-                BtnKeyb.Visible = false;
                 BtnSep_T6.Visible = false;
                 BtnScontrino.Size = new Size(45, 38);
             }
 
+            // ******** visibilità pulsanti: Btn_OSKeyb segue altra regola *********
+            BtnSendMsg.Visible = !IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_SHOW_MSG_BUTTON);
+            BtnSep_T2.Visible = BtnSendMsg.Visible;
+
+            BtnAsporto.Visible = !IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_SHOW_TAKEAWAY_BUTTON);
+            BtnSep_T4.Visible = BtnAsporto.Visible;
+
+            BtnSconto.Visible = !IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_SHOW_DISCOUNT_BUTTON);
+            BtnSep_T5.Visible = BtnSconto.Visible;
+
+            Btn_DB_Check.Visible = !IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_SHOW_DB_BUTTON);
+            BtnSep_T7.Visible = Btn_DB_Check.Visible;
+
+            // altra regola per Btn_OSKeyb
+            Btn_OSKeyb.Visible = IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_SHOW_TOUCH_KEYB_BUTTON);
+            BtnSep_T6.Visible = Btn_OSKeyb.Visible;
 
             // tutto dipende dal topPanel
             toolStripTop.Height = topPanel.Height - 2;
@@ -1454,15 +1469,7 @@ namespace StandFacile
                 lblCoperti.Left = 69;
 
                 lblTavolo.Text = "TAVOLO";
-                lblTavolo.Left = 75;
-
-                lblNome.Left = 82;
-
-                labelTotale.Left = 76;
-
                 lblPagato.Text = "PAG. CONTANTI";
-
-                lblResto.Left = 80;
             }
             else if (_iButtonStatus == (int)BUTTONS_STATUS_FLAGS.BIT_NARROW) // RButtons verticali
             {
@@ -1560,16 +1567,7 @@ namespace StandFacile
                 lblCoperti.Left = 42;
 
                 lblTavolo.Text = "TAV.";
-                lblTavolo.Left = 28;
-
-                lblNome.Left = 22;
-
-                labelTotale.Left = 12;
-
                 lblPagato.Text = "PAG.";
-                lblPagato.Left = 30;
-
-                lblResto.Left = 18;
             }
             else // Hide
             {
@@ -1595,15 +1593,25 @@ namespace StandFacile
             panelRight.Left = toolStripButtons_R.Left;
             panelRight.Width = toolStripButtons_R.Width;
 
-            EditCoperti.Width = toolStripButtons_R.Width - 12;
-            EditTable.Width = toolStripButtons_R.Width - 12;
-            EditName.Width = toolStripButtons_R.Width - 12;
+            int iEditWidth = toolStripButtons_R.Width - 12;
 
-            Edit_TotCorrente.Width = toolStripButtons_R.Width - 12;
-            EditPaidCash.Width = toolStripButtons_R.Width - 12;
-            EditChange.Width = toolStripButtons_R.Width - 12;
+            EditCoperti.Width = iEditWidth;
+            EditTable.Width = iEditWidth;
+            EditName.Width = iEditWidth;
+            lblCoperti.Width = iEditWidth;
+            lblTavolo.Width = iEditWidth;
+            lblNome.Width = iEditWidth;
 
-            // funzione che determina BtnSep_T8.Margin per centrare toolStripTop_TC_lbl
+            Edit_TotCorrente.Width = iEditWidth;
+            EditPaidCash.Width = iEditWidth;
+            EditChange.Width = iEditWidth;
+            labelTotale.Width = iEditWidth;
+            lblPagato.Width = iEditWidth;
+            lblResto.Width = iEditWidth;
+
+
+            // funzione che determina BtnSep_T8.Margin per centrare toolStripTop_TC_lbl,
+            // ma per ricalcolare serve aver impostato _iToolStripTop_MarginTotal = 0;
 
             if (toolStripTop_TC_lbl.Visible && (_iToolStripTop_MarginTotal == 0))
             {
@@ -1642,7 +1650,7 @@ namespace StandFacile
             BtnX10.Size = BtnScontrino.Size;
             BtnAsporto.Size = BtnScontrino.Size;
             BtnSconto.Size = BtnScontrino.Size;
-            BtnDB.Size = BtnScontrino.Size;
+            Btn_DB_Check.Size = BtnScontrino.Size;
 
             // imposta la larghezza della griglia in base alla larghezza della form principale
             MainGrid.Width = topPanel.Width - toolStripButtons_R.Width - MainGrid.Location.X * 2 + 10;
@@ -1662,7 +1670,7 @@ namespace StandFacile
 
                 if (MnuImpListino.Checked || BtnVisListino.Checked)
                 {
-                    if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                    if (GetTouchModeEnabled())
                         sText = bChars33 ? "12345678901234567890123" : "123456789012345678";
                     else
                         // String.Format(" {0,2} {1,-18} {2,5:0.00}", // width=28
@@ -1670,7 +1678,7 @@ namespace StandFacile
                 }
                 else
                 {
-                    if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED))
+                    if (GetTouchModeEnabled())
                         sText = bChars33 ? "12345678901234567809123" : "123456789012345678";
                     else
                         // String.Format("{0,3} {1,-18} {2,2}" : // width=25
@@ -1808,7 +1816,7 @@ namespace StandFacile
 
                 sCellText = "";
 
-                bTouchRequired = IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TOUCH_MODE_REQUIRED);
+                bTouchRequired = GetTouchModeEnabled();
 
                 if ((MnuImpListino.Checked || BtnVisListino.Checked) && !String.IsNullOrEmpty(SF_Data.Articolo[h].sTipo))
                 {

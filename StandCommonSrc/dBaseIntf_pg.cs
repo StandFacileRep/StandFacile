@@ -1729,7 +1729,7 @@ namespace StandFacile_DB
                     _iNumOfLocalOrdersFromDB = readerOrdineNum.GetInt32("iOrdine_ID");
                     _sDateTimeFromDB = readerOrdineNum.GetString("sDataOra");
 
-                    LogToFile("dbNewOrdineNumRequest : _iNumOfLocalOrdersFromDB letto");
+                    LogToFile(String.Format("dbNewOrdineNumRequest : _iNumOfLocalOrdersFromDB = {0}", _iNumOfLocalOrdersFromDB));
 
                     readerOrdineNum?.Close();
 

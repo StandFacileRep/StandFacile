@@ -25,7 +25,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>5.12.0.%2a</ApplicationVersion>
+    <ApplicationVersion>5.16.6.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -159,6 +159,9 @@
     <Compile Include="..\..\StandCommonSrc\NetConfigLightDlg.designer.cs">
       <Link>NetConfigLightDlg.designer.cs</Link>
       <DependentUpon>NetConfigLightDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\..\StandCommonSrc\UDP_service.cs">
+      <Link>UDP_service.cs</Link>
     </Compile>
     <Compile Include="Define.cs" />
     <Compile Include="InfoDlg.cs">

@@ -591,14 +591,15 @@ namespace StandFacile
 
             InitFormatStrings(dbGetLengthArticoli());
 
-            bOrdineAnnullato = DB_Data.bAnnullato;
+            AnnulloBtn.Enabled = false;
+
+            bOrdineAnnullato = DB_Data.bAnnullato; // default
 
             // importante la priorità, in ordine di gravità
             if (bOrdineAnnullato)
             {
                 textEdit_Ticket.ForeColor = System.Drawing.SystemColors.Window;
                 textEdit_Ticket.BackColor = _clrAnnullatoBkgr; // annullato
-                AnnulloBtn.Enabled = false;
             }
             else if (!bSomePayment_IsPresent)
             {
@@ -613,17 +614,12 @@ namespace StandFacile
                 textEdit_Ticket.ForeColor = System.Drawing.Color.Black;
                 textEdit_Ticket.BackColor = _clrScaricatoBkgr; // bScaricato
 
-                AnnulloBtn.Enabled = true;
+                AnnulloBtn.Enabled = _bAnnulloOrdine;
             }
             else if (DB_Data.bScaricato && (DB_Data.iNumCassa != SF_Data.iNumCassa))
             {
                 textEdit_Ticket.ForeColor = System.Drawing.Color.Black;
                 textEdit_Ticket.BackColor = _clrEAC_ScaricatoBkgr; // bScaricato
-
-                if (DB_Data.iNumCassa == CASSA_PRINCIPALE)
-                    AnnulloBtn.Enabled = true;
-                else
-                    AnnulloBtn.Enabled = false; // già consegnato da una CASSA_SECONDARIA diversa
             }
             // questi ultimi 2 casi sono esaustivi del 100% delle situazioni restanti
             else if (DB_Data.iNumCassa == SF_Data.iNumCassa)
@@ -636,7 +632,6 @@ namespace StandFacile
             {
                 textEdit_Ticket.ForeColor = System.Drawing.SystemColors.Window;
                 textEdit_Ticket.BackColor = _clrEAC_NonAncoraScaricatoBkgr;
-                AnnulloBtn.Enabled = false; // altra cassa
             }
 
             if (!_bOrdineCaricato) // solo caso di return false

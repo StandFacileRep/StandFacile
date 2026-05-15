@@ -1,6 +1,6 @@
 ﻿/*******************************************************************
   	NomeFile : StandOrdini/MainForm.cs
-	Data	 : 06.12.2024
+	Data	 : 24.04.2026
   	Autore   : Mauro Artuso
 
   Programma per visualizzare in un monitor gli scontrini serviti
@@ -10,9 +10,10 @@
 
 using System;
 using System.IO;
-using System.Security.Cryptography;
 using System.Threading;
 using System.Windows.Forms;
+
+using StandCommonFiles;
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
@@ -613,6 +614,8 @@ namespace StandFacile
                             // elimina dalla coda
                             sOrdiniQueueObj = (TQueue_Obj)ordiniQueue.Dequeue();
 
+                            UdpBroadcastService.rUdpService.SendFromClient(String.Format("{0} {1}", UDP_EVENTS.ORDER_COMPLETED_EVENT, iNumScontrino));
+
                             sTmp = String.Format("timer scarica Ordine : eseguito iNumScontrino={0}, iGruppo={1} ", iNumScontrino, iGruppo);
                             LogToFile(sTmp);
                             bWarnOnce = true;
@@ -856,6 +859,7 @@ namespace StandFacile
 
             LogToFile("Mainform : uscita");
 
+            UdpBroadcastService.rUdpService.Stop_UDP();
             StopLogServer(); // deve stare per ultimo
         }
 

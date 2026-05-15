@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 10.09.2025
+    Data	 : 05.05.2026
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -11,6 +11,7 @@ using System.Drawing;
 using static StandFacile.glb;
 using static StandFacile.Define;
 using static StandFacile.FrmMain;
+using static StandFacile.OptionsDlg;
 
 using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
@@ -31,7 +32,7 @@ namespace StandFacile
         /// <summary>
         /// costruttore con parametri che consente verifica rapida di ciò che manca
         /// </summary>
-        public DataCheckDlg(String EditTavoloParam, String EditCopertiParam, int comboCashIndexParam)
+        public DataCheckDlg(String EditCopertiParam, String EditTavoloParam, String EditName_param, int comboCashIndexParam)
         {
             InitializeComponent();
 
@@ -39,8 +40,9 @@ namespace StandFacile
             _tt.SetToolTip(BtnPrt, "solo se ci sono tutti i dati richiesti,\r\navvia la stampa e chiude il dialogo");
             _tt.SetToolTip(btnOK, "solo se ci sono tutti i dati richiesti chiude il dialogo");
 
-            EditTavolo.Text = EditTavoloParam.Trim();
             EditCoperti.Text = EditCopertiParam.Trim();
+            EditTavolo.Text = EditTavoloParam.Trim();
+            EditName.Text = EditName_param.Trim();
 
             switch (comboCashIndexParam)
             {
@@ -55,19 +57,25 @@ namespace StandFacile
                     break;
             }
 
-            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TABLE_REQUIRED))
-            {
-                lblTavolo.ForeColor = Color.Blue;
-                lblTavolo.Font = new Font("Tahoma", 12);
-            }
-
-            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PLACE_SETTINGS_REQUIRED))
+            if (GetPlaceSettings_MandatoryFlag())
             {
                 lblCoperti.ForeColor = Color.Blue;
                 lblCoperti.Font = new Font("Tahoma", 12);
             }
 
-            if (IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PAYMENT_REQUIRED))
+            if (GetTable_MandatoryFlag())
+            {
+                lblTavolo.ForeColor = Color.Blue;
+                lblTavolo.Font = new Font("Tahoma", 12);
+            }
+
+            if (GetName_MandatoryFlag())
+            {
+                lblName.ForeColor = Color.Blue;
+                lblName.Font = new Font("Tahoma", 12);
+            }
+
+            if (GetPayment_MandatoryFlag())
             {
                 groupBox.ForeColor = Color.Blue;
                 groupBox.Font = new Font("Tahoma", 12);
@@ -99,8 +107,9 @@ namespace StandFacile
         /// </summary>       
         void UpdateDataCheckParams()
         {
-            rFrmMain.SetEditTavolo(EditTavolo.Text.Trim());
             rFrmMain.SetEditCoperto(EditCoperti.Text.Trim());
+            rFrmMain.SetEditTavolo(EditTavolo.Text.Trim());
+            rFrmMain.SetEditName(EditName.Text.Trim());
 
             if (radioContantiBtn.Checked)
                 rFrmMain.SetPagamento_CASH();
@@ -127,9 +136,10 @@ namespace StandFacile
 
             UpdateDataCheckParams();
 
-            if ((!IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TABLE_REQUIRED) || !String.IsNullOrEmpty(EditTavolo.Text.Trim())) &&
-                (!IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PLACE_SETTINGS_REQUIRED) || (!String.IsNullOrEmpty(EditCoperti.Text.Trim()) && Convert.ToInt32(EditCoperti.Text) >= 0)) &&
-                (!IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PAYMENT_REQUIRED) || VerificaPOS_Richiesto()))
+            if ((!GetTable_MandatoryFlag() || !String.IsNullOrEmpty(EditTavolo.Text.Trim())) &&
+                (!GetName_MandatoryFlag() || (EditName.Text.Trim().Length > 2)) &&
+                (!GetPlaceSettings_MandatoryFlag() || (!String.IsNullOrEmpty(EditCoperti.Text.Trim()) && Convert.ToInt32(EditCoperti.Text) >= 0)) &&
+                (!GetPayment_MandatoryFlag() || VerificaPOS_Richiesto()))
             {
                 FrmMain.EventEnqueue(sQueue_Object);
                 Close();
@@ -140,9 +150,10 @@ namespace StandFacile
         {
             UpdateDataCheckParams();
 
-            if ((!IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_TABLE_REQUIRED) || !String.IsNullOrEmpty(EditTavolo.Text.Trim())) &&
-                (!IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PLACE_SETTINGS_REQUIRED) || (!String.IsNullOrEmpty(EditCoperti.Text.Trim()) && Convert.ToInt32(EditCoperti.Text) >= 0)) &&
-                (!IsBitSet(SF_Data.iGeneralProgOptions, (int)GEN_PROGRAM_OPTIONS.BIT_PAYMENT_REQUIRED) || VerificaPOS_Richiesto()))
+            if ((!GetTable_MandatoryFlag() || !String.IsNullOrEmpty(EditTavolo.Text.Trim())) &&
+                (!GetName_MandatoryFlag() || (EditName.Text.Trim().Length > 2)) &&
+                (!GetPlaceSettings_MandatoryFlag() || (!String.IsNullOrEmpty(EditCoperti.Text.Trim()) && Convert.ToInt32(EditCoperti.Text) >= 0)) &&
+                (!GetPayment_MandatoryFlag() || VerificaPOS_Richiesto()))
             {
                 Close();
             }

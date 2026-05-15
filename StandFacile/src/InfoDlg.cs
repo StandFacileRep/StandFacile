@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/InfoDlg.cs
-	Data	 : 06.12.2024
+	Data	 : 01.12.2025
   	Autore   : Mauro Artuso
 
   Visualizza Info sul Programma ed autore

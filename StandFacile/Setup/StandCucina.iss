@@ -1,13 +1,13 @@
-; 30.03.2026
+; 24.04.2026
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
-AppVersion= 5.16.5
+AppVersion= 5.16.6
 
 AppVerName=StandCucina {#SetupSetting("AppVersion")}
 AppName=StandCucina 2026
 AppPublisher=Mauro Artuso
-AppId={{E6CB6826-16FF-496B-A652-C42C9B4EC76B}
+AppId={{A01CAB70-A833-4CE9-B36A-72CB543E3579}
 DefaultDirName={sd}\StandFacile\StandCucina_516x
 DefaultGroupName=StandFacile\StandCucina_516x\
 SourceDir=..\exe
@@ -27,7 +27,7 @@ Name: desktopicon; Description: {cm:CreateDesktopIcon}; GroupDescription: {cm:Ad
 [Files]
 Source: "..\..\StandCucina\exe\Release\StandCucina.exe"; DestDir: "{app}"; Flags: replacesameversion
 Source: "..\..\StandCucina\doc\Manuale_StandCucina.pdf"; DestDir: "{app}"
-Source: "..\..\StandCucina\StandAux\config.ini"; DestDir: "{app}";
+Source: "..\..\StandCucina\StandAux\config.ini"; DestDir: "{app}"; Flags: uninsneveruninstall confirmoverwrite; Languages: it
 Source: "..\StandAux\Licenza.txt"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.dll"; DestDir: "{app}"
 Source: "..\exe\Debug\Devart.Data.MySql.dll"; DestDir: "{app}"

@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************************
 	NomeFile : StandCommonSrc/dBaseIntf_ord_my.cs
-    Data	 : 06.12.2024
+    Data	 : 12.05.2026
 	Autore   : Mauro Artuso
 
     nelle assegnazioni :
@@ -187,7 +187,7 @@ namespace StandFacile_DB
 
             // non occorre disconnettere ClientDS_Ordini
             if (GetDB_Connected())
-                dbInit(GetActualDate(), iNumCassa);
+                dbInit(GetActualDate(), CASSA_PRINCIPALE);
 
             if ((iCountOrdini > 0) && !bAnnullato)
             {

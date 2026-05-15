@@ -1,6 +1,6 @@
 ﻿/*****************************************************************************************
 	NomeFile : StandCommonSrc/dBaseIntf_mon_my.cs
-    Data	 : 07.09.2025
+    Data	 : 15.05.2026
 	Autore   : Mauro Artuso
 
     nelle assegnazioni :
@@ -44,7 +44,7 @@ namespace StandFacile_DB
             int iArrayIndex, i, j, iNumCassa;
             int iNumScontriniTmp;
 
-            String sTmpStr;
+            String sTmp, sTmpTipo;
             String sQuery, sTmpFilter;
             String sFilter = "";
 
@@ -108,13 +108,13 @@ namespace StandFacile_DB
                     {
                         while (readerDatiCassa.Read() && (iArrayIndex < MAX_NUM_ARTICOLI))
                         {
-                            sTmpStr = readerDatiCassa.GetString("sTipo_Articolo");
+                            sTmpTipo = readerDatiCassa.GetString("sTipo_Articolo");
 
-                            if (sTmpStr.Contains(SHMAGIC))
+                            if (sTmpTipo.Contains(SHMAGIC))
                                 continue;
 
                             // else
-                            DB_Data.Articolo[iArrayIndex].sTipo = sTmpStr;
+                            DB_Data.Articolo[iArrayIndex].sTipo = sTmpTipo;
 
                             // somma iQuantitaVenduta
                             DB_Data.Articolo[iArrayIndex].iQuantitaVenduta = readerDatiCassa.GetInt32("iQuantita_Venduta");
@@ -122,12 +122,12 @@ namespace StandFacile_DB
                             DB_Data.Articolo[iArrayIndex].iQuantita_Scaricata = readerDatiCassa.GetInt32("iQuantita_Scaricata");
                             DB_Data.Articolo[iArrayIndex].iGruppoStampa = readerDatiCassa.GetInt32("iGruppo_Stampa");
 
-                            sTmpStr = readerDatiCassa.GetString("sDisponibilita");
+                            sTmpTipo = readerDatiCassa.GetString("sDisponibilita");
 
-                            if (sTmpStr == "OK")
+                            if (sTmpTipo == "OK")
                                 DB_Data.Articolo[iArrayIndex].iDisponibilita = DISP_OK;
                             else
-                                DB_Data.Articolo[iArrayIndex].iDisponibilita = Convert.ToInt32(sTmpStr);
+                                DB_Data.Articolo[iArrayIndex].iDisponibilita = Convert.ToInt32(sTmpTipo);
 
                             iArrayIndex++;
                         }
@@ -211,15 +211,13 @@ namespace StandFacile_DB
                             cmd.CommandText = sQuery;
                             MySqlDataReader readerDatiCassaSec = cmd.ExecuteReader();
 
-                            iArrayIndex = 0;
-
                             if (readerDatiCassaSec.HasRows)
                             {
-                                while (readerDatiCassaSec.Read() && (iArrayIndex < MAX_NUM_ARTICOLI))
+                                while (readerDatiCassaSec.Read())
                                 {
-                                    sTmpStr = readerDatiCassaSec.GetString("sTipo_Articolo");
+                                    sTmpTipo = readerDatiCassaSec.GetString("sTipo_Articolo");
 
-                                    if (sTmpStr.Contains(SHMAGIC) || (readerDatiCassaSec.GetInt32("iQuantita_Venduta") == 0))
+                                    if (sTmpTipo.Contains(SHMAGIC) || (readerDatiCassaSec.GetInt32("iQuantita_Venduta") == 0))
                                         continue;
 
                                     // else
@@ -227,7 +225,7 @@ namespace StandFacile_DB
 
                                     // ricerca corrispondenza tipo
                                     for (j = 0; j < MAX_NUM_ARTICOLI; j++)
-                                        if ((sTmpStr == DB_Data.Articolo[j].sTipo) && !String.IsNullOrEmpty(sTmpStr))
+                                        if ((sTmpTipo == DB_Data.Articolo[j].sTipo) && !String.IsNullOrEmpty(sTmpTipo))
                                         {
                                             // somma i dati delle tabelle
                                             DB_Data.Articolo[j].iQuantitaVenduta += readerDatiCassaSec.GetInt32("iQuantita_Venduta");
@@ -240,25 +238,10 @@ namespace StandFacile_DB
                                             break;
                                         }
 
-                                    // Append nell' Array, iArrayIndex non va inizializzato
                                     if (!bRecordExists)
                                     {
-                                        DB_Data.Articolo[iArrayIndex].sTipo = sTmpStr;
-
-                                        // somma iQuantitaVenduta
-                                        DB_Data.Articolo[iArrayIndex].iQuantitaVenduta = readerDatiCassaSec.GetInt32("iQuantita_Venduta");
-
-                                        DB_Data.Articolo[iArrayIndex].iQuantita_Scaricata = readerDatiCassaSec.GetInt32("iQuantita_Scaricata");
-                                        DB_Data.Articolo[iArrayIndex].iGruppoStampa = readerDatiCassaSec.GetInt32("iGruppo_Stampa");
-
-                                        sTmpStr = readerDatiCassaSec.GetString("sDisponibilita");
-
-                                        if (sTmpStr == "OK")
-                                            DB_Data.Articolo[iArrayIndex].iDisponibilita = DISP_OK;
-                                        else
-                                            DB_Data.Articolo[iArrayIndex].iDisponibilita = Convert.ToInt32(sTmpStr);
-
-                                        iArrayIndex++;
+                                        sTmp = String.Format("dBaseIntf_mon : Articolo non trovato {0}", sTmpTipo);
+                                        LogToFile(sTmp);
                                     }
                                 }
                             }
@@ -285,7 +268,6 @@ namespace StandFacile_DB
                     catch (Exception)
                     {
                         // bDatabaseConnected = false;
-                        // LogServer->LogToFile("Timer_MainLoop : dbException seconda tabella");
                     }
 
                 } // ciclo for casse secondarie

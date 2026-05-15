@@ -138,7 +138,7 @@ namespace StandFacile
                         }
 
                         // Headers
-                        if (columnDay == _SelRange.Start)
+                        if (iColumn == 0)
                         {
                             iRow = 2;
                             j = 0;
@@ -294,7 +294,7 @@ namespace StandFacile
                                     if (DB_Data.Articolo[i].sTipo == _COPERTO)
                                         xlsWorkSheet.Cells[XLS_VOFFSET + j, iColumn + 5] = (DB_Data.Articolo[i].iPrezzoUnitario * DB_Data.Articolo[i].iQuantitaVenduta) / 100.0f;
                                     else
-                                        xlsWorkSheet.Cells[XLS_VOFFSET + j, iColumn + 5] = "0,00";
+                                        xlsWorkSheet.Cells[XLS_VOFFSET + j, iColumn + 5] = 0;
                                 }
                                 else
                                 {

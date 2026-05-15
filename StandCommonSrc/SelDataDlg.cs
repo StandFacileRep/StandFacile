@@ -1,6 +1,6 @@
 ﻿/********************************************************************
   	NomeFile : StandCommonSrc/SelDataDlg.cs
-    Data	 : 31.12.2025
+    Data	 : 12.05.2026
   	Autore   : Mauro Artuso
  ********************************************************************/
 
@@ -108,20 +108,27 @@ namespace StandFacile
                     if (sCell.Contains(_dbPreDataTablePrefix) && !SF_Data.bPrevendita)
                         continue;
 
-                    iPos = sPrefix.Length + 4;
+                    try
+                    {
+                        iPos = sPrefix.Length + 4;
 
-                    sTmp = sCell.Substring(iPos, 2);
-                    iAnno = 2000 + Convert.ToInt32(sTmp);
+                        sTmp = sCell.Substring(iPos, 2);
+                        iAnno = 2000 + Convert.ToInt32(sTmp);
 
-                    sTmp = sCell.Substring(iPos + 2, 2);
-                    iMese = Convert.ToInt32(sTmp);
+                        sTmp = sCell.Substring(iPos + 2, 2);
+                        iMese = Convert.ToInt32(sTmp);
 
-                    sTmp = sCell.Substring(iPos + 4, 2);
-                    iGiorno = Convert.ToInt32(sTmp);
+                        sTmp = sCell.Substring(iPos + 4, 2);
+                        iGiorno = Convert.ToInt32(sTmp);
 
-                    DateTime tmpDate = new DateTime(iAnno, iMese, iGiorno);
+                        DateTime tmpDate = new DateTime(iAnno, iMese, iGiorno);
 
-                    list.Add(tmpDate);
+                        list.Add(tmpDate);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine("SelDataDlg : {0}", e.Message);
+                    }
                 }
             }
 
