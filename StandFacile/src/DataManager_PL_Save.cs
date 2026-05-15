@@ -561,7 +561,7 @@ namespace StandFacile
                 }
 
                 fData.WriteLine(sDAT_FMT_DSH, "--------");
-                fData.WriteLine(sDAT_FMT_TOT, "TOTALE", IntToEuro(dataIdParam.iTotaleIncasso));
+                fData.WriteLine(sDAT_FMT_TOT, "TOTALE", IntToEuro(dataIdParam.iTotaleIncasso - dataIdParam.iTotaleBuoniApplicati));
 
 
                 if (dataIdParam.iTotaleBuoniApplicati > 0)
@@ -586,8 +586,8 @@ namespace StandFacile
                         fData.WriteLine(sDAT_FMT_TOT, "valore sconto articoli", IntToEuro(dataIdParam.iTotaleScontatoStd));
 
                     fData.WriteLine(sDAT_FMT_DSH, "--------");
-                    fData.WriteLine(sDAT_FMT_TOT, "TOTALE NETTO", IntToEuro(dataIdParam.iTotaleIncasso - dataIdParam.iTotaleScontatoStd -
-                        dataIdParam.iTotaleScontatoFisso - dataIdParam.iTotaleScontatoGratis));
+                    fData.WriteLine(sDAT_FMT_TOT, "TOTALE NETTO", IntToEuro(dataIdParam.iTotaleIncasso - dataIdParam.iTotaleBuoniApplicati
+                                        - dataIdParam.iTotaleScontatoStd - dataIdParam.iTotaleScontatoFisso - dataIdParam.iTotaleScontatoGratis));
 
                     if ((dataIdParam.iTotaleIncassoCard > 0) || (dataIdParam.iTotaleIncassoSatispay > 0))
                     {
@@ -599,7 +599,7 @@ namespace StandFacile
                         sTmp = String.Format(sDAT_FMT_TOT, "PAGAM. SATISPAY", IntToEuro(dataIdParam.iTotaleIncassoSatispay));
                         fData.WriteLine(sTmp);
 
-                        sTmp = String.Format(sDAT_FMT_TOT, "PAGAM. CONT.   ", IntToEuro(dataIdParam.iTotaleIncasso - dataIdParam.iTotaleScontatoStd -
+                        sTmp = String.Format(sDAT_FMT_TOT, "PAGAM. CONT.   ", IntToEuro(dataIdParam.iTotaleIncasso - dataIdParam.iTotaleBuoniApplicati - dataIdParam.iTotaleScontatoStd -
                                                        dataIdParam.iTotaleScontatoFisso - dataIdParam.iTotaleScontatoGratis - dataIdParam.iTotaleIncassoCard - dataIdParam.iTotaleIncassoSatispay));
                         fData.WriteLine(sTmp);
                     }

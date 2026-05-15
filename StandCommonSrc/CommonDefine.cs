@@ -114,6 +114,9 @@ namespace StandCommonFiles
             /// <summary>sTipo_Articolo per memorizzazione del nome utente nella tabella ordini_YYmmdd</summary>
             public const String _NAME = "_Name" + SHMAGIC;
 
+            /// <summary>sTipo_Articolo per memorizzazione del CAP o ZIP Code nella tabella ordini_YYmmdd</summary>
+            public const String _CAP = "_CAP" + SHMAGIC;
+
             /// <summary>sTipo_Articolo per memorizzazione della nota nella tabella ordini_YYmmdd</summary>
             public const String _NOTE = "_Note" + SHMAGIC;
 
@@ -133,7 +136,7 @@ namespace StandCommonFiles
             public const String _PRICE_LIST_CHECKSUM = "_PriceListChecksum" + SHMAGIC;
 
             /// <summary>array per la ricerca di una stringa</summary>
-            public static readonly String[] sArray = new String[] { _START_OF_ORDER, _TAVOLO, _NAME, _NOTE, _DISCOUNT,
+            public static readonly String[] sArray = new String[] { _START_OF_ORDER, _TAVOLO, _NAME, _CAP, _NOTE, _DISCOUNT,
                                                                         _BUONI, _NUM_ORD_WEB, _NUM_ORD_PREV };
         }
 
