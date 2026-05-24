@@ -373,7 +373,7 @@ namespace StandFacile
             float fParam1;
             String sText;
 
-            pd.PrinterSettings.PrinterName = sGlbWinPrinterParams.sTckPrinterModel;
+            pd.PrinterSettings.PrinterName = _sWinPrinterParamsCopy.sTckPrinterModel;
 
             if (!String.IsNullOrEmpty(pd.PrinterSettings.PrinterName))
             {

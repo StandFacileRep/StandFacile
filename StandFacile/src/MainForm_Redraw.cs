@@ -1192,6 +1192,8 @@ namespace StandFacile
                             else
                                 sTmpJson = sStrBarcode;
 
+                            sTmpJson = sTmpJson.Replace(((char)26).ToString(), ""); // rimozione carattere di controllo Datalogic
+
                             dict = jss.Deserialize<dynamic>(sTmpJson);
 
                             JSON_Type = dict["-10"].ToString();

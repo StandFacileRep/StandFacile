@@ -85,12 +85,11 @@ namespace StandCommonFiles
 #elif STAND_ORDINI
             sTmp += "**  AVVIO LOG StandOrdini   **\n";
 #elif STAND_MONITOR
-            sTmp += "**  AVVIO STAND_MONITOR LOG **\n";
+            sTmp += "**  AVVIO LOG StandMonitor  **\n";
 #endif
 
             sTmp += "**  ";
-            sTmp += RELEASE_SW;
-            sTmp += "         **\n";
+            sTmp += String.Format("{0,-10} {1,16}", RELEASE_SW, "**\n");
             sTmp += "******************************";
 
             LogToFile(sTmp);
