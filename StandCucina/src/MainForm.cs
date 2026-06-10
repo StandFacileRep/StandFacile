@@ -1069,7 +1069,7 @@ namespace StandFacile
                     iNum = iGlbNumOfMessages;
             }
 
-            _rdBaseIntf.dbCaricaMessaggio(iNum, false);
+            _rdBaseIntf.dbCaricaMessaggio(iNum, true);
 
             /***********************************
              *	visualizzazione del Messaggio

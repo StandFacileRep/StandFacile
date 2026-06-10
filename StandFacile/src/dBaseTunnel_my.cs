@@ -33,7 +33,6 @@ using static StandCommonFiles.LogServer;
 using static StandFacile.Define;
 using static StandFacile.glb;
 using static StandFacile.dBaseIntf;
-using Newtonsoft.Json;
 
 namespace StandFacile
 {

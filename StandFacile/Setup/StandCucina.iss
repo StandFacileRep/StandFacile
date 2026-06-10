@@ -1,4 +1,4 @@
-; 16.05.2026
+; 25.05.2026
 ; ricordarsi di mettere in passo la "AppVersion" qui sotto
 
 [Setup]
@@ -40,3 +40,5 @@ Name: {commondesktop}\StandCucina; Filename: {app}\StandCucina.exe; WorkingDir: 
 
 [Run]
 Filename: {app}\StandCucina.exe; WorkingDir: {app}; Flags: nowait postinstall unchecked
+Filename: "netsh"; Parameters: "advfirewall firewall add rule name=""StandCucina"" dir=in action=allow program=""{app}\StandCucina.exe"" enable=yes"; Flags: runhidden
+Filename: "netsh"; Parameters: "advfirewall firewall add rule name=""StandCucina"" dir=out action=allow program=""{app}\StandCucina.exe"" enable=yes"; Flags: runhidden

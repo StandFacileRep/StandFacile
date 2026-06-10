@@ -592,7 +592,7 @@ namespace StandFacile
                         if ((tmpImage.Width > 50) && (tmpImage.Width < (LOGO_WIDTH + 100)) &&
                             (tmpImage.Height > 50) && (tmpImage.Height < (LOGO_HEIGHT + 100)))
                         {
-                            logoImage.Image = tmpImage;
+                            logoImage.Image = new Bitmap(tmpImage);
 
                             if (RadioBtnLogo_T.Checked)
                             {
@@ -613,6 +613,8 @@ namespace StandFacile
                         }
                         else
                             WarningManager(WRN_DLE);
+
+                        tmpImage.Dispose();
 
                         AggiornaAspettoControlli();
 

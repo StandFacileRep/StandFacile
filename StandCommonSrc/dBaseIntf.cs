@@ -807,7 +807,8 @@ namespace StandFacile
 
         /// <summary>
         /// restituisce il messaggio nella variabile DB_Data.sMessaggio, <br/>
-        /// ritorna true se ha successo, utilizzata da VisMessaggi
+        /// ritorna true se ha successo, utilizzata da VisMessaggi, <br/>
+        /// se bTutteCassaParam == true, carica i messaggi di tutte le casse
         /// </summary>
         public bool dbCaricaMessaggio(int iParam, bool bTutteCassaParam)
         {

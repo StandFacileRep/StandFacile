@@ -1,6 +1,6 @@
 ﻿/***********************************************
   	NomeFile : StandFacile/MainForm.cs
-    Data	 : 02.05.2026
+    Data	 : 24.05.2026
   	Autore   : Mauro Artuso
  ***********************************************/
 
@@ -51,6 +51,9 @@ namespace StandFacile
 
         bool _bPrimaEsecuzione;
         bool _bPrintTimeoutEnabled;
+
+        /// <summary> true quando si spara il primo QRCode, serve per il attivare il Focus Automatico</summary>
+        bool _bQRCodeRunning;
 
         bool bMouseWrongPos;        //true se il mouse è fuori la MainGrid
         bool bSkipDrag; 	        //serve per evitare un BeginDrag sul doppio click
@@ -343,6 +346,7 @@ namespace StandFacile
             _bPrimaEsecuzione = true;
             _bAltIsPressed = false;
             _bCtrlIsPressed = false;
+            _bQRCodeRunning = false;
 
             bSkipDrag = false;
             bMouseWrongPos = false;
@@ -752,7 +756,7 @@ namespace StandFacile
                 }
             }
 
-            if ((iFocus_QRC_Timeout > 0) && (OptionsDlg._rOptionsDlg.GetPresales_LoadMode() || NetConfigDlg.rNetConfigDlg.GetWebOrderEnabled()))
+            if ((iFocus_QRC_Timeout > 0) && (OptionsDlg._rOptionsDlg.GetPresales_LoadMode() || _bQRCodeRunning))
             {
                 iFocus_QRC_Timeout--;
 

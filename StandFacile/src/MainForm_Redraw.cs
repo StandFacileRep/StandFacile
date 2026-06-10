@@ -19,8 +19,6 @@ using static StandCommonFiles.ComDef;
 using static StandCommonFiles.CommonCl;
 using static StandCommonFiles.LogServer;
 
-using Newtonsoft.Json;
-
 using System.Collections.Generic;
 using System.Web.Script.Serialization;
 
@@ -447,22 +445,12 @@ namespace StandFacile
                 scannerInputQueue.Enqueue(iKey);
 
                 // EAN13 contains 13 characters
-                if (scannerInputQueue.Count >= 14)
+                if (scannerInputQueue.Count > 8)
                 {
                     EditStatus_QRC.Text = "";
+                    EditStatus_QRC.Focus();
+
                     DataManager.ClearGrid();
-
-                    while (scannerInputQueue.Count > 0)
-                    {
-                        i = (int)scannerInputQueue.Dequeue();
-                        EditStatus_QRC.Text += Convert.ToChar(i);
-                    }
-
-                    // elimina quantità spurie
-                    DataManager.ClearGrid();
-
-                    KeyPressEventArgs ek = new KeyPressEventArgs('\r');
-                    EditStatus_QRC_KeyPress(EditStatus_QRC, ek);
                 }
             }
 
@@ -1286,6 +1274,8 @@ namespace StandFacile
                             {
                                 sLog = String.Format("Mainform : CKW = {0}, {1}", DataManager.GetWebListinoChecksum(), sStrBarcode);
                                 LogToFile(sLog);
+
+                                _bQRCodeRunning = true;
 
                                 // ************* caricamento in SF_Data e MainForm *************
                                 bResult = DataManager.CaricaOrdine_QR_code();
